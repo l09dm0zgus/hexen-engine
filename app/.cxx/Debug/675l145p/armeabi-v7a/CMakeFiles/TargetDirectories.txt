@@ -1,0 +1,16 @@
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/sdl_headers_copy.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/SDL2main.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/SDL2.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/SDL2-static.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/SDL2_test.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/uninstall.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/edit_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL2/CMakeFiles/rebuild_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL_image/CMakeFiles/SDL2_image.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL_image/CMakeFiles/edit_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/SDL_image/CMakeFiles/rebuild_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/src/CMakeFiles/main.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/src/CMakeFiles/edit_cache.dir
+/home/cx9ps3/android-project/app/.cxx/Debug/675l145p/armeabi-v7a/src/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,2 @@
+/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/core/build-binary.mk:643: Android NDK: Module main depends on undefined modules: SDL2    
+/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/core/build-binary.mk:656: *** Android NDK: Note that old versions of ndk-build silently ignored this error case. If your project worked on those versions, the missing libraries were not needed and you can remove those dependencies from the module to fix your build. Alternatively, set APP_ALLOW_MISSING_DEPS=true to allow missing dependencies.    .  Stop.

@@ -1,0 +1,170 @@
+{
+  "abi": "X86",
+  "info": {
+    "abi": "X86",
+    "bitness": 32,
+    "deprecated": false,
+    "default": true
+  },
+  "cxxBuildFolder": "/home/cx9ps3/Battleblaze/app/.cxx/RelWithDebInfo/2r725w41/x86",
+  "soFolder": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/RelWithDebInfo/2r725w41/obj/x86",
+  "soRepublishFolder": "/home/cx9ps3/Battleblaze/app/build/intermediates/cmake/release/obj/x86",
+  "abiPlatformVersion": 16,
+  "cmake": {
+    "effectiveConfiguration": {
+      "inheritEnvironments": [],
+      "variables": []
+    }
+  },
+  "variant": {
+    "buildSystemArgumentList": [
+      "-DANDROID_APP_PLATFORM\u003dandroid-16",
+      "-DANDROID_STL\u003dc++_static"
+    ],
+    "cFlagsList": [],
+    "cppFlagsList": [],
+    "variantName": "release",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": [],
+    "implicitBuildTargetSet": [],
+    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
+    "module": {
+      "cxxFolder": "/home/cx9ps3/Battleblaze/app/.cxx",
+      "intermediatesBaseFolder": "/home/cx9ps3/Battleblaze/app/build/intermediates",
+      "intermediatesFolder": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx",
+      "gradleModulePathName": ":app",
+      "moduleRootFolder": "/home/cx9ps3/Battleblaze/app",
+      "moduleBuildFile": "/home/cx9ps3/Battleblaze/app/build.gradle",
+      "makeFile": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "ndkFolder": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620",
+      "ndkVersion": "23.1.7779620",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultStl": "LIBCXX_STATIC",
+      "ndkMetaPlatforms": {
+        "min": 16,
+        "max": 31,
+        "aliases": {
+          "20": 19,
+          "25": 24,
+          "J": 16,
+          "J-MR1": 17,
+          "J-MR2": 18,
+          "K": 19,
+          "L": 21,
+          "L-MR1": 22,
+          "M": 23,
+          "N": 24,
+          "N-MR1": 24,
+          "O": 26,
+          "O-MR1": 27,
+          "P": 28,
+          "Q": 29,
+          "R": 30,
+          "S": 31
+        }
+      },
+      "ndkMetaAbiList": [
+        {
+          "abi": "ARMEABI_V7A",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "ARM64_V8A",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86_64",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        }
+      ],
+      "cmakeToolchainFile": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake",
+      "cmake": {
+        "isValidCmakeAvailable": true,
+        "cmakeExe": "/usr/bin/cmake",
+        "minimumCmakeVersion": "3.25.1"
+      },
+      "stlSharedObjectMap": {
+        "LIBCXX_SHARED": {
+          "ARMEABI_V7A": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
+          "ARM64_V8A": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
+          "X86": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
+          "X86_64": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+        },
+        "LIBCXX_STATIC": {},
+        "NONE": {},
+        "SYSTEM": {}
+      },
+      "project": {
+        "rootBuildGradleFolder": "/home/cx9ps3/Battleblaze",
+        "sdkFolder": "/home/cx9ps3/Android/Sdk",
+        "isBuildOnlyTargetAbiEnabled": true,
+        "isCmakeBuildCohabitationEnabled": false,
+        "isPrefabEnabled": false
+      },
+      "outputOptions": [],
+      "ninjaExe": "/usr/bin/ninja"
+    },
+    "prefabClassPaths": [],
+    "prefabPackages": [],
+    "prefabPackageConfigurations": [],
+    "stlType": "c++_static",
+    "optimizationTag": "RelWithDebInfo"
+  },
+  "buildSettings": {
+    "environmentVariables": []
+  },
+  "prefabFolder": "/home/cx9ps3/Battleblaze/app/.cxx/RelWithDebInfo/2r725w41/prefab/x86",
+  "isActiveAbi": true,
+  "fullConfigurationHash": "2r725w413j7m1h6x3c2966213fk3a3e16a4k5e551n5m164m5w1ag1w2z5t",
+  "configurationArguments": [
+    "-H/home/cx9ps3/Battleblaze/app/jni",
+    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
+    "-DCMAKE_SYSTEM_VERSION\u003d16",
+    "-DANDROID_PLATFORM\u003dandroid-16",
+    "-DANDROID_ABI\u003dx86",
+    "-DCMAKE_ANDROID_ARCH_ABI\u003dx86",
+    "-DANDROID_NDK\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620",
+    "-DCMAKE_ANDROID_NDK\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620",
+    "-DCMAKE_TOOLCHAIN_FILE\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake",
+    "-DCMAKE_MAKE_PROGRAM\u003d/usr/bin/ninja",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/RelWithDebInfo/2r725w41/obj/x86",
+    "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/RelWithDebInfo/2r725w41/obj/x86",
+    "-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo",
+    "-B/home/cx9ps3/Battleblaze/app/.cxx/RelWithDebInfo/2r725w41/x86",
+    "-GNinja",
+    "-DANDROID_APP_PLATFORM\u003dandroid-16",
+    "-DANDROID_STL\u003dc++_static"
+  ],
+  "intermediatesParentFolder": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/RelWithDebInfo/2r725w41"
+}

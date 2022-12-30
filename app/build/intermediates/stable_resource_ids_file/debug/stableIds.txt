@@ -1,0 +1,6 @@
+com.purehatredgames.battleblaze:style/AppTheme = 0x7f040000
+com.purehatredgames.battleblaze:color/colorPrimaryDark = 0x7f010002
+com.purehatredgames.battleblaze:string/app_name = 0x7f030000
+com.purehatredgames.battleblaze:mipmap/ic_launcher = 0x7f020000
+com.purehatredgames.battleblaze:color/colorPrimary = 0x7f010001
+com.purehatredgames.battleblaze:color/colorAccent = 0x7f010000

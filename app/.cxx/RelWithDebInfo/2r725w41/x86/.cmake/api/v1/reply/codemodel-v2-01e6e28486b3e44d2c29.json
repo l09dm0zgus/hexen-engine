@@ -1,0 +1,196 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"jsonFile" : "directory-.-RelWithDebInfo-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "SDL2",
+					"jsonFile" : "directory-SDL2-RelWithDebInfo-cd7d2c4ab6b305026f0a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "SDL2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						3,
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"build" : "SDL_image",
+					"jsonFile" : "directory-SDL_image-RelWithDebInfo-e299266bc4b19ed06bb1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "SDL_image",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "src",
+					"jsonFile" : "directory-src-RelWithDebInfo-b6cf2213fc5053b67c22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						3
+					],
+					"name" : "Game",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "SDL2",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						3,
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "SDL2_image",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "SDL2::@64fabd2bc978e414570d",
+					"jsonFile" : "target-SDL2-RelWithDebInfo-c936bbe02b1c0d40a333.json",
+					"name" : "SDL2",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SDL2-static::@64fabd2bc978e414570d",
+					"jsonFile" : "target-SDL2-static-RelWithDebInfo-34dc78a2dddd071c1f7c.json",
+					"name" : "SDL2-static",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "SDL2_image::@5a11176e8da1d970966f",
+					"jsonFile" : "target-SDL2_image-RelWithDebInfo-f4f7b74a978975444d82.json",
+					"name" : "SDL2_image",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SDL2_test::@64fabd2bc978e414570d",
+					"jsonFile" : "target-SDL2_test-RelWithDebInfo-cf5e79e9650e7ee35706.json",
+					"name" : "SDL2_test",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SDL2main::@64fabd2bc978e414570d",
+					"jsonFile" : "target-SDL2main-RelWithDebInfo-749027cc8b9848c34127.json",
+					"name" : "SDL2main",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "main::@145eef247bfb46b6828c",
+					"jsonFile" : "target-main-RelWithDebInfo-45ccd1d78d44951d6a58.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "sdl_headers_copy::@64fabd2bc978e414570d",
+					"jsonFile" : "target-sdl_headers_copy-RelWithDebInfo-66d81d47ad788ea890ef.json",
+					"name" : "sdl_headers_copy",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "uninstall::@64fabd2bc978e414570d",
+					"jsonFile" : "target-uninstall-RelWithDebInfo-abe3ad1a876b97e41ff8.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/cx9ps3/Battleblaze/app/.cxx/RelWithDebInfo/2r725w41/x86",
+		"source" : "/home/cx9ps3/Battleblaze/app/jni"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

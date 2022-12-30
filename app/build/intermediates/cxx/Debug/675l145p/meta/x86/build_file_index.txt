@@ -1,0 +1,11 @@
+/home/cx9ps3/android-project/app/jni/CMakeLists.txt
+/home/cx9ps3/android-project/app/jni/SDL2/CMakeLists.txt
+/home/cx9ps3/android-project/app/jni/SDL2/cmake/CheckCPUArchitecture.cmake
+/home/cx9ps3/android-project/app/jni/SDL2/cmake/macros.cmake
+/home/cx9ps3/android-project/app/jni/SDL2/cmake/sdlchecks.cmake
+/home/cx9ps3/android-project/app/jni/SDL2/cmake_uninstall.cmake.in
+/home/cx9ps3/android-project/app/jni/SDL2/include/SDL_config.h.cmake
+/home/cx9ps3/android-project/app/jni/SDL2/include/SDL_revision.h.cmake
+/home/cx9ps3/android-project/app/jni/SDL_image/CMakeLists.txt
+/home/cx9ps3/android-project/app/jni/SDL_image/cmake/PrivateSdlFunctions.cmake
+/home/cx9ps3/android-project/app/jni/src/CMakeLists.txt
