@@ -15,6 +15,8 @@ target_sources(main PRIVATE main.cpp
         core/application/Application.h
         core/application/Application.cpp
         core/graphics/RectangleVertices.h
-        core/graphics/RectangleVertices.cpp)
+        core/graphics/RectangleVertices.cpp
+        core/graphics/VertexBufferObject.h
+        core/graphics/VertexBufferObject.cpp)
 target_link_libraries(main SDL3 SDL2_image GLESv2 glm)
 

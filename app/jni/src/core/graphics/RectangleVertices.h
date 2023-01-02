@@ -8,7 +8,9 @@
 
 class RectangleVertices
 {
-    float *data();
+public:
+    float *data() const;
+
 private:
     float vertices[18]
     {
