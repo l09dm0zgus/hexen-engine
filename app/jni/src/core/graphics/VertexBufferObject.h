@@ -9,7 +9,7 @@
 class VertexBufferObject
 {
 public:
-    VertexBufferObject(const RectangleVertices &vertices);
+    VertexBufferObject(RectangleVertices &vertices);
     ~VertexBufferObject();
 private:
     unsigned int object{0};

@@ -23,7 +23,7 @@ Window::Window(const std::string &title)
         }
 
         //Create window
-        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN );
+        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,SDL_WINDOW_FULLSCREEN_DESKTOP);
         if(window == nullptr )
         {
             SDL_Log( "Window could not be created! SDL Error: %s\n", SDL_GetError() );

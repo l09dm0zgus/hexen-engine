@@ -4,7 +4,7 @@
 
 #include "VertexBufferObject.h"
 #include <GLES3/gl31.h>
-VertexBufferObject::VertexBufferObject(const RectangleVertices &vertices)
+VertexBufferObject::VertexBufferObject(RectangleVertices &vertices)
 {
     glGenBuffers(1,&object);
     glBindBuffer(GL_ARRAY_BUFFER,object);
