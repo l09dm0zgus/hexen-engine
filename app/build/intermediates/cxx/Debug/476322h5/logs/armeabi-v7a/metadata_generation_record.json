@@ -11,11 +11,11 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -86380263
+    "memoizedHashCode": 1282215252
   },
   {
     "level_": 0,
-    "message_": "JSON \u0027/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/android_gradle_build.json\u0027 was up-to-date",
+    "message_": "rebuilding JSON /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/android_gradle_build.json due to:",
     "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
     "tag_": "debug|armeabi-v7a",
     "diagnosticCode_": 0,
@@ -25,7 +25,147 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": 2072935582
+    "memoizedHashCode": -217213310
+  },
+  {
+    "level_": 0,
+    "message_": "- expected json /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/android_gradle_build.json file is not present, will remove stale json folder",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1665503286
+  },
+  {
+    "level_": 0,
+    "message_": "- missing previous command file /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/metadata_generation_command.txt, will remove stale json folder",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 473837576
+  },
+  {
+    "level_": 0,
+    "message_": "- command changed from previous, will remove stale json folder",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 487885602
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a\u0027",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1277000599
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a\u0027",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1032683531
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake /usr/bin/cmake \\\n  -H/home/cx9ps3/Battleblaze/app/jni \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d16 \\\n  -DANDROID_PLATFORM\u003dandroid-16 \\\n  -DANDROID_ABI\u003darmeabi-v7a \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a \\\n  -DANDROID_NDK\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_ANDROID_NDK\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/usr/bin/ninja \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/armeabi-v7a \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/armeabi-v7a \\\n  -DCMAKE_BUILD_TYPE\u003dDebug \\\n  -B/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a \\\n  -GNinja \\\n  -DANDROID_APP_PLATFORM\u003dandroid-16 \\\n  -DANDROID_STL\u003dc++_static\n",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -2064413620
+  },
+  {
+    "level_": 0,
+    "message_": "/usr/bin/cmake \\\n  -H/home/cx9ps3/Battleblaze/app/jni \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d16 \\\n  -DANDROID_PLATFORM\u003dandroid-16 \\\n  -DANDROID_ABI\u003darmeabi-v7a \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a \\\n  -DANDROID_NDK\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_ANDROID_NDK\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/usr/bin/ninja \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/armeabi-v7a \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/armeabi-v7a \\\n  -DCMAKE_BUILD_TYPE\u003dDebug \\\n  -B/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a \\\n  -GNinja \\\n  -DANDROID_APP_PLATFORM\u003dandroid-16 \\\n  -DANDROID_STL\u003dc++_static\n",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1618768693
+  },
+  {
+    "level_": 0,
+    "message_": "Exiting generation of /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/compile_commands.json.bin normally",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1789478768
+  },
+  {
+    "level_": 0,
+    "message_": "done executing cmake",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 175539351
+  },
+  {
+    "level_": 0,
+    "message_": "write command file /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/metadata_generation_command.txt",
+    "file_": "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2035327692
   },
   {
     "level_": 0,
@@ -39,6 +179,6 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": 745016920
+    "memoizedHashCode": 2113612435
   }
 ]

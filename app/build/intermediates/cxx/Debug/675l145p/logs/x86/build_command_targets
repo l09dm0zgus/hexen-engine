@@ -1,6 +1,0 @@
-/usr/bin/ninja \
-  -C \
-  /home/cx9ps3/android-project/app/.cxx/Debug/675l145p/x86 \
-  SDL2 \
-  SDL2_image \
-  main

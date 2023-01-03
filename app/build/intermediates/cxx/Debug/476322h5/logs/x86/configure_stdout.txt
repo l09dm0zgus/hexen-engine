@@ -121,7 +121,7 @@
 --  CMAKE_C_FLAGS_DEBUG:   -g  -fno-limit-debug-info
 --  CMAKE_CXX_FLAGS_DEBUG: -g  -fno-limit-debug-info
 -- 
---  CFLAGS:        -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -idirafter "/home/cx9ps3/Battleblaze/app/jni/SDL2/src/video/khronos"
+--  CFLAGS:        -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -idirafter "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/src/video/khronos"
 --  EXTRA_CFLAGS:   -Wall -fno-strict-aliasing -Wdeclaration-after-statement -fvisibility=hidden -Wshadow -fcolor-diagnostics -mmmx -m3dnow -msse
 --  EXTRA_LDFLAGS:  -Wl,--no-undefined
 --  EXTRA_LIBS:    m;OpenSLES;dl;log;android;GLESv1_CM;GLESv2
@@ -134,7 +134,7 @@
 -- were installed, then make sure you have set the
 -- CFLAGS and LDFLAGS environment variables correctly.
 -- 
--- Configuring SDL2_image 2.7.0
+-- GLM: Version 0.9.9.9
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86

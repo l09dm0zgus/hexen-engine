@@ -1,5 +1,5 @@
 The target system is: Android - 16 - armv7-a
-The host system is: Linux - 6.0.11-zen1-1-zen - x86_64
+The host system is: Linux - 6.1.2-zen1-1-zen - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang 
 Build flags: 
@@ -27,9 +27,9 @@ Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" p
 The CXX compiler identification is Clang, found in "/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.o"
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-t8w0bd
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-5Kcf1D
 
-Run Build Command(s):/usr/bin/ninja cmTC_317d9 && [1/2] Building C object CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o
+Run Build Command(s):/usr/bin/ninja cmTC_bc998 && [1/2] Building C object CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o
 Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)
 Target: armv7-none-linux-android16
 Thread model: posix
@@ -37,7 +37,7 @@ InstalledDir: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt
 Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
 Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
  (in-process)
- "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-t8w0bd -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-5Kcf1D -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c
 clang -cc1 version 12.0.8 based upon LLVM 12.0.8git default target x86_64-unknown-linux-gnu
 ignoring nonexistent directory "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include"
 #include "..." search starts here:
@@ -47,14 +47,14 @@ ignoring nonexistent directory "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolch
  /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi
  /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
 End of search list.
-[2/2] Linking C executable cmTC_317d9
+[2/2] Linking C executable cmTC_bc998
 Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)
 Target: armv7-none-linux-android16
 Thread model: posix
 InstalledDir: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin
 Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
 Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
- "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_317d9 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o -latomic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o
+ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_bc998 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o -latomic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o
 
 
 
@@ -75,9 +75,9 @@ Parsed C implicit include dir info from above output: rv=done
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld\.lld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-t8w0bd]
+  ignore line: [Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-5Kcf1D]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_317d9 && [1/2] Building C object CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o]
+  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_bc998 && [1/2] Building C object CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o]
   ignore line: [Android (7714059  based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)]
   ignore line: [Target: armv7-none-linux-android16]
   ignore line: [Thread model: posix]
@@ -85,7 +85,7 @@ Parsed C implicit link information from above output:
   ignore line: [Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
   ignore line: [Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
   ignore line: [ (in-process)]
-  ignore line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-t8w0bd -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-5Kcf1D -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
   ignore line: [clang -cc1 version 12.0.8 based upon LLVM 12.0.8git default target x86_64-unknown-linux-gnu]
   ignore line: [ignoring nonexistent directory "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include"]
   ignore line: [#include "..." search starts here:]
@@ -95,14 +95,14 @@ Parsed C implicit link information from above output:
   ignore line: [ /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi]
   ignore line: [ /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include]
   ignore line: [End of search list.]
-  ignore line: [[2/2] Linking C executable cmTC_317d9]
+  ignore line: [[2/2] Linking C executable cmTC_bc998]
   ignore line: [Android (7714059  based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)]
   ignore line: [Target: armv7-none-linux-android16]
   ignore line: [Thread model: posix]
   ignore line: [InstalledDir: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin]
   ignore line: [Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
   ignore line: [Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
-  link line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_317d9 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o -latomic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o]
+  link line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_bc998 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o -latomic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o]
     arg [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld] ==> ignore
     arg [--sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot] ==> ignore
     arg [-pie] ==> ignore
@@ -121,7 +121,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_317d9] ==> ignore
+    arg [cmTC_bc998] ==> ignore
     arg [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o] ==> obj [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o]
     arg [-L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm] ==> dir [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm]
     arg [-L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x] ==> dir [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
@@ -135,7 +135,7 @@ Parsed C implicit link information from above output:
     arg [--fatal-warnings] ==> ignore
     arg [--no-undefined] ==> ignore
     arg [--gc-sections] ==> ignore
-    arg [CMakeFiles/cmTC_317d9.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_bc998.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-latomic] ==> lib [atomic]
     arg [-lm] ==> lib [m]
     arg [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a] ==> lib [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a]
@@ -162,9 +162,9 @@ Parsed C implicit link information from above output:
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ERt2qR
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-v2Pl0K
 
-Run Build Command(s):/usr/bin/ninja cmTC_d1b76 && [1/2] Building CXX object CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o
+Run Build Command(s):/usr/bin/ninja cmTC_099d6 && [1/2] Building CXX object CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o
 Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)
 Target: armv7-none-linux-android16
 Thread model: posix
@@ -172,7 +172,7 @@ InstalledDir: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt
 Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
 Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
  (in-process)
- "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdeprecated-macro -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ERt2qR -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdeprecated-macro -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-v2Pl0K -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
 clang -cc1 version 12.0.8 based upon LLVM 12.0.8git default target x86_64-unknown-linux-gnu
 ignoring nonexistent directory "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include"
 #include "..." search starts here:
@@ -183,14 +183,14 @@ ignoring nonexistent directory "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolch
  /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi
  /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
 End of search list.
-[2/2] Linking CXX executable cmTC_d1b76
+[2/2] Linking CXX executable cmTC_099d6
 Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)
 Target: armv7-none-linux-android16
 Thread model: posix
 InstalledDir: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin
 Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
 Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x
- "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_d1b76 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o -latomic -lm -Bstatic -lc++ -Bdynamic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o
+ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_099d6 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o -latomic -lm -Bstatic -lc++ -Bdynamic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o
 
 
 
@@ -213,9 +213,9 @@ Parsed CXX implicit include dir info from above output: rv=done
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld\.lld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ERt2qR]
+  ignore line: [Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-v2Pl0K]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_d1b76 && [1/2] Building CXX object CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_099d6 && [1/2] Building CXX object CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o]
   ignore line: [Android (7714059  based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)]
   ignore line: [Target: armv7-none-linux-android16]
   ignore line: [Thread model: posix]
@@ -223,7 +223,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
   ignore line: [Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
   ignore line: [ (in-process)]
-  ignore line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdeprecated-macro -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ERt2qR -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" -cc1 -triple thumbv7-none-linux-android16 -emit-obj --mrelax-relocations -mnoexecstack -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -crypto -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -fallow-half-arguments-and-returns -fno-split-dwarf-inlining -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -v -ffunction-sections -fdata-sections -resource-dir /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8 -dependency-file CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -D NDEBUG -isysroot /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/local/include -internal-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include -internal-externc-isystem /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include -O2 -Wformat -fdeprecated-macro -fdebug-compilation-dir /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-v2Pl0K -ferror-limit 19 -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -vectorize-loops -vectorize-slp -o CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [clang -cc1 version 12.0.8 based upon LLVM 12.0.8git default target x86_64-unknown-linux-gnu]
   ignore line: [ignoring nonexistent directory "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/include"]
   ignore line: [#include "..." search starts here:]
@@ -234,14 +234,14 @@ Parsed CXX implicit link information from above output:
   ignore line: [ /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/arm-linux-androideabi]
   ignore line: [ /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include]
   ignore line: [End of search list.]
-  ignore line: [[2/2] Linking CXX executable cmTC_d1b76]
+  ignore line: [[2/2] Linking CXX executable cmTC_099d6]
   ignore line: [Android (7714059  based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)]
   ignore line: [Target: armv7-none-linux-android16]
   ignore line: [Thread model: posix]
   ignore line: [InstalledDir: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin]
   ignore line: [Found candidate GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
   ignore line: [Selected GCC installation: /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
-  link line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_d1b76 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o -latomic -lm -Bstatic -lc++ -Bdynamic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o]
+  link line: [ "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld" --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -pie -z noexecstack -EL --warn-shared-textrel -z now -z relro -z max-page-size=4096 -X --hash-style=both --enable-new-dtags --eh-frame-hdr -m armelf_linux_eabi -dynamic-linker /system/bin/linker -o cmTC_099d6 /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16 -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/../../lib -L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o -latomic -lm -Bstatic -lc++ -Bdynamic -lm /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl /home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtend_android.o]
     arg [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/ld] ==> ignore
     arg [--sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot] ==> ignore
     arg [-pie] ==> ignore
@@ -260,7 +260,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_d1b76] ==> ignore
+    arg [cmTC_099d6] ==> ignore
     arg [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o] ==> obj [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/16/crtbegin_dynamic.o]
     arg [-L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm] ==> dir [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/12.0.8/lib/linux/arm]
     arg [-L/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x] ==> dir [/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x]
@@ -274,7 +274,7 @@ Parsed CXX implicit link information from above output:
     arg [--fatal-warnings] ==> ignore
     arg [--no-undefined] ==> ignore
     arg [--gc-sections] ==> ignore
-    arg [CMakeFiles/cmTC_d1b76.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_099d6.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-latomic] ==> lib [atomic]
     arg [-lm] ==> lib [m]
     arg [-Bstatic] ==> search static
@@ -305,40 +305,40 @@ Parsed CXX implicit link information from above output:
 
 
 Performing C SOURCE FILE Test HAVE_GCC_WALL succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-tEY3MD
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-IWnH32
 
-Run Build Command(s):/usr/bin/ninja cmTC_0297c && [1/2] Building C object CMakeFiles/cmTC_0297c.dir/src.c.o
-[2/2] Linking C executable cmTC_0297c
+Run Build Command(s):/usr/bin/ninja cmTC_2c357 && [1/2] Building C object CMakeFiles/cmTC_2c357.dir/src.c.o
+[2/2] Linking C executable cmTC_2c357
 
 
 Source file was:
 int main(void) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_GCC_NO_STRICT_ALIASING succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Fykd7k
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2fZ4OK
 
-Run Build Command(s):/usr/bin/ninja cmTC_fb817 && [1/2] Building C object CMakeFiles/cmTC_fb817.dir/src.c.o
-[2/2] Linking C executable cmTC_fb817
+Run Build Command(s):/usr/bin/ninja cmTC_47809 && [1/2] Building C object CMakeFiles/cmTC_47809.dir/src.c.o
+[2/2] Linking C executable cmTC_47809
 
 
 Source file was:
 int main(void) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_GCC_WDECLARATION_AFTER_STATEMENT succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-IOT0lK
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-oHSpVY
 
-Run Build Command(s):/usr/bin/ninja cmTC_42238 && [1/2] Building C object CMakeFiles/cmTC_42238.dir/src.c.o
-[2/2] Linking C executable cmTC_42238
+Run Build Command(s):/usr/bin/ninja cmTC_84de0 && [1/2] Building C object CMakeFiles/cmTC_84de0.dir/src.c.o
+[2/2] Linking C executable cmTC_84de0
 
 
 Source file was:
 int main(void) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_GCC_ATOMICS succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-lwWcvz
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-EXJ6eL
 
-Run Build Command(s):/usr/bin/ninja cmTC_921d9 && [1/2] Building C object CMakeFiles/cmTC_921d9.dir/src.c.o
-[2/2] Linking C executable cmTC_921d9
+Run Build Command(s):/usr/bin/ninja cmTC_fd409 && [1/2] Building C object CMakeFiles/cmTC_fd409.dir/src.c.o
+[2/2] Linking C executable cmTC_fd409
 
 
 Source file was:
@@ -353,10 +353,10 @@ int main(int argc, char **argv) {
         return 0; }
 
 Performing C SOURCE FILE Test HAVE_GCC_FVISIBILITY succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-wtHiVW
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-LJnnQy
 
-Run Build Command(s):/usr/bin/ninja cmTC_ceb89 && [1/2] Building C object CMakeFiles/cmTC_ceb89.dir/src.c.o
-[2/2] Linking C executable cmTC_ceb89
+Run Build Command(s):/usr/bin/ninja cmTC_8b02e && [1/2] Building C object CMakeFiles/cmTC_8b02e.dir/src.c.o
+[2/2] Linking C executable cmTC_8b02e
 
 
 Source file was:
@@ -367,191 +367,191 @@ Source file was:
       int main(int argc, char **argv) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_GCC_WSHADOW succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-dwifOw
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-sh7Tmp
 
-Run Build Command(s):/usr/bin/ninja cmTC_b4f1c && [1/2] Building C object CMakeFiles/cmTC_b4f1c.dir/src.c.o
-[2/2] Linking C executable cmTC_b4f1c
+Run Build Command(s):/usr/bin/ninja cmTC_f6826 && [1/2] Building C object CMakeFiles/cmTC_f6826.dir/src.c.o
+[2/2] Linking C executable cmTC_f6826
 
 
 Source file was:
 int main(void) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_NO_UNDEFINED succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-JkZRMD
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-LGhx09
 
-Run Build Command(s):/usr/bin/ninja cmTC_ebfad && [1/2] Building C object CMakeFiles/cmTC_ebfad.dir/src.c.o
+Run Build Command(s):/usr/bin/ninja cmTC_9b21b && [1/2] Building C object CMakeFiles/cmTC_9b21b.dir/src.c.o
 clang: warning: -Wl,--no-undefined: 'linker' input unused [-Wunused-command-line-argument]
-[2/2] Linking C executable cmTC_ebfad
+[2/2] Linking C executable cmTC_9b21b
 
 
 Source file was:
 int main(void) { return 0; }
 
 Determining if the include file ctype.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-zyYi4P
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-1vslZv
 
-Run Build Command(s):/usr/bin/ninja cmTC_75b40 && [1/2] Building C object CMakeFiles/cmTC_75b40.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_75b40
+Run Build Command(s):/usr/bin/ninja cmTC_af483 && [1/2] Building C object CMakeFiles/cmTC_af483.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_af483
 
 
 
 Determining if the include file float.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-F4hvqz
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-iEE4Ha
 
-Run Build Command(s):/usr/bin/ninja cmTC_a8865 && [1/2] Building C object CMakeFiles/cmTC_a8865.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_a8865
+Run Build Command(s):/usr/bin/ninja cmTC_90cf8 && [1/2] Building C object CMakeFiles/cmTC_90cf8.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_90cf8
 
 
 
 Determining if the include file iconv.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-SFS0Ma
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-4g5T7u
 
-Run Build Command(s):/usr/bin/ninja cmTC_50f65 && [1/2] Building C object CMakeFiles/cmTC_50f65.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_50f65
+Run Build Command(s):/usr/bin/ninja cmTC_0b93e && [1/2] Building C object CMakeFiles/cmTC_0b93e.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_0b93e
 
 
 
 Determining if the include file inttypes.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-wOQ3hs
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-FqNxn0
 
-Run Build Command(s):/usr/bin/ninja cmTC_0b70b && [1/2] Building C object CMakeFiles/cmTC_0b70b.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_0b70b
+Run Build Command(s):/usr/bin/ninja cmTC_26a8f && [1/2] Building C object CMakeFiles/cmTC_26a8f.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_26a8f
 
 
 
 Determining if the include file limits.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-LWs1Y7
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-jMEZ1N
 
-Run Build Command(s):/usr/bin/ninja cmTC_9dd6f && [1/2] Building C object CMakeFiles/cmTC_9dd6f.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_9dd6f
+Run Build Command(s):/usr/bin/ninja cmTC_80949 && [1/2] Building C object CMakeFiles/cmTC_80949.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_80949
 
 
 
 Determining if the include file malloc.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-KpwUSu
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-KXVQRh
 
-Run Build Command(s):/usr/bin/ninja cmTC_5e376 && [1/2] Building C object CMakeFiles/cmTC_5e376.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_5e376
+Run Build Command(s):/usr/bin/ninja cmTC_1eec8 && [1/2] Building C object CMakeFiles/cmTC_1eec8.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_1eec8
 
 
 
 Determining if the include file math.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-esPiHg
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RZM3D3
 
-Run Build Command(s):/usr/bin/ninja cmTC_8c3f2 && [1/2] Building C object CMakeFiles/cmTC_8c3f2.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_8c3f2
+Run Build Command(s):/usr/bin/ninja cmTC_0356a && [1/2] Building C object CMakeFiles/cmTC_0356a.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_0356a
 
 
 
 Determining if the include file memory.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-UI49zk
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-BuNTds
 
-Run Build Command(s):/usr/bin/ninja cmTC_e85e6 && [1/2] Building C object CMakeFiles/cmTC_e85e6.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_e85e6
+Run Build Command(s):/usr/bin/ninja cmTC_9b438 && [1/2] Building C object CMakeFiles/cmTC_9b438.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_9b438
 
 
 
 Determining if the include file signal.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-zVgq9O
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-YrDOwU
 
-Run Build Command(s):/usr/bin/ninja cmTC_c4bdc && [1/2] Building C object CMakeFiles/cmTC_c4bdc.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_c4bdc
+Run Build Command(s):/usr/bin/ninja cmTC_ffc6e && [1/2] Building C object CMakeFiles/cmTC_ffc6e.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_ffc6e
 
 
 
 Determining if the include file stdarg.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-evOFb6
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-tuMoul
 
-Run Build Command(s):/usr/bin/ninja cmTC_2bd55 && [1/2] Building C object CMakeFiles/cmTC_2bd55.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_2bd55
+Run Build Command(s):/usr/bin/ninja cmTC_cf3d9 && [1/2] Building C object CMakeFiles/cmTC_cf3d9.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_cf3d9
 
 
 
 Determining if the include file stddef.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-HC4lQD
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-JYI8QC
 
-Run Build Command(s):/usr/bin/ninja cmTC_993f5 && [1/2] Building C object CMakeFiles/cmTC_993f5.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_993f5
+Run Build Command(s):/usr/bin/ninja cmTC_cccf6 && [1/2] Building C object CMakeFiles/cmTC_cccf6.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_cccf6
 
 
 
 Determining if the include file stdint.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-AECd6P
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-M5sC8U
 
-Run Build Command(s):/usr/bin/ninja cmTC_cfd5f && [1/2] Building C object CMakeFiles/cmTC_cfd5f.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_cfd5f
+Run Build Command(s):/usr/bin/ninja cmTC_d0de4 && [1/2] Building C object CMakeFiles/cmTC_d0de4.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_d0de4
 
 
 
 Determining if the include file stdio.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-uQ75Bu
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-A7J4aU
 
-Run Build Command(s):/usr/bin/ninja cmTC_6b500 && [1/2] Building C object CMakeFiles/cmTC_6b500.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_6b500
+Run Build Command(s):/usr/bin/ninja cmTC_b90b6 && [1/2] Building C object CMakeFiles/cmTC_b90b6.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_b90b6
 
 
 
 Determining if the include file stdlib.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-9JeqCy
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-vvRpnX
 
-Run Build Command(s):/usr/bin/ninja cmTC_c2c6f && [1/2] Building C object CMakeFiles/cmTC_c2c6f.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_c2c6f
+Run Build Command(s):/usr/bin/ninja cmTC_aae99 && [1/2] Building C object CMakeFiles/cmTC_aae99.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_aae99
 
 
 
 Determining if the include file string.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-AdtMPB
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-4JH5D6
 
-Run Build Command(s):/usr/bin/ninja cmTC_4f3fa && [1/2] Building C object CMakeFiles/cmTC_4f3fa.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_4f3fa
+Run Build Command(s):/usr/bin/ninja cmTC_63157 && [1/2] Building C object CMakeFiles/cmTC_63157.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_63157
 
 
 
 Determining if the include file strings.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RZP0Sx
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GLBVfM
 
-Run Build Command(s):/usr/bin/ninja cmTC_bc864 && [1/2] Building C object CMakeFiles/cmTC_bc864.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_bc864
+Run Build Command(s):/usr/bin/ninja cmTC_8227b && [1/2] Building C object CMakeFiles/cmTC_8227b.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_8227b
 
 
 
 Determining if the include file sys/types.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-3ZuCTh
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ljM4F9
 
-Run Build Command(s):/usr/bin/ninja cmTC_4aa8d && [1/2] Building C object CMakeFiles/cmTC_4aa8d.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_4aa8d
+Run Build Command(s):/usr/bin/ninja cmTC_07f4c && [1/2] Building C object CMakeFiles/cmTC_07f4c.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_07f4c
 
 
 
 Determining if the include file wchar.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RNMJsT
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2FkO8q
 
-Run Build Command(s):/usr/bin/ninja cmTC_5b97a && [1/2] Building C object CMakeFiles/cmTC_5b97a.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_5b97a
+Run Build Command(s):/usr/bin/ninja cmTC_32582 && [1/2] Building C object CMakeFiles/cmTC_32582.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_32582
 
 
 
 Determining if the include file linux/input.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Gg75OO
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-MTcFHI
 
-Run Build Command(s):/usr/bin/ninja cmTC_90664 && [1/2] Building C object CMakeFiles/cmTC_90664.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_90664
+Run Build Command(s):/usr/bin/ninja cmTC_b4556 && [1/2] Building C object CMakeFiles/cmTC_b4556.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_b4556
 
 
 
 Determining if files stddef.h;stdarg.h;stdlib.h;string.h;stdio.h;wchar.h;float.h exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-VYCR2J
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-sxxjU8
 
-Run Build Command(s):/usr/bin/ninja cmTC_b71f6 && [1/2] Building C object CMakeFiles/cmTC_b71f6.dir/STDC_HEADERS.c.o
-[2/2] Linking C executable cmTC_b71f6
+Run Build Command(s):/usr/bin/ninja cmTC_7f284 && [1/2] Building C object CMakeFiles/cmTC_7f284.dir/STDC_HEADERS.c.o
+[2/2] Linking C executable cmTC_7f284
 
 
 
 Determining if the M_PI exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-egbNqF
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Os2TqT
 
-Run Build Command(s):/usr/bin/ninja cmTC_c4ebc && [1/2] Building C object CMakeFiles/cmTC_c4ebc.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_c4ebc
+Run Build Command(s):/usr/bin/ninja cmTC_f2754 && [1/2] Building C object CMakeFiles/cmTC_f2754.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_f2754
 
 
 File CheckSymbolExists.c:
@@ -569,10 +569,10 @@ int main(int argc, char** argv)
 #endif
 }
 Performing C SOURCE FILE Test HAVE_MPROTECT succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ffekAz
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-MGzLQP
 
-Run Build Command(s):/usr/bin/ninja cmTC_e90bf && [1/2] Building C object CMakeFiles/cmTC_e90bf.dir/src.c.o
-[2/2] Linking C executable cmTC_e90bf
+Run Build Command(s):/usr/bin/ninja cmTC_88c95 && [1/2] Building C object CMakeFiles/cmTC_88c95.dir/src.c.o
+[2/2] Linking C executable cmTC_88c95
 
 
 Source file was:
@@ -581,10 +581,10 @@ Source file was:
                              int main(void) { return 0; }
 
 Determining if the strtod exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-vSfYzz
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-l1ZuSQ
 
-Run Build Command(s):/usr/bin/ninja cmTC_70ae8 && [1/2] Building C object CMakeFiles/cmTC_70ae8.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_70ae8
+Run Build Command(s):/usr/bin/ninja cmTC_e5b2d && [1/2] Building C object CMakeFiles/cmTC_e5b2d.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_e5b2d
 
 
 File CheckSymbolExists.c:
@@ -608,10 +608,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the malloc exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-PunwZP
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-nqtxt5
 
-Run Build Command(s):/usr/bin/ninja cmTC_dfd33 && [1/2] Building C object CMakeFiles/cmTC_dfd33.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_dfd33
+Run Build Command(s):/usr/bin/ninja cmTC_d5803 && [1/2] Building C object CMakeFiles/cmTC_d5803.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_d5803
 
 
 File CheckSymbolExists.c:
@@ -635,10 +635,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the calloc exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-jYTb4X
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-g9hqtn
 
-Run Build Command(s):/usr/bin/ninja cmTC_304c1 && [1/2] Building C object CMakeFiles/cmTC_304c1.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_304c1
+Run Build Command(s):/usr/bin/ninja cmTC_2d210 && [1/2] Building C object CMakeFiles/cmTC_2d210.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_2d210
 
 
 File CheckSymbolExists.c:
@@ -662,10 +662,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the realloc exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2lYeV7
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-xqKXGV
 
-Run Build Command(s):/usr/bin/ninja cmTC_20300 && [1/2] Building C object CMakeFiles/cmTC_20300.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_20300
+Run Build Command(s):/usr/bin/ninja cmTC_96fba && [1/2] Building C object CMakeFiles/cmTC_96fba.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_96fba
 
 
 File CheckSymbolExists.c:
@@ -689,10 +689,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the free exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-mwhWaX
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-qzqhwx
 
-Run Build Command(s):/usr/bin/ninja cmTC_8efaf && [1/2] Building C object CMakeFiles/cmTC_8efaf.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_8efaf
+Run Build Command(s):/usr/bin/ninja cmTC_8f96d && [1/2] Building C object CMakeFiles/cmTC_8f96d.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_8f96d
 
 
 File CheckSymbolExists.c:
@@ -716,10 +716,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the getenv exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-geDIz2
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-XO7z9C
 
-Run Build Command(s):/usr/bin/ninja cmTC_7734a && [1/2] Building C object CMakeFiles/cmTC_7734a.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_7734a
+Run Build Command(s):/usr/bin/ninja cmTC_2dc6b && [1/2] Building C object CMakeFiles/cmTC_2dc6b.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_2dc6b
 
 
 File CheckSymbolExists.c:
@@ -743,10 +743,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the setenv exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-jeZJyW
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-IRgBlE
 
-Run Build Command(s):/usr/bin/ninja cmTC_b9496 && [1/2] Building C object CMakeFiles/cmTC_b9496.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b9496
+Run Build Command(s):/usr/bin/ninja cmTC_2eb4e && [1/2] Building C object CMakeFiles/cmTC_2eb4e.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_2eb4e
 
 
 File CheckSymbolExists.c:
@@ -770,10 +770,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the putenv exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Cwt5Cj
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Wp0EkJ
 
-Run Build Command(s):/usr/bin/ninja cmTC_dc5e1 && [1/2] Building C object CMakeFiles/cmTC_dc5e1.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_dc5e1
+Run Build Command(s):/usr/bin/ninja cmTC_7f0d7 && [1/2] Building C object CMakeFiles/cmTC_7f0d7.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_7f0d7
 
 
 File CheckSymbolExists.c:
@@ -797,10 +797,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the unsetenv exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-61pRw9
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-crqn1c
 
-Run Build Command(s):/usr/bin/ninja cmTC_74e02 && [1/2] Building C object CMakeFiles/cmTC_74e02.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_74e02
+Run Build Command(s):/usr/bin/ninja cmTC_7113a && [1/2] Building C object CMakeFiles/cmTC_7113a.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_7113a
 
 
 File CheckSymbolExists.c:
@@ -824,10 +824,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the bsearch exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-zXGNMT
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-hzf64V
 
-Run Build Command(s):/usr/bin/ninja cmTC_55a95 && [1/2] Building C object CMakeFiles/cmTC_55a95.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_55a95
+Run Build Command(s):/usr/bin/ninja cmTC_26297 && [1/2] Building C object CMakeFiles/cmTC_26297.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_26297
 
 
 File CheckSymbolExists.c:
@@ -851,10 +851,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the qsort exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-31pKYN
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-vwd4sH
 
-Run Build Command(s):/usr/bin/ninja cmTC_bbd22 && [1/2] Building C object CMakeFiles/cmTC_bbd22.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_bbd22
+Run Build Command(s):/usr/bin/ninja cmTC_88406 && [1/2] Building C object CMakeFiles/cmTC_88406.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_88406
 
 
 File CheckSymbolExists.c:
@@ -878,10 +878,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the abs exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-gN9oQT
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-eGsN8Z
 
-Run Build Command(s):/usr/bin/ninja cmTC_47eef && [1/2] Building C object CMakeFiles/cmTC_47eef.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_47eef
+Run Build Command(s):/usr/bin/ninja cmTC_408c4 && [1/2] Building C object CMakeFiles/cmTC_408c4.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_408c4
 
 
 File CheckSymbolExists.c:
@@ -905,10 +905,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the memset exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-PZG5jb
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-QxKNIN
 
-Run Build Command(s):/usr/bin/ninja cmTC_e390d && [1/2] Building C object CMakeFiles/cmTC_e390d.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_e390d
+Run Build Command(s):/usr/bin/ninja cmTC_c8e71 && [1/2] Building C object CMakeFiles/cmTC_c8e71.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_c8e71
 
 
 File CheckSymbolExists.c:
@@ -932,10 +932,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the memcpy exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-9s9z03
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GtbFdk
 
-Run Build Command(s):/usr/bin/ninja cmTC_01f98 && [1/2] Building C object CMakeFiles/cmTC_01f98.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_01f98
+Run Build Command(s):/usr/bin/ninja cmTC_af578 && [1/2] Building C object CMakeFiles/cmTC_af578.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_af578
 
 
 File CheckSymbolExists.c:
@@ -959,10 +959,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the memmove exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-EJPh2x
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-uVkRrt
 
-Run Build Command(s):/usr/bin/ninja cmTC_b44da && [1/2] Building C object CMakeFiles/cmTC_b44da.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b44da
+Run Build Command(s):/usr/bin/ninja cmTC_516d0 && [1/2] Building C object CMakeFiles/cmTC_516d0.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_516d0
 
 
 File CheckSymbolExists.c:
@@ -986,10 +986,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the memcmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-DCHWwV
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-4wnq3z
 
-Run Build Command(s):/usr/bin/ninja cmTC_8497f && [1/2] Building C object CMakeFiles/cmTC_8497f.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_8497f
+Run Build Command(s):/usr/bin/ninja cmTC_dc6e9 && [1/2] Building C object CMakeFiles/cmTC_dc6e9.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_dc6e9
 
 
 File CheckSymbolExists.c:
@@ -1013,10 +1013,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strlen exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-smkjCC
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-03CSos
 
-Run Build Command(s):/usr/bin/ninja cmTC_31ea0 && [1/2] Building C object CMakeFiles/cmTC_31ea0.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_31ea0
+Run Build Command(s):/usr/bin/ninja cmTC_d1fc6 && [1/2] Building C object CMakeFiles/cmTC_d1fc6.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_d1fc6
 
 
 File CheckSymbolExists.c:
@@ -1040,10 +1040,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strlcpy exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-yU9vt0
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-VRXhkK
 
-Run Build Command(s):/usr/bin/ninja cmTC_3a4db && [1/2] Building C object CMakeFiles/cmTC_3a4db.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_3a4db
+Run Build Command(s):/usr/bin/ninja cmTC_c2fac && [1/2] Building C object CMakeFiles/cmTC_c2fac.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_c2fac
 
 
 File CheckSymbolExists.c:
@@ -1067,10 +1067,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strlcat exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-mf0uGR
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-CyoARZ
 
-Run Build Command(s):/usr/bin/ninja cmTC_b3c88 && [1/2] Building C object CMakeFiles/cmTC_b3c88.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b3c88
+Run Build Command(s):/usr/bin/ninja cmTC_27453 && [1/2] Building C object CMakeFiles/cmTC_27453.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_27453
 
 
 File CheckSymbolExists.c:
@@ -1094,10 +1094,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strchr exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-47EqQM
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-beFvu4
 
-Run Build Command(s):/usr/bin/ninja cmTC_94e61 && [1/2] Building C object CMakeFiles/cmTC_94e61.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_94e61
+Run Build Command(s):/usr/bin/ninja cmTC_88d8b && [1/2] Building C object CMakeFiles/cmTC_88d8b.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_88d8b
 
 
 File CheckSymbolExists.c:
@@ -1121,10 +1121,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strrchr exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-pP9vLe
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-TzoCfC
 
-Run Build Command(s):/usr/bin/ninja cmTC_f55c4 && [1/2] Building C object CMakeFiles/cmTC_f55c4.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_f55c4
+Run Build Command(s):/usr/bin/ninja cmTC_aaed1 && [1/2] Building C object CMakeFiles/cmTC_aaed1.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_aaed1
 
 
 File CheckSymbolExists.c:
@@ -1148,10 +1148,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strstr exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-H4BCJW
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ItiPpZ
 
-Run Build Command(s):/usr/bin/ninja cmTC_53231 && [1/2] Building C object CMakeFiles/cmTC_53231.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_53231
+Run Build Command(s):/usr/bin/ninja cmTC_a9fd9 && [1/2] Building C object CMakeFiles/cmTC_a9fd9.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_a9fd9
 
 
 File CheckSymbolExists.c:
@@ -1175,10 +1175,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strtok_r exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-oW7H9M
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-3L6LPp
 
-Run Build Command(s):/usr/bin/ninja cmTC_1b1f0 && [1/2] Building C object CMakeFiles/cmTC_1b1f0.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_1b1f0
+Run Build Command(s):/usr/bin/ninja cmTC_c92cb && [1/2] Building C object CMakeFiles/cmTC_c92cb.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_c92cb
 
 
 File CheckSymbolExists.c:
@@ -1202,10 +1202,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strtol exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-7sP9j2
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GmnwWr
 
-Run Build Command(s):/usr/bin/ninja cmTC_1356c && [1/2] Building C object CMakeFiles/cmTC_1356c.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_1356c
+Run Build Command(s):/usr/bin/ninja cmTC_0af1b && [1/2] Building C object CMakeFiles/cmTC_0af1b.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_0af1b
 
 
 File CheckSymbolExists.c:
@@ -1229,10 +1229,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strtoul exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-AWBPYF
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Bw0q5g
 
-Run Build Command(s):/usr/bin/ninja cmTC_faaf0 && [1/2] Building C object CMakeFiles/cmTC_faaf0.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_faaf0
+Run Build Command(s):/usr/bin/ninja cmTC_49c17 && [1/2] Building C object CMakeFiles/cmTC_49c17.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_49c17
 
 
 File CheckSymbolExists.c:
@@ -1256,10 +1256,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strtoll exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GyaOpF
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-BMJcL1
 
-Run Build Command(s):/usr/bin/ninja cmTC_98022 && [1/2] Building C object CMakeFiles/cmTC_98022.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_98022
+Run Build Command(s):/usr/bin/ninja cmTC_d73af && [1/2] Building C object CMakeFiles/cmTC_d73af.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_d73af
 
 
 File CheckSymbolExists.c:
@@ -1283,10 +1283,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strtoull exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-EFRQ9N
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ObMtLH
 
-Run Build Command(s):/usr/bin/ninja cmTC_5456b && [1/2] Building C object CMakeFiles/cmTC_5456b.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_5456b
+Run Build Command(s):/usr/bin/ninja cmTC_28454 && [1/2] Building C object CMakeFiles/cmTC_28454.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_28454
 
 
 File CheckSymbolExists.c:
@@ -1310,10 +1310,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the atoi exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-uoPNIP
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-3EpLck
 
-Run Build Command(s):/usr/bin/ninja cmTC_8cc9a && [1/2] Building C object CMakeFiles/cmTC_8cc9a.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_8cc9a
+Run Build Command(s):/usr/bin/ninja cmTC_9fe53 && [1/2] Building C object CMakeFiles/cmTC_9fe53.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_9fe53
 
 
 File CheckSymbolExists.c:
@@ -1337,10 +1337,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the atof exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-0g7cZY
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-K2STVB
 
-Run Build Command(s):/usr/bin/ninja cmTC_b6e98 && [1/2] Building C object CMakeFiles/cmTC_b6e98.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b6e98
+Run Build Command(s):/usr/bin/ninja cmTC_4b83b && [1/2] Building C object CMakeFiles/cmTC_4b83b.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_4b83b
 
 
 File CheckSymbolExists.c:
@@ -1364,10 +1364,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strcmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-qYA0f9
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2yUiX4
 
-Run Build Command(s):/usr/bin/ninja cmTC_a59dc && [1/2] Building C object CMakeFiles/cmTC_a59dc.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_a59dc
+Run Build Command(s):/usr/bin/ninja cmTC_5fa8c && [1/2] Building C object CMakeFiles/cmTC_5fa8c.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_5fa8c
 
 
 File CheckSymbolExists.c:
@@ -1391,10 +1391,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strncmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ugdMq2
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-R7G793
 
-Run Build Command(s):/usr/bin/ninja cmTC_3cfee && [1/2] Building C object CMakeFiles/cmTC_3cfee.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_3cfee
+Run Build Command(s):/usr/bin/ninja cmTC_2f49a && [1/2] Building C object CMakeFiles/cmTC_2f49a.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_2f49a
 
 
 File CheckSymbolExists.c:
@@ -1418,10 +1418,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strcasecmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-pGOzH1
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-N2kDOG
 
-Run Build Command(s):/usr/bin/ninja cmTC_1e553 && [1/2] Building C object CMakeFiles/cmTC_1e553.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_1e553
+Run Build Command(s):/usr/bin/ninja cmTC_97fe8 && [1/2] Building C object CMakeFiles/cmTC_97fe8.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_97fe8
 
 
 File CheckSymbolExists.c:
@@ -1445,10 +1445,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strncasecmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-N5z2Mk
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-7lmITN
 
-Run Build Command(s):/usr/bin/ninja cmTC_0cfdd && [1/2] Building C object CMakeFiles/cmTC_0cfdd.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_0cfdd
+Run Build Command(s):/usr/bin/ninja cmTC_a38b5 && [1/2] Building C object CMakeFiles/cmTC_a38b5.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_a38b5
 
 
 File CheckSymbolExists.c:
@@ -1472,10 +1472,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the strcasestr exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-l9PvbZ
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-D91bZs
 
-Run Build Command(s):/usr/bin/ninja cmTC_6d496 && [1/2] Building C object CMakeFiles/cmTC_6d496.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_6d496
+Run Build Command(s):/usr/bin/ninja cmTC_6a102 && [1/2] Building C object CMakeFiles/cmTC_6a102.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_6a102
 
 
 File CheckSymbolExists.c:
@@ -1499,10 +1499,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcscmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-tqYQfe
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-OyxNpZ
 
-Run Build Command(s):/usr/bin/ninja cmTC_45fd9 && [1/2] Building C object CMakeFiles/cmTC_45fd9.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_45fd9
+Run Build Command(s):/usr/bin/ninja cmTC_cd435 && [1/2] Building C object CMakeFiles/cmTC_cd435.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_cd435
 
 
 File CheckSymbolExists.c:
@@ -1526,10 +1526,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcsdup exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-FnqZFF
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RlpNrL
 
-Run Build Command(s):/usr/bin/ninja cmTC_9c983 && [1/2] Building C object CMakeFiles/cmTC_9c983.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_9c983
+Run Build Command(s):/usr/bin/ninja cmTC_98565 && [1/2] Building C object CMakeFiles/cmTC_98565.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_98565
 
 
 File CheckSymbolExists.c:
@@ -1553,10 +1553,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcslcat exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Bssjhi
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-AOwTbz
 
-Run Build Command(s):/usr/bin/ninja cmTC_322ad && [1/2] Building C object CMakeFiles/cmTC_322ad.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_322ad
+Run Build Command(s):/usr/bin/ninja cmTC_18626 && [1/2] Building C object CMakeFiles/cmTC_18626.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_18626
 
 
 File CheckSymbolExists.c:
@@ -1580,10 +1580,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcslcpy exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-I5ofAp
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-sjnRte
 
-Run Build Command(s):/usr/bin/ninja cmTC_217fc && [1/2] Building C object CMakeFiles/cmTC_217fc.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_217fc
+Run Build Command(s):/usr/bin/ninja cmTC_1fc20 && [1/2] Building C object CMakeFiles/cmTC_1fc20.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_1fc20
 
 
 File CheckSymbolExists.c:
@@ -1607,10 +1607,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcslen exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-q5nanM
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ThrBym
 
-Run Build Command(s):/usr/bin/ninja cmTC_c02e9 && [1/2] Building C object CMakeFiles/cmTC_c02e9.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_c02e9
+Run Build Command(s):/usr/bin/ninja cmTC_a7c6f && [1/2] Building C object CMakeFiles/cmTC_a7c6f.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_a7c6f
 
 
 File CheckSymbolExists.c:
@@ -1634,10 +1634,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcsncmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Sm70GB
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-T1dF6N
 
-Run Build Command(s):/usr/bin/ninja cmTC_b7cfb && [1/2] Building C object CMakeFiles/cmTC_b7cfb.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b7cfb
+Run Build Command(s):/usr/bin/ninja cmTC_83c94 && [1/2] Building C object CMakeFiles/cmTC_83c94.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_83c94
 
 
 File CheckSymbolExists.c:
@@ -1661,10 +1661,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcsstr exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-4GS5pD
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-wzrS8Y
 
-Run Build Command(s):/usr/bin/ninja cmTC_fb53d && [1/2] Building C object CMakeFiles/cmTC_fb53d.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_fb53d
+Run Build Command(s):/usr/bin/ninja cmTC_70f67 && [1/2] Building C object CMakeFiles/cmTC_70f67.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_70f67
 
 
 File CheckSymbolExists.c:
@@ -1688,10 +1688,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcscasecmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-PhVppo
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Jcp2KH
 
-Run Build Command(s):/usr/bin/ninja cmTC_68237 && [1/2] Building C object CMakeFiles/cmTC_68237.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_68237
+Run Build Command(s):/usr/bin/ninja cmTC_01289 && [1/2] Building C object CMakeFiles/cmTC_01289.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_01289
 
 
 File CheckSymbolExists.c:
@@ -1715,10 +1715,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the wcsncasecmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-VsJqYu
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-XCgWP3
 
-Run Build Command(s):/usr/bin/ninja cmTC_eb676 && [1/2] Building C object CMakeFiles/cmTC_eb676.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_eb676
+Run Build Command(s):/usr/bin/ninja cmTC_de2e0 && [1/2] Building C object CMakeFiles/cmTC_de2e0.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_de2e0
 
 
 File CheckSymbolExists.c:
@@ -1742,10 +1742,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sscanf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Ifpy2s
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Y4agWx
 
-Run Build Command(s):/usr/bin/ninja cmTC_0a1bf && [1/2] Building C object CMakeFiles/cmTC_0a1bf.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_0a1bf
+Run Build Command(s):/usr/bin/ninja cmTC_7fe26 && [1/2] Building C object CMakeFiles/cmTC_7fe26.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_7fe26
 
 
 File CheckSymbolExists.c:
@@ -1769,10 +1769,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the vsscanf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-SpEdfS
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-z5azVH
 
-Run Build Command(s):/usr/bin/ninja cmTC_76e93 && [1/2] Building C object CMakeFiles/cmTC_76e93.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_76e93
+Run Build Command(s):/usr/bin/ninja cmTC_c33a0 && [1/2] Building C object CMakeFiles/cmTC_c33a0.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_c33a0
 
 
 File CheckSymbolExists.c:
@@ -1796,10 +1796,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the vsnprintf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-oEVVzm
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-zDVjL1
 
-Run Build Command(s):/usr/bin/ninja cmTC_bc41d && [1/2] Building C object CMakeFiles/cmTC_bc41d.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_bc41d
+Run Build Command(s):/usr/bin/ninja cmTC_2f4ee && [1/2] Building C object CMakeFiles/cmTC_2f4ee.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_2f4ee
 
 
 File CheckSymbolExists.c:
@@ -1823,10 +1823,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the fseeko exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-H8p8bh
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GbCkqh
 
-Run Build Command(s):/usr/bin/ninja cmTC_25ae5 && [1/2] Building C object CMakeFiles/cmTC_25ae5.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_25ae5
+Run Build Command(s):/usr/bin/ninja cmTC_6eba4 && [1/2] Building C object CMakeFiles/cmTC_6eba4.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_6eba4
 
 
 File CheckSymbolExists.c:
@@ -1850,10 +1850,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the _Exit exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-kCNM1X
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-JuiwQ0
 
-Run Build Command(s):/usr/bin/ninja cmTC_4586a && [1/2] Building C object CMakeFiles/cmTC_4586a.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_4586a
+Run Build Command(s):/usr/bin/ninja cmTC_49990 && [1/2] Building C object CMakeFiles/cmTC_49990.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_49990
 
 
 File CheckSymbolExists.c:
@@ -1877,10 +1877,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sigaction exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-HgWhNm
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RjtZlr
 
-Run Build Command(s):/usr/bin/ninja cmTC_b22d3 && [1/2] Building C object CMakeFiles/cmTC_b22d3.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b22d3
+Run Build Command(s):/usr/bin/ninja cmTC_1904d && [1/2] Building C object CMakeFiles/cmTC_1904d.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_1904d
 
 
 File CheckSymbolExists.c:
@@ -1898,10 +1898,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the setjmp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ra3oy5
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-UknPtN
 
-Run Build Command(s):/usr/bin/ninja cmTC_159cb && [1/2] Building C object CMakeFiles/cmTC_159cb.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_159cb
+Run Build Command(s):/usr/bin/ninja cmTC_abe89 && [1/2] Building C object CMakeFiles/cmTC_abe89.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_abe89
 
 
 File CheckSymbolExists.c:
@@ -1919,10 +1919,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the nanosleep exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-YowsLL
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-FFs7d9
 
-Run Build Command(s):/usr/bin/ninja cmTC_826b8 && [1/2] Building C object CMakeFiles/cmTC_826b8.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_826b8
+Run Build Command(s):/usr/bin/ninja cmTC_4ef38 && [1/2] Building C object CMakeFiles/cmTC_4ef38.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_4ef38
 
 
 File CheckSymbolExists.c:
@@ -1940,10 +1940,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sysconf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Qf6Pqu
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-auPZFR
 
-Run Build Command(s):/usr/bin/ninja cmTC_82853 && [1/2] Building C object CMakeFiles/cmTC_82853.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_82853
+Run Build Command(s):/usr/bin/ninja cmTC_0cf62 && [1/2] Building C object CMakeFiles/cmTC_0cf62.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_0cf62
 
 
 File CheckSymbolExists.c:
@@ -1961,10 +1961,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the poll exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-pLZhbR
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ne8oeu
 
-Run Build Command(s):/usr/bin/ninja cmTC_cd8fe && [1/2] Building C object CMakeFiles/cmTC_cd8fe.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_cd8fe
+Run Build Command(s):/usr/bin/ninja cmTC_dbf79 && [1/2] Building C object CMakeFiles/cmTC_dbf79.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_dbf79
 
 
 File CheckSymbolExists.c:
@@ -1982,29 +1982,29 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the function pow exists in the m passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-R8gz9y
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Cecewc
 
-Run Build Command(s):/usr/bin/ninja cmTC_6017b && [1/2] Building C object CMakeFiles/cmTC_6017b.dir/CheckFunctionExists.c.o
-/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-R8gz9y/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'pow' [-Wincompatible-library-redeclaration]
+Run Build Command(s):/usr/bin/ninja cmTC_36f67 && [1/2] Building C object CMakeFiles/cmTC_36f67.dir/CheckFunctionExists.c.o
+/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Cecewc/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'pow' [-Wincompatible-library-redeclaration]
   CHECK_FUNCTION_EXISTS(void);
   ^
 <command line>:3:31: note: expanded from here
 #define CHECK_FUNCTION_EXISTS pow
                               ^
-/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-R8gz9y/CheckFunctionExists.c:7:3: note: 'pow' is a builtin with type 'double (double, double)'
+/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Cecewc/CheckFunctionExists.c:7:3: note: 'pow' is a builtin with type 'double (double, double)'
 <command line>:3:31: note: expanded from here
 #define CHECK_FUNCTION_EXISTS pow
                               ^
 1 warning generated.
-[2/2] Linking C executable cmTC_6017b
+[2/2] Linking C executable cmTC_36f67
 
 
 
 Determining if the atan exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-yZoBop
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-AtiYJJ
 
-Run Build Command(s):/usr/bin/ninja cmTC_6d1d9 && [1/2] Building C object CMakeFiles/cmTC_6d1d9.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_6d1d9
+Run Build Command(s):/usr/bin/ninja cmTC_103ad && [1/2] Building C object CMakeFiles/cmTC_103ad.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_103ad
 
 
 File CheckSymbolExists.c:
@@ -2022,10 +2022,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the atan2 exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Ea2MOp
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-rO8YN6
 
-Run Build Command(s):/usr/bin/ninja cmTC_3cdac && [1/2] Building C object CMakeFiles/cmTC_3cdac.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_3cdac
+Run Build Command(s):/usr/bin/ninja cmTC_ae542 && [1/2] Building C object CMakeFiles/cmTC_ae542.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_ae542
 
 
 File CheckSymbolExists.c:
@@ -2043,10 +2043,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the atanf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-QtrcGN
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-YPonpZ
 
-Run Build Command(s):/usr/bin/ninja cmTC_594b9 && [1/2] Building C object CMakeFiles/cmTC_594b9.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_594b9
+Run Build Command(s):/usr/bin/ninja cmTC_0e0f9 && [1/2] Building C object CMakeFiles/cmTC_0e0f9.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_0e0f9
 
 
 File CheckSymbolExists.c:
@@ -2064,10 +2064,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the atan2f exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-16KJQ9
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-QUXVVK
 
-Run Build Command(s):/usr/bin/ninja cmTC_1e1e8 && [1/2] Building C object CMakeFiles/cmTC_1e1e8.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_1e1e8
+Run Build Command(s):/usr/bin/ninja cmTC_b12a5 && [1/2] Building C object CMakeFiles/cmTC_b12a5.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_b12a5
 
 
 File CheckSymbolExists.c:
@@ -2085,10 +2085,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the ceil exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-BpgIad
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-yY96xl
 
-Run Build Command(s):/usr/bin/ninja cmTC_08811 && [1/2] Building C object CMakeFiles/cmTC_08811.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_08811
+Run Build Command(s):/usr/bin/ninja cmTC_e6818 && [1/2] Building C object CMakeFiles/cmTC_e6818.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_e6818
 
 
 File CheckSymbolExists.c:
@@ -2106,10 +2106,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the ceilf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-7mV3ue
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-vR27tu
 
-Run Build Command(s):/usr/bin/ninja cmTC_57b10 && [1/2] Building C object CMakeFiles/cmTC_57b10.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_57b10
+Run Build Command(s):/usr/bin/ninja cmTC_e063a && [1/2] Building C object CMakeFiles/cmTC_e063a.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_e063a
 
 
 File CheckSymbolExists.c:
@@ -2127,10 +2127,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the copysign exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-dddyH8
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2Z0uZF
 
-Run Build Command(s):/usr/bin/ninja cmTC_f7143 && [1/2] Building C object CMakeFiles/cmTC_f7143.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_f7143
+Run Build Command(s):/usr/bin/ninja cmTC_cbb6c && [1/2] Building C object CMakeFiles/cmTC_cbb6c.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_cbb6c
 
 
 File CheckSymbolExists.c:
@@ -2148,10 +2148,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the copysignf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-FDU7KZ
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GYkXgh
 
-Run Build Command(s):/usr/bin/ninja cmTC_8d5e7 && [1/2] Building C object CMakeFiles/cmTC_8d5e7.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_8d5e7
+Run Build Command(s):/usr/bin/ninja cmTC_9a5c0 && [1/2] Building C object CMakeFiles/cmTC_9a5c0.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_9a5c0
 
 
 File CheckSymbolExists.c:
@@ -2169,10 +2169,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the cos exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-4PivrC
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-7KVNmI
 
-Run Build Command(s):/usr/bin/ninja cmTC_c83a0 && [1/2] Building C object CMakeFiles/cmTC_c83a0.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_c83a0
+Run Build Command(s):/usr/bin/ninja cmTC_6a524 && [1/2] Building C object CMakeFiles/cmTC_6a524.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_6a524
 
 
 File CheckSymbolExists.c:
@@ -2190,10 +2190,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the cosf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-bvL8YA
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-vhwLvO
 
-Run Build Command(s):/usr/bin/ninja cmTC_d30d0 && [1/2] Building C object CMakeFiles/cmTC_d30d0.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_d30d0
+Run Build Command(s):/usr/bin/ninja cmTC_13120 && [1/2] Building C object CMakeFiles/cmTC_13120.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_13120
 
 
 File CheckSymbolExists.c:
@@ -2211,10 +2211,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the exp exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-qo3Puc
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-kesRyT
 
-Run Build Command(s):/usr/bin/ninja cmTC_adf6c && [1/2] Building C object CMakeFiles/cmTC_adf6c.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_adf6c
+Run Build Command(s):/usr/bin/ninja cmTC_3fec7 && [1/2] Building C object CMakeFiles/cmTC_3fec7.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_3fec7
 
 
 File CheckSymbolExists.c:
@@ -2232,10 +2232,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the expf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-SI47bp
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-9rAYRp
 
-Run Build Command(s):/usr/bin/ninja cmTC_c6b14 && [1/2] Building C object CMakeFiles/cmTC_c6b14.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_c6b14
+Run Build Command(s):/usr/bin/ninja cmTC_c0ad6 && [1/2] Building C object CMakeFiles/cmTC_c0ad6.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_c0ad6
 
 
 File CheckSymbolExists.c:
@@ -2253,10 +2253,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the fabs exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-1xrmub
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-nZf1C4
 
-Run Build Command(s):/usr/bin/ninja cmTC_83047 && [1/2] Building C object CMakeFiles/cmTC_83047.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_83047
+Run Build Command(s):/usr/bin/ninja cmTC_f27d1 && [1/2] Building C object CMakeFiles/cmTC_f27d1.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_f27d1
 
 
 File CheckSymbolExists.c:
@@ -2274,10 +2274,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the fabsf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-O8pOxH
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-t8W0F5
 
-Run Build Command(s):/usr/bin/ninja cmTC_8f9b1 && [1/2] Building C object CMakeFiles/cmTC_8f9b1.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_8f9b1
+Run Build Command(s):/usr/bin/ninja cmTC_eefdd && [1/2] Building C object CMakeFiles/cmTC_eefdd.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_eefdd
 
 
 File CheckSymbolExists.c:
@@ -2295,10 +2295,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the floor exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RTq51A
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ItAmHu
 
-Run Build Command(s):/usr/bin/ninja cmTC_dfc66 && [1/2] Building C object CMakeFiles/cmTC_dfc66.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_dfc66
+Run Build Command(s):/usr/bin/ninja cmTC_e8183 && [1/2] Building C object CMakeFiles/cmTC_e8183.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_e8183
 
 
 File CheckSymbolExists.c:
@@ -2316,10 +2316,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the floorf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-DsEncs
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-GDA4SZ
 
-Run Build Command(s):/usr/bin/ninja cmTC_f7614 && [1/2] Building C object CMakeFiles/cmTC_f7614.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_f7614
+Run Build Command(s):/usr/bin/ninja cmTC_19a75 && [1/2] Building C object CMakeFiles/cmTC_19a75.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_19a75
 
 
 File CheckSymbolExists.c:
@@ -2337,10 +2337,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the fmod exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-vsF6SS
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-XaQC2r
 
-Run Build Command(s):/usr/bin/ninja cmTC_39087 && [1/2] Building C object CMakeFiles/cmTC_39087.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_39087
+Run Build Command(s):/usr/bin/ninja cmTC_24fd5 && [1/2] Building C object CMakeFiles/cmTC_24fd5.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_24fd5
 
 
 File CheckSymbolExists.c:
@@ -2358,10 +2358,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the fmodf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-3LANeE
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-XmjWIZ
 
-Run Build Command(s):/usr/bin/ninja cmTC_7158a && [1/2] Building C object CMakeFiles/cmTC_7158a.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_7158a
+Run Build Command(s):/usr/bin/ninja cmTC_7653e && [1/2] Building C object CMakeFiles/cmTC_7653e.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_7653e
 
 
 File CheckSymbolExists.c:
@@ -2379,10 +2379,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the log exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-IlML2P
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ewTKWe
 
-Run Build Command(s):/usr/bin/ninja cmTC_aa340 && [1/2] Building C object CMakeFiles/cmTC_aa340.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_aa340
+Run Build Command(s):/usr/bin/ninja cmTC_019ed && [1/2] Building C object CMakeFiles/cmTC_019ed.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_019ed
 
 
 File CheckSymbolExists.c:
@@ -2400,10 +2400,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the logf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-pkgzeG
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-7vuGeB
 
-Run Build Command(s):/usr/bin/ninja cmTC_288f9 && [1/2] Building C object CMakeFiles/cmTC_288f9.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_288f9
+Run Build Command(s):/usr/bin/ninja cmTC_6eff2 && [1/2] Building C object CMakeFiles/cmTC_6eff2.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_6eff2
 
 
 File CheckSymbolExists.c:
@@ -2421,10 +2421,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the log10 exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-kulh4F
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-xTc8p2
 
-Run Build Command(s):/usr/bin/ninja cmTC_1777d && [1/2] Building C object CMakeFiles/cmTC_1777d.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_1777d
+Run Build Command(s):/usr/bin/ninja cmTC_81f13 && [1/2] Building C object CMakeFiles/cmTC_81f13.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_81f13
 
 
 File CheckSymbolExists.c:
@@ -2442,10 +2442,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the log10f exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-5lR7dz
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-gwm5TG
 
-Run Build Command(s):/usr/bin/ninja cmTC_584d1 && [1/2] Building C object CMakeFiles/cmTC_584d1.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_584d1
+Run Build Command(s):/usr/bin/ninja cmTC_3239c && [1/2] Building C object CMakeFiles/cmTC_3239c.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_3239c
 
 
 File CheckSymbolExists.c:
@@ -2463,10 +2463,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the lround exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-3BBU0c
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-zZZcud
 
-Run Build Command(s):/usr/bin/ninja cmTC_7c11c && [1/2] Building C object CMakeFiles/cmTC_7c11c.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_7c11c
+Run Build Command(s):/usr/bin/ninja cmTC_a82f8 && [1/2] Building C object CMakeFiles/cmTC_a82f8.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_a82f8
 
 
 File CheckSymbolExists.c:
@@ -2484,10 +2484,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the lroundf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Izcaib
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-BXyHbH
 
-Run Build Command(s):/usr/bin/ninja cmTC_c2168 && [1/2] Building C object CMakeFiles/cmTC_c2168.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_c2168
+Run Build Command(s):/usr/bin/ninja cmTC_b5f9d && [1/2] Building C object CMakeFiles/cmTC_b5f9d.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_b5f9d
 
 
 File CheckSymbolExists.c:
@@ -2505,10 +2505,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the pow exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-RxuD1c
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-dMlBf4
 
-Run Build Command(s):/usr/bin/ninja cmTC_0bfb1 && [1/2] Building C object CMakeFiles/cmTC_0bfb1.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_0bfb1
+Run Build Command(s):/usr/bin/ninja cmTC_caf67 && [1/2] Building C object CMakeFiles/cmTC_caf67.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_caf67
 
 
 File CheckSymbolExists.c:
@@ -2526,10 +2526,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the powf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-3DGoG3
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Y0pUv5
 
-Run Build Command(s):/usr/bin/ninja cmTC_eb6bb && [1/2] Building C object CMakeFiles/cmTC_eb6bb.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_eb6bb
+Run Build Command(s):/usr/bin/ninja cmTC_2148d && [1/2] Building C object CMakeFiles/cmTC_2148d.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_2148d
 
 
 File CheckSymbolExists.c:
@@ -2547,10 +2547,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the round exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-oH5fxy
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-kqFoND
 
-Run Build Command(s):/usr/bin/ninja cmTC_58e41 && [1/2] Building C object CMakeFiles/cmTC_58e41.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_58e41
+Run Build Command(s):/usr/bin/ninja cmTC_9aeba && [1/2] Building C object CMakeFiles/cmTC_9aeba.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_9aeba
 
 
 File CheckSymbolExists.c:
@@ -2568,10 +2568,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the roundf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-rUOER6
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-rTUhsb
 
-Run Build Command(s):/usr/bin/ninja cmTC_a4e41 && [1/2] Building C object CMakeFiles/cmTC_a4e41.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_a4e41
+Run Build Command(s):/usr/bin/ninja cmTC_6f439 && [1/2] Building C object CMakeFiles/cmTC_6f439.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_6f439
 
 
 File CheckSymbolExists.c:
@@ -2589,10 +2589,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the scalbn exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Oevq9H
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-bn8Mfs
 
-Run Build Command(s):/usr/bin/ninja cmTC_85a20 && [1/2] Building C object CMakeFiles/cmTC_85a20.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_85a20
+Run Build Command(s):/usr/bin/ninja cmTC_39271 && [1/2] Building C object CMakeFiles/cmTC_39271.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_39271
 
 
 File CheckSymbolExists.c:
@@ -2610,10 +2610,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the scalbnf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-H24QIl
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-HwlWE4
 
-Run Build Command(s):/usr/bin/ninja cmTC_8d4d8 && [1/2] Building C object CMakeFiles/cmTC_8d4d8.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_8d4d8
+Run Build Command(s):/usr/bin/ninja cmTC_5c17a && [1/2] Building C object CMakeFiles/cmTC_5c17a.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_5c17a
 
 
 File CheckSymbolExists.c:
@@ -2631,10 +2631,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sin exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-LXDJsc
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-sJiTbI
 
-Run Build Command(s):/usr/bin/ninja cmTC_792d5 && [1/2] Building C object CMakeFiles/cmTC_792d5.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_792d5
+Run Build Command(s):/usr/bin/ninja cmTC_39b3f && [1/2] Building C object CMakeFiles/cmTC_39b3f.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_39b3f
 
 
 File CheckSymbolExists.c:
@@ -2652,10 +2652,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sinf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-cLOIg2
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-0R5AVh
 
-Run Build Command(s):/usr/bin/ninja cmTC_51f4e && [1/2] Building C object CMakeFiles/cmTC_51f4e.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_51f4e
+Run Build Command(s):/usr/bin/ninja cmTC_33f9c && [1/2] Building C object CMakeFiles/cmTC_33f9c.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_33f9c
 
 
 File CheckSymbolExists.c:
@@ -2673,10 +2673,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sqrt exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-jC8HXZ
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-q13TTr
 
-Run Build Command(s):/usr/bin/ninja cmTC_ad016 && [1/2] Building C object CMakeFiles/cmTC_ad016.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_ad016
+Run Build Command(s):/usr/bin/ninja cmTC_a6662 && [1/2] Building C object CMakeFiles/cmTC_a6662.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_a6662
 
 
 File CheckSymbolExists.c:
@@ -2694,10 +2694,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the sqrtf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-KXlNIi
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-UwSpVy
 
-Run Build Command(s):/usr/bin/ninja cmTC_0c359 && [1/2] Building C object CMakeFiles/cmTC_0c359.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_0c359
+Run Build Command(s):/usr/bin/ninja cmTC_532bb && [1/2] Building C object CMakeFiles/cmTC_532bb.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_532bb
 
 
 File CheckSymbolExists.c:
@@ -2715,10 +2715,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the tan exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Kyi5Mm
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-SR8TVi
 
-Run Build Command(s):/usr/bin/ninja cmTC_afbbb && [1/2] Building C object CMakeFiles/cmTC_afbbb.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_afbbb
+Run Build Command(s):/usr/bin/ninja cmTC_1979e && [1/2] Building C object CMakeFiles/cmTC_1979e.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_1979e
 
 
 File CheckSymbolExists.c:
@@ -2736,10 +2736,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the tanf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-kG8vTE
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-Ztyhpo
 
-Run Build Command(s):/usr/bin/ninja cmTC_5964f && [1/2] Building C object CMakeFiles/cmTC_5964f.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_5964f
+Run Build Command(s):/usr/bin/ninja cmTC_22565 && [1/2] Building C object CMakeFiles/cmTC_22565.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_22565
 
 
 File CheckSymbolExists.c:
@@ -2757,10 +2757,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the acos exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-96mEHA
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-858gL2
 
-Run Build Command(s):/usr/bin/ninja cmTC_0ab11 && [1/2] Building C object CMakeFiles/cmTC_0ab11.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_0ab11
+Run Build Command(s):/usr/bin/ninja cmTC_bf4d7 && [1/2] Building C object CMakeFiles/cmTC_bf4d7.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_bf4d7
 
 
 File CheckSymbolExists.c:
@@ -2778,10 +2778,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the acosf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-dKfIhs
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-p1Njwv
 
-Run Build Command(s):/usr/bin/ninja cmTC_b38ee && [1/2] Building C object CMakeFiles/cmTC_b38ee.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_b38ee
+Run Build Command(s):/usr/bin/ninja cmTC_97ed6 && [1/2] Building C object CMakeFiles/cmTC_97ed6.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_97ed6
 
 
 File CheckSymbolExists.c:
@@ -2799,10 +2799,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the asin exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-CHOBAh
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-384Tly
 
-Run Build Command(s):/usr/bin/ninja cmTC_c3be4 && [1/2] Building C object CMakeFiles/cmTC_c3be4.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_c3be4
+Run Build Command(s):/usr/bin/ninja cmTC_9fdb3 && [1/2] Building C object CMakeFiles/cmTC_9fdb3.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_9fdb3
 
 
 File CheckSymbolExists.c:
@@ -2820,10 +2820,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the asinf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-QWwSrN
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2J5vhy
 
-Run Build Command(s):/usr/bin/ninja cmTC_18c86 && [1/2] Building C object CMakeFiles/cmTC_18c86.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_18c86
+Run Build Command(s):/usr/bin/ninja cmTC_e03ad && [1/2] Building C object CMakeFiles/cmTC_e03ad.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_e03ad
 
 
 File CheckSymbolExists.c:
@@ -2841,10 +2841,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the trunc exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-eED33m
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-EerI4w
 
-Run Build Command(s):/usr/bin/ninja cmTC_06123 && [1/2] Building C object CMakeFiles/cmTC_06123.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_06123
+Run Build Command(s):/usr/bin/ninja cmTC_62a39 && [1/2] Building C object CMakeFiles/cmTC_62a39.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_62a39
 
 
 File CheckSymbolExists.c:
@@ -2862,10 +2862,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the truncf exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-2gxNGK
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-QG0otR
 
-Run Build Command(s):/usr/bin/ninja cmTC_70613 && [1/2] Building C object CMakeFiles/cmTC_70613.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_70613
+Run Build Command(s):/usr/bin/ninja cmTC_33e0d && [1/2] Building C object CMakeFiles/cmTC_33e0d.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_33e0d
 
 
 File CheckSymbolExists.c:
@@ -2883,18 +2883,18 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the include file alloca.h exists passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-gFUxpa
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-nkHVyY
 
-Run Build Command(s):/usr/bin/ninja cmTC_00a8d && [1/2] Building C object CMakeFiles/cmTC_00a8d.dir/CheckIncludeFile.c.o
-[2/2] Linking C executable cmTC_00a8d
+Run Build Command(s):/usr/bin/ninja cmTC_f9f88 && [1/2] Building C object CMakeFiles/cmTC_f9f88.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_f9f88
 
 
 
 Determining if the alloca exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-zey5Kt
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-TG4qJn
 
-Run Build Command(s):/usr/bin/ninja cmTC_ed72b && [1/2] Building C object CMakeFiles/cmTC_ed72b.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_ed72b
+Run Build Command(s):/usr/bin/ninja cmTC_9dafc && [1/2] Building C object CMakeFiles/cmTC_9dafc.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_9dafc
 
 
 File CheckSymbolExists.c:
@@ -2912,10 +2912,10 @@ int main(int argc, char** argv)
 #endif
 }
 Determining if the alloca exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-L4aVws
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-tVknpq
 
-Run Build Command(s):/usr/bin/ninja cmTC_59668 && [1/2] Building C object CMakeFiles/cmTC_59668.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_59668
+Run Build Command(s):/usr/bin/ninja cmTC_44ce3 && [1/2] Building C object CMakeFiles/cmTC_44ce3.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_44ce3
 
 
 File CheckSymbolExists.c:
@@ -2933,10 +2933,10 @@ int main(int argc, char** argv)
 #endif
 }
 Performing C SOURCE FILE Test HAVE_SA_SIGACTION succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-8cpqan
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-B8z0Et
 
-Run Build Command(s):/usr/bin/ninja cmTC_8cbbe && [1/2] Building C object CMakeFiles/cmTC_8cbbe.dir/src.c.o
-[2/2] Linking C executable cmTC_8cbbe
+Run Build Command(s):/usr/bin/ninja cmTC_fbdab && [1/2] Building C object CMakeFiles/cmTC_fbdab.dir/src.c.o
+[2/2] Linking C executable cmTC_fbdab
 
 
 Source file was:
@@ -2951,10 +2951,10 @@ int main()
 
 
 Determining if the dlopen exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-qz9V6O
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-xka7Ke
 
-Run Build Command(s):/usr/bin/ninja cmTC_d13f0 && [1/2] Building C object CMakeFiles/cmTC_d13f0.dir/CheckSymbolExists.c.o
-[2/2] Linking C executable cmTC_d13f0
+Run Build Command(s):/usr/bin/ninja cmTC_6503c && [1/2] Building C object CMakeFiles/cmTC_6503c.dir/CheckSymbolExists.c.o
+[2/2] Linking C executable cmTC_6503c
 
 
 File CheckSymbolExists.c:
@@ -2972,10 +2972,10 @@ int main(int argc, char** argv)
 #endif
 }
 Performing C SOURCE FILE Test HAVE_O_CLOEXEC succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-TLSeOq
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-wK3qZR
 
-Run Build Command(s):/usr/bin/ninja cmTC_177e1 && [1/2] Building C object CMakeFiles/cmTC_177e1.dir/src.c.o
-[2/2] Linking C executable cmTC_177e1
+Run Build Command(s):/usr/bin/ninja cmTC_eed62 && [1/2] Building C object CMakeFiles/cmTC_eed62.dir/src.c.o
+[2/2] Linking C executable cmTC_eed62
 
 
 Source file was:
@@ -2985,20 +2985,20 @@ Source file was:
     int main(int argc, char **argv) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_ARM_MODE succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-WIV38Q
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-0xArZ1
 
-Run Build Command(s):/usr/bin/ninja cmTC_5b825 && [1/2] Building C object CMakeFiles/cmTC_5b825.dir/src.c.o
-[2/2] Linking C executable cmTC_5b825
+Run Build Command(s):/usr/bin/ninja cmTC_e02ab && [1/2] Building C object CMakeFiles/cmTC_e02ab.dir/src.c.o
+[2/2] Linking C executable cmTC_e02ab
 
 
 Source file was:
 int main(void) { return 0; }
 
 Performing C SOURCE FILE Test VULKAN_PASSED_ANDROID_CHECKS succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-ZkuStm
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-j8wNVE
 
-Run Build Command(s):/usr/bin/ninja cmTC_8b75e && [1/2] Building C object CMakeFiles/cmTC_8b75e.dir/src.c.o
-[2/2] Linking C executable cmTC_8b75e
+Run Build Command(s):/usr/bin/ninja cmTC_9212a && [1/2] Building C object CMakeFiles/cmTC_9212a.dir/src.c.o
+[2/2] Linking C executable cmTC_9212a
 
 
 Source file was:
@@ -3010,10 +3010,10 @@ Source file was:
       
 
 Performing C SOURCE FILE Test HAVE_PTHREADS succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-cP4DQC
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-aE4sqg
 
-Run Build Command(s):/usr/bin/ninja cmTC_81a8e && [1/2] Building C object CMakeFiles/cmTC_81a8e.dir/src.c.o
-[2/2] Linking C executable cmTC_81a8e
+Run Build Command(s):/usr/bin/ninja cmTC_44d75 && [1/2] Building C object CMakeFiles/cmTC_44d75.dir/src.c.o
+[2/2] Linking C executable cmTC_44d75
 
 
 Source file was:
@@ -3026,10 +3026,10 @@ Source file was:
       }
 
 Performing C SOURCE FILE Test HAVE_RECURSIVE_MUTEXES succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-lNX4Z7
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-TgLmaN
 
-Run Build Command(s):/usr/bin/ninja cmTC_59207 && [1/2] Building C object CMakeFiles/cmTC_59207.dir/src.c.o
-[2/2] Linking C executable cmTC_59207
+Run Build Command(s):/usr/bin/ninja cmTC_c81eb && [1/2] Building C object CMakeFiles/cmTC_c81eb.dir/src.c.o
+[2/2] Linking C executable cmTC_c81eb
 
 
 Source file was:
@@ -3043,10 +3043,10 @@ Source file was:
         }
 
 Performing C SOURCE FILE Test HAVE_PTHREADS_SEM succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-r6PD3G
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-javLZO
 
-Run Build Command(s):/usr/bin/ninja cmTC_27c21 && [1/2] Building C object CMakeFiles/cmTC_27c21.dir/src.c.o
-[2/2] Linking C executable cmTC_27c21
+Run Build Command(s):/usr/bin/ninja cmTC_d1853 && [1/2] Building C object CMakeFiles/cmTC_d1853.dir/src.c.o
+[2/2] Linking C executable cmTC_d1853
 
 
 Source file was:
@@ -3055,10 +3055,10 @@ Source file was:
                                  int main(int argc, char **argv) { return 0; }
 
 Performing C SOURCE FILE Test HAVE_SEM_TIMEDWAIT succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-xrIWwf
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-TOit0j
 
-Run Build Command(s):/usr/bin/ninja cmTC_d181a && [1/2] Building C object CMakeFiles/cmTC_d181a.dir/src.c.o
-[2/2] Linking C executable cmTC_d181a
+Run Build Command(s):/usr/bin/ninja cmTC_e136e && [1/2] Building C object CMakeFiles/cmTC_e136e.dir/src.c.o
+[2/2] Linking C executable cmTC_e136e
 
 
 Source file was:
@@ -3071,18 +3071,18 @@ Source file was:
               }
 
 Determining if files pthread.h exist passed with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-pNOwnQ
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-hZHHTK
 
-Run Build Command(s):/usr/bin/ninja cmTC_45c82 && [1/2] Building C object CMakeFiles/cmTC_45c82.dir/HAVE_PTHREAD_H.c.o
-[2/2] Linking C executable cmTC_45c82
+Run Build Command(s):/usr/bin/ninja cmTC_a0ae7 && [1/2] Building C object CMakeFiles/cmTC_a0ae7.dir/HAVE_PTHREAD_H.c.o
+[2/2] Linking C executable cmTC_a0ae7
 
 
 
 Performing C SOURCE FILE Test HAVE_PTHREAD_SETNAME_NP succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-DPE5Pf
+Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-smZrp9
 
-Run Build Command(s):/usr/bin/ninja cmTC_1b0c9 && [1/2] Building C object CMakeFiles/cmTC_1b0c9.dir/src.c.o
-[2/2] Linking C executable cmTC_1b0c9
+Run Build Command(s):/usr/bin/ninja cmTC_da88a && [1/2] Building C object CMakeFiles/cmTC_da88a.dir/src.c.o
+[2/2] Linking C executable cmTC_da88a
 
 
 Source file was:
@@ -3093,14 +3093,4 @@ Source file was:
               pthread_setname_np(pthread_self(), "");
               return 0;
             }
-
-Performing C SOURCE FILE Test HAVE_WL_NO_UNDEFINED succeeded with the following output:
-Change Dir: /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-r9mldU
-
-Run Build Command(s):/usr/bin/ninja cmTC_e6486 && [1/2] Building C object CMakeFiles/cmTC_e6486.dir/src.c.o
-[2/2] Linking C executable cmTC_e6486
-
-
-Source file was:
-int main() { return 0; }
 

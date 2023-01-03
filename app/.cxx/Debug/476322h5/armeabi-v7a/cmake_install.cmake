@@ -44,8 +44,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/SDL2/cmake_install.cmake")
-  include("/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/SDL_image/cmake_install.cmake")
+  include("/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/submodules/SDL/cmake_install.cmake")
+  include("/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/submodules/glm/cmake_install.cmake")
   include("/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a/src/cmake_install.cmake")
 
 endif()

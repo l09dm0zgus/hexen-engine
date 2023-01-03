@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 
 project(${PROJECT_NAME})
 #find_library(SDL2_image SDL2_image)
-find_library(SDL3 SDL3)
+find_library(SDL2 SDL2)
 
 find_library(OpenGL OpenGL)
 find_library(glm glm)
@@ -18,5 +18,5 @@ target_sources(main PRIVATE main.cpp
         core/graphics/RectangleVertices.cpp
         core/graphics/VertexBufferObject.h
         core/graphics/VertexBufferObject.cpp)
-target_link_libraries(main SDL3 GLESv2 glm)
+target_link_libraries(main SDL2 GLESv2 glm)
 
