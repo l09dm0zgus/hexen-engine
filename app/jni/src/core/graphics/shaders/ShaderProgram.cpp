@@ -10,15 +10,16 @@ ShaderProgram::ShaderProgram(const std::string &vertexShaderPath,const std::stri
 {
     vertexShaderFile.read(vertexShaderPath);
     fragmentShaderFile.read(fragmentShaderPath);
-    compileFragmentShader();
     compileVertexShader();
+    compileFragmentShader();
     linkShaders();
 }
 
 void ShaderProgram::compileVertexShader()
 {
+    vertexShaderText = vertexShaderFile.getContent();
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1,(const GLchar *const *)(vertexShaderFile.getContent()), nullptr);
+    glShaderSource(vertexShader, 1,&vertexShaderText, nullptr);
     glCompileShader(vertexShader);
     showCompilerLog(vertexShader);
 }
@@ -27,18 +28,19 @@ void ShaderProgram::showCompilerLog(unsigned int shader)
 {
     int success{0};
     char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if(!success)
     {
-        glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
+        glGetShaderInfoLog(shader, 512, nullptr, infoLog);
         SDL_Log("Error:Failed compile shader.What : %s",infoLog);
     }
 }
 
 void ShaderProgram::compileFragmentShader()
 {
+    fragmentShaderText = fragmentShaderFile.getContent();
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1,(const GLchar *const *)(fragmentShaderFile.getContent()), nullptr);
+    glShaderSource(fragmentShader, 1,&fragmentShaderText, nullptr);
     glCompileShader(fragmentShader);
     showCompilerLog(fragmentShader);
 }

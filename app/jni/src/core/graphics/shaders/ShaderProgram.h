@@ -18,6 +18,8 @@ private:
     unsigned int vertexShader{0};
     unsigned int fragmentShader{0};
     unsigned int shaderProgram{0};
+    char* fragmentShaderText{nullptr};
+    char* vertexShaderText{nullptr};
 
     void compileVertexShader();
     void compileFragmentShader();

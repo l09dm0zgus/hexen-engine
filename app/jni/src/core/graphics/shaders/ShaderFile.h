@@ -9,9 +9,8 @@
 class ShaderFile
 {
 private:
-    char *shaderData{nullptr};
+    std::string shaderText;
 public:
-    ~ShaderFile();
     void read( const std::string &path);
     char *getContent();
 };

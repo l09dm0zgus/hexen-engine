@@ -14,11 +14,17 @@ void ShaderFile::read(const std::string &path)
     {
         int size = SDL_RWsize(file);
         SDL_Log("ShaderFile file size : %d", size);
-        shaderData = new char[size];
+        char *shaderData = new char[size];
         if(SDL_RWread(file,shaderData,size,1) < 0)
         {
             SDL_Log("Failed to read %s shader.\n",path.c_str());
         }
+
+        shaderText.assign(shaderData, size);
+        SDL_Log("Shader %s code : %s",path.c_str(),shaderText.c_str());
+
+        delete [] shaderData;
+        shaderData = nullptr;
     }
     else
     {
@@ -29,15 +35,5 @@ void ShaderFile::read(const std::string &path)
 
 char *ShaderFile::getContent()
 {
-    return shaderData;
-}
-
-ShaderFile::~ShaderFile()
-{
-    if(shaderData != nullptr)
-    {
-        delete [] shaderData;
-        shaderData = nullptr;
-    }
-
+    return const_cast<char *>(shaderText.c_str());
 }
