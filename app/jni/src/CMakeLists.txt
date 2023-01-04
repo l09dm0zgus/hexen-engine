@@ -26,6 +26,8 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexAttributes.cpp
         core/graphics/VertexArrayObject.h
         core/graphics/VertexArrayObject.cpp
+        core/graphics/shapes/Rectangle.h
+        core/graphics/shapes/Rectangle.cpp
         )
 target_link_libraries(main SDL2 GLESv3 glm)
 

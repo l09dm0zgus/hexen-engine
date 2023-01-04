@@ -7,6 +7,7 @@
 
 #include "RectangleVertices.h"
 #include "shaders/Shaders.h"
+#include "shapes/Rectangle.h"
 #include "VertexArrayObject.h"
 #include "VertexAttributes.h"
 #include "VertexBufferObject.h"
