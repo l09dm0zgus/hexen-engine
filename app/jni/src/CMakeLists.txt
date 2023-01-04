@@ -18,10 +18,14 @@ target_sources(main PRIVATE main.cpp
         core/graphics/RectangleVertices.cpp
         core/graphics/VertexBufferObject.h
         core/graphics/VertexBufferObject.cpp
-        core/graphics/ShaderFile.h
-        core/graphics/ShaderFile.cpp
-        core/graphics/ShaderProgram.h
-        core/graphics/ShaderProgram.cpp
+        core/graphics/shaders/ShaderFile.h
+        core/graphics/shaders/ShaderFile.cpp
+        core/graphics/shaders/ShaderProgram.h
+        core/graphics/shaders/ShaderProgram.cpp
+        core/graphics/VertexAttributes.h
+        core/graphics/VertexAttributes.cpp
+        core/graphics/VertexArrayObject.h
+        core/graphics/VertexArrayObject.cpp
         )
 target_link_libraries(main SDL2 GLESv2 glm)
 
