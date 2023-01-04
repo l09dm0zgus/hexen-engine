@@ -30,7 +30,7 @@ void ShaderProgram::showCompilerLog(unsigned int shader)
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
     if(!success)
     {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
         SDL_Log("Error:Failed compile shader.What : %s",infoLog);
     }
 }
@@ -65,7 +65,7 @@ void ShaderProgram::showLinkerLog()
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     if (!success)
     {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
         SDL_Log("Error:Failed to link shader.What : %s",infoLog);
 
     }

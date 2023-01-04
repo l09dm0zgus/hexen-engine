@@ -27,5 +27,5 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexArrayObject.h
         core/graphics/VertexArrayObject.cpp
         )
-target_link_libraries(main SDL2 GLESv2 glm)
+target_link_libraries(main SDL2 GLESv3 glm)
 
