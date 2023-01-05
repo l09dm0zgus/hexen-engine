@@ -292,8 +292,8 @@ CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
 //No help, variable specified on the command line.
 CMAKE_SYSTEM_VERSION:UNINITIALIZED=16
 
-//The CMake toolchain file
-CMAKE_TOOLCHAIN_FILE:FILEPATH=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake
+//No help, variable specified on the command line.
+CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -608,7 +608,7 @@ glm_IS_TOP_LEVEL:STATIC=OFF
 glm_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/submodules/glm
 
 //Dependencies for the target
-main_LIB_DEPENDS:STATIC=general;SDL2;general;GLESv2;
+main_LIB_DEPENDS:STATIC=general;SDL2;general;GLESv3;
 
 
 ########################

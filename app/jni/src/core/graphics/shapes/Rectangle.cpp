@@ -3,15 +3,23 @@
 //
 
 #include "Rectangle.h"
-#include "GLES3/gl31.h"
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
+#include <GLES3/gl31.h>
+#endif
 
 Rectangle::Rectangle(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
 {
     shaderProgram = new ShaderProgram(vertexShaderPath,fragmentShaderPath);
     VAO =  new VertexArrayObject();
+    VBO = new VertexBufferObject();
     VAO->bind();
-    VBO = new VertexBufferObject(vertices);
+    VBO->bind(vertices);
+    attributes.add(3,0);
+    VBO->unbind();
     VAO->unbind();
+
 }
 Rectangle::~Rectangle()
 {

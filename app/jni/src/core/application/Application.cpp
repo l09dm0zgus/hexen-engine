@@ -3,6 +3,7 @@
 //
 
 #include "Application.h"
+#include "../graphics/Graphics.h"
 
 void Application::run()
 {
@@ -10,6 +11,7 @@ void Application::run()
     SDL_Log("Main thread started.\n");
     double dt = 1 / 60.0;
     int currentTime = SDL_GetTicks();
+    Rectangle rectangle("shaders/SpriteVertexShader.glsl","shaders/SpriteFragmentShader.glsl");
 
     while (isRun)
     {
@@ -33,7 +35,7 @@ void Application::run()
             frameTime -= deltaTime;
         }
         window->clear();
-        //render
+        rectangle.render();
         window->swapBuffers();
     }
 }

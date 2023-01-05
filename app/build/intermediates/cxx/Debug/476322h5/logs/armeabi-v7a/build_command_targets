@@ -1,5 +1,0 @@
-/usr/bin/ninja \
-  -C \
-  /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/armeabi-v7a \
-  SDL2 \
-  main

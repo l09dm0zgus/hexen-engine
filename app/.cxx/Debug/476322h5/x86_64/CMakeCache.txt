@@ -608,7 +608,7 @@ glm_IS_TOP_LEVEL:STATIC=OFF
 glm_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/submodules/glm
 
 //Dependencies for the target
-main_LIB_DEPENDS:STATIC=general;SDL2;general;GLESv2;
+main_LIB_DEPENDS:STATIC=general;SDL2;general;GLESv3;
 
 
 ########################

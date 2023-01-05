@@ -2,6 +2,11 @@
 /home/cx9ps3/Battleblaze/app/jni/src/core/application/Application.h
 /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/RectangleVertices.h
 /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/VertexBufferObject.h
+/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shaders/ShaderFile.h
+/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shaders/ShaderProgram.h
+/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/VertexAttributes.h
+/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/VertexArrayObject.h
+/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shapes/Rectangle.h
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/CMakeFiles/sdl_headers_copy
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/CMakeFiles/sdl_headers_copy.rule
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/include/SDL.h.rule

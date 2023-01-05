@@ -3,8 +3,14 @@
 //
 
 #include "ShaderProgram.h"
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#include <SDL2/SDL.h>
+#else
 #include <GLES3/gl31.h>
 #include <SDL.h>
+#endif
+
 
 ShaderProgram::ShaderProgram(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
 {

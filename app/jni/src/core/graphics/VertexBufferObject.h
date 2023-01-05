@@ -9,8 +9,10 @@
 class VertexBufferObject
 {
 public:
-    VertexBufferObject(RectangleVertices &vertices);
+    VertexBufferObject();
     ~VertexBufferObject();
+    void bind(RectangleVertices &vertices);
+    void unbind();
 private:
     unsigned int object{0};
 };

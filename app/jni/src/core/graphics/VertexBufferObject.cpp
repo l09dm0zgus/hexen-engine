@@ -3,16 +3,29 @@
 //
 
 #include "VertexBufferObject.h"
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
 #include <GLES3/gl31.h>
-VertexBufferObject::VertexBufferObject(RectangleVertices &vertices)
+#endif
+
+VertexBufferObject::VertexBufferObject()
 {
     glGenBuffers(1,&object);
-    glBindBuffer(GL_ARRAY_BUFFER,object);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices.data()),vertices.data(),GL_STATIC_DRAW);
-
 }
 
 VertexBufferObject::~VertexBufferObject()
 {
     glDeleteBuffers(1, &object);
+}
+
+void VertexBufferObject::bind(RectangleVertices &vertices)
+{
+    glBindBuffer(GL_ARRAY_BUFFER,object);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices.data),vertices.data,GL_STATIC_DRAW);
+}
+
+void VertexBufferObject::unbind()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

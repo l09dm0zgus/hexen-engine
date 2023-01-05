@@ -5,7 +5,11 @@
 #include "ShaderFile.h"
 #include <fstream>
 #include <sstream>
+#ifndef  __ANDROID__
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
 
 void ShaderFile::read(const std::string &path)
 {

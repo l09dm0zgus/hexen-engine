@@ -8,6 +8,7 @@
 #include "../VertexBufferObject.h"
 #include "../VertexArrayObject.h"
 #include "../RectangleVertices.h"
+#include "../VertexAttributes.h"
 class Rectangle
 {
 public:
@@ -19,6 +20,7 @@ private:
     VertexArrayObject *VAO{nullptr};
     VertexBufferObject *VBO{nullptr};
     RectangleVertices vertices;
+    VertexAttributes attributes;
 };
 
 
