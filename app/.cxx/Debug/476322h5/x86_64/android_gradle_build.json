@@ -2,14 +2,17 @@
   "buildFiles": [
     "/home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt",
     "/home/cx9ps3/Battleblaze/app/jni/src/CMakeLists.txt",
+    "/home/cx9ps3/Battleblaze/app/jni/submodules/CMakeLists.txt",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/CMakeLists.txt",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake/CheckCPUArchitecture.cmake",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake/macros.cmake",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake/sdlchecks.cmake",
-    "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake_uninstall.cmake.in",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/include/SDL_config.h.cmake",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/include/SDL_revision.h.cmake",
+    "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image/CMakeLists.txt",
+    "/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image/cmake/PrivateSdlFunctions.cmake",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/glm/CMakeLists.txt",
+    "/home/cx9ps3/Battleblaze/app/jni/submodules/glm/cmake/cmake_uninstall.cmake.in",
     "/home/cx9ps3/Battleblaze/app/jni/submodules/glm/glm/CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
@@ -40,6 +43,15 @@
       "artifactName": "SDL2-static",
       "output": "/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/libSDL2.a"
     },
+    "SDL2_image::@88b5d20857820fdea635": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "SDL2_image",
+      "output": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libSDL2_image.so",
+      "runtimeFiles": [
+        "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libSDL2.so"
+      ]
+    },
     "SDL2_test::@7bf4f50e94ec765f226d": {
       "toolchain": "toolchain",
       "abi": "x86_64",
@@ -52,12 +64,20 @@
       "artifactName": "SDL2main",
       "output": "/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/libSDL2main.a"
     },
+    "glm_shared::@117ef618370fb84bd164": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "glm_shared",
+      "output": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libglm_shared.so",
+      "runtimeFiles": []
+    },
     "main::@145eef247bfb46b6828c": {
       "toolchain": "toolchain",
       "abi": "x86_64",
       "artifactName": "main",
       "output": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libmain.so",
       "runtimeFiles": [
+        "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libSDL2_image.so",
         "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libSDL2.so"
       ]
     },
@@ -66,7 +86,7 @@
       "abi": "x86_64",
       "artifactName": "sdl_headers_copy"
     },
-    "uninstall::@7bf4f50e94ec765f226d": {
+    "uninstall::@ee1e693009aa5b254ffe": {
       "toolchain": "toolchain",
       "abi": "x86_64",
       "artifactName": "uninstall"

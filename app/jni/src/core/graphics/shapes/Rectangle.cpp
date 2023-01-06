@@ -16,7 +16,7 @@ Rectangle::Rectangle(const std::string &vertexShaderPath, const std::string &fra
     VBO = new VertexBufferObject();
     VAO->bind();
     VBO->bind(vertices);
-    attributes.add(3,0);
+    attributes.add(3,3,0);
     VBO->unbind();
     VAO->unbind();
 

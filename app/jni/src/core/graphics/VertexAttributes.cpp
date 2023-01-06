@@ -8,9 +8,9 @@
 #else
 #include <GLES3/gl31.h>
 #endif
-void VertexAttributes::add(int size, int offset)
+void VertexAttributes::add(int size,int stride,int offset)
 {
-    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE, size * sizeof(float), (void*)offset);
+    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)offset);
     glEnableVertexAttribArray(attributes);
     attributes++;
 }

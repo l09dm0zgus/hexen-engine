@@ -9,7 +9,7 @@
 class VertexAttributes
 {
 public:
-    void add(int size,int offset);
+    void add(int size,int stride,int offset);
 private:
     int attributes{0};
 };

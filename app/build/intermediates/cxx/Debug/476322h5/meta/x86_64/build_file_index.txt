@@ -1,11 +1,14 @@
 /home/cx9ps3/Battleblaze/app/jni/CMakeLists.txt
 /home/cx9ps3/Battleblaze/app/jni/src/CMakeLists.txt
+/home/cx9ps3/Battleblaze/app/jni/submodules/CMakeLists.txt
 /home/cx9ps3/Battleblaze/app/jni/submodules/SDL/CMakeLists.txt
 /home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake/CheckCPUArchitecture.cmake
 /home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake/macros.cmake
 /home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake/sdlchecks.cmake
-/home/cx9ps3/Battleblaze/app/jni/submodules/SDL/cmake_uninstall.cmake.in
 /home/cx9ps3/Battleblaze/app/jni/submodules/SDL/include/SDL_config.h.cmake
 /home/cx9ps3/Battleblaze/app/jni/submodules/SDL/include/SDL_revision.h.cmake
+/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image/CMakeLists.txt
+/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image/cmake/PrivateSdlFunctions.cmake
 /home/cx9ps3/Battleblaze/app/jni/submodules/glm/CMakeLists.txt
+/home/cx9ps3/Battleblaze/app/jni/submodules/glm/cmake/cmake_uninstall.cmake.in
 /home/cx9ps3/Battleblaze/app/jni/submodules/glm/glm/CMakeLists.txt

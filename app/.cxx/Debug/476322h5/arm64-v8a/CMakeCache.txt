@@ -29,6 +29,9 @@ ANDROID_PLATFORM:UNINITIALIZED=android-16
 //No help, variable specified on the command line.
 ANDROID_STL:UNINITIALIZED=c++_static
 
+//Build the library as a shared library
+BUILD_SHARED_LIBS:BOOL=ON
+
 //Path to a program.
 CCACHE_BINARY:FILEPATH=CCACHE_BINARY-NOTFOUND
 
@@ -292,8 +295,8 @@ CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
 //No help, variable specified on the command line.
 CMAKE_SYSTEM_VERSION:UNINITIALIZED=16
 
-//No help, variable specified on the command line.
-CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake
+//The CMake toolchain file
+CMAKE_TOOLCHAIN_FILE:FILEPATH=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -305,13 +308,13 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 GIT_EXECUTABLE:FILEPATH=/usr/bin/git
 
 //Value Computed by CMake
-Game_BINARY_DIR:STATIC=/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/src
+Game_BINARY_DIR:STATIC=/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules
 
 //Value Computed by CMake
 Game_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-Game_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/src
+Game_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/submodules
 
 //Path to a library.
 OpenGL:FILEPATH=OpenGL-NOTFOUND
@@ -327,6 +330,84 @@ SDL2:FILEPATH=SDL2-NOTFOUND
 
 //Dependencies for the target
 SDL2-static_LIB_DEPENDS:STATIC=general;m;general;OpenSLES;general;dl;general;log;general;android;general;GLESv1_CM;general;GLESv2;
+
+//Support loading AVIF images
+SDL2IMAGE_AVIF:BOOL=OFF
+
+//Use stb_image for loading JPEG and PNG files
+SDL2IMAGE_BACKEND_STB:BOOL=ON
+
+//Support loading BMP images
+SDL2IMAGE_BMP:BOOL=ON
+
+//Name suffix for debug builds
+SDL2IMAGE_DEBUG_POSTFIX:STRING=d
+
+//Load dependencies dynamically
+SDL2IMAGE_DEPS_SHARED:BOOL=ON
+
+//Support loading GIF images
+SDL2IMAGE_GIF:BOOL=ON
+
+//Enable SDL2_image install target
+SDL2IMAGE_INSTALL:BOOL=OFF
+
+//Support loading JPEG images
+SDL2IMAGE_JPG:BOOL=ON
+
+//Add JPEG save support
+SDL2IMAGE_JPG_SAVE:BOOL=ON
+
+//Support loading JXL images
+SDL2IMAGE_JXL:BOOL=OFF
+
+//Support loading LBM images
+SDL2IMAGE_LBM:BOOL=ON
+
+//Support loading PCX images
+SDL2IMAGE_PCX:BOOL=ON
+
+//Support loading PNG images
+SDL2IMAGE_PNG:BOOL=ON
+
+//Add PNG save support
+SDL2IMAGE_PNG_SAVE:BOOL=ON
+
+//Support loading PNM images
+SDL2IMAGE_PNM:BOOL=ON
+
+//Support loading QOI images
+SDL2IMAGE_QOI:BOOL=ON
+
+//Build the SDL2_image sample program(s)
+SDL2IMAGE_SAMPLES:BOOL=OFF
+
+//Support loading SVG images
+SDL2IMAGE_SVG:BOOL=ON
+
+//Build unit tests?
+SDL2IMAGE_TESTS:BOOL=OFF
+
+//Support loading TGA images
+SDL2IMAGE_TGA:BOOL=ON
+
+//Support loading TIFF images
+SDL2IMAGE_TIF:BOOL=OFF
+
+//Use vendored third-party libraries
+SDL2IMAGE_VENDORED:BOOL=OFF
+
+//Support loading WEBP images
+SDL2IMAGE_WEBP:BOOL=OFF
+
+//Support loading XCF images
+SDL2IMAGE_XCF:BOOL=ON
+
+//Support loading XPM images
+SDL2IMAGE_XPM:BOOL=ON
+
+//Support loading XV images
+SDL2IMAGE_XV:BOOL=ON
 
 //Value Computed by CMake
 SDL2_BINARY_DIR:STATIC=/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL
@@ -348,6 +429,15 @@ SDL2_LIB_DEPENDS:STATIC=general;m;general;OpenSLES;general;dl;general;log;genera
 
 //Value Computed by CMake
 SDL2_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/submodules/SDL
+
+//Value Computed by CMake
+SDL2_image_BINARY_DIR:STATIC=/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL_image
+
+//Value Computed by CMake
+SDL2_image_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+SDL2_image_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image
 
 //Use 3Dnow! MMX assembly routines
 SDL_3DNOW:BOOL=ON
@@ -608,7 +698,7 @@ glm_IS_TOP_LEVEL:STATIC=OFF
 glm_SOURCE_DIR:STATIC=/home/cx9ps3/Battleblaze/app/jni/submodules/glm
 
 //Dependencies for the target
-main_LIB_DEPENDS:STATIC=general;SDL2;general;GLESv3;
+main_LIB_DEPENDS:STATIC=general;SDL2;general;SDL2_image;general;GLESv3;general;glm;
 
 
 ########################
@@ -739,7 +829,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1106,6 +1196,8 @@ HAVE_WCSNCASECMP:INTERNAL=1
 HAVE_WCSNCMP:INTERNAL=1
 //Have symbol wcsstr
 HAVE_WCSSTR:INTERNAL=1
+//Test HAVE_WL_NO_UNDEFINED
+HAVE_WL_NO_UNDEFINED:INTERNAL=1
 //Have symbol _Exit
 HAVE__EXIT:INTERNAL=1
 //Have symbol _i64toa
@@ -1140,6 +1232,8 @@ LIBC_IS_GLIBC:INTERNAL=
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SDL2IMAGE_DEBUG_POSTFIX
+SDL2IMAGE_DEBUG_POSTFIX-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SDL_CMAKE_DEBUG_POSTFIX
 SDL_CMAKE_DEBUG_POSTFIX-ADVANCED:INTERNAL=1
 //Have include stddef.h;stdarg.h;stdlib.h;string.h;stdio.h;wchar.h;float.h

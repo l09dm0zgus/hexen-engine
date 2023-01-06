@@ -7,6 +7,7 @@
 /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/VertexAttributes.h
 /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/VertexArrayObject.h
 /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shapes/Rectangle.h
+/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/texture/Texture.h
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/CMakeFiles/sdl_headers_copy
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/CMakeFiles/sdl_headers_copy.rule
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/include/SDL.h.rule
@@ -86,5 +87,5 @@
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/include/SDL_vulkan.h.rule
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/include/begin_code.h.rule
 /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/include/close_code.h.rule
-/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/CMakeFiles/uninstall
-/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/CMakeFiles/uninstall.rule
+/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/glm/CMakeFiles/uninstall
+/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/glm/CMakeFiles/uninstall.rule

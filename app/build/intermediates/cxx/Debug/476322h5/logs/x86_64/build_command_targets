@@ -2,4 +2,6 @@
   -C \
   /home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64 \
   SDL2 \
+  SDL2_image \
+  glm_shared \
   main
