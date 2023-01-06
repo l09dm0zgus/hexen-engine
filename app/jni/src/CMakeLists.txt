@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.6)
 
 project(${PROJECT_NAME})
-#find_library(SDL2_image SDL2_image)
-find_library(SDL2 SDL2)
 
+find_library(SDL2 SDL2)
 find_library(OpenGL OpenGL)
 find_library(glm glm)
 
@@ -27,6 +26,9 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexArrayObject.cpp
         core/graphics/shapes/Rectangle.h
         core/graphics/shapes/Rectangle.cpp
+        core/graphics/texture/Texture.h
+        core/graphics/texture/Texture.cpp
         )
-target_link_libraries(main SDL2 GLESv3 glm)
+include_directories(${SDL_IMAGE_INCLUDE_DIR})
+target_link_libraries(main SDL2 SDL2_image GLESv3 glm)
 
