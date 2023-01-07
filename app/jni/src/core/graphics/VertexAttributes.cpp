@@ -10,7 +10,7 @@
 #endif
 void VertexAttributes::add(int size,int stride,int offset)
 {
-    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)offset);
+    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(offset * sizeof(float)));
     glEnableVertexAttribArray(attributes);
     attributes++;
 }
