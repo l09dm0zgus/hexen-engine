@@ -1,5 +1,0 @@
-ninja: Entering directory `/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64'
-[1/4] Building CXX object src/CMakeFiles/main.dir/core/graphics/texture/Texture.cpp.o
-[2/4] Building CXX object src/CMakeFiles/main.dir/core/application/Application.cpp.o
-[3/4] Building CXX object src/CMakeFiles/main.dir/core/graphics/shapes/Sprite.cpp.o
-[4/4] Linking CXX shared library /home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/x86_64/libmain.so

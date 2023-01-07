@@ -1,4 +1,0 @@
-#Sat Jan 07 21:47:45 GMT+02:00 2023
-base.0=/home/cx9ps3/Battleblaze/app/build/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
