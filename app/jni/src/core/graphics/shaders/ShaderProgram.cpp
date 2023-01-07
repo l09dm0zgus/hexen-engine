@@ -83,3 +83,8 @@ void ShaderProgram::use()
 {
     glUseProgram(shaderProgram);
 }
+
+void ShaderProgram::setIntUniform(const std::string &uniformVariable, int value)
+{
+    glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
+}

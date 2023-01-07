@@ -26,7 +26,6 @@
     "variantName": "debug",
     "isDebuggableEnabled": true,
     "validAbiList": [
-      "ARM64_V8A",
       "X86_64"
     ],
     "buildTargetSet": [],
@@ -126,6 +125,7 @@
         "rootBuildGradleFolder": "/home/cx9ps3/Battleblaze",
         "sdkFolder": "/home/cx9ps3/Android/Sdk",
         "isBuildOnlyTargetAbiEnabled": true,
+        "ideBuildTargetAbi": "x86_64",
         "isCmakeBuildCohabitationEnabled": false,
         "isPrefabEnabled": false
       },

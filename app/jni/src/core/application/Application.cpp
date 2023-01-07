@@ -11,8 +11,8 @@ void Application::run()
     SDL_Log("Main thread started.\n");
     double dt = 1 / 60.0;
     int currentTime = SDL_GetTicks();
-    Rectangle rectangle("shaders/SpriteVertexShader.glsl","shaders/SpriteFragmentShader.glsl");
-
+    Sprite rectangle("shaders/SpriteVertexShader.glsl", "shaders/SpriteFragmentShader.glsl");
+    rectangle.addTexture("images/test.jpg");
     while (isRun)
     {
         double newTime = SDL_GetTicks();

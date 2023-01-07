@@ -4,10 +4,17 @@
 
 #ifndef BATTLEBLAZE_TEXTURE_H
 #define BATTLEBLAZE_TEXTURE_H
+#ifndef  __ANDROID__
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <GL/glew.h>
+#else
 #include <SDL.h>
 #include <SDL_image.h>
-#include <string>
 #include <GLES3/gl31.h>
+#endif
+#include <string>
+
 class Texture
 {
 public:

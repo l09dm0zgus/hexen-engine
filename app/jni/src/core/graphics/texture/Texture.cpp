@@ -3,7 +3,6 @@
 //
 
 #include "Texture.h"
-#include <GLES3/gl31.h>
 
 Texture::Texture(const std::string pathToImage,int wrapMode  ,int filterMode)
 {

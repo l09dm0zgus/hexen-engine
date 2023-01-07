@@ -31,7 +31,7 @@
 					"source" : "src",
 					"targetIndexes" : 
 					[
-						5
+						6
 					]
 				},
 				{
@@ -67,7 +67,7 @@
 					"source" : "submodules/glm",
 					"targetIndexes" : 
 					[
-						7
+						8
 					]
 				},
 				{
@@ -79,7 +79,11 @@
 					},
 					"parentIndex" : 3,
 					"projectIndex" : 1,
-					"source" : "submodules/glm/glm"
+					"source" : "submodules/glm/glm",
+					"targetIndexes" : 
+					[
+						5
+					]
 				},
 				{
 					"build" : "submodules/SDL",
@@ -97,7 +101,7 @@
 						1,
 						3,
 						4,
-						6
+						7
 					]
 				},
 				{
@@ -135,7 +139,7 @@
 					"name" : "Game",
 					"targetIndexes" : 
 					[
-						5
+						6
 					]
 				},
 				{
@@ -148,7 +152,8 @@
 					"parentIndex" : 0,
 					"targetIndexes" : 
 					[
-						7
+						5,
+						8
 					]
 				},
 				{
@@ -164,7 +169,7 @@
 						1,
 						3,
 						4,
-						6
+						7
 					]
 				},
 				{
@@ -218,9 +223,16 @@
 					"projectIndex" : 2
 				},
 				{
+					"directoryIndex" : 4,
+					"id" : "glm_shared::@117ef618370fb84bd164",
+					"jsonFile" : "target-glm_shared-Debug-731d1e3d8c11dafc0ef4.json",
+					"name" : "glm_shared",
+					"projectIndex" : 1
+				},
+				{
 					"directoryIndex" : 1,
 					"id" : "main::@145eef247bfb46b6828c",
-					"jsonFile" : "target-main-Debug-b119d6c0c0e504231caf.json",
+					"jsonFile" : "target-main-Debug-6f2bbdcad85b36af7920.json",
 					"name" : "main",
 					"projectIndex" : 0
 				},

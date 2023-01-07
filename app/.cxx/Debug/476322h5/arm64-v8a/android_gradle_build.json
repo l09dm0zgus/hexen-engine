@@ -64,6 +64,13 @@
       "artifactName": "SDL2main",
       "output": "/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/arm64-v8a/submodules/SDL/libSDL2main.a"
     },
+    "glm_shared::@117ef618370fb84bd164": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "glm_shared",
+      "output": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/arm64-v8a/libglm_shared.so",
+      "runtimeFiles": []
+    },
     "main::@145eef247bfb46b6828c": {
       "toolchain": "toolchain",
       "abi": "arm64-v8a",

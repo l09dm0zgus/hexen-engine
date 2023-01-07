@@ -12,6 +12,7 @@ public:
     ShaderProgram(const std::string &vertexShaderPath,const std::string &fragmentShaderPath);
     ~ShaderProgram();
     void use();
+    void setIntUniform(const std::string &uniformVariable,int value);
 private:
     ShaderFile vertexShaderFile;
     ShaderFile fragmentShaderFile;

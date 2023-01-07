@@ -67,6 +67,12 @@
       "abi": "arm64-v8a",
       "runtimeFiles": []
     },
+    "glm_shared::@117ef618370fb84bd164": {
+      "artifactName": "glm_shared",
+      "abi": "arm64-v8a",
+      "output": "/home/cx9ps3/Battleblaze/app/build/intermediates/cxx/Debug/476322h5/obj/arm64-v8a/libglm_shared.so",
+      "runtimeFiles": []
+    },
     "SDL2_image::@88b5d20857820fdea635": {
       "artifactName": "SDL2_image",
       "abi": "arm64-v8a",

@@ -41,8 +41,8 @@
 },
 {
   "directory": "/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64",
-  "command": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=x86_64-none-linux-android21 --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dmain_EXPORTS -I/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image -I/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/include -I/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/include-config-debug -I/home/cx9ps3/Battleblaze/app/jni/submodules/glm -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -frtti -stdlib=libc++ -g  -fno-limit-debug-info -fPIC -o src/CMakeFiles/main.dir/core/graphics/shapes/Rectangle.cpp.o -c /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shapes/Rectangle.cpp",
-  "file": "/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shapes/Rectangle.cpp"
+  "command": "/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=x86_64-none-linux-android21 --sysroot=/home/cx9ps3/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dmain_EXPORTS -I/home/cx9ps3/Battleblaze/app/jni/submodules/SDL_image -I/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/include -I/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64/submodules/SDL/include-config-debug -I/home/cx9ps3/Battleblaze/app/jni/submodules/glm -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -frtti -stdlib=libc++ -g  -fno-limit-debug-info -fPIC -o src/CMakeFiles/main.dir/core/graphics/shapes/Sprite.cpp.o -c /home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shapes/Sprite.cpp",
+  "file": "/home/cx9ps3/Battleblaze/app/jni/src/core/graphics/shapes/Sprite.cpp"
 },
 {
   "directory": "/home/cx9ps3/Battleblaze/app/.cxx/Debug/476322h5/x86_64",

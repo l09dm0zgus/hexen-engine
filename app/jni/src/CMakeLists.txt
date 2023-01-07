@@ -24,8 +24,8 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexAttributes.cpp
         core/graphics/VertexArrayObject.h
         core/graphics/VertexArrayObject.cpp
-        core/graphics/shapes/Rectangle.h
-        core/graphics/shapes/Rectangle.cpp
+        core/graphics/shapes/Sprite.h
+        core/graphics/shapes/Sprite.cpp
         core/graphics/texture/Texture.h
         core/graphics/texture/Texture.cpp
         )
