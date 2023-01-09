@@ -10,7 +10,7 @@
 #include <GLES3/gl31.h>
 #include <SDL.h>
 #endif
-
+#include <glm/gtc/type_ptr.hpp>
 
 ShaderProgram::ShaderProgram(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
 {
@@ -87,4 +87,9 @@ void ShaderProgram::use()
 void ShaderProgram::setIntUniform(const std::string &uniformVariable, int value)
 {
     glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
+}
+
+void ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix)
+{
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }

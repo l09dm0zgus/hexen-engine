@@ -5,6 +5,7 @@
 #ifndef BATTLEBLAZE_SHADERPROGRAM_H
 #define BATTLEBLAZE_SHADERPROGRAM_H
 #include "ShaderFile.h"
+#include <glm/glm.hpp>
 
 class ShaderProgram
 {
@@ -13,6 +14,7 @@ public:
     ~ShaderProgram();
     void use();
     void setIntUniform(const std::string &uniformVariable,int value);
+    void setMatrix4Uniform(const std::string &uniformVariable,const glm::mat4 &matrix);
 private:
     ShaderFile vertexShaderFile;
     ShaderFile fragmentShaderFile;

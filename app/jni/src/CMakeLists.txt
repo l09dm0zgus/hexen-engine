@@ -28,7 +28,10 @@ target_sources(main PRIVATE main.cpp
         core/graphics/shapes/Sprite.cpp
         core/graphics/texture/Texture.h
         core/graphics/texture/Texture.cpp
+        core/transform/Transform.h
+        core/transform/Transform.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
+include_directories(${GLM_INCLUDE_DIR})
 target_link_libraries(main SDL2 SDL2_image GLESv3 glm)
 
