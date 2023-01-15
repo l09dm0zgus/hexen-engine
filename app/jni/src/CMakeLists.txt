@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 
 project(${PROJECT_NAME})
 
-find_library(SDL2 SDL2)
+find_library(SDL3 SDL3)
 find_library(OpenGL OpenGL)
 find_library(glm glm)
 
@@ -26,12 +26,16 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexArrayObject.cpp
         core/graphics/shapes/Sprite.h
         core/graphics/shapes/Sprite.cpp
+        core/graphics/shapes/SpriteInstanced.h
+        core/graphics/shapes/SpriteInstanced.cpp
         core/graphics/texture/Texture.h
         core/graphics/texture/Texture.cpp
         core/transform/Transform.h
         core/transform/Transform.cpp
+        core/camera/Camera.h
+        core/camera/Camera.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
-target_link_libraries(main SDL2 SDL2_image GLESv3 glm)
+target_link_libraries(main SDL3 SDL3_image GLESv3 glm)
 
