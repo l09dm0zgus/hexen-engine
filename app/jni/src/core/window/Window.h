@@ -18,7 +18,7 @@ public:
     void swapBuffers();
     void close();
     void clear();
-
+    SDL_DisplayMode getDisplayMode();
 private:
     SDL_DisplayMode displayMode;
     SDL_Window* window{nullptr};

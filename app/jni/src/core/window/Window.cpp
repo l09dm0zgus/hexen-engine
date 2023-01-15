@@ -51,7 +51,7 @@ Window::Window(const std::string &title)
 {
 
 
-    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
         SDL_Log( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
     }
@@ -63,20 +63,23 @@ Window::Window(const std::string &title)
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600,SDL_WINDOW_OPENGL);
+        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_FULLSCREEN);
 #else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-        if( SDL_GetCurrentDisplayMode( 0, &displayMode ) == 0 )
+        if( SDL_GetDesktopDisplayMode( 0, &displayMode ) == 0 )
         {
             width = displayMode.w;
             height = displayMode.h;
+            SDL_Log("Display size width : %i , height : %i",width,height);
         }
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
+        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_BORDERLESS );
 #endif
         //Create window
+        int w{0},h{0};
+        SDL_GetWindowSize(window,&w,&h);
+        SDL_Log("Screen size width : %i , height : %i");
         if(window == nullptr )
         {
             SDL_Log( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -136,5 +139,10 @@ Window::~Window()
 {
  SDL_Log("Main Window has been destroyed.\n");
  close();
+}
+
+SDL_DisplayMode Window::getDisplayMode()
+{
+    return displayMode;
 }
 
