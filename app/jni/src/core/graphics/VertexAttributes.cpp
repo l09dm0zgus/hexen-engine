@@ -14,3 +14,15 @@ void VertexAttributes::add(int size,int stride,int offset)
     glEnableVertexAttribArray(attributes);
     attributes++;
 }
+
+void VertexAttributes::add(int size, size_t typeSize, int offset)
+{
+    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE,  typeSize, (void*)(offset));
+    glEnableVertexAttribArray(attributes);
+    attributes++;
+}
+
+void VertexAttributes::vertexDivisor(int index, int divisor)
+{
+    glVertexAttribDivisor(index,divisor);
+}

@@ -36,8 +36,11 @@ Sprite::~Sprite()
     VBO = nullptr;
 }
 
-void Sprite::render()
+void Sprite::render(const glm::mat4 &projection , const glm::mat4 &view)
 {
+    shaderProgram->setMatrix4Uniform("model" , transform.getTransformMatrix());
+    shaderProgram->setMatrix4Uniform("projection",projection);
+    shaderProgram->setMatrix4Uniform("view" , view);
     shaderProgram->use();
     bindTextures();
     VAO->bind();
@@ -58,4 +61,14 @@ void Sprite::bindTextures()
     {
         textures[0]->bind(i);
     }
+}
+
+void Sprite::setTransform(const Transform &transform)
+{
+    this->transform = transform;
+}
+
+Transform Sprite::getTransform()
+{
+    return transform;
 }

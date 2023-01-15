@@ -4,6 +4,8 @@
 
 #ifndef BATTLEBLAZE_VERTEXBUFFEROBJECT_H
 #define BATTLEBLAZE_VERTEXBUFFEROBJECT_H
+
+#include <cstddef>
 #include "RectangleVertices.h"
 
 class VertexBufferObject
@@ -12,6 +14,7 @@ public:
     VertexBufferObject();
     ~VertexBufferObject();
     void bind(RectangleVertices &vertices);
+    void bind(size_t size,void* data);
     void unbind();
 private:
     unsigned int object{0};

@@ -19,7 +19,7 @@ void ShaderFile::read(const std::string &path)
         int size = SDL_RWsize(file);
         SDL_Log("ShaderFile file size : %d", size);
         char *shaderData = new char[size];
-        if(SDL_RWread(file,shaderData,size,1) < 0)
+        if(SDL_RWread(file,shaderData,size) < 0)
         {
             SDL_Log("Failed to read %s shader.\n",path.c_str());
         }

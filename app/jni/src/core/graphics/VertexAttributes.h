@@ -6,10 +6,14 @@
 #define BATTLEBLAZE_VERTEXATTRIBUTES_H
 
 
+#include <cstddef>
+
 class VertexAttributes
 {
 public:
     void add(int size,int stride,int offset);
+    void add(int size,size_t typeSize,int offset);
+    void vertexDivisor(int index,int divisor);
 private:
     int attributes{0};
 };

@@ -29,3 +29,9 @@ void VertexBufferObject::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+void VertexBufferObject::bind(size_t size, void *data)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, object);
+    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+}

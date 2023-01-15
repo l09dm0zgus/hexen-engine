@@ -36,7 +36,7 @@ void Texture::setTextureParameters(int wrapMode, int filterMode)
 
 Texture::~Texture()
 {
-    SDL_FreeSurface(surface);
+    SDL_DestroySurface(surface);
 }
 
 void Texture::bind(int id)
