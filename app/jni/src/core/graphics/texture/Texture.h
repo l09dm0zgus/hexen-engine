@@ -13,12 +13,13 @@
 #include <SDL_image.h>
 #include <GLES3/gl31.h>
 #endif
+
 #include <string>
 
 class Texture
 {
 public:
-    Texture(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
+    void create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
     void bind(int id);
     ~Texture();
 private:

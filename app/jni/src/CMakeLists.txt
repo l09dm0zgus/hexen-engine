@@ -24,16 +24,23 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexAttributes.cpp
         core/graphics/VertexArrayObject.h
         core/graphics/VertexArrayObject.cpp
-        core/graphics/shapes/Sprite.h
-        core/graphics/shapes/Sprite.cpp
-        core/graphics/shapes/SpriteInstanced.h
-        core/graphics/shapes/SpriteInstanced.cpp
+        components/graphics/SpriteComponent.h
+        components/graphics/SpriteComponent.cpp
+        components/graphics/SpriteInstancedComponent.h
+        components/graphics/SpriteInstancedComponent.cpp
         core/graphics/texture/Texture.h
         core/graphics/texture/Texture.cpp
         core/transform/Transform.h
         core/transform/Transform.cpp
         core/camera/Camera.h
         core/camera/Camera.cpp
+        components/IComponent.h
+        components/graphics/RenderComponent.h
+        components/graphics/RenderComponent.cpp
+        pool/Pool.h
+        pool/Pool.cpp
+        pool/graphics/texture/TexturesPool.h
+        pool/graphics/texture/TexturesPool.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
