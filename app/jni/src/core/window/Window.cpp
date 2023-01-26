@@ -74,12 +74,8 @@ Window::Window(const std::string &title)
             height = displayMode.h;
             SDL_Log("Display size width : %i , height : %i",width,height);
         }
-        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_BORDERLESS );
+        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,SDL_WINDOW_OPENGL );
 #endif
-        //Create window
-        int w{0},h{0};
-        SDL_GetWindowSize(window,&w,&h);
-        SDL_Log("Screen size width : %i , height : %i");
         if(window == nullptr )
         {
             SDL_Log( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
