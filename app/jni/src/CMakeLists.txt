@@ -41,6 +41,9 @@ target_sources(main PRIVATE main.cpp
         pool/Pool.cpp
         pool/graphics/texture/TexturesPool.h
         pool/graphics/texture/TexturesPool.cpp
+        pool/graphics/SpriteComponentsPool.h
+        pool/graphics/SpriteComponentsPool.cpp
+        core/uuid/uuid.h
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
