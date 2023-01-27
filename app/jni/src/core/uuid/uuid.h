@@ -11,6 +11,10 @@
 
 std::string generateUUIDV4()
 {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 15);
+    std::uniform_int_distribution<> dis2(8, 11);
     std::stringstream ss;
     int i;
     ss << std::hex;

@@ -4,13 +4,14 @@
 
 #ifndef BATTLEBLAZE_ICOMPONENT_H
 #define BATTLEBLAZE_ICOMPONENT_H
-
+#include "../core/uuid/uuid.h"
 class IComponent
 {
 public:
     virtual ~IComponent(){};
     virtual void start() = 0;
     virtual void update(float deltaTime) = 0;
+    const std::string  uuid = generateUUIDV4();
 };
 
 #endif //BATTLEBLAZE_ICOMPONENT_H
