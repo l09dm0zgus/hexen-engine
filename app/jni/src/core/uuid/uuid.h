@@ -9,7 +9,7 @@
 
 
 
-std::string generateUUIDV4()
+inline std::string generateUUIDV4()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
