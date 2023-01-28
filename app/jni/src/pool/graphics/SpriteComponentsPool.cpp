@@ -21,6 +21,8 @@ SpriteComponentsPool::~SpriteComponentsPool()
     pool = nullptr;
 }
 
-void SpriteComponentsPool::remove()
+void SpriteComponentsPool::remove(SpriteComponent *spriteComponent)
 {
+    SDL_Log("Object with UUID %s has been removed!",spriteComponent->uuid.c_str());
+    pool->remove(spriteComponent);
 }

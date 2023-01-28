@@ -13,7 +13,7 @@ public:
     SpriteComponentsPool(int numberOfObjects);
     ~SpriteComponentsPool();
     SpriteComponent* create(const std::string &vertexShaderPath , const std::string &fragmentShaderPath);
-    void remove();
+    void remove(SpriteComponent *spriteComponent);
 private:
     BaseComponentPool<SpriteComponent> *pool;
 };
