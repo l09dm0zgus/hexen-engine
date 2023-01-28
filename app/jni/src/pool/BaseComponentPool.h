@@ -30,16 +30,14 @@ public:
     void remove(T* object)
     {
         auto iterator = std::find_if(basePool->getObjects()->begin(),basePool->getObjects()->end(),[&object](T o){
-            if(o.uuid == object->uuid)
-            {
-                return true;
-            }
+            return o.uuid == object->uuid
         });
         if (iterator != basePool->getObjects()->end())
         {
             std::vector<bool> *isUsing = basePool->getIsUsing();
             *isUsing[*iterator] = false;
         }
+        object = nullptr;
         basePool->remove();
     }
     std::vector<T> *getObjects()
