@@ -28,15 +28,24 @@ Texture *TexturesPool::create(const std::string pathToImage, int wrapMode, int f
 
 
 }
-
-void TexturesPool::remove()
-{
-    pool->remove();
-}
-
 TexturesPool::~TexturesPool()
 {
     SDL_Log("Texture pool deleted!\n");
     delete pool;
     pool = nullptr;
+}
+
+void TexturesPool::remove(Texture *texture)
+{
+    auto iterator = std::find_if(pool->getObjects()->begin(),pool->getObjects()->end(),[&texture](Texture t){
+        return texture->getId() == t.getId();
+    });
+    if (iterator != pool->getObjects()->end())
+    {
+        std::vector<bool> *isUsing = pool->getIsUsing();
+        int distance = std::distance(pool->getObjects()->begin(),iterator);
+        isUsing->at(distance) = false;
+    }
+    texture = nullptr;
+    pool->remove();
 }

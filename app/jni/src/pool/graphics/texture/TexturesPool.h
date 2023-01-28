@@ -14,7 +14,7 @@ public:
     TexturesPool(int numberOfObjects);
     ~TexturesPool();
     Texture* create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
-    void remove();
+    void remove(Texture *texture);
 private:
     BasePool<Texture> *pool{nullptr};
 };

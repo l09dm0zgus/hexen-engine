@@ -20,6 +20,7 @@ class Texture
 {
 public:
     void create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
+    int getId();
     void bind(int id);
     ~Texture();
 private:

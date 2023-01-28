@@ -44,3 +44,8 @@ void Texture::create(const std::string pathToImage, int wrapMode, int filterMode
     glTexImage2D(GL_TEXTURE_2D, 0, mode, surface->w, surface->h, 0, mode, GL_UNSIGNED_BYTE, surface->pixels);
     glGenerateMipmap(GL_TEXTURE_2D);
 }
+
+int Texture::getId()
+{
+    return textureId;
+}
