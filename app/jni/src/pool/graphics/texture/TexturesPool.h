@@ -6,7 +6,7 @@
 #define BATTLEBLAZE_TEXTURESPOOL_H
 
 #include "../../../core/graphics/texture/Texture.h"
-#include "../../Pool.h"
+#include "../../BasePool.h"
 
 class TexturesPool
 {
@@ -16,7 +16,7 @@ public:
     Texture* create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
     void remove();
 private:
-    Pool<Texture> *pool{nullptr};
+    BasePool<Texture> *pool{nullptr};
 };
 
 

@@ -6,7 +6,7 @@
 
 TexturesPool::TexturesPool(int numberOfObjects)
 {
-    pool = new Pool<Texture>(numberOfObjects);
+    pool = new BasePool<Texture>(numberOfObjects);
     if(pool == nullptr)
     {
         SDL_Log("Failed to allocate memory for texture pool!\n");
