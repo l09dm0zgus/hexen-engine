@@ -15,7 +15,7 @@ void SpriteInstancedComponent::draw()
     glDrawArraysInstanced(GL_TRIANGLES, 0, 6,numberOfInstances);
 }
 
-void SpriteInstancedComponent::create(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+void SpriteInstancedComponent::create(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
 {
     SpriteComponent::create(vertexShaderPath, fragmentShaderPath);
     instancesBuffer = new VertexBufferObject();
