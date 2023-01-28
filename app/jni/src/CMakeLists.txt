@@ -37,15 +37,18 @@ target_sources(main PRIVATE main.cpp
         components/IComponent.h
         components/graphics/RenderComponent.h
         components/graphics/RenderComponent.cpp
-        pool/Pool.h
-        pool/Pool.cpp
+        pool/BasePool.h
+        pool/BaseComponentPool.h
         pool/graphics/texture/TexturesPool.h
         pool/graphics/texture/TexturesPool.cpp
         pool/graphics/SpriteComponentsPool.h
         pool/graphics/SpriteComponentsPool.cpp
+        pool/graphics/SpriteInstancedComponentPool.h
+        pool/graphics/SpriteInstancedComponentPool.cpp
         core/uuid/uuid.h
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 target_link_libraries(main SDL3 SDL3_image GLESv3 glm)
 

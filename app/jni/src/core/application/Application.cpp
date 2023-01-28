@@ -5,7 +5,7 @@
 #include "Application.h"
 #include "../graphics/Graphics.h"
 #include "../camera/Camera.h"
-
+#include "../../pool/graphics/SpriteInstancedComponentPool.h"
 void Application::run()
 {
     bool isRun = true;
@@ -37,14 +37,21 @@ void Application::run()
     {
         modelMatrices[i] = transforms[i].getTransformMatrix();
     }
-    SpriteInstanced rectangle("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl",amount,modelMatrices);
-    rectangle.addTexture("images/test.jpg");
-    Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
+
+   // SpriteInstancedComponentPool rectangle("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl", amount, modelMatrices);
+   // rectangle.addTexture("images/test.jpg");
+   SpriteInstancedComponentPool pool(5);
+   SpriteInstancedComponent *sprite = pool.create("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl", amount, modelMatrices);
+   sprite->addTexture("images/test.jpg");
+   Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
+   sprite->setCamera(&camera);
+    sprite->start();
     while (isRun)
     {
         double newTime = SDL_GetTicks();
         double frameTime = newTime - currentTime;
         currentTime = newTime;
+        float deltaTime;
 
         while(SDL_PollEvent(&sdlEvent) != 0)
         {
@@ -57,12 +64,13 @@ void Application::run()
 
         while ( frameTime > 0.0 )
         {
-            float deltaTime = SDL_min( frameTime, dt );
+            deltaTime = SDL_min( frameTime, dt );
             //update
             frameTime -= deltaTime;
         }
         window->clear();
-        rectangle.render(camera.getProjectionMatrix(),camera.getViewMatrix());
+        sprite->update(deltaTime);
+       // rectangle.render(camera.getProjectionMatrix(),camera.getViewMatrix());
         window->swapBuffers();
     }
 }

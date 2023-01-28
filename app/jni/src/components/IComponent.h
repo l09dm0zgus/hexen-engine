@@ -9,9 +9,10 @@ class IComponent
 {
 public:
     virtual ~IComponent(){};
+    IComponent(){}
     virtual void start() = 0;
     virtual void update(float deltaTime) = 0;
-    const std::string  uuid = generateUUIDV4();
+    std::string  uuid = generateUUIDV4();
 };
 
 #endif //BATTLEBLAZE_ICOMPONENT_H

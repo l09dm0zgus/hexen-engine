@@ -6,15 +6,16 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
 #include <SDL.h>
+#include <GLES3/gl31.h>
+
 void Camera::updateViewMatrix()
 {
-
     view = glm::lookAt(position, position + cameraTarget, cameraUp);
-
 }
 
 Camera::Camera(int viewportWidth, int viewportHeight, float FOV)
 {
+    glViewport(0,0,viewportWidth,viewportWidth);
     projection = glm::perspective(glm::radians(FOV), (float)viewportWidth / viewportHeight, 0.1f, 100.0f);
     SDL_Log("Viewport size width : %i , height : %i",viewportWidth,viewportHeight);
     updateViewMatrix();

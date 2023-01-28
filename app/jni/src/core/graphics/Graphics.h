@@ -7,8 +7,6 @@
 
 #include "RectangleVertices.h"
 #include "shaders/Shaders.h"
-#include "shapes/Sprite.h"
-#include "shapes/SpriteInstanced.h"
 #include "VertexArrayObject.h"
 #include "VertexAttributes.h"
 #include "VertexBufferObject.h"
