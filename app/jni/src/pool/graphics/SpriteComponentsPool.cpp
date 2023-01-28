@@ -26,3 +26,11 @@ void SpriteComponentsPool::remove(SpriteComponent *spriteComponent)
     SDL_Log("Object with UUID %s has been removed!",spriteComponent->uuid.c_str());
     pool->remove(spriteComponent);
 }
+
+SpriteComponent *SpriteComponentsPool::create(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+{
+    SpriteComponent *spriteComponent = pool->create();
+    SDL_Log("Object with UUID %s created!",spriteComponent->uuid.c_str());
+    spriteComponent->create(vertexShaderPath,fragmentShaderPath);
+    return spriteComponent;
+}
