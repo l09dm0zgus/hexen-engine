@@ -1,0 +1,94 @@
+{
+  "buildFiles": [
+    "D:\\battleblaze\\app\\jni\\CMakeLists.txt",
+    "D:\\battleblaze\\app\\jni\\src\\CMakeLists.txt",
+    "D:\\battleblaze\\app\\jni\\submodules\\CMakeLists.txt",
+    "D:\\battleblaze\\app\\jni\\submodules\\glm\\cmake\\cmake_uninstall.cmake.in",
+    "D:\\battleblaze\\app\\jni\\submodules\\glm\\CMakeLists.txt",
+    "D:\\battleblaze\\app\\jni\\submodules\\glm\\glm\\CMakeLists.txt",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\CheckCPUArchitecture.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\GetGitRevisionDescription.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\GetGitRevisionDescription.cmake.in",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\macros.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\sdlchecks.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\sdlfind.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\cmake\\sdlplatform.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\CMakeLists.txt",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\include\\build_config\\SDL_build_config.h.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL\\include\\build_config\\SDL_revision.h.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL_image\\cmake\\PrivateSdlFunctions.cmake",
+    "D:\\battleblaze\\app\\jni\\submodules\\SDL_image\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\cx9ps3\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "-C",
+      "D:\\battleblaze\\app\\.cxx\\Debug\\2ul2b3q2\\arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\cx9ps3\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "-C",
+    "D:\\battleblaze\\app\\.cxx\\Debug\\2ul2b3q2\\arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "SDL3::@7bf4f50e94ec765f226d": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "SDL3",
+      "output": "D:\\battleblaze\\app\\build\\intermediates\\cxx\\Debug\\2ul2b3q2\\obj\\arm64-v8a\\libSDL3.so",
+      "runtimeFiles": []
+    },
+    "SDL3-static::@7bf4f50e94ec765f226d": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "SDL3-static",
+      "output": "D:\\battleblaze\\app\\.cxx\\Debug\\2ul2b3q2\\arm64-v8a\\submodules\\SDL\\libSDL3.a"
+    },
+    "SDL3_image::@88b5d20857820fdea635": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "SDL3_image",
+      "output": "D:\\battleblaze\\app\\build\\intermediates\\cxx\\Debug\\2ul2b3q2\\obj\\arm64-v8a\\libSDL3_image.so",
+      "runtimeFiles": [
+        "D:\\battleblaze\\app\\build\\intermediates\\cxx\\Debug\\2ul2b3q2\\obj\\arm64-v8a\\libSDL3.so"
+      ]
+    },
+    "SDL3_test::@7bf4f50e94ec765f226d": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "SDL3_test",
+      "output": "D:\\battleblaze\\app\\.cxx\\Debug\\2ul2b3q2\\arm64-v8a\\submodules\\SDL\\libSDL3_test.a"
+    },
+    "main::@145eef247bfb46b6828c": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "main",
+      "output": "D:\\battleblaze\\app\\build\\intermediates\\cxx\\Debug\\2ul2b3q2\\obj\\arm64-v8a\\libmain.so",
+      "runtimeFiles": [
+        "D:\\battleblaze\\app\\build\\intermediates\\cxx\\Debug\\2ul2b3q2\\obj\\arm64-v8a\\libSDL3_image.so",
+        "D:\\battleblaze\\app\\build\\intermediates\\cxx\\Debug\\2ul2b3q2\\obj\\arm64-v8a\\libSDL3.so"
+      ]
+    },
+    "uninstall::@ee1e693009aa5b254ffe": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "uninstall"
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "C:\\Users\\cx9ps3\\AppData\\Local\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\cx9ps3\\AppData\\Local\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cxx",
+    "cpp"
+  ]
+}
