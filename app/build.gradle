@@ -42,7 +42,7 @@ android {
         externalNativeBuild {
 
              cmake {
-                 version '3.25.2'
+                 version '3.26.3'
                  path 'jni/CMakeLists.txt'
             }
         }
@@ -51,7 +51,8 @@ android {
     lintOptions {
         abortOnError false
     }
-    
+    namespace 'org.libsdl.app'
+
     if (buildAsLibrary) {
         libraryVariants.all { variant ->
             variant.outputs.each { output ->

@@ -37,14 +37,6 @@ target_sources(main PRIVATE main.cpp
         components/IComponent.h
         components/graphics/RenderComponent.h
         components/graphics/RenderComponent.cpp
-        pool/BasePool.h
-        pool/BaseComponentPool.h
-        pool/graphics/texture/TexturesPool.h
-        pool/graphics/texture/TexturesPool.cpp
-        pool/graphics/SpriteComponentsPool.h
-        pool/graphics/SpriteComponentsPool.cpp
-        pool/graphics/SpriteInstancedComponentPool.h
-        pool/graphics/SpriteInstancedComponentPool.cpp
         core/uuid/uuid.h
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})

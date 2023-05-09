@@ -5,7 +5,7 @@
 #include "Application.h"
 #include "../graphics/Graphics.h"
 #include "../camera/Camera.h"
-#include "../../pool/graphics/SpriteInstancedComponentPool.h"
+//#include "../../pool/graphics/SpriteInstancedComponentPool.h"
 void Application::run()
 {
     bool isRun = true;
@@ -15,7 +15,7 @@ void Application::run()
     unsigned int amount = 10000;
     glm::mat4* modelMatrices;
     modelMatrices = new glm::mat4[amount];
-    std::vector<Transform> transforms;
+  //  std::vector<Transform> transforms;
     srand(currentTime); // инициализация рандома некоторым значением
     float radius = 150.0;
     float offset = 0.0f;
@@ -24,28 +24,26 @@ void Application::run()
         for(int x = -10; x < 10; x += 1)
         {
             glm::vec3 translation;
-            Transform transform;
-            transform.setScale(glm::vec3(1,1,1));
+           // Transform transform;
+           // transform.setScale(glm::vec3(1,1,1));
             translation.x = (float)x / 1.0f + offset;
             translation.y = (float)y / 1.0f + offset;
             translation.z = 1.0f;
-            transform.setPosition(translation);
-            transforms.push_back(transform);
+          //  transform.setPosition(translation);
+         //   transforms.push_back(transform);
         }
     }
-    for(int i = 0 ;i<transforms.size();i++)
-    {
-        modelMatrices[i] = transforms[i].getTransformMatrix();
-    }
+  //  for(int i = 0 ;i<transforms.size();i++)
+   // {
+   //     modelMatrices[i] = transforms[i].getTransformMatrix();
+  //  }
 
    // SpriteInstancedComponentPool rectangle("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl", amount, modelMatrices);
    // rectangle.addTexture("images/test.jpg");
-   SpriteInstancedComponentPool pool(5);
-   SpriteInstancedComponent *sprite = pool.create("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl", amount, modelMatrices);
-   sprite->addTexture("images/test.jpg");
+  // SpriteInstancedComponentPool pool(5);
+  // SpriteInstancedComponent *sprite = pool.create("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl", amount, modelMatrices);
+ //  sprite->addTexture("images/test.jpg");
    Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
-   sprite->setCamera(&camera);
-    sprite->start();
     while (isRun)
     {
         double newTime = SDL_GetTicks();
@@ -69,8 +67,6 @@ void Application::run()
             frameTime -= deltaTime;
         }
         window->clear();
-        sprite->update(deltaTime);
-       // rectangle.render(camera.getProjectionMatrix(),camera.getViewMatrix());
         window->swapBuffers();
     }
 }
