@@ -5,6 +5,9 @@ project(${PROJECT_NAME})
 find_library(SDL3 SDL3)
 find_library(OpenGL OpenGL)
 find_library(glm glm)
+find_library(EASTL EASTL)
+find_library(libmimalloc mimalloc)
+find_library(ANDROID_LOG_LIB log)
 
 add_library(main SHARED)
 
@@ -41,6 +44,8 @@ target_sources(main PRIVATE main.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
+include_directories(${EASTL_INCLUDE_DIR})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-target_link_libraries(main SDL3 SDL3_image GLESv3 glm)
+target_link_libraries(main SDL3 SDL3_image GLESv3 glm -llog mimalloc EASTL)
 
