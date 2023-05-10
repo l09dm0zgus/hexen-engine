@@ -15,18 +15,19 @@
 #endif
 
 #include <string>
+#include "../../Types.h"
 namespace core::rend
 {
     class Texture
     {
     public:
         void create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
-        int getId();
-        void bind(int id);
+        u32 getId();
+        void bind(u32 id);
         ~Texture();
     private:
         SDL_Surface *surface{nullptr};
-        unsigned int  textureId;
+        u32 textureId;
         void setTextureParameters(int wrapMode ,int filterMode);
 
     };

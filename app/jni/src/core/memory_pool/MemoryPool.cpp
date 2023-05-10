@@ -46,7 +46,7 @@ core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
     {
         freeAllocationIterator->freeFlag = 255u;
         freeAllocationIterator->occupiedBytes = allocationSize;
-        showLogForAllocatiton(*freeAllocationIterator);
+        showLogForAllocation(*freeAllocationIterator);
         return freeAllocationIterator->address;
     }
 
@@ -64,7 +64,7 @@ core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
 
         freeAllocationIterator->allocatedBytes = freeAllocationIterator->occupiedBytes;
 
-        showLogForAllocatiton(allocation);
+        showLogForAllocation(allocation);
 
         allocations.push_back(allocation);
 
@@ -81,7 +81,7 @@ core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
     allocation.occupiedBytes = allocationSize;
     allocation.address = lastAddress;
 
-    showLogForAllocatiton(allocation);
+    showLogForAllocation(allocation);
 
     allocations.push_back(allocation);
 
@@ -89,7 +89,7 @@ core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
     return allocation.address;
 }
 
-inline void core::mem::MemoryPool::showLogForAllocatiton(const MemoryPool::Allocation &allocation)
+inline void core::mem::MemoryPool::showLogForAllocation(const MemoryPool::Allocation &allocation)
 {
     auto freeMemory = (((u64)maxAddress) - (u64)lastAddress);
     SDL_Log("Allocated memory from address : %p.\nOccupied Bytes: %lu.\nAllocated memory for object: %lu.\nPool size : %lu.\nPool memory begin address : %p.\nAllocation objects : %zu.\nFree memory in pool: %lu.\n" ,allocation.address,allocation.occupiedBytes,allocation.allocatedBytes,size,memory,allocations.size(),freeMemory);

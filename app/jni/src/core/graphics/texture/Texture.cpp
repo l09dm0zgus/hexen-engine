@@ -18,7 +18,7 @@ core::rend::Texture::~Texture()
     SDL_DestroySurface(surface);
 }
 
-void core::rend::Texture::bind(int id)
+void core::rend::Texture::bind(u32 id)
 {
     glActiveTexture(GL_TEXTURE0+id);
     glBindTexture(GL_TEXTURE_2D,textureId);
@@ -45,7 +45,7 @@ void core::rend::Texture::create(const std::string pathToImage, int wrapMode, in
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-int core::rend::Texture::getId()
+core::u32 core::rend::Texture::getId()
 {
     return textureId;
 }

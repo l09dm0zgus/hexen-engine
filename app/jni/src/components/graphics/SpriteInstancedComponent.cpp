@@ -36,7 +36,7 @@ void comp::rend::SpriteInstancedComponent::create(const std::string &vertexShade
     instancesBuffer->unbind();
 }
 
-void comp::rend::SpriteInstancedComponent::setNumberOfInstances(int numberOfInstances)
+void comp::rend::SpriteInstancedComponent::setNumberOfInstances(core::i32 numberOfInstances)
 {
     this->numberOfInstances = numberOfInstances;
 }

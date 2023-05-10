@@ -5,18 +5,19 @@
 #ifndef BATTLEBLAZE_SPRITEINSTANCEDCOMPONENT_H
 #define BATTLEBLAZE_SPRITEINSTANCEDCOMPONENT_H
 #include "SpriteComponent.h"
+#include "../../core/Types.h"
 namespace comp::rend
 {
     class SpriteInstancedComponent : public SpriteComponent
     {
     public:
-        void setNumberOfInstances(int numberOfInstances);
+        void setNumberOfInstances(core::i32 numberOfInstances);
         void setInstancesMatrices(glm::mat4 *instancesMatrices);
         void create(const std::string &vertexShaderPath, const std::string &fragmentShaderPath) override;
         void draw() override;
     private:
         core::rend::VertexBufferObject *instancesBuffer{nullptr};
-        int numberOfInstances{0};
+        core::i32 numberOfInstances{0};
         glm::mat4 *instancesMatrices;
     };
 

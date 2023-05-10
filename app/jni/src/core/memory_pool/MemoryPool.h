@@ -29,7 +29,7 @@ namespace core::mem
         MemoryPool& operator=(MemoryPool&& memoryPool) = delete;
         MemoryPool& operator=(const MemoryPool &memoryPool) = delete;
     private:
-        inline void showLogForAllocatiton(const Allocation &allocation);
+        inline void showLogForAllocation(const Allocation &allocation);
         std::vector<Allocation> allocations;
         u64 size;
         vptr memory;

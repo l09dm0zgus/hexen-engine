@@ -30,9 +30,9 @@ void core::rend::shader::ShaderProgram::compileVertexShader()
     showCompilerLog(vertexShader);
 }
 
-void core::rend::shader::ShaderProgram::showCompilerLog(unsigned int shader)
+void core::rend::shader::ShaderProgram::showCompilerLog(u32 shader)
 {
-    int success{0};
+    i32 success{0};
     char infoLog[512];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if(!success)
@@ -68,7 +68,7 @@ void core::rend::shader::ShaderProgram::linkShaders()
 
 void core::rend::shader::ShaderProgram::showLinkerLog()
 {
-    int success{0};
+    i32 success{0};
     char infoLog[512];
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     if (!success)
@@ -84,7 +84,7 @@ void core::rend::shader::ShaderProgram::use()
     glUseProgram(shaderProgram);
 }
 
-void core::rend::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, int value)
+void core::rend::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, i32 value)
 {
     glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
 }

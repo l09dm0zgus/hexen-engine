@@ -26,8 +26,8 @@ namespace core
         SDL_DisplayMode displayMode;
         SDL_Window* window{nullptr};
         SDL_GLContext glContext;
-        int height;
-        int width;
+        u32 height;
+        u32 width;
 
     };
 }

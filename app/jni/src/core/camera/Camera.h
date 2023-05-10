@@ -5,12 +5,13 @@
 #ifndef BATTLEBLAZE_CAMERA_H
 #define BATTLEBLAZE_CAMERA_H
 #include <glm/glm.hpp>
+#include "../Types.h"
 namespace core
 {
     class Camera
     {
     public:
-        Camera(int viewportWidth,int viewportHeight,float FOV);
+        Camera(i32 viewportWidth,i32 viewportHeight,float FOV);
         void setPosition(const glm::vec3 &newPosition);
         glm::mat4 getViewMatrix();
         glm::mat4 getProjectionMatrix();

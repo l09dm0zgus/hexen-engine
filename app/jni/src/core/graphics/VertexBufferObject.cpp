@@ -30,7 +30,7 @@ void core::rend::VertexBufferObject::unbind()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void core::rend::VertexBufferObject::bind(size_t size, void *data)
+void core::rend::VertexBufferObject::bind(size_t size, vptr data)
 {
     glBindBuffer(GL_ARRAY_BUFFER, object);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);

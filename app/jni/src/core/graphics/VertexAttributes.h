@@ -5,18 +5,18 @@
 #ifndef BATTLEBLAZE_VERTEXATTRIBUTES_H
 #define BATTLEBLAZE_VERTEXATTRIBUTES_H
 #include <cstddef>
+#include "../Types.h"
 namespace core::rend
 {
     class VertexAttributes
     {
     public:
-        void add(int size,int stride,int offset);
-        void add(int size,size_t typeSize,int offset);
-        void vertexDivisor(int index,int divisor);
+        void add(i32 size,i32 stride,i32 offset);
+        void add(i32 size,size_t typeSize,i32 offset);
+        void vertexDivisor(i32 index,i32 divisor);
     private:
-        int attributes{0};
+        i32 attributes{0};
     };
 
 }
-
 #endif //BATTLEBLAZE_VERTEXATTRIBUTES_H

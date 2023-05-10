@@ -4,7 +4,7 @@
 
 #ifndef BATTLEBLAZE_VERTEXARRAYOBJECT_H
 #define BATTLEBLAZE_VERTEXARRAYOBJECT_H
-
+#include "../Types.h"
 namespace core::rend
 {
     class VertexArrayObject
@@ -15,7 +15,7 @@ namespace core::rend
         void bind();
         void unbind();
     private:
-        unsigned int object;
+        u32 object;
     };
 
 }

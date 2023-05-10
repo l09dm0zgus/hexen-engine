@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include "RectangleVertices.h"
+#include "../Types.h"
 namespace core::rend
 {
     class VertexBufferObject
@@ -15,10 +16,10 @@ namespace core::rend
         VertexBufferObject();
         ~VertexBufferObject();
         void bind(RectangleVertices &vertices);
-        void bind(size_t size,void* data);
+        void bind(size_t size,vptr data);
         void unbind();
     private:
-        unsigned int object{0};
+        u32 object{0};
     };
 }
 
