@@ -5,7 +5,7 @@
 #include "Application.h"
 #include "../graphics/Graphics.h"
 #include "../camera/Camera.h"
-//#include "../../pool/graphics/SpriteInstancedComponentPool.h"
+
 void Application::run()
 {
     bool isRun = true;
@@ -43,7 +43,7 @@ void Application::run()
   // SpriteInstancedComponentPool pool(5);
   // SpriteInstancedComponent *sprite = pool.create("shaders/SpriteVertexShaderInstanced.glsl", "shaders/SpriteFragmentShader.glsl", amount, modelMatrices);
  //  sprite->addTexture("images/test.jpg");
-   Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
+    Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
     while (isRun)
     {
         double newTime = SDL_GetTicks();
@@ -71,14 +71,8 @@ void Application::run()
     }
 }
 
-Application::~Application()
-{
-    delete window;
-    window = nullptr;
-}
-
 Application::Application()
 {
-    window = new Window("Battleblaze");
+    window = mem::make_unique<Window>("Battleblaze");
     SDL_Log("Main window created.\n");
 }

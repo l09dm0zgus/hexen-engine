@@ -11,11 +11,16 @@ class Application
 {
 public:
     Application();
-    ~Application();
+    Application(const Application &application) = delete;
+    Application(Application &&application) =delete;
+
+    Application& operator=(const Application &application) = delete;
+    Application& operator=(Application &&application) = delete;
+
     void run();
 private:
-     Window *window;
-    SDL_Event sdlEvent;
+     std::unique_ptr<Window> window;
+     SDL_Event sdlEvent{};
 };
 
 

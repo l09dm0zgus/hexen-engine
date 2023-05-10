@@ -47,7 +47,7 @@ void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity
 #include <GLES3/gl31.h>
 #endif
 
-Window::Window(const std::string &title)
+Window::Window(const std::string &title) : mem::AllocatedObject()
 {
 
 

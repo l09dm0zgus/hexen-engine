@@ -10,7 +10,9 @@
 #include <SDL.h>
 #endif
 #include <string>
-class Window
+#include "../memory_pool/AllocatedObject.h"
+
+class Window : public mem::AllocatedObject
 {
 public:
     Window(const std::string &title);

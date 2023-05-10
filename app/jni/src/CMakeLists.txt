@@ -7,7 +7,7 @@ find_library(OpenGL OpenGL)
 find_library(glm glm)
 find_library(EASTL EASTL)
 find_library(libmimalloc mimalloc)
-find_library(ANDROID_LOG_LIB log)
+
 
 add_library(main SHARED)
 
@@ -41,11 +41,17 @@ target_sources(main PRIVATE main.cpp
         components/graphics/RenderComponent.h
         components/graphics/RenderComponent.cpp
         core/uuid/uuid.h
+        core/Types.h
+        core/memory_pool/MemoryPool.h
+        core/memory_pool/MemoryPool.cpp
+        core/memory_pool/AllocatedObject.h
+        core/memory_pool/AllocatedObject.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
 include_directories(${EASTL_INCLUDE_DIR})
+include_directories(${MIMALLOC_INCLUDE_DIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-target_link_libraries(main SDL3 SDL3_image GLESv3 glm -llog mimalloc EASTL)
+target_link_libraries(main  SDL3 SDL3_image GLESv3 glm mimalloc EASTL)
 

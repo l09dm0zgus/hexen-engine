@@ -3,6 +3,7 @@
 //
 #define main SDL_main
 #include "core/application/Application.h"
+
 extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv)
 {
     Application application;
