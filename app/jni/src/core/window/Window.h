@@ -11,24 +11,25 @@
 #endif
 #include <string>
 #include "../memory_pool/AllocatedObject.h"
-
-class Window : public mem::AllocatedObject
+namespace core
 {
-public:
-    Window(const std::string &title);
-    ~Window();
-    void swapBuffers();
-    void close();
-    void clear();
-    SDL_DisplayMode getDisplayMode();
-private:
-    SDL_DisplayMode displayMode;
-    SDL_Window* window{nullptr};
-    SDL_GLContext glContext;
-    int height;
-    int width;
+    class Window : public mem::AllocatedObject
+    {
+    public:
+        Window(const std::string &title);
+        ~Window();
+        void swapBuffers();
+        void close();
+        void clear();
+        SDL_DisplayMode getDisplayMode();
+    private:
+        SDL_DisplayMode displayMode;
+        SDL_Window* window{nullptr};
+        SDL_GLContext glContext;
+        int height;
+        int width;
 
-};
-
+    };
+}
 
 #endif //BATTLEBLAZE_WINDOW_H

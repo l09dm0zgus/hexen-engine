@@ -47,7 +47,7 @@ void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity
 #include <GLES3/gl31.h>
 #endif
 
-Window::Window(const std::string &title) : mem::AllocatedObject()
+core::Window::Window(const std::string &title) : mem::AllocatedObject()
 {
 
 
@@ -108,7 +108,7 @@ Window::Window(const std::string &title) : mem::AllocatedObject()
 
 }
 
-void Window::close()
+void core::Window::close()
 {
     SDL_DestroyWindow(window);
     window = nullptr;
@@ -116,12 +116,12 @@ void Window::close()
     SDL_Quit();
 }
 
-void Window::swapBuffers()
+void core::Window::swapBuffers()
 {
     SDL_GL_SwapWindow(window);
 }
 
-void Window::clear()
+void core::Window::clear()
 {
     // Set background color as cornflower blue
     glClearColor(0.39f, 0.58f, 0.93f, 1.f);
@@ -129,13 +129,13 @@ void Window::clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-Window::~Window()
+core::Window::~Window()
 {
  SDL_Log("Main Window has been destroyed.\n");
  close();
 }
 
-SDL_DisplayMode Window::getDisplayMode()
+SDL_DisplayMode core::Window::getDisplayMode()
 {
     return displayMode;
 }

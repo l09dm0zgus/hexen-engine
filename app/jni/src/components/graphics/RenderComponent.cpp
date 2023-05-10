@@ -3,17 +3,22 @@
 //
 #include "RenderComponent.h"
 
-void RenderComponent::setCamera(Camera *camera)
+void comp::rend::RenderComponent::setCamera(core::Camera *camera)
 {
     this->camera = camera;
 }
 
-void RenderComponent::update(float deltaTime)
+void comp::rend::RenderComponent::update(float deltaTime)
 {
     draw();
 }
 
-void RenderComponent::start()
+void comp::rend::RenderComponent::start()
+{
+
+}
+
+comp::rend::RenderComponent::~RenderComponent()
 {
 
 }

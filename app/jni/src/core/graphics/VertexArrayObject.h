@@ -5,17 +5,18 @@
 #ifndef BATTLEBLAZE_VERTEXARRAYOBJECT_H
 #define BATTLEBLAZE_VERTEXARRAYOBJECT_H
 
-
-class VertexArrayObject
+namespace core::rend
 {
-public:
-    VertexArrayObject();
-    ~VertexArrayObject();
-    void bind();
-    void unbind();
-private:
-    unsigned int object;
-};
+    class VertexArrayObject
+    {
+    public:
+        VertexArrayObject();
+        ~VertexArrayObject();
+        void bind();
+        void unbind();
+    private:
+        unsigned int object;
+    };
 
-
+}
 #endif //BATTLEBLAZE_VERTEXARRAYOBJECT_H

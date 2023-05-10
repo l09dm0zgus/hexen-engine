@@ -4,15 +4,17 @@
 
 #ifndef BATTLEBLAZE_ICOMPONENT_H
 #define BATTLEBLAZE_ICOMPONENT_H
-#include "../core/uuid/uuid.h"
-class IComponent
+#include "../core/memory_pool/AllocatedObject.h"
+namespace comp
 {
-public:
-    virtual ~IComponent(){};
-    IComponent(){}
-    virtual void start() = 0;
-    virtual void update(float deltaTime) = 0;
-    std::string  uuid = generateUUIDV4();
-};
+    class IComponent : public core::mem::AllocatedObject
+    {
+    public:
+        ~IComponent() = default;;
+        virtual void start() = 0;
+        virtual void update(float deltaTime) = 0;
+    };
+}
+
 
 #endif //BATTLEBLAZE_ICOMPONENT_H

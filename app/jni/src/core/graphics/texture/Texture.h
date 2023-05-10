@@ -15,20 +15,21 @@
 #endif
 
 #include <string>
-
-class Texture
+namespace core::rend
 {
-public:
-    void create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
-    int getId();
-    void bind(int id);
-    ~Texture();
-private:
-    SDL_Surface *surface{nullptr};
-    unsigned int  textureId;
-    void setTextureParameters(int wrapMode ,int filterMode);
+    class Texture
+    {
+    public:
+        void create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
+        int getId();
+        void bind(int id);
+        ~Texture();
+    private:
+        SDL_Surface *surface{nullptr};
+        unsigned int  textureId;
+        void setTextureParameters(int wrapMode ,int filterMode);
 
-};
-
+    };
+}
 
 #endif //BATTLEBLAZE_TEXTURE_H

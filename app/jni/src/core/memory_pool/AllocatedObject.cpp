@@ -5,8 +5,8 @@
 #include "AllocatedObject.h"
 #include "SDL_log.h"
 
-std::unique_ptr<mem::MemoryPool> mem::AllocatedObject::memoryPool = nullptr;
-vptr mem::AllocatedObject::operator new(u64 size)
+std::unique_ptr<core::mem::MemoryPool> core::mem::AllocatedObject::memoryPool = nullptr;
+core::vptr core::mem::AllocatedObject::operator new(u64 size)
 {
     if(memoryPool == nullptr)
     {
@@ -35,7 +35,7 @@ vptr mem::AllocatedObject::operator new(u64 size)
     }
 }
 
-void mem::AllocatedObject::operator delete(vptr address) noexcept
+void core::mem::AllocatedObject::operator delete(core::vptr address) noexcept
 {
     if(address == nullptr || memoryPool == nullptr)
     {
@@ -43,3 +43,4 @@ void mem::AllocatedObject::operator delete(vptr address) noexcept
     }
     memoryPool->free(address);
 }
+

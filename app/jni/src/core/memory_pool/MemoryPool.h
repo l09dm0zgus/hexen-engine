@@ -6,7 +6,7 @@
 #define BATTLEBLAZE_MEMORYPOOL_H
 #include "../Types.h"
 #include <vector>
-namespace mem
+namespace core::mem
 {
     class MemoryPool
     {

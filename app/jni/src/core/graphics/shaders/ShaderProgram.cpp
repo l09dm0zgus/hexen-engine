@@ -12,7 +12,7 @@
 #endif
 #include <glm/gtc/type_ptr.hpp>
 
-ShaderProgram::ShaderProgram(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+core::rend::shader::ShaderProgram::ShaderProgram(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
 {
     vertexShaderFile.read(vertexShaderPath);
     fragmentShaderFile.read(fragmentShaderPath);
@@ -21,7 +21,7 @@ ShaderProgram::ShaderProgram(const std::string &vertexShaderPath,const std::stri
     linkShaders();
 }
 
-void ShaderProgram::compileVertexShader()
+void core::rend::shader::ShaderProgram::compileVertexShader()
 {
     vertexShaderText = vertexShaderFile.getContent();
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -30,7 +30,7 @@ void ShaderProgram::compileVertexShader()
     showCompilerLog(vertexShader);
 }
 
-void ShaderProgram::showCompilerLog(unsigned int shader)
+void core::rend::shader::ShaderProgram::showCompilerLog(unsigned int shader)
 {
     int success{0};
     char infoLog[512];
@@ -42,7 +42,7 @@ void ShaderProgram::showCompilerLog(unsigned int shader)
     }
 }
 
-void ShaderProgram::compileFragmentShader()
+void core::rend::shader::ShaderProgram::compileFragmentShader()
 {
     fragmentShaderText = fragmentShaderFile.getContent();
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -51,13 +51,13 @@ void ShaderProgram::compileFragmentShader()
     showCompilerLog(fragmentShader);
 }
 
-ShaderProgram::~ShaderProgram()
+core::rend::shader::ShaderProgram::~ShaderProgram()
 {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }
 
-void ShaderProgram::linkShaders()
+void core::rend::shader::ShaderProgram::linkShaders()
 {
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
@@ -66,7 +66,7 @@ void ShaderProgram::linkShaders()
     showLinkerLog();
 }
 
-void ShaderProgram::showLinkerLog()
+void core::rend::shader::ShaderProgram::showLinkerLog()
 {
     int success{0};
     char infoLog[512];
@@ -79,17 +79,17 @@ void ShaderProgram::showLinkerLog()
     }
 }
 
-void ShaderProgram::use()
+void core::rend::shader::ShaderProgram::use()
 {
     glUseProgram(shaderProgram);
 }
 
-void ShaderProgram::setIntUniform(const std::string &uniformVariable, int value)
+void core::rend::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, int value)
 {
     glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
 }
 
-void ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix)
+void core::rend::shader::ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }

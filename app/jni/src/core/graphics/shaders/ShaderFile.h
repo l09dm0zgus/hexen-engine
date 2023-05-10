@@ -5,15 +5,18 @@
 #ifndef BATTLEBLAZE_SHADERFILE_H
 #define BATTLEBLAZE_SHADERFILE_H
 #include <string>
-
-class ShaderFile
+namespace core::rend::shader
 {
-private:
-    std::string shaderText;
-public:
-    void read( const std::string &path);
-    char *getContent();
-};
+    class ShaderFile
+    {
+    private:
+        std::string shaderText;
+    public:
+        void read( const std::string &path);
+        char *getContent();
+    };
+
+}
 
 
 #endif //BATTLEBLAZE_SHADERFILE_H

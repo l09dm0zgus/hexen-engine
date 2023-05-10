@@ -6,7 +6,7 @@
 #include "../graphics/Graphics.h"
 #include "../camera/Camera.h"
 
-void Application::run()
+void core::Application::run()
 {
     bool isRun = true;
     SDL_Log("Main thread started.\n");
@@ -71,7 +71,7 @@ void Application::run()
     }
 }
 
-Application::Application()
+core::Application::Application()
 {
     window = mem::make_unique<Window>("Battleblaze");
     SDL_Log("Main window created.\n");

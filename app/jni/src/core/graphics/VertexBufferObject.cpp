@@ -9,28 +9,28 @@
 #include <GLES3/gl31.h>
 #endif
 
-VertexBufferObject::VertexBufferObject()
+core::rend::VertexBufferObject::VertexBufferObject()
 {
     glGenBuffers(1,&object);
 }
 
-VertexBufferObject::~VertexBufferObject()
+core::rend::VertexBufferObject::~VertexBufferObject()
 {
     glDeleteBuffers(1, &object);
 }
 
-void VertexBufferObject::bind(RectangleVertices &vertices)
+void core::rend::VertexBufferObject::bind(RectangleVertices &vertices)
 {
     glBindBuffer(GL_ARRAY_BUFFER,object);
     glBufferData(GL_ARRAY_BUFFER,sizeof(vertices.data),vertices.data,GL_STATIC_DRAW);
 }
 
-void VertexBufferObject::unbind()
+void core::rend::VertexBufferObject::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void VertexBufferObject::bind(size_t size, void *data)
+void core::rend::VertexBufferObject::bind(size_t size, void *data)
 {
     glBindBuffer(GL_ARRAY_BUFFER, object);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);

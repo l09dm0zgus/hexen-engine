@@ -9,18 +9,23 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-class RenderComponent : public IComponent
+namespace comp::rend
 {
-public:
-    virtual ~RenderComponent(){};
-    virtual void start() override;
-    virtual void update(float deltaTime) override;
-    void setCamera(Camera *camera);
-    virtual void create(const std::string &vertexShaderPath , const std::string &fragmentShaderPath) = 0;
-    virtual void draw() = 0;
+    class RenderComponent : public IComponent
+    {
+    public:
+        ~RenderComponent();
+        virtual void start() override;
+        virtual void update(float deltaTime) override;
+        void setCamera(core::Camera *camera);
+        virtual void create(const std::string &vertexShaderPath , const std::string &fragmentShaderPath) = 0;
+        virtual void draw() = 0;
 
-protected:
-    Camera *camera;
-};
+    protected:
+        core::Camera *camera;
+    };
+}
+
+
 
 #endif //BATTLEBLAZE_RENDERCOMPONENT_H

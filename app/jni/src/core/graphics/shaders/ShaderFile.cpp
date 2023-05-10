@@ -11,7 +11,7 @@
 #include <SDL.h>
 #endif
 
-void ShaderFile::read(const std::string &path)
+void core::rend::shader::ShaderFile::read(const std::string &path)
 {
     SDL_RWops *file = SDL_RWFromFile(path.c_str(),"r");
     if(file != nullptr)
@@ -37,7 +37,7 @@ void ShaderFile::read(const std::string &path)
     SDL_RWclose(file);
 }
 
-char *ShaderFile::getContent()
+char *core::rend::shader::ShaderFile::getContent()
 {
     return const_cast<char *>(shaderText.c_str());
 }

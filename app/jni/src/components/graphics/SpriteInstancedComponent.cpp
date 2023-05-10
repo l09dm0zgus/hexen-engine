@@ -4,7 +4,7 @@
 
 #include "SpriteInstancedComponent.h"
 
-void SpriteInstancedComponent::draw()
+void comp::rend::SpriteInstancedComponent::draw()
 {
 
     shaderProgram->use();
@@ -15,10 +15,10 @@ void SpriteInstancedComponent::draw()
     glDrawArraysInstanced(GL_TRIANGLES, 0, 6,numberOfInstances);
 }
 
-void SpriteInstancedComponent::create(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
+void comp::rend::SpriteInstancedComponent::create(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
 {
     SpriteComponent::create(vertexShaderPath, fragmentShaderPath);
-    instancesBuffer = new VertexBufferObject();
+    instancesBuffer = new core::rend::VertexBufferObject();
     VAO->bind();
     instancesBuffer->bind(numberOfInstances*sizeof(glm::mat4), (void *) &instancesMatrices[0]);
 
@@ -36,12 +36,12 @@ void SpriteInstancedComponent::create(const std::string &vertexShaderPath, const
     instancesBuffer->unbind();
 }
 
-void SpriteInstancedComponent::setNumberOfInstances(int numberOfInstances)
+void comp::rend::SpriteInstancedComponent::setNumberOfInstances(int numberOfInstances)
 {
     this->numberOfInstances = numberOfInstances;
 }
 
-void SpriteInstancedComponent::setInstancesMatrices(glm::mat4 *instancesMatrices)
+void comp::rend::SpriteInstancedComponent::setInstancesMatrices(glm::mat4 *instancesMatrices)
 {
     this->instancesMatrices = instancesMatrices;
 }

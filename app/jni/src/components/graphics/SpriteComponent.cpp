@@ -9,7 +9,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-SpriteComponent::~SpriteComponent()
+comp::rend::SpriteComponent::~SpriteComponent()
 {
     delete shaderProgram;
     shaderProgram = nullptr;
@@ -22,7 +22,7 @@ SpriteComponent::~SpriteComponent()
     VBO = nullptr;
 }
 
-void SpriteComponent::draw()
+void comp::rend::SpriteComponent::draw()
 {
     shaderProgram->setMatrix4Uniform("model" , transform.getTransformMatrix());
     shaderProgram->setMatrix4Uniform("projection",camera->getProjectionMatrix());
@@ -33,16 +33,16 @@ void SpriteComponent::draw()
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SpriteComponent::addTexture(const std::string &pathToImage)
+void comp::rend::SpriteComponent::addTexture(const std::string &pathToImage)
 {
     shaderProgram->use();
     shaderProgram->setIntUniform("textures[" +std::to_string(textures.size())+"]",textures.size());
-    Texture *texture = new Texture();
+    core::rend::Texture *texture = new core::rend::Texture();
     texture->create((pathToImage));
     textures.push_back(texture);
 }
 
-void SpriteComponent::bindTextures()
+void comp::rend::SpriteComponent::bindTextures()
 {
     for(int i = 0;i<textures.size();i++)
     {
@@ -50,22 +50,22 @@ void SpriteComponent::bindTextures()
     }
 }
 
-void SpriteComponent::setTransform(const Transform &transform)
+void comp::rend::SpriteComponent::setTransform(const Transform &transform)
 {
     this->transform = transform;
 }
 
-Transform SpriteComponent::getTransform()
+Transform comp::rend::SpriteComponent::getTransform()
 {
     return transform;
 }
 
-void SpriteComponent::create(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+void comp::rend::SpriteComponent::create(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
 {
     textures.reserve(5);
-    shaderProgram = new ShaderProgram(vertexShaderPath,fragmentShaderPath);
-    VAO =  new VertexArrayObject();
-    VBO = new VertexBufferObject();
+    shaderProgram = new core::rend::shader::ShaderProgram(vertexShaderPath,fragmentShaderPath);
+    VAO =  new core::rend::VertexArrayObject();
+    VBO = new core::rend::VertexBufferObject();
     VAO->bind();
     VBO->bind(vertices);
     attributes.add(3,5,0);

@@ -5,24 +5,25 @@
 #ifndef BATTLEBLAZE_RECTANGLEVERTICES_H
 #define BATTLEBLAZE_RECTANGLEVERTICES_H
 
-
-class RectangleVertices
+namespace core::rend
 {
-public:
-    float data[30]
+    class RectangleVertices
     {
-        -0.5f,-0.5f,0.0f, 0.0f,0.0f,
-        -0.5f, 0.5f,0.0f, 0.0f,1.0f,
-         0.5f, 0.5f,0.0f, 1.0f,1.0f,
-         0.5f, 0.5f,0.0f, 1.0f,1.0f,
-         0.5f,-0.5f,0.0f, 1.0f,0.0f,
-         -0.5f,-0.5f,0.0f, 0.0f,0.0f
+    public:
+        float data[30]
+                {
+                        -0.5f,-0.5f,0.0f, 0.0f,0.0f,
+                        -0.5f, 0.5f,0.0f, 0.0f,1.0f,
+                        0.5f, 0.5f,0.0f, 1.0f,1.0f,
+                        0.5f, 0.5f,0.0f, 1.0f,1.0f,
+                        0.5f,-0.5f,0.0f, 1.0f,0.0f,
+                        -0.5f,-0.5f,0.0f, 0.0f,0.0f
+
+                };
+
+    private:
 
     };
-
-private:
-
-};
-
+}
 
 #endif //BATTLEBLAZE_RECTANGLEVERTICES_H

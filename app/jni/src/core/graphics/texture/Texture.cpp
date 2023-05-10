@@ -4,7 +4,7 @@
 
 #include "Texture.h"
 
-void Texture::setTextureParameters(int wrapMode, int filterMode)
+void core::rend::Texture::setTextureParameters(int wrapMode, int filterMode)
 {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
@@ -13,18 +13,18 @@ void Texture::setTextureParameters(int wrapMode, int filterMode)
 
 }
 
-Texture::~Texture()
+core::rend::Texture::~Texture()
 {
     SDL_DestroySurface(surface);
 }
 
-void Texture::bind(int id)
+void core::rend::Texture::bind(int id)
 {
     glActiveTexture(GL_TEXTURE0+id);
     glBindTexture(GL_TEXTURE_2D,textureId);
 }
 
-void Texture::create(const std::string pathToImage, int wrapMode, int filterMode)
+void core::rend::Texture::create(const std::string pathToImage, int wrapMode, int filterMode)
 {
     surface = IMG_Load(pathToImage.c_str());
     if(surface == nullptr)
@@ -45,7 +45,7 @@ void Texture::create(const std::string pathToImage, int wrapMode, int filterMode
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-int Texture::getId()
+int core::rend::Texture::getId()
 {
     return textureId;
 }

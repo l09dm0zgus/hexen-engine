@@ -6,7 +6,7 @@
 
 extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv)
 {
-    Application application;
+    core::Application application;
     application.run();
     return(0);
 }

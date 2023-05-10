@@ -9,7 +9,7 @@
 #include "../Types.h"
 #include "MemoryPool.h"
 #include <memory>
-namespace mem
+namespace core::mem
 {
     class AllocatedObject
     {
