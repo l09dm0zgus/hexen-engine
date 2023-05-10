@@ -15,15 +15,14 @@
 #endif
 
 #include <string>
-#include "../../Types.h"
+#include "../../memory_pool/AllocatedObject.h"
 namespace core::rend
 {
-    class Texture
+    class Texture : public mem::AllocatedObject
     {
     public:
-        void create(const std::string pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
-        u32 getId();
-        void bind(u32 id);
+        Texture(const std::string &pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
+        void bind(u32 id) const;
         ~Texture();
     private:
         SDL_Surface *surface{nullptr};

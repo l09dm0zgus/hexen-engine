@@ -18,13 +18,13 @@ core::rend::Texture::~Texture()
     SDL_DestroySurface(surface);
 }
 
-void core::rend::Texture::bind(u32 id)
+void core::rend::Texture::bind(u32 id) const
 {
     glActiveTexture(GL_TEXTURE0+id);
     glBindTexture(GL_TEXTURE_2D,textureId);
 }
 
-void core::rend::Texture::create(const std::string pathToImage, int wrapMode, int filterMode)
+core::rend::Texture::Texture(const std::string &pathToImage, int wrapMode, int filterMode) : textureId(0)
 {
     surface = IMG_Load(pathToImage.c_str());
     if(surface == nullptr)
@@ -45,7 +45,4 @@ void core::rend::Texture::create(const std::string pathToImage, int wrapMode, in
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-core::u32 core::rend::Texture::getId()
-{
-    return textureId;
-}
+

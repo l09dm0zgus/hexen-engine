@@ -30,7 +30,7 @@ void core::rend::shader::ShaderProgram::compileVertexShader()
     showCompilerLog(vertexShader);
 }
 
-void core::rend::shader::ShaderProgram::showCompilerLog(u32 shader)
+inline void core::rend::shader::ShaderProgram::showCompilerLog(u32 shader) const noexcept
 {
     i32 success{0};
     char infoLog[512];
@@ -42,7 +42,7 @@ void core::rend::shader::ShaderProgram::showCompilerLog(u32 shader)
     }
 }
 
-void core::rend::shader::ShaderProgram::compileFragmentShader()
+inline void core::rend::shader::ShaderProgram::compileFragmentShader()
 {
     fragmentShaderText = fragmentShaderFile.getContent();
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -66,7 +66,7 @@ void core::rend::shader::ShaderProgram::linkShaders()
     showLinkerLog();
 }
 
-void core::rend::shader::ShaderProgram::showLinkerLog()
+void core::rend::shader::ShaderProgram::showLinkerLog() const noexcept
 {
     i32 success{0};
     char infoLog[512];
@@ -79,17 +79,17 @@ void core::rend::shader::ShaderProgram::showLinkerLog()
     }
 }
 
-void core::rend::shader::ShaderProgram::use()
+void core::rend::shader::ShaderProgram::use() const noexcept
 {
     glUseProgram(shaderProgram);
 }
 
-void core::rend::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, i32 value)
+void core::rend::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, i32 value) const
 {
     glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
 }
 
-void core::rend::shader::ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix)
+void core::rend::shader::ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const
 {
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }
