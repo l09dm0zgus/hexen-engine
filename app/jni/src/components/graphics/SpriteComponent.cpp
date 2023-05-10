@@ -9,37 +9,22 @@
 #include <GLES3/gl31.h>
 #endif
 
-comp::rend::SpriteComponent::~SpriteComponent()
-{
-    delete shaderProgram;
-    shaderProgram = nullptr;
-
-    VAO->unbind();
-    delete VAO;
-    VAO = nullptr;
-
-    delete VBO;
-    VBO = nullptr;
-}
-
-void comp::rend::SpriteComponent::draw()
+void comp::rend::SpriteComponent::draw() noexcept
 {
     shaderProgram->setMatrix4Uniform("model" , transform.getTransformMatrix());
     shaderProgram->setMatrix4Uniform("projection",camera->getProjectionMatrix());
     shaderProgram->setMatrix4Uniform("view" , camera->getViewMatrix());
     shaderProgram->use();
     bindTextures();
-    VAO->bind();
+    VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void comp::rend::SpriteComponent::addTexture(const std::string &pathToImage)
 {
     shaderProgram->use();
-    shaderProgram->setIntUniform("textures[" +std::to_string(textures.size())+"]",textures.size());
-    core::rend::Texture *texture = new core::rend::Texture();
-    texture->create((pathToImage));
-    textures.push_back(texture);
+    shaderProgram->setIntUniform("textures[" +std::to_string(textures.size())+"]",static_cast<core::i32>(textures.size()));
+    textures.push_back(core::mem::make_unique<core::rend::Texture>(pathToImage));
 }
 
 void comp::rend::SpriteComponent::bindTextures()
@@ -60,16 +45,15 @@ Transform comp::rend::SpriteComponent::getTransform()
     return transform;
 }
 
-void comp::rend::SpriteComponent::create(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+comp::rend::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
 {
     textures.reserve(5);
-    shaderProgram = new core::rend::shader::ShaderProgram(vertexShaderPath,fragmentShaderPath);
-    VAO =  new core::rend::VertexArrayObject();
-    VBO = new core::rend::VertexBufferObject();
-    VAO->bind();
-    VBO->bind(vertices);
+    shaderProgram = core::mem::make_shared<core::rend::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);
+    VAO.bind();
+    VBO.bind(vertices);
     attributes.add(3,5,0);
     attributes.add(2,5,3);
-    VBO->unbind();
-    VAO->unbind();
+    VBO.unbind();
+    VAO.unbind();
 }
+

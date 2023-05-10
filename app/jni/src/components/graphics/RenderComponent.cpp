@@ -17,8 +17,3 @@ void comp::rend::RenderComponent::start()
 {
 
 }
-
-comp::rend::RenderComponent::~RenderComponent()
-{
-
-}

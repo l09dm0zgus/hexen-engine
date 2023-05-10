@@ -14,11 +14,10 @@ namespace comp::rend
     class RenderComponent : public IComponent
     {
     public:
-        ~RenderComponent();
+        ~RenderComponent() = default;
         virtual void start() override;
         virtual void update(float deltaTime) override;
         void setCamera(core::Camera *camera);
-        virtual void create(const std::string &vertexShaderPath , const std::string &fragmentShaderPath) = 0;
         virtual void draw() = 0;
 
     protected:

@@ -11,14 +11,12 @@ namespace comp::rend
     class SpriteInstancedComponent : public SpriteComponent
     {
     public:
-        void setNumberOfInstances(core::i32 numberOfInstances);
-        void setInstancesMatrices(glm::mat4 *instancesMatrices);
-        void create(const std::string &vertexShaderPath, const std::string &fragmentShaderPath) override;
-        void draw() override;
+        SpriteInstancedComponent(const std::string &vertexShaderPath , const std::string &fragmentShaderPath,core::i32 numberOfInstances,glm::mat4 *instancesMatrices);
+        void draw() noexcept override;
     private:
-        core::rend::VertexBufferObject *instancesBuffer{nullptr};
+        core::rend::VertexBufferObject instancesBuffer;
         core::i32 numberOfInstances{0};
-        glm::mat4 *instancesMatrices;
+        glm::mat4 *instancesMatrices{nullptr};
     };
 
 }
