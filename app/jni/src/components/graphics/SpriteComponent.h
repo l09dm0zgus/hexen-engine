@@ -10,7 +10,6 @@
 #include "../../core/graphics/RectangleVertices.h"
 #include "../../core/graphics/VertexAttributes.h"
 #include "../../core/graphics/texture/Texture.h"
-#include "../../core/transform/Transform.h"
 #include <vector>
 #include "RenderComponent.h"
 namespace comp::rend
@@ -22,10 +21,7 @@ namespace comp::rend
         ~SpriteComponent() = default;
         void draw() noexcept override;
         void addTexture(const std::string &pathToImage);
-        void setTransform(const Transform &transform);
-        Transform getTransform();
     private:
-        Transform transform;
         std::vector<std::unique_ptr<core::rend::Texture>> textures;
         core::rend::VertexBufferObject VBO;
         core::rend::RectangleVertices vertices;

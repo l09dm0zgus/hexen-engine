@@ -11,13 +11,14 @@
 
 void comp::rend::SpriteComponent::draw() noexcept
 {
-    shaderProgram->setMatrix4Uniform("model" , transform.getTransformMatrix());
-    shaderProgram->setMatrix4Uniform("projection",camera->getProjectionMatrix());
-    shaderProgram->setMatrix4Uniform("view" , camera->getViewMatrix());
+    shaderProgram->setMatrix4Uniform("model" , getTransformMatrix());
+    shaderProgram->setMatrix4Uniform("projection",getProjectionMatrix());
+    shaderProgram->setMatrix4Uniform("view" , getViewMatrix());
     shaderProgram->use();
     bindTextures();
     VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
 }
 
 void comp::rend::SpriteComponent::addTexture(const std::string &pathToImage)
@@ -33,16 +34,6 @@ void comp::rend::SpriteComponent::bindTextures()
     {
         textures[0]->bind(i);
     }
-}
-
-void comp::rend::SpriteComponent::setTransform(const Transform &transform)
-{
-    this->transform = transform;
-}
-
-Transform comp::rend::SpriteComponent::getTransform()
-{
-    return transform;
 }
 
 comp::rend::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)

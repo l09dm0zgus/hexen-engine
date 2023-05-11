@@ -8,8 +8,8 @@ void comp::rend::SpriteInstancedComponent::draw() noexcept
 {
 
     shaderProgram->use();
-    shaderProgram->setMatrix4Uniform("projection",camera->getProjectionMatrix());
-    shaderProgram->setMatrix4Uniform("view" , camera->getViewMatrix());
+    shaderProgram->setMatrix4Uniform("projection",getProjectionMatrix());
+    shaderProgram->setMatrix4Uniform("view" , getViewMatrix());
     bindTextures();
     VAO.bind();
     glDrawArraysInstanced(GL_TRIANGLES, 0, 6,numberOfInstances);
