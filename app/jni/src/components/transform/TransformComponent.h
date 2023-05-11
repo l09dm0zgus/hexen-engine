@@ -43,6 +43,8 @@ namespace comp
         glm::mat4 getTransformMatrix(const glm::mat4 &parentTransform);
         glm::mat4 getTransformMatrix() const noexcept;
 
+        bool isStatic{true};
+
         void start() override;
         void update(float  deltaTime) override;
     private:

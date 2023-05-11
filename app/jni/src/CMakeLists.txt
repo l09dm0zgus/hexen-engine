@@ -32,13 +32,13 @@ target_sources(main PRIVATE main.cpp
         components/graphics/SpriteInstancedComponent.cpp
         core/graphics/texture/Texture.h
         core/graphics/texture/Texture.cpp
-        core/transform/Transform.h
-        core/transform/Transform.cpp
         core/camera/Camera.h
         core/camera/Camera.cpp
         components/IComponent.h
         components/graphics/RenderComponent.h
         components/graphics/RenderComponent.cpp
+        components/transform/TransformComponent.h
+        components/transform/TransformComponent.cpp
         core/uuid/uuid.h
         core/Types.h
         core/memory_pool/MemoryPool.h
