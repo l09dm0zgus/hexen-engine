@@ -4,13 +4,13 @@
 
 #ifndef BATTLEBLAZE_RENDERCOMPONENT_H
 #define BATTLEBLAZE_RENDERCOMPONENT_H
-#include "../IComponent.h"
+#include "../Component.h"
 #include <glm/glm.hpp>
 #include <iostream>
 
 namespace comp::rend
 {
-    class RenderComponent : public IComponent
+    class RenderComponent : public Component
     {
     public:
         ~RenderComponent() = default;

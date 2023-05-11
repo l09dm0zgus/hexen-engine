@@ -7,12 +7,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../IComponent.h"
+#include "../Component.h"
 #define GLM_SWIZZLE
 
 namespace comp
 {
-    class TransformComponent: comp::IComponent
+    class TransformComponent: comp::Component
     {
     public:
         TransformComponent() = default;

@@ -6,10 +6,10 @@
 #define BATTLEBLAZE_CAMERACOMPONENT_H
 #include <glm/glm.hpp>
 #include "../Types.h"
-#include "../IComponent.h"
+#include "../Component.h"
 namespace comp
 {
-    class CameraComponent :: public IComponent
+    class CameraComponent :: public Component
     {
     public:
         CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
