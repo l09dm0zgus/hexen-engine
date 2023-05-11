@@ -5,7 +5,6 @@
 #ifndef BATTLEBLAZE_RENDERCOMPONENT_H
 #define BATTLEBLAZE_RENDERCOMPONENT_H
 #include "../IComponent.h"
-#include "../../core/camera/Camera.h"
 #include <glm/glm.hpp>
 #include <iostream>
 
