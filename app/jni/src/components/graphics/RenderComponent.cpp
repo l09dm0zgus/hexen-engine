@@ -13,17 +13,17 @@ void comp::rend::RenderComponent::start()
 
 }
 
-inline glm::mat4 comp::rend::RenderComponent::getProjectionMatrix() const noexcept
+glm::mat4 comp::rend::RenderComponent::getProjectionMatrix() const noexcept
 {
     return projection;
 }
 
-inline glm::mat4 comp::rend::RenderComponent::getViewMatrix() const noexcept
+glm::mat4 comp::rend::RenderComponent::getViewMatrix() const noexcept
 {
     return view;
 }
 
-inline glm::mat4 comp::rend::RenderComponent::getTransformMatrix() const noexcept
+glm::mat4 comp::rend::RenderComponent::getTransformMatrix() const noexcept
 {
     return transform;
 }
