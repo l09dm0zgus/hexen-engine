@@ -13,7 +13,7 @@ namespace comp
     {
     public:
         CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
-        template<class T>void comp::CameraComponent::setPosition(T&& newPosition) noexcept;
+        template<class T>void setPosition(T&& newPosition) noexcept;
         glm::mat4 getViewMatrix();
         glm::mat4 getProjectionMatrix();
     private:

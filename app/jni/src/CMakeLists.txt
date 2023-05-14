@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 project(${PROJECT_NAME})
+set(CMAKE_CXX_STANDARD 17)
 
 find_library(SDL3 SDL3)
 find_library(OpenGL OpenGL)
@@ -15,7 +16,7 @@ target_sources(main PRIVATE main.cpp
         core/window/Window.h
         core/application/Application.h
         core/application/Application.cpp
-        core/graphics/RectangleVertices.h
+        core/graphics/RectangleData.h
         core/graphics/VertexBufferObject.h
         core/graphics/VertexBufferObject.cpp
         core/graphics/shaders/ShaderFile.h
@@ -26,15 +27,17 @@ target_sources(main PRIVATE main.cpp
         core/graphics/VertexAttributes.cpp
         core/graphics/VertexArrayObject.h
         core/graphics/VertexArrayObject.cpp
+        core/graphics/ElementsBufferObject.h
+        core/graphics/ElementsBufferObject.cpp
         components/graphics/SpriteComponent.h
         components/graphics/SpriteComponent.cpp
         components/graphics/SpriteInstancedComponent.h
         components/graphics/SpriteInstancedComponent.cpp
         core/graphics/texture/Texture.h
         core/graphics/texture/Texture.cpp
-        core/camera/Camera.h
-        core/camera/Camera.cpp
-        components/IComponent.h
+        components/camera/CameraComponent.h
+        components/camera/CameraComponent.cpp
+        components/Component.h
         components/graphics/RenderComponent.h
         components/graphics/RenderComponent.cpp
         components/transform/TransformComponent.h
@@ -49,6 +52,5 @@ target_sources(main PRIVATE main.cpp
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 target_link_libraries(main  SDL3 SDL3_image GLESv3 glm)
 
