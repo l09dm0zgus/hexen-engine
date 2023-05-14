@@ -5,7 +5,7 @@
 #ifndef BATTLEBLAZE_GRAPHICS_H
 #define BATTLEBLAZE_GRAPHICS_H
 
-#include "RectangleVertices.h"
+#include "RectangleData.h"
 #include "shaders/Shaders.h"
 #include "VertexArrayObject.h"
 #include "VertexAttributes.h"
