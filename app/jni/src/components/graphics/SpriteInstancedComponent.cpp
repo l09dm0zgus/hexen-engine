@@ -12,7 +12,7 @@ void comp::rend::SpriteInstancedComponent::draw() noexcept
     shaderProgram->setMatrix4Uniform("view" , getViewMatrix());
     bindTextures();
     VAO.bind();
-    glDrawArraysInstanced(GL_TRIANGLES, 0, 6,numberOfInstances);
+    glDrawElementsInstanced(GL_TRIANGLES, 0, 6, nullptr,numberOfInstances);
 }
 
 comp::rend::SpriteInstancedComponent::SpriteInstancedComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath,core::i32 numberOfInstances, glm::mat4 *instancesMatrices)  : SpriteComponent(vertexShaderPath,fragmentShaderPath) , numberOfInstances(numberOfInstances),instancesMatrices(instancesMatrices)

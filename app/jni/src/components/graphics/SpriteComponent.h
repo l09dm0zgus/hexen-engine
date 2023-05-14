@@ -7,11 +7,13 @@
 #include "../../core/graphics/shaders/Shaders.h"
 #include "../../core/graphics/VertexBufferObject.h"
 #include "../../core/graphics/VertexArrayObject.h"
-#include "../../core/graphics/RectangleVertices.h"
+#include "../../core/graphics/RectangleData.h"
 #include "../../core/graphics/VertexAttributes.h"
 #include "../../core/graphics/texture/Texture.h"
+#include "../../core/graphics/ElementsBufferObject.h"
 #include <vector>
 #include "RenderComponent.h"
+
 namespace comp::rend
 {
     class SpriteComponent : public RenderComponent
@@ -24,7 +26,8 @@ namespace comp::rend
     private:
         std::vector<std::unique_ptr<core::rend::Texture>> textures;
         core::rend::VertexBufferObject VBO;
-        core::rend::RectangleVertices vertices;
+        core::rend::RectangleData vertices;
+        core::rend::ElementsBufferObject EBO;
     protected:
         core::rend::VertexAttributes attributes;
         core::rend::VertexArrayObject VAO;

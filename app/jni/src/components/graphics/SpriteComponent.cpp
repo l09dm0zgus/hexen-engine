@@ -17,7 +17,7 @@ void comp::rend::SpriteComponent::draw() noexcept
     shaderProgram->use();
     bindTextures();
     VAO.bind();
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 }
 
@@ -42,9 +42,11 @@ comp::rend::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath
     shaderProgram = core::mem::make_shared<core::rend::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);
     VAO.bind();
     VBO.bind(vertices);
+    EBO.bind(vertices);
     attributes.add(3,5,0);
     attributes.add(2,5,3);
     VBO.unbind();
     VAO.unbind();
+    EBO.unbind();
 }
 
