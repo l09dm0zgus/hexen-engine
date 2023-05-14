@@ -12,10 +12,10 @@ namespace core::rend
     public:
         VertexArrayObject();
         ~VertexArrayObject();
-        void bind();
+        void bind() const;
         void unbind();
     private:
-        u32 object;
+        u32 object{0};
     };
 
 }

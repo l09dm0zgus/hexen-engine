@@ -4,7 +4,7 @@
 
 #include "VertexArrayObject.h"
 #ifndef  __ANDROID__
-#include <GL/glew.h>
+#include "GL/glew.h"
 #else
 #include <GLES3/gl31.h>
 #endif
@@ -13,7 +13,7 @@ core::rend::VertexArrayObject::VertexArrayObject()
     glGenVertexArrays(1,&object);
 }
 
-void core::rend::VertexArrayObject::bind()
+void core::rend::VertexArrayObject::bind() const
 {
     glBindVertexArray(object);
 
