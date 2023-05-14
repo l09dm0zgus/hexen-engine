@@ -6,7 +6,7 @@
 #define BATTLEBLAZE_VERTEXBUFFEROBJECT_H
 
 #include <cstddef>
-#include "RectangleVertices.h"
+#include "RectangleData.h"
 #include "../Types.h"
 namespace core::rend
 {
@@ -15,8 +15,8 @@ namespace core::rend
     public:
         VertexBufferObject();
         ~VertexBufferObject();
-        void bind(RectangleVertices &vertices);
-        void bind(size_t size,vptr data);
+        void bind(const RectangleData &rectangleData) const;
+        void bind(size_t size,vptr data) const;
         void unbind();
     private:
         u32 object{0};
