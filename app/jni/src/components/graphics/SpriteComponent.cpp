@@ -36,7 +36,7 @@ void comp::rend::SpriteComponent::bindTextures()
     }
 }
 
-comp::rend::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+comp::rend::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)  : RenderComponent()
 {
     textures.reserve(5);
     shaderProgram = core::mem::make_shared<core::rend::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);

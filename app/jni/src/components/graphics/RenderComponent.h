@@ -13,6 +13,7 @@ namespace comp::rend
     class RenderComponent : public Component
     {
     public:
+        RenderComponent() = default;
         ~RenderComponent() = default;
         RenderComponent(const RenderComponent& renderComponent) = default;
         RenderComponent(RenderComponent &&) = default;
