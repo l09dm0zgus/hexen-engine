@@ -56,13 +56,13 @@ namespace core
                     friend void swap(Slot &lhs,Slot &rhs) noexcept
                     {
                         using std::swap;
-                        swap(lhs.keyValue, swap(rhs.keyValue));
+                        swap(lhs.keyValue,rhs.keyValue);
                         swap(lhs.isUsed,rhs.isUsed);
                     }
 
                     Slot &operator=(Slot slot)
                     {
-                        if(slot == this)
+                        if(&slot == this)
                         {
                             return *this;
                         }
@@ -70,10 +70,11 @@ namespace core
                         return *this;
                     }
 
-                    bool equals(Key &&key) const
+                    template<class T>
+                    bool equals(T &&key) const
                     {
                         assert(isUsed);
-                        return Equal{}(keyValue.key,std::forward<Key>(key));
+                        return Equal{}(keyValue.key,std::forward<T>(key));
                     }
                 };
 
@@ -83,9 +84,10 @@ namespace core
 
                 auto cthis() const { return this; }
 
-                u32 keyIndex(Key &&key) const
+                template<class T>
+                u32 keyIndex(T &&key) const
                 {
-                    return Hash{}(std::forward<Key>(key)) & mask();
+                    return Hash{}(std::forward<T>(key)) & mask();
                 }
 
                 u32 mask() const noexcept
@@ -101,15 +103,15 @@ namespace core
                     // it is equivalent with ((size << 1) + size) >> 2.
                     return slots.empty() || count >= slots.size() * 3 /4;
                 }
-
-                const Slot *getSlot(Key &&key) const noexcept
+                template<class T>
+                const Slot *getSlot(T &&key) const noexcept
                 {
                     if(slots.empty())
                     {
                         return nullptr;
                     }
 
-                    u32 i = keyIndex(std::forward<Key>(key));
+                    u32 i = keyIndex(std::forward<T>(key));
                     u32 hashOffset = 0;
 
                     // linear probing using a cached maximal probe sequence length.
@@ -119,7 +121,7 @@ namespace core
                     // (maxHashOffset is one less than the length of the longest sequence.)
                     do
                     {
-                        if (slots[i].isUsed && slots[i].equals(std::forward<Key>(key)))
+                        if (slots[i].isUsed && slots[i].equals(std::forward<T>(key)))
                         {
                             return &slots[i];
                         }
@@ -131,18 +133,20 @@ namespace core
                     return nullptr;
                 }
 
-                Slot *getSlot(Key &&key)
+                template<class T>
+                Slot *getSlot(T &&key)
                 {
-                    return const_cast<Slot*>(cthis()->getSlot(std::forward<Key>(key)));
+                    return const_cast<Slot*>(cthis()->getSlot(std::forward<T>(key)));
                 }
 
-                KeyValue *insertNonexistentNoRehash(Key key , Value value)
+                template<class T, class V>
+                KeyValue *insertNonexistentNoRehash(T &&key , V &&value)
                 {
                     assert(isShouldRehash() == false);
-                    assert(size() < slots.size()) //requires empty slots
-                            assert(cthis()->getSlot(key) == nullptr);
+                    assert(size() < slots.size());
+                    assert(cthis()->getSlot(std::forward<T>(key)) == nullptr);
 
-                    u32 i = keyIndex(key);
+                    u32 i = keyIndex(std::forward<T>(key));
                     u32 hashOffset = 0;
 
                     //find unused slot
@@ -153,7 +157,7 @@ namespace core
                     }
 
                     //insert and mark used slot
-                    slots[i] = {std::move(key),std::move(value)};
+                    slots[i] = {std::forward<T>(key),std::forward<V>(value)};
 
                     assert(slots[i].isUsed);
 
@@ -189,7 +193,7 @@ namespace core
                     {
                         if (slot.isUsed)
                         {
-                            insertNonexistentNoRehash(std::move(slot.kv.key), std::move(slot.kv.value));
+                            insertNonexistentNoRehash(slot.keyValue.key, slot.keyValue.value);
                         }
                     }
 
@@ -239,7 +243,7 @@ namespace core
 
                 HashTable &operator=(HashTable hashTable)
                 {
-                    if(hashTable == this)
+                    if(&hashTable == this)
                     {
                         return *this;
                     }
@@ -249,7 +253,15 @@ namespace core
 
                 const Value *get(Key &&key) const
                 {
-                    if(auto slot = getSlot(std::forward<Key>(key)))
+                    if(auto slot = getSlot(std::move(key)))
+                    {
+                        return &slot->keyValue.value;
+                    }
+                    return nullptr;
+                }
+                const Value *get(const Key &key) const
+                {
+                    if(auto slot = getSlot(key))
                     {
                         return &slot->keyValue.value;
                     }
@@ -258,21 +270,22 @@ namespace core
 
                 Value *get(Key &&key)
                 {
-                    if(auto slot = getSlot(std::forward<Key>(key)))
+                    if(auto slot = getSlot(std::move(key)))
                     {
                         return &slot->keyValue.value;
                     }
                     return nullptr;
                 }
 
-                Value &getOr(Key &&key,Value &&value) const
+                Value *get(const Key &key)
                 {
-                    if(auto slot = getSlot(std::forward<Key>(key)))
+                    if(auto slot = getSlot(key))
                     {
-                        return slot->keyValue.value;
+                        return &slot->keyValue.value;
                     }
-                    return std::forward<Value>(value);
+                    return nullptr;
                 }
+
 
                 Value *set(Key &&key,Value &&value)
                 {
@@ -294,6 +307,47 @@ namespace core
                     return &keyValue->value;
                 }
 
+                Value *set(const Key &key,Value &&value)
+                {
+                    // if the key is already in the table, just replace it and move on
+                    if(auto candidate = get(key))
+                    {
+                        *candidate = std::move(value);
+                        return candidate;
+                    }
+
+                    // else we need to insert it. First, check if we need to expand.
+                    if(isShouldRehash())
+                    {
+                        rehash();
+                    }
+
+                    //insert the key
+                    auto keyValue = insertNonexistentNoRehash(key,std::forward<Value>(value));
+                    return &keyValue->value;
+                }
+
+                Value *set(const Key &key,const Value &value)
+                {
+                    // if the key is already in the table, just replace it and move on
+                    if(auto candidate = get(key))
+                    {
+                        *candidate = value;
+                        return candidate;
+                    }
+
+                    // else we need to insert it. First, check if we need to expand.
+                    if(isShouldRehash())
+                    {
+                        rehash();
+                    }
+
+                    //insert the key
+                    auto keyValue = insertNonexistentNoRehash(key,value);
+                    return &keyValue->value;
+                }
+
+
                 void clear() noexcept
                 {
                     slots.clear();
@@ -302,6 +356,15 @@ namespace core
                 }
 
                 void remove(Key &&key)
+                {
+                    if(auto slot = getSlot(std::move(key)))
+                    {
+                        *slot = {};
+                        assert(slot->isUsed == false);
+                        count--;
+                    }
+                }
+                void remove(const Key &key)
                 {
                     if(auto slot = getSlot(std::forward<Key>(key)))
                     {
