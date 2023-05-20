@@ -41,7 +41,11 @@ namespace comp
         glm::vec2 getPosition() const noexcept;
         glm::vec2 getRotation() const noexcept;
         void updateTransformMatrix();
-        template<class T>void updateTransformMatrix(T &&parentTransform);
+        template<class T>void updateTransformMatrix(T &&parentTransform)
+        {
+            updateTransformMatrix();
+            transformMatrix = transformMatrix * std::forward<T>(parentTransform);
+        }
         glm::mat4 getTransformMatrix() const noexcept;
         bool isDirty() const noexcept;
 

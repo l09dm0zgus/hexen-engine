@@ -14,33 +14,31 @@ void comp::TransformComponent::updateTransformMatrix()
     bIsDirty = false;
 }
 
-inline glm::vec2 comp::TransformComponent::getScale() const noexcept
+glm::vec2 comp::TransformComponent::getScale() const noexcept
 {
-
     return scale;
 }
 
-inline glm::vec2 comp::TransformComponent::getPosition() const noexcept
+glm::vec2 comp::TransformComponent::getPosition() const noexcept
 {
     return position;
 }
 
-inline glm::vec2 comp::TransformComponent::getRotation() const noexcept
+glm::vec2 comp::TransformComponent::getRotation() const noexcept
 {
     return rotation;
 }
 
-inline glm::mat4 comp::TransformComponent::getTransformMatrix() const noexcept
+glm::mat4 comp::TransformComponent::getTransformMatrix() const noexcept
 {
     return transformMatrix;
 }
 
 
-inline void comp::TransformComponent::setLayer(float layer)
+void comp::TransformComponent::setLayer(float layer)
 {
     zCoordinates.z = layer/layerDivider;
     bIsDirty = false;
-
 }
 
 inline glm::mat4 comp::TransformComponent::rotate(const glm::mat4 &transformMatrix, const glm::vec2 &rotation) const
@@ -52,7 +50,7 @@ inline glm::mat4 comp::TransformComponent::rotate(const glm::mat4 &transformMatr
     return transformMatrix * rotationMatrix;
 }
 
-inline float comp::TransformComponent::getLayer() const noexcept
+float comp::TransformComponent::getLayer() const noexcept
 {
     return layer;
 }
@@ -109,7 +107,7 @@ comp::TransformComponent::TransformComponent(comp::TransformComponent &&transfor
     move(std::move(transformComponent));
 }
 
-inline void comp::TransformComponent::copy(const comp::TransformComponent &transformComponent)
+void comp::TransformComponent::copy(const comp::TransformComponent &transformComponent)
 {
     setPosition(transformComponent.getPosition());
     setRotation(transformComponent.getRotation());
@@ -117,7 +115,7 @@ inline void comp::TransformComponent::copy(const comp::TransformComponent &trans
     setLayer(transformComponent.getLayer());
 }
 
-inline void comp::TransformComponent::move(comp::TransformComponent &&transformComponent) noexcept
+void comp::TransformComponent::move(comp::TransformComponent &&transformComponent) noexcept
 {
     setPosition(transformComponent.getPosition());
     setRotation(transformComponent.getRotation());
@@ -148,13 +146,6 @@ comp::TransformComponent &comp::TransformComponent::operator=(comp::TransformCom
 bool comp::TransformComponent::isDirty() const noexcept
 {
     return bIsDirty;
-}
-
-template<class T>
-void comp::TransformComponent::updateTransformMatrix(T &&parentTransform)
-{
-    updateTransformMatrix();
-    transformMatrix = transformMatrix * std::forward<T>(parentTransform);
 }
 
 template<class T>
