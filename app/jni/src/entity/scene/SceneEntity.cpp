@@ -12,7 +12,8 @@ ent::SceneEntity::SceneEntity(std::string name) : ent::Entity() , name(std::move
 
 ent::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : ent::Entity(name) , name(std::move(name))
 {
-
+//TODO add getting TransformComponent from system
+    transformComponent = core::mem::make_shared<comp::TransformComponent>();
 }
 
 ent::SceneEntity *ent::SceneEntity::getParent() const noexcept
