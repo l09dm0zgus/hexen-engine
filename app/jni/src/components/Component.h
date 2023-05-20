@@ -24,8 +24,19 @@ namespace comp
         {
             return ownerUUID;
         }
+
+        template<class T> void setName(T&& newName) noexcept
+        {
+            name = std::forward<T>(newName);
+        }
+
+        std::string getName() const noexcept
+        {
+            return name;
+        }
     private:
         std::string  ownerUUID;
+        std::string name;
     };
 }
 
