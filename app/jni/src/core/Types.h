@@ -418,7 +418,7 @@ namespace core
 
                 public:
 
-                    ConstIterator(const HashTable &hashTable) = default;
+                    ConstIterator(const ConstIterator &hashTable) = default;
 
                     const KeyValue *operator->() const
                     {
@@ -498,28 +498,39 @@ namespace core
 
                 };
 
-                ConstIterator cbegin() const
+                ConstIterator begin() const
                 {
                     auto iterator = ConstIterator(this,0);
                     while (iterator.slotIndex < slots.size() && !slots[iterator.slotIndex].isUsed)
                     {
                         iterator.slotIndex++;
                     }
+                    return iterator;
                 }
 
-                ConstIterator cend() const
+                ConstIterator end() const
                 {
                     return ConstIterator(this,slots.size());
                 }
 
                 Iterator begin()
                 {
-                    return Iterator(cthis()->cbegin());
+                    return Iterator(cthis()->begin());
                 }
 
                 Iterator end()
                 {
-                    return Iterator(cthis()->cend());
+                    return Iterator(cthis()->end());
+                }
+
+                ConstIterator cbegin() const
+                {
+                    return begin();
+                }
+
+                ConstIterator cend() const
+                {
+                    return end();
                 }
 
             };
