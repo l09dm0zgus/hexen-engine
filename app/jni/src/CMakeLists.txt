@@ -48,6 +48,12 @@ target_sources(main PRIVATE main.cpp
         core/memory_pool/MemoryPool.cpp
         core/memory_pool/AllocatedObject.h
         core/memory_pool/AllocatedObject.cpp
+        core/exceptions/ComponentNotFound.h
+        core/exceptions/ComponentNotFound.cpp
+        entity/Entity.h
+        entity/Entity.cpp
+        entity/scene/SceneEntity.h
+        entity/scene/SceneEntity.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
