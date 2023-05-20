@@ -11,6 +11,7 @@ void comp::TransformComponent::updateTransformMatrix()
     transformMatrix = rotate(transformMatrix,rotation);
 
     transformMatrix = glm::scale(transformMatrix,glm::vec3(scale,zCoordinates.x));
+    bIsDirty = false;
 }
 
 inline glm::vec2 comp::TransformComponent::getScale() const noexcept
@@ -34,16 +35,12 @@ inline glm::mat4 comp::TransformComponent::getTransformMatrix() const noexcept
     return transformMatrix;
 }
 
-inline glm::mat4 comp::TransformComponent::getTransformMatrix(const glm::mat4 &parentTransform)
-{
-    transformMatrix = transformMatrix * parentTransform;
-    return getTransformMatrix();
-}
 
 inline void comp::TransformComponent::setLayer(float layer)
 {
     zCoordinates.z = layer/layerDivider;
-    updateTransformMatrix();
+    bIsDirty = false;
+
 }
 
 inline glm::mat4 comp::TransformComponent::rotate(const glm::mat4 &transformMatrix, const glm::vec2 &rotation) const
@@ -102,7 +99,7 @@ void comp::TransformComponent::update(float deltaTime)
 
 }
 
-comp::TransformComponent::TransformComponent(const comp::TransformComponent &transformComponent)
+comp::TransformComponent::TransformComponent(const comp::TransformComponent &transformComponent): Component(transformComponent)
 {
     copy(transformComponent);
 }
@@ -148,26 +145,37 @@ comp::TransformComponent &comp::TransformComponent::operator=(comp::TransformCom
     return *this;
 }
 
+bool comp::TransformComponent::isDirty() const noexcept
+{
+    return bIsDirty;
+}
+
+template<class T>
+void comp::TransformComponent::updateTransformMatrix(T &&parentTransform)
+{
+    updateTransformMatrix();
+    transformMatrix = transformMatrix * std::forward<T>(parentTransform);
+}
+
 template<class T>
 void comp::TransformComponent::setScale(T &&newScale) noexcept
 {
     scale = std::forward<T>(newScale);
-    updateTransformMatrix();
+    bIsDirty = true;
 }
 
 template<class T>
 void comp::TransformComponent::setRotation(T &&newRotation) noexcept
 {
     rotation = std::forward<T>(newRotation);
-    updateTransformMatrix();
-
+    bIsDirty = true;
 }
 
 template<class T>
 void comp::TransformComponent::setPosition(T &&newPosition) noexcept
 {
     position = std::forward<T>(newPosition);
-    updateTransformMatrix();
+    bIsDirty = true;
 }
 
 

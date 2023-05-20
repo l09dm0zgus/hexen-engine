@@ -12,7 +12,7 @@
 
 namespace comp
 {
-    class TransformComponent: comp::Component
+    class TransformComponent: public comp::Component
     {
     public:
         TransformComponent() = default;
@@ -40,10 +40,11 @@ namespace comp
         glm::vec2 getScale() const noexcept;
         glm::vec2 getPosition() const noexcept;
         glm::vec2 getRotation() const noexcept;
-        glm::mat4 getTransformMatrix(const glm::mat4 &parentTransform);
+        void updateTransformMatrix();
+        template<class T>void updateTransformMatrix(T &&parentTransform);
         glm::mat4 getTransformMatrix() const noexcept;
+        bool isDirty() const noexcept;
 
-        bool isStatic{true};
 
         void start() override;
         void update(float  deltaTime) override;
@@ -58,7 +59,7 @@ namespace comp
         glm::vec3 zCoordinates{0.0f};
         float layer{0.0f};
         const float layerDivider{10.0f};
-        void updateTransformMatrix();
+        bool bIsDirty{true};
     };
 
 }
