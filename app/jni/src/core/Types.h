@@ -389,18 +389,19 @@ namespace core
                     return double(size() / slots.size());
                 }
 
-                Value &operator[](Key &&key)
+                template<class T>
+                Value &operator[](T &&key)
                 {
-                    if(auto value = get(std::forward<Key>(key)))
+                    if(auto value = get(std::forward<T>(key)))
                     {
                         return  *value;
                     }
-                    return *set(std::forward<Key>(key),{});
+                    return *set(std::forward<T>(key),{});
                 }
-
-                const Value& operator[](Key &&key) const
+                template<class T>
+                const Value& operator[](T &&key) const
                 {
-                    if(const auto value = get(std::forward<Key>(key)))
+                    if(const auto value = get(std::forward<T>(key)))
                     {
                         return *value;
                     }
