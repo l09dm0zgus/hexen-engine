@@ -43,7 +43,7 @@ android {
 
              cmake {
                  version '3.26.3'
-                 path 'jni/CMakeLists.txt'
+                 path '../engine/CMakeLists.txt'
             }
         }
        

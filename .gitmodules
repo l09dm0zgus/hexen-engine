@@ -5,5 +5,8 @@
 	path = engine/submodules/SDL_image
 	url = https://github.com/libsdl-org/SDL_image.git
 [submodule "engine/submodules/glm"]
-	path =  engine/submodules/glm
+	path = engine/submodules/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "engine/submodules/SDL_image"]
+	path = engine/submodules/SDL_image
+	url = https://github.com/libsdl-org/SDL_image.git
