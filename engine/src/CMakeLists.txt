@@ -57,6 +57,7 @@ target_sources(main PRIVATE main.cpp
         )
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
+include_directories(${SDL_INCLUDE_DIR})
 
-target_link_libraries(main  SDL3 SDL3_image GLESv3 glm)
+target_link_libraries(main  SDL3-shared SDL3_image GLESv3 glm)
 

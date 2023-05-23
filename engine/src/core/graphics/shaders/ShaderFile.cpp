@@ -8,7 +8,7 @@
 #ifndef  __ANDROID__
 #include <SDL2/SDL.h>
 #else
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #endif
 
 void core::rend::shader::ShaderFile::read(const std::string &path)

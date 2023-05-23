@@ -12,6 +12,7 @@ import android.os.Build;
 import android.util.Log;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class SDLAudioManager {
     protected static final String TAG = "SDLAudio";
@@ -29,17 +30,21 @@ public class SDLAudioManager {
         mAudioRecord = null;
         mAudioDeviceCallback = null;
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        if(Build.VERSION.SDK_INT >= 24)
         {
             mAudioDeviceCallback = new AudioDeviceCallback() {
                 @Override
                 public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
-                    Arrays.stream(addedDevices).forEach(deviceInfo -> addAudioDevice(deviceInfo.isSink(), deviceInfo.getId()));
+                    for (AudioDeviceInfo deviceInfo : addedDevices) {
+                        addAudioDevice(deviceInfo.isSink(), deviceInfo.getId());
+                    }
                 }
 
                 @Override
                 public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
-                    Arrays.stream(removedDevices).forEach(deviceInfo -> removeAudioDevice(deviceInfo.isSink(), deviceInfo.getId()));
+                    for (AudioDeviceInfo deviceInfo : removedDevices) {
+                        removeAudioDevice(deviceInfo.isSink(), deviceInfo.getId());
+                    }
                 }
             };
         }
@@ -237,7 +242,7 @@ public class SDLAudioManager {
                     return null;
                 }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && deviceId != 0) {
+                if (Build.VERSION.SDK_INT >= 24 && deviceId != 0) {
                     mAudioRecord.setPreferredDevice(getOutputAudioDeviceInfo(deviceId));
                 }
 
@@ -264,7 +269,7 @@ public class SDLAudioManager {
                     return null;
                 }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && deviceId != 0) {
+                if (Build.VERSION.SDK_INT >= 24 && deviceId != 0) {
                     mAudioTrack.setPreferredDevice(getInputAudioDeviceInfo(deviceId));
                 }
 
@@ -283,50 +288,67 @@ public class SDLAudioManager {
     }
 
     private static AudioDeviceInfo getInputAudioDeviceInfo(int deviceId) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= 24) {
             AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-            return Arrays.stream(audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS))
-                    .filter(deviceInfo -> deviceInfo.getId() == deviceId)
-                    .findFirst()
-                    .orElse(null);
-        } else {
-            return null;
+            for (AudioDeviceInfo deviceInfo : audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS)) {
+                if (deviceInfo.getId() == deviceId) {
+                    return deviceInfo;
+                }
+            }
         }
+        return null;
     }
 
     private static AudioDeviceInfo getOutputAudioDeviceInfo(int deviceId) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= 24) {
             AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-            return Arrays.stream(audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS))
-                    .filter(deviceInfo -> deviceInfo.getId() == deviceId)
-                    .findFirst()
-                    .orElse(null);
-        } else {
-            return null;
+            for (AudioDeviceInfo deviceInfo : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
+                if (deviceInfo.getId() == deviceId) {
+                    return deviceInfo;
+                }
+            }
         }
+        return null;
     }
 
     private static void registerAudioDeviceCallback() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= 24) {
             AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
             audioManager.registerAudioDeviceCallback(mAudioDeviceCallback, null);
         }
     }
 
     private static void unregisterAudioDeviceCallback(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= 24) {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             audioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
         }
+    }
+
+    private static int[] ArrayListToArray(ArrayList<Integer> integers)
+    {
+        int[] ret = new int[integers.size()];
+        for (int i=0; i < ret.length; i++) {
+            ret[i] = integers.get(i).intValue();
+        }
+        return ret;
     }
 
     /**
      * This method is called by SDL using JNI.
      */
     public static int[] getAudioOutputDevices() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= 24) {
             AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-            return Arrays.stream(audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)).mapToInt(AudioDeviceInfo::getId).toArray();
+            ArrayList<Integer> arrlist = new ArrayList<Integer>();
+            for (AudioDeviceInfo dev : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
+                /* Device cannot be opened */
+                if (dev.getType() == AudioDeviceInfo.TYPE_TELEPHONY) {
+                    continue;
+                }
+                arrlist.add(dev.getId());
+            }
+            return ArrayListToArray(arrlist);
         } else {
             return NO_DEVICES;
         }
@@ -336,9 +358,13 @@ public class SDLAudioManager {
      * This method is called by SDL using JNI.
      */
     public static int[] getAudioInputDevices() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= 24) {
             AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-            return Arrays.stream(audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS)).mapToInt(AudioDeviceInfo::getId).toArray();
+            ArrayList<Integer> arrlist = new ArrayList<Integer>();
+            for (AudioDeviceInfo dev : audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS)) {
+                arrlist.add(dev.getId());
+            }
+            return ArrayListToArray(arrlist);
         } else {
             return NO_DEVICES;
         }
@@ -360,7 +386,7 @@ public class SDLAudioManager {
             return;
         }
 
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (android.os.Build.VERSION.SDK_INT < 21) {
             Log.e(TAG, "Attempted to make an incompatible audio call with uninitialized audio! (floating-point output is supported since Android 5.0 Lollipop)");
             return;
         }

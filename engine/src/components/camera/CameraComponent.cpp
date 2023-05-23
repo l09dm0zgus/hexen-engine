@@ -5,7 +5,7 @@
 #include "CameraComponent.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <GLES3/gl31.h>
 
 void comp::CameraComponent::updateViewMatrix()

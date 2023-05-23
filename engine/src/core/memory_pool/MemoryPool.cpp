@@ -3,7 +3,7 @@
 //
 
 #include "MemoryPool.h"
-#include <SDL_log.h>
+#include <SDL3/SDL.h>
 #include <malloc.h>
 #include <algorithm>
 

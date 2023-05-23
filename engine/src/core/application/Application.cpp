@@ -57,7 +57,7 @@ void core::Application::run()
         while(SDL_PollEvent(&sdlEvent) != 0)
         {
             // Esc button is pressed
-            if(sdlEvent.type == SDL_QUIT)
+            if(sdlEvent.type == SDL_EVENT_QUIT)
             {
                 isRun = false;
             }

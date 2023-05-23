@@ -7,7 +7,7 @@
 #ifndef  __ANDROID__
 #include <SDL2/SDL.h>
 #else
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #endif
 #include <string>
 #include "../memory_pool/AllocatedObject.h"

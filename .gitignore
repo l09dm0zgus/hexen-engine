@@ -1,4 +1,4 @@
-app/.cxx
+.cxx
 .idea
 .gradle
-app/build
+build

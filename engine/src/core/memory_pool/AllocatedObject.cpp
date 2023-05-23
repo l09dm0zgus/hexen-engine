@@ -3,7 +3,8 @@
 //
 
 #include "AllocatedObject.h"
-#include "SDL_log.h"
+#include <SDL3/SDL.h>
+
 
 std::unique_ptr<core::mem::MemoryPool> core::mem::AllocatedObject::memoryPool = nullptr;
 core::vptr core::mem::AllocatedObject::operator new(u64 size)

@@ -66,13 +66,13 @@ core::Window::Window(const std::string &title) : mem::AllocatedObject()
         window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_FULLSCREEN);
 #else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-        if( SDL_GetDesktopDisplayMode( 0, &displayMode ) == 0 )
+        if( SDL_GetDesktopDisplayMode( 0) == nullptr )
         {
             width = displayMode.w;
             height = displayMode.h;
             SDL_Log("Display size width : %i , height : %i",width,height);
         }
-        window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,SDL_WINDOW_OPENGL| SDL_WINDOW_FULLSCREEN );
+        window = SDL_CreateWindow( title.c_str(),width, height,SDL_WINDOW_OPENGL| SDL_WINDOW_FULLSCREEN );
 #endif
         if(window == nullptr )
         {

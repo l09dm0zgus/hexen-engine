@@ -9,7 +9,7 @@
 #include <SDL2/SDL_image.h>
 #include <GL/glew.h>
 #else
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <SDL_image.h>
 #include <GLES3/gl31.h>
 #endif
