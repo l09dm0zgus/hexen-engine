@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-if(BUILD_ANDROID)
-    set(PROJECT_NAME main)
-else()
-    set(PROJECT_NAME HexenReich)
-endif(BUILD_ANDROID)
+set(PROJECT_NAME main)
 project(${PROJECT_NAME})
 
 # armeabi-v7a requires cpufeatures library
