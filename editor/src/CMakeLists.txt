@@ -11,5 +11,6 @@ target_include_directories(${EDITOR_NAME} PRIVATE ${SDL_IMAGE_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${GLM_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${SDL_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${IMGUI_INCLUDE_DIR})
+target_include_directories(${EDITOR_NAME} PRIVATE ${GLEW_INCLUDE_DIR})
 
 target_link_libraries(${EDITOR_NAME} nlohmann_json::nlohmann_json SDL3-shared SDL3_image glm::glm)

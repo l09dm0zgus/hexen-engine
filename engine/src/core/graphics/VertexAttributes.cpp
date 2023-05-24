@@ -4,7 +4,7 @@
 
 #include "VertexAttributes.h"
 #ifndef  __ANDROID__
-#include "GL/glew.h"
+#include <GL/glew.h>
 #else
 #include <GLES3/gl31.h>
 #endif

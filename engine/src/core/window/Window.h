@@ -4,11 +4,8 @@
 
 #ifndef BATTLEBLAZE_WINDOW_H
 #define BATTLEBLAZE_WINDOW_H
-#ifndef  __ANDROID__
-#include <SDL2/SDL.h>
-#else
+
 #include <SDL3/SDL.h>
-#endif
 #include <string>
 #include "../memory_pool/AllocatedObject.h"
 namespace core

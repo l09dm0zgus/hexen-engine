@@ -4,6 +4,12 @@
 
 #include "SpriteInstancedComponent.h"
 
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
+#include <GLES3/gl31.h>
+#endif
+
 void comp::rend::SpriteInstancedComponent::draw() noexcept
 {
 

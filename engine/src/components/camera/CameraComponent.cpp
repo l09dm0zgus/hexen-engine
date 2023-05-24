@@ -6,7 +6,11 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
 #include <SDL3/SDL.h>
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
 #include <GLES3/gl31.h>
+#endif
 
 void comp::CameraComponent::updateViewMatrix()
 {

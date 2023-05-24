@@ -2,7 +2,11 @@
 // Created by cx9ps3 on 14.05.2023.
 //
 
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
 #include <GLES3/gl31.h>
+#endif
 #include "ElementsBufferObject.h"
 
 core::rend::ElementsBufferObject::ElementsBufferObject()

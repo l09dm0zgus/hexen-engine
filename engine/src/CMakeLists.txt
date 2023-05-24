@@ -7,9 +7,6 @@ find_library(SDL3 SDL3)
 find_library(OpenGL OpenGL)
 find_library(glm glm)
 
-option(BUILD_ANDROID "Build android binary" OFF)
-
-
 if(BUILD_ANDROID)
     add_library(${PROJECT_NAME} SHARED)
 else()
@@ -27,5 +24,11 @@ include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
 include_directories(${SDL_INCLUDE_DIR})
 
-target_link_libraries(${PROJECT_NAME}  SDL3-shared SDL3_image GLESv3 glm)
-
+if (${BUILD_ANDROID} STREQUAL  OFF)
+    include_directories(${GLEW_INCLUDE_DIR})
+endif ()
+if (BUILD_ANDROID)
+    target_link_libraries(${PROJECT_NAME}  SDL3-shared SDL3_image GLESv3 glm)
+else()
+    target_link_libraries(${PROJECT_NAME}  SDL3-shared SDL3_image libglew_static glm)
+endif (BUILD_ANDROID)

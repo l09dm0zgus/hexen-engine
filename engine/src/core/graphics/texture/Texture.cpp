@@ -4,6 +4,7 @@
 
 #include "Texture.h"
 
+
 void core::rend::Texture::setTextureParameters(int wrapMode, int filterMode)
 {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);

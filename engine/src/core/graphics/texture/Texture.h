@@ -4,13 +4,12 @@
 
 #ifndef BATTLEBLAZE_TEXTURE_H
 #define BATTLEBLAZE_TEXTURE_H
-#ifndef  __ANDROID__
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <GL/glew.h>
-#else
+
 #include <SDL3/SDL.h>
 #include <SDL_image.h>
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
 #include <GLES3/gl31.h>
 #endif
 

@@ -3,12 +3,12 @@
 //
 
 #include "ShaderProgram.h"
+#include <SDL3/SDL.h>
+
 #ifndef  __ANDROID__
 #include <GL/glew.h>
-#include <SDL2/SDL.h>
 #else
 #include <GLES3/gl31.h>
-#include <SDL3/SDL.h>
 #endif
 #include <glm/gtc/type_ptr.hpp>
 
