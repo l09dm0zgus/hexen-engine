@@ -13,6 +13,8 @@ target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/A
         ${CMAKE_CURRENT_SOURCE_DIR}/uuid/uuid.h
         ${CMAKE_CURRENT_SOURCE_DIR}/window/Window.h
         ${CMAKE_CURRENT_SOURCE_DIR}/window/Window.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/level/Level.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/level/Level.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Types.h)
 
 add_subdirectory(graphics)
