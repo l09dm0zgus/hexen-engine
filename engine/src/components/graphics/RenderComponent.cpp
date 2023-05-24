@@ -28,20 +28,4 @@ glm::mat4 comp::rend::RenderComponent::getTransformMatrix() const noexcept
     return transform;
 }
 
-template<class T>
-inline void comp::rend::RenderComponent::setTransformMatrix(T &&newTransform) noexcept
-{
-    transform = std::forward<T>(newTransform);
-}
 
-template<class T>
-inline void comp::rend::RenderComponent::setViewMatrix(T &&newView) noexcept
-{
-    view = std::forward<T>(newView);
-}
-
-template<class T>
-inline void comp::rend::RenderComponent::setProjectionMatrix(T &&newProjection) noexcept
-{
-    projection = std::forward<T>(newProjection);
-}

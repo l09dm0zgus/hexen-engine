@@ -20,9 +20,18 @@ namespace comp::rend
         RenderComponent& operator=(RenderComponent&& renderComponent) = default;
         RenderComponent& operator=(const RenderComponent &renderComponent) = default;
 
-        template<class T> void setProjectionMatrix(T&& newProjection) noexcept;
-        template<class T> void setViewMatrix(T &&newView) noexcept;
-        template<class T> void setTransformMatrix(T&& newTransform) noexcept;
+        template<class T> void setProjectionMatrix(T&& newProjection) noexcept
+        {
+            projection = std::forward<T>(newProjection);
+        };
+        template<class T> void setViewMatrix(T &&newView) noexcept
+        {
+            view = std::forward<T>(newView);
+        };
+        template<class T> void setTransformMatrix(T&& newTransform) noexcept
+        {
+            transform = std::forward<T>(newTransform);
+        };
 
         glm::mat4 getProjectionMatrix() const noexcept;
         glm::mat4 getViewMatrix() const noexcept;
