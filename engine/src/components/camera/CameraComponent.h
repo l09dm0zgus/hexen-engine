@@ -16,6 +16,8 @@ namespace comp
         template<class T>void setPosition(T&& newPosition) noexcept;
         glm::mat4 getViewMatrix();
         glm::mat4 getProjectionMatrix();
+        void start() override;
+        void update(float deltaTime) override;
     private:
         glm::vec3 position{1.0f};
         glm::mat4 view{1.0f};

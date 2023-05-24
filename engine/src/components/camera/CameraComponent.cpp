@@ -20,6 +20,9 @@ comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewpo
     SDL_Log("Viewport size width : %i , height : %i",viewportWidth,viewportHeight);
     updateViewMatrix();
 }
+
+
+
 template<class T>
 void comp::CameraComponent::setPosition(T&& newPosition) noexcept
 {
@@ -35,4 +38,14 @@ glm::mat4 comp::CameraComponent::getViewMatrix()
 glm::mat4 comp::CameraComponent::getProjectionMatrix()
 {
     return projection;
+}
+
+void comp::CameraComponent::start()
+{
+
+}
+
+void comp::CameraComponent::update(float deltaTime)
+{
+
 }
