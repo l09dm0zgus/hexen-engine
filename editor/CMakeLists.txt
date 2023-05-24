@@ -16,4 +16,4 @@ set(JSON_BuildTests OFF CACHE INTERNAL "")
 
 
 add_subdirectory(src)
-#add_subdirectory(submodules/imgui)
+add_subdirectory(submodules)
