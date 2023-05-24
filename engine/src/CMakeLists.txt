@@ -21,6 +21,7 @@ target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 add_subdirectory(components)
 add_subdirectory(core)
 add_subdirectory(entity)
+add_subdirectory(systems)
 
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
