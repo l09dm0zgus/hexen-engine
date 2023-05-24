@@ -16,9 +16,6 @@
 [submodule "engine/submodules/glew-cmake"]
 	path = engine/submodules/glew-cmake
 	url = https://github.com/Perlmint/glew-cmake.git
-[submodule "editor/submodules/--docking"]
-	path = editor/submodules/--docking
-	url = https://github.com/ocornut/imgui.git
 [submodule "editor/submodules/imgui"]
 	path = editor/submodules/imgui
 	url = https://github.com/ocornut/imgui.git

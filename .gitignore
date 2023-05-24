@@ -2,3 +2,6 @@
 .idea
 .gradle
 build
+editor/cmake-build-debug
+editor/cmake-build-release
+editor/.idea

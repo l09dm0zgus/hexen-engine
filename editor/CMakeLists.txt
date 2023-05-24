@@ -9,10 +9,7 @@ set(SDL_IMAGE_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/SDL_image/include/SDL3
 set(GLM_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/glm)
 set(SDL_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/SDL/include)
 
-add_subdirectory(${PARENT_DIR}/engine/submodules/SDL SDL_build)
-add_subdirectory(${PARENT_DIR}/engine/submodules/SDL_image SDL_image_build)
-add_subdirectory(${PARENT_DIR}/engine/submodules/glm glm_build)
-add_subdirectory(${PARENT_DIR}/engine/submodules/json json_build)
+add_subdirectory(${PARENT_DIR}/engine/ engine_build)
 
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 
