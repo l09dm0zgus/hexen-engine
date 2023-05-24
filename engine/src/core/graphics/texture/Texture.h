@@ -24,6 +24,10 @@ namespace core::rend
         Texture(const std::string &pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
         void bind(u32 id) const;
         ~Texture();
+        Texture(const Texture &texture) = default;
+        Texture(Texture &&texture) = default;
+        Texture& operator=(const Texture &texture) = default;
+        Texture& operator=(Texture &&texture) = default;
     private:
         SDL_Surface *surface{nullptr};
         u32 textureId;
