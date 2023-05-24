@@ -10,3 +10,12 @@
 [submodule "engine/submodules/SDL_image"]
 	path = engine/submodules/SDL_image
 	url = https://github.com/libsdl-org/SDL_image.git
+[submodule "engine/submodules/json"]
+	path = engine/submodules/json
+	url = https://github.com/nlohmann/json.git
+[submodule "engine/submodules/glew-cmake"]
+	path = engine/submodules/glew-cmake
+	url = https://github.com/Perlmint/glew-cmake.git
+[submodule "editor/submodules/imgui"]
+	path = editor/submodules/imgui
+	url = https://github.com/ocornut/imgui.git
