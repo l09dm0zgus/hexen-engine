@@ -12,7 +12,7 @@ namespace comp
     class Component : public core::mem::AllocatedObject
     {
     public:
-        ~Component() = default;;
+        ~Component() = default;
         virtual void start() = 0;
         virtual void update(float deltaTime) = 0;
 
