@@ -25,7 +25,7 @@ void comp::rend::SpriteComponent::addTexture(const std::string &pathToImage)
 {
     shaderProgram->use();
     shaderProgram->setIntUniform("textures[" +std::to_string(textures.size())+"]",static_cast<core::i32>(textures.size()));
-    textures.push_back(core::mem::make_unique<core::rend::Texture>(pathToImage));
+    textures.push_back(core::mem::make_shared<core::rend::Texture>(pathToImage));
 }
 
 void comp::rend::SpriteComponent::bindTextures()

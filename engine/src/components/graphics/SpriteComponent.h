@@ -24,7 +24,7 @@ namespace comp::rend
         void draw() noexcept override;
         void addTexture(const std::string &pathToImage);
     private:
-        std::vector<std::unique_ptr<core::rend::Texture>> textures;
+        std::vector<std::shared_ptr<core::rend::Texture>> textures;
         core::rend::VertexBufferObject VBO;
         core::rend::RectangleData vertices;
         core::rend::ElementsBufferObject EBO;
