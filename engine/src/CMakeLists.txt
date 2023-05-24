@@ -9,11 +9,14 @@ find_library(glm glm)
 
 if(BUILD_ANDROID)
     add_library(${PROJECT_NAME} SHARED)
-else()
+    target_sources(${PROJECT_NAME} PRIVATE main.cpp)
+elseif(BUILD_STATIC_LIB)
+    add_library(${PROJECT_NAME} STATIC)
+else ()
     add_executable(${PROJECT_NAME})
+    target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 endif(BUILD_ANDROID)
 
-target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 
 add_subdirectory(components)
 add_subdirectory(core)

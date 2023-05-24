@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 set(PROJECT_NAME main)
 project(${PROJECT_NAME})
 option(BUILD_ANDROID "Build android binary" OFF)
+option(BUILD_STATIC_LIB "Build as static lib" OFF)
 
 # armeabi-v7a requires cpufeatures library
 # include(AndroidNdkModules)
