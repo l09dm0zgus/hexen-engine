@@ -112,6 +112,7 @@ void core::Window::initSDL()
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+        SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
         window = SDL_CreateWindow( title.c_str(), width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 #else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
