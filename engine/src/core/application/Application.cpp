@@ -8,7 +8,6 @@
 
 void core::Application::run()
 {
-    bool isRun = true;
     SDL_Log("Main thread started.\n");
     double dt = 1 / 60.0;
     int currentTime = SDL_GetTicks();
