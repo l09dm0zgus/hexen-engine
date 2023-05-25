@@ -20,11 +20,10 @@ namespace core
         void close();
         void clear();
         bool isOpen() const noexcept;
-        void pollEvents(SDL_Event *sdlEvent);
+        i32 pollEvents(SDL_Event *sdlEvent);
         SDL_DisplayMode getDisplayMode() const noexcept;
         SDL_Window* getSDLWindow() const noexcept;
         SDL_GLContext  getGLContext() const noexcept;
-        SDL_Event getSDLEvent() const noexcept;
     private:
         void initSDL();
         SDL_DisplayMode displayMode{};

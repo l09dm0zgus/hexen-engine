@@ -55,10 +55,8 @@ core::Window::Window(std::string title) : mem::AllocatedObject(),title(std::move
 
 void core::Window::close()
 {
-    SDL_DestroyWindow(window);
-    window = nullptr;
-    //Quit SDL subsystems
-    SDL_Quit();
+    bIsOpen = false;
+
 }
 
 void core::Window::swapBuffers()
@@ -76,8 +74,11 @@ void core::Window::clear()
 
 core::Window::~Window()
 {
- SDL_Log("Main Window has been destroyed.\n");
- close();
+    SDL_Log("Main Window has been destroyed.\n");
+    SDL_DestroyWindow(window);
+    window = nullptr;
+    //Quit SDL subsystems
+    SDL_Quit();
 }
 
 SDL_DisplayMode core::Window::getDisplayMode() const noexcept
@@ -155,21 +156,9 @@ void core::Window::initSDL()
     }
 }
 
-void core::Window::pollEvents(SDL_Event *sdlEvent)
+core::i32 core::Window::pollEvents(SDL_Event *sdlEvent)
 {
-    while(SDL_PollEvent(sdlEvent) != 0)
-    {
-        // Esc button is pressed
-        if(sdlEvent->type == SDL_EVENT_QUIT || sdlEvent->type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
-        {
-            bIsOpen = false;
-        }
-        else if(sdlEvent->type == SDL_EVENT_WINDOW_RESIZED)
-        {
-            SDL_GetWindowSize(window,&width,&height);
-            glViewport(0,0,width,height);
-        }
-    }
+    return SDL_PollEvent(sdlEvent);
 }
 
 bool core::Window::isOpen() const noexcept
@@ -177,9 +166,4 @@ bool core::Window::isOpen() const noexcept
     return bIsOpen;
 }
 
-SDL_Event core::Window::getSDLEvent() const noexcept
-{
-    SDL_Event result;
-    return result;
-}
 
