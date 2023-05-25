@@ -47,22 +47,13 @@ void core::Application::run()
 
     std::unique_ptr<ent::SceneEntity> scene = core::mem::make_unique<ent::SceneEntity>("SceneRoot",generateUUIDV4());
 
-    while (isRun)
+    while (window->isOpen())
     {
         double newTime = SDL_GetTicks();
         double frameTime = newTime - currentTime;
         currentTime = newTime;
         float deltaTime;
-
-        while(SDL_PollEvent(&sdlEvent) != 0)
-        {
-            // Esc button is pressed
-            if(sdlEvent.type == SDL_EVENT_QUIT)
-            {
-                isRun = false;
-            }
-        }
-
+        window->pollEvents();
         while ( frameTime > 0.0 )
         {
             deltaTime = SDL_min( frameTime, dt );

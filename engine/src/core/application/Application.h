@@ -21,7 +21,7 @@ namespace core
         void run();
     private:
         std::unique_ptr<Window> window;
-        SDL_Event sdlEvent{};
+
     };
 
 }

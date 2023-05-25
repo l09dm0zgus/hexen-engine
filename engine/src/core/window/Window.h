@@ -13,19 +13,27 @@ namespace core
     class Window : public mem::AllocatedObject
     {
     public:
-        Window(const std::string &title);
-        ~Window();
+        explicit Window(std::string title);
+        explicit Window(std::string title,i32 width,i32 height);
+        ~Window() override;
         void swapBuffers();
         void close();
         void clear();
+        bool isOpen();
+        void pollEvents();
         SDL_DisplayMode getDisplayMode();
+        SDL_Window* getSDLWindow();
+        SDL_GLContext  getGLContext();
     private:
-        SDL_DisplayMode displayMode;
+        void initSDL();
+        SDL_DisplayMode displayMode{};
         SDL_Window* window{nullptr};
-        SDL_GLContext glContext;
-        u32 height;
-        u32 width;
-
+        SDL_GLContext glContext{nullptr};
+        i32 height{720};
+        i32 width{1280};
+        std::string title;
+        SDL_Event sdlEvent{};
+        bool bIsOpen{true};
     };
 }
 
