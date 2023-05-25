@@ -80,17 +80,17 @@ core::Window::~Window()
  close();
 }
 
-SDL_DisplayMode core::Window::getDisplayMode()
+SDL_DisplayMode core::Window::getDisplayMode() const noexcept
 {
     return displayMode;
 }
 
-SDL_Window *core::Window::getSDLWindow()
+SDL_Window *core::Window::getSDLWindow() const noexcept
 {
     return window;
 }
 
-SDL_GLContext core::Window::getGLContext()
+SDL_GLContext core::Window::getGLContext() const noexcept
 {
     return glContext;
 }
@@ -155,16 +155,16 @@ void core::Window::initSDL()
     }
 }
 
-void core::Window::pollEvents()
+void core::Window::pollEvents(SDL_Event *sdlEvent)
 {
-    while(SDL_PollEvent(&sdlEvent) != 0)
+    while(SDL_PollEvent(sdlEvent) != 0)
     {
         // Esc button is pressed
-        if(sdlEvent.type == SDL_EVENT_QUIT || sdlEvent.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
+        if(sdlEvent->type == SDL_EVENT_QUIT || sdlEvent->type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
         {
             bIsOpen = false;
         }
-        else if(sdlEvent.type == SDL_EVENT_WINDOW_RESIZED)
+        else if(sdlEvent->type == SDL_EVENT_WINDOW_RESIZED)
         {
             SDL_GetWindowSize(window,&width,&height);
             glViewport(0,0,width,height);
@@ -172,8 +172,14 @@ void core::Window::pollEvents()
     }
 }
 
-bool core::Window::isOpen()
+bool core::Window::isOpen() const noexcept
 {
     return bIsOpen;
+}
+
+SDL_Event core::Window::getSDLEvent() const noexcept
+{
+    SDL_Event result;
+    return result;
 }
 

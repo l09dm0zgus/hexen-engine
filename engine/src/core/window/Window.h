@@ -19,11 +19,12 @@ namespace core
         void swapBuffers();
         void close();
         void clear();
-        bool isOpen();
-        void pollEvents();
-        SDL_DisplayMode getDisplayMode();
-        SDL_Window* getSDLWindow();
-        SDL_GLContext  getGLContext();
+        bool isOpen() const noexcept;
+        void pollEvents(SDL_Event *sdlEvent);
+        SDL_DisplayMode getDisplayMode() const noexcept;
+        SDL_Window* getSDLWindow() const noexcept;
+        SDL_GLContext  getGLContext() const noexcept;
+        SDL_Event getSDLEvent() const noexcept;
     private:
         void initSDL();
         SDL_DisplayMode displayMode{};
@@ -32,7 +33,6 @@ namespace core
         i32 height{720};
         i32 width{1280};
         std::string title;
-        SDL_Event sdlEvent{};
         bool bIsOpen{true};
     };
 }

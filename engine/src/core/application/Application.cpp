@@ -45,14 +45,14 @@ void core::Application::run()
     //Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
 
     std::unique_ptr<ent::SceneEntity> scene = core::mem::make_unique<ent::SceneEntity>("SceneRoot",generateUUIDV4());
-
+    SDL_Event event;
     while (window->isOpen())
     {
         double newTime = SDL_GetTicks();
         double frameTime = newTime - currentTime;
         currentTime = newTime;
         float deltaTime;
-        window->pollEvents();
+        window->pollEvents(&event);
         while ( frameTime > 0.0 )
         {
             deltaTime = SDL_min( frameTime, dt );
