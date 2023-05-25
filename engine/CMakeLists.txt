@@ -1,10 +1,16 @@
 cmake_minimum_required(VERSION 3.6)
-set(PROJECT_NAME main)
-project(${PROJECT_NAME})
 option(BUILD_ANDROID "Build android binary" OFF)
-option(BUILD_STATIC_LIB "Build as static lib" OFF)
+option(BUILD_LIB "Build as static lib" OFF)
 
-# armeabi-v7a requires cpufeatures library
+if (BUILD_ANDROID)
+    set(PROJECT_NAME main)
+else ()
+    set(PROJECT_NAME HexenEngine)
+endif (BUILD_ANDROID)
+
+project(${PROJECT_NAME})
+
+    # armeabi-v7a requires cpufeatures library
 # include(AndroidNdkModules)
 # android_ndk_import_module_cpufeatures()
 set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/SDL_image/include/SDL3)
