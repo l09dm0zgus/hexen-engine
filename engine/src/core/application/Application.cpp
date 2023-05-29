@@ -2,6 +2,7 @@
 // Created by cx9ps3 on 30.12.22.
 //
 
+#include <GL/glew.h>
 #include "Application.h"
 #include "../graphics/Graphics.h"
 #include "../../entity/scene/SceneEntity.h"
@@ -48,11 +49,24 @@ void core::Application::run()
     SDL_Event event;
     while (window->isOpen())
     {
+        while(window->pollEvents(&event))
+        {
+            if(event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
+            {
+                window->close();
+            }
+            else if(event.type == SDL_EVENT_WINDOW_RESIZED)
+            {
+                core::i32 width;
+                core::i32 height;
+                SDL_GetWindowSize(window->getSDLWindow(),&width,&height);
+                glViewport(0,0,width,height);
+            }
+        }
         double newTime = SDL_GetTicks();
         double frameTime = newTime - currentTime;
         currentTime = newTime;
         float deltaTime;
-        window->pollEvents(&event);
         while ( frameTime > 0.0 )
         {
             deltaTime = SDL_min( frameTime, dt );
