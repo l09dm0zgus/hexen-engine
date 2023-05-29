@@ -9,6 +9,8 @@ set(SDL_IMAGE_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/SDL_image/include/SDL3
 set(GLM_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/glm)
 set(SDL_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/SDL/include)
 set(GLEW_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/glew-cmake/include)
+set(JSON_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/json/include)
+
 
 add_subdirectory(${PARENT_DIR}/engine/ engine_build)
 
