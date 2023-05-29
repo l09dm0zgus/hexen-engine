@@ -19,6 +19,7 @@ target_sources(${EDITOR_NAME} PRIVATE imgui/imconfig.h
         imgui/backends/imgui_impl_opengl3.cpp
         imgui/backends/imgui_impl_sdl3.h
         imgui/backends/imgui_impl_sdl3.cpp
+        imgui/imgui_demo.cpp
         #imgui/backends/imgui_impl_vulkan.h
         #imgui/backends/imgui_impl_vulkan.cpp
         )
