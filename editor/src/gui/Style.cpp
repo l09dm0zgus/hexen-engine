@@ -247,6 +247,6 @@ void edit::gui::Style::loadThemeFromFile(const std::string &path)
         setSpacingValues();
 
         std::ofstream file(path);
-        file << styleFile;
+        file << styleFile.dump(4);
     }
 }
