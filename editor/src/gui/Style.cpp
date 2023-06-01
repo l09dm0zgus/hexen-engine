@@ -9,6 +9,9 @@
 edit::gui::Style::Style()
 {
     colors.set("text",ImGuiCol_Text);
+    colors.set("header",ImGuiCol_Header);
+    colors.set("headerHovered",ImGuiCol_HeaderHovered);
+    colors.set("headerActive",ImGuiCol_HeaderActive);
     colors.set("textDisabled",ImGuiCol_TextDisabled);
     colors.set("window_background",ImGuiCol_WindowBg);
     colors.set("child_background",ImGuiCol_ChildBg);
