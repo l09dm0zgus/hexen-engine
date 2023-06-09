@@ -7,6 +7,7 @@
 #else
 #include <GLES3/gl31.h>
 #endif
+
 #include "ElementsBufferObject.h"
 
 core::rend::ElementsBufferObject::ElementsBufferObject()

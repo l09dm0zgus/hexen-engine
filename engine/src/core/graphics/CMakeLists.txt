@@ -18,4 +18,6 @@ target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ElementsBuffe
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/Shaders.h
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/Texture.h
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/Texture.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/FrameBufferObject.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/FrameBufferObject.cpp
         )
