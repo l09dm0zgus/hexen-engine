@@ -8,6 +8,7 @@
 
 void edit::gui::Dockspace::draw()
 {
+    id = ImGui::DockSpaceOverViewport();
     if(isAttachedWindow)
     {
         isAttachedWindow = false;
@@ -37,11 +38,11 @@ void edit::gui::Dockspace::end()
 
 void edit::gui::Dockspace::setWindowsInDockspace()
 {
-    id = ImGui::DockSpaceOverViewport();
+
     ImGuiViewport* viewport = ImGui::GetMainViewport();
 
     ImGui::DockBuilderRemoveNode(id); // clear any previous layout
-    ImGui::DockBuilderAddNode(id, ImGuiDockNodeFlags_DockSpace);
+    ImGui::DockBuilderAddNode(id, ImGuiDockNodeFlags_PassthruCentralNode | ImGuiDockNodeFlags_DockSpace);
     ImGui::DockBuilderSetNodeSize(id, viewport->Size);
 
     dockUpId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Up,0.2f, nullptr,&id);
