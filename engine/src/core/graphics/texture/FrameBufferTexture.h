@@ -10,7 +10,7 @@
 
 namespace core::rend
 {
-    class FrameBufferTexture : mem::AllocatedObject
+    class FrameBufferTexture : public mem::AllocatedObject
     {
     private:
         u32 object{0};
