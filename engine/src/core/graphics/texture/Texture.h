@@ -22,7 +22,7 @@ namespace core::rend
     public:
         Texture(const std::string &pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
         void bind(u32 id) const;
-        ~Texture();
+        ~Texture() override;
         Texture(const Texture &texture) = default;
         Texture(Texture &&texture) = default;
         Texture& operator=(const Texture &texture) = default;
