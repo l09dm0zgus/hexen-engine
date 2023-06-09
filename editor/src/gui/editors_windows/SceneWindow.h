@@ -8,14 +8,14 @@
 #include <core/Types.h>
 #include <core/graphics/FrameBufferObject.h>
 #include <core/graphics/texture/FrameBufferTexture.h>
-#include "../GUIWindow.h"
+#include "GUIWindow.h"
 
 namespace edit::gui
 {
     class SceneWindow : public GUIWindow
     {
     public:
-        SceneWindow(const std::string &name);
+        explicit SceneWindow(const std::string &name);
         void begin() override;
         void draw() override;
         void end() override;
