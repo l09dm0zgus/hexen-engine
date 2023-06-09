@@ -42,7 +42,7 @@ void edit::gui::SceneWindow::draw()
 void edit::gui::SceneWindow::end()
 {
     frameBufferObject.bind();
-    draw();
+    drawScene();
     frameBufferObject.unbind();
 }
 
