@@ -6,13 +6,17 @@
 #else
 #include <GLES3/gl31.h>
 #endif
-
+#include <SDL3/SDL.h>
 #include "FrameBufferObject.h"
 
 core::rend::FrameBufferObject::FrameBufferObject()
 {
     glGenFramebuffers(1,&object);
     bind();
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        SDL_Log("ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n");
+    }
     unbind();
 }
 
