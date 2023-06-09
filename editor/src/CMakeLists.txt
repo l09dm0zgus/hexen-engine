@@ -10,7 +10,13 @@ target_sources(${EDITOR_NAME} PRIVATE main.cpp
         gui/EditorGUI.cpp
         gui/EditorGUI.h
         gui/Style.h
-        gui/Style.cpp)
+        gui/Style.cpp
+        gui/editors_windows/SceneWindow.h
+        gui/editors_windows/SceneWindow.cpp
+        gui/Dockspace.h
+        gui/Dockspace.cpp
+        gui/editors_windows/GUIWindow.cpp
+        gui/editors_windows/GUIWindow.h)
 
 
 target_include_directories(${EDITOR_NAME} PRIVATE ${PARENT_DIR}/engine/src)

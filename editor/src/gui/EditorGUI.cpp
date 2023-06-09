@@ -27,6 +27,7 @@ edit::gui::EditorGUI::EditorGUI()
     //ImGui::StyleColorsLight();
     style.loadThemeFromFile("editor_theme.json");
 
+    dockspace.attachWindow(std::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::LEFT);
 }
 
 void edit::gui::EditorGUI::begin()
@@ -34,12 +35,14 @@ void edit::gui::EditorGUI::begin()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
+    dockspace.begin();
 }
 
 void edit::gui::EditorGUI::draw()
 {
     bool isActive = true;
     ImGui::ShowDemoWindow(&isActive);
+    dockspace.draw();
 }
 
 edit::gui::EditorGUI::~EditorGUI()
@@ -61,6 +64,7 @@ void edit::gui::EditorGUI::end()
         ImGui::RenderPlatformWindowsDefault();
         SDL_GL_MakeCurrent(backupCurrentWindow, backupCurrentContext);
     }
+    dockspace.end();
 }
 
 void edit::gui::EditorGUI::processEvent(SDL_Event *event)

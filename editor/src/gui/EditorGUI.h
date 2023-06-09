@@ -11,7 +11,8 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <SDL_video.h>
 #include "Style.h"
-
+#include "editors_windows/SceneWindow.h"
+#include "Dockspace.h"
 
 namespace edit::gui
 {
@@ -28,6 +29,7 @@ namespace edit::gui
     private:
         Style style;
         ImGuiIO *io{nullptr};
+        Dockspace dockspace;
     };
 }
 
