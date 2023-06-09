@@ -20,7 +20,7 @@ namespace core::rend
     class Texture : public mem::AllocatedObject
     {
     public:
-        Texture(const std::string &pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
+        explicit Texture(const std::string &pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
         void bind(u32 id) const;
         ~Texture() override;
         Texture(const Texture &texture) = default;
