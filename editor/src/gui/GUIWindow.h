@@ -5,10 +5,11 @@
 #ifndef HEXENEDITOR_GUIWINDOW_H
 #define HEXENEDITOR_GUIWINDOW_H
 #include <string>
+#include <core/memory_pool/AllocatedObject.h>
 
 namespace edit::gui
 {
-    class GUIWindow
+    class GUIWindow : public core::mem::AllocatedObject
     {
     public:
         std::string getName();
