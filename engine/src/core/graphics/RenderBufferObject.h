@@ -16,7 +16,7 @@ namespace core::rend
         u32 getID() const noexcept;
         RenderBufferObject();
         ~RenderBufferObject();
-        void bind();
+        void bind() const;
         void unbind();
     };
 }

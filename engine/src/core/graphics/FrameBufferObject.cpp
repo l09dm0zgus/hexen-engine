@@ -13,11 +13,6 @@ core::rend::FrameBufferObject::FrameBufferObject()
 {
     glGenFramebuffers(1,&object);
     bind();
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        SDL_Log("ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n");
-    }
-    unbind();
 }
 
 core::rend::FrameBufferObject::~FrameBufferObject()
@@ -25,22 +20,28 @@ core::rend::FrameBufferObject::~FrameBufferObject()
     glDeleteFramebuffers(1,&object);
 }
 
-void core::rend::FrameBufferObject::bind()
-{
+void core::rend::FrameBufferObject::bind() const {
     glBindFramebuffer(GL_FRAMEBUFFER,object);
-    renderBufferObject.bind();
-
 }
 
 void core::rend::FrameBufferObject::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER,0);
-    renderBufferObject.unbind();
 }
 
-void core::rend::FrameBufferObject::setSize(const glm::vec2 &size)
-{
+void core::rend::FrameBufferObject::setSize(const glm::vec2 &size) const {
     renderBufferObject.bind();
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size.x, size.y);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBufferObject.getID());
+}
+
+void core::rend::FrameBufferObject::bindRenderBuffer()
+{
+    renderBufferObject.bind();
+}
+
+void core::rend::FrameBufferObject::unbindRenderBuffer()
+{
+    renderBufferObject.unbind();
+
 }

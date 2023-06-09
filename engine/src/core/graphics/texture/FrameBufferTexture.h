@@ -18,6 +18,7 @@ namespace core::rend
         explicit FrameBufferTexture(const glm::vec2 &size);
         ~FrameBufferTexture() override;
         u32 getID() const noexcept;
+        void unbind();
         void resize(const glm::vec2 &size) const;
     };
 }

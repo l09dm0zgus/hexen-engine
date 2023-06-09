@@ -33,3 +33,8 @@ core::rend::FrameBufferTexture::~FrameBufferTexture()
 {
     glDeleteTextures(1,&object);
 }
+
+void core::rend::FrameBufferTexture::unbind()
+{
+    glBindTexture(GL_TEXTURE_2D, 0);
+}

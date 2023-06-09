@@ -25,8 +25,7 @@ core::u32 core::rend::RenderBufferObject::getID() const noexcept
     return object;
 }
 
-void core::rend::RenderBufferObject::bind()
-{
+void core::rend::RenderBufferObject::bind() const {
     glBindRenderbuffer(GL_RENDERBUFFER, object);
 }
 
