@@ -3,6 +3,8 @@
 //
 
 #include "EditorGUI.h"
+#include "editors_windows/MainMenuBar.h"
+#include "editors_windows/SceneWindow.h"
 
 edit::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
 {
@@ -28,6 +30,7 @@ edit::gui::EditorGUI::EditorGUI()
     style.loadThemeFromFile("editor_theme.json");
 
     dockspace.attachWindow(std::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::LEFT);
+    dockspace.attachWindow(std::make_shared<MainMenuBar>("Menu Bar"),Dockspace::DockingPosition::NONE);
 }
 
 void edit::gui::EditorGUI::begin()
@@ -41,7 +44,7 @@ void edit::gui::EditorGUI::begin()
 void edit::gui::EditorGUI::draw()
 {
     bool isActive = true;
-    ImGui::ShowDemoWindow(&isActive);
+    //ImGui::ShowDemoWindow(&isActive);
     dockspace.draw();
 }
 

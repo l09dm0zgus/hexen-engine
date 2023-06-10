@@ -16,7 +16,9 @@ target_sources(${EDITOR_NAME} PRIVATE main.cpp
         gui/Dockspace.h
         gui/Dockspace.cpp
         gui/editors_windows/GUIWindow.cpp
-        gui/editors_windows/GUIWindow.h)
+        gui/editors_windows/GUIWindow.h
+        gui/editors_windows/MainMenuBar.h
+        gui/editors_windows/MainMenuBar.cpp)
 
 
 target_include_directories(${EDITOR_NAME} PRIVATE ${PARENT_DIR}/engine/src)

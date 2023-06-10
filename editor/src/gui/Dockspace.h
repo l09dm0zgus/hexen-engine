@@ -16,7 +16,8 @@ namespace edit::gui
             UP,
             DOWN,
             LEFT,
-            RIGHT
+            RIGHT,
+            NONE
         };
         void draw();
         void begin();

@@ -67,6 +67,8 @@ void edit::gui::Dockspace::setWindowsInDockspace()
             case DockingPosition::RIGHT:
                 ImGui::DockBuilderDockWindow( dockingPosition.key.c_str(), dockRightId);
                 break;
+            default:
+                break;
 
         }
     }
