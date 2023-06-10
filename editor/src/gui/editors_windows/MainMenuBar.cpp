@@ -4,7 +4,6 @@
 
 #include "MainMenuBar.h"
 #include <imgui.h>
-#include <iostream>
 
 edit::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
 {
@@ -46,7 +45,6 @@ void edit::gui::MainMenuBar::showMenu(const std::string &name,const std::functio
 
 void edit::gui::MainMenuBar::showMenuItem(const std::string &name,const std::string &hotkey,const std::function<void()> &callback)
 {
-    std::cout << "Hot key:" << hotkey << "\n";
     if(ImGui::MenuItem(name.c_str(),hotkey.c_str()))
     {
         callback();
