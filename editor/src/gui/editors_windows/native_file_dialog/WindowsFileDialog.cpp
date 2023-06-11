@@ -598,4 +598,96 @@ void edit::gui::WindowsFileDialog::releaseSaveFileDialog(::IFileSaveDialog *file
     }
 }
 
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::pickDialog(const std::string &defaultPath, std::string &pathToFile)
+{
+    Status status = Status::STATUS_ERROR;
+    DWORD dwOptions = 0;
+
+    HRESULT coResult = comIninitialize();
+    if (!isCOMInitialized(coResult))
+    {
+        std::cout << "CoInitializeEx failed.\n";
+        return status;
+    }
+
+    // Create dialog
+    ::IFileOpenDialog *fileDialog(nullptr);
+    HRESULT result = CoCreateInstance(CLSID_FileOpenDialog, nullptr,CLSCTX_ALL,IID_PPV_ARGS(&fileDialog));
+    if ( !SUCCEEDED(result) )
+    {
+        std::cout << "CoCreateInstance for CLSID_FileOpenDialog failed.\n";
+        releaseOpenFileDialog(fileDialog);
+    }
+
+    // Set the default path
+    if (setDefaultPath(fileDialog, defaultPath) != Status::STATUS_OK)
+    {
+        std::cout << "SetDefaultPath failed.\n";
+        releaseOpenFileDialog(fileDialog);
+    }
+
+    // Get the dialogs options
+    if (!SUCCEEDED(fileDialog->GetOptions(&dwOptions)))
+    {
+        std::cout << "GetOptions for IFileDialog failed.\n";
+        releaseOpenFileDialog(fileDialog);
+    }
+
+    // Add in FOS_PICKFOLDERS which hides files and only allows selection of folders
+    if (!SUCCEEDED(fileDialog->SetOptions(dwOptions | FOS_PICKFOLDERS)))
+    {
+        std::cout << "SetOptions for IFileDialog failed.\n";
+        releaseOpenFileDialog(fileDialog);
+    }
+
+    // Show the dialog to the user
+    result = fileDialog->Show(nullptr);
+    if ( SUCCEEDED(result) )
+    {
+        // Get the folder name
+        ::IShellItem *shellItem(nullptr);
+
+        result = fileDialog->GetResult(&shellItem);
+        if ( !SUCCEEDED(result) )
+        {
+            std::cout << "Could not get file path for selected.\n";
+            shellItem->Release();
+            releaseOpenFileDialog(fileDialog);
+        }
+
+        wchar_t *path = nullptr;
+        result = shellItem->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &path);
+        if ( !SUCCEEDED(result) )
+        {
+            std::cout << "GetDisplayName for IShellItem failed.\n";
+            shellItem->Release();
+            releaseOpenFileDialog(fileDialog);
+        }
+
+        pathToFile = copyWideCharToSTDString(path);
+        CoTaskMemFree(path);
+        if ( pathToFile.empty() )
+        {
+            shellItem->Release();
+            releaseOpenFileDialog(fileDialog);
+        }
+
+        status = Status::STATUS_OK;
+        shellItem->Release();
+    }
+    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
+    {
+        status = Status::STATUS_CANCEL;
+    }
+    else
+    {
+        std::cout << "Show for IFileDialog failed.\n";
+        status = Status::STATUS_ERROR;
+    }
+
+    comUninitialize(coResult);
+
+    return status;
+}
+
 

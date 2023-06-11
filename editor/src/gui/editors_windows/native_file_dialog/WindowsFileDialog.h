@@ -29,7 +29,7 @@ namespace edit::gui
         Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
         Status openDialog(const std::string &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
         Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
-        Status pickDialog(const std::string &defaultPath,std::string *pathToFile) override;
+        Status pickDialog(const std::string &defaultPath,std::string &pathToFile) override;
     private:
         const core::i32 maxStringLenght{256};
         BOOL isCOMInitialized(HRESULT hresult);
