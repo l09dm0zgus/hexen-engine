@@ -36,6 +36,8 @@ namespace edit::gui
         void copySTDStringToWideChar(const std::string &str,std::vector<wchar_t> &outString);
         Status appendExtensionToSpecificBuffer(const std::string &extension,std::string &buffer);
         Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList);
+        Status allocatePathSet(IShellItemArray *shellItems, PathSet *pathSet);
+        Status setDefaultPath(IFileDialog *dialog, const std::string  &defaultPath);
 
         const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;;
     };

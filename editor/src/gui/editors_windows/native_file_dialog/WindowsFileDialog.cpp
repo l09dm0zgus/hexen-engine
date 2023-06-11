@@ -116,6 +116,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::appendExtensi
 edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList)
 {
     const std::wstring wildcard{L"*.*"};
+
     if(filterList.empty())
     {
         return Status::STATUS_OK;
@@ -126,6 +127,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     filterCount = std::count(filterList.cbegin(),filterList.cend(),';');
 
     assert(filterCount);
+
     auto *specList = new COMDLG_FILTERSPEC [filterCount + 1];
 
     if(specList == nullptr)
@@ -133,6 +135,192 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
         return Status::STATUS_ERROR;
     }
 
+    for (core::i32 i = 0; i < filterCount + 1; ++i )
+    {
+        specList[i].pszName = nullptr;
+        specList[i].pszSpec = nullptr;
+    }
 
-    return edit::gui::INativeFileDialog::Status::
+   core::i32 specId = 0;
+
+    std::string typeBuffer;
+    std::string specBuffer;
+
+    for(auto c : filterList)
+    {
+        if(isFilterSegmentChar(c))
+        {
+            appendExtensionToSpecificBuffer(typeBuffer,specBuffer);
+            specBuffer.append(static_cast<char>(0),sizeof(char) * maxStringLenght);
+        }
+        if ( c == ';' || c == '\0' )
+        {
+            /* end of filter -- add it to specList */
+
+            std::vector<wchar_t> pszName,pszSpec;
+
+            copySTDStringToWideChar(specBuffer,pszName);
+            specList[specId].pszName = &pszName[0];
+
+            copySTDStringToWideChar(specBuffer,pszSpec);
+            specList[specId].pszName = &pszSpec[0];
+
+            specBuffer.append(static_cast<char>(0),sizeof(char) * maxStringLenght);
+            ++specId;
+            if ( specId == filterCount )
+            {
+                break;
+            }
+        }
+
+        if(!isFilterSegmentChar(c))
+        {
+            typeBuffer.push_back(c);
+        }
+    }
+
+    /* Add wildcard */
+    specList[specId].pszSpec = wildcard.c_str();
+    specList[specId].pszName = wildcard.c_str();
+
+    fileOpenDialog->SetFileTypes( filterCount+1, specList );
+    delete [] specList;
+
+    return Status::STATUS_OK;
+}
+
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, edit::gui::PathSet *pathSet)
+{
+
+    assert(shellItems);
+    assert(pathSet);
+
+    // How many items in shellItems?
+    DWORD numberOfShellItems;
+    HRESULT result = shellItems->GetCount(&numberOfShellItems);
+    if ( !SUCCEEDED(result) )
+    {
+        return Status::STATUS_ERROR;
+    }
+
+    pathSet->count = static_cast<core::i32>(numberOfShellItems);
+
+    assert( pathSet->count > 0 );
+
+    pathSet->indices = new core::i32[pathSet->count];
+
+    if (pathSet->indices == nullptr)
+    {
+        return Status::STATUS_ERROR;
+    }
+
+    /* count the total bytes needed for buf */
+   core::i32 bufferSize = 0;
+
+    for ( DWORD i = 0; i < numberOfShellItems; ++i )
+    {
+        ::IShellItem *shellItem;
+        result = shellItems->GetItemAt(i, &shellItem);
+        if ( !SUCCEEDED(result) )
+        {
+            return Status::STATUS_ERROR;
+        }
+
+        // Confirm SFGAO_FILESYSTEM is true for this shellitem, or ignore it.
+        SFGAOF attributes;
+        result = shellItem->GetAttributes( SFGAO_FILESYSTEM, &attributes );
+        if ( !SUCCEEDED(result) )
+        {
+            return Status::STATUS_ERROR;
+        }
+        if ( !(attributes & SFGAO_FILESYSTEM) )
+        {
+            continue;
+        }
+
+        LPWSTR name;
+        shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
+
+        // Calculate length of name with UTF-8 encoding
+        bufferSize += getUTF8ByteCountForWideChar( name );
+
+        CoTaskMemFree(name);
+    }
+
+    assert(bufferSize);
+
+    /* fill buffer */
+    char *buffer = const_cast<char*>(pathSet->buffer.c_str());
+
+    for (DWORD i = 0; i < numberOfShellItems; ++i )
+    {
+        ::IShellItem *shellItem;
+        result = shellItems->GetItemAt(i, &shellItem);
+        if ( !SUCCEEDED(result) )
+        {
+            return Status::STATUS_ERROR;
+        }
+
+        // Confirm SFGAO_FILESYSTEM is true for this shellitem, or ignore it.
+        SFGAOF attributes;
+        result = shellItem->GetAttributes( SFGAO_FILESYSTEM, &attributes );
+
+        if ( !SUCCEEDED(result) )
+        {
+            return Status::STATUS_ERROR;
+        }
+
+        if ( !(attributes & SFGAO_FILESYSTEM) )
+        {
+            continue;
+        }
+
+        LPWSTR name;
+        shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
+
+        auto bytesWritten = copyWideCharToExisitingSTDString(name, pathSet->buffer);
+        CoTaskMemFree(name);
+
+        ptrdiff_t index = buffer - pathSet->buffer.c_str();
+
+        assert( index >= 0 );
+        pathSet->indices[i] = static_cast<core::i32>(index);
+
+        buffer += bytesWritten;
+    }
+
+    return Status::STATUS_OK;
+}
+
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::setDefaultPath(IFileDialog *dialog, const std::string &defaultPath)
+{
+    if(defaultPath.empty())
+    {
+        return Status::STATUS_OK;
+    }
+
+    std::vector<wchar_t> defaultPathW = {0};
+
+    copySTDStringToWideChar(defaultPath,defaultPathW);
+
+    IShellItem *folder;
+    HRESULT result = SHCreateItemFromParsingName( &defaultPathW[0], nullptr, IID_PPV_ARGS(&folder) );
+
+    // Valid non results.
+    if ( result == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) || result == HRESULT_FROM_WIN32(ERROR_INVALID_DRIVE) )
+    {
+        return Status::STATUS_OK;
+    }
+
+    if ( !SUCCEEDED(result) )
+    {
+        return Status::STATUS_OK;
+    }
+
+    // Could also call SetDefaultFolder(), but this guarantees defaultPath -- more consistency across API.
+    dialog->SetFolder( folder );
+
+    folder->Release();
+
+    return Status::STATUS_OK;
 }
