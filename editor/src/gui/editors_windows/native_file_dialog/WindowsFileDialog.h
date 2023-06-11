@@ -25,6 +25,11 @@ namespace edit::gui
 {
     class WindowsFileDialog : public INativeFileDialog
     {
+    public:
+        Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
+        Status openDialog(const std::string &filterList,const std::string &defaultPath,std::vector<std::string> &pathToFiles) override;
+        Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string *pathToFile) override;
+        Status pickDialog(const std::string &defaultPath,std::string *pathToFile) override;
     private:
         const core::i32 maxStringLenght{256};
         BOOL isCOMInitialized(HRESULT hresult);
@@ -38,6 +43,7 @@ namespace edit::gui
         Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList);
         Status allocatePathSet(IShellItemArray *shellItems, PathSet *pathSet);
         Status setDefaultPath(IFileDialog *dialog, const std::string  &defaultPath);
+        void releaseFileDialog(::IFileOpenDialog *fileOpenDialog);
 
         const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;;
     };
