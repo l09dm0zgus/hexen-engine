@@ -343,19 +343,19 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     if ( !SUCCEEDED(result) )
     {
         std::cout << "Could not create dialog.\n";
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Build the filter list
     if (addFiltersToDialog( fileOpenDialog, filterList ) != Status::STATUS_OK )
     {
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Set the default path
     if (setDefaultPath( fileOpenDialog, defaultPath ) != Status::STATUS_OK)
     {
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Show the dialog.
@@ -369,7 +369,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
         if ( !SUCCEEDED(result) )
         {
             std::cout << "Could not get shell item from dialog.\n";
-            releaseFileDialog(fileOpenDialog);
+            releaseOpenFileDialog(fileOpenDialog);
         }
 
         wchar_t *filePath(nullptr);
@@ -379,7 +379,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
         {
             std::cout << "Could not get file path for selected.\n";
             shellItem->Release();
-            releaseFileDialog(fileOpenDialog);
+            releaseOpenFileDialog(fileOpenDialog);
         }
 
         pathToFile = copyWideCharToSTDString(filePath);
@@ -389,7 +389,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
         {
             /* error is malloc-based, error message would be redundant */
             shellItem->Release();
-            releaseFileDialog(fileOpenDialog);
+            releaseOpenFileDialog(fileOpenDialog);
         }
 
         status = Status::STATUS_OK;
@@ -410,7 +410,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     return status;
 }
 
-void edit::gui::WindowsFileDialog::releaseFileDialog(::IFileOpenDialog *fileOpenDialog)
+void edit::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog)
 {
     if (fileOpenDialog != nullptr)
     {
@@ -438,19 +438,19 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     {
         fileOpenDialog = nullptr;
         std::cout << "Could not create dialog.\n";
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Build the filter list
     if ( addFiltersToDialog( fileOpenDialog, filterList ) != Status::STATUS_OK)
     {
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Set the default path
     if ( setDefaultPath( fileOpenDialog, defaultPath ) != Status::STATUS_OK )
     {
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Set a flag for multiple options
@@ -459,14 +459,14 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     if ( !SUCCEEDED(result) )
     {
         std::cout << "Could not get options.\n";
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     result = fileOpenDialog->SetOptions(dwFlags | FOS_ALLOWMULTISELECT);
     if ( !SUCCEEDED(result) )
     {
         std::cout << "Could not set options.\n";
-        releaseFileDialog(fileOpenDialog);
+        releaseOpenFileDialog(fileOpenDialog);
     }
 
     // Show the dialog.
@@ -479,13 +479,13 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
         if ( !SUCCEEDED(result) )
         {
             std::cout << "Could not get shell items.\n";
-            releaseFileDialog(fileOpenDialog);
+            releaseOpenFileDialog(fileOpenDialog);
         }
 
         if ( allocatePathSet( shellItems, pathToFiles ) == Status::STATUS_ERROR )
         {
             shellItems->Release();
-            releaseFileDialog(fileOpenDialog);
+            releaseOpenFileDialog(fileOpenDialog);
         }
 
         shellItems->Release();
@@ -503,6 +503,99 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
 
     comUninitialize(coResult);
     return status;
+}
+
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(const std::string &filterList, const std::string &defaultPath,std::string &pathToFile)
+{
+    Status status = Status::STATUS_ERROR;
+
+    HRESULT coResult = comIninitialize();
+    if (!isCOMInitialized(coResult))
+    {
+        std::cout << "Could not initialize COM.\n";
+        return status;
+    }
+
+    // Create dialog
+    ::IFileSaveDialog *fileSaveDialog(nullptr);
+    HRESULT result = ::CoCreateInstance(::CLSID_FileSaveDialog, nullptr,CLSCTX_ALL, ::IID_IFileSaveDialog,reinterpret_cast<void**>(&fileSaveDialog) );
+
+    if ( !SUCCEEDED(result) )
+    {
+        fileSaveDialog = nullptr;
+        std::cout << "Could not create dialog.\n";
+        releaseSaveFileDialog(fileSaveDialog);
+    }
+
+    // Build the filter list
+    if ( addFiltersToDialog( fileSaveDialog, filterList ) != Status::STATUS_OK)
+    {
+        releaseSaveFileDialog(fileSaveDialog);
+    }
+
+    // Set the default path
+    if ( setDefaultPath( fileSaveDialog, defaultPath ) != Status::STATUS_OK)
+    {
+        releaseSaveFileDialog(fileSaveDialog);
+    }
+
+    // Show the dialog.
+    result = fileSaveDialog->Show(NULL);
+    if ( SUCCEEDED(result) )
+    {
+        // Get the file name
+        ::IShellItem *shellItem;
+        result = fileSaveDialog->GetResult(&shellItem);
+        if ( !SUCCEEDED(result) )
+        {
+            std::cout << "Could not get shell item from dialog.\n";
+            releaseSaveFileDialog(fileSaveDialog);
+        }
+
+        wchar_t *filePath(nullptr);
+        result = shellItem->GetDisplayName(::SIGDN_FILESYSPATH, &filePath);
+
+        if ( !SUCCEEDED(result) )
+        {
+            shellItem->Release();
+            std::cout << "Could not get file path for selected.\n";
+            releaseSaveFileDialog(fileSaveDialog);
+        }
+
+        pathToFile = copyWideCharToSTDString( filePath );
+        CoTaskMemFree(filePath);
+
+        if (pathToFile.empty())
+        {
+            /* error is malloc-based, error message would be redundant */
+            shellItem->Release();
+            releaseSaveFileDialog(fileSaveDialog);
+        }
+
+        status = Status::STATUS_OK;
+        shellItem->Release();
+    }
+    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
+    {
+        status = Status::STATUS_CANCEL;
+    }
+    else
+    {
+        std::cout << "File dialog box show failed.\n";
+        status = Status::STATUS_ERROR;
+    }
+
+    comUninitialize(coResult);
+
+    return status;
+}
+
+void edit::gui::WindowsFileDialog::releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog)
+{
+    if ( fileSaveDialog != nullptr )
+    {
+        fileSaveDialog->Release();
+    }
 }
 
 

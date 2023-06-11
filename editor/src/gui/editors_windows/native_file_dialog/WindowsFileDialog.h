@@ -28,7 +28,7 @@ namespace edit::gui
     public:
         Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
         Status openDialog(const std::string &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
-        Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string *pathToFile) override;
+        Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
         Status pickDialog(const std::string &defaultPath,std::string *pathToFile) override;
     private:
         const core::i32 maxStringLenght{256};
@@ -43,7 +43,8 @@ namespace edit::gui
         Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList);
         Status allocatePathSet(IShellItemArray *shellItems, PathSet *pathSet);
         Status setDefaultPath(IFileDialog *dialog, const std::string  &defaultPath);
-        void releaseFileDialog(::IFileOpenDialog *fileOpenDialog);
+        void releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog);
+        void releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog);
 
         const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;;
     };

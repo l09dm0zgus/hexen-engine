@@ -37,7 +37,7 @@ class INativeFileDialog : public core::mem::AllocatedObject
 
     virtual Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
         virtual Status openDialog(const std::string &filterList,const std::string &defaultPath,PathSet *pathToFiles) = 0;
-        virtual Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string *pathToFile) = 0;
+        virtual Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
         virtual Status pickDialog(const std::string &defaultPath,std::string *pathToFile) = 0;
     };
 
