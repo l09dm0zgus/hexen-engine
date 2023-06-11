@@ -189,7 +189,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     return Status::STATUS_OK;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, edit::gui::PathSet *pathSet)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, edit::gui::INativeFileDialog::PathSet *pathSet)
 {
 
     assert(shellItems);

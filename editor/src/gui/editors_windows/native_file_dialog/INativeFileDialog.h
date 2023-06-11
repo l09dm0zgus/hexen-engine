@@ -14,12 +14,17 @@ namespace edit::gui
 class INativeFileDialog : public core::mem::AllocatedObject
     {
     public:
+        INativeFileDialog() = default;
         virtual ~INativeFileDialog() = default;
         INativeFileDialog(INativeFileDialog &&iNativeFileDialog) = delete;
         INativeFileDialog(const INativeFileDialog &iNativeFileDialog) = delete;
         INativeFileDialog& operator=(INativeFileDialog &&iNativeFileDialog) = delete;
         INativeFileDialog& operator=(const INativeFileDialog &iNativeFileDialog) = delete;
 
+        bool isFilterSegmentChar(char ch)
+        {
+            return (ch==','||ch==';'||ch=='\0');
+        }
         enum class Status : core::i32
         {
             STATUS_OK,
@@ -42,10 +47,7 @@ class INativeFileDialog : public core::mem::AllocatedObject
     };
 
 
-    bool isFilterSegmentChar(char ch)
-    {
-        return (ch==','||ch==';'||ch=='\0');
-    }
+
 
 }
 
