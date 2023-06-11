@@ -53,6 +53,7 @@ std::string edit::gui::WindowsFileDialog::copyWideCharToSTDString(const wchar_t 
     std::string result(outString);
 
     delete [] outString;
+    return result;
 
 }
 
@@ -96,7 +97,6 @@ void edit::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &st
 edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::appendExtensionToSpecificBuffer(const std::string &extension, std::string &buffer)
 {
     std::string separators = {";"};
-    assert( buffer.size() > extension.size() + 3 );
 
     if(!buffer.empty())
     {
@@ -124,6 +124,16 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
 
     core::i64 filterCount = 1;
 
+    auto charFilterList = filterList.c_str();
+
+    for ( ; *charFilterList; ++charFilterList )
+    {
+        if ( *charFilterList == ';' )
+        {
+            ++filterCount;
+        }
+    }
+
     filterCount = std::count(filterList.cbegin(),filterList.cend(),';');
 
     assert(filterCount);
@@ -141,19 +151,17 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
         specList[i].pszSpec = nullptr;
     }
 
-   core::i32 specId = 0;
-
+    core::i32 specId = 0;
     std::string typeBuffer;
     std::string specBuffer;
 
-    for(auto c : filterList)
+    while (true)
     {
-        if(isFilterSegmentChar(c))
+        if(isFilterSegmentChar(*charFilterList))
         {
             appendExtensionToSpecificBuffer(typeBuffer,specBuffer);
-            specBuffer.append(static_cast<char>(0),sizeof(char) * maxStringLenght);
         }
-        if ( c == ';' || c == '\0' )
+        if ( *charFilterList == ';' || *charFilterList == '\0' )
         {
             /* end of filter -- add it to specList */
 
@@ -163,9 +171,13 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
             specList[specId].pszName = &pszName[0];
 
             copySTDStringToWideChar(specBuffer,pszSpec);
-            specList[specId].pszName = &pszSpec[0];
+            specList[specId].pszSpec = &pszSpec[0];
 
-            specBuffer.append(static_cast<char>(0),sizeof(char) * maxStringLenght);
+            for(auto c : pszName)
+            {
+                std::wcout << c;
+            }
+
             ++specId;
             if ( specId == filterCount )
             {
@@ -173,9 +185,9 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
             }
         }
 
-        if(!isFilterSegmentChar(c))
+        if(!isFilterSegmentChar(*charFilterList))
         {
-            typeBuffer.push_back(c);
+            typeBuffer.push_back(*charFilterList);
         }
     }
 
