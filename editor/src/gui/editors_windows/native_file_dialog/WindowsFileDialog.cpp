@@ -83,13 +83,14 @@ core::i32 edit::gui::WindowsFileDialog::copyWideCharToExisitingSTDString(const w
 
 void edit::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &str, std::vector<wchar_t> &outString)
 {
-    auto charsNeeded =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), outString.size(), nullptr, 0 );
+    auto charsNeeded =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), str.size(), nullptr, 0 );
 
     charsNeeded += 1;
 
     outString.reserve(charsNeeded);
 
-    auto result =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), str.size(),&outString[0], charsNeeded);
+    auto result =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), str.size(),outString.data(), charsNeeded);
+
     outString[charsNeeded-1] = '\0';
 
 }
@@ -124,17 +125,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
 
     core::i64 filterCount = 1;
 
-    auto charFilterList = filterList.c_str();
-
-    for ( ; *charFilterList; ++charFilterList )
-    {
-        if ( *charFilterList == ';' )
-        {
-            ++filterCount;
-        }
-    }
-
-    filterCount = std::count(filterList.cbegin(),filterList.cend(),';');
+    filterCount = filterCount + std::count(filterList.cbegin(),filterList.cend(),';');
 
     assert(filterCount);
 
@@ -155,13 +146,20 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     std::string typeBuffer;
     std::string specBuffer;
 
-    while (true)
+    std::vector<wchar_t> pszName;
+
+    copySTDStringToWideChar("Hello World",pszName);
+
+    auto buff = pszName.data();
+    std::wcout << buff;
+
+    for (auto c : filterList)
     {
-        if(isFilterSegmentChar(*charFilterList))
+        if(isFilterSegmentChar(c))
         {
             appendExtensionToSpecificBuffer(typeBuffer,specBuffer);
         }
-        if ( *charFilterList == ';' || *charFilterList == '\0' )
+        if ( c == ';' || c == '\0' )
         {
             /* end of filter -- add it to specList */
 
@@ -173,21 +171,11 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
             copySTDStringToWideChar(specBuffer,pszSpec);
             specList[specId].pszSpec = &pszSpec[0];
 
-            for(auto c : pszName)
-            {
-                std::wcout << c;
-            }
-
-            ++specId;
-            if ( specId == filterCount )
-            {
-                break;
-            }
         }
 
-        if(!isFilterSegmentChar(*charFilterList))
+        if(!isFilterSegmentChar(c))
         {
-            typeBuffer.push_back(*charFilterList);
+            typeBuffer.push_back(c);
         }
     }
 
