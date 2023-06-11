@@ -27,7 +27,7 @@ namespace edit::gui
     {
     public:
         Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
-        Status openDialog(const std::string &filterList,const std::string &defaultPath,std::vector<std::string> &pathToFiles) override;
+        Status openDialog(const std::string &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
         Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string *pathToFile) override;
         Status pickDialog(const std::string &defaultPath,std::string *pathToFile) override;
     private:

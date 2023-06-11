@@ -418,4 +418,91 @@ void edit::gui::WindowsFileDialog::releaseFileDialog(::IFileOpenDialog *fileOpen
     }
 }
 
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::string &filterList, const std::string &defaultPath,PathSet *pathToFiles)
+{
+    Status status = Status::STATUS_ERROR;
+
+
+    HRESULT coResult = comIninitialize();
+    if (!isCOMInitialized(coResult))
+    {
+        std::cout << "Could not initialize COM.\n";
+        return status;
+    }
+
+    // Create dialog
+    ::IFileOpenDialog *fileOpenDialog(nullptr);
+    HRESULT result = ::CoCreateInstance(::CLSID_FileOpenDialog, nullptr,CLSCTX_ALL, ::IID_IFileOpenDialog,reinterpret_cast<void**>(&fileOpenDialog) );
+
+    if ( !SUCCEEDED(result) )
+    {
+        fileOpenDialog = nullptr;
+        std::cout << "Could not create dialog.\n";
+        releaseFileDialog(fileOpenDialog);
+    }
+
+    // Build the filter list
+    if ( addFiltersToDialog( fileOpenDialog, filterList ) != Status::STATUS_OK)
+    {
+        releaseFileDialog(fileOpenDialog);
+    }
+
+    // Set the default path
+    if ( setDefaultPath( fileOpenDialog, defaultPath ) != Status::STATUS_OK )
+    {
+        releaseFileDialog(fileOpenDialog);
+    }
+
+    // Set a flag for multiple options
+    DWORD dwFlags;
+    result = fileOpenDialog->GetOptions(&dwFlags);
+    if ( !SUCCEEDED(result) )
+    {
+        std::cout << "Could not get options.\n";
+        releaseFileDialog(fileOpenDialog);
+    }
+
+    result = fileOpenDialog->SetOptions(dwFlags | FOS_ALLOWMULTISELECT);
+    if ( !SUCCEEDED(result) )
+    {
+        std::cout << "Could not set options.\n";
+        releaseFileDialog(fileOpenDialog);
+    }
+
+    // Show the dialog.
+    result = fileOpenDialog->Show(nullptr);
+    if ( SUCCEEDED(result) )
+    {
+        IShellItemArray *shellItems;
+        result = fileOpenDialog->GetResults( &shellItems );
+
+        if ( !SUCCEEDED(result) )
+        {
+            std::cout << "Could not get shell items.\n";
+            releaseFileDialog(fileOpenDialog);
+        }
+
+        if ( allocatePathSet( shellItems, pathToFiles ) == Status::STATUS_ERROR )
+        {
+            shellItems->Release();
+            releaseFileDialog(fileOpenDialog);
+        }
+
+        shellItems->Release();
+        status = Status::STATUS_OK;
+    }
+    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
+    {
+        status = Status::STATUS_CANCEL;
+    }
+    else
+    {
+        std::cout << "File dialog box show failed.\n";
+        status = Status::STATUS_ERROR;
+    }
+
+    comUninitialize(coResult);
+    return status;
+}
+
 
