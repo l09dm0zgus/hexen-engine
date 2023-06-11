@@ -16,7 +16,7 @@ BOOL edit::gui::WindowsFileDialog::isCOMInitialized(HRESULT hresult)
     return SUCCEEDED(hresult);
 }
 
-HRESULT edit::gui::WindowsFileDialog::comIninitialize()
+HRESULT edit::gui::WindowsFileDialog::comInitialize()
 {
     return ::CoInitializeEx(nullptr, COM_INITFLAGS);;
 }
@@ -95,95 +95,47 @@ void edit::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &st
 
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::appendExtensionToSpecificBuffer(const std::string &extension, std::string &buffer)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList)
 {
-    std::string separators = {";"};
+    const auto specsListSize= filterList.size();
 
-    if(!buffer.empty())
+    auto *specList = new COMDLG_FILTERSPEC [specsListSize];
+
+    for(core::i32 i = 0; i < specsListSize; i++)
     {
-        buffer = buffer + separators;
+        std::vector<wchar_t> name;
+        copySTDStringToWideChar(filterList[i].first,name);
+        specList[i].pszName = name.data();
     }
 
-    char extensionWildcard[maxStringLenght];
-
-    auto bytesWritten = sprintf_s( extensionWildcard, maxStringLenght, "*.%s", extension.c_str());
-    assert( bytesWritten == extension.size() + 2 );
-
-    buffer = buffer + extensionWildcard;
-
-    return Status::STATUS_OK;
-}
-
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList)
-{
-    const std::wstring wildcard{L"*.*"};
-
-    if(filterList.empty())
+    for(core::i32 i = 0; i < specsListSize; i++)
     {
-        return Status::STATUS_OK;
-    }
-
-    core::i64 filterCount = 1;
-
-    filterCount = filterCount + std::count(filterList.cbegin(),filterList.cend(),';');
-
-    assert(filterCount);
-
-    auto *specList = new COMDLG_FILTERSPEC [filterCount + 1];
-
-    if(specList == nullptr)
-    {
-        return Status::STATUS_ERROR;
-    }
-
-    for (core::i32 i = 0; i < filterCount + 1; ++i )
-    {
-        specList[i].pszName = nullptr;
-        specList[i].pszSpec = nullptr;
-    }
-
-    core::i32 specId = 0;
-    std::string typeBuffer;
-    std::string specBuffer;
-
-    std::vector<wchar_t> pszName;
-
-    copySTDStringToWideChar("Hello World",pszName);
-
-    auto buff = pszName.data();
-    std::wcout << buff;
-
-    for (auto c : filterList)
-    {
-        if(isFilterSegmentChar(c))
+        std::string fileSpec;
+        if (filterList[i].second == "all")
         {
-            appendExtensionToSpecificBuffer(typeBuffer,specBuffer);
+            fileSpec = "*.*";
         }
-        if ( c == ';' || c == '\0' )
+        else
         {
-            /* end of filter -- add it to specList */
-
-            std::vector<wchar_t> pszName,pszSpec;
-
-            copySTDStringToWideChar(specBuffer,pszName);
-            specList[specId].pszName = &pszName[0];
-
-            copySTDStringToWideChar(specBuffer,pszSpec);
-            specList[specId].pszSpec = &pszSpec[0];
-
+            std::vector<std::string> splittedStrings = splitString(filterList[i].second,";");
+            core::i32 j = 0;
+            for(auto& str : splittedStrings)
+            {
+                fileSpec.append("*.");
+                fileSpec.append(str);
+                if(j != splittedStrings.size() - 1)
+                {
+                    fileSpec.append(";");
+                }
+                j++;
+            }
         }
-
-        if(!isFilterSegmentChar(c))
-        {
-            typeBuffer.push_back(c);
-        }
+        std::vector<wchar_t> spec;
+        copySTDStringToWideChar(fileSpec,spec);
+        specList[i].pszSpec = spec.data();
     }
 
-    /* Add wildcard */
-    specList[specId].pszSpec = wildcard.c_str();
-    specList[specId].pszName = wildcard.c_str();
-
-    fileOpenDialog->SetFileTypes( filterCount+1, specList );
+    fileOpenDialog->SetFileTypes( specsListSize, specList );
     delete [] specList;
 
     return Status::STATUS_OK;
@@ -325,11 +277,11 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::setDefaultPat
     return Status::STATUS_OK;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::string &filterList, const std::string &defaultPath,std::string &pathToFile)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
 
-    HRESULT coResult = comIninitialize();
+    HRESULT coResult = comInitialize();
 
     if (!isCOMInitialized(coResult))
     {
@@ -418,12 +370,12 @@ void edit::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *file
     }
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::string &filterList, const std::string &defaultPath,PathSet *pathToFiles)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,PathSet *pathToFiles)
 {
     Status status = Status::STATUS_ERROR;
 
 
-    HRESULT coResult = comIninitialize();
+    HRESULT coResult = comInitialize();
     if (!isCOMInitialized(coResult))
     {
         std::cout << "Could not initialize COM.\n";
@@ -505,11 +457,11 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     return status;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(const std::string &filterList, const std::string &defaultPath,std::string &pathToFile)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
 
-    HRESULT coResult = comIninitialize();
+    HRESULT coResult = comInitialize();
     if (!isCOMInitialized(coResult))
     {
         std::cout << "Could not initialize COM.\n";
@@ -603,7 +555,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::pickDialog(co
     Status status = Status::STATUS_ERROR;
     DWORD dwOptions = 0;
 
-    HRESULT coResult = comIninitialize();
+    HRESULT coResult = comInitialize();
     if (!isCOMInitialized(coResult))
     {
         std::cout << "CoInitializeEx failed.\n";
@@ -688,6 +640,22 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::pickDialog(co
     comUninitialize(coResult);
 
     return status;
+}
+
+std::vector<std::string>
+edit::gui::WindowsFileDialog::splitString(const std::string &str, const std::string &delimiter)
+{
+    auto s = str;
+    std::vector<std::string> splittedString;
+    core::i32 position = 0;
+    std::string token;
+    while ((position = s.find(delimiter)) != std::string::npos)
+    {
+        token = s.substr(0, position);
+        splittedString.push_back(token);
+        s.erase(0, position + delimiter.length());
+    }
+    return splittedString;
 }
 
 

@@ -26,27 +26,28 @@ namespace edit::gui
     class WindowsFileDialog : public INativeFileDialog
     {
     public:
-        Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
-        Status openDialog(const std::string &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
-        Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) override;
+        Status openDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,std::string &pathToFile) override;
+        Status openDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
+        Status saveDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,std::string &pathToFile) override;
         Status pickDialog(const std::string &defaultPath,std::string &pathToFile) override;
+
     private:
-        const core::i32 maxStringLenght{256};
         BOOL isCOMInitialized(HRESULT hresult);
-        HRESULT comIninitialize();
+        HRESULT comInitialize();
         void comUninitialize(HRESULT hresult);
         std::string copyWideCharToSTDString(const wchar_t *string);
         core::i32 getUTF8ByteCountForWideChar(const wchar_t *string);
         core::i32 copyWideCharToExisitingSTDString(const wchar_t *string,std::string &outString);
         void copySTDStringToWideChar(const std::string &str,std::vector<wchar_t> &outString);
-        Status appendExtensionToSpecificBuffer(const std::string &extension,std::string &buffer);
-        Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList);
+        Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList);
+        std::vector<std::string> splitString(const std::string &str,const std::string &delimiter);
         Status allocatePathSet(IShellItemArray *shellItems, PathSet *pathSet);
         Status setDefaultPath(IFileDialog *dialog, const std::string  &defaultPath);
         void releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog);
         void releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog);
 
-        const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;;
+        const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;
+        const core::i32 maxStringLenght{256};
     };
 }
 
