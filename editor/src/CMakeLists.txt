@@ -18,8 +18,15 @@ target_sources(${EDITOR_NAME} PRIVATE main.cpp
         gui/editors_windows/GUIWindow.cpp
         gui/editors_windows/GUIWindow.h
         gui/editors_windows/MainMenuBar.h
-        gui/editors_windows/MainMenuBar.cpp)
-
+        gui/editors_windows/MainMenuBar.cpp
+        gui/editors_windows/native_file_dialog/INativeFileDialog.h
+        )
+if (WIN32)
+    target_sources(${EDITOR_NAME} PRIVATE main.cpp
+            gui/editors_windows/native_file_dialog/WindowsFileDialog.h
+            gui/editors_windows/native_file_dialog/WindowsFileDialog.cpp
+            )
+endif (WIN32)
 
 target_include_directories(${EDITOR_NAME} PRIVATE ${PARENT_DIR}/engine/src)
 target_include_directories(${EDITOR_NAME} PRIVATE ${SDL_IMAGE_INCLUDE_DIR})
