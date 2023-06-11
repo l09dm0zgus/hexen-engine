@@ -6,11 +6,12 @@
 #define HEXENEDITOR_INATIVEFILEDIALOG_H
 
 #include <core/Types.h>
+#include <core/memory_pool/AllocatedObject.h>
 #include <string>
 
 namespace edit::gui
 {
-    class INativeFileDialog
+class INativeFileDialog : public core::mem::AllocatedObject
     {
     public:
         virtual ~INativeFileDialog() = default;
