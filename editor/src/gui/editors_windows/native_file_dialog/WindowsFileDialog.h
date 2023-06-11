@@ -11,8 +11,6 @@
 #define _WIN32_WINNT _WIN32_WINNT_VISTA
 #endif
 
-#define COM_INITFLAGS ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE
-
 #ifndef UNICODE
 #define UNICODE
 #endif
@@ -38,6 +36,8 @@ namespace edit::gui
         void copySTDStringToWideChar(const std::string &str,std::vector<wchar_t> &outString);
         Status appendExtensionToSpecificBuffer(const std::string &extension,std::string &buffer);
         Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList);
+
+        const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;;
     };
 }
 

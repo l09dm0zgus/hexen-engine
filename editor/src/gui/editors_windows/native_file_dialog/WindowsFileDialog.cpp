@@ -118,7 +118,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     const std::wstring wildcard{L"*.*"};
     if(filterList.empty())
     {
-        return Status::OK;
+        return Status::S_OK;
     }
 
     core::i64 filterCount = 1;
@@ -126,6 +126,12 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     filterCount = std::count(filterList.cbegin(),filterList.cend(),';');
 
     assert(filterCount);
+    auto *specList = new COMDLG_FILTERSPEC [filterCount + 1];
+
+    if(specList == nullptr)
+    {
+        return Status::ERROR;
+    }
 
 
     return edit::gui::INativeFileDialog::Status::
