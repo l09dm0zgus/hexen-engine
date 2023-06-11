@@ -22,9 +22,9 @@ class INativeFileDialog : public core::mem::AllocatedObject
 
         enum class Status : core::i32
         {
-            OK,
-            ERROR,
-            CANCEL
+            STATUS_OK,
+            STATUS_ERROR,
+            STATUS_CANCEL
         };
 
         virtual Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string *pathToFile) = 0;

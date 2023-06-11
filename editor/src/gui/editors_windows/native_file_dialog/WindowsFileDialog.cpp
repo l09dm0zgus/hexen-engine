@@ -110,7 +110,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::appendExtensi
 
     buffer = buffer + extensionWildcard;
 
-    return Status::OK;
+    return Status::STATUS_OK;
 }
 
 edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::string &filterList)
@@ -118,7 +118,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     const std::wstring wildcard{L"*.*"};
     if(filterList.empty())
     {
-        return Status::S_OK;
+        return Status::STATUS_OK;
     }
 
     core::i64 filterCount = 1;
@@ -130,7 +130,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
 
     if(specList == nullptr)
     {
-        return Status::ERROR;
+        return Status::STATUS_ERROR;
     }
 
 
