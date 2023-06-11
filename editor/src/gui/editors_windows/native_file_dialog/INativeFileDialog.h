@@ -32,6 +32,19 @@ class INativeFileDialog : public core::mem::AllocatedObject
         virtual Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string *pathToFile) = 0;
         virtual Status pickDialog(const std::string &defaultPath,std::string *pathToFile) = 0;
     };
+
+    struct PathSet
+    {
+        std::string buffer;
+        core::i32 *indices; /* byte offsets into buffer */
+        core::i32 count;    /* number of indices into buffer */
+    };
+
+    bool isFilterSegmentChar(char ch)
+    {
+        return (ch==','||ch==';'||ch=='\0');
+    }
+
 }
 
 #endif //HEXENEDITOR_INATIVEFILEDIALOG_H
