@@ -9,7 +9,7 @@
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_opengl3_loader.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <SDL_video.h>
+#include <SDL3/SDL.h>
 #include "Style.h"
 #include "Dockspace.h"
 
