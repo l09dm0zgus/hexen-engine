@@ -150,59 +150,13 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathS
     // How many items in shellItems?
     DWORD numberOfShellItems;
     HRESULT result = shellItems->GetCount(&numberOfShellItems);
+
     if ( !SUCCEEDED(result) )
     {
         return Status::STATUS_ERROR;
     }
 
     pathSet->count = static_cast<core::i32>(numberOfShellItems);
-
-    assert( pathSet->count > 0 );
-
-    pathSet->indices = new core::i32[pathSet->count];
-
-    if (pathSet->indices == nullptr)
-    {
-        return Status::STATUS_ERROR;
-    }
-
-    /* count the total bytes needed for buf */
-   core::i32 bufferSize = 0;
-
-    for ( DWORD i = 0; i < numberOfShellItems; ++i )
-    {
-        ::IShellItem *shellItem;
-        result = shellItems->GetItemAt(i, &shellItem);
-        if ( !SUCCEEDED(result) )
-        {
-            return Status::STATUS_ERROR;
-        }
-
-        // Confirm SFGAO_FILESYSTEM is true for this shellitem, or ignore it.
-        SFGAOF attributes;
-        result = shellItem->GetAttributes( SFGAO_FILESYSTEM, &attributes );
-        if ( !SUCCEEDED(result) )
-        {
-            return Status::STATUS_ERROR;
-        }
-        if ( !(attributes & SFGAO_FILESYSTEM) )
-        {
-            continue;
-        }
-
-        LPWSTR name;
-        shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
-
-        // Calculate length of name with UTF-8 encoding
-        bufferSize += getUTF8ByteCountForWideChar( name );
-
-        CoTaskMemFree(name);
-    }
-
-    assert(bufferSize);
-
-    /* fill buffer */
-    char *buffer = const_cast<char*>(pathSet->buffer.c_str());
 
     for (DWORD i = 0; i < numberOfShellItems; ++i )
     {
@@ -230,15 +184,9 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathS
         LPWSTR name;
         shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
 
-        auto bytesWritten = copyWideCharToExisitingSTDString(name, pathSet->buffer);
+        pathSet->path.push_back(copyWideCharToSTDString(name));
+
         CoTaskMemFree(name);
-
-        ptrdiff_t index = buffer - pathSet->buffer.c_str();
-
-        assert( index >= 0 );
-        pathSet->indices[i] = static_cast<core::i32>(index);
-
-        buffer += bytesWritten;
     }
 
     return Status::STATUS_OK;
@@ -373,7 +321,6 @@ void edit::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *file
 edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,PathSet *pathToFiles)
 {
     Status status = Status::STATUS_ERROR;
-
 
     HRESULT coResult = comInitialize();
     if (!isCOMInitialized(coResult))
@@ -642,8 +589,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::pickDialog(co
     return status;
 }
 
-std::vector<std::string>
-edit::gui::WindowsFileDialog::splitString(const std::string &str, const std::string &delimiter)
+std::vector<std::string> edit::gui::WindowsFileDialog::splitString(const std::string &str, const std::string &delimiter)
 {
     auto s = str;
     std::vector<std::string> splittedString;

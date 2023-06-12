@@ -34,16 +34,13 @@ class INativeFileDialog : public core::mem::AllocatedObject
 
     struct PathSet
     {
-        std::string buffer;
-        core::i32 *indices; /* byte offsets into buffer */
-        core::i32 count;    /* number of indices into buffer */
+        std::vector<std::string> path;
+        core::i32 count;
     };
-
-
-    virtual Status openDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
-        virtual Status openDialog(const std::string &filterList,const std::string &defaultPath,PathSet *pathToFiles) = 0;
-        virtual Status saveDialog(const std::string &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
-        virtual Status pickDialog(const std::string &defaultPath,std::string &pathToFile) = 0;
+    virtual Status openDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
+    virtual Status openDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,PathSet *pathToFiles) = 0;
+    virtual Status saveDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
+    virtual Status pickDialog(const std::string &defaultPath,std::string &pathToFile) = 0;
     };
 
 
