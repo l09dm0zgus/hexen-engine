@@ -21,12 +21,8 @@ void edit::gui::GTKFileDialog::addFiltersToDialog(GtkWidget *dialog,const edit::
             std::vector<std::string> splittedStrings = splitString(filter.second,";");
             for(auto& str : splittedStrings)
             {
-                std::string fileSpec;
-                fileSpec.append("*.");
-                fileSpec.append(str);
-
                 gtk_file_filter_set_name( gtkFileFilter, filter.first.c_str());
-                gtk_file_filter_add_pattern( gtkFileFilter, fileSpec.c_str());
+                gtk_file_filter_add_pattern( gtkFileFilter, std::string("*." + str).c_str());
             }
         }
     }

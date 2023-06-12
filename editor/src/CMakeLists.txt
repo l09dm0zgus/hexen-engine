@@ -22,6 +22,7 @@ target_sources(${EDITOR_NAME} PRIVATE main.cpp
         gui/editors_windows/native_file_dialog/INativeFileDialog.h
         )
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_link_libraries(${EDITOR_NAME} nlohmann_json::nlohmann_json SDL3-static SDL3_image glm::glm  HexenEngine)
     target_sources(${EDITOR_NAME} PRIVATE main.cpp
             gui/editors_windows/native_file_dialog/WindowsFileDialog.h
             gui/editors_windows/native_file_dialog/WindowsFileDialog.cpp
@@ -33,6 +34,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     find_package(PkgConfig REQUIRED)
     pkg_check_modules (GTK2 REQUIRED gtk+-2.0)
     target_include_directories(${EDITOR_NAME} PRIVATE  ${GTK2_INCLUDE_DIRS})
+    target_link_libraries(${EDITOR_NAME} nlohmann_json::nlohmann_json SDL3-static SDL3_image glm::glm ${GTK2_LIBRARIES} HexenEngine)
     target_sources(${EDITOR_NAME} PRIVATE main.cpp
             gui/editors_windows/native_file_dialog/GtkFileDialog.cpp
             gui/editors_windows/native_file_dialog/GtkFileDialog.cpp
@@ -48,4 +50,3 @@ target_include_directories(${EDITOR_NAME} PRIVATE ${GLEW_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${JSON_INCLUDE_DIR})
 
 
-target_link_libraries(${EDITOR_NAME} nlohmann_json::nlohmann_json SDL3-static SDL3_image glm::glm  HexenEngine)
