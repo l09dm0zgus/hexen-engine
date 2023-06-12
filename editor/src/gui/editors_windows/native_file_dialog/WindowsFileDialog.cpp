@@ -225,7 +225,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::setDefaultPat
     return Status::STATUS_OK;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,std::string &pathToFile)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
 
@@ -318,7 +318,7 @@ void edit::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *file
     }
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,PathSet *pathToFiles)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,PathSet *pathToFiles)
 {
     Status status = Status::STATUS_ERROR;
 
@@ -404,7 +404,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     return status;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(const std::vector<std::pair<std::string,std::string>> &filterList, const std::string &defaultPath,std::string &pathToFile)
+edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
 
@@ -587,21 +587,6 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::pickDialog(co
     comUninitialize(coResult);
 
     return status;
-}
-
-std::vector<std::string> edit::gui::WindowsFileDialog::splitString(const std::string &str, const std::string &delimiter)
-{
-    auto s = str;
-    std::vector<std::string> splittedString;
-    core::i32 position = 0;
-    std::string token;
-    while ((position = s.find(delimiter)) != std::string::npos)
-    {
-        token = s.substr(0, position);
-        splittedString.push_back(token);
-        s.erase(0, position + delimiter.length());
-    }
-    return splittedString;
 }
 
 

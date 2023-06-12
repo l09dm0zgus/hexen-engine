@@ -26,9 +26,9 @@ namespace edit::gui
     class WindowsFileDialog : public INativeFileDialog
     {
     public:
-        Status openDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,std::string &pathToFile) override;
-        Status openDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
-        Status saveDialog(const std::vector<std::pair<std::string,std::string>> &filterList,const std::string &defaultPath,std::string &pathToFile) override;
+        Status openDialog(const FileFilter &filterList,const std::string &defaultPath,std::string &pathToFile) override;
+        Status openDialog(const FileFilter &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
+        Status saveDialog(const FileFilter &filterList,const std::string &defaultPath,std::string &pathToFile) override;
         Status pickDialog(const std::string &defaultPath,std::string &pathToFile) override;
 
     private:
@@ -40,7 +40,6 @@ namespace edit::gui
         core::i32 copyWideCharToExisitingSTDString(const wchar_t *string,std::string &outString);
         void copySTDStringToWideChar(const std::string &str,std::vector<wchar_t> &outString);
         Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList);
-        std::vector<std::string> splitString(const std::string &str,const std::string &delimiter);
         Status allocatePathSet(IShellItemArray *shellItems, PathSet *pathSet);
         Status setDefaultPath(IFileDialog *dialog, const std::string  &defaultPath);
         void releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog);
