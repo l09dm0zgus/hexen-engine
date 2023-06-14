@@ -48,10 +48,10 @@ android {
         }
        
     }
-    lintOptions {
+    namespace 'org.libsdl.app'
+    lint {
         abortOnError false
     }
-    namespace 'org.libsdl.app'
 
     if (buildAsLibrary) {
         libraryVariants.all { variant ->

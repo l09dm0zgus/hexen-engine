@@ -3,6 +3,7 @@
 .gradle
 build
 editor/cmake-build-debug
+editor/cmake-build-debug-wsl
 editor/cmake-build-release
 editor/.idea
 local.properties

@@ -15,7 +15,7 @@ edit::gui::SceneWindow::SceneWindow(const std::string &name) : GUIWindow(name)
     frameBufferObject.setSize(glm::vec2(1280,720));
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
-        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
+        std::cout << "S_ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
     }
     frameBufferObject.unbind();
     frameBufferTexture->unbind();
