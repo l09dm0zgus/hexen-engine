@@ -19,4 +19,3 @@
 [submodule "editor/submodules/imgui"]
 	path = editor/submodules/imgui
 	url = https://github.com/ocornut/imgui.git
-	branch = docking
