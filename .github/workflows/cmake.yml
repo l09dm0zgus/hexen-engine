@@ -1,36 +1,71 @@
-name: CMake
+name: 'Submodules Sync'
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  # Allows you to run this workflow manually from the Actions tab or through HTTP API
+  workflow_dispatch:
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-  source-dir: ${{github.workspace}}/engine
 jobs:
-  build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  sync:
+    name: 'Submodules Sync'
     runs-on: ubuntu-latest
 
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
     steps:
-    - uses: actions/checkout@v3
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.CI_TOKEN }}
+        submodules: true
 
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/engine/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+    # Update references
+    - name: Git Sumbodule Update
+      run: |
+        git pull --recurse-submodules
+        git submodule update --remote --recursive
 
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/engine/build --config ${{env.BUILD_TYPE}}
+    - name: Commit update
+      run: |
+        git config --global user.name 'Git bot'
+        git config --global user.email 'bot@noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git commit -am "Auto updated submodule references" && git push || echo "No changes to commit"
+        name: Generate CMake
+          on:
+            push:
+              branches: [ "master" ]
+            pull_request:
+              branches: [ "master" ]
 
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+            env:
+             # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+              BUILD_TYPE: Release
+              source-dir: ${{github.workspace}}/engine
+              jobs:
+              build:
+              # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+              # You can convert this to a matrix build if you need cross-platform coverage.
+              # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+              runs-on: ubuntu-latest
+
+              steps:
+              - uses: actions/checkout@v3
+
+              - name: Configure CMake
+              # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+              # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+              run: cmake -B ${{github.workspace}}/engine/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+            - name: Build
+              # Build your program with the given configuration
+              run: cmake --build ${{github.workspace}}/engine/build --config ${{env.BUILD_TYPE}}
+
+            - name: Test
+              working-directory: ${{github.workspace}}/build
+              # Execute tests defined by the CMake configuration.
+              # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+              run: ctest -C ${{env.BUILD_TYPE}}
