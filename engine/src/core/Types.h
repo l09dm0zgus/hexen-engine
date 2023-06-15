@@ -5,13 +5,21 @@
 #ifndef BATTLEBLAZE_TYPES_H
 #define BATTLEBLAZE_TYPES_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 #include <functional>
 #include <type_traits>
 #include <cstdlib>
 #include <cassert>
 #include <cstdio>
+
+#if defined(__GNUC__) || defined(__GNUG__)
+    #define HEXEN_INLINE                                  inline __attribute__((always_inline))
+#elif defined(_MSC_VER)
+    #define HEXEN_INLINE                                  inline __forceinline
+#else
+    #define HEXEN_INLINE                                  inline
+#endif
 
 namespace core
 {
