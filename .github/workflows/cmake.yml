@@ -19,7 +19,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: openrndr/setup-opengl@v1.1
+    - name: Install xmllint
+    - run: sudo apt-get install -y libegl1-mesa-dev
+
     
     # Update references
     - name: Git Sumbodule Update
