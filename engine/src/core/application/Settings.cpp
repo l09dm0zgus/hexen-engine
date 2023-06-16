@@ -4,7 +4,6 @@
 
 #include "Settings.h"
 #include <filesystem>
-#include <nlohmann/json.hpp>
 #include <fstream>
 
 core::Settings::Settings()
@@ -12,116 +11,73 @@ core::Settings::Settings()
     if(!std::filesystem::exists(pathToSettings + settingsFileName))
     {
         std::filesystem::create_directory(pathToSettings);
+        setRenderAPI("opengl");
         setOpenGLSettings({4,6, false});
         setWindowSettings({glm::vec2 (1280,720),"Hexen Reich", false});
-        setRenderAPI("opengl");
-    }
-}
-
-void core::Settings::setRenderAPI(const std::string &renderAPI) const
-{
-    if(std::filesystem::exists(pathToSettings + settingsFileName))
-    {
-        std::fstream settingsFile(pathToSettings + settingsFileName,std::ios::in | std::ios::out);
-        auto json = nlohmann::json::parse(settingsFile);
-        json["render_api"] = renderAPI;
-        settingsFile << json.dump(2);
     }
     else
     {
-        std::ofstream settingsFile(pathToSettings + settingsFileName,std::ios::app);
-        nlohmann::json json;
-        json["render_api"] = renderAPI;
-        settingsFile << json.dump(2);
+        std::ifstream settingsFile(pathToSettings + settingsFileName);
+        settingsJson = nlohmann::json::parse(settingsFile);
     }
+}
+
+void core::Settings::setRenderAPI(const std::string &renderAPI)
+{
+    std::ofstream settingsFile(pathToSettings + settingsFileName);
+    settingsJson["settings"]["render_api"] = renderAPI;
+    settingsFile << settingsJson.dump(2);
+
 }
 
 std::string core::Settings::getRenderAPI() const
 {
-    std::fstream settingsFile(pathToSettings + settingsFileName,std::ios::in | std::ios::out);
-    auto json = nlohmann::json::parse(settingsFile);
-    return json["render_api"];
+    return settingsJson["settings"]["render_api"];
 }
 
-void core::Settings::setWindowSettings(const core::Settings::WindowSettings &windowSettings) const
+void core::Settings::setWindowSettings(const core::Settings::WindowSettings &windowSettings)
 {
-    if(std::filesystem::exists(pathToSettings + settingsFileName))
-    {
-        std::fstream settingsFile(pathToSettings + settingsFileName,std::ios::in | std::ios::out);
-        auto json = nlohmann::json::parse(settingsFile);
+    std::ofstream settingsFile(pathToSettings + settingsFileName);
 
-        json["window"]["height"] = windowSettings.size.y;
-        json["window"]["width"] = windowSettings.size.x;
-        json["window"]["is_fullscreen"] = windowSettings.isFullscreen;
-        json["window"]["name"] = windowSettings.name;
+    settingsJson["settings"]["window"]["height"] = windowSettings.size.y;
+    settingsJson["settings"]["window"]["width"] = windowSettings.size.x;
+    settingsJson["settings"]["window"]["is_fullscreen"] = windowSettings.isFullscreen;
+    settingsJson["settings"]["window"]["name"] = windowSettings.name;
 
-        settingsFile << json.dump(2);
-    }
-    else
-    {
-        std::ofstream settingsFile(pathToSettings + settingsFileName,std::ios::app);
-        nlohmann::json json;
-
-        json["window"]["height"] = windowSettings.size.y;
-        json["window"]["width"] = windowSettings.size.x;
-        json["window"]["is_fullscreen"] = windowSettings.isFullscreen;
-        json["window"]["name"] = windowSettings.name;
-
-        settingsFile << json.dump(2);
-    }
+    settingsFile << settingsJson.dump(2);
 }
 
 core::Settings::WindowSettings core::Settings::getWindowSettings() const
 {
     WindowSettings windowSettings{};
 
-    std::fstream settingsFile(pathToSettings + settingsFileName,std::ios::in | std::ios::out);
-    auto json = nlohmann::json::parse(settingsFile);
-
-    windowSettings.size.y = json["window"]["height"];
-    windowSettings.size.x = json["window"]["width"];
-    windowSettings.isFullscreen = json["window"]["is_fullscreen"];
-    windowSettings.name = json["window"]["name"];
+    windowSettings.size.y = settingsJson["settings"]["window"]["height"];
+    windowSettings.size.x = settingsJson["settings"]["window"]["width"];
+    windowSettings.isFullscreen = settingsJson["settings"]["window"]["is_fullscreen"];
+    windowSettings.name = settingsJson["settings"]["window"]["name"];
 
     return windowSettings;
 }
 
-void core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &openGlSettings) const
+void core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &openGlSettings)
 {
-    if(std::filesystem::exists(pathToSettings + settingsFileName))
-    {
-        std::fstream settingsFile(pathToSettings + settingsFileName,std::ios::in | std::ios::out);
-        auto json = nlohmann::json::parse(settingsFile);
+    std::ofstream settingsFile(pathToSettings + settingsFileName);
 
-        json["opengl"]["major"] = openGlSettings.majorVersion;
-        json["opengl"]["minor"] = openGlSettings.minorVersion;
-        json["opengl"]["show_debug_logs"] = openGlSettings.isShowDebugLogs;
+    settingsJson["settings"]["opengl"]["major"] = openGlSettings.majorVersion;
+    settingsJson["settings"]["opengl"]["minor"] = openGlSettings.minorVersion;
+    settingsJson["settings"]["opengl"]["show_debug_logs"] = openGlSettings.isShowDebugLogs;
 
-        settingsFile << json.dump(2);
-    }
-    else
-    {
-        std::ofstream settingsFile(pathToSettings + settingsFileName,std::ios::app);
-        nlohmann::json json;
-
-        json["opengl"]["major"] = openGlSettings.majorVersion;
-        json["opengl"]["minor"] = openGlSettings.minorVersion;
-        json["opengl"]["show_debug_logs"] = openGlSettings.isShowDebugLogs;
-
-        settingsFile << json.dump(2);
-    }
+    settingsFile << settingsJson.dump(2);
 }
 
 core::Settings::OpenGLSettings core::Settings::getOpenGLSettings() const
 {
     OpenGLSettings openGlSettings{};
 
-    std::fstream settingsFile(pathToSettings + settingsFileName,std::ios::in | std::ios::out);
-    auto json = nlohmann::json::parse(settingsFile);
 
-    openGlSettings.majorVersion = json["opengl"]["major"];
-    openGlSettings.minorVersion = json["opengl"]["minor"];
-    openGlSettings.isShowDebugLogs = json["opengl"]["show_debug_logs"];
+    openGlSettings.majorVersion =  settingsJson["settings"]["opengl"]["major"];
+    openGlSettings.minorVersion =  settingsJson["settings"]["opengl"]["minor"];
+    openGlSettings.isShowDebugLogs =  settingsJson["settings"]["opengl"]["show_debug_logs"];
 
     return openGlSettings;
 }

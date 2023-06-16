@@ -6,6 +6,7 @@
 #define HEXENEDITOR_SETTINGS_H
 #include "../Types.h"
 #include <glm/glm.hpp>
+#include <nlohmann/json.hpp>
 
 namespace core
 {
@@ -16,6 +17,7 @@ namespace core
 
         const std::string pathToSettings = ".settings/";
         const std::string settingsFileName = "settings.hxs";
+        nlohmann::json settingsJson;
     public:
 
         struct WindowSettings
@@ -35,13 +37,13 @@ namespace core
         Settings();
 
         std::string getRenderAPI() const;
-        void setRenderAPI(const std::string &renderAPI) const;
+        void setRenderAPI(const std::string &renderAPI);
 
         WindowSettings getWindowSettings() const;
-        void setWindowSettings(const WindowSettings &windowSettings) const;
+        void setWindowSettings(const WindowSettings &windowSettings);
 
         OpenGLSettings getOpenGLSettings() const;
-        void setOpenGLSettings(const OpenGLSettings &openGlSettings) const;
+        void setOpenGLSettings(const OpenGLSettings &openGlSettings);
 
 
     };
