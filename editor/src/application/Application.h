@@ -16,6 +16,7 @@ namespace edit
         void run();
     private:
         std::unique_ptr<core::Window> window;
+        core::Settings settings;
     };
 
 }

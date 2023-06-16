@@ -7,7 +7,7 @@
 
 edit::Application::Application()
 {
-    window = core::mem::make_unique<core::Window>("HexenEditor");
+    window = core::mem::make_unique<core::Window>(settings);
 }
 
 void edit::Application::run()

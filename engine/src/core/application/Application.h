@@ -22,6 +22,7 @@ namespace core
         void run();
     private:
         std::unique_ptr<Window> window;
+        Settings settings;
 
     };
 

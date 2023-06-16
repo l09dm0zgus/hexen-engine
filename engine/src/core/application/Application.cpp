@@ -81,6 +81,6 @@ void core::Application::run()
 
 core::Application::Application()
 {
-    window = mem::make_unique<Window>("Battleblaze");
+    window = mem::make_unique<Window>(settings);
     SDL_Log("Main window created.\n");
 }
