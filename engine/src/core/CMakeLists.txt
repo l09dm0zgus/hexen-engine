@@ -17,7 +17,8 @@ target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/A
         ${CMAKE_CURRENT_SOURCE_DIR}/level/Level.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Types.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Serialization.h
-        )
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/Settings.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/Settings.cpp)
 
 
 add_subdirectory(graphics)
