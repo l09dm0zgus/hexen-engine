@@ -16,7 +16,7 @@ project(${PROJECT_NAME})
 set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/SDL_image/include/SDL3)
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/glm)
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/SDL/include)
-set(JSON_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/json/include)
+set(JSON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/json/include)
 
 if (${BUILD_ANDROID} STREQUAL  OFF)
     set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/glew-cmake/include)
