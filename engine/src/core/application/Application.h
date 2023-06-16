@@ -12,6 +12,7 @@ namespace core
     {
     public:
         Application();
+        ~Application() = default;
         Application(const Application &application) = delete;
         Application(Application &&application) =delete;
 
