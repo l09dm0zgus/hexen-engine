@@ -3,12 +3,17 @@
 //
 
 #include "Window.h"
+#include <fstream>
+#include <nlohmann/json.hpp>
+#include <filesystem>
 
 #ifndef  __ANDROID__
 #include <GL/glew.h>
 #include <iostream>
 #include <map>
 #include <utility>
+
+
 void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity,GLsizei Length,const GLchar* Message,const void* UserParam)
 {
     static std::map<GLenum, const GLchar*> Sources =
@@ -47,11 +52,6 @@ void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity
 #else
 #include <GLES3/gl31.h>
 #endif
-
-core::Window::Window(std::string title) : mem::AllocatedObject(),title(std::move(title))
-{
-    initSDL();
-}
 
 void core::Window::close()
 {
@@ -96,9 +96,15 @@ SDL_GLContext core::Window::getGLContext() const noexcept
     return glContext;
 }
 
-core::Window::Window(std::string title, core::i32 width, core::i32 height) : title(std::move(title)),width(width),height(height)
+core::Window::Window(const Settings &settings) : mem::AllocatedObject() , settings(settings)
 {
     initSDL();
+
+    auto  windowSettings = settings.getWindowSettings();
+
+    title = windowSettings.name;
+    width = static_cast<core::i32>(windowSettings.size.x);
+    height = static_cast<core::i32>(windowSettings.size.y);
 }
 
 void core::Window::initSDL()
@@ -109,49 +115,9 @@ void core::Window::initSDL()
     }
     else
     {
-#ifndef  __ANDROID__
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-        SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
-        window = SDL_CreateWindow( title.c_str(), width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
-#else
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-        if( SDL_GetDesktopDisplayMode( 0) == nullptr )
+        if (settings.getRenderAPI() == "opengl")
         {
-            width = displayMode.w;
-            height = displayMode.h;
-            SDL_Log("Display size width : %i , height : %i",width,height);
-        }
-        window = SDL_CreateWindow( title.c_str(),width, height,SDL_WINDOW_OPENGL| SDL_WINDOW_FULLSCREEN );
-#endif
-        if(window == nullptr )
-        {
-            SDL_Log( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
-        }
-        else
-        {
-            glContext = SDL_GL_CreateContext(window);
-            if( glContext == nullptr )
-            {
-                SDL_Log( "OpenGL context could not be created! SDL Error: %s\n", SDL_GetError() );
-            }
-#ifndef  __ANDROID__
-            glewExperimental = GL_TRUE;
-            auto glewInitializationStatus = glewInit();
-            if(glewInitializationStatus != GLEW_OK)
-            {
-                SDL_Log("%s", reinterpret_cast<const char *>(glewGetErrorString(glewInit())));
-            }
-            GLint ContextFlags{1};
-            if (ContextFlags)
-            {
-                SDL_Log("OpenGL : Debug Context Is Enabled");
-
-                glEnable(GL_DEBUG_OUTPUT);
-                glDebugMessageCallback(GLDebugMessageCallback, 0);
-            }
-#endif
+            setOpenGLVersion(settings.getOpenGLSettings());
         }
     }
 }
@@ -164,6 +130,63 @@ core::i32 core::Window::pollEvents(SDL_Event *sdlEvent)
 bool core::Window::isOpen() const noexcept
 {
     return bIsOpen;
+}
+
+void core::Window::setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings)
+{
+
+#ifndef  __ANDROID__
+
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, openGlSettings.majorVersion);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, openGlSettings.minorVersion);
+
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+
+    SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
+
+
+
+    window = SDL_CreateWindow(title.c_str(), width, height,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
+#else
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+        if( SDL_GetDesktopDisplayMode( 0) == nullptr )
+        {
+            width = displayMode.w;
+            height = displayMode.h;
+            SDL_Log("Display size width : %i , height : %i",width,height);
+        }
+        window = SDL_CreateWindow( title.c_str(),width, height,SDL_WINDOW_OPENGL| SDL_WINDOW_FULLSCREEN );
+#endif
+
+    if(window == nullptr )
+    {
+        SDL_Log( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
+    }
+    else
+    {
+        glContext = SDL_GL_CreateContext(window);
+        if( glContext == nullptr )
+        {
+            SDL_Log( "OpenGL context could not be created! SDL Error: %s\n", SDL_GetError() );
+        }
+
+#ifndef  __ANDROID__
+        glewExperimental = GL_TRUE;
+        auto glewInitializationStatus = glewInit();
+
+        if(glewInitializationStatus != GLEW_OK)
+        {
+            SDL_Log("%s", reinterpret_cast<const char *>(glewGetErrorString(glewInit())));
+        }
+
+        if(openGlSettings.isShowDebugLogs)
+        {
+            SDL_Log("OpenGL : Debug Context Is Enabled");
+            glEnable(GL_DEBUG_OUTPUT);
+            glDebugMessageCallback(GLDebugMessageCallback, nullptr);
+        }
+#endif
+    }
 }
 
 

@@ -8,13 +8,14 @@
 #include <SDL3/SDL.h>
 #include <string>
 #include "../memory_pool/AllocatedObject.h"
+#include "../application/Settings.h"
+
 namespace core
 {
     class Window : public mem::AllocatedObject
     {
     public:
-        explicit Window(std::string title);
-        explicit Window(std::string title,i32 width,i32 height);
+        explicit Window(const Settings &settings);
         ~Window() override;
         void swapBuffers();
         void close();
@@ -25,6 +26,7 @@ namespace core
         SDL_Window* getSDLWindow() const noexcept;
         SDL_GLContext  getGLContext() const noexcept;
     private:
+        Settings settings;
         void initSDL();
         SDL_DisplayMode displayMode{};
         SDL_Window* window{nullptr};
@@ -33,6 +35,7 @@ namespace core
         i32 width{1280};
         std::string title;
         bool bIsOpen{true};
+        void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
     };
 }
 
