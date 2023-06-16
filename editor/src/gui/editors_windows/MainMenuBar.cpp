@@ -10,7 +10,9 @@
 
 edit::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
 {
-    saveFileCallback = [](){
+    newProjectWindow = core::mem::make_unique<NewProjectWindow>("New Project");
+
+    saveAsFileCallback = [](){
 
         FileDialog fileDialog;
         INativeFileDialog::FileFilter filter;
@@ -22,22 +24,24 @@ edit::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name
         }
     };
 
-    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_S}, saveFileCallback);
+
+    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_LeftShift,ImGuiKey_S}, saveAsFileCallback);
 }
 
 void edit::gui::MainMenuBar::begin()
 {
-
+    newProjectWindow->begin();
 }
 
 void edit::gui::MainMenuBar::draw()
 {
     showMainMenu();
+    newProjectWindow->draw();
 }
 
 void edit::gui::MainMenuBar::end()
 {
-
+    newProjectWindow->end();
 }
 
 void edit::gui::MainMenuBar::showMainMenu()
@@ -115,16 +119,15 @@ void edit::gui::MainMenuBar::showSave()
 
 void edit::gui::MainMenuBar::showSaveAs()
 {
-    auto callback = [this]() {
-
-    };
-    showMenuItem("Save As...","CTRL+SHIFT+S",callback);
+    showMenuItem("Save As...","CTRL+SHIFT+S",saveAsFileCallback);
 }
 
 void edit::gui::MainMenuBar::showNewProject()
 {
-    auto callback = [this]() {
 
+    auto callback = [this] ()
+    {
+        newProjectWindow->setOpen(true);
     };
     showMenuItem("New Project...", "",callback);
 }

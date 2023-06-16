@@ -11,6 +11,10 @@ target_sources(${EDITOR_NAME} PRIVATE
         MainMenuBar.cpp
         Shortcuts.h
         Shortcuts.cpp
+        NewProjectWindow.h
+        NewProjectWindow.cpp
+        MessageBox.h
+        MessageBox.cpp
         )
 
 add_subdirectory(native_file_dialog)

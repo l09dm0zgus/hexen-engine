@@ -7,6 +7,7 @@
 
 #include "GUIWindow.h"
 #include <functional>
+#include "NewProjectWindow.h"
 
 namespace edit::gui
 {
@@ -26,6 +27,9 @@ namespace edit::gui
         void showMenu(const std::string &name,const std::function<void()> &callback);
         void showMenuItem(const std::string &name, const std::string &shortcutText, const std::function<void()> &callback);
         std::function<void()> saveFileCallback;
+        std::function<void()> saveAsFileCallback;
+        std::unique_ptr<NewProjectWindow> newProjectWindow;
+
     public:
         explicit MainMenuBar(std::string name);
         void begin() override;

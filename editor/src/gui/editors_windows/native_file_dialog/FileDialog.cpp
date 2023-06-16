@@ -4,17 +4,17 @@
 
 #include "FileDialog.h"
 
-#if defined(IS_UNIX)
+#if defined(__unix__)
 #include "GtkFileDialog.h"
-#elif defined(IS_WINDOWS)
+#elif defined(WIN32)
 #include "WindowsFileDialog.h"
 #endif
 
 edit::gui::FileDialog::FileDialog()
 {
-#if defined(IS_UNIX)
+#if defined(__unix__ )
     nativeFileDialog = core::mem::make_unique<GTKFileDialog>();
-#elif defined(IS_WINDOWS)
+#elif defined(WIN32)
     nativeFileDialog = core::mem::make_unique<WindowsFileDialog>();
 #endif
 

@@ -18,7 +18,7 @@ std::string edit::gui::GUIWindow::getName() const noexcept
 
 void edit::gui::GUIWindow::setWindowSize()
 {
-    ImGui::SetWindowSize(name.c_str(),ImVec2(size.x,size.y));
+    ImGui::SetNextWindowSize(ImVec2(size.x,size.y));
 }
 
 glm::vec2 edit::gui::GUIWindow::getSize() const noexcept

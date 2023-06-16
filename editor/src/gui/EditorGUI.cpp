@@ -6,6 +6,7 @@
 #include "editors_windows/MainMenuBar.h"
 #include "editors_windows/SceneWindow.h"
 #include "editors_windows/Shortcuts.h"
+#include "editors_windows/MessageBox.h"
 
 edit::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
 {
@@ -47,6 +48,7 @@ void edit::gui::EditorGUI::draw()
     bool isActive = true;
     //ImGui::ShowDemoWindow(&isActive);
     dockspace.draw();
+    ImGuiMessageBox::draw();
     Shortcuts::processInput();
 }
 
