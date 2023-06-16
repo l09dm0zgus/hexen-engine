@@ -98,13 +98,13 @@ SDL_GLContext core::Window::getGLContext() const noexcept
 
 core::Window::Window(const Settings &settings) : mem::AllocatedObject() , settings(settings)
 {
-    initSDL();
-
     auto  windowSettings = settings.getWindowSettings();
 
     title = windowSettings.name;
     width = static_cast<core::i32>(windowSettings.size.x);
     height = static_cast<core::i32>(windowSettings.size.y);
+
+    initSDL();
 }
 
 void core::Window::initSDL()
