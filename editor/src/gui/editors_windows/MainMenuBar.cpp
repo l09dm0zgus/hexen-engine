@@ -3,11 +3,26 @@
 //
 
 #include "MainMenuBar.h"
+#include "Shortcuts.h"
+#include "native_file_dialog/FileDialog.h"
 #include <imgui.h>
+#include <iostream>
 
 edit::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
 {
+    saveFileCallback = [](){
 
+        FileDialog fileDialog;
+        INativeFileDialog::FileFilter filter;
+        filter.push_back({{"Images"},{"png;bmp;jpg;"}});
+        std::string path;
+        if(fileDialog.saveDialog(filter,"",path) == INativeFileDialog::Status::STATUS_OK)
+        {
+            std::cout << path << "\n";
+        }
+    };
+
+    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_S}, saveFileCallback);
 }
 
 void edit::gui::MainMenuBar::begin()
@@ -43,9 +58,9 @@ void edit::gui::MainMenuBar::showMenu(const std::string &name,const std::functio
     }
 }
 
-void edit::gui::MainMenuBar::showMenuItem(const std::string &name,const std::string &hotkey,const std::function<void()> &callback)
+void edit::gui::MainMenuBar::showMenuItem(const std::string &name, const std::string &shortcutText, const std::function<void()> &callback)
 {
-    if(ImGui::MenuItem(name.c_str(),hotkey.c_str()))
+    if(ImGui::MenuItem(name.c_str(), shortcutText.c_str()))
     {
         callback();
     }
@@ -94,10 +109,8 @@ void edit::gui::MainMenuBar::showOpenRecentScene()
 
 void edit::gui::MainMenuBar::showSave()
 {
-    auto callback = [this]() {
 
-    };
-    showMenuItem("Save","CTRL+S",callback);
+    showMenuItem("Save","CTRL+S",saveFileCallback);
 }
 
 void edit::gui::MainMenuBar::showSaveAs()
