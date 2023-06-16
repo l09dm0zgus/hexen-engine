@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <cassert>
 #include <cstdio>
+#include <string>
 
 #if defined(__GNUC__) || defined(__GNUG__)
     #define HEXEN_INLINE                                  inline __attribute__((always_inline))
@@ -33,6 +34,41 @@ namespace core
     using u32 = uint32_t;
     using u64 = uint64_t;
     using vptr = void*;
+
+    struct Color
+    {
+        u8 r;
+        u8 g;
+        u8 b;
+        u8 a;
+    };
+
+    constexpr core::u32 polynomial = 0xEDB88320;
+    constexpr core::u32 HASHING_ROUNDS  = 32;
+
+    HEXEN_INLINE core::u32 crc32(const core::u8 *data,core::u32 lenght,core::u32 previousCRC = 0)
+    {
+        core::u32 crc = ~previousCRC;
+        while(lenght-- != 0)
+        {
+            crc ^= *data++;
+            for(int i = 0;i<8;i++)
+            {
+                crc = (crc >> 1)  ^ (-core::u32(crc & 1) & polynomial);
+            }
+        }
+        return ~crc;
+    }
+
+    HEXEN_INLINE core::u32 hashString(const std::string &s)
+    {
+        core::u32 hash{0};
+        for(core::i32 i{0}; i < HASHING_ROUNDS; i++)
+        {
+            hash = crc32((core::u8*)s.c_str(),s.size(),hash);
+        }
+        return hash;
+    }
 
     template<typename Key ,typename Value,typename Hash = std::hash<Key> ,typename Equal = std::equal_to<Key>>
             class HashTable

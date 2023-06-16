@@ -101,7 +101,7 @@ namespace core
     template<typename T>
     HEXEN_INLINE nlohmann::json storeToJson(const ReflectionData<T>& reflectionData)
     {
-        auto nameHash = std::to_string(crypt::hashString(reflectionData.variableName));
+        auto nameHash = std::to_string(hashString(reflectionData.variableName));
         nlohmann::json j;
 
         j[nameHash]["name"] = reflectionData.variableName;
@@ -189,7 +189,7 @@ namespace core
 
             auto cacheFile = nlohmann::json::parse(file)["cache"];
 
-            auto nameHash = std::to_string(crypt::hashString(variableName));
+            auto nameHash = std::to_string(hashString(variableName));
 
             for(auto &element:cacheFile)
             {
