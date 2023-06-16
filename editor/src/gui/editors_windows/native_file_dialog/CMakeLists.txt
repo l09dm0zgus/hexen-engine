@@ -7,7 +7,6 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
             WindowsFileDialog.h
             WindowsFileDialog.cpp
             )
-    add_compile_definitions(IS_WINDOWS)
 endif ()
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -20,7 +19,6 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "Darwin")
             GtkFileDialog.h
             GtkFileDialog.cpp
             )
-    add_compile_definitions(IS_UNIX)
 endif ()
 
 target_sources(${EDITOR_NAME} PRIVATE
