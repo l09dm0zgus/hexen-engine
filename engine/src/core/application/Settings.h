@@ -12,6 +12,12 @@ namespace core
     class Settings
     {
     private:
+
+
+        const std::string pathToSettings = ".settings/";
+        const std::string settingsFileName = "settings.hxs";
+    public:
+
         struct WindowSettings
         {
             glm::vec2 size;
@@ -25,9 +31,6 @@ namespace core
             core::i8 minorVersion;
         };
 
-        const std::string pathToSettings = ".settings/";
-        const std::string settingsFileName = "settings.hxs";
-    public:
         Settings();
 
         std::string getRenderAPI() const;
@@ -38,6 +41,8 @@ namespace core
 
         OpenGLSettings getOpenGLSettings() const;
         void setOpenGLSettings(const OpenGLSettings &openGlSettings) const;
+
+
     };
 }
 
