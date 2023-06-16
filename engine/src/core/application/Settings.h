@@ -29,6 +29,7 @@ namespace core
         {
             core::i8 majorVersion;
             core::i8 minorVersion;
+            bool isShowDebugLogs;
         };
 
         Settings();

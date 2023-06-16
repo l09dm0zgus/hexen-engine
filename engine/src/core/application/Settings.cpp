@@ -12,7 +12,7 @@ core::Settings::Settings()
     if(!std::filesystem::exists(pathToSettings + settingsFileName))
     {
         std::filesystem::create_directory(pathToSettings);
-        setOpenGLSettings({4,6});
+        setOpenGLSettings({4,6, false});
         setWindowSettings({glm::vec2 (1280,720),"Hexen Reich", false});
         setRenderAPI("opengl");
     }
@@ -95,6 +95,7 @@ void core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &ope
 
         json["opengl"]["major"] = openGlSettings.majorVersion;
         json["opengl"]["minor"] = openGlSettings.minorVersion;
+        json["opengl"]["show_debug_logs"] = openGlSettings.isShowDebugLogs;
 
         settingsFile << json.dump(2);
     }
@@ -105,6 +106,7 @@ void core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &ope
 
         json["opengl"]["major"] = openGlSettings.majorVersion;
         json["opengl"]["minor"] = openGlSettings.minorVersion;
+        json["opengl"]["show_debug_logs"] = openGlSettings.isShowDebugLogs;
 
         settingsFile << json.dump(2);
     }
@@ -119,6 +121,7 @@ core::Settings::OpenGLSettings core::Settings::getOpenGLSettings() const
 
     openGlSettings.majorVersion = json["opengl"]["major"];
     openGlSettings.minorVersion = json["opengl"]["minor"];
+    openGlSettings.isShowDebugLogs = json["opengl"]["show_debug_logs"];
 
     return openGlSettings;
 }
