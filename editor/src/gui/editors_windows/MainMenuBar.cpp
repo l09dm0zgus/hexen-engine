@@ -5,6 +5,7 @@
 #include "MainMenuBar.h"
 #include "Shortcuts.h"
 #include "native_file_dialog/FileDialog.h"
+#include "MessageBox.h"
 #include <imgui.h>
 #include <iostream>
 
@@ -16,15 +17,53 @@ edit::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name
 
         FileDialog fileDialog;
         INativeFileDialog::FileFilter filter;
-        filter.push_back({{"Images"},{"png;bmp;jpg;"}});
+        std::string pathToProject;
+
+        std::pair<std::string,std::string> allFiles , sceneFile;
+
+        allFiles.first = "All files";
+        allFiles.second = "all";
+
+        sceneFile.first = "Scene";
+        sceneFile.second = "hxscene;";
+
+        filter.push_back(allFiles);
+        filter.push_back(sceneFile);
+
         std::string path;
-        if(fileDialog.saveDialog(filter,"",path) == INativeFileDialog::Status::STATUS_OK)
+        if (fileDialog.saveDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
         {
-            std::cout << path << "\n";
+            ImGuiMessageBox::add(std::string("Error!"),std::string("Failed to saving file"));
         }
+
+    };
+
+    saveFileCallback = [](){
+
+    };
+
+    newSceneCallback = [](){
+
+    };
+
+    openSceneCallback = []() {
+
+        FileDialog fileDialog;
+        INativeFileDialog::FileFilter filter;
+        std::string pathToProject;
+        filter.push_back({{"Scenes"},{"hxscene;"}});
+        std::string path;
+        if (fileDialog.openDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
+        {
+            ImGuiMessageBox::add(std::string("Error!"),std::string("Failed to select scene file!"));
+        }
+
     };
 
 
+    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_S},saveFileCallback);
+    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_O},openSceneCallback);
+    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_N},newSceneCallback);
     Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_LeftShift,ImGuiKey_S}, saveAsFileCallback);
 }
 
@@ -83,24 +122,22 @@ void edit::gui::MainMenuBar::showFileMenu()
         ImGui::Separator();
         showSave();
         showSaveAs();
+        ImGui::Separator();
+        showExit();
     };
     showMenu("File",callback);
 }
 
 void edit::gui::MainMenuBar::showNewScene()
 {
-    auto callback = [this]() {
 
-    };
-    showMenuItem("New Scene","CTRL+N",callback);
+    showMenuItem("New Scene","CTRL+N",newSceneCallback);
 }
 
 void edit::gui::MainMenuBar::showOpenScene()
 {
-    auto callback = [this]() {
 
-    };
-    showMenuItem("Open Scene","Ctrl+O",callback);
+    showMenuItem("Open Scene","CTRL+O",openSceneCallback);
 }
 
 void edit::gui::MainMenuBar::showOpenRecentScene()
@@ -136,6 +173,15 @@ void edit::gui::MainMenuBar::showOpenProject()
 {
     auto callback = [this]() {
 
+        FileDialog fileDialog;
+        INativeFileDialog::FileFilter filter;
+        std::string pathToProject;
+        filter.push_back({{"Project"},{"hxproj;"}});
+        std::string path;
+        if (fileDialog.openDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
+        {
+            ImGuiMessageBox::add(std::string("Error!"),std::string("Failed to select project file!"));
+        }
     };
     showMenuItem("Open Project...", "",callback);
 }
@@ -146,4 +192,13 @@ void edit::gui::MainMenuBar::showSaveProject()
 
     };
     showMenuItem("Save Project", "",callback);
+}
+
+void edit::gui::MainMenuBar::showExit()
+{
+    auto callback = [this]() {
+
+        exit(0);
+    };
+    showMenuItem("Exit", "",callback);
 }

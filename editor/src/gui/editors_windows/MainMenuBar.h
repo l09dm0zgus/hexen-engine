@@ -26,10 +26,12 @@ namespace edit::gui
         void showFileMenu();
         void showMenu(const std::string &name,const std::function<void()> &callback);
         void showMenuItem(const std::string &name, const std::string &shortcutText, const std::function<void()> &callback);
+        void showExit();
         std::function<void()> saveFileCallback;
         std::function<void()> saveAsFileCallback;
         std::unique_ptr<NewProjectWindow> newProjectWindow;
-
+        std::function<void()> newSceneCallback;
+        std::function<void()> openSceneCallback;
     public:
         explicit MainMenuBar(std::string name);
         void begin() override;
