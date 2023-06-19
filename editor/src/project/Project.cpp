@@ -67,7 +67,7 @@ std::string edit::Project::getName() const
 
 void edit::Project::addScene(const std::string &sceneName)
 {
-    fileProject["project"]["scenes"][numberOfScenes] = sceneName;
+    fileProject["project"]["scenes"][std::to_string(numberOfScenes)] = sceneName;
     fileProject["project"]["scenes"]["number_of_scenes"] = numberOfScenes;
 }
 
@@ -79,7 +79,7 @@ std::vector<std::string> edit::Project::getScenes()
     scenesNames.reserve(numberOfScenes);
     for(core::i32 i = 0;i < numberOfScenes;i++)
     {
-        scenesNames.push_back(fileProject["project"]["scenes"][i]);
+        scenesNames.push_back(fileProject["project"]["scenes"][std::to_string(i)]);
     }
 
     return scenesNames;
