@@ -20,8 +20,10 @@ class Project : public core::mem::AllocatedObject
         static std::shared_ptr<Project> currentProject;
         nlohmann::json fileProject;
         core::u32 numberOfScenes{0};
+        void parseJSON();
     public:
        explicit Project(const std::string &path,const std::string &name);
+       explicit Project(const std::string &pathToProject);
        static void setCurrentProject(const std::shared_ptr<Project> &project);
        static std::shared_ptr<Project> getCurrentProject()  noexcept;
        void setVerion(const std::string &version);
@@ -33,7 +35,7 @@ class Project : public core::mem::AllocatedObject
        void setEngineVersion(const std::string &engineVersion);
        std::string getEngineVersion() const;
        void save();
-
+       std::string getPath();
     };
 }
 

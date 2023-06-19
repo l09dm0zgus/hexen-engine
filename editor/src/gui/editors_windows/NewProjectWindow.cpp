@@ -7,6 +7,7 @@
 #include "native_file_dialog/FileDialog.h"
 #include <memory.h>
 #include "MessageBox.h"
+#include "../../project/Project.h"
 
 void edit::gui::NewProjectWindow::draw()
 {
@@ -56,14 +57,9 @@ void edit::gui::NewProjectWindow::draw()
             }
             else
             {
-                projectPath.append(pathToProject);
-            #if defined(__unix__)
-                projectPath.append("/");
-            #elif defined(WIN32)
-                projectPath.append("\\");
-            #endif
-                projectPath.append(projectName);
-                projectPath.append(".hxproj");
+                auto project = core::mem::make_shared<Project>(pathToProject,projectName);
+                Project::setCurrentProject(project);
+
                 ImGui::CloseCurrentPopup();
             }
         }

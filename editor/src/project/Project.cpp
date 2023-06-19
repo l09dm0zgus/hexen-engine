@@ -20,23 +20,22 @@ std::shared_ptr<edit::Project> edit::Project::getCurrentProject() noexcept
 edit::Project::Project(const std::string &path,const std::string &name) : path(path) , name(name)
 {
     pathToProjectFile.append(path);
-#if defined(__unix__)
-    pathToProjectFile.append("/");
-#elif defined(WIN32)
-    pathToProjectFile.append("\\");
-#endif
+    pathToProjectFile.append(core::PATH_SLASH);
+    pathToProjectFile.append(name);
+    pathToProjectFile.append(core::PATH_SLASH);
     pathToProjectFile.append(name);
     pathToProjectFile.append(".hxproj");
 
     if(std::filesystem::exists(pathToProjectFile))
     {
-        std::ifstream file(pathToProjectFile);
-        fileProject = nlohmann::json::parse(file);
+       parseJSON();
     }
     else
     {
-        std::filesystem::create_directory(path + "/Assets");
-        std::filesystem::create_directory(path + "/Scenes");
+
+        std::filesystem::create_directory(path + "/" + name);
+        std::filesystem::create_directory(path + "/" + name + "/Scenes");
+        std::filesystem::create_directory(path + "/" + name + "/Assets");
         setVerion("1.0");
         setName(name);
         addScene("Main");
@@ -100,4 +99,22 @@ void edit::Project::save()
 {
     std::ofstream file(pathToProjectFile);
     file << fileProject.dump(2);
+}
+
+edit::Project::Project(const std::string &pathToProject)  : pathToProjectFile(pathToProject)
+{
+    parseJSON();
+    path = std::filesystem::path(pathToProjectFile).parent_path().string();
+    name = std::filesystem::path(pathToProjectFile).stem().string();
+}
+
+void edit::Project::parseJSON()
+{
+    std::ifstream file(pathToProjectFile);
+    fileProject = nlohmann::json::parse(file);
+}
+
+std::string edit::Project::getPath()
+{
+    return path;
 }
