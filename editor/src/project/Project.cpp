@@ -68,6 +68,7 @@ std::string edit::Project::getName() const
 void edit::Project::addScene(const std::string &sceneName)
 {
     fileProject["project"]["scenes"][std::to_string(numberOfScenes)] = sceneName;
+    numberOfScenes++;
     fileProject["project"]["scenes"]["number_of_scenes"] = numberOfScenes;
 }
 
