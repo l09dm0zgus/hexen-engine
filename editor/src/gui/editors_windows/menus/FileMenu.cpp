@@ -6,6 +6,7 @@
 #include "../Shortcuts.h"
 #include "../native_file_dialog/FileDialog.h"
 #include "../MessageBox.h"
+#include "../../../project/Project.h"
 #include <imgui.h>
 
 edit::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
@@ -161,9 +162,17 @@ void edit::gui::FileMenu::showOpenProject()
         std::string pathToProject;
         filter.push_back({{"Project"},{"hxproj;"}});
         std::string path;
-        if (fileDialog.openDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
+
+        auto status = fileDialog.openDialog(filter, pathToProject, path);
+
+        if ( status == INativeFileDialog::Status::STATUS_ERROR)
         {
             ImGuiMessageBox::add(std::string("Error!"),std::string("Failed to select project file!"));
+        }
+        else if (status == INativeFileDialog::Status::STATUS_OK)
+        {
+            auto project = core::mem::make_shared<Project>(path);
+            Project::setCurrentProject(project);
         }
     };
     showMenuItem("Open Project...", "",callback);
@@ -173,6 +182,8 @@ void edit::gui::FileMenu::showSaveProject()
 {
     auto callback = [this]() {
 
+        auto project = Project::getCurrentProject();
+        project->save();
     };
     showMenuItem("Save Project", "",callback);
 }
