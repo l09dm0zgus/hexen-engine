@@ -60,6 +60,7 @@ void edit::gui::NewProjectWindow::draw()
                 auto project = core::mem::make_shared<Project>(pathToProject,projectName);
                 Project::setCurrentProject(project);
 
+                clearStrings();
                 ImGui::CloseCurrentPopup();
             }
         }
@@ -74,8 +75,7 @@ void edit::gui::NewProjectWindow::draw()
 
 edit::gui::NewProjectWindow::NewProjectWindow(std::string name) : GUIWindow(std::move(name))
 {
-    memset(projectName,'\0',PROJECT_NAME_SIZE);
-    memset(pathToProject,'\0',PATH_TO_PROJECT_SIZE);
+    clearStrings();
 }
 
 void edit::gui::NewProjectWindow::setOpen(bool newIsOpen)
@@ -96,4 +96,10 @@ void edit::gui::NewProjectWindow::end()
 std::string edit::gui::NewProjectWindow::getProjectPath()
 {
     return projectPath;
+}
+
+void edit::gui::NewProjectWindow::clearStrings()
+{
+    memset(projectName,'\0',PROJECT_NAME_SIZE);
+    memset(pathToProject,'\0',PATH_TO_PROJECT_SIZE);
 }

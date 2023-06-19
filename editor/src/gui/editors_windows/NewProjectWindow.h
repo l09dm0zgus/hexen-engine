@@ -21,6 +21,7 @@ namespace edit::gui
         char pathToProject[PATH_TO_PROJECT_SIZE]{'0'};
         bool isOpen = false;
         std::string projectPath;
+        void clearStrings();
     public:
         void begin() override;
         void end() override;
