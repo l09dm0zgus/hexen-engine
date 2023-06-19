@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(${EDITOR_NAME})
 
-
 target_sources(${EDITOR_NAME} PRIVATE
         SceneWindow.h
         SceneWindow.cpp
@@ -15,6 +14,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         NewProjectWindow.cpp
         MessageBox.h
         MessageBox.cpp
+        AssetsWindow.h
+        AssetsWindow.cpp
         )
 
 add_subdirectory(native_file_dialog)
