@@ -4,6 +4,7 @@ project(${EDITOR_NAME})
 
 cmake_path(GET  CMAKE_CURRENT_SOURCE_DIR PARENT_PATH PARENT_DIR)
 
+
 set(IMGUI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/imgui)
 set(SDL_IMAGE_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/SDL_image/include/SDL3)
 set(GLM_INCLUDE_DIR ${PARENT_DIR}/engine/submodules/glm)

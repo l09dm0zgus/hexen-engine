@@ -7,6 +7,7 @@ target_sources(${EDITOR_NAME} PRIVATE
         Style.cpp
         Dockspace.h
         Dockspace.cpp
+        IconsFontAwesome5.h
         )
 
 add_subdirectory(editors_windows)
