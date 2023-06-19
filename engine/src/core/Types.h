@@ -35,6 +35,14 @@ namespace core
     using u64 = uint64_t;
     using vptr = void*;
 
+    const std::string ENGINE_VERSION = std::string("0.0.0.1");
+
+#if defined(__unix__)
+    const std::string PATH_SLASH("/");
+#elif defined(WIN32)
+    const std::string PATH_SLASH("\\");
+#endif
+
     struct Color
     {
         u8 r;
