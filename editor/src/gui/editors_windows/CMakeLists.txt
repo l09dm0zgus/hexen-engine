@@ -18,3 +18,4 @@ target_sources(${EDITOR_NAME} PRIVATE
         )
 
 add_subdirectory(native_file_dialog)
+add_subdirectory(menus)
