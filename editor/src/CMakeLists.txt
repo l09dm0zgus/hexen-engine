@@ -13,6 +13,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         main.cpp
         application/Application.cpp
         application/Application.h
+        project/Project.h
+        project/Project.cpp
         )
 
 target_include_directories(${EDITOR_NAME} PRIVATE ${PARENT_DIR}/engine/src)
