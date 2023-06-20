@@ -10,6 +10,10 @@ namespace edit::gui
 {
     class AssetsWindow : public GUIWindow
     {
+    private:
+        void drawNode(core::i32 i);
+        void addToPath(const std::string &folder);
+        std::vector<std::string> currenPath;
     public:
         explicit AssetsWindow(std::string name);
         void begin() override;
