@@ -66,17 +66,13 @@ void edit::gui::AssetsWindow::end()
 
 void edit::gui::AssetsWindow::drawNode(core::i32 i)
 {
-    std::string nodeName;
+    auto nodeName = currenPath[i] + " " + ICON_FA_FOLDER;
 
-    if(i == currenPath.size() - 1)
-    {
-        nodeName = currenPath[i] ;
-    }
-    else
-    {
-        nodeName = currenPath[i] + " " + ICON_FA_ARROW_RIGHT;
-    }
-
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,50.0f);
+    ImGui::PushStyleColor(ImGuiCol_Button,ImVec4(1.0f,1.0f,1.0f,0.1f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive,ImVec4(1.0f,1.0f,1.0f,0.3f));
+    ImGui::ArrowButton("arrow",ImGuiDir_Right);
+    ImGui::SameLine(0,0.0);
     if(ImGui::Button(nodeName.c_str()))
     {
         auto it = std::find(currenPath.begin(),currenPath.end(),currenPath[i] );
@@ -85,7 +81,10 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
             currenPath.erase(it + 1, currenPath.end());
         }
     }
-    ImGui::SameLine(0,0.5);
+
+    ImGui::PopStyleVar();
+    ImGui::PopStyleColor(2);
+    ImGui::SameLine(0,0.0);
 }
 
 void edit::gui::AssetsWindow::addToPath(const std::string &folder)
