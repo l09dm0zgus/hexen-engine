@@ -15,6 +15,8 @@ namespace edit::gui
         void drawNode(core::i32 i);
         void addToPath(const std::string &folder);
         std::vector<std::string> currenPath;
+        void pushButtonStyle();
+        void popButtonSttyle();
 
         void drawFolderButton(const std::string &folderName);
         glm::vec2 iconsSize{64.0f};

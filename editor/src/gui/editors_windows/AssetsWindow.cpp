@@ -55,7 +55,9 @@ void edit::gui::AssetsWindow::draw()
         }
         ImGui::EndMenuBar();
     }
+    pushButtonStyle();
     drawFolderButton("Test");
+    popButtonSttyle();
     ImGui::End();
 
 
@@ -102,5 +104,18 @@ void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (iconsSize.x / 2) * 0.5f);
     ImGui::Text(folderName.c_str());
     ImGui::SameLine();
+}
+
+void edit::gui::AssetsWindow::pushButtonStyle()
+{
+    ImGui::PushStyleColor(ImGuiCol_Button,ImVec4(0.0f,0.0f,0.0f,0.0f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered,ImVec4(1.0f,1.0f,1.0f,0.1f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive,ImVec4(1.0f,1.0f,1.0f,0.1f));
+
+}
+
+void edit::gui::AssetsWindow::popButtonSttyle()
+{
+    ImGui::PopStyleColor(3);
 }
 
