@@ -38,7 +38,7 @@ core::rend::Texture::Texture(const std::string &pathToImage, int wrapMode, int f
     }
 
     int mode = GL_RGB;
-    if(surface->format->BitsPerPixel == 4)
+    if(surface->format->Amask)
     {
         mode = GL_RGBA;
     }
