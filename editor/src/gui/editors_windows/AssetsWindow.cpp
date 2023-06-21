@@ -1,7 +1,7 @@
 //
 // Created by cx9ps3 on 19.06.2023.
 //
-
+#include <core/graphics/texture/Texture.h>
 #include "AssetsWindow.h"
 #include <algorithm>
 #include <iostream>
@@ -33,7 +33,7 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
     currenPath.emplace_back("Folder4");
     currenPath.emplace_back("Folder5");
 
-
+    folderImage = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
 
 }
 
@@ -55,7 +55,9 @@ void edit::gui::AssetsWindow::draw()
         }
         ImGui::EndMenuBar();
     }
+    drawFolderButton("Test");
     ImGui::End();
+
 
 }
 
@@ -90,5 +92,15 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
 void edit::gui::AssetsWindow::addToPath(const std::string &folder)
 {
     currenPath.push_back(folder);
+}
+
+void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
+{
+    if(ImGui::ImageButton((ImTextureID)folderImage->getId(), ImVec2(iconsSize.x,iconsSize.y)))
+    {
+    }
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (iconsSize.x / 2) * 0.5f);
+    ImGui::Text(folderName.c_str());
+    ImGui::SameLine();
 }
 
