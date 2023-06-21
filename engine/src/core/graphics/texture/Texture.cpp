@@ -3,7 +3,11 @@
 //
 
 #include "Texture.h"
-
+#ifndef  __ANDROID__
+#include <GL/glew.h>
+#else
+#include <GLES3/gl31.h>
+#endif
 
 void core::rend::Texture::setTextureParameters(int wrapMode, int filterMode)
 {

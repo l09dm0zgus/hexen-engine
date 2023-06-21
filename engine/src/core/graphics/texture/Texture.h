@@ -7,12 +7,6 @@
 
 #include <SDL3/SDL.h>
 #include <SDL_image.h>
-#ifndef  __ANDROID__
-#include <GL/glew.h>
-#else
-#include <GLES3/gl31.h>
-#endif
-
 #include <string>
 #include "../../memory_pool/AllocatedObject.h"
 namespace core::rend
@@ -20,7 +14,7 @@ namespace core::rend
     class Texture : public mem::AllocatedObject
     {
     public:
-        explicit Texture(const std::string &pathToImage,int wrapMode = GL_REPEAT ,int filterMode = GL_NEAREST);
+        explicit Texture(const std::string &pathToImage,int wrapMode = 0x2901 ,int filterMode = 0x2600);
         void bind(u32 id) const;
         u32 getId() const noexcept;
         ~Texture() override;
