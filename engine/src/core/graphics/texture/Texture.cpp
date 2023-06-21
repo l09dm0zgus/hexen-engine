@@ -46,4 +46,9 @@ core::rend::Texture::Texture(const std::string &pathToImage, int wrapMode, int f
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
+core::u32 core::rend::Texture::getId() const noexcept
+{
+    return textureId;
+}
+
 
