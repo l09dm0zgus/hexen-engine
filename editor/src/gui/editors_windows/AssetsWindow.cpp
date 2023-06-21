@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include "../IconsFontAwesome5.h"
-
+#include "../../project/Project.h"
 
 edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
 {
@@ -34,6 +34,11 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
     currenPath.emplace_back("Folder5");
 
     folderImage = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
+    soundImage = core::mem::make_unique<core::rend::Texture>(pathToSoundFileIcon);
+
+    addImage("icons/1.png");
+    addImage("icons/2.png");
+    addImage("icons/3.png");
 
 }
 
@@ -57,7 +62,9 @@ void edit::gui::AssetsWindow::draw()
     }
     pushButtonStyle();
     drawFolderButton("Test");
-    popButtonSttyle();
+    drawSoundButton("music.mp3");
+    drawImageButtons();
+    popButtonStyle();
     ImGui::End();
 
 
@@ -98,12 +105,11 @@ void edit::gui::AssetsWindow::addToPath(const std::string &folder)
 
 void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
 {
-    if(ImGui::ImageButton((ImTextureID)folderImage->getId(), ImVec2(iconsSize.x,iconsSize.y)))
-    {
-    }
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (iconsSize.x / 2) * 0.5f);
-    ImGui::Text(folderName.c_str());
-    ImGui::SameLine();
+   auto callback = [](auto &fullPathToCallback)
+   {
+
+   };
+   drawImageButton(folderName,"",folderImage->getId(),callback);
 }
 
 void edit::gui::AssetsWindow::pushButtonStyle()
@@ -114,8 +120,49 @@ void edit::gui::AssetsWindow::pushButtonStyle()
 
 }
 
-void edit::gui::AssetsWindow::popButtonSttyle()
+void edit::gui::AssetsWindow::popButtonStyle()
 {
     ImGui::PopStyleColor(3);
+}
+
+void edit::gui::AssetsWindow::drawSoundButton(const std::string &fileName)
+{
+    auto callback = [](auto &fullPathToCallback)
+    {
+
+    };
+    drawImageButton(fileName,"",soundImage->getId(),callback);
+}
+
+void edit::gui::AssetsWindow::addImage(const std::string &pathToImage)
+{
+    images.set(pathToImage,std::make_shared<core::rend::Texture>(pathToImage));
+}
+
+void edit::gui::AssetsWindow::drawImageButtons()
+{
+    for(auto& image : images)
+    {
+        auto fileName = std::filesystem::path(image.key).filename().string();
+
+        auto callback = [](auto &fullPathToCallback)
+        {
+
+        };
+        drawImageButton(fileName,"",image.value->getId(),callback);
+    }
+}
+
+void edit::gui::AssetsWindow::drawImageButton(const std::string &fileName,const std::string &fullPathToFile,core::u32 textureId,const std::function<void(const std::string& )>& callback)
+{
+    ImGui::BeginGroup();
+    if(ImGui::ImageButton((ImTextureID)textureId, ImVec2(iconsSize.x,iconsSize.y)))
+    {
+        callback(fullPathToFile);
+    }
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (iconsSize.x / 2) * 0.5f);
+    ImGui::Text(fileName.c_str());
+    ImGui::EndGroup();
+    ImGui::SameLine();
 }
 

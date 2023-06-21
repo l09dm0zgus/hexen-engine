@@ -15,13 +15,25 @@ namespace edit::gui
         void drawNode(core::i32 i);
         void addToPath(const std::string &folder);
         std::vector<std::string> currenPath;
+
         void pushButtonStyle();
-        void popButtonSttyle();
+        void popButtonStyle();
 
         void drawFolderButton(const std::string &folderName);
+        void drawSoundButton(const std::string &fileName);
+
+        void drawImageButton(const std::string &fileName,const std::string &fullPathToFile,core::u32 textureId,const std::function<void(const std::string& )>& callback);
+
+        void drawImageButtons();
+
+        void addImage(const std::string &pathToImage);
+
         glm::vec2 iconsSize{64.0f};
         std::unique_ptr<core::rend::Texture> folderImage;
+        std::unique_ptr<core::rend::Texture> soundImage;
         std::string pathToFolderIcon = "icons/folder.png";
+        std::string pathToSoundFileIcon = "icons/music.png";
+        core::HashTable<std::string,std::shared_ptr<core::rend::Texture>> images;
     public:
         explicit AssetsWindow(std::string name);
         void begin() override;
