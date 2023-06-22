@@ -57,8 +57,7 @@ void edit::gui::NewProjectWindow::draw()
             }
             else
             {
-                auto project = core::mem::make_shared<Project>(pathToProject,projectName);
-                Project::setCurrentProject(project);
+                Project::setCurrentProject(pathToProject,projectName);
 
                 clearStrings();
                 ImGui::CloseCurrentPopup();

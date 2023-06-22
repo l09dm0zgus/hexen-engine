@@ -17,15 +17,18 @@ class Project : public core::mem::AllocatedObject
         std::string path;
         std::string name;
         std::string pathToProjectFile;
-        static std::shared_ptr<Project> currentProject;
+        static std::unique_ptr<Project> currentProject;
         nlohmann::json fileProject;
         core::u32 numberOfScenes{0};
         void parseJSON();
+        void setName();
+        void setPath();
     public:
        explicit Project(const std::string &path,const std::string &name);
        explicit Project(const std::string &pathToProject);
-       static void setCurrentProject(const std::shared_ptr<Project> &project);
-       static std::shared_ptr<Project> getCurrentProject()  noexcept;
+       static void setCurrentProject(const std::string &path,const std::string &name);
+       static void setCurrentProject(const std::string &pathToProject);
+       static Project * getCurrentProject()  noexcept;
        void setVerion(const std::string &version);
        std::string getVersion() const;
        void setName(const std::string &name);

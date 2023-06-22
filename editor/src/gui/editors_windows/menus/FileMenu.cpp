@@ -172,8 +172,7 @@ void edit::gui::FileMenu::showOpenProject()
         }
         else if (status == INativeFileDialog::Status::STATUS_OK)
         {
-            auto project = core::mem::make_shared<Project>(path);
-            Project::setCurrentProject(project);
+            Project::setCurrentProject(path);
         }
     };
     showMenuItem(ICON_FA_FILE" Open Project...", "",callback);

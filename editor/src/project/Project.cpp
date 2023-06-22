@@ -5,16 +5,12 @@
 #include <fstream>
 #include "Project.h"
 
-std::shared_ptr<edit::Project> edit::Project::currentProject;
+std::unique_ptr<edit::Project> edit::Project::currentProject;
 
-void edit::Project::setCurrentProject(const std::shared_ptr<Project> &project)
-{
-    currentProject = project;
-}
 
-std::shared_ptr<edit::Project> edit::Project::getCurrentProject() noexcept
+edit::Project* edit::Project::getCurrentProject() noexcept
 {
-    return currentProject;
+    return currentProject.get();
 }
 
 edit::Project::Project(const std::string &path,const std::string &name) : path(path) , name(name)
@@ -43,6 +39,8 @@ edit::Project::Project(const std::string &path,const std::string &name) : path(p
         save();
     }
 
+    setName();
+    setPath();
 }
 
 void edit::Project::setVerion(const std::string &version)
@@ -105,8 +103,9 @@ void edit::Project::save()
 edit::Project::Project(const std::string &pathToProject)  : pathToProjectFile(pathToProject)
 {
     parseJSON();
-    path = std::filesystem::path(pathToProjectFile).parent_path().string();
-    name = std::filesystem::path(pathToProjectFile).stem().string();
+
+    setName();
+    setPath();
 }
 
 void edit::Project::parseJSON()
@@ -118,4 +117,24 @@ void edit::Project::parseJSON()
 std::string edit::Project::getPath()
 {
     return path;
+}
+
+void edit::Project::setCurrentProject(const std::string &path, const std::string &name)
+{
+    currentProject = core::mem::make_unique<Project>(path,name);
+}
+
+void edit::Project::setCurrentProject(const std::string &pathToProject)
+{
+    currentProject = core::mem::make_unique<Project>(pathToProject);
+}
+
+void edit::Project::setPath()
+{
+    path = std::filesystem::path(pathToProjectFile).parent_path().string();
+}
+
+void edit::Project::setName()
+{
+    name = std::filesystem::path(pathToProjectFile).stem().string();
 }
