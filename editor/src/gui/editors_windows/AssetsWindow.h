@@ -40,14 +40,17 @@ namespace edit::gui
         void addImage(const std::string &pathToImage);
 
         glm::vec2 iconsSize{64.0f};
+        float padding{16.0f};
         std::unique_ptr<core::rend::Texture> folderImage;
         std::unique_ptr<core::rend::Texture> soundImage;
         std::string pathToFolderIcon = "icons/folder.png";
         std::string pathToSoundFileIcon = "icons/music.png";
         core::HashTable<std::string,std::shared_ptr<core::rend::Texture>> images;
+
         void showFilesInDirectory();
         std::vector<std::string> imageFileExtensions{".png",".jpeg",".bmp",".tga",".jpg",".gif"};
         std::vector<std::string> soundFileExtensions{".wav", ".ogg",".mp3",".flac"};
+
         bool isOpen{true};
         bool isRootDirectoryLoaded{false};
     public:

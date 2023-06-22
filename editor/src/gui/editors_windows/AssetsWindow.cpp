@@ -36,6 +36,7 @@ void edit::gui::AssetsWindow::draw()
             directoryList.emplace_back("/");
             indexFilesInDirectory();
         }
+
         if(ImGui::BeginMenuBar())
         {
             for(core::i32 i = 0; i < directoryList.size(); i++)
@@ -44,7 +45,20 @@ void edit::gui::AssetsWindow::draw()
             }
             ImGui::EndMenuBar();
         }
+
+        auto panelWitdh = ImGui::GetContentRegionAvail().x;
+        auto cellSize = iconsSize.x + padding;
+        auto columnNumber = static_cast<core::i32>(panelWitdh / cellSize);
+
+        ImGui::Columns(columnNumber, nullptr, false);
         showFilesInDirectory();
+        ImGui::Columns(1);
+
+        ImGui::SliderFloat("Icon Size" , &iconsSize.x,16,256);
+        iconsSize.y = iconsSize.x;
+
+        ImGui::SliderFloat("Padding" , &padding,0,32);
+
         if(ImGui::BeginPopupContextWindow())
         {
             if(ImGui::MenuItem("Lol"))
@@ -82,7 +96,6 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
 
     ImGui::PopStyleVar();
     ImGui::PopStyleColor(2);
-    ImGui::SameLine(0,0.0);
 }
 
 void edit::gui::AssetsWindow::addToPath(const std::string &folder)
@@ -142,15 +155,13 @@ void edit::gui::AssetsWindow::drawImageButtons()
 
 void edit::gui::AssetsWindow::drawButton(const std::string &fileName, const std::string &fullPathToFile, core::u32 textureId, const std::function<void(const std::string& )>& callback)
 {
-    ImGui::BeginGroup();
     if(ImGui::ImageButton((ImTextureID)textureId, ImVec2(iconsSize.x,iconsSize.y)))
     {
         callback(fullPathToFile);
     }
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (iconsSize.x / 2) * 0.5f);
     ImGui::Text(fileName.c_str());
-    ImGui::EndGroup();
-    drawOnSameLine();
+    ImGui::NextColumn();
+
 }
 
 void edit::gui::AssetsWindow::showFilesInDirectory()
@@ -166,8 +177,7 @@ void edit::gui::AssetsWindow::showFilesInDirectory()
 
 void edit::gui::AssetsWindow::drawOnSameLine()
 {
-    numberOfButtons++;
-    ImGui::SameLine();
+    //ImGui::SameLine();
 }
 
 void edit::gui::AssetsWindow::indexFilesInDirectory()
