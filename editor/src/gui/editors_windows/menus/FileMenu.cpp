@@ -181,9 +181,10 @@ void edit::gui::FileMenu::showOpenProject()
 void edit::gui::FileMenu::showSaveProject()
 {
     auto callback = [this]() {
-
-        auto project = Project::getCurrentProject();
-        project->save();
+        if(Project::getCurrentProject() != nullptr)
+        {
+            Project::getCurrentProject()->save();
+        }
     };
     showMenuItem(ICON_FA_SAVE" Save Project", "",callback);
 }
