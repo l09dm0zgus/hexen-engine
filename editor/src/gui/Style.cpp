@@ -3,6 +3,7 @@
 //
 
 #include "Style.h"
+#include "IconsFontAwesome5.h"
 #include <filesystem>
 #include <fstream>
 
@@ -225,6 +226,7 @@ void edit::gui::Style::getMiscValues()
 void edit::gui::Style::loadThemeFromFile(const std::string &path)
 {
     style = &ImGui::GetStyle();
+    loadFonts();
     if(std::filesystem::exists(path))
     {
         std::ifstream file(path);
@@ -252,4 +254,23 @@ void edit::gui::Style::loadThemeFromFile(const std::string &path)
         std::ofstream file(path);
         file << styleFile.dump(4);
     }
+}
+
+void edit::gui::Style::loadFonts()
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontDefault();
+    float baseFontSize = 16.0f; // 13.0f is the size of the default font. Change to the font size you use.
+    float iconFontSize = baseFontSize * 2.0f / 3.0f; // FontAwesome fonts need to have their sizes reduced by 2.0f/3.0f in order to align correctly
+
+
+    static const ImWchar iconsRanges[] = { ICON_MIN_FA, ICON_MAX_16_FA, 0};
+
+    ImFontConfig iconsConfig;
+    iconsConfig.MergeMode = true;
+    iconsConfig.GlyphMinAdvanceX = iconFontSize;
+    iconsConfig.PixelSnapH = true;
+
+    io.Fonts->AddFontFromFileTTF( "fonts/fa-solid-900.ttf", iconFontSize,&iconsConfig,iconsRanges);
+
 }

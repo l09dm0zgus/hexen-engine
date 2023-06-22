@@ -16,6 +16,7 @@ namespace edit::gui
         Style();
         void loadThemeFromFile(const std::string &path);
     private:
+        void loadFonts();
         void setPaddingValues();
         void setAntiAliasedValues();
         void setAlignValues();
