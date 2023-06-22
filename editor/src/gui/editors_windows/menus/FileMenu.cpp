@@ -6,6 +6,7 @@
 #include "../Shortcuts.h"
 #include "../native_file_dialog/FileDialog.h"
 #include "../MessageBox.h"
+#include "../../IconsFontAwesome5.h"
 #include "../../../project/Project.h"
 #include <imgui.h>
 
@@ -116,13 +117,13 @@ void edit::gui::FileMenu::show()
 void edit::gui::FileMenu::showNewScene()
 {
 
-    showMenuItem("New Scene","CTRL+N",newSceneCallback);
+    showMenuItem( ICON_FA_MAP " New Scene","CTRL+N",newSceneCallback);
 }
 
 void edit::gui::FileMenu::showOpenScene()
 {
 
-    showMenuItem("Open Scene","CTRL+O",openSceneCallback);
+    showMenuItem( ICON_FA_FILE_IMPORT" Open Scene","CTRL+O",openSceneCallback);
 }
 
 void edit::gui::FileMenu::showOpenRecentScene()
@@ -130,18 +131,18 @@ void edit::gui::FileMenu::showOpenRecentScene()
     auto callback = [this]() {
 
     };
-    showMenu("Open Recent Scene",callback);
+    showMenu(ICON_FA_FILE_IMPORT" Open Recent Scene",callback);
 }
 
 void edit::gui::FileMenu::showSave()
 {
 
-    showMenuItem("Save","CTRL+S",saveFileCallback);
+    showMenuItem(ICON_FA_SAVE" Save","CTRL+S",saveFileCallback);
 }
 
 void edit::gui::FileMenu::showSaveAs()
 {
-    showMenuItem("Save As...","CTRL+SHIFT+S",saveAsFileCallback);
+    showMenuItem(ICON_FA_FOLDER_OPEN " Save As...","CTRL+SHIFT+S",saveAsFileCallback);
 }
 
 void edit::gui::FileMenu::showNewProject()
@@ -150,7 +151,7 @@ void edit::gui::FileMenu::showNewProject()
     {
         newProjectWindow->setOpen(true);
     };
-    showMenuItem("New Project...", "",callback);
+    showMenuItem(ICON_FA_FOLDER_OPEN " New Project...", "",callback);
 }
 
 void edit::gui::FileMenu::showOpenProject()
@@ -175,7 +176,7 @@ void edit::gui::FileMenu::showOpenProject()
             Project::setCurrentProject(project);
         }
     };
-    showMenuItem("Open Project...", "",callback);
+    showMenuItem(ICON_FA_FILE" Open Project...", "",callback);
 }
 
 void edit::gui::FileMenu::showSaveProject()
@@ -185,7 +186,7 @@ void edit::gui::FileMenu::showSaveProject()
         auto project = Project::getCurrentProject();
         project->save();
     };
-    showMenuItem("Save Project", "",callback);
+    showMenuItem(ICON_FA_SAVE" Save Project", "",callback);
 }
 
 void edit::gui::FileMenu::showExit()
@@ -194,5 +195,5 @@ void edit::gui::FileMenu::showExit()
 
         exit(0);
     };
-    showMenuItem("Exit", "",callback);
+    showMenuItem(ICON_FA_WINDOW_CLOSE" Exit", "",callback);
 }
