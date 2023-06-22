@@ -14,7 +14,6 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
 
     folderImage = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
     soundImage = core::mem::make_unique<core::rend::Texture>(pathToSoundFileIcon);
-    rows = static_cast<core::i32>(getSize().x / iconsSize.x);
 }
 
 void edit::gui::AssetsWindow::begin()
@@ -83,6 +82,7 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,50.0f);
     ImGui::PushStyleColor(ImGuiCol_Button,ImVec4(1.0f,1.0f,1.0f,0.1f));
     ImGui::PushStyleColor(ImGuiCol_ButtonActive,ImVec4(1.0f,1.0f,1.0f,0.3f));
+
     ImGui::ArrowButton("arrow",ImGuiDir_Right);
     ImGui::SameLine(0,0.0);
     if(ImGui::Button(nodeName.c_str()))
@@ -92,8 +92,19 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
         {
             directoryList.erase(it + 1, directoryList.end());
         }
-    }
 
+        currentPath = Project::getCurrentProject()->getPath();
+        for(const auto& directory : directoryList)
+        {
+            if(directory != "/")
+            {
+                currentPath = currentPath / directory;
+            }
+        }
+
+        indexFilesInDirectory();
+    }
+    ImGui::SameLine(0,0.0);
     ImGui::PopStyleVar();
     ImGui::PopStyleColor(2);
 }
@@ -105,8 +116,12 @@ void edit::gui::AssetsWindow::addToPath(const std::string &folder)
 
 void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
 {
-   auto callback = [](auto &fullPathToCallback)
+   auto callback = [this,&folderName](auto &fullPathToCallback)
    {
+       std::cout << folderName <<"\n";
+       directoryList.push_back(folderName);
+       currentPath = currentPath / folderName;
+       indexFilesInDirectory();
 
    };
     drawButton(folderName, "", folderImage->getId(), callback);
@@ -155,7 +170,7 @@ void edit::gui::AssetsWindow::drawImageButtons()
 
 void edit::gui::AssetsWindow::drawButton(const std::string &fileName, const std::string &fullPathToFile, core::u32 textureId, const std::function<void(const std::string& )>& callback)
 {
-    if(ImGui::ImageButton((ImTextureID)textureId, ImVec2(iconsSize.x,iconsSize.y)))
+    if(ImGui::ImageButton(fileName.c_str(),(ImTextureID)textureId, ImVec2(iconsSize.x,iconsSize.y)))
     {
         callback(fullPathToFile);
     }
@@ -175,10 +190,6 @@ void edit::gui::AssetsWindow::showFilesInDirectory()
     popButtonStyle();
 }
 
-void edit::gui::AssetsWindow::drawOnSameLine()
-{
-    //ImGui::SameLine();
-}
 
 void edit::gui::AssetsWindow::indexFilesInDirectory()
 {

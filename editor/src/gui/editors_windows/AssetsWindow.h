@@ -17,12 +17,9 @@ namespace edit::gui
         void addToPath(const std::string &folder);
         std::vector<std::string> directoryList;
         std::filesystem::path currentPath;
-        core::i32 rows{0};
-        core::i32 numberOfButtons{0};
 
         void pushButtonStyle();
         void popButtonStyle();
-        void drawOnSameLine();
 
         std::vector<std::string> folderNames;
         std::vector<std::string> soundFilesNames;
@@ -41,6 +38,7 @@ namespace edit::gui
 
         glm::vec2 iconsSize{64.0f};
         float padding{16.0f};
+
         std::unique_ptr<core::rend::Texture> folderImage;
         std::unique_ptr<core::rend::Texture> soundImage;
         std::string pathToFolderIcon = "icons/folder.png";
