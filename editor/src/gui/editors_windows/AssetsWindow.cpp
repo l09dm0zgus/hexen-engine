@@ -12,20 +12,9 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
 {
     setSize(glm::vec2(1280,400));
 
-
-    currenPath.emplace_back("Folder1");
-    currenPath.emplace_back("Folder2");
-    currenPath.emplace_back("Folder3");
-    currenPath.emplace_back("Folder4");
-    currenPath.emplace_back("Folder5");
-
     folderImage = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
     soundImage = core::mem::make_unique<core::rend::Texture>(pathToSoundFileIcon);
-
-    addImage("icons/1.png");
-    addImage("icons/2.png");
-    addImage("icons/3.png");
-
+    rows = static_cast<core::i32>(getSize().x / iconsSize.x);
 }
 
 void edit::gui::AssetsWindow::begin()
@@ -36,32 +25,36 @@ void edit::gui::AssetsWindow::begin()
 
 void edit::gui::AssetsWindow::draw()
 {
-    static bool isOpen = true;
-    ImGui::Begin(getName().c_str(),&isOpen,ImGuiWindowFlags_MenuBar);
-    if(ImGui::BeginMenuBar())
-    {
-        for(core::i32 i = 0;i < currenPath.size(); i++)
-        {
-            drawNode(i);
-        }
-        ImGui::EndMenuBar();
-    }
-    pushButtonStyle();
-    drawFolderButton("Test");
-    drawSoundButton("music.mp3");
-    drawImageButtons();
-    popButtonStyle();
-    if(ImGui::BeginPopupContextWindow())
-    {
-        if(ImGui::MenuItem("Lol"))
-        {
+    ImGui::Begin(getName().c_str(),&isOpen,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
 
+    if(Project::getCurrentProject() != nullptr)
+    {
+        if(!isRootDirectoryLoaded)
+        {
+            currentPath = Project::getCurrentProject()->getPath();
+            isRootDirectoryLoaded = true;
+            directoryList.emplace_back("/");
+            indexFilesInDirectory();
         }
-        ImGui::EndPopup();
+        if(ImGui::BeginMenuBar())
+        {
+            for(core::i32 i = 0; i < directoryList.size(); i++)
+            {
+                drawNode(i);
+            }
+            ImGui::EndMenuBar();
+        }
+        showFilesInDirectory();
+        if(ImGui::BeginPopupContextWindow())
+        {
+            if(ImGui::MenuItem("Lol"))
+            {
+
+            }
+            ImGui::EndPopup();
+        }
     }
     ImGui::End();
-
-
 }
 
 void edit::gui::AssetsWindow::end()
@@ -71,7 +64,7 @@ void edit::gui::AssetsWindow::end()
 
 void edit::gui::AssetsWindow::drawNode(core::i32 i)
 {
-    auto nodeName = currenPath[i] + " " + ICON_FA_FOLDER;
+    auto nodeName = directoryList[i] + " " + ICON_FA_FOLDER;
 
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,50.0f);
     ImGui::PushStyleColor(ImGuiCol_Button,ImVec4(1.0f,1.0f,1.0f,0.1f));
@@ -80,10 +73,10 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
     ImGui::SameLine(0,0.0);
     if(ImGui::Button(nodeName.c_str()))
     {
-        auto it = std::find(currenPath.begin(),currenPath.end(),currenPath[i] );
-        if(it != currenPath.end())
+        auto it = std::find(directoryList.begin(), directoryList.end(), directoryList[i] );
+        if(it != directoryList.end())
         {
-            currenPath.erase(it + 1, currenPath.end());
+            directoryList.erase(it + 1, directoryList.end());
         }
     }
 
@@ -94,7 +87,7 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
 
 void edit::gui::AssetsWindow::addToPath(const std::string &folder)
 {
-    currenPath.push_back(folder);
+    directoryList.push_back(folder);
 }
 
 void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
@@ -103,7 +96,7 @@ void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
    {
 
    };
-   drawImageButton(folderName,"",folderImage->getId(),callback);
+    drawButton(folderName, "", folderImage->getId(), callback);
 }
 
 void edit::gui::AssetsWindow::pushButtonStyle()
@@ -125,7 +118,7 @@ void edit::gui::AssetsWindow::drawSoundButton(const std::string &fileName)
     {
 
     };
-    drawImageButton(fileName,"",soundImage->getId(),callback);
+    drawButton(fileName, "", soundImage->getId(), callback);
 }
 
 void edit::gui::AssetsWindow::addImage(const std::string &pathToImage)
@@ -143,11 +136,11 @@ void edit::gui::AssetsWindow::drawImageButtons()
         {
 
         };
-        drawImageButton(fileName,"",image.value->getId(),callback);
+        drawButton(fileName, "", image.value->getId(), callback);
     }
 }
 
-void edit::gui::AssetsWindow::drawImageButton(const std::string &fileName,const std::string &fullPathToFile,core::u32 textureId,const std::function<void(const std::string& )>& callback)
+void edit::gui::AssetsWindow::drawButton(const std::string &fileName, const std::string &fullPathToFile, core::u32 textureId, const std::function<void(const std::string& )>& callback)
 {
     ImGui::BeginGroup();
     if(ImGui::ImageButton((ImTextureID)textureId, ImVec2(iconsSize.x,iconsSize.y)))
@@ -157,6 +150,69 @@ void edit::gui::AssetsWindow::drawImageButton(const std::string &fileName,const 
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (iconsSize.x / 2) * 0.5f);
     ImGui::Text(fileName.c_str());
     ImGui::EndGroup();
+    drawOnSameLine();
+}
+
+void edit::gui::AssetsWindow::showFilesInDirectory()
+{
+    pushButtonStyle();
+
+    drawFolderButtons();
+    drawSoundButtons();
+    drawImageButtons();
+
+    popButtonStyle();
+}
+
+void edit::gui::AssetsWindow::drawOnSameLine()
+{
+    numberOfButtons++;
     ImGui::SameLine();
+}
+
+void edit::gui::AssetsWindow::indexFilesInDirectory()
+{
+    folderNames.clear();
+    soundFilesNames.clear();
+    images.clear();
+
+    for(const auto& path : std::filesystem::directory_iterator(currentPath))
+    {
+        auto name = path.path().filename().string();
+        auto extension = path.path().extension().string();
+        if(path.is_directory())
+        {
+            folderNames.push_back(name);
+        }
+        else
+        {
+            auto isImage = std::find(imageFileExtensions.cbegin(),imageFileExtensions.cend(),extension);
+            auto isAudio = std::find(soundFileExtensions.cbegin(),soundFileExtensions.cend(),extension);
+            if(isImage != imageFileExtensions.cend())
+            {
+                addImage(path.path().string());
+            }
+            else if(isAudio != soundFileExtensions.cend())
+            {
+                soundFilesNames.push_back(name);
+            }
+        }
+    }
+}
+
+void edit::gui::AssetsWindow::drawSoundButtons()
+{
+    for(const auto& name : soundFilesNames)
+    {
+        drawSoundButton(name);
+    }
+}
+
+void edit::gui::AssetsWindow::drawFolderButtons()
+{
+    for(const auto& name : folderNames)
+    {
+        drawFolderButton(name);
+    }
 }
 

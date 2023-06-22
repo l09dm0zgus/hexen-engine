@@ -5,6 +5,7 @@
 #ifndef HEXENEDITOR_ASSETSWINDOW_H
 #define HEXENEDITOR_ASSETSWINDOW_H
 #include "GUIWindow.h"
+#include "../../project/Project.h"
 #include <core/graphics/texture/Texture.h>
 
 namespace edit::gui
@@ -14,17 +15,27 @@ namespace edit::gui
     private:
         void drawNode(core::i32 i);
         void addToPath(const std::string &folder);
-        std::vector<std::string> currenPath;
+        std::vector<std::string> directoryList;
+        std::filesystem::path currentPath;
+        core::i32 rows{0};
+        core::i32 numberOfButtons{0};
 
         void pushButtonStyle();
         void popButtonStyle();
+        void drawOnSameLine();
+
+        std::vector<std::string> folderNames;
+        std::vector<std::string> soundFilesNames;
+
+        void indexFilesInDirectory();
 
         void drawFolderButton(const std::string &folderName);
         void drawSoundButton(const std::string &fileName);
 
-        void drawImageButton(const std::string &fileName,const std::string &fullPathToFile,core::u32 textureId,const std::function<void(const std::string& )>& callback);
-
+        void drawButton(const std::string &fileName, const std::string &fullPathToFile, core::u32 textureId, const std::function<void(const std::string& )>& callback);
         void drawImageButtons();
+        void drawSoundButtons();
+        void drawFolderButtons();
 
         void addImage(const std::string &pathToImage);
 
@@ -34,6 +45,11 @@ namespace edit::gui
         std::string pathToFolderIcon = "icons/folder.png";
         std::string pathToSoundFileIcon = "icons/music.png";
         core::HashTable<std::string,std::shared_ptr<core::rend::Texture>> images;
+        void showFilesInDirectory();
+        std::vector<std::string> imageFileExtensions{".png",".jpeg",".bmp",".tga",".jpg",".gif"};
+        std::vector<std::string> soundFileExtensions{".wav", ".ogg",".mp3",".flac"};
+        bool isOpen{true};
+        bool isRootDirectoryLoaded{false};
     public:
         explicit AssetsWindow(std::string name);
         void begin() override;
