@@ -246,11 +246,27 @@ void edit::gui::AssetIcon::setSize(const glm::vec2 &newSize)
 
 void edit::gui::AssetIcon::draw()
 {
-    if(ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y)))
+    isCtrlPressed = ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
+    ImGui::PushStyleColor(ImGuiCol_Button,color);
+    isClicked = ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y));
+
+    if(isCtrlPressed && isClicked)
     {
+        color = ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered];
+    }
+    else if(isClicked)
+    {
+        color = {0.0f,0.0f,0.0f,0.0f};
         callback(pathToFile);
     }
+    else if(ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+    {
+        color = {0.0f,0.0f,0.0f,0.0f};
+    }
+
+    ImGui::PopStyleColor();
     ImGui::Text(name.string().c_str());
     ImGui::NextColumn();
+
 }
 

@@ -43,6 +43,9 @@ namespace edit::gui
         glm::vec2 size{64.0f};
         core::u32 textureId;
         std::function<void(const std::string& )> callback;
+        bool isCtrlPressed{false};
+        bool isClicked{false};
+        ImVec4 color;
     public:
         explicit AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow);
         void setSize(const glm::vec2 &newSize);
