@@ -8,12 +8,18 @@
 #include "../IconsFontAwesome5.h"
 #include "../../project/Project.h"
 
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::fileIcon;
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::animationFileIcon;
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::entityFileIcon;
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::folderIcon;
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::sceneFileIcon;
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::soundFileIcon;
+std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::tilesetFileIcon;
+edit::gui::AssetsWindow* edit::gui::AssetIcon::assetsWindow{nullptr};
+
 edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
 {
     setSize(glm::vec2(1280,400));
-
-    folderImage = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
-    soundImage = core::mem::make_unique<core::rend::Texture>(pathToSoundFileIcon);
 }
 
 void edit::gui::AssetsWindow::begin()
@@ -33,9 +39,7 @@ void edit::gui::AssetsWindow::draw()
             currentPath = Project::getCurrentProject()->getPath();
             isRootDirectoryLoaded = true;
             directoryList.emplace_back("/");
-            indexFilesInDirectory();
         }
-
         if(ImGui::BeginMenuBar())
         {
             for(core::i32 i = 0; i < directoryList.size(); i++)
@@ -53,8 +57,11 @@ void edit::gui::AssetsWindow::draw()
         showFilesInDirectory();
         ImGui::Columns(1);
 
-        ImGui::SliderFloat("Icon Size" , &iconsSize.x,16,256);
-        iconsSize.y = iconsSize.x;
+        if(ImGui::SliderFloat("Icon Size" , &iconsSize.x,16,256))
+        {
+            iconsSize.y = iconsSize.x;
+            resizeIcons();
+        };
 
         ImGui::SliderFloat("Padding" , &padding,0,32);
 
@@ -101,30 +108,11 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
                 currentPath = currentPath / directory;
             }
         }
-
         indexFilesInDirectory();
     }
     ImGui::SameLine(0,0.0);
     ImGui::PopStyleVar();
     ImGui::PopStyleColor(2);
-}
-
-void edit::gui::AssetsWindow::addToPath(const std::string &folder)
-{
-    directoryList.push_back(folder);
-}
-
-void edit::gui::AssetsWindow::drawFolderButton(const std::string &folderName)
-{
-   auto callback = [this,&folderName](auto &fullPathToCallback)
-   {
-       std::cout << folderName <<"\n";
-       directoryList.push_back(folderName);
-       currentPath = currentPath / folderName;
-       indexFilesInDirectory();
-
-   };
-    drawButton(folderName, "", folderImage->getId(), callback);
 }
 
 void edit::gui::AssetsWindow::pushButtonStyle()
@@ -140,100 +128,126 @@ void edit::gui::AssetsWindow::popButtonStyle()
     ImGui::PopStyleColor(3);
 }
 
-void edit::gui::AssetsWindow::drawSoundButton(const std::string &fileName)
-{
-    auto callback = [](auto &fullPathToCallback)
-    {
-
-    };
-    drawButton(fileName, "", soundImage->getId(), callback);
-}
-
-void edit::gui::AssetsWindow::addImage(const std::string &pathToImage)
-{
-    images.set(pathToImage,std::make_shared<core::rend::Texture>(pathToImage));
-}
-
-void edit::gui::AssetsWindow::drawImageButtons()
-{
-    for(auto& image : images)
-    {
-        auto fileName = std::filesystem::path(image.key).filename().string();
-
-        auto callback = [](auto &fullPathToCallback)
-        {
-
-        };
-        drawButton(fileName, "", image.value->getId(), callback);
-    }
-}
-
-void edit::gui::AssetsWindow::drawButton(const std::string &fileName, const std::string &fullPathToFile, core::u32 textureId, const std::function<void(const std::string& )>& callback)
-{
-    if(ImGui::ImageButton(fileName.c_str(),(ImTextureID)textureId, ImVec2(iconsSize.x,iconsSize.y)))
-    {
-        callback(fullPathToFile);
-    }
-    ImGui::Text(fileName.c_str());
-    ImGui::NextColumn();
-
-}
-
 void edit::gui::AssetsWindow::showFilesInDirectory()
 {
     pushButtonStyle();
-
-    drawFolderButtons();
-    drawSoundButtons();
-    drawImageButtons();
-
+    for(auto& icon : icons)
+    {
+        icon.draw();
+    }
     popButtonStyle();
 }
 
 
 void edit::gui::AssetsWindow::indexFilesInDirectory()
 {
-    folderNames.clear();
-    soundFilesNames.clear();
-    images.clear();
-
+    icons.clear();
     for(const auto& path : std::filesystem::directory_iterator(currentPath))
     {
-        auto name = path.path().filename().string();
-        auto extension = path.path().extension().string();
-        if(path.is_directory())
+        icons.emplace_back(path, this);
+    }
+}
+
+void edit::gui::AssetsWindow::resizeIcons()
+{
+    for(auto& icon : icons)
+    {
+        icon.setSize(iconsSize);
+    }
+}
+
+edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
+{
+
+    name = path.path().filename();
+    pathToFile = path.path().string();
+    assetsWindow = newAssetsWindow;
+
+    if(fileIcon == nullptr)
+    {
+        //use static class members for memory optimization
+
+        folderIcon = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
+        soundFileIcon = core::mem::make_unique<core::rend::Texture>(pathToSoundFileIcon);
+        fileIcon = core::mem::make_unique<core::rend::Texture>(pathToFileIcon);
+        sceneFileIcon = core::mem::make_unique<core::rend::Texture>(pathToSceneFileIcon);
+        animationFileIcon = core::mem::make_unique<core::rend::Texture>(pathToAnimationFileIcon);
+        tilesetFileIcon = core::mem::make_unique<core::rend::Texture>(pathToTilesetFileIcon);
+        entityFileIcon = core::mem::make_unique<core::rend::Texture>(pathToEntityFileIcon);
+    }
+
+    engineFileExtensions.set(sceneFileIcon->getId(),".hxscene");
+    engineFileExtensions.set(animationFileIcon->getId(),".hxanim");
+    engineFileExtensions.set(tilesetFileIcon->getId(),".hxtile");
+    engineFileExtensions.set(entityFileIcon->getId(),".hxentity");
+
+    if (path.is_directory())
+    {
+        textureId = folderIcon->getId();
+        callback = [this](const std::string &path){
+            assetsWindow->currentPath = assetsWindow->currentPath / name;
+            assetsWindow->directoryList.push_back(name.string());
+            assetsWindow->indexFilesInDirectory();
+        };
+    }
+    else
+    {
+        auto extension = name.extension().string();
+        auto isImage = std::find(imageFileExtensions.cbegin(),imageFileExtensions.cend(),extension);
+        auto isAudio = std::find(soundFileExtensions.cbegin(),soundFileExtensions.cend(),extension);
+        auto isEngineFile = std::find_if(engineFileExtensions.begin(),engineFileExtensions.end(),[&extension](const auto &keyValue){
+            return keyValue.value == extension;
+        });
+
+        if(isImage != imageFileExtensions.cend())
         {
-            folderNames.push_back(name);
+            this->callback = [this](auto &fullPathToFile){
+
+            };
+
+            imageFileIcon = core::mem::make_unique<core::rend::Texture>(path.path().string());
+            textureId = imageFileIcon->getId();
+        }
+        else if(isAudio != soundFileExtensions.cend())
+        {
+            this->callback = [this](auto &fullPathToFile){
+
+            };
+
+            textureId = soundFileIcon->getId();
+        }
+        else if(isEngineFile != engineFileExtensions.cend())
+        {
+            this->callback = [this](auto &fullPathToFile){
+
+            };
+
+            textureId = isEngineFile->key;
         }
         else
         {
-            auto isImage = std::find(imageFileExtensions.cbegin(),imageFileExtensions.cend(),extension);
-            auto isAudio = std::find(soundFileExtensions.cbegin(),soundFileExtensions.cend(),extension);
-            if(isImage != imageFileExtensions.cend())
-            {
-                addImage(path.path().string());
-            }
-            else if(isAudio != soundFileExtensions.cend())
-            {
-                soundFilesNames.push_back(name);
-            }
+            this->callback = [this](auto &fullPathToFile){
+
+            };
+
+            textureId = fileIcon->getId();
         }
     }
+
 }
 
-void edit::gui::AssetsWindow::drawSoundButtons()
+void edit::gui::AssetIcon::setSize(const glm::vec2 &newSize)
 {
-    for(const auto& name : soundFilesNames)
-    {
-        drawSoundButton(name);
-    }
+    size = newSize;
 }
 
-void edit::gui::AssetsWindow::drawFolderButtons()
+void edit::gui::AssetIcon::draw()
 {
-    for(const auto& name : folderNames)
+    if(ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y)))
     {
-        drawFolderButton(name);
+        callback(pathToFile);
     }
+    ImGui::Text(name.string().c_str());
+    ImGui::NextColumn();
 }
 
