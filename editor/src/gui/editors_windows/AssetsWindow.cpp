@@ -16,6 +16,7 @@ std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::sceneFileIcon;
 std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::soundFileIcon;
 std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::tilesetFileIcon;
 edit::gui::AssetsWindow* edit::gui::AssetIcon::assetsWindow{nullptr};
+core::HashTable<core::u32,std::string> edit::gui::AssetIcon::engineFileExtensions;
 
 edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
 {
@@ -175,12 +176,12 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
         animationFileIcon = core::mem::make_unique<core::rend::Texture>(pathToAnimationFileIcon);
         tilesetFileIcon = core::mem::make_unique<core::rend::Texture>(pathToTilesetFileIcon);
         entityFileIcon = core::mem::make_unique<core::rend::Texture>(pathToEntityFileIcon);
-    }
 
-    engineFileExtensions.set(sceneFileIcon->getId(),".hxscene");
-    engineFileExtensions.set(animationFileIcon->getId(),".hxanim");
-    engineFileExtensions.set(tilesetFileIcon->getId(),".hxtile");
-    engineFileExtensions.set(entityFileIcon->getId(),".hxentity");
+        engineFileExtensions.set(sceneFileIcon->getId(),".hxscene");
+        engineFileExtensions.set(animationFileIcon->getId(),".hxanim");
+        engineFileExtensions.set(tilesetFileIcon->getId(),".hxtile");
+        engineFileExtensions.set(entityFileIcon->getId(),".hxentity");
+    }
 
     if (path.is_directory())
     {

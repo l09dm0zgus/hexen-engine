@@ -21,6 +21,9 @@ namespace edit::gui
         static std::unique_ptr<core::rend::Texture> animationFileIcon;
         static std::unique_ptr<core::rend::Texture> tilesetFileIcon;
         static std::unique_ptr<core::rend::Texture> entityFileIcon;
+        static AssetsWindow *assetsWindow;
+        static core::HashTable<core::u32,std::string> engineFileExtensions;
+
         std::unique_ptr<core::rend::Texture> imageFileIcon;
 
         std::string pathToFolderIcon = "icons/folder.png";
@@ -33,14 +36,13 @@ namespace edit::gui
 
         std::vector<std::string> imageFileExtensions{".png",".jpeg",".bmp",".tga",".jpg",".gif"};
         std::vector<std::string> soundFileExtensions{".wav", ".ogg",".mp3",".flac"};
-        core::HashTable<core::u32,std::string> engineFileExtensions;
+
         std::filesystem::path name;
         std::string pathToFile;
 
         glm::vec2 size{64.0f};
         core::u32 textureId;
         std::function<void(const std::string& )> callback;
-        static  AssetsWindow *assetsWindow;
     public:
         explicit AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow);
         void setSize(const glm::vec2 &newSize);
