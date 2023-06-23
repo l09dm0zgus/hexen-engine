@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cstdio>
 #include <string>
+#include <iterator>
 
 #if defined(__GNUC__) || defined(__GNUG__)
     #define HEXEN_INLINE                                  inline __attribute__((always_inline))
@@ -459,7 +460,7 @@ namespace core
                     }
                 }
 
-                class ConstIterator
+            struct ConstIterator
                 {
                 protected:
                     friend class HashTable;
@@ -470,6 +471,12 @@ namespace core
                     ConstIterator(const HashTable *owner,u32 slotIndex) : owner(owner) , slotIndex(slotIndex) {}
 
                 public:
+
+                    using iterator_category = std::forward_iterator_tag;
+                    using value_type = HashTable::KeyValue;
+                    using difference_type = ptrdiff_t;
+                    using pointer = const value_type*;
+                    using reference = const value_type&;
 
                     ConstIterator(const ConstIterator &hashTable) = default;
 
@@ -512,7 +519,7 @@ namespace core
                     }
                 };
 
-                class Iterator : public  ConstIterator
+                struct Iterator : public  ConstIterator
                 {
                 private:
                     friend class HashTable;
