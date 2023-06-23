@@ -39,6 +39,7 @@ void edit::gui::AssetsWindow::draw()
             currentPath = Project::getCurrentProject()->getPath();
             isRootDirectoryLoaded = true;
             directoryList.emplace_back("/");
+            indexFilesInDirectory();
         }
         if(ImGui::BeginMenuBar())
         {
@@ -185,8 +186,9 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
     {
         textureId = folderIcon->getId();
         callback = [this](const std::string &path){
-            assetsWindow->currentPath = assetsWindow->currentPath / name;
-            assetsWindow->directoryList.push_back(name.string());
+            auto fileName = std::filesystem::path(path).filename().string();
+            assetsWindow->directoryList.push_back(fileName);
+            assetsWindow->currentPath = assetsWindow->currentPath / fileName;
             assetsWindow->indexFilesInDirectory();
         };
     }
