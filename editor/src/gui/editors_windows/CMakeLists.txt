@@ -16,6 +16,10 @@ target_sources(${EDITOR_NAME} PRIVATE
         MessageBox.cpp
         AssetsWindow.h
         AssetsWindow.cpp
+        DeleteFileWindow.h
+        DeleteFileWindow.cpp
+        DeleteSelectedFilesWindow.h
+        DeleteSelectedFilesWindow.cpp
         )
 
 add_subdirectory(native_file_dialog)
