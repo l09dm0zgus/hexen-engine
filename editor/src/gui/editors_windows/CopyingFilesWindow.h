@@ -2,14 +2,14 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#ifndef HEXENEDITOR_COPYINGFILESSTATUS_H
-#define HEXENEDITOR_COPYINGFILESSTATUS_H
+#ifndef HEXENEDITOR_COPYINGFILESWINDOW_H
+#define HEXENEDITOR_COPYINGFILESWINDOW_H
 #include "GUIWindow.h"
 #include <filesystem>
 
 namespace edit::gui
 {
-    class CopyingFilesStatus : public  GUIWindow
+    class CopyingFilesWindow : public  GUIWindow
     {
     private:
         bool isOpen = false;
@@ -18,7 +18,7 @@ namespace edit::gui
         std::string text = "Copying file : %s";
         std::vector<std::filesystem::path>::const_iterator currentFileToCopy;
     public:
-        explicit CopyingFilesStatus(std::string name);
+        explicit CopyingFilesWindow(std::string name);
         void setFilesToCopy(const std::vector<std::filesystem::path> &files);
         void setCurrentPath(const std::filesystem::path &currentPath);
         void setOpen(bool newIsOpen);
@@ -28,4 +28,4 @@ namespace edit::gui
     };
 }
 
-#endif //HEXENEDITOR_COPYINGFILESSTATUS_H
+#endif //HEXENEDITOR_COPYINGFILESWINDOW_H

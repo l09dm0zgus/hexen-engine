@@ -2,30 +2,30 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#include "CopyingFilesStatus.h"
+#include "CopyingFilesWindow.h"
 #include "MessageBox.h"
 
-edit::gui::CopyingFilesStatus::CopyingFilesStatus(std::string name) : GUIWindow(std::move(name))
+edit::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : GUIWindow(std::move(name))
 {
 
 }
 
-void edit::gui::CopyingFilesStatus::setOpen(bool newIsOpen)
+void edit::gui::CopyingFilesWindow::setOpen(bool newIsOpen)
 {
     isOpen = newIsOpen;
 }
 
-void edit::gui::CopyingFilesStatus::begin()
+void edit::gui::CopyingFilesWindow::begin()
 {
 
 }
 
-void edit::gui::CopyingFilesStatus::end()
+void edit::gui::CopyingFilesWindow::end()
 {
 
 }
 
-void edit::gui::CopyingFilesStatus::draw()
+void edit::gui::CopyingFilesWindow::draw()
 {
     if(isOpen)
     {
@@ -59,13 +59,13 @@ void edit::gui::CopyingFilesStatus::draw()
     }
 }
 
-void edit::gui::CopyingFilesStatus::setFilesToCopy(const std::vector<std::filesystem::path> &files)
+void edit::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
     filesToCopy = files;
     currentFileToCopy = filesToCopy.cbegin();
 }
 
-void edit::gui::CopyingFilesStatus::setCurrentPath(const std::filesystem::path &currentPath)
+void edit::gui::CopyingFilesWindow::setCurrentPath(const std::filesystem::path &currentPath)
 {
     this->currentPath = currentPath;
 }
