@@ -46,6 +46,7 @@ void edit::gui::DeleteFileWindow::drawPopUp()
         if (ImGui::Button("Delete"))
         {
             deleteCallback();
+            ImGui::CloseCurrentPopup();
         }
 
         auto windowWidth = ImGui::GetWindowSize().x;
