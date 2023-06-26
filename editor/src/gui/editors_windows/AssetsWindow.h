@@ -47,10 +47,16 @@ namespace edit::gui
         std::function<void(const std::string& )> callback;
         bool isCtrlPressed{false};
         bool isClicked{false};
+        bool isEditingName{false};
+        char *fileName{};
         ImVec4 color;
         const std::string PAYLOAD_NAME = "ASSET_WINDOW_ITEM";
         void createDragAndDropSource();
         void createDragAndDropTarget();
+        void showMenu();
+        void showRename();
+        void showFilename();
+        void selectingFiles();
     public:
         explicit AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow);
         void setSize(const glm::vec2 &newSize);

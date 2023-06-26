@@ -223,6 +223,7 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
 
     name = path.path().filename();
     pathToFile = path.path().string();
+
     assetsWindow = newAssetsWindow;
 
     if(fileIcon == nullptr)
@@ -247,8 +248,8 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
     {
         textureId = folderIcon->getId();
         callback = [this](const std::string &path){
-            auto fileName = std::filesystem::path(path).filename().string();
-            assetsWindow->directoryList.push_back(fileName);
+            name = std::filesystem::path(path).filename();
+            assetsWindow->directoryList.push_back(name.string());
             assetsWindow->currentPath = assetsWindow->currentPath / fileName;
             assetsWindow->indexFilesInDirectory();
         };
@@ -310,29 +311,15 @@ void edit::gui::AssetIcon::draw()
     ImGui::PushStyleColor(ImGuiCol_Button,color);
     isClicked = ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y));
 
+    showMenu();
+
     createDragAndDropSource();
 
-    if(isCtrlPressed && isClicked)
-    {
-        color = ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered];
-        assetsWindow->selectedFiles.emplace_back(pathToFile);
-    }
-    else if(isClicked)
-    {
-        color = {0.0f,0.0f,0.0f,0.0f};
-        assetsWindow->selectedFiles.clear();
-        callback(pathToFile);
-    }
-    else if(ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
-    {
-        color = {0.0f,0.0f,0.0f,0.0f};
-        assetsWindow->selectedFiles.clear();
-    }
+    selectingFiles();
 
     createDragAndDropTarget();
-
     ImGui::PopStyleColor();
-    ImGui::TextWrapped(name.string().c_str());
+    showFilename();
     ImGui::NextColumn();
 }
 
@@ -360,6 +347,70 @@ void edit::gui::AssetIcon::createDragAndDropTarget()
             }
         }
         ImGui::EndDragDropTarget();
+    }
+}
+
+void edit::gui::AssetIcon::showMenu()
+{
+    if(ImGui::IsItemHovered())
+    {
+        if(ImGui::BeginPopupContextWindow())
+        {
+            showRename();
+            ImGui::EndPopup();
+        }
+    }
+}
+
+void edit::gui::AssetIcon::showRename()
+{
+    if(ImGui::MenuItem("Rename"))
+    {
+        isEditingName = true;
+    }
+}
+
+void edit::gui::AssetIcon::showFilename()
+{
+    if(!isEditingName)
+    {
+        ImGui::TextWrapped(name.string().c_str());
+        if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+        {
+            isEditingName = true;
+        }
+    }
+    else
+    {
+        fileName = const_cast<char*>(name.string().c_str());
+
+        if(ImGui::InputText("##",fileName,name.string().size(),ImGuiInputTextFlags_EnterReturnsTrue))
+        {
+            auto path = std::filesystem::path(pathToFile).parent_path();
+            std::filesystem::rename(pathToFile,path / fileName);
+            assetsWindow->indexFilesInDirectory();
+            isEditingName = false;
+        }
+    }
+}
+
+void edit::gui::AssetIcon::selectingFiles()
+{
+    if(isCtrlPressed && isClicked)
+    {
+        color = ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered];
+        assetsWindow->selectedFiles.emplace_back(pathToFile);
+    }
+    else if(isClicked)
+    {
+        color = {0.0f,0.0f,0.0f,0.0f};
+        assetsWindow->selectedFiles.clear();
+        callback(pathToFile);
+    }
+    else if(ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+    {
+        color = {0.0f,0.0f,0.0f,0.0f};
+        assetsWindow->selectedFiles.clear();
     }
 }
 
