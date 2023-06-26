@@ -20,6 +20,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         DeleteFileWindow.cpp
         DeleteSelectedFilesWindow.h
         DeleteSelectedFilesWindow.cpp
+        CopyingFilesStatus.h
+        CopyingFilesStatus.cpp
         )
 
 add_subdirectory(native_file_dialog)
