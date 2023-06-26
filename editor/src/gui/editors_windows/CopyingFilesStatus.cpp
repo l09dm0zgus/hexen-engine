@@ -10,11 +10,6 @@ edit::gui::CopyingFilesStatus::CopyingFilesStatus(std::string name) : GUIWindow(
 
 }
 
-void edit::gui::CopyingFilesStatus::setCurrentFile(const std::string &pathToFile)
-{
-    currentFile = pathToFile;
-}
-
 void edit::gui::CopyingFilesStatus::setOpen(bool newIsOpen)
 {
     isOpen = newIsOpen;
@@ -40,17 +35,37 @@ void edit::gui::CopyingFilesStatus::draw()
     if(ImGui::BeginPopupModal(getName().c_str()))
     {
         isOpen = false;
-        ImGui::Text(text.c_str(),currentFile.c_str());
+        if(currentFileToCopy != filesToCopy.cend())
+        {
+            ImGui::Text(text.c_str(),currentFileToCopy->string().c_str());
 
-        const ImU32 color = ImGui::GetColorU32(ImGuiCol_ButtonHovered);
-        const ImU32 background = ImGui::GetColorU32(ImGuiCol_Button);
+            const ImU32 color = ImGui::GetColorU32(ImGuiCol_ButtonHovered);
+            const ImU32 background = ImGui::GetColorU32(ImGuiCol_Button);
 
-        bufferingBar("##buffer_bar", 0.7f, ImVec2(getSize().x, 6), background, color);
+            std::filesystem::copy(*currentFileToCopy,currentPath);
 
+            bufferingBar("##buffer_bar", 0.7f, ImVec2(getSize().x, 6), background, color);
+            currentFileToCopy++;
+        }
+        else
+        {
+            ImGui::CloseCurrentPopup();
+        }
         if (ImGui::Button("Cancel"))
         {
             ImGui::CloseCurrentPopup();
         }
         ImGui::EndPopup();
     }
+}
+
+void edit::gui::CopyingFilesStatus::setFilesToCopy(const std::vector<std::filesystem::path> &files)
+{
+    filesToCopy = files;
+    currentFileToCopy = filesToCopy.cbegin();
+}
+
+void edit::gui::CopyingFilesStatus::setCurrentPath(const std::filesystem::path &currentPath)
+{
+    this->currentPath = currentPath;
 }
