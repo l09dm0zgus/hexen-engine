@@ -18,6 +18,7 @@ namespace edit::gui
         std::string text = "Copying file : %s";
         std::vector<std::filesystem::path>::const_iterator currentFileToCopy;
         core::i32 copedFiles{0};
+        bool bIsFinishedCopying{false};
     public:
         explicit CopyingFilesWindow(std::string name);
         void setFilesToCopy(const std::vector<std::filesystem::path> &files);
@@ -26,6 +27,7 @@ namespace edit::gui
         void begin() override;
         void end() override;
         void draw() override;
+        bool isFinishedCopying();
     };
 }
 

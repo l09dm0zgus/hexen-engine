@@ -50,6 +50,7 @@ void edit::gui::CopyingFilesWindow::draw()
         }
         else
         {
+            bIsFinishedCopying = true;
             ImGui::CloseCurrentPopup();
         }
         if (ImGui::Button("Cancel"))
@@ -64,10 +65,18 @@ void edit::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesy
 {
     filesToCopy = files;
     copedFiles = 0;
+    bIsFinishedCopying = false;
     currentFileToCopy = filesToCopy.cbegin();
 }
 
 void edit::gui::CopyingFilesWindow::setCurrentPath(const std::filesystem::path &currentPath)
 {
     this->currentPath = currentPath;
+}
+
+bool edit::gui::CopyingFilesWindow::isFinishedCopying()
+{
+    bool result = bIsFinishedCopying;
+    bIsFinishedCopying = false;
+    return result;
 }

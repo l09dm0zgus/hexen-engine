@@ -89,6 +89,11 @@ void edit::gui::AssetsWindow::draw()
     deleteSelectedFilesWindow->draw();
     copyingFilesWindow->draw();
 
+    if(copyingFilesWindow->isFinishedCopying())
+    {
+        indexFilesInDirectory();
+    }
+
     ImGui::End();
 }
 
