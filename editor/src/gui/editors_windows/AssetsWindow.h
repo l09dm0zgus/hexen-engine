@@ -69,17 +69,10 @@ namespace edit::gui
         std::vector<std::string> directoryList;
         std::filesystem::path currentPath;
         friend class AssetIcon;
+        std::vector<std::filesystem::path> selectedFiles;
+        std::function<void()> deleteCallback;
     public:
         explicit AssetsWindow(std::string name);
-
-        std::vector<std::string> getDirectories() const noexcept {return directoryList;}
-        std::filesystem::path getCurrentPath() const noexcept{ return currentPath;}
-
-        template<class T>
-        void setDirectories(T&& directories) { directoryList = std::forward<T>(directories); }
-
-        template<class T>
-        void setCurrentPath(T&& path) { currentPath = std::forward<T>(path); }
         void indexFilesInDirectory();
 
         void begin() override;

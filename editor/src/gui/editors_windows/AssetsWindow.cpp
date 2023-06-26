@@ -253,15 +253,18 @@ void edit::gui::AssetIcon::draw()
     if(isCtrlPressed && isClicked)
     {
         color = ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered];
+        assetsWindow->selectedFiles.emplace_back(pathToFile);
     }
     else if(isClicked)
     {
         color = {0.0f,0.0f,0.0f,0.0f};
+        assetsWindow->selectedFiles.clear();
         callback(pathToFile);
     }
     else if(ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
     {
         color = {0.0f,0.0f,0.0f,0.0f};
+        assetsWindow->selectedFiles.clear();
     }
 
     ImGui::PopStyleColor();
