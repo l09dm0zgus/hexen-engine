@@ -305,6 +305,8 @@ void edit::gui::AssetIcon::draw()
     ImGui::PushStyleColor(ImGuiCol_Button,color);
     isClicked = ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y));
 
+    createDragAndDropSource();
+
     if(isCtrlPressed && isClicked)
     {
         color = ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered];
@@ -322,9 +324,37 @@ void edit::gui::AssetIcon::draw()
         assetsWindow->selectedFiles.clear();
     }
 
+    createDragAndDropTarget();
+
     ImGui::PopStyleColor();
     ImGui::TextWrapped(name.string().c_str());
     ImGui::NextColumn();
+}
 
+void edit::gui::AssetIcon::createDragAndDropSource()
+{
+    if(ImGui::BeginDragDropSource())
+    {
+        ImGui::SetDragDropPayload(PAYLOAD_NAME.c_str(),pathToFile.c_str(),(pathToFile.size() + 1) * sizeof(char));
+        ImGui::EndDragDropSource();
+    }
+}
+
+void edit::gui::AssetIcon::createDragAndDropTarget()
+{
+    if(ImGui::BeginDragDropTarget())
+    {
+        if(auto payload = ImGui::AcceptDragDropPayload(PAYLOAD_NAME.c_str()))
+        {
+            auto draggedFilePath = (char *)payload->Data;
+            std::filesystem::path fileToMove(draggedFilePath);
+            if(std::filesystem::is_directory(pathToFile))
+            {
+                std::filesystem::rename(fileToMove,pathToFile / fileToMove.filename());
+                assetsWindow->indexFilesInDirectory();
+            }
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
 
