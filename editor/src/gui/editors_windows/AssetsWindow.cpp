@@ -3,6 +3,8 @@
 //
 #include <core/graphics/texture/Texture.h>
 #include "AssetsWindow.h"
+#include "native_file_dialog/FileDialog.h"
+#include "MessageBox.h"
 #include <algorithm>
 #include <iostream>
 #include "../IconsFontAwesome5.h"
@@ -21,12 +23,25 @@ core::HashTable<core::u32,std::string> edit::gui::AssetIcon::engineFileExtension
 edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
 {
     setSize(glm::vec2(1280,400));
+
+    deleteFileWindow = core::mem::make_unique<DeleteFileWindow>("Delete");
+    deleteSelectedFilesWindow = core::mem::make_unique<DeleteSelectedFilesWindow>("Delete selected");
+    copyingFilesWindow = core::mem::make_unique<CopyingFilesWindow>("Copying");
+
+    deleteSelectedFilesCallback = [this](){
+        deleteSelectedFilesWindow->setPaths(selectedFiles);
+        deleteSelectedFilesWindow->setOpen(true);
+        indexFilesInDirectory();
+    };
+
+
 }
 
 void edit::gui::AssetsWindow::begin()
 {
-
-
+    deleteFileWindow->begin();
+    deleteSelectedFilesWindow->begin();
+    copyingFilesWindow->begin();
 }
 
 void edit::gui::AssetsWindow::draw()
@@ -66,22 +81,22 @@ void edit::gui::AssetsWindow::draw()
         };
 
         ImGui::SliderFloat("Padding" , &padding,0,32);
-
-        if(ImGui::BeginPopupContextWindow())
-        {
-            if(ImGui::MenuItem("Lol"))
-            {
-
-            }
-            ImGui::EndPopup();
-        }
+        drawMenu();
     }
+
+
+    deleteFileWindow->draw();
+    deleteSelectedFilesWindow->draw();
+    copyingFilesWindow->draw();
+
     ImGui::End();
 }
 
 void edit::gui::AssetsWindow::end()
 {
-
+    deleteFileWindow->end();
+    deleteSelectedFilesWindow->end();
+    copyingFilesWindow->end();
 }
 
 void edit::gui::AssetsWindow::drawNode(core::i32 i)
@@ -155,6 +170,46 @@ void edit::gui::AssetsWindow::resizeIcons()
     for(auto& icon : icons)
     {
         icon.setSize(iconsSize);
+    }
+}
+
+void edit::gui::AssetsWindow::drawMenu()
+{
+    if(ImGui::BeginPopupContextWindow())
+    {
+        drawImportNewAssets();
+        ImGui::EndPopup();
+    }
+}
+
+void edit::gui::AssetsWindow::drawImportNewAssets()
+{
+    if(ImGui::MenuItem("Import New Assets..."))
+    {
+        FileDialog fileDialog;
+        INativeFileDialog::PathSet pathSet;
+        INativeFileDialog::FileFilter fileFilter;
+        fileFilter.push_back({{"All files"},{"all"}});
+        auto status = fileDialog.openDialog(fileFilter,"",&pathSet);
+        if(status == INativeFileDialog::Status::STATUS_ERROR)
+        {
+            ImGuiMessageBox::add(std::string("Error"),std::string("Failed to import assets!"));
+        }
+        else if(status == INativeFileDialog::Status::STATUS_OK)
+        {
+            std::vector<std::filesystem::path> files;
+            files.reserve(pathSet.count);
+
+            for(const auto& path : pathSet.path)
+            {
+                files.emplace_back(path);
+            }
+
+            copyingFilesWindow->setCurrentPath(currentPath);
+            copyingFilesWindow->setFilesToCopy(files);
+            copyingFilesWindow->setOpen(true);
+
+        }
     }
 }
 
@@ -268,7 +323,7 @@ void edit::gui::AssetIcon::draw()
     }
 
     ImGui::PopStyleColor();
-    ImGui::Text(name.string().c_str());
+    ImGui::TextWrapped(name.string().c_str());
     ImGui::NextColumn();
 
 }

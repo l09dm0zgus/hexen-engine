@@ -7,6 +7,8 @@
 #include "GUIWindow.h"
 #include "../../project/Project.h"
 #include <core/graphics/texture/Texture.h>
+#include "DeleteSelectedFilesWindow.h"
+#include "CopyingFilesWindow.h"
 
 namespace edit::gui
 {
@@ -60,6 +62,10 @@ namespace edit::gui
         void popButtonStyle();
         void showFilesInDirectory();
         void resizeIcons();
+        void drawImportNewAssets();
+        void drawMenu();
+
+
         std::vector<AssetIcon> icons;
 
         bool isOpen{true};
@@ -69,8 +75,13 @@ namespace edit::gui
         std::vector<std::string> directoryList;
         std::filesystem::path currentPath;
         friend class AssetIcon;
+
         std::vector<std::filesystem::path> selectedFiles;
-        std::function<void()> deleteCallback;
+        std::function<void()> deleteSelectedFilesCallback;
+
+        std::unique_ptr<DeleteFileWindow> deleteFileWindow;
+        std::unique_ptr<DeleteSelectedFilesWindow> deleteSelectedFilesWindow;
+        std::unique_ptr<CopyingFilesWindow> copyingFilesWindow;
     public:
         explicit AssetsWindow(std::string name);
         void indexFilesInDirectory();
