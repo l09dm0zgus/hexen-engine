@@ -17,6 +17,7 @@ namespace edit::gui
         std::vector<std::filesystem::path> filesToCopy;
         std::string text = "Copying file : %s";
         std::vector<std::filesystem::path>::const_iterator currentFileToCopy;
+        core::i32 copedFiles{0};
     public:
         explicit CopyingFilesWindow(std::string name);
         void setFilesToCopy(const std::vector<std::filesystem::path> &files);

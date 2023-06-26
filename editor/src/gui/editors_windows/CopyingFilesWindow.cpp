@@ -37,14 +37,15 @@ void edit::gui::CopyingFilesWindow::draw()
         isOpen = false;
         if(currentFileToCopy != filesToCopy.cend())
         {
+
             ImGui::Text(text.c_str(),currentFileToCopy->string().c_str());
 
             const ImU32 color = ImGui::GetColorU32(ImGuiCol_ButtonHovered);
             const ImU32 background = ImGui::GetColorU32(ImGuiCol_Button);
 
             std::filesystem::copy(*currentFileToCopy,currentPath);
-
-            bufferingBar("##buffer_bar", 0.7f, ImVec2(getSize().x, 6), background, color);
+            ImGui::ProgressBar(static_cast<float>(copedFiles + 1 )/ static_cast<float>(filesToCopy.size()),ImVec2(0, 1));
+            copedFiles++;
             currentFileToCopy++;
         }
         else
@@ -62,6 +63,7 @@ void edit::gui::CopyingFilesWindow::draw()
 void edit::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
     filesToCopy = files;
+    copedFiles = 0;
     currentFileToCopy = filesToCopy.cbegin();
 }
 
