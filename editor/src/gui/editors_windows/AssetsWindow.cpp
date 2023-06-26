@@ -248,8 +248,8 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
     {
         textureId = folderIcon->getId();
         callback = [this](const std::string &path){
-            name = std::filesystem::path(path).filename();
-            assetsWindow->directoryList.push_back(name.string());
+            auto fileName = std::filesystem::path(path).filename().string();
+            assetsWindow->directoryList.push_back(fileName);
             assetsWindow->currentPath = assetsWindow->currentPath / fileName;
             assetsWindow->indexFilesInDirectory();
         };
@@ -311,15 +311,16 @@ void edit::gui::AssetIcon::draw()
     ImGui::PushStyleColor(ImGuiCol_Button,color);
     isClicked = ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y));
 
-    showMenu();
-
     createDragAndDropSource();
 
     selectingFiles();
 
     createDragAndDropTarget();
+
     ImGui::PopStyleColor();
+
     showFilename();
+
     ImGui::NextColumn();
 }
 
@@ -347,26 +348,6 @@ void edit::gui::AssetIcon::createDragAndDropTarget()
             }
         }
         ImGui::EndDragDropTarget();
-    }
-}
-
-void edit::gui::AssetIcon::showMenu()
-{
-    if(ImGui::IsItemHovered())
-    {
-        if(ImGui::BeginPopupContextWindow())
-        {
-            showRename();
-            ImGui::EndPopup();
-        }
-    }
-}
-
-void edit::gui::AssetIcon::showRename()
-{
-    if(ImGui::MenuItem("Rename"))
-    {
-        isEditingName = true;
     }
 }
 
@@ -412,5 +393,10 @@ void edit::gui::AssetIcon::selectingFiles()
         color = {0.0f,0.0f,0.0f,0.0f};
         assetsWindow->selectedFiles.clear();
     }
+}
+
+void edit::gui::AssetIcon::renameFile()
+{
+    isEditingName = true;
 }
 
