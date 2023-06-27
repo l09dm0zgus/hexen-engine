@@ -45,10 +45,10 @@ namespace edit::gui
         std::vector<DialogWindow::Action> dialogWindowActions;
         AssetIcon *currentHoveredIcon{nullptr};
         bool isShowedContextMenu{false};
+        void refresh();
 
     public:
         explicit AssetsWindow(std::string name);
-        void indexFilesInDirectory();
 
         void begin() override;
         void draw() override;

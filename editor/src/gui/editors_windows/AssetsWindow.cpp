@@ -22,7 +22,7 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
     deleteSelectedFilesCallback = [this](){
         deleteSelectedFilesWindow->setPaths(selectedFiles);
         deleteSelectedFilesWindow->setOpen(true);
-        indexFilesInDirectory();
+        refresh();
     };
 
 
@@ -46,7 +46,7 @@ void edit::gui::AssetsWindow::draw()
             currentPath = Project::getCurrentProject()->getPath();
             isRootDirectoryLoaded = true;
             directoryList.emplace_back("/");
-            indexFilesInDirectory();
+            refresh();
         }
         if(ImGui::BeginMenuBar())
         {
@@ -97,7 +97,7 @@ void edit::gui::AssetsWindow::draw()
 
     if(it != dialogWindowActions.cend())
     {
-        indexFilesInDirectory();
+        refresh();
     }
 
     ImGui::End();
@@ -136,7 +136,7 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
                 currentPath = currentPath / directory;
             }
         }
-        indexFilesInDirectory();
+        refresh();
     }
     ImGui::SameLine(0,0.0);
     ImGui::PopStyleVar();
@@ -167,7 +167,7 @@ void edit::gui::AssetsWindow::showFilesInDirectory()
 }
 
 
-void edit::gui::AssetsWindow::indexFilesInDirectory()
+void edit::gui::AssetsWindow::refresh()
 {
     icons.clear();
     for(const auto& path : std::filesystem::directory_iterator(currentPath))
@@ -236,7 +236,7 @@ void edit::gui::AssetsWindow::drawDelete()
        {
            deleteFileWindow->setPath(currentHoveredIcon->getPath());
            deleteFileWindow->setOpen(true);
-           indexFilesInDirectory();
+           refresh();
        }
    }
    else if(!selectedFiles.empty())

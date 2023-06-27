@@ -50,7 +50,7 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
             auto filename = std::filesystem::path(path).filename().string();
             assetsWindow->directoryList.push_back(filename);
             assetsWindow->currentPath = assetsWindow->currentPath / filename;
-            assetsWindow->indexFilesInDirectory();
+            assetsWindow->refresh();
         };
     }
     else
@@ -145,7 +145,7 @@ void edit::gui::AssetIcon::createDragAndDropTarget()
             if(std::filesystem::is_directory(pathToFile))
             {
                 std::filesystem::rename(fileToMove,pathToFile / fileToMove.filename());
-                assetsWindow->indexFilesInDirectory();
+                assetsWindow->refresh();
             }
         }
         ImGui::EndDragDropTarget();
@@ -170,7 +170,7 @@ void edit::gui::AssetIcon::showFilename()
         {
             auto path = std::filesystem::path(pathToFile).parent_path();
             std::filesystem::rename(pathToFile,path / fileName);
-            assetsWindow->indexFilesInDirectory();
+            assetsWindow->refresh();
             isEditingName = false;
         }
     }
