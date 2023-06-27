@@ -48,6 +48,7 @@ namespace edit::gui
         bool isCtrlPressed{false};
         bool isClicked{false};
         bool isEditingName{false};
+        bool bIsHovered{false};
         char *fileName{};
         ImVec4 color;
         const std::string PAYLOAD_NAME = "ASSET_WINDOW_ITEM";
@@ -57,8 +58,10 @@ namespace edit::gui
         void selectingFiles();
     public:
         explicit AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow);
+        bool isHovered() const noexcept;
         void setSize(const glm::vec2 &newSize);
         void renameFile();
+        std::string getPath() const noexcept;
         void draw();
     };
 
@@ -71,6 +74,8 @@ namespace edit::gui
         void showFilesInDirectory();
         void resizeIcons();
         void drawImportNewAssets();
+        void drawDelete();
+        void drawRename();
         void drawMenu();
 
 
@@ -90,6 +95,7 @@ namespace edit::gui
         std::unique_ptr<DeleteFileWindow> deleteFileWindow;
         std::unique_ptr<DeleteSelectedFilesWindow> deleteSelectedFilesWindow;
         std::unique_ptr<CopyingFilesWindow> copyingFilesWindow;
+
     public:
         explicit AssetsWindow(std::string name);
         void indexFilesInDirectory();

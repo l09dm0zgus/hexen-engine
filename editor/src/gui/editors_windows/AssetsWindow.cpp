@@ -218,6 +218,33 @@ void edit::gui::AssetsWindow::drawImportNewAssets()
     }
 }
 
+void edit::gui::AssetsWindow::drawDelete()
+{
+   auto it =  std::find_if(icons.cbegin(),icons.cend(),[](const auto &icon){
+       return icon.isHovered();
+   });
+
+   if(it != icons.cend())
+   {
+       if(ImGui::MenuItem("Delete"))
+       {
+           deleteFileWindow->setPath(it->getPath());
+           deleteFileWindow->setOpen(true);
+       }
+   }
+   else if(!selectedFiles.empty())
+   {
+       if(ImGui::MenuItem("Delete selected files"))
+       {
+           deleteSelectedFilesCallback();
+       }
+   }
+   else
+   {
+       ImGui::MenuItem("Delete", nullptr, false, false);
+   }
+}
+
 edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
 {
 
@@ -248,9 +275,9 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
     {
         textureId = folderIcon->getId();
         callback = [this](const std::string &path){
-            auto fileName = std::filesystem::path(path).filename().string();
-            assetsWindow->directoryList.push_back(fileName);
-            assetsWindow->currentPath = assetsWindow->currentPath / fileName;
+            auto filename = std::filesystem::path(path).filename().string();
+            assetsWindow->directoryList.push_back(filename);
+            assetsWindow->currentPath = assetsWindow->currentPath / filename;
             assetsWindow->indexFilesInDirectory();
         };
     }
@@ -310,6 +337,8 @@ void edit::gui::AssetIcon::draw()
     isCtrlPressed = ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
     ImGui::PushStyleColor(ImGuiCol_Button,color);
     isClicked = ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y));
+
+    bIsHovered = ImGui::IsItemHovered();
 
     createDragAndDropSource();
 
@@ -398,5 +427,15 @@ void edit::gui::AssetIcon::selectingFiles()
 void edit::gui::AssetIcon::renameFile()
 {
     isEditingName = true;
+}
+
+bool edit::gui::AssetIcon::isHovered() const noexcept
+{
+    return bIsHovered;
+}
+
+std::string edit::gui::AssetIcon::getPath() const noexcept
+{
+    return pathToFile;
 }
 
