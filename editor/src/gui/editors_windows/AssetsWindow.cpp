@@ -245,6 +245,25 @@ void edit::gui::AssetsWindow::drawDelete()
    }
 }
 
+void edit::gui::AssetsWindow::drawRename()
+{
+    auto it =  std::find_if(icons.begin(),icons.end(),[](const auto &icon){
+        return icon.isHovered();
+    });
+
+    if(it != icons.cend())
+    {
+        if(ImGui::MenuItem("Rename"))
+        {
+            it->renameFile();
+        }
+    }
+    else
+    {
+        ImGui::MenuItem("Rename", nullptr, false, false);
+    }
+}
+
 edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
 {
 
