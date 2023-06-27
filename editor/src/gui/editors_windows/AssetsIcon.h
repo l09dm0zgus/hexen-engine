@@ -55,9 +55,9 @@ namespace edit::gui
         void createDragAndDropTarget();
         void showFilename();
         void selectingFiles();
+        void setAssetWindowHoveredIcon();
     public:
         explicit AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow);
-        bool isHovered() const noexcept;
         void setSize(const glm::vec2 &newSize);
         void renameFile();
         std::string getPath() const noexcept;

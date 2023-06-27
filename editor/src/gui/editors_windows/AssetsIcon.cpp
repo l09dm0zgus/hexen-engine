@@ -107,8 +107,7 @@ void edit::gui::AssetIcon::draw()
     isCtrlPressed = ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
     ImGui::PushStyleColor(ImGuiCol_Button,color);
     isClicked = ImGui::ImageButton(name.string().c_str(),(ImTextureID)textureId, ImVec2(size.x,size.y));
-
-    bIsHovered = ImGui::IsItemHovered();
+    setAssetWindowHoveredIcon();
 
     createDragAndDropSource();
 
@@ -119,6 +118,7 @@ void edit::gui::AssetIcon::draw()
     ImGui::PopStyleColor();
 
     showFilename();
+    setAssetWindowHoveredIcon();
 
     ImGui::NextColumn();
 }
@@ -194,17 +194,21 @@ void edit::gui::AssetIcon::selectingFiles()
     }
 }
 
-void edit::gui::AssetIcon::renameFile()
-{
-    isEditingName = true;
-}
-
-bool edit::gui::AssetIcon::isHovered() const noexcept
-{
-    return bIsHovered;
-}
 
 std::string edit::gui::AssetIcon::getPath() const noexcept
 {
     return pathToFile;
+}
+
+void edit::gui::AssetIcon::setAssetWindowHoveredIcon()
+{
+    if(ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup))
+    {
+        assetsWindow->currentHoveredIcon = this;
+    }
+}
+
+void edit::gui::AssetIcon::renameFile()
+{
+    isEditingName = true;
 }

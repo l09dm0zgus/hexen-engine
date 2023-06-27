@@ -25,8 +25,6 @@ namespace edit::gui
         void drawDelete();
         void drawRename();
         void drawMenu();
-
-
         std::vector<AssetIcon> icons;
 
         bool isOpen{true};
@@ -43,6 +41,9 @@ namespace edit::gui
         std::unique_ptr<DeleteFileWindow> deleteFileWindow;
         std::unique_ptr<DeleteSelectedFilesWindow> deleteSelectedFilesWindow;
         std::unique_ptr<CopyingFilesWindow> copyingFilesWindow;
+
+        AssetIcon *currentHoveredIcon{nullptr};
+        bool isShowedContextMenu{false};
 
     public:
         explicit AssetsWindow(std::string name);

@@ -57,6 +57,7 @@ void edit::gui::AssetsWindow::draw()
             ImGui::EndMenuBar();
         }
 
+
         auto panelWitdh = ImGui::GetContentRegionAvail().x;
         auto cellSize = iconsSize.x + padding;
         auto columnNumber = static_cast<core::i32>(panelWitdh / cellSize);
@@ -73,6 +74,11 @@ void edit::gui::AssetsWindow::draw()
 
         ImGui::SliderFloat("Padding" , &padding,0,32);
         drawMenu();
+
+        if(!ImGui::IsAnyItemHovered() && !isShowedContextMenu)
+        {
+            currentHoveredIcon = nullptr;
+        }
     }
 
 
@@ -171,9 +177,13 @@ void edit::gui::AssetsWindow::resizeIcons()
 
 void edit::gui::AssetsWindow::drawMenu()
 {
-    if(ImGui::BeginPopupContextWindow())
+    isShowedContextMenu = ImGui::BeginPopupContextWindow();
+    if(isShowedContextMenu)
     {
         drawImportNewAssets();
+        ImGui::Separator();
+        drawRename();
+        drawDelete();
         ImGui::EndPopup();
     }
 }
@@ -211,16 +221,13 @@ void edit::gui::AssetsWindow::drawImportNewAssets()
 
 void edit::gui::AssetsWindow::drawDelete()
 {
-   auto it =  std::find_if(icons.cbegin(),icons.cend(),[](const auto &icon){
-       return icon.isHovered();
-   });
-
-   if(it != icons.cend())
+   if(currentHoveredIcon != nullptr)
    {
        if(ImGui::MenuItem("Delete"))
        {
-           deleteFileWindow->setPath(it->getPath());
+           deleteFileWindow->setPath(currentHoveredIcon->getPath());
            deleteFileWindow->setOpen(true);
+           indexFilesInDirectory();
        }
    }
    else if(!selectedFiles.empty())
@@ -234,20 +241,19 @@ void edit::gui::AssetsWindow::drawDelete()
    {
        ImGui::MenuItem("Delete", nullptr, false, false);
    }
+
 }
 
 void edit::gui::AssetsWindow::drawRename()
 {
-    auto it =  std::find_if(icons.begin(),icons.end(),[](const auto &icon){
-        return icon.isHovered();
-    });
 
-    if(it != icons.cend())
+    if(currentHoveredIcon != nullptr)
     {
         if(ImGui::MenuItem("Rename"))
         {
-            it->renameFile();
+            currentHoveredIcon->renameFile();
         }
+
     }
     else
     {
