@@ -11,7 +11,6 @@ namespace edit::gui
     class DeleteFileWindow : public DialogWindow
     {
     private:
-        void drawPopUp();
         std::string path;
     protected:
         std::function<void()> deleteCallback;

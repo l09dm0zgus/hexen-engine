@@ -27,8 +27,8 @@ void edit::gui::DeleteFileWindow::drawContent()
 
     if (ImGui::Button("Delete"))
     {
-        deleteCallback();
         setAction(Action::PRESSED_OK);
+        deleteCallback();
         ImGui::CloseCurrentPopup();
     }
 

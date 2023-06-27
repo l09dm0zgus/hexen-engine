@@ -6,7 +6,7 @@
 #define HEXENEDITOR_FILEMENU_H
 
 #include "Menu.h"
-#include "../NewProjectWindow.h"
+#include "../dialogs/NewProjectWindow.h"
 
 namespace edit::gui
 {

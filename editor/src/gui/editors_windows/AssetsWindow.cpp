@@ -92,7 +92,7 @@ void edit::gui::AssetsWindow::draw()
     dialogWindowActions.push_back(copyingFilesWindow->getLastAction());
 
     auto it = std::find_if(dialogWindowActions.cbegin(),dialogWindowActions.cend(),[](auto action){
-        return action = DialogWindow::Action::PRESSED_OK;
+        return action == DialogWindow::Action::PRESSED_OK;
     });
 
     if(it != dialogWindowActions.cend())
