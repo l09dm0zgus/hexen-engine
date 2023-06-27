@@ -86,19 +86,7 @@ void edit::gui::AssetsWindow::draw()
     deleteSelectedFilesWindow->draw();
     copyingFilesWindow->draw();
 
-    dialogWindowActions.clear();
-    dialogWindowActions.push_back(deleteFileWindow->getLastAction());
-    dialogWindowActions.push_back(deleteSelectedFilesWindow->getLastAction());
-    dialogWindowActions.push_back(copyingFilesWindow->getLastAction());
-
-    auto it = std::find_if(dialogWindowActions.cbegin(),dialogWindowActions.cend(),[](auto action){
-        return action == DialogWindow::Action::PRESSED_OK;
-    });
-
-    if(it != dialogWindowActions.cend())
-    {
-        refresh();
-    }
+    getActionsFromDialogs();
 
     ImGui::End();
 }
@@ -267,6 +255,23 @@ void edit::gui::AssetsWindow::drawRename()
     else
     {
         ImGui::MenuItem("Rename", nullptr, false, false);
+    }
+}
+
+void edit::gui::AssetsWindow::getActionsFromDialogs()
+{
+    dialogWindowActions.clear();
+    dialogWindowActions.push_back(deleteFileWindow->getLastAction());
+    dialogWindowActions.push_back(deleteSelectedFilesWindow->getLastAction());
+    dialogWindowActions.push_back(copyingFilesWindow->getLastAction());
+
+    auto it = std::find_if(dialogWindowActions.cbegin(),dialogWindowActions.cend(),[](auto action){
+        return action == DialogWindow::Action::PRESSED_OK;
+    });
+
+    if(it != dialogWindowActions.cend())
+    {
+        refresh();
     }
 }
 

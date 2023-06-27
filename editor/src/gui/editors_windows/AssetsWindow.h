@@ -25,6 +25,8 @@ namespace edit::gui
         void drawDelete();
         void drawRename();
         void drawMenu();
+        void refresh();
+        void getActionsFromDialogs();
         std::vector<AssetIcon> icons;
 
         bool isOpen{true};
@@ -45,7 +47,6 @@ namespace edit::gui
         std::vector<DialogWindow::Action> dialogWindowActions;
         AssetIcon *currentHoveredIcon{nullptr};
         bool isShowedContextMenu{false};
-        void refresh();
 
     public:
         explicit AssetsWindow(std::string name);
