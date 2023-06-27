@@ -4,6 +4,7 @@
 
 #include "AssetsIcon.h"
 #include "AssetsWindow.h"
+#include <misc/cpp/imgui_stdlib.h>
 
 std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::fileIcon;
 std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::animationFileIcon;
@@ -20,6 +21,7 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
 
     name = path.path().filename();
     pathToFile = path.path().string();
+    fileName = name.string();
 
     assetsWindow = newAssetsWindow;
 
@@ -162,9 +164,9 @@ void edit::gui::AssetIcon::showFilename()
     }
     else
     {
-        fileName = const_cast<char*>(name.string().c_str());
 
-        if(ImGui::InputText("##",fileName,name.string().size(),ImGuiInputTextFlags_EnterReturnsTrue))
+
+        if(ImGui::InputText("##",&fileName,ImGuiInputTextFlags_EnterReturnsTrue))
         {
             auto path = std::filesystem::path(pathToFile).parent_path();
             std::filesystem::rename(pathToFile,path / fileName);

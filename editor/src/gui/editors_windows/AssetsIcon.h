@@ -48,7 +48,7 @@ namespace edit::gui
         bool isClicked{false};
         bool isEditingName{false};
         bool bIsHovered{false};
-        char *fileName{};
+        std::string fileName{};
         ImVec4 color;
         const std::string PAYLOAD_NAME = "ASSET_WINDOW_ITEM";
         void createDragAndDropSource();
