@@ -187,7 +187,7 @@ void edit::gui::AssetsWindow::drawMenu()
 
 void edit::gui::AssetsWindow::drawImportNewAssets()
 {
-    if(ImGui::MenuItem("Import New Assets..."))
+    if(ImGui::MenuItem(ICON_FA_FILE_IMPORT " Import New Assets..."))
     {
         FileDialog fileDialog;
         INativeFileDialog::PathSet pathSet;
