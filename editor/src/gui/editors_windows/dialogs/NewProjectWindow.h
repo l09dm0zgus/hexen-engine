@@ -5,11 +5,11 @@
 #ifndef HEXENEDITOR_NEWPROJECTWINDOW_H
 #define HEXENEDITOR_NEWPROJECTWINDOW_H
 #include <core/Types.h>
-#include "GUIWindow.h"
+#include "DialogWindow.h"
 
 namespace edit::gui
 {
-    class NewProjectWindow : public GUIWindow
+    class NewProjectWindow : public DialogWindow
     {
     private:
         enum ArraySizes : core::u64
@@ -19,14 +19,10 @@ namespace edit::gui
         };
         char projectName[ArraySizes::PROJECT_NAME_SIZE]{'0'};
         char pathToProject[PATH_TO_PROJECT_SIZE]{'0'};
-        bool isOpen = false;
         std::string projectPath;
         void clearStrings();
+        void drawContent() override;
     public:
-        void begin() override;
-        void end() override;
-        void draw() override;
-        void setOpen(bool newIsOpen);
         std::string getProjectPath();
         explicit NewProjectWindow(std::string name);
     };

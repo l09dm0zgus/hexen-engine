@@ -10,21 +10,16 @@ target_sources(${EDITOR_NAME} PRIVATE
         MainMenuBar.cpp
         Shortcuts.h
         Shortcuts.cpp
-        NewProjectWindow.h
-        NewProjectWindow.cpp
+        dialogs/NewProjectWindow.h
+        dialogs/NewProjectWindow.cpp
         MessageBox.h
         MessageBox.cpp
         AssetsWindow.h
         AssetsWindow.cpp
-        DeleteFileWindow.h
-        DeleteFileWindow.cpp
-        DeleteSelectedFilesWindow.h
-        DeleteSelectedFilesWindow.cpp
-        CopyingFilesWindow.h
-        CopyingFilesWindow.cpp
         AssetsIcon.h
         AssetsIcon.cpp
         )
 
 add_subdirectory(native_file_dialog)
 add_subdirectory(menus)
+add_subdirectory(dialogs)

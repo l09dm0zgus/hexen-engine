@@ -12,13 +12,10 @@ namespace edit::gui
     {
     private:
         std::vector<std::filesystem::path> paths;
+        void drawContent() override;
     public:
         explicit DeleteSelectedFilesWindow(std::string name);
         void setPaths(const std::vector<std::filesystem::path> &selectedFiles);
-        void begin() override;
-        void end() override;
-        void draw() override;
-
     };
 
 }

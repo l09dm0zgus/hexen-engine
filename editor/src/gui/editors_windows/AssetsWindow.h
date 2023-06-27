@@ -7,8 +7,8 @@
 #include "GUIWindow.h"
 #include "../../project/Project.h"
 #include <core/graphics/texture/Texture.h>
-#include "DeleteSelectedFilesWindow.h"
-#include "CopyingFilesWindow.h"
+#include "dialogs/DeleteSelectedFilesWindow.h"
+#include "dialogs/CopyingFilesWindow.h"
 #include "AssetsIcon.h"
 
 namespace edit::gui
@@ -42,6 +42,7 @@ namespace edit::gui
         std::unique_ptr<DeleteSelectedFilesWindow> deleteSelectedFilesWindow;
         std::unique_ptr<CopyingFilesWindow> copyingFilesWindow;
 
+        std::vector<DialogWindow::Action> dialogWindowActions;
         AssetIcon *currentHoveredIcon{nullptr};
         bool isShowedContextMenu{false};
 

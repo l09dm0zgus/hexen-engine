@@ -9,21 +9,6 @@ edit::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string name
     text = "Delete this selected files?";
 }
 
-void edit::gui::DeleteSelectedFilesWindow::end()
-{
-    DeleteFileWindow::end();
-}
-
-void edit::gui::DeleteSelectedFilesWindow::begin()
-{
-    DeleteFileWindow::begin();
-}
-
-void edit::gui::DeleteSelectedFilesWindow::draw()
-{
-    DeleteFileWindow::draw();
-}
-
 void edit::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::filesystem::path> &selectedFiles)
 {
     paths = selectedFiles;
@@ -34,4 +19,9 @@ void edit::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::files
             std::filesystem::remove_all(path);
         }
     };
+}
+
+void edit::gui::DeleteSelectedFilesWindow::drawContent()
+{
+    DeleteFileWindow::drawContent();
 }

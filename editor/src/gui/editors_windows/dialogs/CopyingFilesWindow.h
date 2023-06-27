@@ -4,30 +4,24 @@
 
 #ifndef HEXENEDITOR_COPYINGFILESWINDOW_H
 #define HEXENEDITOR_COPYINGFILESWINDOW_H
-#include "GUIWindow.h"
+#include "DialogWindow.h"
 #include <filesystem>
 
 namespace edit::gui
 {
-    class CopyingFilesWindow : public  GUIWindow
+    class CopyingFilesWindow : public  DialogWindow
     {
     private:
-        bool isOpen = false;
         std::filesystem::path currentPath;
         std::vector<std::filesystem::path> filesToCopy;
         std::string text = "Copying file : %s";
         std::vector<std::filesystem::path>::const_iterator currentFileToCopy;
         core::i32 copedFiles{0};
-        bool bIsFinishedCopying{false};
+        void drawContent() override;
     public:
         explicit CopyingFilesWindow(std::string name);
         void setFilesToCopy(const std::vector<std::filesystem::path> &files);
         void setCurrentPath(const std::filesystem::path &currentPath);
-        void setOpen(bool newIsOpen);
-        void begin() override;
-        void end() override;
-        void draw() override;
-        bool isFinishedCopying();
     };
 }
 

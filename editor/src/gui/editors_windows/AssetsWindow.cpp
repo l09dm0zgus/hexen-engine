@@ -86,7 +86,16 @@ void edit::gui::AssetsWindow::draw()
     deleteSelectedFilesWindow->draw();
     copyingFilesWindow->draw();
 
-    if(copyingFilesWindow->isFinishedCopying())
+    dialogWindowActions.clear();
+    dialogWindowActions.push_back(deleteFileWindow->getLastAction());
+    dialogWindowActions.push_back(deleteSelectedFilesWindow->getLastAction());
+    dialogWindowActions.push_back(copyingFilesWindow->getLastAction());
+
+    auto it = std::find_if(dialogWindowActions.cbegin(),dialogWindowActions.cend(),[](auto action){
+        return action = DialogWindow::Action::PRESSED_OK;
+    });
+
+    if(it != dialogWindowActions.cend())
     {
         indexFilesInDirectory();
     }
