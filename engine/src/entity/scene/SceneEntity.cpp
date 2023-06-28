@@ -64,9 +64,7 @@ void ent::SceneEntity::detachFromParent()
 
 void ent::SceneEntity::removeChild(const std::string &name)
 {
-    auto  it = std::find_if(childrens.begin(),childrens.end(),[&name](const auto& keyValue){
-        return name == keyValue.value->getName();
-    });
+    auto  it = findChild(name);
 
     if(it != childrens.end())
     {
@@ -92,6 +90,30 @@ bool ent::SceneEntity::hasChildrens() const noexcept
 core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> ent::SceneEntity::getChildrens() const noexcept
 {
     return childrens;
+}
+
+std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &name)
+{
+    auto  it = findChild(name);
+
+    if(it == childrens.end())
+    {
+        return nullptr;
+    }
+
+    return it->value;
+}
+
+std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChildByUUID(const std::string &UUID)
+{
+    return std::shared_ptr<SceneEntity>();
+}
+
+core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &name)
+{
+    return std::find_if(childrens.begin(),childrens.end(),[&name](const auto& keyValue){
+        return name == keyValue.value->getName();
+    });;
 }
 
 template<class T, class... Ts>

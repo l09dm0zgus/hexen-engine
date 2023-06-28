@@ -21,6 +21,8 @@ namespace ent
         std::shared_ptr<comp::TransformComponent> transformComponent;
         bool hasChildrens() const noexcept;
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
+        std::shared_ptr<SceneEntity> getChild(const std::string &name);
+        std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID);
         template<class T, class... Ts> void addChild(Ts&&... params);
         template<class T> void addChild(T &&name);
         void forceUpdateTransformMatrix();
@@ -29,6 +31,7 @@ namespace ent
         void removeChild(const std::string &name);
         void removeChildByUUID(const std::string &UUID);
     private:
+        core::HashTable<std::string,std::shared_ptr<SceneEntity>>::Iterator findChild(const std::string &name);
         std::string name;
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> childrens;
         SceneEntity *parent{nullptr};
