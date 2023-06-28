@@ -92,7 +92,7 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> ent::SceneEntity
     return childrens;
 }
 
-std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &name)
+std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &name) const noexcept
 {
     auto  it = findChild(name);
 
@@ -104,28 +104,16 @@ std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &
     return it->value;
 }
 
-std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChildByUUID(const std::string &UUID)
+std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChildByUUID(const std::string &UUID) const noexcept
 {
-    return std::shared_ptr<SceneEntity>();
+    return childrens.getCopy(UUID);
 }
 
-core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &name)
+core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &name) const
 {
     return std::find_if(childrens.begin(),childrens.end(),[&name](const auto& keyValue){
         return name == keyValue.value->getName();
     });;
 }
 
-template<class T, class... Ts>
-void ent::SceneEntity::addChild(Ts &&... params)
-{
-    childrens.set(generateUUIDV4(),core::mem::make_shared<T>(params...));
-}
-
-template<class T> void ent::SceneEntity::addChild(T &&name)
-{
-    std::string childUUID = generateUUIDV4();
-    childrens.set(childUUID,core::mem::make_shared<SceneEntity>(name,childUUID));
-    childrens[childUUID]->setParent(this);
-}
 

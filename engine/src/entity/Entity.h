@@ -22,8 +22,17 @@ namespace ent
         Entity& operator=(Entity &&entity) = delete;
         Entity& operator=(const Entity &entity) = delete;
         std::string getUUID()  const noexcept;
-        template<class T> void addComponent(T &&component);
-        template<class T, class... Ts> void addComponent(Ts&&... params);
+
+        template<class T> void addComponent(T &&component)
+        {
+            components.set(generateUUIDV4(),std::forward<T>(component));
+        }
+
+        template<class T, class... Ts> void addComponent(Ts&&... params)
+        {
+            components.set(generateUUIDV4(),core::mem::make_shared<T>(params...));
+        }
+
         template<class T> T getComponentByName(const std::string &name);
         template<class T> T getComponentByUUID(const std::string &UUID);
     private:
