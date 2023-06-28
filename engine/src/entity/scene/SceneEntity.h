@@ -19,6 +19,8 @@ namespace ent
         SceneEntity* getParent() const noexcept;
         void setParent(SceneEntity *newParent);
         std::shared_ptr<comp::TransformComponent> transformComponent;
+        bool hasChildrens() const noexcept;
+        core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
         template<class T> void addChild(T &&name);
         void forceUpdateTransformMatrix();
         void updateTransformMatrix();

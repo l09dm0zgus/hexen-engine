@@ -84,6 +84,16 @@ void ent::SceneEntity::removeChildByUUID(const std::string &UUID)
     childrens.remove(UUID);
 }
 
+bool ent::SceneEntity::hasChildrens() const noexcept
+{
+    return childrens.empty();
+}
+
+core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> ent::SceneEntity::getChildrens() const noexcept
+{
+    return childrens;
+}
+
 template<class T> void ent::SceneEntity::addChild(T &&name)
 {
     std::string childUUID = generateUUIDV4();
