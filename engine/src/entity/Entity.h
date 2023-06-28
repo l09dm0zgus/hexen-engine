@@ -21,6 +21,7 @@ namespace ent
         Entity(const Entity &entity) = delete;
         Entity& operator=(Entity &&entity) = delete;
         Entity& operator=(const Entity &entity) = delete;
+        std::string getUUID()  const noexcept;
         template<class T>
         void addComponent(T &&component);
         template<class T> T getComponentByName(const std::string &name);

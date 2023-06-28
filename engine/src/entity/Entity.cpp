@@ -17,6 +17,11 @@ ent::Entity::Entity(std::string UUID)  : UUID(std::move(UUID))
 
 }
 
+std::string ent::Entity::getUUID() const noexcept
+{
+    return UUID;
+}
+
 template<class T>
 void ent::Entity::addComponent(T &&component)
 {
