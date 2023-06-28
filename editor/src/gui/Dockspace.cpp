@@ -50,7 +50,6 @@ void edit::gui::Dockspace::setWindowsInDockspace()
     dockLeftId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Left,0.2f, nullptr,&id);
     dockRightId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Right,0.15f, nullptr,&id);
 
-
     for(auto &dockingPosition : dockingPositions)
     {
         switch (dockingPosition.value)
@@ -66,6 +65,9 @@ void edit::gui::Dockspace::setWindowsInDockspace()
                 break;
             case DockingPosition::RIGHT:
                 ImGui::DockBuilderDockWindow( dockingPosition.key.c_str(), dockRightId);
+                break;
+            case DockingPosition::CENTER:
+                ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(),id);
                 break;
             default:
                 break;
