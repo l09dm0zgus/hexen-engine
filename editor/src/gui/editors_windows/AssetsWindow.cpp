@@ -179,6 +179,14 @@ void edit::gui::AssetsWindow::drawMenu()
     {
         drawImportNewAssets();
         ImGui::Separator();
+        drawCreateScene();
+        drawCreateAnimation();
+        drawCreateEntity();
+        drawCreateTileset();
+        ImGui::Separator();
+        drawNewFolder();
+        ImGui::Separator();
+        drawRefresh();
         drawRename();
         drawDelete();
         ImGui::EndPopup();
@@ -220,7 +228,7 @@ void edit::gui::AssetsWindow::drawDelete()
 {
    if(currentHoveredIcon != nullptr && selectedFiles.empty())
    {
-       if(ImGui::MenuItem(ICON_FA_DUMPSTER" Delete"))
+       if(ImGui::MenuItem(ICON_FA_TRASH" Delete"))
        {
            deleteFileWindow->setPath(currentHoveredIcon->getPath());
            deleteFileWindow->setOpen(true);
@@ -236,7 +244,7 @@ void edit::gui::AssetsWindow::drawDelete()
    }
    else
    {
-       ImGui::MenuItem(ICON_FA_DUMPSTER" Delete", nullptr, false, false);
+       ImGui::MenuItem(ICON_FA_TRASH" Delete", nullptr, false, false);
    }
 
 }
@@ -272,6 +280,55 @@ void edit::gui::AssetsWindow::getActionsFromDialogs()
     if(it != dialogWindowActions.cend())
     {
         refresh();
+    }
+}
+
+void edit::gui::AssetsWindow::drawCreateEntity()
+{
+    if(ImGui::MenuItem(ICON_FA_FILE_ALT" Create Entity..."))
+    {
+
+    }
+}
+
+void edit::gui::AssetsWindow::drawCreateTileset()
+{
+    if(ImGui::MenuItem(ICON_FA_FILE_IMAGE" Create Tileset..."))
+    {
+
+    }
+}
+
+void edit::gui::AssetsWindow::drawCreateAnimation()
+{
+    if(ImGui::MenuItem(ICON_FA_FILE_VIDEO" Create Animation..."))
+    {
+
+    }
+
+}
+
+void edit::gui::AssetsWindow::drawCreateScene()
+{
+    if(ImGui::MenuItem(ICON_FA_MAP" Create Scene..."))
+    {
+
+    }
+}
+
+void edit::gui::AssetsWindow::drawRefresh()
+{
+    if(ImGui::MenuItem("Refresh","CTRL+R"))
+    {
+
+    }
+}
+
+void edit::gui::AssetsWindow::drawNewFolder()
+{
+    if(ImGui::MenuItem(ICON_FA_FOLDER" New Folder"))
+    {
+
     }
 }
 

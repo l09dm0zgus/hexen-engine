@@ -25,6 +25,12 @@ namespace edit::gui
         void drawDelete();
         void drawRename();
         void drawMenu();
+        void drawNewFolder();
+        void drawRefresh();
+        void drawCreateScene();
+        void drawCreateTileset();
+        void drawCreateAnimation();
+        void drawCreateEntity();
         void refresh();
         void getActionsFromDialogs();
         std::vector<AssetIcon> icons;
