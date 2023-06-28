@@ -419,7 +419,7 @@ namespace core
                 }
                 void remove(const Key &key)
                 {
-                    if(auto slot = getSlot(std::forward<Key>(key)))
+                    if(auto slot = getSlot(key))
                     {
                         *slot = {};
                         assert(slot->isUsed == false);
