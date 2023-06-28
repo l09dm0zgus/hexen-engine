@@ -15,7 +15,7 @@ namespace ent
     {
     public:
         Entity();
-        Entity(std::string UUID);
+        explicit Entity(std::string UUID);
         virtual ~Entity() = default;
         Entity(Entity &&entity) = delete;
         Entity(const Entity &entity) = delete;
