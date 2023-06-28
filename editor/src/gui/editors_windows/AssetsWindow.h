@@ -45,6 +45,7 @@ namespace edit::gui
 
         std::vector<std::filesystem::path> selectedFiles;
         std::function<void()> deleteSelectedFilesCallback;
+        std::function<void()> refreshCallback;
 
         std::unique_ptr<DeleteFileWindow> deleteFileWindow;
         std::unique_ptr<DeleteSelectedFilesWindow> deleteSelectedFilesWindow;

@@ -7,6 +7,7 @@
 #include "MessageBox.h"
 #include <algorithm>
 #include <iostream>
+#include "Shortcuts.h"
 #include "../IconsFontAwesome5.h"
 #include "../../project/Project.h"
 
@@ -25,7 +26,11 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
         refresh();
     };
 
+    refreshCallback = [this](){
+        refresh();
+    };
 
+    Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_R},refreshCallback);
 }
 
 void edit::gui::AssetsWindow::begin()
@@ -320,7 +325,7 @@ void edit::gui::AssetsWindow::drawRefresh()
 {
     if(ImGui::MenuItem("Refresh","CTRL+R"))
     {
-
+        refreshCallback();
     }
 }
 
@@ -328,7 +333,8 @@ void edit::gui::AssetsWindow::drawNewFolder()
 {
     if(ImGui::MenuItem(ICON_FA_FOLDER" New Folder"))
     {
-
+        std::filesystem::create_directory(currentPath / "New Folder");
+        refresh();
     }
 }
 
