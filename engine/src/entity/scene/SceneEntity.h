@@ -32,7 +32,8 @@ namespace ent
         template<class T> void addChild(T &&entityName)
         {
             std::string childUUID = generateUUIDV4();
-            childrens.set(childUUID,core::mem::make_shared<SceneEntity>(entityName,childUUID));
+            auto child = core::mem::make_shared<SceneEntity>(entityName,childUUID);
+            childrens.set(childUUID,child);
             childrens[childUUID]->setParent(this);
         }
 

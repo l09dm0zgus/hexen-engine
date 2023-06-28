@@ -4,6 +4,7 @@
 
 #ifndef HEXENEDITOR_SCENEHIERARCHYWINDOW_H
 #define HEXENEDITOR_SCENEHIERARCHYWINDOW_H
+#include <entity/scene/SceneEntity.h>
 #include "GUIWindow.h"
 
 namespace edit::gui
@@ -12,6 +13,8 @@ namespace edit::gui
     {
     private:
         bool isOpen{true};
+        void drawNode(const std::shared_ptr<ent::SceneEntity> &sceneEntity);
+        std::shared_ptr<ent::SceneEntity> scene;
     public:
         explicit SceneHierarchyWindow(std::string name);
         void begin() override;

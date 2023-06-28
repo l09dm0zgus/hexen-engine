@@ -87,6 +87,7 @@ bool ent::SceneEntity::hasChildrens() const noexcept
     return childrens.empty();
 }
 
+
 core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> ent::SceneEntity::getChildrens() const noexcept
 {
     return childrens;
