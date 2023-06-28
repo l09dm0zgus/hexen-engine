@@ -3,6 +3,7 @@
 //
 
 #include "SceneEntity.h"
+#include <algorithm>
 
 ent::SceneEntity::SceneEntity(std::string name) : ent::Entity() , name(std::move(name))
 {
@@ -97,7 +98,7 @@ std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &
 {
     auto  it = findChild(name);
 
-    if(it == childrens.end())
+    if(it == childrens.cend())
     {
         return nullptr;
     }
@@ -107,14 +108,15 @@ std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &
 
 std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChildByUUID(const std::string &UUID) const noexcept
 {
-    return childrens.getCopy(UUID);
+    return *childrens.get(UUID);
 }
 
 core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &name) const
 {
-    return std::find_if(childrens.begin(),childrens.end(),[&name](const auto& keyValue){
+    auto it = std::find_if(childrens.begin(),childrens.end(),[&name](auto& keyValue){
         return name == keyValue.value->getName();
     });;
+    return it;
 }
 
 
