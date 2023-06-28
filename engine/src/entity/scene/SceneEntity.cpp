@@ -94,6 +94,12 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> ent::SceneEntity
     return childrens;
 }
 
+template<class T, class... Ts>
+void ent::SceneEntity::addChild(Ts &&... params)
+{
+    childrens.set(generateUUIDV4(),core::mem::make_shared<T>(params...));
+}
+
 template<class T> void ent::SceneEntity::addChild(T &&name)
 {
     std::string childUUID = generateUUIDV4();

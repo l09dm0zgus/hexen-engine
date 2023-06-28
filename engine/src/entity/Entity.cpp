@@ -22,10 +22,17 @@ std::string ent::Entity::getUUID() const noexcept
     return UUID;
 }
 
+template<class T, class... Ts>
+void ent::Entity::addComponent(Ts &&... params)
+{
+    components.set(generateUUIDV4(),core::mem::make_shared<T>(params...));
+}
+
 template<class T>
 void ent::Entity::addComponent(T &&component)
 {
     components.set(generateUUIDV4(),std::forward<T>(component));
+
 }
 
 template<class T>

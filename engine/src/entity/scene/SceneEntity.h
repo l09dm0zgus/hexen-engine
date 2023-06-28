@@ -21,6 +21,7 @@ namespace ent
         std::shared_ptr<comp::TransformComponent> transformComponent;
         bool hasChildrens() const noexcept;
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
+        template<class T, class... Ts> void addChild(Ts&&... params);
         template<class T> void addChild(T &&name);
         void forceUpdateTransformMatrix();
         void updateTransformMatrix();
