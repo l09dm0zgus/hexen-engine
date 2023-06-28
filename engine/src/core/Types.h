@@ -321,6 +321,14 @@ namespace core
                     return nullptr;
                 }
 
+                Value getCopy(const Key &key) const
+                {
+                    if(auto slot = getSlot(key))
+                    {
+                        return slot->keyValue.value;
+                    }
+                    return {};
+                }
                 Value *get(Key &&key)
                 {
                     if(auto slot = getSlot(std::move(key)))
@@ -521,10 +529,10 @@ namespace core
 
                 struct Iterator : public  ConstIterator
                 {
+                    Iterator(const ConstIterator &constIterator) : ConstIterator(constIterator) {}
+
                 private:
                     friend class HashTable;
-
-                    Iterator(const ConstIterator &constIterator) : ConstIterator(constIterator) {}
 
                 public:
                     Iterator(const Iterator &iterator) : ConstIterator(iterator)  {}
