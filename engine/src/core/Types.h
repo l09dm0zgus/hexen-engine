@@ -562,7 +562,25 @@ namespace core
         {
             return end();
         }
+        ConstIterator find(const Key &key) const
+        {
+            if (const Slot *slot = get_slot(key))
+            {
+                return const_iterator(this, slot - slots.data());
+            }
+            return end();
+        }
 
+        Iterator find(const Key &key)
+        {
+            return iterator(cthis()->find(key));
+        }
+
+        void erase(const ConstIterator &it)
+        {
+            assert(it.owner == this && "cannot erase an element of another instance");
+            remove(it->key);
+        }
     };
 }
 
