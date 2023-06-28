@@ -16,7 +16,7 @@ namespace core::mem
     public:
         void operator delete(vptr address) noexcept;
         vptr operator new(u64 size);
-        AllocatedObject() = default;
+        AllocatedObject();
         virtual ~AllocatedObject() = default;
         AllocatedObject(const AllocatedObject &allocationManager) = default;
         AllocatedObject(AllocatedObject &&allocationManager) = default;

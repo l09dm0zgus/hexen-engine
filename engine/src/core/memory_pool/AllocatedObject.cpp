@@ -4,6 +4,14 @@
 
 #include "AllocatedObject.h"
 #include <SDL3/SDL.h>
+namespace core::mem
+{
+    void handler()
+    {
+        SDL_Log("Memory allocation failed.\n Not enough memory in pool.\n Please increase memory pool size!\n");
+        std::set_new_handler(nullptr);
+    }
+}
 
 
 std::unique_ptr<core::mem::MemoryPool> core::mem::AllocatedObject::memoryPool = nullptr;
@@ -43,5 +51,10 @@ void core::mem::AllocatedObject::operator delete(core::vptr address) noexcept
         SDL_Log("Failed to freed memory!\n");
     }
     memoryPool->free(address);
+}
+
+core::mem::AllocatedObject::AllocatedObject()
+{
+    std::set_new_handler(handler);
 }
 
