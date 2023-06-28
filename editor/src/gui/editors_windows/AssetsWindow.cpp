@@ -218,9 +218,9 @@ void edit::gui::AssetsWindow::drawImportNewAssets()
 
 void edit::gui::AssetsWindow::drawDelete()
 {
-   if(currentHoveredIcon != nullptr)
+   if(currentHoveredIcon != nullptr && selectedFiles.empty())
    {
-       if(ImGui::MenuItem("Delete"))
+       if(ImGui::MenuItem(ICON_FA_DUMPSTER" Delete"))
        {
            deleteFileWindow->setPath(currentHoveredIcon->getPath());
            deleteFileWindow->setOpen(true);
@@ -229,14 +229,14 @@ void edit::gui::AssetsWindow::drawDelete()
    }
    else if(!selectedFiles.empty())
    {
-       if(ImGui::MenuItem("Delete selected files"))
+       if(ImGui::MenuItem(ICON_FA_DUMPSTER_FIRE" Delete selected files"))
        {
            deleteSelectedFilesCallback();
        }
    }
    else
    {
-       ImGui::MenuItem("Delete", nullptr, false, false);
+       ImGui::MenuItem(ICON_FA_DUMPSTER" Delete", nullptr, false, false);
    }
 
 }
@@ -246,7 +246,7 @@ void edit::gui::AssetsWindow::drawRename()
 
     if(currentHoveredIcon != nullptr)
     {
-        if(ImGui::MenuItem("Rename"))
+        if(ImGui::MenuItem(ICON_FA_PENCIL_ALT" Rename"))
         {
             currentHoveredIcon->renameFile();
         }
@@ -254,7 +254,7 @@ void edit::gui::AssetsWindow::drawRename()
     }
     else
     {
-        ImGui::MenuItem("Rename", nullptr, false, false);
+        ImGui::MenuItem(ICON_FA_PENCIL_ALT" Rename", nullptr, false, false);
     }
 }
 
