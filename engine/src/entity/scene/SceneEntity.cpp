@@ -53,8 +53,38 @@ void ent::SceneEntity::updateTransformMatrix()
     }
 }
 
-template<class T>
-void ent::SceneEntity::addChild(T &&name)
+void ent::SceneEntity::detachFromParent()
+{
+    if(parent != nullptr)
+    {
+        parent->removeChild(name);
+        parent = nullptr;
+    }
+}
+
+void ent::SceneEntity::removeChild(const std::string &name)
+{
+    auto  it = std::find_if(childrens.begin(),childrens.end(),[&name](const auto& keyValue){
+        return name == keyValue.value->getName();
+    });
+
+    if(it != childrens.end())
+    {
+        childrens.remove(it->key);
+    }
+}
+
+std::string ent::SceneEntity::getName() const noexcept
+{
+    return name;
+}
+
+void ent::SceneEntity::removeChildByUUID(const std::string &UUID)
+{
+    childrens.remove(UUID);
+}
+
+template<class T> void ent::SceneEntity::addChild(T &&name)
 {
     std::string childUUID = generateUUIDV4();
     childrens.set(childUUID,core::mem::make_unique<SceneEntity>(name,childUUID));

@@ -15,12 +15,16 @@ namespace ent
     public:
         SceneEntity(std::string name);
         SceneEntity(std::string name, const std::string &UUID);
+        std::string getName() const noexcept;
         SceneEntity* getParent() const noexcept;
         void setParent(SceneEntity *newParent);
         std::shared_ptr<comp::TransformComponent> transformComponent;
         template<class T> void addChild(T &&name);
         void forceUpdateTransformMatrix();
         void updateTransformMatrix();
+        void detachFromParent();
+        void removeChild(const std::string &name);
+        void removeChildByUUID(const std::string &UUID);
     private:
         std::string name;
         core::HashTable<std::string,std::unique_ptr<SceneEntity>> childrens;
