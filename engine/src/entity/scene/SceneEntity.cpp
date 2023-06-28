@@ -87,7 +87,7 @@ void ent::SceneEntity::removeChildByUUID(const std::string &UUID)
 template<class T> void ent::SceneEntity::addChild(T &&name)
 {
     std::string childUUID = generateUUIDV4();
-    childrens.set(childUUID,core::mem::make_unique<SceneEntity>(name,childUUID));
+    childrens.set(childUUID,core::mem::make_shared<SceneEntity>(name,childUUID));
     childrens[childUUID]->setParent(this);
 }
 

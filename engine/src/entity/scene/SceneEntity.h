@@ -27,7 +27,7 @@ namespace ent
         void removeChildByUUID(const std::string &UUID);
     private:
         std::string name;
-        core::HashTable<std::string,std::unique_ptr<SceneEntity>> childrens;
+        core::HashTable<std::string,std::shared_ptr<SceneEntity>> childrens;
         SceneEntity *parent{nullptr};
     };
 }
