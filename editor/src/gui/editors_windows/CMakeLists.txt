@@ -18,6 +18,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         AssetsWindow.cpp
         AssetsIcon.h
         AssetsIcon.cpp
+        SceneHierarchyWindow.h
+        SceneHierarchyWindow.cpp
         )
 
 add_subdirectory(native_file_dialog)

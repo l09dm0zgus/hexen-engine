@@ -7,7 +7,7 @@
 #include "editors_windows/SceneWindow.h"
 #include "editors_windows/Shortcuts.h"
 #include "editors_windows/MessageBox.h"
-
+#include "editors_windows/SceneHierarchyWindow.h"
 
 edit::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
 {
@@ -32,9 +32,10 @@ edit::gui::EditorGUI::EditorGUI()
     //ImGui::StyleColorsLight();
     style.loadThemeFromFile("editor_theme.json");
 
-    dockspace.attachWindow(core::mem::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::LEFT);
+    dockspace.attachWindow(core::mem::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::CENTER);
     dockspace.attachWindow(core::mem::make_shared<MainMenuBar>("Menu Bar"),Dockspace::DockingPosition::NONE);
     dockspace.attachWindow(core::mem::make_shared<AssetsWindow>("Assets"),Dockspace::DockingPosition::DOWN);
+    dockspace.attachWindow(core::mem::make_shared<SceneHierarchyWindow>("Scene Hierarchy"),Dockspace::DockingPosition::LEFT);
 }
 
 void edit::gui::EditorGUI::begin()

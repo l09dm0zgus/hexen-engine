@@ -33,6 +33,7 @@ namespace edit::gui
         GUIWindow(const GUIWindow &guiWindow) = delete;
         GUIWindow& operator=(GUIWindow &&guiWindow) = delete;
         GUIWindow& operator=(const GUIWindow &guiWindow) = delete;
+    protected:
     private:
         void setWindowSize();
         std::string name;
