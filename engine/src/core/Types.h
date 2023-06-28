@@ -437,12 +437,12 @@ namespace core
 
                 u32 size() const noexcept
                 {
-                    return count;
+                    return slots.size();
                 }
 
                 bool empty() const
                 {
-                    return size() == 0;
+                    return slots.empty();
                 };
 
                 double loadFactor() const
