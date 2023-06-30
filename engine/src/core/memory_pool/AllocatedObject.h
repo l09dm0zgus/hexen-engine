@@ -27,7 +27,7 @@ namespace core::mem
 
 
     private:
-        static constexpr u64 POOL_SIZE = 4096;
+        static constexpr u64 POOL_SIZE = 8128;
         static std::unique_ptr<MemoryPool> memoryPool;
     };
     template<class T, class... Ts>
