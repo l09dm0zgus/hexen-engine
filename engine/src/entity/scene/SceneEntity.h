@@ -23,6 +23,7 @@ namespace ent
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
         std::shared_ptr<SceneEntity> getChild(const std::string &name) const noexcept;
         std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID) const noexcept;
+        core::HashTable<std::string,std::shared_ptr<SceneEntity>>::Iterator findChild(const std::string &UUID);
 
         template<class T, class... Ts> void addChild(Ts&&... params)
         {
@@ -37,16 +38,18 @@ namespace ent
             childrens[childUUID]->setParent(this);
         }
 
+        void addChildByPointer(const std::shared_ptr<SceneEntity> &sceneEntity);
+
         void forceUpdateTransformMatrix();
         void updateTransformMatrix();
         void detachFromParent();
         void removeChild(const std::string &name);
         void removeChildByUUID(const std::string &UUID);
     private:
-        core::HashTable<std::string,std::shared_ptr<SceneEntity>>::Iterator findChild(const std::string &name) const;
         std::string name;
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> childrens;
         SceneEntity *parent{nullptr};
+        core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator find(const std::string &name) const;
     };
 }
 

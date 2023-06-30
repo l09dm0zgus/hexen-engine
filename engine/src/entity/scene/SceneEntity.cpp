@@ -11,7 +11,7 @@ ent::SceneEntity::SceneEntity(std::string name) : ent::Entity() , name(std::move
     transformComponent = core::mem::make_shared<comp::TransformComponent>();
 }
 
-ent::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : ent::Entity(name) , name(std::move(name))
+ent::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : ent::Entity(UUID) , name(std::move(name))
 {
 //TODO add getting TransformComponent from system
     transformComponent = core::mem::make_shared<comp::TransformComponent>();
@@ -65,11 +65,14 @@ void ent::SceneEntity::detachFromParent()
 
 void ent::SceneEntity::removeChild(const std::string &name)
 {
-    auto  it = findChild(name);
-
-    if(it != childrens.end())
+    if(hasChildrens())
     {
-        childrens.remove(it->key);
+        auto  it = find(name);
+
+        if(it != childrens.cend())
+        {
+            childrens.remove(it->key);
+        }
     }
 }
 
@@ -96,7 +99,7 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> ent::SceneEntity
 
 std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &name) const noexcept
 {
-    auto  it = findChild(name);
+    auto  it = find(name);
 
     if(it == childrens.cend())
     {
@@ -111,12 +114,38 @@ std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChildByUUID(const std::st
     return *childrens.get(UUID);
 }
 
-core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &name) const
+core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator ent::SceneEntity::find(const std::string &name) const
 {
-    auto it = std::find_if(childrens.begin(),childrens.end(),[&name](auto& keyValue){
+    auto it = std::find_if(childrens.cbegin(),childrens.cend(),[&name](const auto& keyValue){
         return name == keyValue.value->getName();
     });;
     return it;
+}
+
+void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &sceneEntity)
+{
+    childrens.set(sceneEntity->getUUID(),sceneEntity);
+}
+
+core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &UUID)
+{
+    auto it = childrens.find(UUID);
+    if(it != childrens.end())
+    {
+        return it;
+    }
+    else
+    {
+        for (const auto& child : childrens)
+        {
+            it = child.value->findChild(UUID);
+            if(it != child.value->getChildrens().end())
+            {
+                return it;
+            }
+        }
+    }
+    return childrens.end();
 }
 
 
