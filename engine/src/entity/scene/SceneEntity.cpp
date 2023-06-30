@@ -118,12 +118,13 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator e
 {
     auto it = std::find_if(childrens.cbegin(),childrens.cend(),[&name](const auto& keyValue){
         return name == keyValue.value->getName();
-    });;
+    });
     return it;
 }
 
 void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &sceneEntity)
 {
+    std::cout << "Adding child with name: " << sceneEntity->getName() << " UUID: " << sceneEntity->getUUID() << "\n";
     childrens.set(sceneEntity->getUUID(),sceneEntity);
 }
 
@@ -146,6 +147,11 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::S
         }
     }
     return childrens.end();
+}
+
+ent::SceneEntity::~SceneEntity()
+{
+    std::cout << "Entity with name: " << name << " UUID: " << getUUID() << " destroyed\n";
 }
 
 
