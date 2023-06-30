@@ -437,8 +437,8 @@ namespace core
 
             const HashTable *owner;
             u32 slotIndex;
-
             ConstIterator(const HashTable *owner,u32 slotIndex) : owner(owner) , slotIndex(slotIndex) {}
+
         public:
 
             using iterator_category = std::forward_iterator_tag;
@@ -491,10 +491,10 @@ namespace core
 
         struct Iterator : public  ConstIterator
         {
-            Iterator(const ConstIterator &constIterator) : ConstIterator(constIterator) {}
 
         private:
             friend class HashTable;
+            explicit Iterator(const ConstIterator &constIterator) : ConstIterator(constIterator) {}
 
         public:
             Iterator(const Iterator &iterator) : ConstIterator(iterator)  {}
@@ -562,18 +562,18 @@ namespace core
         {
             return end();
         }
-        ConstIterator find(const Key &key) const
+        ConstIterator findConst(const Key &key) const
         {
-            if (const Slot *slot = get_slot(key))
+            if (const Slot *slot = getSlot(key))
             {
-                return const_iterator(this, slot - slots.data());
+                return ConstIterator(this, slot - slots.data());
             }
             return end();
         }
 
         Iterator find(const Key &key)
         {
-            return iterator(cthis()->find(key));
+            return Iterator(cthis()->findConst(key));
         }
 
         void erase(const ConstIterator &it)
