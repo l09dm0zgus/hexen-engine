@@ -85,7 +85,7 @@ void ent::SceneEntity::removeChildByUUID(const std::string &UUID)
 
 bool ent::SceneEntity::hasChildrens() const noexcept
 {
-    return childrens.empty();
+    return !childrens.empty();
 }
 
 

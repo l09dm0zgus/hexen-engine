@@ -13,7 +13,7 @@ namespace edit::gui
     {
     private:
         bool isOpen{true};
-        void drawNode(const std::shared_ptr<ent::SceneEntity> &sceneEntity);
+        void drawEntityChilds(const core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &childs);
         std::shared_ptr<ent::SceneEntity> scene;
     public:
         explicit SceneHierarchyWindow(std::string name);
