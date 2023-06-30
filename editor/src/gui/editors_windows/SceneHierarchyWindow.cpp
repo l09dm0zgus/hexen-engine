@@ -37,14 +37,10 @@ void edit::gui::SceneHierarchyWindow::end()
 
 void edit::gui::SceneHierarchyWindow::drawEntityChilds(const core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &childs)
 {
-    for(const auto& child : childs)
+
+    for(auto& child : childs)
     {
         core::i32 flags = ImGuiTreeNodeFlags_OpenOnArrow;
-
-        //if (isObjectSelected)
-        //{
-        //  flags |= ImGuiTreeNodeFlags_Selected;
-        //}
 
 
         if (!child.value->hasChildrens())
@@ -52,22 +48,54 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(const core::HashTable<std
             flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
         }
 
-        //if (isEntityEnabled)
-        //{
-            //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5, 0.5, 0.5, 0.4));
-        //}
-
-        ImGui::PushID(child.value->getUUID().c_str());
-
-        bool open = ImGui::TreeNodeEx(child.value->getName().data(), flags);
-        bool hasChilds = child.value->hasChildrens();
-
-        ImGui::PopID();
-
-        if (hasChilds && open)
+        if(child.value != nullptr)
         {
-            drawEntityChilds(child.value->getChildrens());
-            ImGui::TreePop();
+            ImGui::PushID(child.value->getUUID().c_str());
+            bool open = ImGui::TreeNodeEx(child.value->getName().data(), flags);
+
+
+
+            ImGui::PopID();
+            bool hasChilds = child.value->hasChildrens();
+
+            if(open)
+            {
+                startDragAndDropSource(child.value);
+                startDragAndDropTarget(child.value);
+            }
+            if (hasChilds && open)
+            {
+                drawEntityChilds(child.value->getChildrens());
+                ImGui::TreePop();
+            }
         }
+
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::startDragAndDropSource( const std::shared_ptr<ent::SceneEntity>& sceneEntity)
+{
+    if(ImGui::BeginDragDropSource())
+    {
+        ImGui::SetDragDropPayload(PAYLOAD_NAME.c_str(),sceneEntity.get(),sizeof(ent::SceneEntity));
+        ImGui::EndDragDropSource();
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::startDragAndDropTarget(const std::shared_ptr<ent::SceneEntity>& sceneEntity)
+{
+    if(ImGui::BeginDragDropTarget())
+    {
+        if(auto payload = ImGui::AcceptDragDropPayload(PAYLOAD_NAME.c_str()))
+        {
+            auto draggedEntity = std::shared_ptr<ent::SceneEntity>((ent::SceneEntity*)(payload->Data));
+            if(draggedEntity != nullptr)
+            {
+                draggedEntity->detachFromParent();
+                draggedEntity->setParent(sceneEntity.get());
+                sceneEntity->addChildByPointer(draggedEntity);
+            }
+        }
+        ImGui::EndDragDropTarget();
     }
 }
