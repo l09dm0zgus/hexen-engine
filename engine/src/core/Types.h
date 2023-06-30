@@ -252,14 +252,14 @@ namespace core
             {
                 if (slot.isUsed)
                 {
-                    insertNonexistentNoRehash(slot.keyValue.key, slot.keyValue.value);
+                    insertNonexistentNoRehash(std::forward<Key>(slot.keyValue.key), std::forward<Value>(slot.keyValue.value));
                 }
             }
 
 
         }
     public:
-        HashTable() noexcept : slots(),count(0) , maxHashOffset(0){}
+        HashTable() noexcept : slots{},count{0} , maxHashOffset{0}{}
 
         HashTable(u32 capacity) noexcept : HashTable()
         {
@@ -373,7 +373,7 @@ namespace core
             }
 
             //insert the key
-            auto keyValue = insertNonexistentNoRehash(key,std::forward<Value>(value));
+            auto keyValue = insertNonexistentNoRehash(std::move(key), std::move(value));
             return &keyValue->value;
         }
         void remove(const Key &key)
@@ -393,7 +393,7 @@ namespace core
 
         bool empty() const
         {
-            return slots.empty();
+            return size() == 0;
         };
 
         double loadFactor() const
@@ -435,8 +435,8 @@ namespace core
         protected:
             friend class HashTable;
 
-            const HashTable *owner;
-            u32 slotIndex;
+            const HashTable *owner{nullptr};
+            u32 slotIndex{0};
             ConstIterator(const HashTable *owner,u32 slotIndex) : owner(owner) , slotIndex(slotIndex) {}
 
         public:
@@ -466,7 +466,7 @@ namespace core
                 do
                 {
                     slotIndex++;
-                } while (slotIndex < owner->slots.size() && !owner->slots[slotIndex].isUsed);
+                } while (slotIndex < owner->slots.size() && not owner->slots[slotIndex].isUsed);
 
                 return *this;
             }
@@ -515,7 +515,7 @@ namespace core
                 do
                 {
                     this->slotIndex++;
-                } while (this->slotIndex < this->owner->slots.size() && !this->owner->slots[this->slotIndex].isUsed);
+                } while (this->slotIndex < this->owner->slots.size() && not this->owner->slots[this->slotIndex].isUsed);
                 return *this;
             }
 
@@ -531,7 +531,7 @@ namespace core
         ConstIterator begin() const
         {
             auto iterator = ConstIterator(this,0);
-            while (iterator.slotIndex < slots.size() && !slots[iterator.slotIndex].isUsed)
+            while (iterator.slotIndex < slots.size() && not slots[iterator.slotIndex].isUsed)
             {
                 iterator.slotIndex++;
             }
