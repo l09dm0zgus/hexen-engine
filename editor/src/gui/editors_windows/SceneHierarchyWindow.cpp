@@ -60,8 +60,8 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(core::HashTable<std::stri
 
             if(open)
             {
-                startDragAndDropTarget(std::move(child.value));
                 startDragAndDropSource(child.value);
+                startDragAndDropTarget(std::move(child.value));
             }
             if (hasChilds && open)
             {
@@ -91,8 +91,10 @@ void edit::gui::SceneHierarchyWindow::startDragAndDropTarget(std::shared_ptr<ent
             auto draggedEntity = (ent::SceneEntity*)(payload->Data);
             if(draggedEntity != nullptr)
             {
-                std::cout << "Size: " << sizeof(*draggedEntity) << "\n";
-                draggedEntity->changeParent(sceneEntity);
+                if(!draggedEntity->isChildExist(sceneEntity->getUUID()))
+                {
+                    draggedEntity->changeParent(sceneEntity);
+                }
             }
         }
         ImGui::EndDragDropTarget();

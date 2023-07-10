@@ -121,27 +121,6 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator e
     return it;
 }
 
-core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &UUID)
-{
-    auto it = childrens.find(UUID);
-    if(it != childrens.end())
-    {
-        return it;
-    }
-    else
-    {
-        for (const auto& child : childrens)
-        {
-            it = child.value->findChild(UUID);
-            if(it != child.value->getChildrens().end())
-            {
-                return it;
-            }
-        }
-    }
-    return childrens.end();
-}
-
 ent::SceneEntity::~SceneEntity()
 {
     std::cout << "Entity with name: " << name << " UUID: " << getUUID() << " destroyed\n";
@@ -151,33 +130,52 @@ void ent::SceneEntity::changeParent(std::shared_ptr<SceneEntity> &newParent)
 {
     if(newParent != nullptr && newParent.get() != parent && newParent.get() != this)
     {
-        std::cout << "Changing parent beginned\n";
-        std::cout << "New Parent name: " << newParent->getName() << " UUID: " << newParent->getUUID() << "\n";
-        std::cout << "Detaching child with name : " << name << " with UUID: " << getUUID() << " from parent with name : " << parent->name << " with UUID: "  << parent->getUUID() << "\n";
         if(parent != nullptr)
         {
             auto  child = parent->getChildByUUID(getUUID());
             if (child != nullptr)
             {
+                std::cout << "Changing parent beginned\n";
+                std::cout << "New Parent name: " << newParent->getName() << " UUID: " << newParent->getUUID() << "\n";
+                std::cout << "Detaching child with name : " << name << " with UUID: " << getUUID() << " from parent with name : " << parent->name << " with UUID: "  << parent->getUUID() << "\n";
+
                 newParent->addChildByPointer(child);
                 parent->removeChildByUUID(getUUID());
-                parent = newParent.get();
             }
-
         }
         else
         {
             newParent->addChildByPointer(std::shared_ptr<SceneEntity>(this));
-            parent = newParent.get();
         }
-        std::cout << "Changed Parent name: " << parent->getName() << " UUID: " << parent->getUUID() << "\n";
-
     }
+
+    parent = newParent.get();
+
 }
 
 void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &newChild)
 {
     childrens.set(newChild->getUUID(),newChild);
+}
+
+bool ent::SceneEntity::isChildExist(const std::string &UUID)
+{
+    auto it = childrens.find(UUID);
+    if(it != childrens.end())
+    {
+        return true;
+    }
+    else
+    {
+        for (const auto& child : childrens)
+        {
+           if(child.value->isChildExist(UUID))
+           {
+                return true;
+           }
+        }
+    }
+    return false;
 }
 
 

@@ -24,7 +24,7 @@ namespace ent
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
         std::shared_ptr<SceneEntity> getChild(const std::string &name) const noexcept;
         std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID) const noexcept;
-        core::HashTable<std::string,std::shared_ptr<SceneEntity>>::Iterator findChild(const std::string &UUID);
+        bool isChildExist(const std::string &UUID);
 
         template<class T, class... Ts> void addChild(Ts&&... params)
         {
