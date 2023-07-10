@@ -135,10 +135,6 @@ void ent::SceneEntity::changeParent(std::shared_ptr<SceneEntity> &newParent)
             auto  child = parent->getChildByUUID(getUUID());
             if (child != nullptr)
             {
-                std::cout << "Changing parent beginned\n";
-                std::cout << "New Parent name: " << newParent->getName() << " UUID: " << newParent->getUUID() << "\n";
-                std::cout << "Detaching child with name : " << name << " with UUID: " << getUUID() << " from parent with name : " << parent->name << " with UUID: "  << parent->getUUID() << "\n";
-
                 newParent->addChildByPointer(child);
                 parent->removeChildByUUID(getUUID());
             }
