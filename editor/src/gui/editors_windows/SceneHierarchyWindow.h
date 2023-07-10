@@ -13,9 +13,9 @@ namespace edit::gui
     {
     private:
         bool isOpen{true};
-        void drawEntityChilds(const core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &childs);
+        void drawEntityChilds(core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &&childs);
         void startDragAndDropSource(const std::shared_ptr<ent::SceneEntity>& sceneEntity);
-        void startDragAndDropTarget(const std::shared_ptr<ent::SceneEntity>& sceneEntity);
+        void startDragAndDropTarget(std::shared_ptr<ent::SceneEntity>&& sceneEntity);
         std::shared_ptr<ent::SceneEntity> scene;
         const std::string PAYLOAD_NAME{"SCENE_HIERARCHY_PAYLOAD"};
     public:

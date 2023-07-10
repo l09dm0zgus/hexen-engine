@@ -17,7 +17,7 @@ ent::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : ent::
     transformComponent = core::mem::make_shared<comp::TransformComponent>();
 }
 
-ent::SceneEntity *ent::SceneEntity::getParent() const noexcept
+ent::SceneEntity* ent::SceneEntity::getParent() const noexcept
 {
     return parent;
 }
@@ -51,15 +51,6 @@ void ent::SceneEntity::updateTransformMatrix()
     for (auto&& child : childrens)
     {
         child.value->updateTransformMatrix();
-    }
-}
-
-void ent::SceneEntity::detachFromParent()
-{
-    if(parent != nullptr)
-    {
-        parent->removeChild(name);
-        parent = nullptr;
     }
 }
 
@@ -111,7 +102,15 @@ std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChild(const std::string &
 
 std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getChildByUUID(const std::string &UUID) const noexcept
 {
-    return *childrens.get(UUID);
+    auto child = childrens.get(UUID);
+    if(child != nullptr)
+    {
+        return *child;
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator ent::SceneEntity::find(const std::string &name) const
@@ -120,12 +119,6 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator e
         return name == keyValue.value->getName();
     });
     return it;
-}
-
-void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &sceneEntity)
-{
-    std::cout << "Adding child with name: " << sceneEntity->getName() << " UUID: " << sceneEntity->getUUID() << "\n";
-    childrens.set(sceneEntity->getUUID(),sceneEntity);
 }
 
 core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::SceneEntity::findChild(const std::string &UUID)
@@ -152,6 +145,39 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::Iterator ent::S
 ent::SceneEntity::~SceneEntity()
 {
     std::cout << "Entity with name: " << name << " UUID: " << getUUID() << " destroyed\n";
+}
+
+void ent::SceneEntity::changeParent(std::shared_ptr<SceneEntity> &newParent)
+{
+    if(newParent != nullptr && newParent.get() != parent && newParent.get() != this)
+    {
+        std::cout << "Changing parent beginned\n";
+        std::cout << "New Parent name: " << newParent->getName() << " UUID: " << newParent->getUUID() << "\n";
+        std::cout << "Detaching child with name : " << name << " with UUID: " << getUUID() << " from parent with name : " << parent->name << " with UUID: "  << parent->getUUID() << "\n";
+        if(parent != nullptr)
+        {
+            auto  child = parent->getChildByUUID(getUUID());
+            if (child != nullptr)
+            {
+                newParent->addChildByPointer(child);
+                parent->removeChildByUUID(getUUID());
+                parent = newParent.get();
+            }
+
+        }
+        else
+        {
+            newParent->addChildByPointer(std::shared_ptr<SceneEntity>(this));
+            parent = newParent.get();
+        }
+        std::cout << "Changed Parent name: " << parent->getName() << " UUID: " << parent->getUUID() << "\n";
+
+    }
+}
+
+void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &newChild)
+{
+    childrens.set(newChild->getUUID(),newChild);
 }
 
 

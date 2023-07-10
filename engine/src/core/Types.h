@@ -12,7 +12,7 @@
 #include <cstdlib>
 #include <cassert>
 #include <cstdio>
-#include <string>
+#include <iostream>
 #include <iterator>
 
 #if defined(__GNUC__) || defined(__GNUG__)

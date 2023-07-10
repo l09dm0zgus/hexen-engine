@@ -13,7 +13,7 @@ namespace ent
     class SceneEntity : public Entity
     {
     public:
-        SceneEntity(std::string name);
+        explicit SceneEntity(std::string name);
         SceneEntity(std::string name, const std::string &UUID);
         ~SceneEntity() override;
         std::string getName() const noexcept;
@@ -39,11 +39,10 @@ namespace ent
             childrens[childUUID]->setParent(this);
         }
 
-        void addChildByPointer(const std::shared_ptr<SceneEntity> &sceneEntity);
-
+        void addChildByPointer(const std::shared_ptr<SceneEntity> &newChild);
         void forceUpdateTransformMatrix();
         void updateTransformMatrix();
-        void detachFromParent();
+        void changeParent(std::shared_ptr<SceneEntity> &newParent);
         void removeChild(const std::string &name);
         void removeChildByUUID(const std::string &UUID);
     private:
