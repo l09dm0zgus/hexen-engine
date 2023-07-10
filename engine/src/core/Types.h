@@ -480,6 +480,7 @@ namespace core
 
             bool operator==(const ConstIterator &constIterator) const
             {
+                assert(owner == constIterator.owner && "different iterators owners!");
                 return owner == constIterator.owner && slotIndex == constIterator.slotIndex;
             }
 
