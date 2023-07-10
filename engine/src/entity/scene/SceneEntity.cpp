@@ -123,7 +123,6 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator e
 
 ent::SceneEntity::~SceneEntity()
 {
-    std::cout << "Entity with name: " << name << " UUID: " << getUUID() << " destroyed\n";
 }
 
 void ent::SceneEntity::changeParent(std::shared_ptr<SceneEntity> &newParent)
