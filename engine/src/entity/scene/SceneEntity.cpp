@@ -153,7 +153,7 @@ void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &new
     childrens.set(newChild->getUUID(),newChild);
 }
 
-bool ent::SceneEntity::isChildExist(const std::string &UUID)
+bool ent::SceneEntity::isDescendantExist(const std::string &UUID)
 {
     auto it = childrens.find(UUID);
     if(it != childrens.end())
@@ -164,13 +164,34 @@ bool ent::SceneEntity::isChildExist(const std::string &UUID)
     {
         for (const auto& child : childrens)
         {
-           if(child.value->isChildExist(UUID))
+           if(child.value->isDescendantExist(UUID))
            {
                 return true;
            }
         }
     }
     return false;
+}
+
+std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getDescendant(const std::string &UUID)
+{
+    auto it = childrens.find(UUID);
+    if(it != childrens.end())
+    {
+        return it->value;
+    }
+    else
+    {
+        for (const auto& child : childrens)
+        {
+            auto findedChild= child.value->getDescendant(UUID);
+            if(child.value != nullptr)
+            {
+                return child.value;
+            }
+        }
+    }
+    return nullptr;
 }
 
 
