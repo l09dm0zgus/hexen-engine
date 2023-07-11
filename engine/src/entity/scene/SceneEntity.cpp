@@ -153,18 +153,17 @@ void ent::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &new
     childrens.set(newChild->getUUID(),newChild);
 }
 
-bool ent::SceneEntity::isDescendantExist(const std::string &UUID)
+bool ent::SceneEntity::isNodeExist(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID)
 {
-    auto it = childrens.find(UUID);
-    if(it != childrens.end())
+    if(node->getUUID() == UUID)
     {
         return true;
     }
     else
     {
-        for (const auto& child : childrens)
+        for (const auto& child : node->childrens)
         {
-           if(child.value->isDescendantExist(UUID))
+           if(SceneEntity::isNodeExist(child.value,UUID))
            {
                 return true;
            }
@@ -173,22 +172,22 @@ bool ent::SceneEntity::isDescendantExist(const std::string &UUID)
     return false;
 }
 
-std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getDescendant(const std::string &UUID)
+std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getNode(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID)
 {
-    auto it = childrens.find(UUID);
-    if(it != childrens.end())
+    if(node->getUUID() == UUID)
     {
-        return it->value;
+        return node;
     }
     else
     {
-        for (const auto& child : childrens)
+        for (const auto& child : node->childrens)
         {
-            auto findedChild= child.value->getDescendant(UUID);
-            if(child.value != nullptr)
+            auto result = SceneEntity::getNode(child.value,UUID);
+            if(result != nullptr)
             {
-                return child.value;
+                return result;
             }
+
         }
     }
     return nullptr;

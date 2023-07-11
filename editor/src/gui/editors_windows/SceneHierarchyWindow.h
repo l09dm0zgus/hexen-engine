@@ -4,7 +4,7 @@
 
 #ifndef HEXENEDITOR_SCENEHIERARCHYWINDOW_H
 #define HEXENEDITOR_SCENEHIERARCHYWINDOW_H
-#include <entity/scene/SceneEntity.h>
+#include <core/scene/SceneManager.h>
 #include "GUIWindow.h"
 
 namespace edit::gui
@@ -16,7 +16,7 @@ namespace edit::gui
         void drawEntityChilds(core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &&childs);
         void startDragAndDropSource(const std::shared_ptr<ent::SceneEntity>& sceneEntity);
         void startDragAndDropTarget(std::shared_ptr<ent::SceneEntity>&& sceneEntity);
-        std::shared_ptr<ent::SceneEntity> scene;
+        std::shared_ptr<core::Scene> scene;
         const std::string PAYLOAD_NAME{"SCENE_HIERARCHY_PAYLOAD"};
     public:
         explicit SceneHierarchyWindow(std::string name);

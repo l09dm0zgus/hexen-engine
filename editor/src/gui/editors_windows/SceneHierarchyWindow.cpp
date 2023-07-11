@@ -7,7 +7,10 @@
 edit::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name) : GUIWindow(std::move(name))
 {
     setSize(glm::vec2(400,300));
+    //temporary, in future scene loading will be called in SceneFileWindow/menu bar , etc
+    core::SceneManager::loadScene("Main.hxscene");
 
+    scene = core::SceneManager::getCurrentScene();
 }
 
 void edit::gui::SceneHierarchyWindow::begin()
@@ -19,7 +22,9 @@ void edit::gui::SceneHierarchyWindow::draw()
 {
     ImGui::Begin(getName().c_str(),&isOpen,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
 
-    drawEntityChilds(std::move(scene->getChildrens()));
+    scene->forEach([this](std::shared_ptr<ent::SceneEntity>& entity){
+        drawEntityChilds(std::move(entity->getChildrens()));
+    });
 
     ImGui::End();
 }
@@ -85,9 +90,10 @@ void edit::gui::SceneHierarchyWindow::startDragAndDropTarget(std::shared_ptr<ent
             auto draggedEntity = (ent::SceneEntity*)(payload->Data);
             if(draggedEntity != nullptr)
             {
-                if(!draggedEntity->isDescendantExist(sceneEntity->getUUID()))
+                auto draggedEntitySharedPtr = std::shared_ptr<ent::SceneEntity>(draggedEntity);
+                if(ent::SceneEntity::isNodeExist(draggedEntitySharedPtr,sceneEntity->getUUID()))
                 {
-                    draggedEntity->changeParent(sceneEntity);
+                    draggedEntitySharedPtr->changeParent(sceneEntity);
                 }
             }
         }
