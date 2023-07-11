@@ -22,9 +22,7 @@ void edit::gui::SceneHierarchyWindow::draw()
 {
     ImGui::Begin(getName().c_str(),&isOpen,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
 
-    scene->forEach([this](std::shared_ptr<ent::SceneEntity>& entity){
-        drawEntityChilds(std::move(entity->getChildrens()));
-    });
+    drawEntityChilds(std::move(scene->getRootNode()->getChildrens()));
 
     ImGui::End();
 }
@@ -90,10 +88,9 @@ void edit::gui::SceneHierarchyWindow::startDragAndDropTarget(std::shared_ptr<ent
             auto draggedEntity = (ent::SceneEntity*)(payload->Data);
             if(draggedEntity != nullptr)
             {
-                auto draggedEntitySharedPtr = std::shared_ptr<ent::SceneEntity>(draggedEntity);
-                if(ent::SceneEntity::isNodeExist(draggedEntitySharedPtr,sceneEntity->getUUID()))
+                if(!draggedEntity->isDescendantExist(sceneEntity->getUUID()))
                 {
-                    draggedEntitySharedPtr->changeParent(sceneEntity);
+                    draggedEntity->changeParent(sceneEntity);
                 }
             }
         }
