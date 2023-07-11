@@ -7,13 +7,7 @@
 edit::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name) : GUIWindow(std::move(name))
 {
     setSize(glm::vec2(400,300));
-    scene = core::mem::make_shared<ent::SceneEntity>("Scene");
-    scene->addChild("Scene_Entity_0");
-    scene->addChild("Scene_Entity_1");
-    scene->addChild("Scene_Entity_2");
-    scene->getChild("Scene_Entity_2")->addChild("Scene_Entity_3");
-    scene->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_4");
-    scene->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_5");
+
 }
 
 void edit::gui::SceneHierarchyWindow::begin()
@@ -91,7 +85,7 @@ void edit::gui::SceneHierarchyWindow::startDragAndDropTarget(std::shared_ptr<ent
             auto draggedEntity = (ent::SceneEntity*)(payload->Data);
             if(draggedEntity != nullptr)
             {
-                if(!draggedEntity->isChildExist(sceneEntity->getUUID()))
+                if(!draggedEntity->isDescendantExist(sceneEntity->getUUID()))
                 {
                     draggedEntity->changeParent(sceneEntity);
                 }
