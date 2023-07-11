@@ -15,6 +15,8 @@ target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/A
         ${CMAKE_CURRENT_SOURCE_DIR}/window/Window.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/scene/Scene.h
         ${CMAKE_CURRENT_SOURCE_DIR}/scene/Scene.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/scene/SceneManager.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/scene/SceneManager.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Types.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Serialization.h
         ${CMAKE_CURRENT_SOURCE_DIR}/application/Settings.h
