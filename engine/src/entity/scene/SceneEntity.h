@@ -15,7 +15,6 @@ namespace ent
     public:
         explicit SceneEntity(std::string name);
         SceneEntity(std::string name, const std::string &UUID);
-        ~SceneEntity() override;
         std::string getName() const noexcept;
         SceneEntity* getParent() const noexcept;
         void setParent(SceneEntity *newParent);

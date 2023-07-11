@@ -121,10 +121,6 @@ core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator e
     return it;
 }
 
-ent::SceneEntity::~SceneEntity()
-{
-}
-
 void ent::SceneEntity::changeParent(std::shared_ptr<SceneEntity> &newParent)
 {
     if(newParent != nullptr && newParent.get() != parent && newParent.get() != this)
