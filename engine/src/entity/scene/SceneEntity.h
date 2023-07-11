@@ -23,6 +23,8 @@ namespace ent
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
         std::shared_ptr<SceneEntity> getChild(const std::string &name) const noexcept;
         std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID) const noexcept;
+        bool isDescendantExist(const std::string &descendantUUID);
+
 
         //helper static methods for finding nodes in Scene
         static bool isNodeExist(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID);

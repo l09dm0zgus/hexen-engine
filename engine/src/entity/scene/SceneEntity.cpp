@@ -159,10 +159,10 @@ bool ent::SceneEntity::isNodeExist(const std::shared_ptr<ent::SceneEntity> &node
     {
         for (const auto& child : node->childrens)
         {
-           if(SceneEntity::isNodeExist(child.value,UUID))
-           {
+            if(SceneEntity::isNodeExist(child.value,UUID))
+            {
                 return true;
-           }
+            }
         }
     }
     return false;
@@ -189,4 +189,24 @@ std::shared_ptr<ent::SceneEntity> ent::SceneEntity::getNode(const std::shared_pt
     return nullptr;
 }
 
+bool ent::SceneEntity::isDescendantExist(const std::string &descendantUUID)
+{
+    auto it = childrens.find(descendantUUID);
+    if(it != childrens.end())
+    {
+        return true;
+    }
+    else
+    {
+        for(const auto& child: childrens )
+        {
+            auto isExist = child.value->isDescendantExist(descendantUUID);
+            if(isExist)
+            {
+                return isExist;
+            }
+        }
+    }
+    return false;
+}
 
