@@ -7,7 +7,7 @@
 
 #include "../../entity/scene/SceneEntity.h"
 #include <iterator>
-#include <stack>
+#include <vector>
 #include <functional>
 
 namespace core
@@ -22,16 +22,17 @@ namespace core
     public:
         class SceneIterator : public std::iterator<std::bidirectional_iterator_tag,Scene>
         {
-        private:
-            using Node = std::pair<std::string,bool>;
         protected:
-             std::stack<Node> usedNodes;
+             u32 index{0};
+             std::vector<std::string> visitedNode;
              std::shared_ptr<ent::SceneEntity> root;
 
              friend class Scene;
-             void traverseTree(std::shared_ptr<ent::SceneEntity> &node);
-
+             void traverseTree(const std::shared_ptr<ent::SceneEntity> &node);
         public:
+            explicit SceneIterator(const std::shared_ptr<ent::SceneEntity> &root,u32 index);
+
+            //create iterator pointing to end()
             explicit SceneIterator(const std::shared_ptr<ent::SceneEntity> &root);
             SceneIterator(const SceneIterator &sceneIterator) = default;
             SceneIterator& operator++();
@@ -47,6 +48,8 @@ namespace core
         class SceneConstantIterator : public SceneIterator
         {
         public:
+            explicit SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root,u32 index);
+            //create iterator pointing to end()
             explicit SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root);
             SceneConstantIterator(const SceneConstantIterator &sceneIterator) = default;
             const std::shared_ptr<ent::SceneEntity> operator->() const;

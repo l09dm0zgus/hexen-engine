@@ -25,32 +25,32 @@ core::Scene::Scene(const std::string &name, const glm::vec2 &size, const glm::ve
 
 core::Scene::SceneIterator core::Scene::begin()
 {
-    return SceneIterator(root);
+    return SceneIterator(root,0);
 }
 
 core::Scene::SceneIterator core::Scene::end()
 {
-    return SceneIterator(nullptr);
+    return SceneIterator(root);
 }
 
 core::Scene::SceneConstantIterator core::Scene::cbegin() const
 {
-    return SceneConstantIterator(root);
+    return SceneConstantIterator(root, 0);
 }
 
 core::Scene::SceneConstantIterator core::Scene::cend() const
 {
-    return SceneConstantIterator(nullptr);
+    return SceneConstantIterator(root);
 }
 
 core::Scene::SceneConstantIterator core::Scene::find(const std::string &UUID) const
 {
-    return core::Scene::SceneConstantIterator(root->getDescendant(UUID));
+    return SceneConstantIterator(ent::SceneEntity::getNode(root,UUID));
 }
 
 core::Scene::SceneIterator core::Scene::find(const std::string &UUID)
 {
-    return SceneIterator(root->getDescendant(UUID));
+    return SceneIterator(ent::SceneEntity::getNode(root,UUID));
 }
 
 void core::Scene::erase(const std::string &UUID)
@@ -89,25 +89,26 @@ core::Scene::SceneIterator core::Scene::SceneIterator::operator--(core::i32)
     return tmp;
 }
 
-void core::Scene::SceneIterator::traverseTree(std::shared_ptr<ent::SceneEntity> &node)
+void core::Scene::SceneIterator::traverseTree(const std::shared_ptr<ent::SceneEntity> &node)
 {
-    if(node->getUUID() != usedNodes.top().first && !usedNodes.top().second)
+    auto it = std::find(visitedNode.cbegin(),visitedNode.cend(),node->getUUID());
+    if(it == visitedNode.cend())
     {
-        usedNodes.emplace(node->getUUID(), true);
-        return;
+        visitedNode.push_back(node->getUUID());
     }
     for(auto& child : node->getChildrens())
     {
         traverseTree(child.value);
     }
+
 }
 
 
 
 std::shared_ptr<ent::SceneEntity> core::Scene::SceneIterator::operator->() const
 {
-    assert(root == nullptr && "cannot dereference end iterator");
-    return root->getDescendant(usedNodes.top().first);
+    assert(index < visitedNode.size() && "cannot dereference end iterator");
+    return ent::SceneEntity::getNode(root,visitedNode[index]);
 }
 
 std::shared_ptr<ent::SceneEntity> core::Scene::SceneIterator::operator*() const
@@ -117,7 +118,7 @@ std::shared_ptr<ent::SceneEntity> core::Scene::SceneIterator::operator*() const
 
 bool core::Scene::SceneIterator::operator==(const core::Scene::SceneIterator &sceneIterator) const
 {
-    return root == sceneIterator.root;
+    return root == sceneIterator.root && index == sceneIterator.index;
 }
 
 bool core::Scene::SceneIterator::operator!=(const core::Scene::SceneIterator &sceneIterator) const
@@ -125,22 +126,28 @@ bool core::Scene::SceneIterator::operator!=(const core::Scene::SceneIterator &sc
     return !operator==(sceneIterator);
 }
 
-core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<ent::SceneEntity> &root) : root(root)
+core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<ent::SceneEntity> &root,u32 index) : root(root) , index(index)
 {
-
+    traverseTree(root);
 }
 
 core::Scene::SceneIterator &core::Scene::SceneIterator::operator++()
 {
-    assert(root == nullptr && "cannot increment end iterator");
-    traverseTree(root);
+    assert(index < visitedNode.size() && "cannot increment end iterator");
+    index++;
     return *this;
 }
 
 core::Scene::SceneIterator &core::Scene::SceneIterator::operator--()
 {
-    usedNodes.pop();
+    index--;
     return *this;
+}
+
+core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<ent::SceneEntity> &root) : root(root)
+{
+    traverseTree(root);
+    index = visitedNode.size();
 }
 
 const std::shared_ptr<ent::SceneEntity> core::Scene::SceneConstantIterator::operator->() const
@@ -153,7 +160,12 @@ const std::shared_ptr<ent::SceneEntity> core::Scene::SceneConstantIterator::oper
     return SceneIterator::operator*();
 }
 
-core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root ): SceneIterator(root)
+core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root,u32 index ): SceneIterator(root,index)
+{
+
+}
+
+core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root) : SceneIterator(root)
 {
 
 }
