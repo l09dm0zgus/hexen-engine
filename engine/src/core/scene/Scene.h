@@ -65,13 +65,17 @@ namespace core
             root->addChild<T>(params...);
         }
 
+        std::shared_ptr<ent::SceneEntity> getRootNode() const noexcept;
+
         SceneIterator begin();
         SceneIterator end();
+
         SceneConstantIterator cbegin() const;
         SceneConstantIterator cend() const;
 
         SceneConstantIterator find(const std::string &UUID) const;
         SceneIterator find(const std::string &UUID);
+
         void erase(const SceneIterator &sceneIterator);
         void erase(const std::string &UUID);
 

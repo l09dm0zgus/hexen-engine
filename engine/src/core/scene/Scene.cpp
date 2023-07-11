@@ -75,6 +75,11 @@ void core::Scene::forEach(std::function<void(std::shared_ptr<ent::SceneEntity> &
     }
 }
 
+std::shared_ptr<ent::SceneEntity> core::Scene::getRootNode() const noexcept
+{
+    return root;
+}
+
 core::Scene::SceneIterator core::Scene::SceneIterator::operator++(core::i32)
 {
     auto tmp = *this;
