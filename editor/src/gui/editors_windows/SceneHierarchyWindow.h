@@ -28,8 +28,8 @@ namespace edit::gui
         std::shared_ptr<ent::SceneEntity>  hoveredNode;
         std::string searchQuery;
         core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> findedChilds;
+        core::HashTable<std::string,bool> isNodeNameEditing;
         const std::string PAYLOAD_NAME{"SCENE_HIERARCHY_PAYLOAD"};
-        bool isEditingName{false};
         bool isItemHovered{false};
     public:
         explicit SceneHierarchyWindow(std::string name);

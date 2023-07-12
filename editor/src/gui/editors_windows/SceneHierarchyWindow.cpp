@@ -68,6 +68,21 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(core::HashTable<std::stri
             ImGui::PushID(child.key.c_str());
             bool open = ImGui::TreeNodeEx(child.value->getName().data(), flags);
 
+            if( ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+            {
+                isNodeNameEditing[child.key] = true;
+            }
+
+            if(isNodeNameEditing[child.key])
+            {
+                auto nodeName = child.value->getName();
+                if(ImGui::InputText("##",&nodeName,ImGuiInputTextFlags_EnterReturnsTrue))
+                {
+                    child.value->rename(nodeName);
+                    isNodeNameEditing[child.key] = false;
+                }
+            }
+
             checkHoveredItem();
 
             ImGui::PopID();
@@ -135,9 +150,8 @@ void edit::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<ent::Scen
     ImGui::PushID(entity->getUUID().c_str());
     bool open = ImGui::TreeNodeEx(entity->getName().data(), flags);
 
-    checkHoveredItem();
-
     ImGui::PopID();
+    checkHoveredItem();
 
     auto hasChilds = entity->hasChildrens();
 
