@@ -3,6 +3,8 @@
 //
 
 #include "SceneHierarchyWindow.h"
+#include "../IconsFontAwesome5.h"
+#include <misc/cpp/imgui_stdlib.h>
 
 edit::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name) : GUIWindow(std::move(name))
 {
@@ -21,8 +23,20 @@ void edit::gui::SceneHierarchyWindow::begin()
 void edit::gui::SceneHierarchyWindow::draw()
 {
     ImGui::Begin(getName().c_str(),&isOpen,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
-
-    drawEntityChilds(std::move(scene->getRootNode()->getChildrens()));
+    drawSearchBar();
+    if(searchQuery.empty())
+    {
+        drawEntity(scene->getRootNode());
+    }
+    else
+    {
+        findedChilds.clear();
+        auto result = ent::SceneEntity::searchNode(scene->getRootNode(),searchQuery,findedChilds);
+        if(result)
+        {
+            drawEntityChilds(std::move(findedChilds));
+        }
+    }
 
     ImGui::End();
 }
@@ -49,8 +63,6 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(core::HashTable<std::stri
         {
             ImGui::PushID(child.key.c_str());
             bool open = ImGui::TreeNodeEx(child.value->getName().data(), flags);
-
-
 
             ImGui::PopID();
             bool hasChilds = child.value->hasChildrens();
@@ -95,5 +107,27 @@ void edit::gui::SceneHierarchyWindow::startDragAndDropTarget(std::shared_ptr<ent
             }
         }
         ImGui::EndDragDropTarget();
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::drawSearchBar()
+{
+    ImGui::InputText(ICON_FA_SEARCH "" ,&searchQuery,ImGuiInputTextFlags_EnterReturnsTrue);
+}
+
+void edit::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<ent::SceneEntity> &entity)
+{
+    core::i32 flags = ImGuiTreeNodeFlags_OpenOnArrow;
+
+    ImGui::PushID(entity->getUUID().c_str());
+    bool open = ImGui::TreeNodeEx(entity->getName().data(), flags);
+    ImGui::PopID();
+
+    auto hasChilds = entity->hasChildrens();
+
+    if (hasChilds && open)
+    {
+        drawEntityChilds(std::move(entity->getChildrens()));
+        ImGui::TreePop();
     }
 }

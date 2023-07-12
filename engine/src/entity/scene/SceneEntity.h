@@ -29,6 +29,7 @@ namespace ent
         //helper static methods for finding nodes in Scene
         static bool isNodeExist(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID);
         static std::shared_ptr<SceneEntity> getNode(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID);
+        static bool searchNode(const std::shared_ptr<ent::SceneEntity> &node, const std::string &searchQuery,core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &findedNodes);
 
         template<class T, class... Ts> void addChild(Ts&&... params)
         {

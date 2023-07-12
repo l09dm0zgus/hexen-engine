@@ -210,3 +210,28 @@ bool ent::SceneEntity::isDescendantExist(const std::string &descendantUUID)
     return false;
 }
 
+bool ent::SceneEntity::searchNode(const std::shared_ptr<ent::SceneEntity> &node, const std::string &searchQuery,core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>> &findedNodes)
+{
+    auto found = node->getName().find(searchQuery);
+
+    if (found != std::string::npos)
+    {
+        findedNodes.set(node->getUUID(),node);
+        return true;
+    }
+    else
+    {
+        for (const auto &child: node->childrens)
+        {
+            auto result = SceneEntity::searchNode(child.value,searchQuery,findedNodes);
+            if (result)
+            {
+                return result;
+            }
+        }
+    }
+    return false;
+
+}
+
+
