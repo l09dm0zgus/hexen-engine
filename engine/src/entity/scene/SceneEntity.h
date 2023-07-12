@@ -25,6 +25,11 @@ namespace ent
         std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID) const noexcept;
         bool isDescendantExist(const std::string &descendantUUID);
 
+        template<class T>
+        void rename(T&& newName)
+        {
+            name = std::forward<T>(newName);
+        }
 
         //helper static methods for finding nodes in Scene
         static bool isNodeExist(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID);
