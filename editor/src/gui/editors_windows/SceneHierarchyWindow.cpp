@@ -35,8 +35,12 @@ void edit::gui::SceneHierarchyWindow::draw()
         if(result)
         {
             drawEntityChilds(std::move(findedChilds));
+
         }
     }
+
+
+    drawContextMenu();
 
     ImGui::End();
 }
@@ -51,7 +55,7 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(core::HashTable<std::stri
 
     for(auto& child : childs)
     {
-        core::i32 flags = ImGuiTreeNodeFlags_OpenOnArrow;
+        core::i32 flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 
 
         if (!child.value->hasChildrens())
@@ -64,8 +68,16 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(core::HashTable<std::stri
             ImGui::PushID(child.key.c_str());
             bool open = ImGui::TreeNodeEx(child.value->getName().data(), flags);
 
+            checkHoveredItem();
+
             ImGui::PopID();
+
             bool hasChilds = child.value->hasChildrens();
+
+            if(isItemHovered)
+            {
+                hoveredNode = child.value;
+            }
 
             if(open)
             {
@@ -80,6 +92,7 @@ void edit::gui::SceneHierarchyWindow::drawEntityChilds(core::HashTable<std::stri
         }
 
     }
+
 }
 
 void edit::gui::SceneHierarchyWindow::startDragAndDropSource( const std::shared_ptr<ent::SceneEntity>& sceneEntity)
@@ -121,6 +134,9 @@ void edit::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<ent::Scen
 
     ImGui::PushID(entity->getUUID().c_str());
     bool open = ImGui::TreeNodeEx(entity->getName().data(), flags);
+
+    checkHoveredItem();
+
     ImGui::PopID();
 
     auto hasChilds = entity->hasChildrens();
@@ -128,6 +144,75 @@ void edit::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<ent::Scen
     if (hasChilds && open)
     {
         drawEntityChilds(std::move(entity->getChildrens()));
+
+        checkHoveredItem();
+
         ImGui::TreePop();
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::drawContextMenu()
+{
+    if(ImGui::BeginPopupContextWindow())
+    {
+        if(isItemHovered)
+        {
+            drawAddChild();
+            drawDelete();
+        }
+        else
+        {
+            drawAddSceneEntity();
+        }
+        ImGui::EndPopup();
+    }
+    if(ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+    {
+        isItemHovered = false;
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::drawAddSceneEntity()
+{
+    if(ImGui::MenuItem( ICON_FA_FILE  " Add Scene Entity..."))
+    {
+        scene->spawnEntity<ent::SceneEntity>("Scene Entity");
+
+    }
+
+}
+
+void edit::gui::SceneHierarchyWindow::drawAddChild()
+{
+    if(ImGui::MenuItem( ICON_FA_FILE  " Add Child..."))
+    {
+        if(hoveredNode != nullptr)
+        {
+            hoveredNode->addChild<ent::SceneEntity>("Child");
+        }
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::drawDelete()
+{
+    if(ImGui::MenuItem( ICON_FA_TRASH  " Delete"))
+    {
+        if(hoveredNode != nullptr)
+        {
+            auto parent = hoveredNode->getParent();
+
+            if(parent != nullptr)
+            {
+                parent->removeChildByUUID(hoveredNode->getUUID());
+            }
+        }
+    }
+}
+
+void edit::gui::SceneHierarchyWindow::checkHoveredItem()
+{
+    if(ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup))
+    {
+        isItemHovered = true;
     }
 }
