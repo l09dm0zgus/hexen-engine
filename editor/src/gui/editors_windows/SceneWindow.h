@@ -5,25 +5,17 @@
 #ifndef HEXENEDITOR_SCENEWINDOW_H
 #define HEXENEDITOR_SCENEWINDOW_H
 
-#include <core/Types.h>
-#include <core/graphics/FrameBufferObject.h>
-#include <core/graphics/texture/FrameBufferTexture.h>
-#include "GUIWindow.h"
+#include "FramebufferWindow.h"
 
 namespace edit::gui
 {
-    class SceneWindow : public GUIWindow
+    class SceneWindow : public FramebufferWindow
     {
     public:
-        explicit SceneWindow(const std::string &name);
-        void begin() override;
-        void draw() override;
-        void end() override;
+       explicit SceneWindow(const std::string &name);
     private:
-        void clear();
-        void drawScene();
-        core::rend::FrameBufferObject frameBufferObject;
-        std::unique_ptr<core::rend::FrameBufferTexture> frameBufferTexture;
+        void render() override;
+
     };
 
 }
