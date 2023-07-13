@@ -46,11 +46,14 @@ core::vptr core::mem::AllocatedObject::operator new(u64 size)
 
 void core::mem::AllocatedObject::operator delete(core::vptr address) noexcept
 {
-    if(address == nullptr || memoryPool == nullptr)
+    if(address == nullptr)
     {
         SDL_Log("Failed to freed memory!\n");
     }
-    memoryPool->free(address);
+    if(memoryPool != nullptr)
+    {
+        memoryPool->free(address);
+    }
 }
 
 core::mem::AllocatedObject::AllocatedObject()
