@@ -5,7 +5,7 @@
 #ifndef HEXENEDITOR_THREADLOCALSTORAGE_H
 #define HEXENEDITOR_THREADLOCALSTORAGE_H
 
-#include <core/Types.h>
+#include "../Types.h"
 #include <vector>
 #include <atomic>
 #include "Fiber.h"
