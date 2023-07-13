@@ -4,7 +4,8 @@
 
 #ifndef HEXENEDITOR_ISYSTEM_H
 #define HEXENEDITOR_ISYSTEM_H
-#include "core/memory_pool/AllocatedObject.h"
+
+#include "../core/memory_pool/MemoryPool.h"
 
 namespace sys
 {
