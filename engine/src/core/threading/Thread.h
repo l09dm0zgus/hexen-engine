@@ -17,7 +17,7 @@ namespace core::threading
         using  CallbackType = void(*)(Thread*);
     private:
         vptr handle{nullptr};
-        u32 id = UINT32_MAX;
+        u64 id = UINT64_MAX;
         ThreadLocalStorage storage;
 
         std::condition_variable receivedId;
@@ -44,8 +44,8 @@ namespace core::threading
         inline ThreadLocalStorage* getStorage() { return &storage; }
         inline CallbackType getCallback() const { return callback; }
         inline vptr getUserData() const { return userData; }
-        inline bool hasSpawned() const { return id != UINT32_MAX; }
-        inline const u32 getID() const { return id; }
+        inline bool hasSpawned() const { return id != UINT64_MAX; }
+        inline const u64 getID() const{ return id; }
 
         // Thread may launch before an ID was assigned (especially in Win32)
         // MSDN: If the thread is created in a runnable state (that is, if the

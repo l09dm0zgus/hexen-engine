@@ -3,6 +3,8 @@
 //
 
 #include "Thread.h"
+#include <thread>
+#include <sstream>
 #if defined(WINDOWS_API)
 #include <Windows.h>
 #define ATTRIBUTE WINAPI
@@ -22,7 +24,7 @@
 
 #endif
 
-static void ATTRIBUTE launchThread(core::vptr data)
+static void* ATTRIBUTE launchThread(core::vptr data)
 {
     auto thread = reinterpret_cast<core::threading::Thread*>(data);
 
@@ -35,12 +37,15 @@ static void ATTRIBUTE launchThread(core::vptr data)
     thread->waitForReady();
     callback(thread);
 
+#if defined(POSIX_API)
+    pthread_exit(nullptr);
+#endif
 }
 
 bool core::threading::Thread::spawn(core::threading::Thread::CallbackType newCallback, core::vptr newUserdata)
 {
     handle = nullptr;
-    id = UINT32_MAX;
+    id = UINT64_MAX;
     callback = newCallback;
     userData = newUserdata;
     receivedId.notify_all();
@@ -52,10 +57,11 @@ bool core::threading::Thread::spawn(core::threading::Thread::CallbackType newCal
 
 #elif defined(POSIX_API)
 
-    pthread_t pthread;
-    pthread_create(&pthread, nullptr, reinterpret_cast<void *(*)(void *)>(launchThread), this);
-    id = pthread;
-    handle = reinterpret_cast<vptr>(pthread);
+    std::lock_guard<std::mutex> lock(startupIdMutex);
+    auto result = pthread_create(&id, nullptr, launchThread, this);
+    assert(result == 0 && "failed to create thread");
+    handle = reinterpret_cast<vptr>(id);
+    std::cout << "Created thread  with id :" << id  << "\n";
 
 #endif
 
@@ -101,8 +107,8 @@ void core::threading::Thread::join()
 
 #elif defined(POSIX_API)
 
-    pthread_join(id, nullptr);
-
+    auto result = pthread_join(id, nullptr);
+    assert(result == 0 && "failed to join thread");
 #endif
 }
 
@@ -114,12 +120,19 @@ void core::threading::Thread::fromCurrentThread()
     handle = GetCurrentThread();
     id = GetCurrentThreadId();
 
+
 #elif defined(POSIX_API)
 
-    id = pthread_self();
-    handle = (vptr)pthread_self();
+    if(id == UINT64_MAX)
+    {
+        id = pthread_self();
+    }
+
+    std::cout << "Current thread: " << id << "\n";
 
 #endif
+
+
 
 }
 
@@ -128,7 +141,7 @@ void core::threading::Thread::waitForReady()
     // Check if we have an ID already
     {
         std::lock_guard<std::mutex> lock(startupIdMutex);
-        if (id != UINT32_MAX)
+        if (id != UINT64_MAX)
         {
             return;
         }

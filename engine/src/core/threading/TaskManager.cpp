@@ -7,6 +7,7 @@
 #include "Fiber.h"
 #include "TaskCounter.h"
 #include <thread>
+#include <sstream>
 
 #if defined(WINDOWS_API)
 #include <Windows.h>
@@ -33,8 +34,10 @@ core::threading::TaskManager::~TaskManager()
     delete[] idleFibers;
 }
 
-core::threading::TaskManager::ReturnCode core::threading::TaskManager::run(core::threading::TaskManager::MainCallback callback) {
-    if (threads != nullptr || fibers != nullptr) {
+core::threading::TaskManager::ReturnCode core::threading::TaskManager::run(core::threading::TaskManager::MainCallback callback)
+{
+    if (threads != nullptr || fibers != nullptr)
+    {
         return ReturnCode::AlreadyInitialized;
     }
 
@@ -43,43 +46,53 @@ core::threading::TaskManager::ReturnCode core::threading::TaskManager::run(core:
 
     mainThread->fromCurrentThread();
 
-    if (isThreadAffinity) {
+    if (isThreadAffinity)
+    {
         mainThread->setAffinity(1);
     }
 
     auto mainThreadLocalStorage = mainThread->getStorage();
     mainThreadLocalStorage->threadFiber.convertFromCurrentThread();
 
-    if (numberOfFibers == 0) {
+    if (numberOfFibers == 0)
+    {
         return ReturnCode::InvalidNumberOfFibers;
     }
 
     fibers = new Fiber[numberOfFibers];
     idleFibers = new std::atomic_bool[numberOfFibers];
 
-    for (u32 i = 0; i < numberOfFibers; i++) {
+    for (u32 i = 0; i < numberOfFibers; i++)
+    {
         fibers[i].setCallback(fiberCallbackWorker);
         idleFibers[i].store(true, std::memory_order_relaxed);
     }
 
-    if (isThreadAffinity && numberOfThreads > std::thread::hardware_concurrency()) {
+    if (isThreadAffinity && numberOfThreads > std::thread::hardware_concurrency())
+    {
         return ReturnCode::ErrorThreadAffinity;
     }
 
     //Spawn threads
-    for (u16 i = 0; i < numberOfThreads; i++) {
+    for (u16 i = 0; i < numberOfThreads; i++)
+    {
+
         auto storage = threads[i].getStorage();
         storage->threadIndex = i;
-        if (i > 0) {
+
+        if (i > 0)
+        {
             storage->setAffinity = isThreadAffinity;
 
-            if (!threads[i].spawn(threadCallbackWorker, this)) {
+            if (!threads[i].spawn(threadCallbackWorker, this))
+            {
                 return ReturnCode::OSError;
             }
         }
     }
 
-    if (callback == nullptr) {
+    if (callback == nullptr)
+    {
         return ReturnCode::NullCallback;
     }
 
@@ -104,7 +117,7 @@ void core::threading::TaskManager::shutdown(bool isBlocking)
     isShuttingDown.store(true,std::memory_order_release);
     if(isBlocking)
     {
-        for(u16 i = 1; i < numberOfFibers; i++)
+        for(u32 i = 1; i < numberOfFibers; i++)
         {
             threads[i].join();
         }
@@ -353,7 +366,7 @@ core::u16 core::threading::TaskManager::getCurrentThreadIndex() const
 
 #elif defined(POSIX_API)
 
-auto id = pthread_self();
+    auto id = pthread_self();
 
 #endif
 
@@ -400,9 +413,10 @@ core::threading::ThreadLocalStorage *core::threading::TaskManager::getCurrentTLS
 
 #elif defined(POSIX_API)
 
-    auto id = pthread_self();
+    auto id =  pthread_self();
 
 #endif
+
 
     for(u16 i = 0; i < numberOfThreads ; i++)
     {
