@@ -14,6 +14,7 @@
 #include <bits/sigstksz.h>
 
 #endif
+
 static void launchFiber(core::threading::Fiber* fiber)
 {
     auto callback = fiber->getCallback();
