@@ -24,3 +24,4 @@ target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/A
 
 
 add_subdirectory(graphics)
+add_subdirectory(threading)

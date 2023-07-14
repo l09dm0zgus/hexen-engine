@@ -15,8 +15,9 @@ namespace core::threading
         class BaseCounter
         {
         private:
-            friend class Manager;
         protected:
+            friend class Manager;
+
             std::atomic<u32> counter{0};
 
             struct WaitingFibers
@@ -36,7 +37,6 @@ namespace core::threading
 
             TaskManager *manager;
 
-            bool addWaitingFiber(u16 fiberIndex ,u32 targetValue,std::atomic_bool* fiberStored);
             void checkWaitingFibers(u32 value);
 
         public:
@@ -48,6 +48,7 @@ namespace core::threading
 
             u32 getValue() const;
 
+            bool addWaitingFiber(u16 fiberIndex ,u32 targetValue,std::atomic_bool* fiberStored);
         };
         struct TinyCounter : public  BaseCounter
         {

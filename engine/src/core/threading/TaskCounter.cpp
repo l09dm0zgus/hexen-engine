@@ -3,6 +3,9 @@
 //
 
 #include "TaskCounter.h"
+#include "TaskManager.h"
+#include "ThreadLocalStorage.h"
+
 
 core::threading::detail::BaseCounter::BaseCounter(core::threading::TaskManager *manager, core::u8 numberOfWaitingFibers,core::threading::detail::BaseCounter::WaitingFibers *waitingFibers,std::atomic_bool *freeWaitingSlots) : manager(manager) , nubmberOfWaitingFibers(numberOfWaitingFibers),waitingFibers(waitingFibers),freeWaitingSlots(freeWaitingSlots)
 {
@@ -41,7 +44,7 @@ void core::threading::detail::BaseCounter::checkWaitingFibers(core::u32 value)
                 continue;
             }
 
-            //manager->getCurrentTLS()->readyFibers.emplace_back(waitingSlot->fiberIndex, waitingSlot->fiberStored);
+            manager->getCurrentTLS()->readyFibers.emplace_back(waitingSlot->fiberIndex, waitingSlot->fiberStored);
             freeWaitingSlots[i].store(true, std::memory_order_release);
         }
     }
