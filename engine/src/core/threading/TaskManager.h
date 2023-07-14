@@ -86,21 +86,21 @@ namespace core::threading
 
         void shutdown(bool isBlocking);
 
-        void scheludeJob(TaskPriority taskPriority , const TaskInfo &task);
+        void scheduleTask(TaskPriority taskPriority , const TaskInfo &task);
 
         void waitForCounter(detail::BaseCounter* counter , u32 value = 0);
         void waitForSingle(TaskPriority taskPriority , TaskInfo task);
 
         template <typename Callable, typename... Args>
-        inline void scheduleJob(TaskPriority taskPriority, Callable callable, Args... args)
+        inline void scheduleTask(TaskPriority taskPriority, Callable callable, Args... args)
         {
-            scheduleJob(taskPriority, TaskInfo(callable, args...));
+            scheduleTask(taskPriority, TaskInfo(callable, args...));
         }
 
         template <typename Callable, typename... Args>
-        inline void scheduleJob(TaskPriority taskPriority, detail::BaseCounter* ctr, Callable callable, Args... args)
+        inline void scheduleTask(TaskPriority taskPriority, detail::BaseCounter* ctr, Callable callable, Args... args)
         {
-            scheduleJob(taskPriority, TaskInfo(ctr, callable, args...));
+            scheduleTask(taskPriority, TaskInfo(ctr, callable, args...));
         }
 
         template <typename Callable, typename... Args>

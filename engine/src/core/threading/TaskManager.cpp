@@ -289,7 +289,7 @@ bool core::threading::TaskManager::getNextTask(core::threading::TaskInfo &taskIn
 }
 
 
-void core::threading::TaskManager::scheludeJob(core::threading::TaskPriority taskPriority, const core::threading::TaskInfo &task)
+void core::threading::TaskManager::scheduleTask(core::threading::TaskPriority taskPriority, const core::threading::TaskInfo &task)
 {
     auto queue = getQueueByPriority(taskPriority);
     if (!queue)
@@ -340,7 +340,7 @@ void core::threading::TaskManager::waitForSingle(core::threading::TaskPriority t
     detail::TinyCounter ctr(this);
     task.setCounter(&ctr);
 
-    scheduleJob(taskPriority, task);
+    scheduleTask(taskPriority, task);
     waitForCounter(&ctr);
 }
 
