@@ -20,6 +20,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         AssetsIcon.cpp
         SceneHierarchyWindow.h
         SceneHierarchyWindow.cpp
+        FramebufferWindow.h
+        FramebufferWindow.cpp
         )
 
 add_subdirectory(native_file_dialog)
