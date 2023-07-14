@@ -42,7 +42,7 @@ namespace core::threading
         template <class TClass, typename... Args>
         void storeJobInfo(TClass* inst, Args... args)
         {
-            using Ret = typename detail::FunctionTraits<TClass>::return_type;
+            using Ret = typename detail::FunctionTraits<TClass>::ReturnType;
             storeJobInfo<typename detail::DelegateMember<TClass, Ret, Args...>>(&TClass::operator(), inst, args...);
         }
 
