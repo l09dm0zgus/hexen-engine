@@ -107,8 +107,6 @@ void core::threading::Fiber::convertFromCurrentThread()
 {
 #if defined(WINDOWS_API)
 
-    SwitchToFiber(returnFiber->fiber);
-
     if (fiber && !isThreadFiber)
     {
         DeleteFiber(fiber);
