@@ -33,7 +33,7 @@ namespace core::threading::detail
     {
         static constexpr void check()
         {
-            static_assert(false, ": argument type mismatch <index, expected type, actual type>");
+            static_assert(": argument type mismatch <index, expected type, actual type>");
         }
     };
 

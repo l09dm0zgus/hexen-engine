@@ -117,7 +117,7 @@ void core::threading::Thread::fromCurrentThread()
 #elif defined(POSIX_API)
 
     id = pthread_self();
-    handle = pthread_self();
+    handle = (vptr)pthread_self();
 
 #endif
 
@@ -128,7 +128,8 @@ void core::threading::Thread::waitForReady()
     // Check if we have an ID already
     {
         std::lock_guard<std::mutex> lock(startupIdMutex);
-        if (id != UINT32_MAX) {
+        if (id != UINT32_MAX)
+        {
             return;
         }
     }

@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <ucontext.h>
-#include <bits/sigstksz.h>
+#include <signal.h>
 
 #endif
 
