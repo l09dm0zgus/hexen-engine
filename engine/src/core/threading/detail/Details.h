@@ -47,7 +47,7 @@ namespace core::threading::detail
 
     // Apply (Member functions)
     template <typename Class, typename Function, typename Tuple, unsigned... I>
-    auto applyImplementation(Class* inst, Function func, Tuple&& tuple, index_tuple<I...>)
+    auto applyImplementation(Class* inst, Function func, Tuple&& tuple, IndexTuple<I...>)
     {
         return (inst->*func)(std::get<I>(tuple)...);
     }

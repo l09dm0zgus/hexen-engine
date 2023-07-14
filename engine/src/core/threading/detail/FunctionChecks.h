@@ -4,6 +4,8 @@
 
 #ifndef HEXENEDITOR_FUNCTIONCHECKS_H
 #define HEXENEDITOR_FUNCTIONCHECKS_H
+
+
 #include <type_traits>
 #include <tuple>
 #include "FunctionTraits.h"
@@ -17,7 +19,7 @@ namespace core::threading::detail
     {
         static constexpr void check()
         {
-            static_assert(std::is_trivial<T>::value, __FUNCTION__  " :expected trivial type <type>");
+            static_assert(std::is_trivial<T>::value, " :expected trivial type <type>");
         }
     };
 
@@ -31,7 +33,7 @@ namespace core::threading::detail
     {
         static constexpr void check()
         {
-            static_assert(false, __FUNCTION__ ": argument type mismatch <index, expected type, actual type>");
+            static_assert(false, ": argument type mismatch <index, expected type, actual type>");
         }
     };
 
@@ -71,7 +73,7 @@ namespace core::threading::detail
     {
         static constexpr void check()
         {
-            static_assert(Expected == Actual, __FUNCTION__ ": Argument count mismatch <expected, actual>");
+            static_assert(Expected == Actual, ": Argument count mismatch <expected, actual>");
         }
     };
 
@@ -81,7 +83,7 @@ namespace core::threading::detail
     {
         static constexpr void check()
         {
-            static_assert(is_callable<TCallable>::value, __FUNCTION__ ": Type is not callable <type>");
+            static_assert(IsCallable<TCallable>::value,": Type is not callable <type>");
         }
     };
 
@@ -118,7 +120,7 @@ namespace core::threading::detail
     {
         static constexpr void check()
         {
-            static_assert(Actual <= Maximum, __FUNCTION__ ": Delegate exceeds size limit <Actual Size, Maximum Size>");
+            static_assert(Actual <= Maximum,  ": Delegate exceeds size limit <Actual Size, Maximum Size>");
         }
     };
 }
