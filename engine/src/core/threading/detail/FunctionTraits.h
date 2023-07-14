@@ -42,7 +42,7 @@ namespace core::threading::detail
         };
 
     public:
-        using args = typename RemoveThisArgument<typename FuncTraits::Args>::type;
+        using args = typename RemoveThisArgument<typename FuncTraits::args>::type;
         using ReturnType = typename FuncTraits::ReturnType;
 
         static constexpr u64 NumberOfArguments = FuncTraits::NumberOfArguments - 1; // instance
