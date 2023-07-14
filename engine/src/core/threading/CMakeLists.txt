@@ -7,4 +7,9 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/ThreadLocalStorage.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Thread.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Thread.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/MPMCQueue.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/FunctionTraits.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/FunctionChecks.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/Details.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/Delegate.h
         )
