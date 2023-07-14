@@ -94,14 +94,14 @@ namespace core::threading::detail
     private:
         static constexpr void checkArguments()
         {
-            using func_traits = FunctionTraits<TCallable>;
-            ArgumentChecker<0, typename func_traits::args, typename std::tuple<Args...>>::check();
+            using FuncTraits = FunctionTraits<TCallable>;
+            ArgumentChecker<0, typename FuncTraits::args, typename std::tuple<Args...>>::check();
         }
 
         static constexpr void checkArgumentCount()
         {
-            using func_traits = FunctionTraits<TCallable>;
-            ArgumentCountChecker<func_traits::num_args, sizeof...(Args)>::check();
+            using FuncTraits = FunctionTraits<TCallable>;
+            ArgumentCountChecker<FuncTraits::NumberOfArguments, sizeof...(Args)>::check();
 
             checkArguments();
         }
