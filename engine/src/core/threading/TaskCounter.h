@@ -9,7 +9,7 @@
 
 namespace core::threading
 {
-    class Manager;
+    class TaskManager;
     namespace detail
     {
         class BaseCounter
@@ -34,13 +34,13 @@ namespace core::threading
 
             void initializeWaitingFibers();
 
-            Manager *manager;
+            TaskManager *manager;
 
             bool addWaitingFiber(u16 fiberIndex ,u32 targetValue,std::atomic_bool* fiberStored);
             void checkWaitingFibers(u32 value);
 
         public:
-            BaseCounter(Manager* manager , u8 numberOfWaitingFibers,WaitingFibers* waitingFibers , std::atomic_bool* freeWaitingSlots);
+            BaseCounter(TaskManager* manager , u8 numberOfWaitingFibers,WaitingFibers* waitingFibers , std::atomic_bool* freeWaitingSlots);
             virtual ~BaseCounter() = default;
 
             u32 increment(u32 by = 1);
@@ -51,7 +51,7 @@ namespace core::threading
         };
         struct TinyCounter : public  BaseCounter
         {
-            explicit TinyCounter(Manager *manager);
+            explicit TinyCounter(TaskManager *manager);
             ~TinyCounter() override = default;
 
             std::atomic_bool freeWaitingSlot{};
@@ -62,7 +62,7 @@ namespace core::threading
     {
     public:
         static const constexpr  u8 MAX_WAITING = 4;
-        explicit TaskCounter(Manager *manager);
+        explicit TaskCounter(TaskManager *manager);
         ~TaskCounter() override = default;
     private:
         std::atomic_bool freeWaitingSlots[MAX_WAITING]{};

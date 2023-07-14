@@ -4,7 +4,7 @@
 
 #include "TaskCounter.h"
 
-core::threading::detail::BaseCounter::BaseCounter(core::threading::Manager *manager, core::u8 numberOfWaitingFibers,core::threading::detail::BaseCounter::WaitingFibers *waitingFibers,std::atomic_bool *freeWaitingSlots) : manager(manager) , nubmberOfWaitingFibers(numberOfWaitingFibers),waitingFibers(waitingFibers),freeWaitingSlots(freeWaitingSlots)
+core::threading::detail::BaseCounter::BaseCounter(core::threading::TaskManager *manager, core::u8 numberOfWaitingFibers,core::threading::detail::BaseCounter::WaitingFibers *waitingFibers,std::atomic_bool *freeWaitingSlots) : manager(manager) , nubmberOfWaitingFibers(numberOfWaitingFibers),waitingFibers(waitingFibers),freeWaitingSlots(freeWaitingSlots)
 {
 
 }
@@ -106,12 +106,12 @@ bool core::threading::detail::BaseCounter::addWaitingFiber(core::u16 fiberIndex,
     return false;
 }
 
-core::threading::TaskCounter::TaskCounter(core::threading::Manager *manager) : detail::BaseCounter(manager, MAX_WAITING, waitingFibers, freeWaitingSlots)
+core::threading::TaskCounter::TaskCounter(core::threading::TaskManager *manager) : detail::BaseCounter(manager, MAX_WAITING, waitingFibers, freeWaitingSlots)
 {
     initializeWaitingFibers();
 }
 
-core::threading::detail::TinyCounter::TinyCounter(core::threading::Manager *manager) : detail::BaseCounter(manager,1,&waitingFiber,&freeWaitingSlot)
+core::threading::detail::TinyCounter::TinyCounter(core::threading::TaskManager *manager) : detail::BaseCounter(manager,1,&waitingFiber,&freeWaitingSlot)
 {
     initializeWaitingFibers();
 }
