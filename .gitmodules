@@ -25,3 +25,6 @@
 [submodule "engine/submodules/assert"]
 	path = engine/submodules/assert
 	url = https://github.com/boostorg/assert.git
+[submodule "engine/submodules/config"]
+	path = engine/submodules/config
+	url = https://github.com/boostorg/config.git
