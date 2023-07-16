@@ -31,3 +31,6 @@
 [submodule "engine/submodules/context"]
 	path = engine/submodules/context
 	url = https://github.com/boostorg/context.git
+[submodule "engine/submodules/core"]
+	path = engine/submodules/core
+	url = https://github.com/boostorg/core.git
