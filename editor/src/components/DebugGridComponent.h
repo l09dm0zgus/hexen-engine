@@ -1,0 +1,14 @@
+//
+// Created by cx9ps3 on 13.07.2023.
+//
+
+#ifndef HEXENEDITOR_DEBUGGRIDCOMPONENT_H
+#define HEXENEDITOR_DEBUGGRIDCOMPONENT_H
+
+
+class DebugGridComponent {
+
+};
+
+
+#endif //HEXENEDITOR_DEBUGGRIDCOMPONENT_H
