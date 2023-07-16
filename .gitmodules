@@ -22,9 +22,6 @@
 [submodule "engine/submodules/fiber"]
 	path = engine/submodules/fiber
 	url = https://github.com/boostorg/fiber.git
-[submodule "engine/submodules/config"]
-	path = engine/submodules/config
-	url = https://github.com/boostorg/config.git
 [submodule "engine/submodules/context"]
 	path = engine/submodules/context
 	url = https://github.com/boostorg/context.git
