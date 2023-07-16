@@ -6,6 +6,7 @@
 #define HEXENEDITOR_THREAD_H
 
 #include "ThreadLocalStorage.h"
+#include <thread>
 #include <mutex>
 #include <condition_variable>
 
@@ -16,24 +17,28 @@ namespace core::threading
     public:
         using  CallbackType = void(*)(Thread*);
     private:
-        vptr handle{nullptr};
-        u64 id = UINT64_MAX;
-        ThreadLocalStorage storage;
 
-        std::condition_variable receivedId;
-        std::mutex startupIdMutex;
+        std::thread::id id{0};
+        ThreadLocalStorage storage;
 
         CallbackType callback{nullptr};
         vptr userData{nullptr};
 
-        Thread(vptr handle,u32 id) : handle(handle), id(id){}
+        std::condition_variable receivedId;
+        std::mutex startupIdMutex;
+       explicit Thread(const std::thread::id &newID)
+        {
+            id = newID;
+        }
+
+        std::thread cppThread;
 
     public:
         Thread() = default;
         Thread(const Thread& thread) = delete;
         virtual ~Thread() = default;
 
-        bool spawn(CallbackType newCallback , vptr newUserdata = nullptr);
+        void spawn(CallbackType newCallback , vptr newUserdata = nullptr);
 
         void setAffinity(u64 affinity);
 
@@ -44,18 +49,8 @@ namespace core::threading
         inline ThreadLocalStorage* getStorage() { return &storage; }
         inline CallbackType getCallback() const { return callback; }
         inline vptr getUserData() const { return userData; }
-        inline bool hasSpawned() const { return id != UINT64_MAX; }
-        inline const u64 getID() const{ return id; }
-
-        // Thread may launch before an ID was assigned (especially in Win32)
-        // MSDN: If the thread is created in a runnable state (that is, if the
-        //		 CREATE_SUSPENDED flag is not used), the thread can start running
-        //		 before CreateThread returns and, in particular, before the caller
-        //		 receives the handle and identifier of the created thread.
-        // This scenario can cause a crash when the resulting callback wants to
-        // access TLS.
+        inline const std::thread::id getID() const { return std::this_thread::get_id() ; }
         void waitForReady();
-
         static void sleepFor(u32 ms);
     };
 }
