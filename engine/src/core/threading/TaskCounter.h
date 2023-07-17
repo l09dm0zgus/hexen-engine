@@ -20,8 +20,7 @@ namespace core::threading
 
 
     public:
-        TaskCounter(TaskManager* manager);
-
+       explicit TaskCounter(TaskManager* manager);
         u32 increment(u32 by = 1);
         u32 decrement(u32 by = 1);
 
