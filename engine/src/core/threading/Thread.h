@@ -5,7 +5,6 @@
 #ifndef HEXENEDITOR_THREAD_H
 #define HEXENEDITOR_THREAD_H
 
-#include "ThreadLocalStorage.h"
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -54,11 +53,6 @@ namespace core::threading
 
         void join();
 
-        void fromCurrentThread();
-
-        inline ThreadLocalStorage* getStorage() { return &storage; }
-        inline CallbackType getCallback() const { return callback; }
-        inline vptr getUserData() const { return userData; }
         inline const std::thread::id getID() const { return std::this_thread::get_id() ; }
         void waitForReady();
         static void sleepFor(u32 ms);
