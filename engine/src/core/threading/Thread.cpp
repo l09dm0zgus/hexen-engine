@@ -5,6 +5,8 @@
 #include "Thread.h"
 #include <thread>
 #include <chrono>
+#include <boost/fiber/fiber.hpp>
+
 
 #if defined(WINDOWS_API)
 #include <Windows.h>
@@ -20,31 +22,54 @@
 
 #endif
 
-static void  launchThread(core::vptr data)
+void core::threading::Thread::spawn(const ThreadData &newThreadData)
 {
-    auto thread = reinterpret_cast<core::threading::Thread*>(data);
+    threadData = newThreadData;
 
-    assert(thread != nullptr && "thread object is nullptr");
-
-    auto callback = thread->getCallback();
-
-    assert(callback != nullptr && "thread callback is nullptr");
-
-    thread->waitForReady();
-
-    callback(thread);
-
-}
-
-void core::threading::Thread::spawn(core::threading::Thread::CallbackType newCallback, core::vptr newUserdata)
-{
     id = std::thread::id(0);
-    callback = newCallback;
-    userData = newUserdata;
     receivedId.notify_all();
 
     std::lock_guard<std::mutex> lock(startupIdMutex);
-    cppThread = std::thread(launchThread, this);
+    cppThread = std::thread([this](){
+        waitForReady();
+
+        for (core::u32 i = 0; i < threadData.numberOfFibers; i++)
+        {
+            //first dequeue high priority task
+            boost::fibers::fiber{[this]
+            {
+                TaskInfo highPriorityTask;
+                while (boost::fibers::channel_op_status::closed != threadData.highPriorityTasks->pop(highPriorityTask))
+                {
+                    highPriorityTask.execute();
+                }
+            }
+            }.detach();
+
+            //then dequeue normal priority  task
+            boost::fibers::fiber{[this]
+            {
+                TaskInfo normalPriorityTask;
+                while (boost::fibers::channel_op_status::closed != threadData.highPriorityTasks->pop(normalPriorityTask))
+                {
+                    normalPriorityTask.execute();
+                }
+            }
+            }.detach();
+
+            //now dequeue low priority  task
+            boost::fibers::fiber{[this]
+            {
+                TaskInfo lowPriorityTask;
+                while (boost::fibers::channel_op_status::closed != threadData.highPriorityTasks->pop(lowPriorityTask))
+                {
+                    lowPriorityTask.execute();
+                }
+            }
+            }.detach();
+        }
+
+    });
 
 }
 

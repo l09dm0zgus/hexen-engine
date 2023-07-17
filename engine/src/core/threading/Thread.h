@@ -9,6 +9,8 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include "Task.h"
+#include <boost/fiber/buffered_channel.hpp>
 
 namespace core::threading
 {
@@ -16,16 +18,22 @@ namespace core::threading
     {
     public:
         using  CallbackType = void(*)(Thread*);
+
+        struct ThreadData
+        {
+            u32 numberOfFibers{25};
+            std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> highPriorityTasks;
+            std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> normalPriorityTasks;
+            std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> lowPriorityTasks;
+        };
+
     private:
 
         std::thread::id id{0};
-        ThreadLocalStorage storage;
-
-        CallbackType callback{nullptr};
-        vptr userData{nullptr};
 
         std::condition_variable receivedId;
         std::mutex startupIdMutex;
+
        explicit Thread(const std::thread::id &newID)
         {
             id = newID;
@@ -33,12 +41,14 @@ namespace core::threading
 
         std::thread cppThread;
 
+       ThreadData threadData;
+
     public:
         Thread() = default;
         Thread(const Thread& thread) = delete;
         virtual ~Thread() = default;
 
-        void spawn(CallbackType newCallback , vptr newUserdata = nullptr);
+        void spawn(const ThreadData &threadData);
 
         void setAffinity(u64 affinity);
 
