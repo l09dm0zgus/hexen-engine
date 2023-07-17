@@ -4,7 +4,6 @@
 
 #include "TaskCounter.h"
 #include "TaskManager.h"
-#include "ThreadLocalStorage.h"
 
 
 core::threading::TaskCounter::TaskCounter(core::threading::TaskManager *manager) : manager(manager)
