@@ -14,5 +14,7 @@ void core::threading::TaskInfo::execute()
     if (counter)
     {
         counter->decrement();
+        std::cout << "Decremented : " <<  counter->getValue() << "\n";
+
     }
 }

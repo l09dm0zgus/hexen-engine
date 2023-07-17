@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/HexenReich/engine/submodules/SDL_image/version.rc
+winresrc.h
+D:/HexenReich/engine/submodules/SDL_image/winresrc.h
+

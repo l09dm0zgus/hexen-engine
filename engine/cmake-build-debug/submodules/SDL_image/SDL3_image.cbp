@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="SDL3_image"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\components\;CMake Files\src\core\;CMake Files\src\core\graphics\;CMake Files\src\entity\;CMake Files\src\systems\;CMake Files\submodules\;CMake Files\submodules\glm\;CMake Files\submodules\glm\cmake\;CMake Files\submodules\glm\glm\;CMake Files\submodules\SDL\;CMake Files\submodules\SDL\cmake\;CMake Files\submodules\SDL\include\;CMake Files\submodules\SDL\include\build_config\;CMake Files\submodules\SDL_image\;CMake Files\submodules\SDL_image\cmake\;CMake Files\submodules\json\;CMake Files\submodules\json\cmake\;CMake Files\submodules\glew-cmake\;CMake Files\..\;CMake Files\..\.git\;CMake Files\..\.git\modules\;CMake Files\..\.git\modules\engine\;CMake Files\..\.git\modules\engine\submodules\;CMake Files\..\.git\modules\engine\submodules\SDL\;CMake Files\..\.git\modules\engine\submodules\SDL\refs\;CMake Files\..\.git\modules\engine\submodules\SDL\refs\heads\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\submodules\;CMake Files\cmake-build-debug\submodules\SDL\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3_image">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/SDL3_image.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBUILD_SDL"/>
+					<Add option="-DSDL_BUILD_MAJOR_VERSION=3"/>
+					<Add option="-DSDL_BUILD_MINOR_VERSION=0"/>
+					<Add option="-DSDL_BUILD_MICRO_VERSION=0"/>
+					<Add option="-DUSE_STBIMAGE"/>
+					<Add option="-DLOAD_BMP"/>
+					<Add option="-DLOAD_GIF"/>
+					<Add option="-DLOAD_JPG"/>
+					<Add option="-DSDL_IMAGE_SAVE_JPG=1"/>
+					<Add option="-DLOAD_LBM"/>
+					<Add option="-DLOAD_PCX"/>
+					<Add option="-DLOAD_PNG"/>
+					<Add option="-DSDL_IMAGE_SAVE_PNG=1"/>
+					<Add option="-DLOAD_PNM"/>
+					<Add option="-DLOAD_QOI"/>
+					<Add option="-DLOAD_SVG"/>
+					<Add option="-DLOAD_TGA"/>
+					<Add option="-DLOAD_XCF"/>
+					<Add option="-DLOAD_XPM"/>
+					<Add option="-DLOAD_XV"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 SDL3_image"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3_image/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/SDL3_image.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBUILD_SDL"/>
+					<Add option="-DSDL_BUILD_MAJOR_VERSION=3"/>
+					<Add option="-DSDL_BUILD_MINOR_VERSION=0"/>
+					<Add option="-DSDL_BUILD_MICRO_VERSION=0"/>
+					<Add option="-DUSE_STBIMAGE"/>
+					<Add option="-DLOAD_BMP"/>
+					<Add option="-DLOAD_GIF"/>
+					<Add option="-DLOAD_JPG"/>
+					<Add option="-DSDL_IMAGE_SAVE_JPG=1"/>
+					<Add option="-DLOAD_LBM"/>
+					<Add option="-DLOAD_PCX"/>
+					<Add option="-DLOAD_PNG"/>
+					<Add option="-DSDL_IMAGE_SAVE_PNG=1"/>
+					<Add option="-DLOAD_PNM"/>
+					<Add option="-DLOAD_QOI"/>
+					<Add option="-DLOAD_SVG"/>
+					<Add option="-DLOAD_TGA"/>
+					<Add option="-DLOAD_XCF"/>
+					<Add option="-DLOAD_XPM"/>
+					<Add option="-DLOAD_XV"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 SDL3_image/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG.h">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_WIC.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_avif.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_bmp.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_gif.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_jpg.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_jxl.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_lbm.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_pcx.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_png.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_pnm.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_qoi.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_stb.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_svg.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_tga.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_tif.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_webp.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xcf.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xpm.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xv.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xxx.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/version.rc">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\components\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\core\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\core\graphics\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/entity/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\entity\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\systems\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\glm\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glm/cmake/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\glm\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glm/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\glm\glm\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\SDL\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/3rdparty.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/CheckCPUArchitecture.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/GetGitRevisionDescription.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/GetGitRevisionDescription.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/SDL3Config.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/macros.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/sdlchecks.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/sdlfind.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/sdlplatform.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/include/build_config/SDL_build_config.h.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\include\build_config\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/include/build_config/SDL_revision.h.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\include\build_config\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\SDL_image\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/cmake/PrivateSdlFunctions.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL_image\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\json\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/cmake/config.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\json\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/cmake/nlohmann_jsonConfigVersion.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\json\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/cmake/pkg-config.pc.in">
+			<Option virtualFolder="CMake Files\submodules\json\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glew-cmake/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\glew-cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glew-cmake/GeneratePkgConfig.cmake">
+			<Option virtualFolder="CMake Files\submodules\glew-cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/../.git/modules/engine/submodules/SDL/HEAD">
+			<Option virtualFolder="CMake Files\..\.git\modules\engine\submodules\SDL\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/../.git/modules/engine/submodules/SDL/refs/heads/main">
+			<Option virtualFolder="CMake Files\..\.git\modules\engine\submodules\SDL\refs\heads\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/SDL_build_config.h.intermediate">
+			<Option virtualFolder="CMake Files\cmake-build-debug\submodules\SDL\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

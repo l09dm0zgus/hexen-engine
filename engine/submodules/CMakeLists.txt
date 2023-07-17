@@ -6,7 +6,6 @@ add_subdirectory(glm)
 add_subdirectory(SDL)
 add_subdirectory(SDL_image)
 add_subdirectory(json)
-add_subdirectory(boost)
 
 if (${BUILD_ANDROID} STREQUAL  OFF)
     add_subdirectory(glew-cmake)

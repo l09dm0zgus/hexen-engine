@@ -1,0 +1,1629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="HexenEngine"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\components\;CMake Files\src\core\;CMake Files\src\core\graphics\;CMake Files\src\entity\;CMake Files\src\systems\;CMake Files\submodules\;CMake Files\submodules\glm\;CMake Files\submodules\glm\cmake\;CMake Files\submodules\glm\glm\;CMake Files\submodules\SDL\;CMake Files\submodules\SDL\cmake\;CMake Files\submodules\SDL\include\;CMake Files\submodules\SDL\include\build_config\;CMake Files\submodules\SDL_image\;CMake Files\submodules\SDL_image\cmake\;CMake Files\submodules\json\;CMake Files\submodules\json\cmake\;CMake Files\submodules\glew-cmake\;CMake Files\..\;CMake Files\..\.git\;CMake Files\..\.git\modules\;CMake Files\..\.git\modules\engine\;CMake Files\..\.git\modules\engine\submodules\;CMake Files\..\.git\modules\engine\submodules\SDL\;CMake Files\..\.git\modules\engine\submodules\SDL\refs\;CMake Files\..\.git\modules\engine\submodules\SDL\refs\heads\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\submodules\;CMake Files\cmake-build-debug\submodules\SDL\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="HexenEngine">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/src/HexenEngine.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
+					<Add option="-DWIN32_MEAN_AND_LEAN"/>
+					<Add option="-DVC_EXTRALEAN"/>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS"/>
+					<Add option="-DGLEW_NO_GLU"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/submodules/glm"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/json/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/glew-cmake/include"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 HexenEngine"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="HexenEngine/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/src/HexenEngine.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
+					<Add option="-DWIN32_MEAN_AND_LEAN"/>
+					<Add option="-DVC_EXTRALEAN"/>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS"/>
+					<Add option="-DGLEW_NO_GLU"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/submodules/glm"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/json/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/glew-cmake/include"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 HexenEngine/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uninstall">
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/glm"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glm/Makefile&quot;  VERBOSE=1 uninstall"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3-shared">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/SDL3.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSING_GENERATED_CONFIG_H"/>
+					<Add option="-DSDL_BUILD_MAJOR_VERSION=3"/>
+					<Add option="-DSDL_BUILD_MINOR_VERSION=0"/>
+					<Add option="-DSDL_BUILD_MICRO_VERSION=0"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include-config-debug"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/src"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 SDL3-shared"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3-shared/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/SDL3.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSING_GENERATED_CONFIG_H"/>
+					<Add option="-DSDL_BUILD_MAJOR_VERSION=3"/>
+					<Add option="-DSDL_BUILD_MINOR_VERSION=0"/>
+					<Add option="-DSDL_BUILD_MICRO_VERSION=0"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include-config-debug"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/src"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 SDL3-shared/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3_test">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/libSDL3_test.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include-config-debug"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 SDL3_test"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3_test/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/libSDL3_test.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include-config-debug"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 SDL3_test/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3_image">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/SDL3_image.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBUILD_SDL"/>
+					<Add option="-DSDL_BUILD_MAJOR_VERSION=3"/>
+					<Add option="-DSDL_BUILD_MINOR_VERSION=0"/>
+					<Add option="-DSDL_BUILD_MICRO_VERSION=0"/>
+					<Add option="-DUSE_STBIMAGE"/>
+					<Add option="-DLOAD_BMP"/>
+					<Add option="-DLOAD_GIF"/>
+					<Add option="-DLOAD_JPG"/>
+					<Add option="-DSDL_IMAGE_SAVE_JPG=1"/>
+					<Add option="-DLOAD_LBM"/>
+					<Add option="-DLOAD_PCX"/>
+					<Add option="-DLOAD_PNG"/>
+					<Add option="-DSDL_IMAGE_SAVE_PNG=1"/>
+					<Add option="-DLOAD_PNM"/>
+					<Add option="-DLOAD_QOI"/>
+					<Add option="-DLOAD_SVG"/>
+					<Add option="-DLOAD_TGA"/>
+					<Add option="-DLOAD_XCF"/>
+					<Add option="-DLOAD_XPM"/>
+					<Add option="-DLOAD_XV"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 SDL3_image"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL3_image/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/SDL3_image.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBUILD_SDL"/>
+					<Add option="-DSDL_BUILD_MAJOR_VERSION=3"/>
+					<Add option="-DSDL_BUILD_MINOR_VERSION=0"/>
+					<Add option="-DSDL_BUILD_MICRO_VERSION=0"/>
+					<Add option="-DUSE_STBIMAGE"/>
+					<Add option="-DLOAD_BMP"/>
+					<Add option="-DLOAD_GIF"/>
+					<Add option="-DLOAD_JPG"/>
+					<Add option="-DSDL_IMAGE_SAVE_JPG=1"/>
+					<Add option="-DLOAD_LBM"/>
+					<Add option="-DLOAD_PCX"/>
+					<Add option="-DLOAD_PNG"/>
+					<Add option="-DSDL_IMAGE_SAVE_PNG=1"/>
+					<Add option="-DLOAD_PNM"/>
+					<Add option="-DLOAD_QOI"/>
+					<Add option="-DLOAD_SVG"/>
+					<Add option="-DLOAD_TGA"/>
+					<Add option="-DLOAD_XCF"/>
+					<Add option="-DLOAD_XPM"/>
+					<Add option="-DLOAD_XV"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL_image/include/SDL3"/>
+					<Add directory="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include"/>
+					<Add directory="D:/HexenReich/engine/submodules/SDL/include/SDL3"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 SDL3_image/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/SDL_image/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libglew_static">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/lib/libglewd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
+					<Add option="-DWIN32_MEAN_AND_LEAN"/>
+					<Add option="-DVC_EXTRALEAN"/>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS"/>
+					<Add option="-DGLEW_NO_GLU"/>
+					<Add directory="D:/HexenReich/engine/submodules/glew-cmake/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 libglew_static"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libglew_static/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/lib/libglewd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
+					<Add option="-DWIN32_MEAN_AND_LEAN"/>
+					<Add option="-DVC_EXTRALEAN"/>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS"/>
+					<Add option="-DGLEW_NO_GLU"/>
+					<Add directory="D:/HexenReich/engine/submodules/glew-cmake/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 libglew_static/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libglew_shared">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/bin/libglew-sharedd.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLEW_BUILD"/>
+					<Add option="-DWIN32_MEAN_AND_LEAN"/>
+					<Add option="-DVC_EXTRALEAN"/>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS"/>
+					<Add option="-DGLEW_NO_GLU"/>
+					<Add directory="D:/HexenReich/engine/submodules/glew-cmake/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 libglew_shared"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libglew_shared/fast">
+				<Option output="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/bin/libglew-sharedd.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLEW_BUILD"/>
+					<Add option="-DWIN32_MEAN_AND_LEAN"/>
+					<Add option="-DVC_EXTRALEAN"/>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS"/>
+					<Add option="-DGLEW_NO_GLU"/>
+					<Add directory="D:/HexenReich/engine/submodules/glew-cmake/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include/c++/13.1.0/backward"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 libglew_shared/fast"/>
+					<CompileFile command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f &quot;D:/HexenReich/engine/cmake-build-debug/submodules/glew-cmake/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/Component.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/camera/CameraComponent.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/camera/CameraComponent.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/graphics/RenderComponent.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/graphics/RenderComponent.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/graphics/SpriteComponent.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/graphics/SpriteComponent.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/graphics/SpriteInstancedComponent.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/graphics/SpriteInstancedComponent.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/transform/TransformComponent.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/transform/TransformComponent.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/Serialization.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/Types.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/application/Application.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/application/Application.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/application/Settings.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/application/Settings.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/exceptions/ComponentNotFound.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/exceptions/ComponentNotFound.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/ElementsBufferObject.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/ElementsBufferObject.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/FrameBufferObject.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/FrameBufferObject.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/Graphics.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/RectangleData.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/RenderBufferObject.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/RenderBufferObject.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/VertexArrayObject.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/VertexArrayObject.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/VertexAttributes.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/VertexAttributes.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/VertexBufferObject.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/VertexBufferObject.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/shaders/ShaderFile.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/shaders/ShaderFile.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/shaders/ShaderProgram.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/shaders/ShaderProgram.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/shaders/Shaders.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/texture/FrameBufferTexture.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/texture/FrameBufferTexture.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/texture/Texture.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/texture/Texture.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/memory_pool/AllocatedObject.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/memory_pool/AllocatedObject.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/memory_pool/MemoryPool.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/memory_pool/MemoryPool.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/scene/Scene.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/scene/Scene.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/scene/SceneManager.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/scene/SceneManager.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/uuid/uuid.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/window/Window.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/window/Window.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/entity/Entity.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/entity/Entity.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/entity/scene/SceneEntity.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/entity/scene/SceneEntity.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/main.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/ISystem.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/RenderSystem.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/RenderSystem.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/SystemManager.cpp">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/SystemManager.h">
+			<Option target="HexenEngine"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_assert.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_dataqueue.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_dataqueue.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_error.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_guid.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_hints.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_list.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_list.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_log.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/SDL_utils.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/atomic/SDL_atomic.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/atomic/SDL_spinlock.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_audio.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_audiocvt.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_audiodev.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_audiotypecvt.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_mixer.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_wave.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/SDL_wave.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/directsound/SDL_directsound.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/directsound/SDL_directsound.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/disk/SDL_diskaudio.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/disk/SDL_diskaudio.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/dummy/SDL_dummyaudio.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/dummy/SDL_dummyaudio.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/wasapi/SDL_wasapi.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/wasapi/SDL_wasapi.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/audio/wasapi/SDL_wasapi_win32.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/SDL_runapp.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_hid.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_hid.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_immdevice.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_immdevice.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_windows.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_windows.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_xinput.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/SDL_xinput.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/pch.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/core/windows/version.rc">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/cpuinfo/SDL_cpuinfo.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/dynapi/SDL_dynapi.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/dynapi/SDL_dynapi.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_clipboardevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_displayevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_dropevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_events.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_keyboard.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_keysym_to_scancode.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_mouse.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_quit.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_scancode_tables.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_touch.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/SDL_windowevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/imKStoUCS.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/events/imKStoUCS.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/file/SDL_rwops.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/filesystem/windows/SDL_sysfilesystem.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/haptic/SDL_haptic.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/haptic/windows/SDL_dinputhaptic.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/haptic/windows/SDL_windowshaptic.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/haptic/windows/SDL_xinputhaptic.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/hidapi/SDL_hidapi.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/SDL_gamepad.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/SDL_joystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/controller_type.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/controller_type.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_combined.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_gamecube.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_luna.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_ps3.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_ps4.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_ps5.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_rumble.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_rumble.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_shield.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_stadia.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_steam.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_switch.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_wii.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_xbox360.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_xbox360w.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapi_xboxone.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/hidapi/SDL_hidapijoystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/virtual/SDL_virtualjoystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/windows/SDL_dinputjoystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/windows/SDL_rawinputjoystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/windows/SDL_windows_gaming_input.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/windows/SDL_windowsjoystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/joystick/windows/SDL_xinputjoystick.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_atan2.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_exp.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_fmod.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_log.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_log10.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_pow.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_rem_pio2.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/e_sqrt.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/k_cos.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/k_rem_pio2.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/k_sin.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/k_tan.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_atan.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_copysign.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_cos.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_fabs.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_floor.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_modf.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_scalbn.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_sin.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/libm/s_tan.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/loadso/windows/SDL_sysloadso.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/locale/SDL_locale.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/locale/windows/SDL_syslocale.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/misc/SDL_url.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/misc/windows/SDL_sysurl.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/power/SDL_power.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/power/windows/SDL_syspower.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/SDL_d3dmath.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/SDL_d3dmath.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/SDL_render.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/SDL_yuv_sw.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d/SDL_render_d3d.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d/SDL_shaders_d3d.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d/SDL_shaders_d3d.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d11/SDL_render_d3d11.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d11/SDL_shaders_d3d11.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d11/SDL_shaders_d3d11.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d12/SDL_render_d3d12.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d12/SDL_shaders_d3d12.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/direct3d12/SDL_shaders_d3d12.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/opengl/SDL_render_gl.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/opengl/SDL_shaders_gl.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/opengl/SDL_shaders_gl.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/opengles2/SDL_render_gles2.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/opengles2/SDL_shaders_gles2.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/opengles2/SDL_shaders_gles2.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/ps2/SDL_render_ps2.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/psp/SDL_render_psp.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_blendfillrect.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_blendfillrect.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_blendline.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_blendline.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_blendpoint.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_blendpoint.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_drawline.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_drawline.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_drawpoint.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_drawpoint.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_render_sw.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_rotate.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_rotate.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_triangle.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/software/SDL_triangle.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/vitagxm/SDL_render_vita_gxm.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/vitagxm/SDL_render_vita_gxm_memory.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/vitagxm/SDL_render_vita_gxm_memory.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/vitagxm/SDL_render_vita_gxm_tools.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/render/vitagxm/SDL_render_vita_gxm_tools.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/sensor/SDL_sensor.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/sensor/windows/SDL_windowssensor.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/sensor/windows/SDL_windowssensor.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_crc16.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_crc32.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_getenv.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_iconv.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_malloc.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_mslibc.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_qsort.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_stdlib.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_string.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/stdlib/SDL_strtokr.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_assert.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_common.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_compare.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_crc32.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_font.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_fuzzer.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_harness.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_log.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_md5.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_memory.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/test/SDL_test_random.c">
+			<Option target="SDL3_test"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/SDL_thread.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/generic/SDL_syscond.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/generic/SDL_sysrwlock.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/windows/SDL_syscond_cv.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/windows/SDL_sysmutex.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/windows/SDL_sysrwlock_srw.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/windows/SDL_syssem.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/windows/SDL_systhread.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/thread/windows/SDL_systls.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/timer/SDL_timer.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/timer/windows/SDL_systimer.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_RLEaccel.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_0.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_1.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_A.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_N.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_auto.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_auto.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_copy.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_copy.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_slow.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_blit_slow.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_bmp.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_clipboard.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_egl.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_fillrect.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_pixels.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_rect.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_shape.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_stretch.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_surface.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_video.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_vulkan_utils.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/SDL_yuv.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/dummy/SDL_nullevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/dummy/SDL_nullframebuffer.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/dummy/SDL_nullvideo.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/dummy/SDL_nullvideo.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenframebuffer.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenopengles.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenopengles.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenvideo.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenvideo.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenwindow.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/offscreen/SDL_offscreenwindow.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsclipboard.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsclipboard.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsevents.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsevents.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsframebuffer.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsframebuffer.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowskeyboard.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowskeyboard.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsmessagebox.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsmessagebox.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsmodes.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsmodes.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsmouse.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsmouse.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsopengl.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsopengl.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsopengles.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsopengles.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsshape.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsshape.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsvideo.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsvideo.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsvulkan.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowsvulkan.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowswindow.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/windows/SDL_windowswindow.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/yuv2rgb/yuv_rgb.c">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/src/video/yuv2rgb/yuv_rgb.h">
+			<Option target="SDL3-shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG.h">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_WIC.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_avif.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_bmp.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_gif.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_jpg.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_jxl.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_lbm.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_pcx.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_png.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_pnm.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_qoi.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_stb.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_svg.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_tga.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_tif.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_webp.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xcf.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xpm.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xv.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/IMG_xxx.c">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/version.rc">
+			<Option target="SDL3_image"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glew-cmake/src/glew.c">
+			<Option target="libglew_static"/>
+			<Option target="libglew_shared"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/components/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\components\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\core\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/core/graphics/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\core\graphics\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/entity/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\entity\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/src/systems/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\systems\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\glm\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glm/cmake/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\glm\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glm/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\glm\glm\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\SDL\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/3rdparty.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/CheckCPUArchitecture.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/GetGitRevisionDescription.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/GetGitRevisionDescription.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/SDL3Config.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/macros.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/sdlchecks.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/sdlfind.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/cmake/sdlplatform.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/include/build_config/SDL_build_config.h.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\include\build_config\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL/include/build_config/SDL_revision.h.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL\include\build_config\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\SDL_image\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/SDL_image/cmake/PrivateSdlFunctions.cmake">
+			<Option virtualFolder="CMake Files\submodules\SDL_image\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\json\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/cmake/config.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\json\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/cmake/nlohmann_jsonConfigVersion.cmake.in">
+			<Option virtualFolder="CMake Files\submodules\json\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/json/cmake/pkg-config.pc.in">
+			<Option virtualFolder="CMake Files\submodules\json\cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glew-cmake/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\submodules\glew-cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/submodules/glew-cmake/GeneratePkgConfig.cmake">
+			<Option virtualFolder="CMake Files\submodules\glew-cmake\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/../.git/modules/engine/submodules/SDL/HEAD">
+			<Option virtualFolder="CMake Files\..\.git\modules\engine\submodules\SDL\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/../.git/modules/engine/submodules/SDL/refs/heads/main">
+			<Option virtualFolder="CMake Files\..\.git\modules\engine\submodules\SDL\refs\heads\"/>
+		</Unit>
+		<Unit filename="D:/HexenReich/engine/cmake-build-debug/submodules/SDL/SDL_build_config.h.intermediate">
+			<Option virtualFolder="CMake Files\cmake-build-debug\submodules\SDL\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

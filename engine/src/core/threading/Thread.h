@@ -16,7 +16,6 @@ namespace core::threading
     class Thread
     {
     public:
-        using  CallbackType = void(*)(Thread*);
 
         struct ThreadData
         {
@@ -27,20 +26,15 @@ namespace core::threading
         };
 
     private:
-
         std::thread::id id{0};
 
-        std::condition_variable receivedId;
-        std::mutex startupIdMutex;
-
-       explicit Thread(const std::thread::id &newID)
+        explicit Thread(const std::thread::id &newID)
         {
             id = newID;
         }
 
         std::thread cppThread;
-
-       ThreadData threadData;
+        ThreadData threadData;
 
     public:
         Thread() = default;
@@ -54,7 +48,6 @@ namespace core::threading
         void join();
 
         inline const std::thread::id getID() const { return std::this_thread::get_id() ; }
-        void waitForReady();
         static void sleepFor(u32 ms);
     };
 }

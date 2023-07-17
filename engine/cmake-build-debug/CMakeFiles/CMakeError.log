@@ -1,0 +1,173 @@
+Determining if the __GLIBC__ exist failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-y1affe
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_81ee1/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_81ee1.dir\build.make CMakeFiles/cmTC_81ee1.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-y1affe'
+Building C object CMakeFiles/cmTC_81ee1.dir/CheckSymbolExists.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe   -fdiagnostics-color=always -o CMakeFiles\cmTC_81ee1.dir\CheckSymbolExists.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-y1affe\CheckSymbolExists.c
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-y1affe\CheckSymbolExists.c:[m[K In function '[01m[Kmain[m[K':
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-y1affe\CheckSymbolExists.c:8:19:[m[K [01;31m[Kerror: [m[K'[01m[K__GLIBC__[m[K' undeclared (first use in this function); did you mean '[01m[K__LINE__[m[K'?
+    8 |   return ((int*)(&[01;31m[K__GLIBC__[m[K))[argc];
+      |                   [01;31m[K^~~~~~~~~[m[K
+      |                   [32m[K__LINE__[m[K
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-y1affe\CheckSymbolExists.c:8:19:[m[K [01;36m[Knote: [m[Keach undeclared identifier is reported only once for each function it appears in
+mingw32-make[1]: *** [CMakeFiles\cmTC_81ee1.dir\build.make:77: CMakeFiles/cmTC_81ee1.dir/CheckSymbolExists.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-y1affe'
+mingw32-make: *** [Makefile:126: cmTC_81ee1/fast] Error 2
+
+
+File CheckSymbolExists.c:
+/* */
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __GLIBC__
+  return ((int*)(&__GLIBC__))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Performing C SOURCE FILE Test HAVE_GCC_WDOCUMENTATION failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-uimb87
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_23f1c/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_23f1c.dir\build.make CMakeFiles/cmTC_23f1c.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-uimb87'
+Building C object CMakeFiles/cmTC_23f1c.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_GCC_WDOCUMENTATION  -D_GNU_SOURCE=1 -fdiagnostics-color=always   -Wdocumentation -o CMakeFiles\cmTC_23f1c.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-uimb87\src.c
+[01m[Kgcc.exe:[m[K [01;31m[Kerror: [m[Kunrecognized command-line option '[01m[K-Wdocumentation[m[K'
+mingw32-make[1]: *** [CMakeFiles\cmTC_23f1c.dir\build.make:77: CMakeFiles/cmTC_23f1c.dir/src.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-uimb87'
+mingw32-make: *** [Makefile:126: cmTC_23f1c/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+
+Performing C SOURCE FILE Test HAVE_GCC_WDOCUMENTATION_UNKNOWN_COMMAND failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ldgv9f
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_ef0f5/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_ef0f5.dir\build.make CMakeFiles/cmTC_ef0f5.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ldgv9f'
+Building C object CMakeFiles/cmTC_ef0f5.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_GCC_WDOCUMENTATION_UNKNOWN_COMMAND  -D_GNU_SOURCE=1 -fdiagnostics-color=always   -Wdocumentation-unknown-command -o CMakeFiles\cmTC_ef0f5.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-ldgv9f\src.c
+[01m[Kgcc.exe:[m[K [01;31m[Kerror: [m[Kunrecognized command-line option '[01m[K-Wdocumentation-unknown-command[m[K'
+mingw32-make[1]: *** [CMakeFiles\cmTC_ef0f5.dir\build.make:77: CMakeFiles/cmTC_ef0f5.dir/src.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ldgv9f'
+mingw32-make: *** [Makefile:126: cmTC_ef0f5/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+
+Performing C SOURCE FILE Test HAVE_GCC_COMMENT_BLOCK_COMMANDS failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-bq0jcm
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_b9e32/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_b9e32.dir\build.make CMakeFiles/cmTC_b9e32.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-bq0jcm'
+Building C object CMakeFiles/cmTC_b9e32.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_GCC_COMMENT_BLOCK_COMMANDS  -D_GNU_SOURCE=1 -fdiagnostics-color=always   -fcomment-block-commands=threadsafety -o CMakeFiles\cmTC_b9e32.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-bq0jcm\src.c
+[01m[Kgcc.exe:[m[K [01;31m[Kerror: [m[Kunrecognized command-line option '[01m[K-fcomment-block-commands=threadsafety[m[K'
+mingw32-make[1]: *** [CMakeFiles\cmTC_b9e32.dir\build.make:77: CMakeFiles/cmTC_b9e32.dir/src.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-bq0jcm'
+mingw32-make: *** [Makefile:126: cmTC_b9e32/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+
+Performing C SOURCE FILE Test HAVE_CLANG_COMMENT_BLOCK_COMMANDS failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-l7h3id
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_a7fb7/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_a7fb7.dir\build.make CMakeFiles/cmTC_a7fb7.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-l7h3id'
+Building C object CMakeFiles/cmTC_a7fb7.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_CLANG_COMMENT_BLOCK_COMMANDS  -D_GNU_SOURCE=1 -fdiagnostics-color=always   /clang:-fcomment-block-commands=threadsafety -o CMakeFiles\cmTC_a7fb7.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-l7h3id\src.c
+[01m[Kgcc.exe:[m[K [01;35m[Kwarning: [m[K/clang:-fcomment-block-commands=threadsafety: linker input file unused because linking not done
+[01m[Kgcc.exe:[m[K [01;31m[Kerror: [m[K/clang:-fcomment-block-commands=threadsafety: linker input file not found: No such file or directory
+mingw32-make[1]: *** [CMakeFiles\cmTC_a7fb7.dir\build.make:77: CMakeFiles/cmTC_a7fb7.dir/src.c.obj] Error 1
+mingw32-make[1]: *** Deleting file 'CMakeFiles/cmTC_a7fb7.dir/src.c.obj'
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-l7h3id'
+mingw32-make: *** [Makefile:126: cmTC_a7fb7/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+
+Performing C SOURCE FILE Test HAVE_GCC_FVISIBILITY failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-fdnngr
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_3997e/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_3997e.dir\build.make CMakeFiles/cmTC_3997e.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-fdnngr'
+Building C object CMakeFiles/cmTC_3997e.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_GCC_FVISIBILITY  -D_GNU_SOURCE=1 -fvisibility=hidden -Werror -fdiagnostics-color=always -o CMakeFiles\cmTC_3997e.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-fdnngr\src.c
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-fdnngr\src.c:[m[K In function '[01m[Kbar[m[K':
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-fdnngr\src.c:8:33:[m[K [01;31m[Kerror: [m[Kvisibility attribute not supported in this configuration; ignored [[01;31m[K-Werror=attributes[m[K]
+    8 |       int bar(void) { return 1; [01;31m[K}[m[K
+      |                                 [01;31m[K^[m[K
+cc1.exe: all warnings being treated as errors
+mingw32-make[1]: *** [CMakeFiles\cmTC_3997e.dir\build.make:77: CMakeFiles/cmTC_3997e.dir/src.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-fdnngr'
+mingw32-make: *** [Makefile:126: cmTC_3997e/fast] Error 2
+
+
+Source file was:
+
+      #if !defined(__GNUC__) || __GNUC__ < 4
+      #error SDL only uses visibility attributes in GCC 4 or newer
+      #endif
+      __attribute__((visibility("default"))) int foo(void);
+      __attribute__((visibility("hidden")))  int bar(void);
+      int foo(void) { return 0; }
+      int bar(void) { return 1; }
+      int main(void) { return 0; }
+
+Performing C SOURCE FILE Test HAVE_XINPUT_GAMEPAD_EX failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-b34my8
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_75f8e/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_75f8e.dir\build.make CMakeFiles/cmTC_75f8e.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-b34my8'
+Building C object CMakeFiles/cmTC_75f8e.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_XINPUT_GAMEPAD_EX  -D_GNU_SOURCE=1 -fdiagnostics-color=always -o CMakeFiles\cmTC_75f8e.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-b34my8\src.c
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-b34my8\src.c:4:7:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[KXINPUT_GAMEPAD_EX[m[K'; did you mean '[01m[KXINPUT_GAMEPAD_X[m[K'?
+    4 |       [01;31m[KXINPUT_GAMEPAD_EX[m[K x1;
+      |       [01;31m[K^~~~~~~~~~~~~~~~~[m[K
+      |       [32m[KXINPUT_GAMEPAD_X[m[K
+mingw32-make[1]: *** [CMakeFiles\cmTC_75f8e.dir\build.make:77: CMakeFiles/cmTC_75f8e.dir/src.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-b34my8'
+mingw32-make: *** [Makefile:126: cmTC_75f8e/fast] Error 2
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      XINPUT_GAMEPAD_EX x1;
+      int main(int argc, char **argv) { return 0; }
+
+Performing C SOURCE FILE Test HAVE_XINPUT_STATE_EX failed with the following output:
+Change Dir: D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-v526sc
+
+Run Build Command(s):C:/PROGRA~1/mingw64/bin/mingw32-make.exe -f Makefile cmTC_29a2a/fast && C:/PROGRA~1/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_29a2a.dir\build.make CMakeFiles/cmTC_29a2a.dir/build
+mingw32-make[1]: Entering directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-v526sc'
+Building C object CMakeFiles/cmTC_29a2a.dir/src.c.obj
+C:\PROGRA~1\mingw64\bin\gcc.exe -DHAVE_XINPUT_STATE_EX  -D_GNU_SOURCE=1 -fdiagnostics-color=always -o CMakeFiles\cmTC_29a2a.dir\src.c.obj -c D:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-v526sc\src.c
+[01m[KD:\HexenReich\engine\cmake-build-debug\CMakeFiles\CMakeScratch\TryCompile-v526sc\src.c:4:7:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[KXINPUT_STATE_EX[m[K'; did you mean '[01m[KXINPUT_STATE[m[K'?
+    4 |       [01;31m[KXINPUT_STATE_EX[m[K s1;
+      |       [01;31m[K^~~~~~~~~~~~~~~[m[K
+      |       [32m[KXINPUT_STATE[m[K
+mingw32-make[1]: *** [CMakeFiles\cmTC_29a2a.dir\build.make:77: CMakeFiles/cmTC_29a2a.dir/src.c.obj] Error 1
+mingw32-make[1]: Leaving directory 'D:/HexenReich/engine/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-v526sc'
+mingw32-make: *** [Makefile:126: cmTC_29a2a/fast] Error 2
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      XINPUT_STATE_EX s1;
+      int main(int argc, char **argv) { return 0; }
+

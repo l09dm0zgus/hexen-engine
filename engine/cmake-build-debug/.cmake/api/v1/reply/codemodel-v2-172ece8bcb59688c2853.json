@@ -1,0 +1,368 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						7
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						5,
+						6
+					],
+					"jsonFile" : "directory-src-Debug-c94b7c2814d5a21df52c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "src/components",
+					"jsonFile" : "directory-src.components-Debug-c864f6a55b84c8de5255.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/components"
+				},
+				{
+					"build" : "src/core",
+					"childIndexes" : 
+					[
+						4
+					],
+					"jsonFile" : "directory-src.core-Debug-27980f60b5df84566cd6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/core"
+				},
+				{
+					"build" : "src/core/graphics",
+					"jsonFile" : "directory-src.core.graphics-Debug-f2bea2d18dc0c43edef1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 0,
+					"source" : "src/core/graphics"
+				},
+				{
+					"build" : "src/entity",
+					"jsonFile" : "directory-src.entity-Debug-b76cbd373c4ecd8c3b04.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/entity"
+				},
+				{
+					"build" : "src/systems",
+					"jsonFile" : "directory-src.systems-Debug-b61d8ab5b28cef3fabb4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/systems"
+				},
+				{
+					"build" : "submodules",
+					"childIndexes" : 
+					[
+						8,
+						10,
+						11,
+						12,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-submodules-Debug-522b929b3cb1583ed167.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "submodules"
+				},
+				{
+					"build" : "submodules/glm",
+					"childIndexes" : 
+					[
+						9
+					],
+					"jsonFile" : "directory-submodules.glm-Debug-65cea8ba5e3861f87dc4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.2"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 1,
+					"source" : "submodules/glm",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "submodules/glm/glm",
+					"jsonFile" : "directory-submodules.glm.glm-Debug-373d06b44aff1c7738cd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.2"
+					},
+					"parentIndex" : 8,
+					"projectIndex" : 1,
+					"source" : "submodules/glm/glm"
+				},
+				{
+					"build" : "submodules/SDL",
+					"jsonFile" : "directory-submodules.SDL-Debug-bc07d0474ec0f556afaa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 2,
+					"source" : "submodules/SDL",
+					"targetIndexes" : 
+					[
+						1,
+						3
+					]
+				},
+				{
+					"build" : "submodules/SDL_image",
+					"jsonFile" : "directory-submodules.SDL_image-Debug-e3cd543bc181d7b9bdbc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 3,
+					"source" : "submodules/SDL_image",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "submodules/json",
+					"jsonFile" : "directory-submodules.json-Debug-5c2bc124e7f5e92bc470.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 4,
+					"source" : "submodules/json"
+				},
+				{
+					"build" : "submodules/glew-cmake",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-submodules.glew-cmake-Debug-ba219034c847577bca26.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.12"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 5,
+					"source" : "submodules/glew-cmake",
+					"targetIndexes" : 
+					[
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"name" : "HexenEngine",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						8,
+						9
+					],
+					"name" : "glm",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "SDL3",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						11
+					],
+					"name" : "SDL3_image",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						12
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						13
+					],
+					"name" : "glew",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "HexenEngine::@145eef247bfb46b6828c",
+					"jsonFile" : "target-HexenEngine-Debug-d5b0c4688ed9a85be9c1.json",
+					"name" : "HexenEngine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "SDL3-shared::@7bf4f50e94ec765f226d",
+					"jsonFile" : "target-SDL3-shared-Debug-86c587ca6e5cdc75a24d.json",
+					"name" : "SDL3-shared",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "SDL3_image::@88b5d20857820fdea635",
+					"jsonFile" : "target-SDL3_image-Debug-e3647450ef69bdc68303.json",
+					"name" : "SDL3_image",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "SDL3_test::@7bf4f50e94ec765f226d",
+					"jsonFile" : "target-SDL3_test-Debug-301a136d4e5d76264623.json",
+					"name" : "SDL3_test",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "libglew_shared::@0b6d7304ab34e9b855f1",
+					"jsonFile" : "target-libglew_shared-Debug-d82dc483c8ed186ff609.json",
+					"name" : "libglew_shared",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "libglew_static::@0b6d7304ab34e9b855f1",
+					"jsonFile" : "target-libglew_static-Debug-049833c8b2e03d7f39be.json",
+					"name" : "libglew_static",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "uninstall::@ee1e693009aa5b254ffe",
+					"jsonFile" : "target-uninstall-Debug-b6925a00e4847ec59142.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/HexenReich/engine/cmake-build-debug",
+		"source" : "D:/HexenReich/engine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

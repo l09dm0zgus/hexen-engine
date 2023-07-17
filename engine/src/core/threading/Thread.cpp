@@ -7,9 +7,10 @@
 #include <chrono>
 #include <boost/fiber/fiber.hpp>
 
-
 #if defined(WINDOWS_API)
 #include <Windows.h>
+#include <boost/fiber/operations.hpp>
+
 #elif defined(POSIX_API)
 
 #include <err.h>
@@ -27,12 +28,10 @@ void core::threading::Thread::spawn(const ThreadData &newThreadData)
     threadData = newThreadData;
 
     id = std::thread::id(0);
-    receivedId.notify_all();
 
-    std::lock_guard<std::mutex> lock(startupIdMutex);
     cppThread = std::thread([this](){
-        waitForReady();
 
+        //waitForReady();
         for (core::u32 i = 0; i < threadData.numberOfFibers; i++)
         {
             //first dequeue high priority task
@@ -43,32 +42,29 @@ void core::threading::Thread::spawn(const ThreadData &newThreadData)
                 {
                     highPriorityTask.execute();
                 }
-            }
-            }.detach();
+            }}.detach();
 
             //then dequeue normal priority  task
             boost::fibers::fiber{[this]
             {
                 TaskInfo normalPriorityTask;
-                while (boost::fibers::channel_op_status::closed != threadData.highPriorityTasks->pop(normalPriorityTask))
+                while (boost::fibers::channel_op_status::closed != threadData.normalPriorityTasks->pop(normalPriorityTask))
                 {
                     normalPriorityTask.execute();
                 }
-            }
-            }.detach();
+            }}.detach();
 
             //now dequeue low priority  task
             boost::fibers::fiber{[this]
             {
                 TaskInfo lowPriorityTask;
-                while (boost::fibers::channel_op_status::closed != threadData.highPriorityTasks->pop(lowPriorityTask))
+                while (boost::fibers::channel_op_status::closed != threadData.lowPriorityTasks->pop(lowPriorityTask))
                 {
                     lowPriorityTask.execute();
                 }
-            }
-            }.detach();
-        }
 
+            }}.detach();
+        }
     });
 
 }
@@ -107,32 +103,10 @@ void core::threading::Thread::join()
     cppThread.detach();
 }
 
-void core::threading::Thread::fromCurrentThread()
-{
-    id = std::this_thread::get_id();
-}
-
 void core::threading::Thread::sleepFor(core::u32 ms)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-void core::threading::Thread::waitForReady()
-{
-// Check if we have an ID already
-    {
-        std::lock_guard<std::mutex> lock(startupIdMutex);
-        if (id != std::thread::id(0))
-        {
-            return;
-        }
-    }
-
-    // Wait
-    std::mutex mutex;
-
-    std::unique_lock<std::mutex> lock(mutex);
-    receivedId.wait(lock);
-}
 
 

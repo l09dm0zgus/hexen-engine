@@ -6,6 +6,7 @@ add_executable(${EDITOR_NAME})
 
 
 add_subdirectory(gui)
+add_subdirectory(systems)
 
 target_sources(${EDITOR_NAME} PRIVATE
         main.cpp

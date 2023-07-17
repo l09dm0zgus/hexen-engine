@@ -1,0 +1,647 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "submodules/SDL_image/SDL3_image.dll"
+		},
+		{
+			"path" : "submodules/SDL_image/libSDL3_image.dll.a"
+		},
+		{
+			"path" : "submodules/SDL_image/SDL3_image.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_options",
+			"sdl_target_link_options_no_undefined",
+			"target_link_libraries",
+			"target_compile_definitions",
+			"target_include_directories",
+			"target_sources"
+		],
+		"files" : 
+		[
+			"submodules/SDL_image/CMakeLists.txt",
+			"submodules/SDL_image/cmake/PrivateSdlFunctions.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 204,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 289,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 224,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 240,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 241,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 234,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 391,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 395,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 399,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 500,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 504,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 508,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 562,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 566,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 570,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 574,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 680,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 684,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 688,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 302,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 228,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 243,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fvisibility=hidden -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wextra"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "BUILD_SDL"
+				},
+				{
+					"define" : "DLL_EXPORT"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "LOAD_BMP"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "LOAD_GIF"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "LOAD_JPG"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "LOAD_LBM"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "LOAD_PCX"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "LOAD_PNG"
+				},
+				{
+					"backtrace" : 13,
+					"define" : "LOAD_PNM"
+				},
+				{
+					"backtrace" : 14,
+					"define" : "LOAD_QOI"
+				},
+				{
+					"backtrace" : 15,
+					"define" : "LOAD_SVG"
+				},
+				{
+					"backtrace" : 16,
+					"define" : "LOAD_TGA"
+				},
+				{
+					"backtrace" : 17,
+					"define" : "LOAD_XCF"
+				},
+				{
+					"backtrace" : 18,
+					"define" : "LOAD_XPM"
+				},
+				{
+					"backtrace" : 19,
+					"define" : "LOAD_XV"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "SDL_BUILD_MAJOR_VERSION=3"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "SDL_BUILD_MICRO_VERSION=0"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "SDL_BUILD_MINOR_VERSION=0"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "SDL_IMAGE_SAVE_JPG=1"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "SDL_IMAGE_SAVE_PNG=1"
+				},
+				{
+					"backtrace" : 20,
+					"define" : "USE_STBIMAGE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 21,
+					"path" : "D:/HexenReich/engine/submodules/SDL_image/include"
+				},
+				{
+					"backtrace" : 21,
+					"path" : "D:/HexenReich/engine/submodules/SDL_image/include/SDL3"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "D:/HexenReich/engine/submodules/SDL/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "D:/HexenReich/engine/submodules/SDL/include/SDL3"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20
+			]
+		},
+		{
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "BUILD_SDL"
+				},
+				{
+					"define" : "DLL_EXPORT"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "LOAD_BMP"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "LOAD_GIF"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "LOAD_JPG"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "LOAD_LBM"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "LOAD_PCX"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "LOAD_PNG"
+				},
+				{
+					"backtrace" : 13,
+					"define" : "LOAD_PNM"
+				},
+				{
+					"backtrace" : 14,
+					"define" : "LOAD_QOI"
+				},
+				{
+					"backtrace" : 15,
+					"define" : "LOAD_SVG"
+				},
+				{
+					"backtrace" : 16,
+					"define" : "LOAD_TGA"
+				},
+				{
+					"backtrace" : 17,
+					"define" : "LOAD_XCF"
+				},
+				{
+					"backtrace" : 18,
+					"define" : "LOAD_XPM"
+				},
+				{
+					"backtrace" : 19,
+					"define" : "LOAD_XV"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "SDL_BUILD_MAJOR_VERSION=3"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "SDL_BUILD_MICRO_VERSION=0"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "SDL_BUILD_MINOR_VERSION=0"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "SDL_IMAGE_SAVE_JPG=1"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "SDL_IMAGE_SAVE_PNG=1"
+				},
+				{
+					"backtrace" : 20,
+					"define" : "USE_STBIMAGE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 21,
+					"path" : "D:/HexenReich/engine/submodules/SDL_image/include"
+				},
+				{
+					"backtrace" : 21,
+					"path" : "D:/HexenReich/engine/submodules/SDL_image/include/SDL3"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "D:/HexenReich/engine/cmake-build-debug/submodules/SDL/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "D:/HexenReich/engine/submodules/SDL/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "D:/HexenReich/engine/submodules/SDL/include/SDL3"
+				}
+			],
+			"language" : "RC",
+			"sourceIndexes" : 
+			[
+				21
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 4,
+			"id" : "SDL3-shared::@7bf4f50e94ec765f226d"
+		}
+	],
+	"id" : "SDL3_image::@88b5d20857820fdea635",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-Wl,--no-undefined",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "..\\SDL\\libSDL3.dll.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "SDL3_image",
+	"nameOnDisk" : "SDL3_image.dll",
+	"paths" : 
+	{
+		"build" : "submodules/SDL_image",
+		"source" : "submodules/SDL_image"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_WIC.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_avif.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_bmp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_gif.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_jpg.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_jxl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_lbm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_pcx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_png.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_pnm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_qoi.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_stb.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_svg.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_tga.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_tif.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_webp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_xcf.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_xpm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_xv.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "submodules/SDL_image/IMG_xxx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 22,
+			"compileGroupIndex" : 1,
+			"path" : "submodules/SDL_image/version.rc",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

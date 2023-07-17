@@ -7,15 +7,15 @@
 #include "../Types.h"
 #include "Task.h"
 #include <thread>
+#include <boost/fiber/buffered_channel.hpp>
+#include <condition_variable>
+#include <functional>
+
 
 namespace core::threading
 {
     class Thread;
-    struct ThreadLocalStorage;
-    class Fiber;
-
     class TaskCounter;
-    namespace detail{ class BaseCounter; }
 
     struct TaskManagerOptions
     {
@@ -23,7 +23,7 @@ namespace core::threading
         ~TaskManagerOptions() = default;
 
         u16 numberOfThreads;
-        u32 numberOfFibers{160};
+        u32 numberOfFibers{15};
 
         bool threadAffinity{true};
 
@@ -36,60 +36,51 @@ namespace core::threading
 
     class TaskManager
     {
-        friend class detail::BaseCounter;
-    protected:
-        std::atomic_bool  isShuttingDown{false};
 
+    private:
+        std::atomic_bool  bIsShuttingDown{false};
+
+        std::condition_variable waitingCounter;
+        std::mutex waitingMutex;
+        Thread* threads{nullptr};
 
         u16 numberOfThreads{0};
-        Thread* threads{nullptr};
+
         bool isThreadAffinity{true};
 
         u32 numberOfFibers{0};
-        Fiber *fibers{nullptr};
-        std::atomic_bool* idleFibers{nullptr};
 
-        u32 findFreeFiber();
 
-        void cleanupPreviousFiber(ThreadLocalStorage *storage = nullptr);
+        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> highPriorityQueue;
+        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> normalPriorityQueue;
+        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> lowPriorityQueue;
 
-        u16 getCurrentThreadIndex() const;
-        Thread* getCurrentThread() const;
-        ThreadLocalStorage* getCurrentTLS() const;
-
-        detail::TaskQueue highPriorityQueue;
-        detail::TaskQueue normalPriorityQueue;
-        detail::TaskQueue lowPriorityQueue;
-
-        detail::TaskQueue* getQueueByPriority(TaskPriority taskPriority);
-        bool getNextTask(TaskInfo& taskInfo, ThreadLocalStorage* storage);
-
+        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>>  getQueueByPriority(TaskPriority taskPriority);
 
     public:
         enum class ReturnCode : u8
         {
             Succes = 0,
-            UnknownError,
-            OSError,
-            NullCallback,
             AlreadyInitialized,
-            InvalidNumberOfFibers,
             ErrorThreadAffinity,
         };
 
-        using MainCallback = void(*)(TaskManager*);
-
         explicit TaskManager(const TaskManagerOptions &options = TaskManagerOptions());
+
         ~TaskManager();
 
-        ReturnCode run(MainCallback callback);
+        ReturnCode initialize();
 
         void shutdown(bool isBlocking);
 
         void scheduleTask(TaskPriority taskPriority , const TaskInfo &task);
 
-        void waitForCounter(detail::BaseCounter* counter , u32 value = 0);
-        void waitForSingle(TaskPriority taskPriority , TaskInfo task);
+        void waitForCounter(const std::shared_ptr<TaskCounter> &counter , u32 value = 0);
+
+        inline bool isShuttingDown() const { return bIsShuttingDown.load(std::memory_order_acquire); };
+        const u16 getNumberOfThreads() const { return numberOfThreads; };
+        const u32 getNumberOfFibers() const { return numberOfFibers; };
+
 
         template <typename Callable, typename... Args>
         inline void scheduleTask(TaskPriority taskPriority, Callable callable, Args... args)
@@ -98,7 +89,7 @@ namespace core::threading
         }
 
         template <typename Callable, typename... Args>
-        inline void scheduleTask(TaskPriority taskPriority, detail::BaseCounter* ctr, Callable callable, Args... args)
+        inline void scheduleTask(TaskPriority taskPriority, const std::shared_ptr<TaskCounter> &ctr, Callable callable, Args... args)
         {
             scheduleTask(taskPriority, TaskInfo(ctr, callable, args...));
         }
@@ -111,12 +102,8 @@ namespace core::threading
 
 
     private:
-        MainCallback mainCallback{nullptr};
         bool shutdownAfterMain{true};
 
-        static void threadCallbackWorker(Thread *thread);
-        static void fiberCallbackWorker(Fiber *fiber);
-        static void fiberCallbackMain(Fiber *fiber);
 
     };
 }
