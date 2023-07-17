@@ -7,7 +7,6 @@
 
 #include "../Types.h"
 #include "detail/Delegate.h"
-#include "detail/MPMCQueue.h"
 #include "TaskCounter.h"
 #include <string.h>
 
@@ -46,7 +45,7 @@ namespace core::threading
             storeJobInfo<typename detail::DelegateMember<TClass, Ret, Args...>>(&TClass::operator(), inst, args...);
         }
 
-        detail::BaseCounter* counter = nullptr;
+        std::shared_ptr<TaskCounter> counter = nullptr;
 
     public:
         TaskInfo() = default;
@@ -100,12 +99,12 @@ namespace core::threading
             reset();
         }
 
-        inline void setCounter(detail::BaseCounter* ctr)
+        inline void setCounter(const std::shared_ptr<TaskCounter> &ctr)
         {
             counter = ctr;
         }
 
-        inline detail::BaseCounter* getCounter() const
+        inline std::shared_ptr<TaskCounter> getCounter() const
         {
             return counter;
         }
@@ -133,10 +132,6 @@ namespace core::threading
         Low
     };
 
-    namespace detail
-    {
-        using TaskQueue = detail::MPMCQueue<TaskInfo>;
-    }
 }
 
 
