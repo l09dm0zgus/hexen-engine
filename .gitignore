@@ -4,7 +4,7 @@
 build
 editor/cmake-build-debug
 editor/cmake-build-debug-wsl
-engine/cmake-buid-debug
+engine/cmake-build-debug
 editor/cmake-build-release
 editor/.idea
 local.properties

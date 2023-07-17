@@ -1,1 +1,0 @@
- ../submodules/SDL_image/libSDL3_image.dll.a "../submodules/glew-cmake/lib/libglewd.a" ../submodules/SDL/libSDL3.dll.a -lopengl32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

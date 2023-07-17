@@ -1,3 +1,0 @@
-D:\Toolbox\apps\CLion\ch-0\231.9161.40\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\libglew_shared.dir/objects.a
-C:\PROGRA~1\mingw64\bin\ar.exe qc CMakeFiles\libglew_shared.dir/objects.a @CMakeFiles\libglew_shared.dir\objects1
-C:\PROGRA~1\mingw64\bin\gcc.exe -g -nostdlib -shared -o bin\libglew-sharedd.dll -Wl,--out-implib,lib\libglew-sharedd.dll.a -Wl,--major-image-version,2,--minor-image-version,2 -Wl,--whole-archive CMakeFiles\libglew_shared.dir/objects.a -Wl,--no-whole-archive @CMakeFiles\libglew_shared.dir\linkLibs.rsp
