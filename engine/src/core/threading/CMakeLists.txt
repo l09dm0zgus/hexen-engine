@@ -4,8 +4,8 @@ project(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Thread.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Thread.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/TaskCounter.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/TaskCounter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BaseCounter.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/BaseCounter.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Task.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Task.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TaskManager.h
