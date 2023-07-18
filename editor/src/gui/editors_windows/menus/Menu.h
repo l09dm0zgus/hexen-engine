@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 19.06.2023.
 //
 
-#ifndef HEXENEDITOR_MENU_H
-#define HEXENEDITOR_MENU_H
+#pragma once
 
 #include <functional>
 #include "../GUIWindow.h"
@@ -20,6 +19,3 @@ namespace edit::gui
     };
 }
 
-
-
-#endif //HEXENEDITOR_MENU_H

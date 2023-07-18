@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 15.06.2023.
 //
 
-#ifndef HEXENEDITOR_SHORTCUTS_H
-#define HEXENEDITOR_SHORTCUTS_H
+#pragma once
+
 #include <map>
 #include <functional>
 #include <imgui.h>
@@ -21,8 +21,3 @@ namespace edit::gui
         static std::map<Keys,std::function<void()>> shortcuts;
     };
 }
-
-
-
-
-#endif //HEXENEDITOR_SHORTCUTS_H

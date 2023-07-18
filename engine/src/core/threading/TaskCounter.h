@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.07.2023.
 //
 
-#ifndef HEXENEDITOR_TASKCOUNTER_H
-#define HEXENEDITOR_TASKCOUNTER_H
+#pragma once
+
 #include <atomic>
 #include "../Types.h"
 
@@ -27,7 +27,3 @@ namespace core::threading
         u32 getValue() const;
     };
 }
-
-
-
-#endif //HEXENEDITOR_TASKCOUNTER_H

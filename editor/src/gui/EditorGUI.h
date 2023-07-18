@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 25.05.2023.
 //
 
-#ifndef HEXENEDITOR_EDITORGUI_HPP
-#define HEXENEDITOR_EDITORGUI_HPP
+#pragma once
 
 #include <imgui.h>
 #include <backends/imgui_impl_sdl3.h>
@@ -33,5 +32,3 @@ namespace edit::gui
 }
 
 
-
-#endif //HEXENEDITOR_EDITORGUI_HPP

@@ -2,8 +2,9 @@
 // Created by cx9ps3 on 19.06.2023.
 //
 
-#ifndef HEXENEDITOR_PROJECT_H
-#define HEXENEDITOR_PROJECT_H
+#pragma once
+
+
 #include <string>
 #include <nlohmann/json.hpp>
 #include <core/memory_pool/AllocatedObject.h>
@@ -41,7 +42,3 @@ class Project : public core::mem::AllocatedObject
        std::string getPath();
     };
 }
-
-
-
-#endif //HEXENEDITOR_PROJECT_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#ifndef HEXENEDITOR_DELETESELECTEDFILESWINDOW_H
-#define HEXENEDITOR_DELETESELECTEDFILESWINDOW_H
+#pragma once
+
 #include "DeleteFileWindow.h"
 
 namespace edit::gui
@@ -21,4 +21,3 @@ namespace edit::gui
 }
 
 
-#endif //HEXENEDITOR_DELETESELECTEDFILESWINDOW_H

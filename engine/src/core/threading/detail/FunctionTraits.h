@@ -1,9 +1,8 @@
 //
 // Created by cx9ps3 on 14.07.2023.
 //
+#pragma once
 
-#ifndef HEXENEDITOR_FUNCTIONTRAITS_H
-#define HEXENEDITOR_FUNCTIONTRAITS_H
 #include <tuple>
 #include "../../Types.h"
 
@@ -72,5 +71,3 @@ namespace core::threading::detail
         };
     };
 }
-
-#endif //HEXENEDITOR_FUNCTIONTRAITS_H

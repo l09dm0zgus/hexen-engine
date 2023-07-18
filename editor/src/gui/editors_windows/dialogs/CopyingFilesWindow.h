@@ -1,9 +1,8 @@
 //
 // Created by cx9ps3 on 26.06.2023.
 //
+#pragma once
 
-#ifndef HEXENEDITOR_COPYINGFILESWINDOW_H
-#define HEXENEDITOR_COPYINGFILESWINDOW_H
 #include "DialogWindow.h"
 #include <filesystem>
 
@@ -24,5 +23,3 @@ namespace edit::gui
         void setCurrentPath(const std::filesystem::path &currentPath);
     };
 }
-
-#endif //HEXENEDITOR_COPYINGFILESWINDOW_H

@@ -2,8 +2,9 @@
 // Created by cx9ps3 on 11.06.2023.
 //
 
-#ifndef HEXENEDITOR_WINDOWSFILEDIALOG_HPP
-#define HEXENEDITOR_WINDOWSFILEDIALOG_HPP
+#pragma once
+
+
 #include "INativeFileDialog.h"
 #ifdef __MINGW32__
 // Explicitly setting NTDDI version, this is necessary for the MinGW compiler
@@ -49,8 +50,3 @@ namespace edit::gui
         const core::i32 maxStringLenght{256};
     };
 }
-
-
-
-
-#endif //HEXENEDITOR_WINDOWSFILEDIALOG_HPP

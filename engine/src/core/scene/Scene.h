@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 24.05.2023.
 //
 
-#ifndef HEXENREICH_LEVEL_H
-#define HEXENREICH_LEVEL_H
+#pragma once
 
 #include "../../entity/scene/SceneEntity.h"
 #include <iterator>
@@ -87,4 +86,3 @@ namespace core
 
 
 
-#endif //HEXENREICH_LEVEL_H

@@ -2,9 +2,7 @@
 // Created by cx9ps3 on 09.05.2023.
 //
 
-#ifndef BATTLEBLAZE_ALLOCATEDOBJECT_H
-#define BATTLEBLAZE_ALLOCATEDOBJECT_H
-
+#pragma once
 
 #include "../Types.h"
 #include "MemoryPool.h"
@@ -41,6 +39,3 @@ namespace core::mem
         return std::shared_ptr<T>(new T(std::forward<Ts>(params)...));
     }
 }
-
-
-#endif //BATTLEBLAZE_ALLOCATEDOBJECT_H

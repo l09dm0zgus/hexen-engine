@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.07.2023.
 //
 
-#ifndef HEXENEDITOR_DETAILS_H
-#define HEXENEDITOR_DETAILS_H
+#pragma once
+
 #include <tuple>
 
 namespace core::threading::detail
@@ -103,4 +103,3 @@ namespace core::threading::detail
 }
 
 
-#endif //HEXENEDITOR_DETAILS_H

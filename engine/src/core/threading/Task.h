@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.07.2023.
 //
 
-#ifndef HEXENEDITOR_TASK_H
-#define HEXENEDITOR_TASK_H
+#pragma once
+
 
 #include "../Types.h"
 #include "detail/Delegate.h"
@@ -133,7 +133,3 @@ namespace core::threading
     };
 
 }
-
-
-
-#endif //HEXENEDITOR_TASK_H

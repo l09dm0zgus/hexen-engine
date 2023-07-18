@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 06.01.23.
 //
 
-#ifndef BATTLEBLAZE_TEXTURE_H
-#define BATTLEBLAZE_TEXTURE_H
+#pragma once
+
 
 #include <SDL3/SDL.h>
 #include <SDL_image.h>
@@ -30,4 +30,3 @@ namespace core::rend
     };
 }
 
-#endif //BATTLEBLAZE_TEXTURE_H

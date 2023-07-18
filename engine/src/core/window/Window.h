@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 28.12.22.
 //
 
-#ifndef BATTLEBLAZE_WINDOW_H
-#define BATTLEBLAZE_WINDOW_H
+#pragma once
 
 #include <SDL3/SDL.h>
 #include <string>
@@ -39,4 +38,3 @@ namespace core
     };
 }
 
-#endif //BATTLEBLAZE_WINDOW_H

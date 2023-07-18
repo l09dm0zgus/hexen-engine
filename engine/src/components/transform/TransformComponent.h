@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 09.01.23.
 //
 
-#ifndef BATTLEBLAZE_TRANSFORMCOMPONENT_H
-#define BATTLEBLAZE_TRANSFORMCOMPONENT_H
+#pragma once
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -68,5 +68,3 @@ namespace comp
     };
 
 }
-
-#endif //BATTLEBLAZE_TRANSFORMCOMPONENT_H

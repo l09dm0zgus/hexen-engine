@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 16.06.2023.
 //
 
-#ifndef HEXENEDITOR_SETTINGS_H
-#define HEXENEDITOR_SETTINGS_H
+#pragma once
+
 #include "../Types.h"
 #include <glm/glm.hpp>
 #include <nlohmann/json.hpp>
@@ -49,6 +49,3 @@ namespace core
     };
 }
 
-
-
-#endif //HEXENEDITOR_SETTINGS_H

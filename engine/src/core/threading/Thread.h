@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#ifndef HEXENEDITOR_THREAD_H
-#define HEXENEDITOR_THREAD_H
+#pragma once
 
 #include <thread>
 #include <mutex>
@@ -52,4 +51,3 @@ namespace core::threading
     };
 }
 
-#endif //HEXENEDITOR_THREAD_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 19.01.23.
 //
 
-#ifndef BATTLEBLAZE_RENDERCOMPONENT_H
-#define BATTLEBLAZE_RENDERCOMPONENT_H
+#pragma once
+
 #include "../Component.h"
 #include <glm/glm.hpp>
 #include <iostream>
@@ -50,4 +50,3 @@ namespace comp::rend
 
 
 
-#endif //BATTLEBLAZE_RENDERCOMPONENT_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 09.05.2023.
 //
 
-#ifndef BATTLEBLAZE_MEMORYPOOL_H
-#define BATTLEBLAZE_MEMORYPOOL_H
+#pragma once
+
 #include "../Types.h"
 #include <vector>
 namespace core::mem
@@ -37,5 +37,3 @@ namespace core::mem
         vptr maxAddress;
     };
 }
-
-#endif //BATTLEBLAZE_MEMORYPOOL_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.07.2023.
 //
 
-#ifndef HEXENEDITOR_TASKMANAGER_H
-#define HEXENEDITOR_TASKMANAGER_H
+#pragma once
+
 #include "../Types.h"
 #include "Task.h"
 #include <thread>
@@ -108,7 +108,3 @@ namespace core::threading
     };
 }
 
-
-
-
-#endif //HEXENEDITOR_TASKMANAGER_H

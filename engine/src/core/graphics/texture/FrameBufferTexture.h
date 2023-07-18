@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 09.06.2023.
 //
 
-#ifndef HEXENEDITOR_FRAMEBUFFERTEXTURE_HPP
-#define HEXENEDITOR_FRAMEBUFFERTEXTURE_HPP
+#pragma once
 
 #include <glm/vec2.hpp>
 #include "../../memory_pool/AllocatedObject.h"
@@ -23,4 +22,3 @@ namespace core::rend
     };
 }
 
-#endif //HEXENEDITOR_FRAMEBUFFERTEXTURE_HPP

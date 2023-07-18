@@ -2,8 +2,9 @@
 // Created by cx9ps3 on 20.05.2023.
 //
 
-#ifndef BATTLEBLAZE_COMPONENTNOTFOUND_H
-#define BATTLEBLAZE_COMPONENTNOTFOUND_H
+#pragma once
+
+
 #include <string>
 namespace core::exc
 {
@@ -16,8 +17,3 @@ namespace core::exc
         std::string componentName;
     };
 }
-
-
-
-
-#endif //BATTLEBLAZE_COMPONENTNOTFOUND_H

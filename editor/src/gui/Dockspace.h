@@ -1,11 +1,11 @@
 //
 // Created by cx9ps3 on 09.06.2023.
 //
+#pragma once
 
-#ifndef HEXENEDITOR_DOCKSPACE_H
-#define HEXENEDITOR_DOCKSPACE_H
 #include <core/Types.h>
 #include "editors_windows/GUIWindow.h"
+
 namespace edit::gui
 {
     class Dockspace
@@ -36,7 +36,3 @@ namespace edit::gui
         core::HashTable<std::string,DockingPosition> dockingPositions;
     };
 }
-
-
-
-#endif //HEXENEDITOR_DOCKSPACE_H

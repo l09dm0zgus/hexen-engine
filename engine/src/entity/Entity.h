@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.05.2023.
 //
 
-#ifndef BATTLEBLAZE_ENTITY_H
-#define BATTLEBLAZE_ENTITY_H
+#pragma once
+
 #include "../core/uuid/uuid.h"
 #include "../core/Types.h"
 #include "../components/Component.h"
@@ -42,6 +42,3 @@ namespace ent
 
 }
 
-
-
-#endif //BATTLEBLAZE_ENTITY_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#ifndef HEXENEDITOR_DELETEFILEWINDOW_H
-#define HEXENEDITOR_DELETEFILEWINDOW_H
+#pragma once
+
 #include "DialogWindow.h"
 #include <filesystem>
 namespace edit::gui
@@ -22,4 +22,3 @@ namespace edit::gui
     };
 }
 
-#endif //HEXENEDITOR_DELETEFILEWINDOW_H

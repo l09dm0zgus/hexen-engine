@@ -1,9 +1,9 @@
 //
 // Created by cx9ps3 on 28.01.23.
 //
+#pragma once
 
-#ifndef BATTLEBLAZE_UUID_H
-#define BATTLEBLAZE_UUID_H
+
 #include <random>
 #include <sstream>
 
@@ -46,4 +46,3 @@ inline std::string generateUUIDV4()
     return ss.str();
 }
 
-#endif //BATTLEBLAZE_UUID_H

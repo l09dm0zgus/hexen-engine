@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 27.06.2023.
 //
 
-#ifndef HEXENEDITOR_ASSETSICON_H
-#define HEXENEDITOR_ASSETSICON_H
+#pragma once
+
 #include <core/graphics/texture/Texture.h>
 #include <filesystem>
 #include <glm/glm.hpp>
@@ -64,5 +64,3 @@ namespace edit::gui
         void draw();
     };
 }
-
-#endif //HEXENEDITOR_ASSETSICON_H

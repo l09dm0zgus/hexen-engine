@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 27.06.2023.
 //
 
-#ifndef HEXENEDITOR_DIALOGWINDOW_H
-#define HEXENEDITOR_DIALOGWINDOW_H
+#pragma once
+
 #include "../GUIWindow.h"
 
 namespace edit::gui
@@ -34,6 +34,3 @@ namespace edit::gui
         Action action;
     };
 }
-
-
-#endif //HEXENEDITOR_DIALOGWINDOW_H

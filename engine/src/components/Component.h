@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 19.01.23.
 //
 
-#ifndef BATTLEBLAZE_COMPONENT_H
-#define BATTLEBLAZE_COMPONENT_H
+#pragma once
 
 #include <string>
 #include "../core/memory_pool/AllocatedObject.h"
@@ -39,6 +38,3 @@ namespace comp
         std::string name;
     };
 }
-
-
-#endif //BATTLEBLAZE_COMPONENT_H

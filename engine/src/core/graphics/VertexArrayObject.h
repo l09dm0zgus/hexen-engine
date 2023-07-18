@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 04.01.23.
 //
 
-#ifndef BATTLEBLAZE_VERTEXARRAYOBJECT_H
-#define BATTLEBLAZE_VERTEXARRAYOBJECT_H
+#pragma once
+
 #include "../Types.h"
 namespace core::rend
 {
@@ -19,4 +19,3 @@ namespace core::rend
     };
 
 }
-#endif //BATTLEBLAZE_VERTEXARRAYOBJECT_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 19.06.2023.
 //
 
-#ifndef HEXENEDITOR_ASSETSWINDOW_H
-#define HEXENEDITOR_ASSETSWINDOW_H
+#pragma once
+
 #include "GUIWindow.h"
 #include "../../project/Project.h"
 #include <core/graphics/texture/Texture.h>
@@ -63,6 +63,3 @@ namespace edit::gui
         void end() override;
     };
 }
-
-
-#endif //HEXENEDITOR_ASSETSWINDOW_H

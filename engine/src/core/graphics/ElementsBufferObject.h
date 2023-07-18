@@ -1,9 +1,7 @@
 //
 // Created by cx9ps3 on 14.05.2023.
 //
-
-#ifndef BATTLEBLAZE_ELEMENTSBUFFEROBJECT_H
-#define BATTLEBLAZE_ELEMENTSBUFFEROBJECT_H
+#pragma once
 
 #include "RectangleData.h"
 #include "../Types.h"
@@ -21,8 +19,3 @@ namespace core::rend
         u32 object{0};
     };
 }
-
-
-
-
-#endif //BATTLEBLAZE_ELEMENTSBUFFEROBJECT_H

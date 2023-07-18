@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.01.23.
 //
 
-#ifndef BATTLEBLAZE_SPRITEINSTANCEDCOMPONENT_H
-#define BATTLEBLAZE_SPRITEINSTANCEDCOMPONENT_H
+#pragma once
+
 #include "SpriteComponent.h"
 #include "../../core/Types.h"
 namespace comp::rend
@@ -20,4 +20,3 @@ namespace comp::rend
     };
 
 }
-#endif //BATTLEBLAZE_SPRITEINSTANCEDCOMPONENT_H

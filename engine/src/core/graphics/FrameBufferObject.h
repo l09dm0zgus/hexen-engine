@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 09.06.2023.
 //
 
-#ifndef HEXENEDITOR_FRAMEBUFFEROBJECT_H
-#define HEXENEDITOR_FRAMEBUFFEROBJECT_H
+#pragma once
 
 #include <glm/vec2.hpp>
 #include "../Types.h"
@@ -26,5 +25,3 @@ namespace core::rend
         RenderBufferObject renderBufferObject;
     };
 }
-
-#endif //HEXENEDITOR_FRAMEBUFFEROBJECT_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 09.06.2023.
 //
 
-#ifndef HEXENEDITOR_GUIWINDOW_H
-#define HEXENEDITOR_GUIWINDOW_H
+#pragma once
+
 #include <string>
 #include <imgui.h>
 #include <core/memory_pool/AllocatedObject.h>
@@ -40,5 +40,3 @@ namespace edit::gui
         glm::vec2 size{200,200};
     };
 }
-
-#endif //HEXENEDITOR_GUIWINDOW_H

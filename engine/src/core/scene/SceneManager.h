@@ -1,9 +1,8 @@
 //
 // Created by cx9ps3 on 11.07.2023.
 //
+#pragma once
 
-#ifndef HEXENEDITOR_SCENEMANAGER_H
-#define HEXENEDITOR_SCENEMANAGER_H
 #include "Scene.h"
 
 
@@ -18,7 +17,3 @@ namespace core
         static std::shared_ptr<Scene> getCurrentScene();
     };
 }
-
-
-
-#endif //HEXENEDITOR_SCENEMANAGER_H

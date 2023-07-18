@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 04.01.23.
 //
 
-#ifndef BATTLEBLAZE_SPRITECOMPONENT_H
-#define BATTLEBLAZE_SPRITECOMPONENT_H
+#pragma once
+
 #include "../../core/graphics/shaders/Shaders.h"
 #include "../../core/graphics/VertexBufferObject.h"
 #include "../../core/graphics/VertexArrayObject.h"
@@ -35,4 +35,3 @@ namespace comp::rend
         void bindTextures();
     };
 }
-#endif //BATTLEBLAZE_SPRITECOMPONENT_H

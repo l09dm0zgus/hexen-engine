@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#ifndef HEXENEDITOR_FRAMEBUFFERWINDOW_H
-#define HEXENEDITOR_FRAMEBUFFERWINDOW_H
+#pragma once
 
 #include <core/Types.h>
 #include <core/graphics/FrameBufferObject.h>
@@ -27,5 +26,3 @@ namespace edit::gui
         virtual void render();
     };
 }
-
-#endif //HEXENEDITOR_FRAMEBUFFERWINDOW_H

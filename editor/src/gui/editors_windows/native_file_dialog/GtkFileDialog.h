@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 12.06.2023.
 //
 
-#ifndef HEXENEDITOR_GTKFILEDIALOG_H
-#define HEXENEDITOR_GTKFILEDIALOG_H
+#pragma once
+
 #include "INativeFileDialog.h"
 
 #include <gtk/gtk.h>
@@ -25,5 +25,3 @@ namespace edit::gui
         void waitForCleanUp();
     };
 }
-
-#endif //HEXENEDITOR_GTKFILEDIALOG_H

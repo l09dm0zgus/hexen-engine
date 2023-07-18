@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 29.05.2023.
 //
 
-#ifndef HEXENEDITOR_STYLE_H
-#define HEXENEDITOR_STYLE_H
+#pragma once
+
 #include <imgui.h>
 #include <core/Types.h>
 #include <string>
@@ -41,5 +41,3 @@ namespace edit::gui
     };
 }
 
-
-#endif //HEXENEDITOR_STYLE_H

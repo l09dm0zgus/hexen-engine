@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 23.05.2023.
 //
 
-#ifndef BATTLEBLAZE_RENDERSYSTEM_H
-#define BATTLEBLAZE_RENDERSYSTEM_H
+#pragma once
+
 #include "../core/Types.h"
 #include "../components/graphics/SpriteComponent.h"
 #include "../components/graphics/SpriteInstancedComponent.h"
@@ -35,4 +35,3 @@ namespace sys
     };
 }
 
-#endif //BATTLEBLAZE_RENDERSYSTEM_H

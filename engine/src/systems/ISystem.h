@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#ifndef HEXENEDITOR_ISYSTEM_H
-#define HEXENEDITOR_ISYSTEM_H
+#pragma once
+
 
 #include "../core/memory_pool/MemoryPool.h"
 
@@ -24,4 +24,3 @@ namespace sys
     };
 }
 
-#endif //HEXENEDITOR_ISYSTEM_H

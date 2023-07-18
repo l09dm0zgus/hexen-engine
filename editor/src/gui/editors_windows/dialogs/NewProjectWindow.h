@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 16.06.2023.
 //
 
-#ifndef HEXENEDITOR_NEWPROJECTWINDOW_H
-#define HEXENEDITOR_NEWPROJECTWINDOW_H
+#pragma once
+
 #include <core/Types.h>
 #include "DialogWindow.h"
 
@@ -30,4 +30,3 @@ namespace edit::gui
 
 
 
-#endif //HEXENEDITOR_NEWPROJECTWINDOW_H

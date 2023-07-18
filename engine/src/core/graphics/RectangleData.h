@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 02.01.23.
 //
 
-#ifndef BATTLEBLAZE_RECTANGLEDATA_H
-#define BATTLEBLAZE_RECTANGLEDATA_H
+#pragma once
 
 namespace core::rend
 {
@@ -29,4 +28,3 @@ namespace core::rend
     };
 }
 
-#endif //BATTLEBLAZE_RECTANGLEDATA_H

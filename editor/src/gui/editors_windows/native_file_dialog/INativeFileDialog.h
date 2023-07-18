@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 11.06.2023.
 //
 
-#ifndef HEXENEDITOR_INATIVEFILEDIALOG_H
-#define HEXENEDITOR_INATIVEFILEDIALOG_H
+#pragma once
 
 #include <core/Types.h>
 #include <core/memory_pool/AllocatedObject.h>
@@ -60,5 +59,3 @@ class INativeFileDialog : public core::mem::AllocatedObject
 
 
 }
-
-#endif //HEXENEDITOR_INATIVEFILEDIALOG_H

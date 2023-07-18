@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 28.06.2023.
 //
 
-#ifndef HEXENEDITOR_SCENEHIERARCHYWINDOW_H
-#define HEXENEDITOR_SCENEHIERARCHYWINDOW_H
+#pragma once
+
 #include <core/scene/SceneManager.h>
 #include "GUIWindow.h"
 
@@ -38,5 +38,3 @@ namespace edit::gui
         void end() override;
     };
 }
-
-#endif //HEXENEDITOR_SCENEHIERARCHYWINDOW_H

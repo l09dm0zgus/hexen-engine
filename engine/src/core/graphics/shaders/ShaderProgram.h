@@ -1,9 +1,8 @@
 //
 // Created by cx9ps3 on 03.01.23.
 //
+#pragma once
 
-#ifndef BATTLEBLAZE_SHADERPROGRAM_H
-#define BATTLEBLAZE_SHADERPROGRAM_H
 #include "ShaderFile.h"
 #include <glm/glm.hpp>
 #include "../../memory_pool/AllocatedObject.h"
@@ -33,4 +32,3 @@ class ShaderProgram : public mem::AllocatedObject
         void showLinkerLog() const noexcept;
     };
 }
-#endif //BATTLEBLAZE_SHADERPROGRAM_H

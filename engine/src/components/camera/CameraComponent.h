@@ -2,8 +2,9 @@
 // Created by cx9ps3 on 10.01.23.
 //
 
-#ifndef BATTLEBLAZE_CAMERACOMPONENT_H
-#define BATTLEBLAZE_CAMERACOMPONENT_H
+#pragma once
+
+
 #include <glm/glm.hpp>
 #include "../../core/Types.h"
 #include "../Component.h"
@@ -28,4 +29,3 @@ namespace comp
     };
 }
 
-#endif //BATTLEBLAZE_CAMERACOMPONENT_H

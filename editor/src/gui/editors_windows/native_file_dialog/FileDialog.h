@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.06.2023.
 //
 
-#ifndef HEXENEDITOR_FILEDIALOG_H
-#define HEXENEDITOR_FILEDIALOG_H
+#pragma once
+
 #include "INativeFileDialog.h"
 
 namespace edit::gui
@@ -22,5 +22,3 @@ namespace edit::gui
 
 }
 
-
-#endif //HEXENEDITOR_FILEDIALOG_H

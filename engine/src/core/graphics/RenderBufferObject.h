@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 09.06.2023.
 //
 
-#ifndef HEXENEDITOR_RENDERBUFFEROBJECT_H
-#define HEXENEDITOR_RENDERBUFFEROBJECT_H
+#pragma once
+
 #include "../Types.h"
 
 namespace core::rend
@@ -20,7 +20,3 @@ namespace core::rend
         void unbind();
     };
 }
-
-
-
-#endif //HEXENEDITOR_RENDERBUFFEROBJECT_H

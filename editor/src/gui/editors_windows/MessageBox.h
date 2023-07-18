@@ -2,8 +2,9 @@
 // Created by cx9ps3 on 16.06.2023.
 //
 
-#ifndef HEXENEDITOR_MESSAGEBOX_H
-#define HEXENEDITOR_MESSAGEBOX_H
+#pragma once
+
+
 #include <imgui.h>
 #include <glm/glm.hpp>
 #include <core/Types.h>
@@ -81,6 +82,3 @@ namespace edit::gui
     bool bufferingBar(const char* label, float value,  const ImVec2& newSize, const ImU32& backgroundColor, const ImU32& foregroundColor);
 
 }
-
-
-#endif //HEXENEDITOR_MESSAGEBOX_H

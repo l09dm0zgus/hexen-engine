@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 03.01.23.
 //
 
-#ifndef BATTLEBLAZE_VERTEXATTRIBUTES_H
-#define BATTLEBLAZE_VERTEXATTRIBUTES_H
+#pragma once
+
 #include <cstddef>
 #include "../Types.h"
 namespace core::rend
@@ -19,4 +19,3 @@ namespace core::rend
     };
 
 }
-#endif //BATTLEBLAZE_VERTEXATTRIBUTES_H

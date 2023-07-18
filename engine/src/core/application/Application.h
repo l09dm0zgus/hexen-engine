@@ -1,9 +1,7 @@
 //
 // Created by cx9ps3 on 30.12.22.
 //
-
-#ifndef BATTLEBLAZE_APPLICATION_H
-#define BATTLEBLAZE_APPLICATION_H
+#pragma once
 
 #include "../window/Window.h"
 namespace core
@@ -27,4 +25,3 @@ namespace core
     };
 
 }
-#endif //BATTLEBLAZE_APPLICATION_H

@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 14.07.2023.
 //
 
-#ifndef HEXENEDITOR_DELEGATE_H
-#define HEXENEDITOR_DELEGATE_H
+#pragma once
+
 
 #include "Details.h"
 #include "FunctionChecks.h"

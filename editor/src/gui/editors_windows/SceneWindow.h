@@ -1,9 +1,7 @@
 //
 // Created by cx9ps3 on 09.06.2023.
 //
-
-#ifndef HEXENEDITOR_SCENEWINDOW_H
-#define HEXENEDITOR_SCENEWINDOW_H
+#pragma once
 
 #include "FramebufferWindow.h"
 
@@ -23,4 +21,3 @@ namespace edit::gui
 
 
 
-#endif //HEXENEDITOR_SCENEWINDOW_H

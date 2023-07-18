@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 25.05.2023.
 //
 
-#ifndef HEXENEDITOR_APPLICATION_H
-#define HEXENEDITOR_APPLICATION_H
+#pragma once
 
 #include <core/window/Window.h>
 
@@ -22,4 +21,3 @@ namespace edit
 }
 
 
-#endif //HEXENEDITOR_APPLICATION_H

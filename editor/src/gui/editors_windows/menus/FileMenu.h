@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 19.06.2023.
 //
 
-#ifndef HEXENEDITOR_FILEMENU_H
-#define HEXENEDITOR_FILEMENU_H
+#pragma once
 
 #include "Menu.h"
 #include "../dialogs/NewProjectWindow.h"
@@ -40,4 +39,3 @@ namespace edit::gui
 }
 
 
-#endif //HEXENEDITOR_FILEMENU_H

@@ -1,10 +1,7 @@
 //
 // Created by cx9ps3 on 14.07.2023.
 //
-
-#ifndef HEXENEDITOR_FUNCTIONCHECKS_H
-#define HEXENEDITOR_FUNCTIONCHECKS_H
-
+#pragma once
 
 #include <type_traits>
 #include <tuple>
@@ -124,5 +121,3 @@ namespace core::threading::detail
         }
     };
 }
-
-#endif //HEXENEDITOR_FUNCTIONCHECKS_H
