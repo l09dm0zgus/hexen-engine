@@ -2,8 +2,7 @@
 // Created by cx9ps3 on 09.05.2023.
 //
 
-#ifndef BATTLEBLAZE_TYPES_H
-#define BATTLEBLAZE_TYPES_H
+#pragma once
 
 #include <cstdint>
 #include <vector>
@@ -45,6 +44,22 @@ namespace core
 
     const std::string ENGINE_VERSION = std::string("0.0.0.1");
 
+#define HEXEN_EXPAND(s) s
+#define HEXEN_STR_IMPL(s) #s
+#define HEXEN_STR(s) HEXEN_EXPAND(HEXEN_STR_IMPL(s))
+#ifndef NDEBUG
+#define HEXEN_ASSERT(expression,message)                                                         \
+    if(!(expression))                                                                            \
+    {                                                                                            \
+        std::fputs("Assertion Failure: " HEXEN_STR(msg) ". Expr: " HEXEN_STR(expr) "\n", stderr); \
+        std::fputs("Source File: " __FILE__ ":" HEXEN_STR(__LINE__) "\n", stderr);                  \
+        std::abort();                                                                              \
+    }                                                                                            \
+
+
+#else
+#define HEXEN_ASSERT(msg, expr)
+#endif
 #if defined(__unix__)
     const std::string PATH_SLASH("/");
 #elif defined(WIN32)
@@ -161,7 +176,7 @@ namespace core
 
         u32 mask() const noexcept
         {
-            assert(slots.size() && !(slots.size() & (slots.size() -1)) && "table size must be a power of two");
+            HEXEN_ASSERT(slots.size() && !(slots.size() & (slots.size() -1)) , "table size must be a power of two");
             return slots.size() - 1;
         }
         bool isShouldRehash() const
@@ -458,7 +473,7 @@ namespace core
 
             const KeyValue *operator->() const
             {
-                assert(slotIndex < owner->slots.size() && "cannot dereference end iterator");
+                HEXEN_ASSERT(slotIndex < owner->slots.size() , "cannot dereference end iterator");
                 return &owner->slots[slotIndex].keyValue;
             }
 
@@ -469,7 +484,7 @@ namespace core
 
             ConstIterator &operator++()
             {
-                assert(slotIndex < owner->slots.size() && "cannot increment end iterator");
+                HEXEN_ASSERT(slotIndex < owner->slots.size() , "cannot increment end iterator");
                 do
                 {
                     slotIndex++;
@@ -487,7 +502,7 @@ namespace core
 
             bool operator==(const ConstIterator &constIterator) const
             {
-                assert(owner == constIterator.owner && "different iterators owners!");
+                HEXEN_ASSERT(owner == constIterator.owner , "different iterators owners!");
                 return owner == constIterator.owner && slotIndex == constIterator.slotIndex;
             }
 
@@ -519,7 +534,7 @@ namespace core
 
             Iterator &operator++()
             {
-                assert(this->slotIndex < this->owner->slots.size() && "cannot increment end iterator");
+                HEXEN_ASSERT(this->slotIndex < this->owner->slots.size() , "cannot increment end iterator");
                 do
                 {
                     this->slotIndex++;
@@ -586,10 +601,9 @@ namespace core
 
         void erase(const ConstIterator &it)
         {
-            assert(it.owner == this && "cannot erase an element of another instance");
+            HEXEN_ASSERT(it.owner == this , "cannot erase an element of another instance");
             remove(it->key);
         }
     };
 }
 
-#endif //BATTLEBLAZE_TYPES_H
