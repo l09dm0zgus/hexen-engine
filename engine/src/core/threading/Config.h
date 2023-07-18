@@ -24,7 +24,7 @@
 #if defined(_MSC_VER)
 #	define HEXEN_WIN32_THREADS
 #elif defined(__MINGW32__) || defined(__MINGW64__)
-#	define HEXEN_POSIX_THREADS
+#	define HEXEN_WIN32_THREADS
 #elif defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS) || defined(HEXEN_OS_LINUX)
 #	include <unistd.h>
 

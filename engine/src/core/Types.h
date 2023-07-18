@@ -22,12 +22,6 @@
     #define HEXEN_INLINE                                  inline
 #endif
 
-#if defined(_WIN32)
-#define WINDOWS_API
-#elif defined(unix) || defined(__ANDROID__) || defined(__APLE__)
-#define POSIX_API
-#endif
-
 namespace core
 {
     using i8 = int8_t;
