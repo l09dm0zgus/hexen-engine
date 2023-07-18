@@ -41,6 +41,7 @@ namespace core
     using u32 = uint32_t;
     using u64 = uint64_t;
     using vptr = void*;
+    using size = size_t;
 
     const std::string ENGINE_VERSION = std::string("0.0.0.1");
 
