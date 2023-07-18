@@ -17,6 +17,7 @@ set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/SDL_image/inclu
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/glm)
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/SDL/include)
 set(JSON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/json/include)
+set(CONTEXT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/deboost.context/include)
 
 if (${BUILD_ANDROID} STREQUAL  OFF)
     set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/glew-cmake/include)

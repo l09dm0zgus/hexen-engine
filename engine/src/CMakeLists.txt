@@ -28,6 +28,7 @@ include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})
 include_directories(${SDL_INCLUDE_DIR})
 include_directories(${JSON_INCLUDE_DIR})
+include_directories(${CONTEXT_INCLUDE_DIR})
 
 if (${BUILD_ANDROID} STREQUAL  OFF)
     include_directories(${GLEW_INCLUDE_DIR})
