@@ -15,7 +15,7 @@ namespace core::threading
     public:
         Fiber() = default;
 
-        Fiber(size stakSize,FiberStartRoutine startRoutine, vptr arg);
+        Fiber(size stackSize,FiberStartRoutine startRoutine, vptr arg);
 
         Fiber(Fiber const &other) = delete;
 
@@ -46,12 +46,13 @@ namespace core::threading
             context = make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, (pfn_fcontext) startRoutine);
         }
 
+    ~Fiber();
     private:
         vptr stack{nullptr};
         size systemPageSize{0};
         size stackSize{0};
         fcontext_t context{nullptr};
-        vptr arg;
+        vptr arg{nullptr};
 
         static void swap(Fiber &first, Fiber &second) noexcept;
     };
