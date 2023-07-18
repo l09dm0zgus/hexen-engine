@@ -3,110 +3,279 @@
 //
 
 #include "Thread.h"
-#include <thread>
-#include <chrono>
-#include <boost/fiber/fiber.hpp>
 
-#if defined(WINDOWS_API)
-#include <Windows.h>
-#include <boost/fiber/operations.hpp>
+#if defined(HEXEN_WIN32_THREADS)
 
-#elif defined(POSIX_API)
+    #	ifndef WIN32_LEAN_AND_MEAN
 
-#include <err.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdio.h>
+        #	define WIN32_LEAN_AND_MEAN
 
-#endif
+    #	endif
 
-void core::threading::Thread::spawn(const ThreadData &newThreadData)
-{
-    threadData = newThreadData;
+    #	ifndef NOMINMAX
 
-    id = std::thread::id(0);
+        #	define NOMINMAX
 
-    cppThread = std::thread([this](){
+    #	endif
 
-        //waitForReady();
-        for (core::u32 i = 0; i < threadData.numberOfFibers; i++)
-        {
-            //first dequeue high priority task
-            boost::fibers::fiber{[this]
-            {
-                TaskInfo highPriorityTask;
-                while (boost::fibers::channel_op_status::closed != threadData.highPriorityTasks->pop(highPriorityTask))
-                {
-                    highPriorityTask.execute();
-                }
-            }}.detach();
+    #	include <windows.h>
 
-            //then dequeue normal priority  task
-            boost::fibers::fiber{[this]
-            {
-                TaskInfo normalPriorityTask;
-                while (boost::fibers::channel_op_status::closed != threadData.normalPriorityTasks->pop(normalPriorityTask))
-                {
-                    normalPriorityTask.execute();
-                }
-            }}.detach();
+    #	include <process.h>
+    #	include <stdlib.h>
 
-            //now dequeue low priority  task
-            boost::fibers::fiber{[this]
-            {
-                TaskInfo lowPriorityTask;
-                while (boost::fibers::channel_op_status::closed != threadData.lowPriorityTasks->pop(lowPriorityTask))
-                {
-                    lowPriorityTask.execute();
-                }
+    #	pragma warning(push)
+    #	pragma warning(disable : 4996) // 'mbstowcs': _CRT_SECURE_NO_WARNINGS
 
-            }}.detach();
-        }
-    });
-
-}
-
-void core::threading::Thread::setAffinity(core::u64 affinity)
-{
-    auto handle = cppThread.native_handle();
-
-#if defined(WINDOWS_API)
-
-    DWORD_PTR mask = 1ull << affinity;
-    SetThreadAffinityMask(handle, mask);
-
-#elif defined(POSIX_API)
-
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(affinity,&cpuset);
-
-
-    if(handle == 0)
+    namespace core::threading
     {
-        handle = pthread_self();
+        static void setThreadName(HANDLE handle, const char *threadName)
+        {
+	        const int bufLen = 128;
+	        WCHAR bufWide[bufLen];
+
+	        mbstowcs(bufWide, threadName, bufLen);
+	        bufWide[bufLen - 1] = '\0';
+
+	        // We can't call directly call "SetThreadDescription()" (
+	        // https://msdn.microsoft.com/en-us/library/windows/desktop/mt774976(v=vs.85).aspx ) here, as that would result in a vague DLL load
+	        // failure at launch, on any PC running Windows older than 10.0.14393. Luckily, we can work around this crash, and provide all the
+	        // benefits of "SetThreadDescription()", by manually poking into the local "kernel32.dll".
+
+	        HMODULE hMod = ::GetModuleHandleW(L"kernel32.dll");
+	        if (hMod)
+            {
+		        using SetThreadDescriptionPtr_t = HRESULT(WINAPI *)(_In_ HANDLE hThread, _In_ PCWSTR lpThreadDescription);
+
+		        auto funcPtr = reinterpret_cast<SetThreadDescriptionPtr_t>(::GetProcAddress(hMod, "SetThreadDescription"));
+
+                if (funcPtr != nullptr)
+                {
+			        funcPtr(handle, bufWide);
+		        }
+                else
+                {
+			        // Failed to assign thread name. This requires Windows 10 Creators Update 2017, or newer, to have
+			        // thread names associated with debugging, profiling, and crash dumps
+                }
+	        }
+        }
     }
 
-    auto result = pthread_setaffinity_np(handle,sizeof(cpu_set_t),&cpuset);
+#	pragma warning(pop)
+#elif defined(HEXEN_POSIX_THREADS)
 
-    assert(result == 0 && "failed set affinity");
+    #	if defined(HEXEN_OS_LINUX)
+        #		include <features.h>
+    #	endif
+    #	include <pthread.h>
+    #	include <string.h>
+    #	include <unistd.h>
 
 #endif
 
-}
-
-void core::threading::Thread::join()
+bool core::threading::Thread::create(core::size stackSize, ThreadStartRoutine startRoutine, core::vptr arg,const std::string &name)
 {
-    cppThread.detach();
+    #if defined(HEXEN_WIN32_THREADS)
+
+        handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned)stackSize, startRoutine, arg, 0u, nullptr));
+        setThreadName(handle,name.c_str());
+        id  = ::GetThreadId(handle);
+        return handle != nullptr;
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        (void)name;
+
+        pthread_attr_t threadAttribute;
+        pthread_attr_init(&threadAttribute);
+
+        // Set stack size
+        pthread_attr_setstacksize(&threadAttribute, stackSize);
+
+        auto success = pthread_create(&handle, &threadAttribute, startRoutine, arg);
+
+        // Cleanup
+        pthread_attr_destroy(&threadAttribute);
+        return success == 0;
+
+    #endif
+
+    return false;
 }
 
-void core::threading::Thread::sleepFor(core::u32 ms)
+bool core::threading::Thread::create(core::size stackSize, ThreadStartRoutine startRoutine, core::vptr arg,const std::string &name, core::size coreAffinity)
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+    #if defined(HEXEN_WIN32_THREADS)
+
+        handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned)stackSize, startRoutine, arg, CREATE_SUSPENDED, nullptr));
+        setThreadName(handle,name.c_str());
+        id  = ::GetThreadId(handle);
+
+        if (handle == nullptr)
+        {
+		    return false;
+        }
+
+        setAffinity(coreAffinity);
+
+        ::ResumeThread(handle);
+
+        return true;
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        (void)name;
+
+        pthread_attr_t threadAttribute;
+        pthread_attr_init(&threadAttribute);
+
+        // Set stack size
+        pthread_attr_setstacksize(&threadAttribute, stackSize);
+
+        #if defined(HEXEN_OS_LINUX) && defined(__GLIBC__)
+
+            // Set core affinity
+            cpu_set_t cpuSet;
+            CPU_ZERO(&cpuSet);
+            CPU_SET(coreAffinity, &cpuSet);
+            pthread_attr_setaffinity_np(&threadAttribute, sizeof(cpu_set_t), &cpuSet);
+
+        #	else
+
+            (void)coreAffinity;
+
+        #	endif
+
+            auto success = pthread_create(&handle, &threadAttribute, startRoutine, arg);
+
+            // Cleanup
+            pthread_attr_destroy(&threadAttribute);
+
+            return success == 0;
+    #endif
+
+    return false;
 }
 
+void core::threading::Thread::close()
+{
+    #if defined(HEXEN_WIN32_THREADS)
+
+        _endthreadex(0);
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        pthread_exit(nullptr);
+
+    #endif
+}
+
+bool core::threading::Thread::join()
+{
+    #if defined(HEXEN_WIN32_THREADS)
+
+        auto result = ::WaitForSingleObject(handle, INFINITE);
+
+	    if (result == WAIT_OBJECT_0)
+        {
+		    return true;
+	    }
+
+	    if (result == WAIT_ABANDONED)
+        {
+		    return false;
+	    }
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        auto result = pthread_join(handle, nullptr);
+        return result == 0;
+
+    #endif
+
+    return false;
+}
+
+void core::threading::Thread::yield()
+{
+
+    #if defined(HEXEN_WIN32_THREADS)
+
+        ::SwitchToThread();
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        pthread_yield();
+
+    #endif
+
+}
+
+core::threading::ThreadType core::threading::Thread::getCurrentThread()
+{
+
+    #if defined(HEXEN_WIN32_THREADS)
+
+        return {::GetCurrentThread(), ::GetCurrentThreadId()};
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        return {pthread_self(), pthread_self()};
+
+    #endif
+}
+
+void core::threading::Thread::sleep(core::u32 ms)
+{
+    #if defined(HEXEN_WIN32_THREADS)
+
+    ::Sleep(ms);
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+    usleep(static_cast<unsigned>(ms) * 1000);
+
+    #endif
+}
+
+#include <thread>
+
+core::u32 core::threading::Thread::getNumberOfHardwareThread()
+{
+    return std::thread::hardware_concurrency();
+}
+
+
+bool core::threading::Thread::setAffinity(size coreAffinity)
+{
+    #if defined(HEXEN_WIN32_THREADS)
+
+        DWORD_PTR mask = 1ull << coreAffinity;
+        auto result = SetThreadAffinityMask(handle, mask);
+        return result != 0;
+
+    #elif defined(HEXEN_POSIX_THREADS)
+
+        cpu_set_t cpuset;
+        CPU_ZERO(&cpuset);
+        CPU_SET(affinity,&cpuset);
+
+
+        if(handle == 0)
+        {
+            handle = pthread_self();
+        }
+
+        auto result = pthread_setaffinity_np(handle,sizeof(cpu_set_t),&cpuset);
+        if (result != 0)
+        {
+		    return false;
+        }
+
+        return true;
+
+    #endif
+    return false;
+}
 
 
