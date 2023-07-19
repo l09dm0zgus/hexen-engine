@@ -18,4 +18,5 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/detail/FunctionChecks.h
         ${CMAKE_CURRENT_SOURCE_DIR}/detail/Details.h
         ${CMAKE_CURRENT_SOURCE_DIR}/detail/Delegate.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/WaitFreeQueue.h
         )
