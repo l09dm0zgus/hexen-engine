@@ -12,9 +12,10 @@ namespace core::threading
     class TaskManager;
     class BaseCounter
     {
+    public:
+        static constexpr const u8 NUMBER_OF_WAITING_FIBERS = 4;
     protected:
 
-        static constexpr const u8 NUMBER_OF_WAITING_FIBERS = 4;
         TaskManager *manager;
         std::atomic<u32> counter{0};
         std::atomic<u32> lock{0};

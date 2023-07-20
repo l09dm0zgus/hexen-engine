@@ -3,9 +3,8 @@
 //
 
 #include "BaseCounter.h"
-
 #include "TaskManager.h"
-
+#include <thread>
 
 core::threading::BaseCounter::BaseCounter(core::threading::TaskManager *manager, core::u32 initialValue,core::u32 fiberSlots) : manager(manager),counter(initialValue) , freeSlots(freeSlotsStorage) , freeSlotsStorage() , waitingFibers(waitingFiberStorage) , fiberSlots(fiberSlots)
 {
@@ -107,8 +106,6 @@ void core::threading::BaseCounter::checkWaitingFibers(core::u32 value)
             //manager->addReadyFiber(waitingFibers[i].pinnedThreadIndex, reinterpret_cast<TaskManager::ReadyFiberBundle *>(waitingFibers[i].fiberBundle));
 
             freeSlots[i].store(true,std::memory_order_release);
-
-            return true;
 
         }
 
