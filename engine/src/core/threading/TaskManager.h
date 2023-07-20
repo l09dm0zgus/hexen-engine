@@ -8,12 +8,13 @@
 #include "Config.h"
 #include "Task.h"
 #include "detail/WaitFreeQueue.h"
+#include "detail/Callbacks.h"
 #include "Fiber.h"
 #include "Thread.h"
 
 #include <condition_variable>
 #include <functional>
-
+#include <thread>
 
 namespace core::threading
 {
@@ -137,6 +138,8 @@ namespace core::threading
         std::condition_variable isThreadsSleep;
 
         ThreadLocalStorage *tls {nullptr};
+
+        detail::EventCallbacks callbacks;
 
         friend class BaseCounter;
 
