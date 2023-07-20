@@ -5,9 +5,12 @@
 #pragma once
 
 #include "../Types.h"
+#include "Config.h"
 #include "Task.h"
-#include <thread>
-#include <boost/fiber/buffered_channel.hpp>
+#include "detail/WaitFreeQueue.h"
+#include "Fiber.h"
+#include "Thread.h"
+
 #include <condition_variable>
 #include <functional>
 
@@ -15,17 +18,30 @@
 namespace core::threading
 {
     class Thread;
-    class TaskCounter;
+    class AtomicFlag;
+    class AtomicCounter;
+    class BaseCounter;
+    class Fiber;
+
+
+    enum class EmptyQueueBehavior : u8
+    {
+        Spin,
+        Yield,
+        Sleep,
+    };
 
     struct TaskManagerOptions
     {
         TaskManagerOptions() : numberOfThreads(std::thread::hardware_concurrency()){}
         ~TaskManagerOptions() = default;
 
-        u16 numberOfThreads;
-        u32 numberOfFibers{15};
+        u32 numberOfThreads;
+        u32 fiberPoolSize{400};
 
         bool threadAffinity{true};
+
+        EmptyQueueBehavior behavior = EmptyQueueBehavior::Spin;
 
         u64 highPriorityQueueSize  {512};
         u64 normalPriorityQueueSize {2048};
@@ -38,24 +54,114 @@ namespace core::threading
     {
 
     private:
-        std::atomic_bool  bIsShuttingDown{false};
 
-        std::condition_variable waitingCounter;
-        std::mutex waitingMutex;
-        Thread* threads{nullptr};
+        enum class FiberDestination : u8
+        {
+            None = 0,
+            ToPool = 1,
+            ToWaiting = 2,
+        };
 
-        u16 numberOfThreads{0};
+        struct TaskBundle
+        {
+            TaskInfo task;
+            TaskCounter *counter;
+        };
 
-        bool isThreadAffinity{true};
+        struct ReadyFiberBundle
+        {
+            ReadyFiberBundle() = default;
 
-        u32 numberOfFibers{0};
+            u32 fiberIndex;
+
+            std::atomic<bool> fiberIsSwitched;
+
+        };
 
 
-        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> highPriorityQueue;
-        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> normalPriorityQueue;
-        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>> lowPriorityQueue;
+        constexpr static auto invalidIndex = std::numeric_limits<u32>::max();
+        constexpr static auto noThreadPinning = std::numeric_limits<u32>::max();
 
-        std::shared_ptr<boost::fibers::buffered_channel<TaskInfo>>  getQueueByPriority(TaskPriority taskPriority);
+        struct alignas(cacheLineSize) ThreadLocalStorage
+        {
+            ThreadLocalStorage() : currentFiberIndex(invalidIndex) , oldFiberIndex(invalidIndex) {};
+
+        public:
+
+
+            detail::WaitFreeQueue<TaskBundle> highPriorityQueue;
+            detail::WaitFreeQueue<TaskBundle> normalPriorityQueue;
+            detail::WaitFreeQueue<TaskBundle> lowPriorityQueue;
+
+
+            std::atomic<bool> *oldFiberStoredFlag{nullptr};
+
+            std::vector<ReadyFiberBundle *> pinnedReadyFibers;
+            Fiber threadFiber;
+            std::mutex pinnedReadyFibersLock;
+
+            u32 currentFiberIndex;
+            u32 oldFiberIndex;
+
+            FiberDestination oldFiberDestination{FiberDestination::None};
+
+            u32 highPriorityLastSuccessfulSteal{1};
+
+            u32 normalPriorityLastSuccessfulSteal{1};
+
+            u32 lowPriorityLastSuccessfulSteal{1};
+
+            u32 failedQueuePopAttempts{0};
+        };
+
+        u32 numberOfThreads{0};
+        Thread *threads{nullptr};
+
+        u32 fiberPoolSize{0};
+
+        std::atomic<bool> *freeFibers{nullptr};
+
+        ReadyFiberBundle *readyFiberBundles{nullptr};
+        Fiber *quitFibers{nullptr};
+
+        std::atomic<bool> isInitialized{false};
+
+        std::atomic<bool> isQuit{false};
+
+        std::atomic<u32> quitCount{0};
+
+        std::atomic<EmptyQueueBehavior> emptyQueueBehavior{EmptyQueueBehavior::Spin};
+
+
+        std::mutex threadLockSleep;
+        std::condition_variable isThreadsSleep;
+
+        ThreadLocalStorage *tls {nullptr};
+
+        friend class BaseCounter;
+
+        bool getNextHighProrityTask(TaskBundle *nextTask , std::vector<TaskBundle> *taskBuffer);
+
+        bool getNextNormalProrityTask(TaskBundle *nextTask , std::vector<TaskBundle> *taskBuffer);
+
+        bool getLowHighProrityTask(TaskBundle *nextTask , std::vector<TaskBundle> *taskBuffer);
+
+        bool taskIsReadyToReady(TaskBundle *bundle) const;
+
+        u32 getNextFreeFiberIndex() const;
+
+
+        void cleanUpOldFiber();
+
+        void waitForCounterInternal(BaseCounter *counter,u32 value ,bool pinToCurrentThread);
+
+        void addReadyFiber(u32 pinnedThreadIndex,ReadyFiberBundle *bundle);
+
+        static  HEXEN_THREAD_FUNC_DECL threadStartFunction(vptr args);
+
+        static void fiberStartFunction(vptr args);
+
+        static void threadEndFunction(vptr args);
 
     public:
         enum class ReturnCode : u8
@@ -67,20 +173,48 @@ namespace core::threading
 
         explicit TaskManager(const TaskManagerOptions &options = TaskManagerOptions());
 
+        TaskManager(TaskManager const &) = delete;
+        TaskManager(TaskManager &&) noexcept = delete;
+        TaskManager &operator=(TaskManager const &) = delete;
+        TaskManager &operator=(TaskManager &&) noexcept = delete;
+
         ~TaskManager();
 
-        ReturnCode initialize();
+        ReturnCode initialize(const TaskManagerOptions& options = TaskManagerOptions());
 
-        void shutdown(bool isBlocking);
 
-        void scheduleTask(TaskPriority taskPriority , const TaskInfo &task);
 
-        void waitForCounter(const std::shared_ptr<TaskCounter> &counter , u32 value = 0);
 
-        inline bool isShuttingDown() const { return bIsShuttingDown.load(std::memory_order_acquire); };
-        const u16 getNumberOfThreads() const { return numberOfThreads; };
-        const u32 getNumberOfFibers() const { return numberOfFibers; };
+        void scheduleTask(TaskPriority taskPriority , const TaskInfo &task,TaskCounter *taskCounter = nullptr);
 
+
+        void waitForCounter(TaskCounter *counter , bool pinToCurrentThread = false);
+
+        void waitForCounter(AtomicCounter *counter , u32 value = 0 , bool pinToCurrentThread = false);
+
+        void waitForCounter(AtomicFlag *counter , u32 value = 0 , bool pinToCurrentThread = false);
+
+
+        void waitForCounter(TaskCounter *counter , u32 value = 0 , bool pinToCurrentThread = false);
+
+        HEXEN_NOINLINE u32 getCurrrentThreadIndex() const;
+
+        u32 getCurrrentFiberIndex() const;
+
+        u32 getNumberOfThreads() const noexcept
+        {
+            return numberOfThreads;
+        }
+
+        u32 getNumberOfFibers() const noexcept
+        {
+            return fiberPoolSize;
+        }
+
+        void setEmptyQueueBehavior(EmptyQueueBehavior behavior)
+        {
+            emptyQueueBehavior.store(behavior,std::memory_order_relaxed);
+        }
 
         template <typename Callable, typename... Args>
         inline void scheduleTask(TaskPriority taskPriority, Callable callable, Args... args)
@@ -99,10 +233,6 @@ namespace core::threading
         {
             waitForSingle(taskPriority, TaskInfo(callable, args...));
         }
-
-
-    private:
-        bool shutdownAfterMain{true};
 
 
     };
