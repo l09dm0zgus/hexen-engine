@@ -159,15 +159,7 @@ bool core::threading::Thread::create(core::size stackSize, ThreadStartRoutine st
 
 void core::threading::Thread::close()
 {
-    #if defined(HEXEN_WIN32_THREADS)
-
-        _endthreadex(0);
-
-    #elif defined(HEXEN_POSIX_THREADS)
-
-        pthread_exit(nullptr);
-
-    #endif
+    Thread::endCurrentThread();
 }
 
 bool core::threading::Thread::join()
@@ -276,6 +268,19 @@ bool core::threading::Thread::setAffinity(size coreAffinity)
 
     #endif
     return false;
+}
+
+void core::threading::Thread::endCurrentThread()
+{
+#if defined(HEXEN_WIN32_THREADS)
+
+    _endthreadex(0);
+
+#elif defined(HEXEN_POSIX_THREADS)
+
+    pthread_exit(nullptr);
+
+#endif
 }
 
 
