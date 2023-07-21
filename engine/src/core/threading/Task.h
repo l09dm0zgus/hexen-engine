@@ -14,9 +14,11 @@
 namespace core::threading
 {
     class TaskCounter;
+    class TaskManager;
     class TaskInfo
     {
     private:
+        friend class TaskManager;
         static constexpr u64 bufferSize = sizeof(vptr) * (8);
         char buffer[bufferSize]{0};
         inline detail::BaseDelegate* getDelegate() { return reinterpret_cast<detail::BaseDelegate*>(buffer) ;}
