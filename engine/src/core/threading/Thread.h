@@ -105,6 +105,8 @@ namespace core::threading
 
         static u32 getNumberOfHardwareThread();
         static void endCurrentThread();
+        static void yieldCurrentThread();
+
     };
 }
 

@@ -283,4 +283,17 @@ void core::threading::Thread::endCurrentThread()
 #endif
 }
 
+void core::threading::Thread::yieldCurrentThread()
+{
+#if defined(HEXEN_WIN32_THREADS)
+
+    ::SwitchToThread();
+
+#elif defined(HEXEN_POSIX_THREADS)
+
+    pthread_yield();
+
+#endif
+}
+
 
