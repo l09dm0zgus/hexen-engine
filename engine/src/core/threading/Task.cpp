@@ -11,10 +11,8 @@ void core::threading::TaskInfo::execute()
         getDelegate()->call();
     }
 
-    if (counter)
+    if(counter != nullptr)
     {
         counter->decrement();
-        std::cout << "Decremented : " <<  counter->getValue() << "\n";
-
     }
 }

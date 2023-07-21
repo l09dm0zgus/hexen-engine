@@ -45,13 +45,13 @@ namespace core::threading
             storeJobInfo<typename detail::DelegateMember<TClass, Ret, Args...>>(&TClass::operator(), inst, args...);
         }
 
-        std::shared_ptr<TaskCounter> counter = nullptr;
+      TaskCounter *counter = nullptr;
 
     public:
         TaskInfo() = default;
 
         template <typename TCallable, typename... Args>
-        TaskInfo(const std::shared_ptr<TaskCounter> &ctr, TCallable callable, Args... args) : counter(ctr)
+        TaskInfo( TaskCounter *counter , TCallable callable, Args... args) : counter(counter)
         {
             reset();
             detail::FunctionChecker<TCallable, Args...>::check();
@@ -59,7 +59,7 @@ namespace core::threading
         }
 
         template <typename Ret, typename... Args>
-        TaskInfo(const std::shared_ptr<TaskCounter> &ctr, Ret(*function)(Args...), Args... args) :counter(ctr)
+        TaskInfo(TaskCounter *counter, Ret(*function)(Args...), Args... args) :counter(counter)
         {
             reset();
             detail::FunctionChecker<decltype(function), Args...>::check();
@@ -67,7 +67,7 @@ namespace core::threading
         }
 
         template <class TCallable, typename... Args>
-        TaskInfo(const std::shared_ptr<TaskCounter> &ctr, TCallable* callable, Args... args) : counter(ctr)
+        TaskInfo(TaskCounter *counter, TCallable* callable, Args... args) : counter(counter)
         {
             reset();
             detail::FunctionChecker<TCallable, Args...>::check();
@@ -75,7 +75,7 @@ namespace core::threading
         }
 
         template <class TClass, typename Ret, typename... Args>
-        TaskInfo(const std::shared_ptr<TaskCounter> &ctr, Ret(TClass::* callable)(Args...), TClass* inst, Args... args) : counter(ctr)
+        TaskInfo(TaskCounter *counter, Ret(TClass::* callable)(Args...), TClass* inst, Args... args) : counter(counter)
         {
             reset();
             detail::FunctionChecker<decltype(callable), TClass*, Args...>::check();
@@ -99,12 +99,12 @@ namespace core::threading
             reset();
         }
 
-        inline void setCounter(const std::shared_ptr<TaskCounter> &ctr)
+        inline void setCounter(TaskCounter *newCounter)
         {
-            counter = ctr;
+            counter = newCounter;
         }
 
-        inline std::shared_ptr<TaskCounter> getCounter() const
+        inline TaskCounter* getCounter() const
         {
             return counter;
         }
