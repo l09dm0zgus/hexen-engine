@@ -74,8 +74,7 @@ namespace core::threading
 
         NativeHandle handle;
         Id id;
-
-
+        friend class TaskManager;
     public:
         Thread() = default;
 
@@ -89,6 +88,18 @@ namespace core::threading
         void close();
 
         bool join();
+
+        Thread& operator=(const ThreadType &type)
+        {
+            if(type.id == id && type.handle == handle)
+            {
+                return *this;
+            }
+
+            id = type.id;
+            handle = type.handle;
+            return *this;
+        }
 
         bool setAffinity(size coreAffinity);
 
