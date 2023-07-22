@@ -23,5 +23,6 @@ target_include_directories(${EDITOR_NAME} PRIVATE ${SDL_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${IMGUI_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${GLEW_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${JSON_INCLUDE_DIR})
+target_include_directories(${EDITOR_NAME} PRIVATE ${CONTEXT_INCLUDE_DIR})
 
 
