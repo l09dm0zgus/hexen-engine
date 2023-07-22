@@ -69,6 +69,8 @@ namespace core::threading::detail
 
     public:
 
+        WaitFreeQueue() : top(1) , bottom(1) , array(new CircularArray(startingCircularSize)) {}
+
         void push(T value)
         {
             auto b  = bottom.load(std::memory_order_relaxed);
