@@ -5,6 +5,7 @@
 #pragma once
 
 #include <atomic>
+#include <limits>
 #include "../Types.h"
 
 namespace core::threading

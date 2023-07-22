@@ -103,7 +103,7 @@ void core::threading::BaseCounter::checkWaitingFibers(core::u32 value)
                 continue;
             }
 
-            //manager->addReadyFiber(waitingFibers[i].pinnedThreadIndex, reinterpret_cast<TaskManager::ReadyFiberBundle *>(waitingFibers[i].fiberBundle));
+            manager->addReadyFiber(waitingFibers[i].pinnedThreadIndex, reinterpret_cast<TaskManager::ReadyFiberBundle *>(waitingFibers[i].fiberBundle));
 
             freeSlots[i].store(true,std::memory_order_release);
 
