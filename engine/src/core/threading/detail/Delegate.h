@@ -56,4 +56,3 @@ namespace core::threading::detail
     };
 }
 
-#endif //HEXENEDITOR_DELEGATE_H
