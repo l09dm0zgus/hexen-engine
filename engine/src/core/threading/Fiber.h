@@ -5,7 +5,7 @@
 #pragma once
 
 #include "../Types.h"
-#include <fcontext/fcontext.h>
+#include <boost_context/fcontext.h>
 
 namespace core::threading
 {
@@ -38,12 +38,12 @@ namespace core::threading
 
         HEXEN_INLINE void switchToFiber(Fiber* const fiber)
         {
-            jump_fcontext(fiber->context,fiber->arg);
+            boost_context::jump_fcontext(&context,fiber->context,fiber->arg);
         }
 
         HEXEN_INLINE void reset(FiberStartRoutine const startRoutine , vptr const arg)
         {
-            context = make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, (pfn_fcontext) startRoutine);
+            context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
         }
 
     ~Fiber();
@@ -51,7 +51,7 @@ namespace core::threading
         vptr stack{nullptr};
         size systemPageSize{0};
         size stackSize{0};
-        fcontext_t context{nullptr};
+        boost_context::fcontext_t context{nullptr};
         vptr arg{nullptr};
 
         static void swap(Fiber &first, Fiber &second) noexcept;

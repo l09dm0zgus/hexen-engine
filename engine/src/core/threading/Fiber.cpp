@@ -43,7 +43,7 @@ core::threading::Fiber::Fiber(core::size stackSize, core::threading::FiberStartR
 
     stack = mem::alignedAllocation(systemPageSize + this->stackSize + systemPageSize,systemPageSize);
 
-    context = make_fcontext(static_cast<char *>(stack) + systemPageSize + stackSize, stackSize,reinterpret_cast<pfn_fcontext>(startRoutine));
+    context = boost_context::make_fcontext(static_cast<char *>(stack) + systemPageSize + stackSize, stackSize,startRoutine);
 
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
 
