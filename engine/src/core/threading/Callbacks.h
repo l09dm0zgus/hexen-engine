@@ -2,29 +2,28 @@
 #include "../Types.h"
 namespace core::threads
 {
+    using ThreadCreationCallback = void (*)(void *context, unsigned threadCount);
 
-using ThreadCreationCallback = void (*)(void *context, unsigned threadCount);
+    using FiberCreationCallback = void (*)(void *context, unsigned fiberCount);
 
-using FiberCreationCallback = void (*)(void *context, unsigned fiberCount);
+    using ThreadEventCallback = void (*)(void *context, unsigned threadIndex);
 
-using ThreadEventCallback = void (*)(void *context, unsigned threadIndex);
+    using FiberAttachedCallback = void (*)(void *context, unsigned fiberIndex);
 
-using FiberAttachedCallback = void (*)(void *context, unsigned fiberIndex);
+    using FiberDetachedCallback = void (*)(void *context, unsigned fiberIndex, bool isMidTask);
 
-using FiberDetachedCallback = void (*)(void *context, unsigned fiberIndex, bool isMidTask);
+    struct EventCallbacks
+    {
+        void *context = nullptr;
 
-struct EventCallbacks
-{
-	void *context = nullptr;
+        ThreadCreationCallback onThreadsCreated = nullptr;
+        FiberCreationCallback onFibersCreated = nullptr;
 
-	ThreadCreationCallback onThreadsCreated = nullptr;
-	FiberCreationCallback onFibersCreated = nullptr;
+        ThreadEventCallback onWorkerThreadStarted = nullptr;
+        ThreadEventCallback onWorkerThreadEnded = nullptr;
 
-	ThreadEventCallback onWorkerThreadStarted = nullptr;
-	ThreadEventCallback onWorkerThreadEnded = nullptr;
-
-	FiberAttachedCallback onFiberAttached = nullptr;
-	FiberDetachedCallback onFiberDetached = nullptr;
-};
+        FiberAttachedCallback onFiberAttached = nullptr;
+        FiberDetachedCallback onFiberDetached = nullptr;
+    };
 }
 

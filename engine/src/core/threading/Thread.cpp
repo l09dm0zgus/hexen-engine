@@ -20,105 +20,105 @@
 namespace core::threading::thread
 {
 
-static void setThreadName(HANDLE handle, const char *threadName)
-{
-	const int bufferLenght = 128;
-	WCHAR bufWide[bufferLenght];
-
-	mbstowcs(bufWide, threadName, bufferLenght);
-	bufWide[bufferLenght - 1] = '\0';
-
-	// We can't call directly call "SetThreadDescription()" (
-	// https://msdn.microsoft.com/en-us/library/windows/desktop/mt774976(v=vs.85).aspx ) here, as that would result in a vague DLL load
-	// failure at launch, on any PC running Windows older than 10.0.14393. Luckily, we can work around this crash, and provide all the
-	// benefits of "SetThreadDescription()", by manually poking into the local "kernel32.dll".
-	HMODULE hMod = ::GetModuleHandleW(L"kernel32.dll");
-	if (hMod)
+    static void setThreadName(HANDLE handle, const char *threadName)
     {
-		using SetThreadDescriptionPtr_t = HRESULT(WINAPI *)(_In_ HANDLE hThread, _In_ PCWSTR lpThreadDescription);
+        const int bufferLenght = 128;
+        WCHAR bufWide[bufferLenght];
 
-		SetThreadDescriptionPtr_t funcPtr = reinterpret_cast<SetThreadDescriptionPtr_t>(::GetProcAddress(hMod, "SetThreadDescription"));
-		if (funcPtr != nullptr)
+        mbstowcs(bufWide, threadName, bufferLenght);
+        bufWide[bufferLenght - 1] = '\0';
+
+        // We can't call directly call "SetThreadDescription()" (
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/mt774976(v=vs.85).aspx ) here, as that would result in a vague DLL load
+        // failure at launch, on any PC running Windows older than 10.0.14393. Luckily, we can work around this crash, and provide all the
+        // benefits of "SetThreadDescription()", by manually poking into the local "kernel32.dll".
+        HMODULE hMod = ::GetModuleHandleW(L"kernel32.dll");
+        if (hMod)
         {
-			funcPtr(handle, bufWide);
-		}
-        else
-        {
-			// Failed to assign thread name. This requires Windows 10 Creators Update 2017, or newer, to have
-			// thread names associated with debugging, profiling, and crash dumps
-		}
-	}
-}
+            using SetThreadDescriptionPtr_t = HRESULT(WINAPI *)(_In_ HANDLE hThread, _In_ PCWSTR lpThreadDescription);
+
+            SetThreadDescriptionPtr_t funcPtr = reinterpret_cast<SetThreadDescriptionPtr_t>(::GetProcAddress(hMod, "SetThreadDescription"));
+            if (funcPtr != nullptr)
+            {
+                funcPtr(handle, bufWide);
+            }
+            else
+            {
+                // Failed to assign thread name. This requires Windows 10 Creators Update 2017, or newer, to have
+                // thread names associated with debugging, profiling, and crash dumps
+            }
+        }
+    }
 #	pragma warning(pop)
 
-bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
-{
-	returnThread->Handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned)stackSize, startRoutine, arg, 0u, nullptr));
-	setThreadName(returnThread->Handle, name);
-	returnThread->Id = ::GetThreadId(returnThread->Handle);
-
-	return returnThread != nullptr;
-}
-
-bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread)
-{
-	returnThread->Handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned)stackSize, startRoutine, arg, CREATE_SUSPENDED, nullptr));
-	setThreadName(returnThread->Handle, name);
-	returnThread->Id = ::GetThreadId(returnThread->Handle);
-
-	if (returnThread->Handle == nullptr)
+    bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
     {
-		return false;
-	}
+        returnThread->Handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned)stackSize, startRoutine, arg, 0u, nullptr));
+        setThreadName(returnThread->Handle, name);
+        returnThread->Id = ::GetThreadId(returnThread->Handle);
 
-	DWORD_PTR mask = 1ull << coreAffinity;
-	::SetThreadAffinityMask(returnThread, mask);
-	::ResumeThread(returnThread);
+        return returnThread != nullptr;
+    }
 
-	return true;
-}
-
-void endCurrentThread()
-{
-	_endthreadex(0);
-}
-
-bool joinThread(ThreadType thread)
-{
-	auto result= ::WaitForSingleObject(thread.Handle, INFINITE);
-	if (result == WAIT_OBJECT_0)
+    bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread)
     {
-		return true;
-	}
+        returnThread->Handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned)stackSize, startRoutine, arg, CREATE_SUSPENDED, nullptr));
+        setThreadName(returnThread->Handle, name);
+        returnThread->Id = ::GetThreadId(returnThread->Handle);
 
-	if (result == WAIT_ABANDONED)
+        if (returnThread->Handle == nullptr)
+        {
+            return false;
+        }
+
+        DWORD_PTR mask = 1ull << coreAffinity;
+        ::SetThreadAffinityMask(returnThread, mask);
+        ::ResumeThread(returnThread);
+
+        return true;
+    }
+
+    void endCurrentThread()
     {
-		return false;
-	}
+        _endthreadex(0);
+    }
 
-	return false;
-}
+    bool joinThread(ThreadType thread)
+    {
+        auto result= ::WaitForSingleObject(thread.Handle, INFINITE);
+        if (result == WAIT_OBJECT_0)
+        {
+            return true;
+        }
 
-ThreadType getCurrentThread()
-{
-	return {::GetCurrentThread(), ::GetCurrentThreadId()};
-}
+        if (result == WAIT_ABANDONED)
+        {
+            return false;
+        }
 
-bool SetCurrentThreadAffinity(size_t coreAffinity)
-{
-	auto result = ::SetThreadAffinityMask(::GetCurrentThread(), 1ULL << coreAffinity);
-	return result != 0;
-}
+        return false;
+    }
 
-void sleepThread(int msDuration)
-{
-	::Sleep(msDuration);
-}
+    ThreadType getCurrentThread()
+    {
+        return {::GetCurrentThread(), ::GetCurrentThreadId()};
+    }
 
-void yieldThread()
-{
-	::SwitchToThread();
-}
+    bool SetCurrentThreadAffinity(size_t coreAffinity)
+    {
+        auto result = ::SetThreadAffinityMask(::GetCurrentThread(), 1ULL << coreAffinity);
+        return result != 0;
+    }
+
+    void sleepThread(int msDuration)
+    {
+        ::Sleep(msDuration);
+    }
+
+    void yieldThread()
+    {
+        ::SwitchToThread();
+    }
 
 }
 
@@ -133,8 +133,7 @@ void yieldThread()
 
 namespace core::threading::thread
 {
-
-bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
+    bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
 {
 	(void)name;
 
@@ -230,7 +229,6 @@ void YieldThread()
 	pthread_yield();
 #	endif
 }
-
 }
 
 #else
@@ -242,9 +240,9 @@ void YieldThread()
 namespace core::threading::thread
 {
 
-u32 getNumberOfHardwareThreads()
-{
-	return std::thread::hardware_concurrency();
-}
+    u32 getNumberOfHardwareThreads()
+    {
+	    return std::thread::hardware_concurrency();
+    }
 
 }

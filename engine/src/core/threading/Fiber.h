@@ -8,40 +8,41 @@
 namespace core::threading
 {
 
-using FiberStartRoutine = void (*)(void *arg);
+    using FiberStartRoutine = void (*)(void *arg);
 
-class Fiber
-{
-public:
+    class Fiber
+    {
+    public:
 
-	Fiber() = default;
+	    Fiber() = default;
 
-	Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg);
-
-
-	Fiber(Fiber const &other) = delete;
-
-	Fiber &operator=(Fiber const &other) = delete;
+	    Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg);
 
 
-	Fiber(Fiber &&other) noexcept
-	        : Fiber() {
-        swap(*this, other);
-	}
+	    Fiber(Fiber const &other) = delete;
 
-	Fiber &operator=(Fiber &&other) noexcept {
-        swap(*this, other);
+	    Fiber &operator=(Fiber const &other) = delete;
 
-		return *this;
-	}
-	~Fiber();
 
-private:
-	void *stack{nullptr};
-	size_t systemPageSize{0};
-	size_t stackSize{0};
-	boost_context::fcontext_t context{nullptr};
-	void *arg{nullptr};
+	    Fiber(Fiber &&other) noexcept: Fiber()
+        {
+            swap(*this, other);
+	    }
+
+	    Fiber &operator=(Fiber &&other) noexcept
+        {
+            swap(*this, other);
+
+		    return *this;
+	    }
+	    ~Fiber();
+
+    private:
+	    void *stack{nullptr};
+	    size_t systemPageSize{0};
+	    size_t stackSize{0};
+	    boost_context::fcontext_t context{nullptr};
+	    void *arg{nullptr};
 
 public:
 

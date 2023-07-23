@@ -17,58 +17,57 @@
 
 namespace core::threading
 {
+    void memoryGuard(vptr memory, size_t bytes);
+    void memoryGuardRelease(vptr memory, size_t bytes);
+    size_t systemPageSize();
+    void *alignedAlloc(size_t size, size_t alignment);
+    void alignedFree(void *block);
+    size_t roundUp(size_t numToRound, size_t multiple);
 
-void memoryGuard(vptr memory, size_t bytes);
-void memoryGuardRelease(vptr memory, size_t bytes);
-size_t systemPageSize();
-void *alignedAlloc(size_t size, size_t alignment);
-void alignedFree(void *block);
-size_t roundUp(size_t numToRound, size_t multiple);
-
-Fiber::Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg): arg(arg)
-{
+    Fiber::Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg): arg(arg)
+    {
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
-	systemPageSize = SystemPageSize();
+        systemPageSize = SystemPageSize();
 #else
-    systemPageSize = 0;
+        systemPageSize = 0;
 #endif
 
-    this->stackSize = roundUp(stackSize, systemPageSize);
-	// We add a guard page both the top and the bottom of the stack
-	stack = alignedAlloc(systemPageSize + this->stackSize + systemPageSize, systemPageSize);
-    context = boost_context::make_fcontext(static_cast<char *>(stack) + systemPageSize + stackSize, stackSize, startRoutine);
+        this->stackSize = roundUp(stackSize, systemPageSize);
+        // We add a guard page both the top and the bottom of the stack
+        stack = alignedAlloc(systemPageSize + this->stackSize + systemPageSize, systemPageSize);
+        context = boost_context::make_fcontext(static_cast<char *>(stack) + systemPageSize + stackSize, stackSize, startRoutine);
 
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
-	memoryGuard(static_cast<char *>(stack), systemPageSize);
+        memoryGuard(static_cast<char *>(stack), systemPageSize);
 	memoryGuard(static_cast<char *>(stack) + systemPageSize + stackSize, systemPageSize);
 #endif
-}
+    }
 
-Fiber::~Fiber()
-{
-	if (stack != nullptr)
+    Fiber::~Fiber()
     {
-		if (systemPageSize != 0)
+        if (stack != nullptr)
         {
-			memoryGuardRelease(static_cast<char *>(stack), systemPageSize);
-			memoryGuardRelease(static_cast<char *>(stack) + systemPageSize + stackSize, systemPageSize);
-		}
+            if (systemPageSize != 0)
+            {
+                memoryGuardRelease(static_cast<char *>(stack), systemPageSize);
+                memoryGuardRelease(static_cast<char *>(stack) + systemPageSize + stackSize, systemPageSize);
+            }
 
-		alignedFree(stack);
-	}
-}
+            alignedFree(stack);
+        }
+    }
 
-void Fiber::swap(Fiber &first, Fiber &second) noexcept
-{
-	std::swap(first.stack, second.stack);
-	std::swap(first.systemPageSize, second.systemPageSize);
-	std::swap(first.stackSize, second.stackSize);
-	std::swap(first.context, second.context);
-	std::swap(first.arg, second.arg);
-}
+    void Fiber::swap(Fiber &first, Fiber &second) noexcept
+    {
+        std::swap(first.stack, second.stack);
+        std::swap(first.systemPageSize, second.systemPageSize);
+        std::swap(first.stackSize, second.stackSize);
+        std::swap(first.context, second.context);
+        std::swap(first.arg, second.arg);
+    }
 
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
-#	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
+    #	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
 void memoryGuard(vptr memory, size_t bytes)
 {
 	auto result = mprotect(memory, bytes, PROT_NONE);
@@ -150,48 +149,48 @@ void alignedFree(vptr block)
 #	endif
 #else
 
-void memoryGuard(vptr memory, size_t bytes)
-{
-	(void)memory;
-	(void)bytes;
-}
+    void memoryGuard(vptr memory, size_t bytes)
+    {
+        (void)memory;
+        (void)bytes;
+    }
 
-void memoryGuardRelease(vptr memory, size_t bytes)
-{
-	(void)memory;
-	(void)bytes;
-}
+    void memoryGuardRelease(vptr memory, size_t bytes)
+    {
+        (void)memory;
+        (void)bytes;
+    }
 
-size_t systemPageSize()
-{
-	return 0;
-}
+    size_t systemPageSize()
+    {
+        return 0;
+    }
 
-void *alignedAlloc(size_t size, size_t /*alignment*/)
-{
-	return malloc(size);
-}
+    void *alignedAlloc(size_t size, size_t /*alignment*/)
+    {
+        return malloc(size);
+    }
 
-void alignedFree(vptr block)
-{
-	free(block);
-}
+    void alignedFree(vptr block)
+    {
+        free(block);
+    }
 #endif
 
-size_t roundUp(size_t numberToRound, size_t multiple)
-{
-	if (multiple == 0)
+    size_t roundUp(size_t numberToRound, size_t multiple)
     {
-		return numberToRound;
-	}
+        if (multiple == 0)
+        {
+            return numberToRound;
+        }
 
-	size_t const remainder = numberToRound % multiple;
-	if (remainder == 0)
-    {
-		return numberToRound;
-	}
+        size_t const remainder = numberToRound % multiple;
+        if (remainder == 0)
+        {
+            return numberToRound;
+        }
 
-	return numberToRound + multiple - remainder;
-}
+        return numberToRound + multiple - remainder;
+    }
 
 }

@@ -7,4 +7,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Thread.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Fiber.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Fiber.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Callbacks.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Task.h
+
         )

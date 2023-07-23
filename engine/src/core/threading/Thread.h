@@ -23,25 +23,24 @@ typedef __darwin_pthread_t pthread_t;                 // NOLINT(modernize-use-us
 
 namespace core::threading::thread
 {
-
-// Create wrapper types so all our function signatures are the same
+    // Create wrapper types so all our function signatures are the same
 #if defined(HEXEN_WIN32_THREADS)
 
-struct Win32Thread {
-	HANDLE Handle;
-	DWORD Id;
-};
+    struct Win32Thread {
+        HANDLE Handle;
+        DWORD Id;
+    };
 
-typedef Win32Thread ThreadType; // NOLINT(modernize-use-using)
+    typedef Win32Thread ThreadType; // NOLINT(modernize-use-using)
 
-typedef core::u32(__stdcall *ThreadStartRoutine)(void *arg); // NOLINT(modernize-use-using)
+    typedef core::u32(__stdcall *ThreadStartRoutine)(void *arg); // NOLINT(modernize-use-using)
 #	define HEXEN_THREAD_FUNC_RETURN_TYPE unsigned int
 #	define HEXEN_THREAD_FUNC_DECL FTL_THREAD_FUNC_RETURN_TYPE __stdcall
 #	define HEXEN_THREAD_FUNC_END return 0
 
 #elif defined(HEXEN_POSIX_THREADS)
 
-typedef pthread_t ThreadType; // NOLINT(modernize-use-using)
+    typedef pthread_t ThreadType; // NOLINT(modernize-use-using)
 
 typedef void *(*ThreadStartRoutine)(void *arg); // NOLINT(modernize-use-using)
 #	define HEXEN_THREAD_FUNC_RETURN_TYPE void *
@@ -52,29 +51,29 @@ typedef void *(*ThreadStartRoutine)(void *arg); // NOLINT(modernize-use-using)
 #	error No Thread library found
 #endif
 
-bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread);
+    bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread);
 
-bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread);
-
-
-ThreadType getCurrentThread();
+    bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread);
 
 
-void endCurrentThread();
+    ThreadType getCurrentThread();
 
 
-bool joinThread(ThreadType thread);
+    void endCurrentThread();
 
 
-bool setCurrentThreadAffinity(size_t coreAffinity);
+    bool joinThread(ThreadType thread);
 
 
-void sleepThread(int msDuration);
+    bool setCurrentThreadAffinity(size_t coreAffinity);
 
 
-void yieldThread();
+    void sleepThread(int msDuration);
 
 
-core::u32 getNumberOfHardwareThreads();
+    void yieldThread();
+
+
+    core::u32 getNumberOfHardwareThreads();
 
 }
