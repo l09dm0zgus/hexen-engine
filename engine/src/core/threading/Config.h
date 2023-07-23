@@ -1,9 +1,16 @@
-//
-// Created by cx9ps3 on 18.07.2023.
-//
+
 #pragma once
 #include "../Types.h"
 
+#ifndef HEXEN_DEBUG
+#	ifndef NDEBUG
+#		define HEXEN_DEBUG 1
+#	else
+#		define FTL_DEBUG 0
+#	endif
+#endif
+
+// Determine the OS
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
 #	define HEXEN_OS_WINDOWS
 #elif defined(__APPLE__)
@@ -21,9 +28,7 @@
 #	define HEXEN_OS_LINUX
 #endif
 
-#if defined(_MSC_VER)
-#	define HEXEN_WIN32_THREADS
-#elif defined(__MINGW32__) || defined(__MINGW64__)
+#if defined(_MSC_VER)  || defined(__MINGW32__) || defined(__MINGW64__)
 #	define HEXEN_WIN32_THREADS
 #elif defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS) || defined(HEXEN_OS_LINUX)
 #	include <unistd.h>
@@ -37,10 +42,8 @@
 #if (defined(_M_IX86_FP) && _M_IX86_FP >= 1) || (defined(_M_AMD64) || defined(_M_X64)) || defined(__SSE__)
 #	include <emmintrin.h>
 #	define HEXEN_PAUSE() _mm_pause()
-#elif defined(__arm__)
-#	define HEXEN_PAUSE()  __asm__volatile__("isb\n");;
 #else
-#	define HEXEN_PAUSE()()
+#	define HEXEN_PAUSE()
 #endif
 
 #if defined(HEXEN_POSIX_THREADS)
@@ -60,13 +63,13 @@
 #ifdef __cpp_lib_hardware_interference_size
 #	include <new>
 #endif
+// ReSharper restore CppUnusedIncludeDirective
 
-
-namespace core
+namespace core::threading
 {
 #ifdef __cpp_lib_hardware_interference_size
-    constexpr static size_t cacheLineSize = std::hardware_destructive_interference_size;
+constexpr static size_t kCacheLineSize = std::hardware_destructive_interference_size;
 #else
-    constexpr static size cacheLineSize = 64;
+constexpr static size_t cacheLineSize = 64;
 #endif
 }
