@@ -45,7 +45,7 @@ namespace core
 #define HEXEN_ASSERT(expression,message)                                                         \
     if(!(expression))                                                                            \
     {                                                                                            \
-        std::fputs("Assertion Failure: " HEXEN_STR(msg) ". Expr: " HEXEN_STR(expr) "\n", stderr); \
+        std::fputs("Assertion Failure: " HEXEN_STR(expression) ". Expr: " HEXEN_STR(message) "\n", stderr); \
         std::fputs("Source File: " __FILE__ ":" HEXEN_STR(__LINE__) "\n", stderr);                  \
         std::abort();                                                                              \
     }                                                                                            \
