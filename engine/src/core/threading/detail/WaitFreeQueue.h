@@ -30,24 +30,24 @@ namespace core::threading::detail
                 HEXEN_ASSERT( !(n == 0) && !(n & (n - 1)) , "n must be a power of 2");
             }
 
-            size size() const
+            core::size getSize() const
             {
                 return items.size();
             }
 
             T get(core::size index)
             {
-                return items[index & (size() -1)];
+                return items[index & (getSize() -1)];
             }
 
             void put(core::size index,T x)
             {
-                items[index & (size() -1)] = x;
+                items[index & (getSize() -1)] = x;
             }
 
             CircularArray* grow(core::size top,core::size bottom)
             {
-                auto *const newArray = new CircularArray(size() * 2);
+                auto *const newArray = new CircularArray(getSize() * 2);
 
                 newArray->previous.reset(this);
 
@@ -77,7 +77,7 @@ namespace core::threading::detail
             auto t = top.load(std::memory_order_relaxed);
             auto a = array.load(std::memory_order_relaxed);
 
-            if(b - t > a->size() - 1)
+            if(b - t > a->getSize() - 1)
             {
                 a = a->grow(t,b);
 

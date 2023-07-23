@@ -72,8 +72,8 @@ namespace core::threading
     {
     private:
 
-        NativeHandle handle;
-        Id id;
+        NativeHandle handle{0};
+        Id id{0};
         friend class TaskManager;
     public:
         Thread() = default;

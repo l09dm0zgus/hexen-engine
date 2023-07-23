@@ -250,7 +250,7 @@ bool core::threading::Thread::setAffinity(size coreAffinity)
 
         cpu_set_t cpuset;
         CPU_ZERO(&cpuset);
-        CPU_SET(affinity,&cpuset);
+        CPU_SET(coreAffinity,&cpuset);
 
 
         if(handle == 0)

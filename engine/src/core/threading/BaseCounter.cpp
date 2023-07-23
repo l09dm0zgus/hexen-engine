@@ -48,6 +48,8 @@ bool core::threading::BaseCounter::addFiberToWaitingList(core::vptr fiberBundle,
 
         waitingFibers[i].fiberBundle = fiberBundle;
         waitingFibers[i].targetValue = targetValue;
+        waitingFibers[i].pinnedThreadIndex = pinnedThreadIndex;
+
         waitingFibers[i].inUse.store(false,std::memory_order_seq_cst);
 
         auto value = counter.load(std::memory_order_relaxed);
