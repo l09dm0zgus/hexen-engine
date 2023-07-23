@@ -1,61 +1,64 @@
-//
-// Created by cx9ps3 on 18.07.2023.
-//
 
 #pragma once
 
-#include "../Types.h"
 #include <boost_context/fcontext.h>
+
+#include "../Types.h"
 
 namespace core::threading
 {
-    using FiberStartRoutine = void (*)(vptr arg);
-    class Fiber
+
+using FiberStartRoutine = void (*)(void *arg);
+
+class Fiber
+{
+public:
+
+	Fiber() = default;
+
+	Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg);
+
+
+	Fiber(Fiber const &other) = delete;
+
+	Fiber &operator=(Fiber const &other) = delete;
+
+
+	Fiber(Fiber &&other) noexcept
+	        : Fiber() {
+        swap(*this, other);
+	}
+
+	Fiber &operator=(Fiber &&other) noexcept {
+        swap(*this, other);
+
+		return *this;
+	}
+	~Fiber();
+
+private:
+	void *stack{nullptr};
+	size_t systemPageSize{0};
+	size_t stackSize{0};
+	boost_context::fcontext_t context{nullptr};
+	void *arg{nullptr};
+
+public:
+
+	void switchToFiber(Fiber *const fiber)
     {
-    public:
-        Fiber() = default;
+		boost_context::jump_fcontext(&context, fiber->context, fiber->arg);
+	}
 
-        Fiber(size stackSize,FiberStartRoutine startRoutine, vptr arg);
+	void reset(FiberStartRoutine const startRoutine, void *const arg)
+    {
+        context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
+        this->arg = arg;
+	}
 
-        Fiber(Fiber const &other) = delete;
+private:
 
-        Fiber &operator=(Fiber const &other) = delete;
+	static void swap(Fiber &first, Fiber &second) noexcept;
+};
 
-        Fiber(Fiber &&other) noexcept :  Fiber()
-        {
-            swap(*this,other);
-        }
-
-        Fiber& operator=(Fiber&& other) noexcept
-        {
-            if(this == &other)
-            {
-               return *this;
-            }
-            swap(*this,other);
-            return *this;
-        }
-
-        HEXEN_INLINE void switchToFiber(Fiber* const fiber)
-        {
-            boost_context::jump_fcontext(&context,fiber->context,fiber->arg);
-        }
-
-        HEXEN_INLINE void reset(FiberStartRoutine const startRoutine , vptr const arg)
-        {
-            context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
-        }
-
-    ~Fiber();
-    private:
-        vptr stack{nullptr};
-        size systemPageSize{0};
-        size stackSize{0};
-        boost_context::fcontext_t context{nullptr};
-        vptr arg{nullptr};
-
-        static void swap(Fiber &first, Fiber &second) noexcept;
-    };
 }
-
-

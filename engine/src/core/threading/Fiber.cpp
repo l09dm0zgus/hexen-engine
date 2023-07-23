@@ -1,10 +1,8 @@
-//
-// Created by cx9ps3 on 18.07.2023.
-//
 
 #include "Fiber.h"
-#include "../Types.h"
 #include "Config.h"
+
+#include <algorithm>
 
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
 #	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
@@ -17,221 +15,183 @@
 #	endif
 #endif
 
-namespace core::threading::mem
-    {
-        void memoryGuard(vptr memory , size bytes);
-        void memoryGuardRelease(vptr memory, size bytes);
-        size getSystemPageSize();
-        vptr alignedAllocation(size bytes,size alignment);
-        void alignedFree(vptr block);
-        size roundUp(size numberToRound,size multiple);
-    }
+namespace core::threading
+{
 
-core::threading::Fiber::Fiber(core::size stackSize, core::threading::FiberStartRoutine startRoutine, core::vptr arg):arg(arg)
+void memoryGuard(vptr memory, size_t bytes);
+void memoryGuardRelease(vptr memory, size_t bytes);
+size_t systemPageSize();
+void *alignedAlloc(size_t size, size_t alignment);
+void alignedFree(void *block);
+size_t roundUp(size_t numToRound, size_t multiple);
+
+Fiber::Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg): arg(arg)
 {
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
-
-    systemPageSize = mem::getSystemPageSize();
-
+	systemPageSize = SystemPageSize();
 #else
-
     systemPageSize = 0;
-
 #endif
 
-    this->stackSize = mem::roundUp(stackSize,systemPageSize);
-
-    stack = mem::alignedAllocation(systemPageSize + this->stackSize + systemPageSize,systemPageSize);
-
-    context = boost_context::make_fcontext(static_cast<char *>(stack) + systemPageSize + stackSize, stackSize,startRoutine);
+    this->stackSize = roundUp(stackSize, systemPageSize);
+	// We add a guard page both the top and the bottom of the stack
+	stack = alignedAlloc(systemPageSize + this->stackSize + systemPageSize, systemPageSize);
+    context = boost_context::make_fcontext(static_cast<char *>(stack) + systemPageSize + stackSize, stackSize, startRoutine);
 
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
-
-    mem::memoryGuard(static_cast<char *>(stack), systemPageSize);
-	mem::memoryGuard(static_cast<char *>(stack) + systemPageSize + stackSize,systemPageSize);
-
+	memoryGuard(static_cast<char *>(stack), systemPageSize);
+	memoryGuard(static_cast<char *>(stack) + systemPageSize + stackSize, systemPageSize);
 #endif
 }
 
-core::threading::Fiber::~Fiber()
+Fiber::~Fiber()
 {
-    if(stack != nullptr)
+	if (stack != nullptr)
     {
-        if(systemPageSize)
+		if (systemPageSize != 0)
         {
-            mem::memoryGuardRelease(static_cast<char *>(stack), systemPageSize);
-            mem::memoryGuardRelease(static_cast<char *>(stack) + systemPageSize + stackSize, systemPageSize);
-        }
-        mem::alignedFree(stack);
-    }
+			memoryGuardRelease(static_cast<char *>(stack), systemPageSize);
+			memoryGuardRelease(static_cast<char *>(stack) + systemPageSize + stackSize, systemPageSize);
+		}
+
+		alignedFree(stack);
+	}
 }
 
-void core::threading::Fiber::swap(core::threading::Fiber &first, core::threading::Fiber &second) noexcept
+void Fiber::swap(Fiber &first, Fiber &second) noexcept
 {
-    std::swap(first.stack, second.stack);
-    std::swap(first.systemPageSize, second.systemPageSize);
-    std::swap(first.stackSize, second.stackSize);
-    std::swap(first.context, second.context);
-    std::swap(first.arg, second.arg);
+	std::swap(first.stack, second.stack);
+	std::swap(first.systemPageSize, second.systemPageSize);
+	std::swap(first.stackSize, second.stackSize);
+	std::swap(first.context, second.context);
+	std::swap(first.arg, second.arg);
 }
+
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
-HEXEN_INLINE void core::threading::mem::memoryGuard(core::vptr memory, core::size bytes)
-{
 #	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
-
-    auto result = mprotect(memory, bytes, PROT_NONE);
-	HEXEN_ASSERT(!result,"mprotect:failed to protect memory");
-
-    #if defined(NDEBUG)
-
-	    // Void out the result for release, so the compiler doesn't get cranky about an unused variable
-	    (void)result;
-
-    #endif
-
-#	elif defined(HEXEN_OS_WINDOWS)
-
-        DWORD ignored;
-        auto result = VirtualProtect(memory, bytes, PAGE_NOACCESS, &ignored);
-
-        HEXEN_ASSERT(result,"VirtualProtect:failed to protect memory");
-
-        #if defined(NDEBUG)
-
-            // Void out the result for release, so the compiler doesn't get cranky about an unused variable
-	        (void)result;
-
-        #endif
-
-#	endif
+void memoryGuard(vptr memory, size_t bytes)
+{
+	auto result = mprotect(memory, bytes, PROT_NONE);
+	HEXEN_ASSERT(!result, "mprotect");
+#		if defined(NDEBUG)
+	// Void out the result for release, so the compiler doesn't get cranky about an unused variable
+	(void)result;
+#		endif
 }
 
-HEXEN_INLINE void core::threading::mem::memoryGuardRelease(vptr memory, size bytes)
+void memoryGuardRelease(vptr memory, size_t bytes)
 {
-    #	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
-
-    auto result = mprotect(memory, bytes, PROT_READ | PROT_WRITE);
-	HEXEN_ASSERT(!result,"mprotect:failed to protect memory");
-
-    #if defined(NDEBUG)
-
-	    // Void out the result for release, so the compiler doesn't get cranky about an unused variable
-	    (void)result;
-
-    #endif
-
-#	elif defined(HEXEN_OS_WINDOWS)
-
-        DWORD ignored;
-        auto result = VirtualProtect(memory, bytes, PAGE_READWRITE, &ignored);
-
-        HEXEN_ASSERT(result,"VirtualProtect:failed to protect memory");
-
-        #if defined(NDEBUG)
-
-            // Void out the result for release, so the compiler doesn't get cranky about an unused variable
-	        (void)result;
-
-        #endif
-
-#	endif
+	auto const result = mprotect(memory, bytes, PROT_READ | PROT_WRITE);
+	HEXEN_ASSERT(!result, "mprotect");
+#		if defined(NDEBUG)
+	// Void out the result for release, so the compiler doesn't get cranky about an unused variable
+	(void)result;
+#		endif
 }
 
-HEXEN_INLINE core::size core::threading::mem::getSystemPageSize()
+size_t systemPageSize()
 {
-#	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
-
-    return static_cast<size>(getpagesize());
-
-#	elif defined(HEXEN_OS_WINDOWS)
-
-    SYSTEM_INFO sysInfo;
-	GetSystemInfo(&sysInfo);
-	return sysInfo.dwPageSize;
-
-#endif
-
+	return static_cast<size_t>(getpagesize());
 }
 
-HEXEN_INLINE core::vptr core::threading::mem::alignedAllocation(size bytes,size alignment)
+void *alignedAlloc(size_t size, size_t alignment)
 {
-#	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
-
     vptr returnPtr = nullptr;
-	auto result = posix_memalign(&returnPtr, alignment, size);
-	HEXEN_ASSERT(!result,"posix_memalign:failed to allocate memory");
-
-    #	if defined(NDEBUG)
-
-	    // Void out the result for release, so the compiler doesn't get cranky about an unused variable
-	    (void)result;
-
-    #	endif
+	auto const result = posix_memalign(&returnPtr, alignment, size);
+	HEXEN_ASSERT(!result, "posix_memalign");
+#		if defined(NDEBUG)
+	// Void out the result for release, so the compiler doesn't get cranky about an unused variable
+	(void)result;
+#		endif
 
 	return returnPtr;
-
-#	elif defined(FTL_OS_WINDOWS)
-
-   return _aligned_malloc(size, alignment);
-
-#endif
 }
 
-HEXEN_INLINE void core::threading::mem::alignedFree(vptr block)
+void alignedFree(vptr block)
 {
-#	if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
+	free(block);
+}
+#	elif defined(HEXEN_OS_WINDOWS)
 
-    free(block);
 
-#	elif defined(FTL_OS_WINDOWS)
+void memoryGuard(vptr memory, size_t bytes)
+{
+	DWORD ignored;
 
-   _aligned_free(block);
-
-#endif
+	auto const result = VirtualProtect(memory, bytes, PAGE_NOACCESS, &ignored);
+	HEXEN_ASSERT(result, " VirtualProtect");
 }
 
+void memoryGuardRelease(vptr memory, size_t bytes)
+{
+	DWORD ignored;
+
+	auto const result = VirtualProtect(memory, bytes, PAGE_READWRITE, &ignored);
+	FTL_ASSERT("VirtualProtect", result);
+}
+
+size_t systemPageSize()
+{
+	SYSTEM_INFO sysInfo;
+	GetSystemInfo(&sysInfo);
+	return sysInfo.dwPageSize;
+}
+
+void *alignedAlloc(size_t size, size_t alignment) {
+	return _aligned_malloc(size, alignment);
+}
+
+void alignedFree(vptr block)
+{
+	_aligned_free(block);
+}
+#	else
+#		error "Need a way to protect memory for this platform".
+#	endif
 #else
 
-HEXEN_INLINE void core::threading::mem::memoryGuard(core::vptr memory, core::size bytes)
+void memoryGuard(vptr memory, size_t bytes)
 {
-    (void)memory;
-    (void)bytes;
+	(void)memory;
+	(void)bytes;
 }
 
-HEXEN_INLINE void core::threading::mem::memoryGuardRelease(core::vptr memory, core::size bytes)
+void memoryGuardRelease(vptr memory, size_t bytes)
 {
-    (void)memory;
-    (void)bytes;
+	(void)memory;
+	(void)bytes;
 }
 
-HEXEN_INLINE core::size core::threading::mem::getSystemPageSize() { return 0;}
-
-HEXEN_INLINE core::vptr core::threading::mem::alignedAllocation(core::size bytes, core::size alignment)
+size_t systemPageSize()
 {
-    return malloc(bytes);
+	return 0;
 }
 
-HEXEN_INLINE void core::threading::mem::alignedFree(core::vptr block)
+void *alignedAlloc(size_t size, size_t /*alignment*/)
 {
-    free(block);
+	return malloc(size);
 }
 
-HEXEN_INLINE core::size core::threading::mem::roundUp(core::size numberToRound, core::size multiple)
+void alignedFree(vptr block)
 {
-    if (multiple == 0)
-    {
-        return numberToRound;
-    }
-
-    auto const remainder = numberToRound % multiple;
-
-    if (remainder == 0)
-    {
-        return numberToRound;
-    }
-
-    return numberToRound + multiple - remainder;
+	free(block);
 }
-
-
 #endif
+
+size_t roundUp(size_t numberToRound, size_t multiple)
+{
+	if (multiple == 0)
+    {
+		return numberToRound;
+	}
+
+	size_t const remainder = numberToRound % multiple;
+	if (remainder == 0)
+    {
+		return numberToRound;
+	}
+
+	return numberToRound + multiple - remainder;
+}
+
+}
