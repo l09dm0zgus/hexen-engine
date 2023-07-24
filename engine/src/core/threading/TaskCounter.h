@@ -1,16 +1,16 @@
-//
-// Created by cx9ps3 on 20.07.2023.
-//
-
 #pragma once
+
 #include "BaseCounter.h"
 
 namespace core::threading
 {
-    class TaskCounter : public BaseCounter
-    {
+    class TaskScheduler;
+
+    class TaskCounter : public BaseCounter {
+
     public:
-        explicit TaskCounter(TaskManager *manager,u32 initialValue = 0 ,u32 fiberSlots = BaseCounter::NUMBER_OF_WAITING_FIBERS) : BaseCounter(manager,initialValue,fiberSlots) {}
+
+        explicit TaskCounter(TaskScheduler *taskScheduler, u32 const initialValue = 0, u32 const fiberSlots = NUMBER_OF_WAITING_FIBER_SLOTS): BaseCounter(taskScheduler, initialValue, fiberSlots) {}
 
         TaskCounter(TaskCounter const &) = delete;
         TaskCounter(TaskCounter &&) noexcept = delete;
@@ -18,18 +18,22 @@ namespace core::threading
         TaskCounter &operator=(TaskCounter &&) noexcept = delete;
         ~TaskCounter() = default;
 
-        void add(u32 x)
+    public:
+
+        void add(unsigned const x)
         {
-            counter.fetch_add(x);
+            value.fetch_add(x, std::memory_order_seq_cst);
         }
+
 
         void decrement()
         {
             lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            const auto previous = counter.fetch_sub(1U, std::memory_order_seq_cst);
+            const auto previous = value.fetch_sub(1U, std::memory_order_seq_cst);
             const auto newValue = previous - 1;
 
+            // TaskCounters are only allowed to wait on 0, so we only need to check when newValue would be zero
             if (newValue == 0)
             {
                 checkWaitingFibers(newValue);
