@@ -134,101 +134,101 @@ namespace core::threading::thread
 namespace core::threading::thread
 {
     bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
-{
-	(void)name;
-
-	pthread_attr_t threadAttr;
-	pthread_attr_init(&threadAttr);
-
-	// Set stack size
-	pthread_attr_setstacksize(&threadAttr, stackSize);
-
-	int success = pthread_create(returnThread, &threadAttr, startRoutine, arg);
-
-	// Cleanup
-	pthread_attr_destroy(&threadAttr);
-
-	return success == 0;
-}
-
-bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread)
-{
-	(void)name;
-
-	pthread_attr_t threadAttr;
-	pthread_attr_init(&threadAttr);
-
-	// Set stack size
-	pthread_attr_setstacksize(&threadAttr, stackSize);
-
-	// TODO: OSX, MinGW, and musl Thread Affinity
-	//       musl can set the affinity after the thread has been started (using pthread_setaffinity_np() )
-	//       To set the affinity at thread creation, glibc created the pthread_attr_setaffinity_np() extension
-#	if defined(HEXEN_OS_LINUX) && defined(__GLIBC__)
-	// Set core affinity
-	cpu_set_t cpuSet;
-	CPU_ZERO(&cpuSet);
-	CPU_SET(coreAffinity, &cpuSet);
-	pthread_attr_setaffinity_np(&threadAttr, sizeof(cpu_set_t), &cpuSet);
-#	else
-	(void)coreAffinity;
-#	endif
-
-	auto success = pthread_create(returnThread, &threadAttr, startRoutine, arg);
-
-	// Cleanup
-	pthread_attr_destroy(&threadAttr);
-
-	return success == 0;
-}
-
-void endCurrentThread()
-{
-	pthread_exit(nullptr);
-}
-
-bool joinThread(ThreadType thread)
-{
-	auto result = pthread_join(thread, nullptr);
-	return  result == 0;
-}
-
-ThreadType getCurrentThread()
-{
-	return pthread_self();
-}
-
-bool setCurrentThreadAffinity(size_t coreAffinity)
-{
-	// TODO: OSX and MinGW Thread Affinity
-#	if defined(HEXEN_OS_LINUX)
-	cpu_set_t cpuSet;
-	CPU_ZERO(&cpuSet);
-	CPU_SET(coreAffinity, &cpuSet);
-
-	auto result = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuSet);
-	if (result != 0)
     {
-		return false;
-	}
+        (void)name;
+
+        pthread_attr_t threadAttr;
+        pthread_attr_init(&threadAttr);
+
+        // Set stack size
+        pthread_attr_setstacksize(&threadAttr, stackSize);
+
+        int success = pthread_create(returnThread, &threadAttr, startRoutine, arg);
+
+        // Cleanup
+        pthread_attr_destroy(&threadAttr);
+
+        return success == 0;
+    }
+
+    bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread)
+    {
+        (void)name;
+
+        pthread_attr_t threadAttr;
+        pthread_attr_init(&threadAttr);
+
+        // Set stack size
+        pthread_attr_setstacksize(&threadAttr, stackSize);
+
+        // TODO: OSX, MinGW, and musl Thread Affinity
+        //       musl can set the affinity after the thread has been started (using pthread_setaffinity_np() )
+        //       To set the affinity at thread creation, glibc created the pthread_attr_setaffinity_np() extension
+#	if defined(HEXEN_OS_LINUX) && defined(__GLIBC__)
+        // Set core affinity
+        cpu_set_t cpuSet;
+        CPU_ZERO(&cpuSet);
+        CPU_SET(coreAffinity, &cpuSet);
+        pthread_attr_setaffinity_np(&threadAttr, sizeof(cpu_set_t), &cpuSet);
 #	else
-	(void)coreAffinity;
+        (void)coreAffinity;
 #	endif
 
-	return true;
-}
+        auto success = pthread_create(returnThread, &threadAttr, startRoutine, arg);
 
-void sleepThread(int msDuration)
-{
-	usleep(static_cast<unsigned>(msDuration) * 1000);
-}
+        // Cleanup
+        pthread_attr_destroy(&threadAttr);
 
-void YieldThread()
-{
+        return success == 0;
+    }
+
+    void endCurrentThread()
+    {
+        pthread_exit(nullptr);
+    }
+
+    bool joinThread(ThreadType thread)
+    {
+        auto result = pthread_join(thread, nullptr);
+        return  result == 0;
+    }
+
+    ThreadType getCurrentThread()
+    {
+        return pthread_self();
+    }
+
+    bool setCurrentThreadAffinity(size_t coreAffinity)
+    {
+        // TODO: OSX and MinGW Thread Affinity
 #	if defined(HEXEN_OS_LINUX)
-	pthread_yield();
+        cpu_set_t cpuSet;
+        CPU_ZERO(&cpuSet);
+        CPU_SET(coreAffinity, &cpuSet);
+
+        auto result = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuSet);
+        if (result != 0)
+        {
+            return false;
+        }
+#	else
+        (void)coreAffinity;
 #	endif
-}
+
+        return true;
+    }
+
+    void sleepThread(int msDuration)
+    {
+        usleep(static_cast<unsigned>(msDuration) * 1000);
+    }
+
+    void yieldThread()
+    {
+#	if defined(HEXEN_OS_LINUX)
+        sched_yield();
+#	endif
+    }
 }
 
 #else
