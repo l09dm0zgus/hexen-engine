@@ -563,8 +563,8 @@ namespace core::threading
             if (taskIsReadyToExecute(nextTask))
             {
                 result = true;
-                // Break to cleanup
-                goto cleanup; // NOLINT(cppcoreguidelines-avoid-goto)
+                cleanup(tls,taskBuffer);
+                break;
             }
 
             // It's a ReadyTask whose fiber hasn't switched away yet
@@ -593,7 +593,8 @@ namespace core::threading
                     {
                         result = true;
                         // Break to cleanup
-                        goto cleanup;
+                        cleanup(tls,taskBuffer);
+                        break;
                     }
 
                     // It's a ReadyTask whose fiber hasn't switched away yet
@@ -604,27 +605,7 @@ namespace core::threading
         }
 
         cleanup:
-        if (!taskBuffer->empty())
-        {
-            // Re-push all the tasks we found that we're ready to execute
-            // We (or another thread) will get them next round
-            do
-            {
-                // Push them in the opposite order we popped them, to restore the order
-                tls.highPriorityTaskQueue.push(taskBuffer->back());
-                taskBuffer->pop_back();
-            } while (!taskBuffer->empty());
 
-            // If we're using Sleep mode, we need to wake up the other threads
-            // They may have looked for tasks while we had them all in our temp buffer and thus not
-            // found anything and gone to sleep.
-            EmptyQueueBehavior const behavior = emptyQueueBehavior.load(std::memory_order::memory_order_relaxed);
-            if (behavior == EmptyQueueBehavior::Sleep)
-            {
-                // Wake all the threads
-                threadSleepCv.notify_all();
-            }
-        }
 
         return result;
     }
@@ -887,5 +868,30 @@ namespace core::threading
 
         // And we're back
         cleanUpOldFiber();
+    }
+
+    void TaskScheduler::cleanup(TaskScheduler::ThreadLocalStorage &tls, std::vector<TaskBundle> *taskBuffer)
+    {
+        if (!taskBuffer->empty())
+        {
+            // Re-push all the tasks we found that we're ready to execute
+            // We (or another thread) will get them next round
+            do
+            {
+                // Push them in the opposite order we popped them, to restore the order
+                tls.highPriorityTaskQueue.push(taskBuffer->back());
+                taskBuffer->pop_back();
+            } while (!taskBuffer->empty());
+
+            // If we're using Sleep mode, we need to wake up the other threads
+            // They may have looked for tasks while we had them all in our temp buffer and thus not
+            // found anything and gone to sleep.
+            EmptyQueueBehavior const behavior = emptyQueueBehavior.load(std::memory_order::memory_order_relaxed);
+            if (behavior == EmptyQueueBehavior::Sleep)
+            {
+                // Wake all the threads
+                threadSleepCv.notify_all();
+            }
+        }
     }
 }

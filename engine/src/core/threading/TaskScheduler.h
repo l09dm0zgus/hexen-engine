@@ -168,6 +168,7 @@ namespace core::threading
         }
 
     private:
+        void cleanup(ThreadLocalStorage &tls, std::vector<TaskBundle> *taskBuffer);
 
         bool getNextHighPriorityTask(TaskBundle *nextTask, std::vector<TaskBundle> *taskBuffer);
 
