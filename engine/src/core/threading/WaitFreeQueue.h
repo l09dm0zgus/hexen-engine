@@ -87,7 +87,7 @@ namespace core::threading
             auto t = top.load(std::memory_order_acquire);
             auto *a = this->array.load(std::memory_order_relaxed);
 
-            if (b - t > a->Size() - 1)
+            if (b - t > a->size() - 1)
             {
                 /* Full queue. */
                 a = a->grow(t, b);

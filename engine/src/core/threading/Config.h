@@ -63,12 +63,11 @@
 #ifdef __cpp_lib_hardware_interference_size
 #	include <new>
 #endif
-// ReSharper restore CppUnusedIncludeDirective
 
 namespace core::threading
 {
 #ifdef __cpp_lib_hardware_interference_size
-constexpr static size_t kCacheLineSize = std::hardware_destructive_interference_size;
+constexpr static size_t cacheLineSize = std::hardware_destructive_interference_size;
 #else
 constexpr static size_t cacheLineSize = 64;
 #endif

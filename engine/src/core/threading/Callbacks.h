@@ -1,6 +1,6 @@
 #pragma once
 #include "../Types.h"
-namespace core::threads
+namespace core::threading
 {
     using ThreadCreationCallback = void (*)(void *context, unsigned threadCount);
 

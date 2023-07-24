@@ -35,7 +35,7 @@ namespace core::threading::thread
 
     typedef core::u32(__stdcall *ThreadStartRoutine)(void *arg); // NOLINT(modernize-use-using)
 #	define HEXEN_THREAD_FUNC_RETURN_TYPE unsigned int
-#	define HEXEN_THREAD_FUNC_DECL FTL_THREAD_FUNC_RETURN_TYPE __stdcall
+#	define HEXEN_THREAD_FUNC_DECL HEXEN_THREAD_FUNC_RETURN_TYPE __stdcall
 #	define HEXEN_THREAD_FUNC_END return 0
 
 #elif defined(HEXEN_POSIX_THREADS)
@@ -44,7 +44,7 @@ namespace core::threading::thread
 
 typedef void *(*ThreadStartRoutine)(void *arg); // NOLINT(modernize-use-using)
 #	define HEXEN_THREAD_FUNC_RETURN_TYPE void *
-#	define HEXEN_THREAD_FUNC_DECL FTL_THREAD_FUNC_RETURN_TYPE
+#	define HEXEN_THREAD_FUNC_DECL HEXEN_THREAD_FUNC_RETURN_TYPE
 #	define HEXEN_THREAD_FUNC_END return nullptr
 
 #else

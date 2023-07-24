@@ -127,7 +127,8 @@ namespace core::threading
                     continue;
                 }
 
-                taskScheduler->AddReadyFiber(waitingFibers[i].pinnedThreadIndex, reinterpret_cast<TaskScheduler::ReadyFiberBundle *>(waitingFibers[i].fiberBundle));
+                taskScheduler->addReadyFiber(waitingFibers[i].pinnedThreadIndex,
+                                             reinterpret_cast<TaskScheduler::ReadyFiberBundle *>(waitingFibers[i].fiberBundle));
                 // Signal that the slot is free
                 // Leave inUse == true
                 freeSlots[i].store(true, std::memory_order_release);

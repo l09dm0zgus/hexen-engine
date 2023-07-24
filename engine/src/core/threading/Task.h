@@ -10,7 +10,7 @@ namespace core::threading
     struct Task
     {
         TaskFunction Function;
-        vptr *ArgumentsData;
+        vptr ArgumentsData;
     };
 
     enum class TaskPriority
