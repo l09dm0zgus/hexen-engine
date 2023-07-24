@@ -67,7 +67,7 @@ namespace core::threading
         {
             lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            bool const success = value.compare_exchange_strong(expectedValue, newValue, memoryOrder);
+            auto const success = value.compare_exchange_strong(expectedValue, newValue, memoryOrder);
             if (success)
             {
                 checkWaitingFibers(newValue);
@@ -100,7 +100,7 @@ namespace core::threading
         {
             lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            const bool success = value.exchange(0U, memoryOrder) == 1;
+            const auto success = value.exchange(0U, memoryOrder) == 1;
             if (!success)
             {
                 lock.fetch_sub(1U, std::memory_order_seq_cst);
