@@ -1,94 +1,88 @@
-//
-// Created by cx9ps3 on 19.07.2023.
-//
 
 #pragma once
+
 #include "BaseCounter.h"
 
 namespace core::threading
 {
-    class AtomicCounter : public BaseCounter
+    class FullAtomicCounter : public BaseCounter
     {
+
     public:
-        explicit AtomicCounter(TaskManager *taskManager,u32 initialValue,u32 fiberSlots = NUMBER_OF_WAITING_FIBERS) : BaseCounter(taskManager,initialValue,fiberSlots) {}
 
-        AtomicCounter(AtomicCounter const &) = delete;
-        AtomicCounter(AtomicCounter &&) noexcept = delete;
-        AtomicCounter &operator=(AtomicCounter const &) = delete;
-        AtomicCounter &operator=(AtomicCounter &&) noexcept = delete;
-        ~AtomicCounter() = default;
+        explicit FullAtomicCounter(TaskScheduler *taskScheduler, u32 const initialValue = 0, u32 const fiberSlots = NUMBER_OF_WAITING_FIBER_SLOTS): BaseCounter(taskScheduler, initialValue, fiberSlots){}
 
-        u32 load(const std::memory_order &order = std::memory_order_seq_cst)
+        FullAtomicCounter(FullAtomicCounter const &) = delete;
+        FullAtomicCounter(FullAtomicCounter &&) noexcept = delete;
+        FullAtomicCounter &operator=(FullAtomicCounter const &) = delete;
+        FullAtomicCounter &operator=(FullAtomicCounter &&) noexcept = delete;
+        ~FullAtomicCounter() = default;
+
+    public:
+
+        u32 load(std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            lock.fetch_add(1u,std::memory_order_seq_cst);
+            lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            auto result = counter.load(order);
+            auto result = value.load(memoryOrder);
 
-            lock.fetch_sub(1u,std::memory_order_seq_cst);
-
+            lock.fetch_sub(1U, std::memory_order_seq_cst);
             return result;
         }
 
-        void store(u32 x,const std::memory_order &order = std::memory_order_seq_cst)
+        void store(u32 const x, std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            lock.fetch_add(1u,std::memory_order_seq_cst);
+            lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            counter.store(x,order);
-
+            value.store(x, memoryOrder);
             checkWaitingFibers(x);
 
-            lock.fetch_sub(1u,std::memory_order_seq_cst);
+            lock.fetch_sub(1U, std::memory_order_seq_cst);
         }
 
-        u32 fetchAdd(u32 x,const std::memory_order &order = std::memory_order_seq_cst)
+        u32 fetchAdd(u32 const x, std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            lock.fetch_add(1u,std::memory_order_seq_cst);
+            lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            auto  result = counter.fetch_add(x,order);
+            const auto previous = value.fetch_add(x, memoryOrder);
+            checkWaitingFibers(previous + x);
 
-            checkWaitingFibers(x + result);
-
-            lock.fetch_sub(1u,std::memory_order_seq_cst);
-
-            return result;
+            lock.fetch_sub(1U, std::memory_order_seq_cst);
+            return previous;
         }
 
-        u32 fetchSub(u32 x,const std::memory_order &order = std::memory_order_seq_cst)
+        u32 fetchSub(u32 const x, std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            lock.fetch_add(1u,std::memory_order_seq_cst);
+            lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            auto  result = counter.fetch_sub(x,order);
+            const auto previous = value.fetch_sub(x, memoryOrder);
+            checkWaitingFibers(previous - x);
 
-            checkWaitingFibers(result - x);
-
-            lock.fetch_sub(1u,std::memory_order_seq_cst);
-
-            return result;
+            lock.fetch_sub(1U, std::memory_order_seq_cst);
+            return previous;
         }
 
-        bool compareExchange(u32 expectedValue,u32 newValue,const std::memory_order &order = std::memory_order_seq_cst)
+
+        bool compareExchange(u32 expectedValue, u32 const newValue, std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            lock.fetch_add(1u,std::memory_order_seq_cst);
+            lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            auto  result = counter.compare_exchange_strong(expectedValue, newValue ,order);
-
-            if(result)
+            bool const success = value.compare_exchange_strong(expectedValue, newValue, memoryOrder);
+            if (success)
             {
                 checkWaitingFibers(newValue);
-
             }
 
-            lock.fetch_sub(1u,std::memory_order_seq_cst);
-
-            return result;
+            lock.fetch_sub(1U, std::memory_order_seq_cst);
+            return success;
         }
-
     };
 
     class AtomicFlag : public BaseCounter
     {
     public:
-        explicit AtomicFlag(TaskManager *taskManager,u32 initialValue,u32 fiberSlots = NUMBER_OF_WAITING_FIBERS) : BaseCounter(taskManager,initialValue,fiberSlots) {}
+
+        explicit AtomicFlag(TaskScheduler *taskScheduler, u32 const initialValue = 0, u32 const fiberSlots = NUMBER_OF_WAITING_FIBER_SLOTS): BaseCounter(taskScheduler, initialValue, fiberSlots){}
 
         AtomicFlag(AtomicFlag const &) = delete;
         AtomicFlag(AtomicFlag &&) noexcept = delete;
@@ -96,25 +90,25 @@ namespace core::threading
         AtomicFlag &operator=(AtomicFlag &&) noexcept = delete;
         ~AtomicFlag() = default;
 
-        bool set(const std::memory_order &order =  std::memory_order_seq_cst )
+    public:
+        bool set(std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            return counter.exchange(1U,order) == 0;
+            return value.exchange(1U, memoryOrder) == 0;
         }
 
-        bool clear(const std::memory_order &order =  std::memory_order_seq_cst )
+        bool Clear(std::memory_order const memoryOrder = std::memory_order_seq_cst)
         {
-            lock.fetch_add(1u,std::memory_order_seq_cst);
+            lock.fetch_add(1U, std::memory_order_seq_cst);
 
-            auto  result = counter.exchange(0u,order) == 1;
-
-            if(result)
+            const bool success = value.exchange(0U, memoryOrder) == 1;
+            if (!success)
             {
-                lock.fetch_sub(1u,std::memory_order_seq_cst);
+                lock.fetch_sub(1U, std::memory_order_seq_cst);
                 return false;
             }
+            checkWaitingFibers(0U);
 
-            lock.fetch_sub(1u,std::memory_order_seq_cst);
-
+            lock.fetch_sub(1U, std::memory_order_seq_cst);
             return true;
         }
     };
