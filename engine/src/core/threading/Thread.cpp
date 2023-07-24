@@ -104,7 +104,7 @@ namespace core::threading::thread
         return {::GetCurrentThread(), ::GetCurrentThreadId()};
     }
 
-    bool SetCurrentThreadAffinity(size_t coreAffinity)
+    bool setCurrentThreadAffinity(size_t coreAffinity)
     {
         auto result = ::SetThreadAffinityMask(::GetCurrentThread(), 1ULL << coreAffinity);
         return result != 0;
