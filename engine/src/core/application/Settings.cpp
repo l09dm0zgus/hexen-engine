@@ -14,6 +14,7 @@ core::Settings::Settings()
         setRenderAPI("opengl");
         setOpenGLSettings({4,6, false});
         setWindowSettings({glm::vec2 (1280,720),"Hexen Reich", false});
+        setPathToIcon("icon.ico");
     }
     else
     {
@@ -80,4 +81,18 @@ core::Settings::OpenGLSettings core::Settings::getOpenGLSettings() const
     openGlSettings.isShowDebugLogs =  settingsJson["settings"]["opengl"]["show_debug_logs"];
 
     return openGlSettings;
+}
+
+void core::Settings::setPathToIcon(const std::string &pathToIcon)
+{
+    std::ofstream settingsFile(pathToSettings + settingsFileName);
+
+    settingsJson["settings"]["path_to_icon"] = pathToIcon;
+
+    settingsFile << settingsJson.dump(2);
+}
+
+std::string core::Settings::getPathToIcon() const
+{
+    return settingsJson["settings"]["path_to_icon"];
 }

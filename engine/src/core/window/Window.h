@@ -35,6 +35,9 @@ namespace core
         std::string title;
         bool bIsOpen{true};
         void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
+        void setIcon(const std::string &pathToIcon);
+
+        SDL_Surface *icon;
     };
 }
 

@@ -39,6 +39,9 @@ namespace core
         std::string getRenderAPI() const;
         void setRenderAPI(const std::string &renderAPI);
 
+        std::string getPathToIcon() const;
+        void setPathToIcon(const std::string &pathToIcon);
+
         WindowSettings getWindowSettings() const;
         void setWindowSettings(const WindowSettings &windowSettings);
 

@@ -12,6 +12,7 @@
 #include <iostream>
 #include <map>
 #include <utility>
+#include <SDL_image.h>
 
 
 void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity,GLsizei Length,const GLchar* Message,const void* UserParam)
@@ -75,6 +76,7 @@ void core::Window::clear()
 core::Window::~Window()
 {
     SDL_Log("Main Window has been destroyed.\n");
+    SDL_DestroySurface(icon);
     SDL_DestroyWindow(window);
     window = nullptr;
     //Quit SDL subsystems
@@ -105,6 +107,7 @@ core::Window::Window(const Settings &settings) : mem::AllocatedObject() , settin
     height = static_cast<core::i32>(windowSettings.size.y);
 
     initSDL();
+    setIcon(settings.getPathToIcon());
 }
 
 void core::Window::initSDL()
@@ -187,6 +190,13 @@ void core::Window::setOpenGLVersion(const Settings::OpenGLSettings &openGlSettin
         }
 #endif
     }
+}
+
+void core::Window::setIcon(const std::string &pathToIcon)
+{
+    icon = IMG_Load(pathToIcon.c_str());
+
+    SDL_SetWindowIcon(window,icon);
 }
 
 

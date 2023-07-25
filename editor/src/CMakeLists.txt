@@ -9,6 +9,7 @@ add_subdirectory(gui)
 add_subdirectory(systems)
 
 target_sources(${EDITOR_NAME} PRIVATE
+        Application.rc
         main.cpp
         application/Application.cpp
         application/Application.h
