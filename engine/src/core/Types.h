@@ -13,6 +13,9 @@
 #include <cstdio>
 #include <iostream>
 #include <iterator>
+#include <functional>
+#include <memory>
+
 
 #if defined(__GNUC__) || defined(__GNUG__)
     #define HEXEN_INLINE                                  inline __attribute__((always_inline))
@@ -94,6 +97,89 @@ namespace core
         }
         return hash;
     }
+
+    template<typename  ...Args>
+    class BaseDelegate
+    {
+    protected:
+        std::tuple<Args...> parameters;
+    public:
+        explicit BaseDelegate(Args... args)
+        {
+            parameters = std::make_tuple(args...);
+        }
+
+        virtual void execute() = 0;
+        virtual ~BaseDelegate() = default;
+
+    };
+
+    template<class T,typename Ret ,typename ...Args>
+    class MethodDelegate : public BaseDelegate<Args...>
+    {
+    private:
+        Ret (T::*callableMethod)(Args...);
+        T* callableObject;
+        template<typename std::size_t... I>
+        void process(std::index_sequence<I...> indexSequence)
+        {
+            (callableObject->*callableMethod)(std::get<I>(this->parameters)...);
+        }
+    public:
+        explicit MethodDelegate(T* object,Ret (T::*method)(Args...) , Args... args) : BaseDelegate<Args...>(args...)
+        {
+            callableMethod = method;
+            callableObject = object;
+        }
+
+        void execute() override
+        {
+            process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
+        }
+    };
+
+
+    template<typename Ret ,typename ...Args>
+    class FunctionDelegate : public BaseDelegate<Args...>
+    {
+    private:
+        Ret (*callableFunction)(Args...);
+    public:
+        explicit FunctionDelegate(Ret (*function)(Args...) , Args... args) : BaseDelegate<Args...>(args...)
+        {
+            callableFunction = function;
+        }
+
+        void execute() override
+        {
+            std::apply(callableFunction, this->parameters);
+        }
+    };
+
+
+    template<class T ,typename ...Args>
+    class FunctorDelegate : public BaseDelegate<Args...>
+    {
+    private:
+        T *functor;
+
+        template<typename std::size_t... I>
+        void process(std::index_sequence<I...> indexSequence)
+        {
+            functor->operator()(std::get<I>(this->parameters)...);
+        }
+
+    public:
+        explicit FunctorDelegate(T* newFunctor, Args... args) : BaseDelegate<Args...>(args...)
+        {
+            functor = newFunctor;
+        }
+
+        void execute() override
+        {
+            process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
+        }
+    };
 
     template<typename Key ,typename Value,typename Hash = std::hash<Key> ,typename Equal = std::equal_to<Key>>
     class HashTable
