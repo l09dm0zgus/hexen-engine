@@ -2,18 +2,18 @@ cmake_minimum_required(VERSION 3.6)
 project(${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME} PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Thread.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Config.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Thread.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Fiber.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Fiber.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Callbacks.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Task.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/BaseCounter.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/BaseCounter.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/AtomicCounter.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/TaskCounter.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/WaitFreeQueue.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/TaskScheduler.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/TaskScheduler.cpp
+        thread/Thread.h
+        thread/Config.h
+        thread/Thread.cpp
+        thread/Fiber.h
+        thread/Fiber.cpp
+        task/Callbacks.h
+        task/Task.h
+        counter/BaseCounter.h
+        counter/BaseCounter.cpp
+        counter/AtomicCounter.h
+        counter/TaskCounter.h
+        thread/WaitFreeQueue.h
+        task/TaskScheduler.h
+        task/TaskScheduler.cpp
         )

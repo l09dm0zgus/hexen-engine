@@ -1,9 +1,9 @@
 #include "TaskScheduler.h"
 
-#include "AtomicCounter.h"
+#include "../counter/AtomicCounter.h"
 #include "Callbacks.h"
-#include "TaskCounter.h"
-#include "Thread.h"
+#include "../counter/TaskCounter.h"
+#include "../thread/Thread.h"
 
 #if defined(HEXEN_WIN32_THREADS)
 #	ifndef WIN32_LEAN_AND_MEAN

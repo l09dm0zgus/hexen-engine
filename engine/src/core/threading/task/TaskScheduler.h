@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Callbacks.h"
-#include "Fiber.h"
+#include "../thread/Fiber.h"
 #include "Task.h"
-#include "Thread.h"
-#include "WaitFreeQueue.h"
+#include "../thread/Thread.h"
+#include "../thread/WaitFreeQueue.h"
 
 #include <atomic>
 #include <condition_variable>

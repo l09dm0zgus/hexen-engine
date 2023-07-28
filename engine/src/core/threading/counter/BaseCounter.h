@@ -2,7 +2,7 @@
 
 #include <atomic>
 #include <limits>
-#include "../Types.h"
+#include "../../Types.h"
 
 namespace core::threading
 {
