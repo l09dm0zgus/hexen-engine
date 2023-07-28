@@ -17,7 +17,7 @@
 #	pragma warning(push)
 #	pragma warning(disable : 4996) // 'mbstowcs': _CRT_SECURE_NO_WARNINGS
 
-namespace core::threading::thread
+namespace core::threading::threads
 {
 
     static void setThreadName(HANDLE handle, const char *threadName)
@@ -44,8 +44,8 @@ namespace core::threading::thread
             }
             else
             {
-                // Failed to assign thread name. This requires Windows 10 Creators Update 2017, or newer, to have
-                // thread names associated with debugging, profiling, and crash dumps
+                // Failed to assign threads name. This requires Windows 10 Creators Update 2017, or newer, to have
+                // threads names associated with debugging, profiling, and crash dumps
             }
         }
     }
@@ -83,9 +83,9 @@ namespace core::threading::thread
         _endthreadex(0);
     }
 
-    bool joinThread(ThreadType thread)
+    bool joinThread(ThreadType threads)
     {
-        auto result= ::WaitForSingleObject(thread.Handle, INFINITE);
+        auto result= ::WaitForSingleObject(threads.Handle, INFINITE);
         if (result == WAIT_OBJECT_0)
         {
             return true;
@@ -131,7 +131,7 @@ namespace core::threading::thread
 #	include <string.h>
 #	include <unistd.h>
 
-namespace core::threading::thread
+namespace core::threading::threads
 {
     bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
     {
@@ -162,8 +162,8 @@ namespace core::threading::thread
         pthread_attr_setstacksize(&threadAttr, stackSize);
 
         // TODO: OSX, MinGW, and musl Thread Affinity
-        //       musl can set the affinity after the thread has been started (using pthread_setaffinity_np() )
-        //       To set the affinity at thread creation, glibc created the pthread_attr_setaffinity_np() extension
+        //       musl can set the affinity after the threads has been started (using pthread_setaffinity_np() )
+        //       To set the affinity at threads creation, glibc created the pthread_attr_setaffinity_np() extension
 #	if defined(HEXEN_OS_LINUX) && defined(__GLIBC__)
         // Set core affinity
         cpu_set_t cpuSet;
@@ -187,9 +187,9 @@ namespace core::threading::thread
         pthread_exit(nullptr);
     }
 
-    bool joinThread(ThreadType thread)
+    bool joinThread(ThreadType threads)
     {
-        auto result = pthread_join(thread, nullptr);
+        auto result = pthread_join(threads, nullptr);
         return  result == 0;
     }
 

@@ -83,7 +83,7 @@ namespace core::threading
                 // Try to acquire inUse
                 if (!std::atomic_compare_exchange_strong_explicit(&waitingFibers[i].inUse, &expected, true, std::memory_order_seq_cst, std::memory_order_relaxed))
                 {
-                    // Failed the race. Another thread got to it first.
+                    // Failed the race. Another threads got to it first.
                     return false;
                 }
                 // Signal that the slot is now free
@@ -110,7 +110,7 @@ namespace core::threading
             {
                 continue;
             }
-            // Check if the slot is being modified by another thread
+            // Check if the slot is being modified by another threads
             if (waitingFibers[i].inUse.load(std::memory_order_acquire))
             {
                 continue;
@@ -123,7 +123,7 @@ namespace core::threading
                 // Try to acquire inUse
                 if (!std::atomic_compare_exchange_strong_explicit(&waitingFibers[i].inUse, &expected, true, std::memory_order_seq_cst, std::memory_order_relaxed))
                 {
-                    // Failed the race. Another thread got to it first
+                    // Failed the race. Another threads got to it first
                     continue;
                 }
 
