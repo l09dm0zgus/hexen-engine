@@ -15,7 +15,7 @@
 #include <iterator>
 #include <functional>
 #include <memory>
-
+#include <any>
 
 #if defined(__GNUC__) || defined(__GNUG__)
     #define HEXEN_INLINE                                  inline __attribute__((always_inline))
@@ -110,6 +110,7 @@ namespace core
         }
 
         virtual void execute() = 0;
+        virtual std::size_t getId() const = 0;
         virtual ~BaseDelegate() = default;
 
     };
@@ -136,6 +137,12 @@ namespace core
         {
             process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
         }
+
+        std::size_t getId() const override
+        {
+            std::any object = callableMethod;
+            return  object.type().hash_code();
+        }
     };
 
 
@@ -153,6 +160,13 @@ namespace core
         void execute() override
         {
             std::apply(callableFunction, this->parameters);
+        }
+
+
+        std::size_t getId() const override
+        {
+            std::any object = callableFunction;
+            return  object.type().hash_code();
         }
     };
 
@@ -178,6 +192,13 @@ namespace core
         void execute() override
         {
             process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
+        }
+
+
+        std::size_t getId() const override
+        {
+            std::any object = functor;
+            return  object.type().hash_code();
         }
     };
 
