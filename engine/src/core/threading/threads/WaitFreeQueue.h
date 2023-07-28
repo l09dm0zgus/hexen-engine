@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "core/Types.h"
+#include "../../Types.h"
 #include "Config.h"
 
 #include <atomic>

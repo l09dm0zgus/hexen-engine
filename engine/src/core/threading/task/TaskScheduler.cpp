@@ -3,7 +3,7 @@
 #include "../counter/AtomicCounter.h"
 #include "Callbacks.h"
 #include "../counter/TaskCounter.h"
-#include "../thread/Thread.h"
+#include "../threads/Thread.h"
 
 #if defined(HEXEN_WIN32_THREADS)
 #	ifndef WIN32_LEAN_AND_MEAN
@@ -45,7 +45,7 @@ namespace core::threading
             HEXEN_PAUSE();
         }
 
-        // Execute user thread start callback, if set
+        // Execute user threads start callback, if set
         const auto &callbacks = taskScheduler->callbacks;
         if (callbacks.onWorkerThreadStarted != nullptr)
         {
@@ -62,7 +62,7 @@ namespace core::threading
 
         // And we've returned
 
-        // Execute user thread end callback, if set
+        // Execute user threads end callback, if set
         if (callbacks.onWorkerThreadEnded != nullptr)
         {
             callbacks.onWorkerThreadEnded(callbacks.context, index);
@@ -104,7 +104,7 @@ namespace core::threading
 
             bool readyWaitingFibers = false;
 
-            // Check if there is a ready pinned waiting fiber
+            // Check if there is a ready-pinned waiting fiber
             {
                 std::lock_guard<std::mutex> guard(tls->pinnedReadyFibersLock);
 
@@ -114,7 +114,7 @@ namespace core::threading
 
                     if (!(*bundle)->fiberIsSwitched.load(std::memory_order_acquire))
                     {
-                        // The wait condition is ready, but the "source" thread hasn't switched away from the fiber yet
+                        // The wait condition is ready, but the "source" threads hasn't switched away from the fiber yet
                         // Skip this fiber until the next round
                         continue;
                     }
@@ -134,7 +134,7 @@ namespace core::threading
                 foundTask = taskScheduler->getNextHighPriorityTask(&nextTask, &taskBuffer);
 
                 // Check if the found task is a ReadyFiber dummy task
-                if (foundTask && nextTask.taskToExecute.Function == ReadyFiberDummyTask)
+                if (foundTask && nextTask.taskToExecute == ReadyFiberDummyTask)
                 {
                     // Get the waiting fiber index
                     auto *readyFiberBundle = reinterpret_cast<ReadyFiberBundle *>(nextTask.taskToExecute.ArgumentsData);
@@ -167,7 +167,7 @@ namespace core::threading
                 // And we're back
                 taskScheduler->cleanUpOldFiber();
 
-                // Get a fresh instance of TLS, since we could be on a new thread now
+                // Get a fresh instance of TLS, since we could be on a new threads now
                 tls = &taskScheduler->threadLocalStorage[taskScheduler->getCurrentThreadIndex()];
 
                 if (taskScheduler->emptyQueueBehavior.load(std::memory_order::memory_order_relaxed) == EmptyQueueBehavior::Sleep)
@@ -191,7 +191,7 @@ namespace core::threading
                         tls->failedQueuePopAttempts = 0;
                     }
 
-                    nextTask.taskToExecute.Function(taskScheduler, nextTask.taskToExecute.ArgumentsData);
+                    nextTask.taskToExecute.execute();
                     if (nextTask.counter != nullptr)
                     {
                         nextTask.counter->decrement();
@@ -217,9 +217,9 @@ namespace core::threading
                                 {
                                     std::unique_lock<std::mutex> lock(taskScheduler->threadSleepLock);
                                     // Acquire the pinned ready fibers lock here and check if there are any pinned fibers ready
-                                    // Acquiring the lock here prevents a race between readying a pinned fiber (on another thread) and going to sleep
-                                    // Either this thread wins, then notify_*() will wake it
-                                    // Or the other thread wins, then this thread will observe the pinned fiber, and will not go to sleep
+                                    // Acquiring the lock here prevents a race between readying a pinned fiber (on another threads) and going to sleep
+                                    // Either this threads wins, then notify_*() will wake it
+                                    // Or the other threads wins, then this threads will observe the pinned fiber, and will not go to sleep
                                     std::unique_lock<std::mutex> readyfiberslock(tls->pinnedReadyFibersLock);
                                     if (tls->pinnedReadyFibers.empty())
                                     {
@@ -267,12 +267,12 @@ namespace core::threading
             thread::sleepThread(50);
         }
 
-        // Jump to the thread fibers
+        // Jump to the threads fibers
         auto threadIndex = taskScheduler->getCurrentThreadIndex();
 
         if (threadIndex == 0)
         {
-            // Special case for the main thread fiber
+            // Special case for the main threads fiber
             taskScheduler->quitFibers[threadIndex].switchToFiber(&taskScheduler->fibers[0]);
         } else
         {
@@ -298,7 +298,7 @@ namespace core::threading
         emptyQueueBehavior.store(options.behavior);
 
         if (options.threadPoolSize == 0) {
-            // 1 thread for each logical processor
+            // 1 threads for each logical processor
             numberOfThreads = thread::getNumberOfHardwareThreads();
         } else
         {
@@ -311,7 +311,7 @@ namespace core::threading
         freeFibers = new std::atomic<bool>[options.fiberPoolSize];
         readyFiberBundles = new ReadyFiberBundle[options.fiberPoolSize];
 
-        // Leave the first slot for the bound main thread
+        // Leave the first slot for the bound main threads
         for (u32 i = 1; i < options.fiberPoolSize; ++i)
         {
             fibers[i] = Fiber(524288, fiberStartFunction, this);
@@ -331,8 +331,8 @@ namespace core::threading
 #endif // _MSC_VER
 
 #if defined(HEXEN_WIN32_THREADS)
-        // Temporarily set the main thread ID to -1, so when the worker threads start up, they don't accidentally use it
-        // I don't know if Windows thread id's can ever be 0, but just in case.
+        // Temporarily set the main threads ID to -1, so when the worker threads start up, they don't accidentally use it
+        // I don't know if Windows threads id's can ever be 0, but just in case.
         threads[0].Id = static_cast<DWORD>(-1);
 #endif
 
@@ -345,14 +345,14 @@ namespace core::threading
             callbacks.onFibersCreated(callbacks.context, options.fiberPoolSize);
         }
 
-        // Set the properties for the current thread
+        // Set the properties for the current threads
         thread::setCurrentThreadAffinity(0);
         threads[0] = thread::getCurrentThread();
 #if defined(HEXEN_WIN32_THREADS)
-        // Set the thread handle to INVALID_HANDLE_VALUE
-        // ::GetCurrentThread is a pseudo handle, that always references the current thread.
-        // Aka, if we tried to use this handle from another thread to reference the main thread,
-        // it would instead reference the other thread. We don't currently use the handle anywhere.
+        // Set the threads handle to INVALID_HANDLE_VALUE
+        // ::GetCurrentThread is a pseudo handle, that always references the current threads.
+        // Aka, if we tried to use this handle from another threads to reference the main threads,
+        // it would instead reference the other threads. We don't currently use the handle anywhere.
         // Therefore, we set this to INVALID_HANDLE_VALUE, so any future usages can take this into account
         // Reported by @rtj
         threads[0].Handle = INVALID_HANDLE_VALUE;
@@ -408,7 +408,7 @@ namespace core::threading
         }
 
         // Jump to the quit fiber
-        // Create a scope so index isn't used after we come back from the switch. It will be wrong if we started on a non-main thread
+        // Create a scope so index isn't used after we come back from the switch. It will be wrong if we started on a non-main threads
         {
             if (callbacks.onFiberDetached != nullptr)
             {
@@ -419,7 +419,7 @@ namespace core::threading
             fibers[threadLocalStorage[index].currentFiberIndex].switchToFiber(&quitFibers[index]);
         }
 
-        // We're back. We should be on the main thread now
+        // We're back. We should be on the main threads now
 
         // Wait for the worker threads to finish
         for (unsigned i = 1; i < numberOfThreads; ++i)
@@ -439,7 +439,7 @@ namespace core::threading
 
     void TaskScheduler::addTask(Task task, TaskPriority priority, TaskCounter *counter)
     {
-        HEXEN_ASSERT(task.Function != nullptr,"Task given to TaskScheduler:addTask has a nullptr Function");
+        HEXEN_ASSERT(task.delegate != nullptr,"Task given to TaskScheduler:addTask has a nullptr Function");
 
         if (counter != nullptr)
         {
@@ -458,7 +458,7 @@ namespace core::threading
         const EmptyQueueBehavior behavior = emptyQueueBehavior.load(std::memory_order_relaxed);
         if (behavior == EmptyQueueBehavior::Sleep)
         {
-            // Wake a sleeping thread
+            // Wake a sleeping threads
             threadSleepCv.notify_one();
         }
     }
@@ -484,7 +484,7 @@ namespace core::threading
         }
         for (u32 i = 0; i < numberOfTasks; ++i)
         {
-            HEXEN_ASSERT( tasks[i].Function != nullptr,"Task given to TaskScheduler:addTasks has a nullptr Function");
+            HEXEN_ASSERT( tasks[i].delegate != nullptr,"Task given to TaskScheduler:addTasks has a nullptr Function");
             const TaskBundle bundle = {tasks[i], counter};
             queue->push(bundle);
         }
@@ -540,7 +540,7 @@ namespace core::threading
     inline bool TaskScheduler::taskIsReadyToExecute(TaskBundle *bundle) const
     {
         // "Real" tasks are always ready to execute
-        if (bundle->taskToExecute.Function != ReadyFiberDummyTask)
+        if (bundle->taskToExecute != &ReadyFiberDummyTask)
         {
             return true;
         }
@@ -674,7 +674,7 @@ namespace core::threading
 
     void TaskScheduler::cleanUpOldFiber()
     {
-        // Clean up from the last Fiber to run on this thread
+        // Clean up from the last Fiber to run on this threads
         //
         // Explanation:
         // When switching between fibers, there's the innate problem of tracking the fibers.
@@ -684,7 +684,7 @@ namespace core::threading
         //     fibers.Push(currentFiber)
         //     currentFiber.SwitchToFiber(waitingFiber)
         // In the time between us adding the current fiber to the fiber pool and switching to the waiting fiber, another
-        // thread could come along and pop the current fiber from the fiber pool and try to run it.
+        // threads could come along and pop the current fiber from the fiber pool and try to run it.
         // This leads to stack corruption and/or other undefined behavior.
         //
         // In the previous implementation of TaskScheduler, we used helper fibers to do this work for us.
@@ -692,7 +692,7 @@ namespace core::threading
         // helper fiber then did:
         //     fibers.Push(currentFiber)
         //     helperFiber.SwitchToFiber(waitingFiber)
-        // If we have 1 helper fiber per thread, we can guarantee that currentFiber is free to be executed by any thread
+        // If we have 1 helper fiber per threads, we can guarantee that currentFiber is free to be executed by any threads
         // once it is added back to the fiber pool
         //
         // This solution works well, however, we actually don't need the helper fibers
@@ -748,7 +748,7 @@ namespace core::threading
 
             // Push a dummy task to the high priority queue
             Task task{};
-            task.Function = ReadyFiberDummyTask;
+            task.bind(&ReadyFiberDummyTask, this,(vptr)bundle);
             task.ArgumentsData = bundle;
             TaskBundle taskBundle{};
             taskBundle.taskToExecute = task;
@@ -757,7 +757,7 @@ namespace core::threading
             tls->highPriorityTaskQueue.push(taskBundle);
 
             // If we're using EmptyQueueBehavior::Sleep, the other threads could be sleeping
-            // Therefore, we need to kick a thread awake to ensure that the readied task is taken
+            // Therefore, we need to kick a threads awake to ensure that the readied task is taken
             const auto behavior = emptyQueueBehavior.load(std::memory_order_relaxed);
             if (behavior == EmptyQueueBehavior::Sleep)
             {
@@ -772,12 +772,12 @@ namespace core::threading
                 tls->pinnedReadyFibers.emplace_back(bundle);
             }
 
-            // If the Task is pinned, we add the Task to the pinned thread's pinnedReadyFibers queue
-            // Normally, this works fine; the other thread will pick it up next time it
+            // If the Task is pinned, we add the Task to the pinned threads's pinnedReadyFibers queue
+            // Normally, this works fine; the other threads will pick it up next time it
             // searches for a Task to run.
             //
-            // However, if we're using EmptyQueueBehavior::Sleep, the other thread could be sleeping
-            // Therefore, we need to kick all the threads so that the pinned-to thread can take it
+            // However, if we're using EmptyQueueBehavior::Sleep, the other threads could be sleeping
+            // Therefore, we need to kick all the threads so that the pinned-to threads can take it
             const auto behavior = emptyQueueBehavior.load(std::memory_order::memory_order_relaxed);
             if (behavior == EmptyQueueBehavior::Sleep)
             {
@@ -875,7 +875,7 @@ namespace core::threading
         if (!taskBuffer->empty())
         {
             // Re-push all the tasks we found that we're ready to execute
-            // We (or another thread) will get them next round
+            // We (or another threads) will get them next round
             do
             {
                 // Push them in the opposite order we popped them, to restore the order

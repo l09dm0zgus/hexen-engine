@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Callbacks.h"
-#include "../thread/Fiber.h"
+#include "../threads/Fiber.h"
 #include "Task.h"
-#include "../thread/Thread.h"
-#include "../thread/WaitFreeQueue.h"
+#include "../threads/Thread.h"
+#include "../threads/WaitFreeQueue.h"
 
 #include <atomic>
 #include <condition_variable>
@@ -24,7 +24,7 @@ namespace core::threading
         Spin,
         // Same as spin, except yields to the OS after each round of searching
         Yield,
-        // Puts the thread to sleep. Will be woken when more tasks are added to the remaining awake threads.
+        // Puts the threads to sleep. Will be woken when more tasks are added to the remaining awake threads.
         Sleep
         // ReSharper restore CppInconsistentNaming
     };

@@ -17,7 +17,7 @@
 #	pragma warning(push)
 #	pragma warning(disable : 4996) // 'mbstowcs': _CRT_SECURE_NO_WARNINGS
 
-namespace core::threading::threads
+namespace core::threading::thread
 {
 
     static void setThreadName(HANDLE handle, const char *threadName)
@@ -131,7 +131,7 @@ namespace core::threading::threads
 #	include <string.h>
 #	include <unistd.h>
 
-namespace core::threading::threads
+namespace core::threading::thread
 {
     bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
     {
