@@ -4,6 +4,7 @@
 #include "Callbacks.h"
 #include "../counter/TaskCounter.h"
 #include "../threads/Thread.h"
+#include <array>
 
 #if defined(HEXEN_WIN32_THREADS)
 #	ifndef WIN32_LEAN_AND_MEAN
@@ -463,11 +464,11 @@ namespace core::threading
         }
     }
 
-    void TaskScheduler::addTasks(u32 numberOfTasks, const Task *tasks, TaskPriority priority, TaskCounter *counter)
+    void TaskScheduler::addTasks(const std::array<Task,400> &tasks, TaskPriority priority, TaskCounter *counter)
     {
         if (counter != nullptr)
         {
-            counter->add(numberOfTasks);
+            counter->add(tasks.size());
         }
 
         WaitFreeQueue<TaskBundle> *queue = nullptr;
@@ -482,7 +483,7 @@ namespace core::threading
             HEXEN_ASSERT(false,"Unknown task priority");
             return;
         }
-        for (u32 i = 0; i < numberOfTasks; ++i)
+        for (u32 i = 0; i < tasks.size(); ++i)
         {
             HEXEN_ASSERT( tasks[i].delegate != nullptr,"Task given to TaskScheduler:addTasks has a nullptr Function");
             const TaskBundle bundle = {tasks[i], counter};

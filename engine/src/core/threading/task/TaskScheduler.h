@@ -10,6 +10,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <vector>
+#include <array>
 
 namespace core::threading
 {
@@ -138,7 +139,7 @@ namespace core::threading
 
         void addTask(Task task, TaskPriority priority, TaskCounter *counter = nullptr);
 
-        void addTasks(u32 numberOfTasks, Task const *tasks, TaskPriority priority, TaskCounter *counter = nullptr);
+        void addTasks(const std::array<Task,400> &tasks, TaskPriority priority, TaskCounter *counter = nullptr);
 
         void waitForCounter(TaskCounter *counter, bool pinToCurrentThread = false);
 
