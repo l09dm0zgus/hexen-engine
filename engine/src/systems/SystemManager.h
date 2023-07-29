@@ -64,14 +64,14 @@ namespace sys
         * @param window The window from which the input will be processed.
         */
 
-        void processInput(const std::shared_ptr<core::Window> &window);
+        virtual void processInput(const std::shared_ptr<core::Window> &window);
 
 
         /**
          * @brief Starts all systems,called before main loop.
          */
 
-        void start();
+        virtual void start();
 
 
         /**
@@ -80,7 +80,7 @@ namespace sys
          * @param alpha interpolated value for correct position of rendered object.
          */
 
-        void render(float alpha);
+        virtual void render(float alpha);
 
         /**
          * @brief Updates the game play systems.
@@ -94,7 +94,7 @@ namespace sys
          *
          */
 
-        void update(float deltaTime);
+        virtual void update(float deltaTime);
 
         /**
          * @brief Construct and initialize a new game play system.
@@ -131,6 +131,14 @@ namespace sys
         {
             renderSystems.emplace_back(core::mem::make_unique<T>(args...));
         }
+
+
+        /**
+        * @brief Default virtual destructor.
+        */
+
+        virtual ~SystemManager() = default;
+
     };
 }
 
