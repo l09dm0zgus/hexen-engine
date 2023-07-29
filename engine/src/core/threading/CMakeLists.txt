@@ -16,4 +16,5 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/threads/WaitFreeQueue.h
         ${CMAKE_CURRENT_SOURCE_DIR}/task/TaskScheduler.h
         ${CMAKE_CURRENT_SOURCE_DIR}/task/TaskScheduler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Threading.h
         )
