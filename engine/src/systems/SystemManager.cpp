@@ -8,6 +8,9 @@
 #include "TaskSystem.h"
 #include <memory>
 
+
+sys::SystemManager* sys::SystemManager::currentSystemManager{nullptr};
+
 void sys::SystemManager::processInput(const std::shared_ptr<core::Window> &window)
 {
     //in future will be created InputSystem for handling input

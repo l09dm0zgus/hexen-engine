@@ -17,6 +17,16 @@ namespace sys
     private:
 
         /**
+        * @brief Represents the current system manager.
+        *
+        * The currentSystemManager variable is used to keep track of the active system manager within the software application.
+        * It allows access to various functionalities and resources provided by the system manager.
+        */
+
+        static SystemManager* currentSystemManager;
+
+
+        /**
          * @brief The number of components.
          *
          * This variable represents the number of components. It is initialized to zero.
@@ -97,7 +107,7 @@ namespace sys
         virtual void update(float deltaTime);
 
         /**
-         * @brief Construct and initialize a new game play system.
+         * @brief Construct and initialize a new game play system in current system manager.
          *
          * This constructor takes any number of arguments of type `Args`. These arguments
          * are used to initialize the game play system. You can pass any appropriate
@@ -109,9 +119,12 @@ namespace sys
          * @tparam T  Type based on IGamePlaySystem class.
          */
 
-        template<class T,typename ...Args> HEXEN_INLINE void addGamePlaySystem(Args... args)
+        template<class T,typename ...Args> HEXEN_INLINE static void addGamePlaySystem(Args... args)
         {
-            gameplaySystems.emplace_back(core::mem::make_unique<T>(args...));
+            if(currentSystemManager != nullptr)
+            {
+                currentSystemManager->gameplaySystems.emplace_back(core::mem::make_unique<T>(args...));
+            }
         }
 
         /**
@@ -127,9 +140,26 @@ namespace sys
        * @tparam T  Type based on IRenderSystem class.
        */
 
-        template<class T,typename ...Args> HEXEN_INLINE void addRenderSystem(Args... args)
+        template<class T,typename ...Args> HEXEN_INLINE static void addRenderSystem(Args... args)
         {
-            renderSystems.emplace_back(core::mem::make_unique<T>(args...));
+            if(currentSystemManager != nullptr)
+            {
+                currentSystemManager->renderSystems.emplace_back(core::mem::make_unique<T>(args...));
+
+            }
+        }
+
+        /**
+         * @brief Sets the current system manager.
+         *
+         * This function allows the user to set the current system manager
+         *
+         * @param systemManager A pointer to the system manager object.
+         */
+
+        HEXEN_INLINE static void setCurrentSystemManager(SystemManager* systemManager)
+        {
+            currentSystemManager = systemManager;
         }
 
 
