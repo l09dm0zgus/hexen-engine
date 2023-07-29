@@ -155,6 +155,16 @@ core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<ent::SceneEntity
     index = visitedNode.size();
 }
 
+glm::vec2 core::Scene::getUnitSize() const noexcept
+{
+    return unitSize;
+}
+
+glm::vec2 core::Scene::getSize() const noexcept
+{
+    return size;
+}
+
 const std::shared_ptr<ent::SceneEntity> core::Scene::SceneConstantIterator::operator->() const
 {
     return SceneIterator::operator->();

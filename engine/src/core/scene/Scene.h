@@ -42,6 +42,8 @@ namespace core
             std::shared_ptr<ent::SceneEntity> operator*() const;
             bool operator==(const SceneIterator &sceneIterator) const;
             bool operator!=(const SceneIterator &sceneIterator) const;
+
+
         };
 
         class SceneConstantIterator : public SceneIterator
@@ -80,6 +82,8 @@ namespace core
 
         void forEach(std::function<void(std::shared_ptr<ent::SceneEntity>&)> callback);
 
+        glm::vec2 getUnitSize() const noexcept;
+        glm::vec2 getSize() const noexcept;
     };
 
 }
