@@ -11,7 +11,7 @@ namespace core::threading
         template<class T,typename Ret ,typename ...Args>
         bool bind(T* object,Ret (T::*method)(Args...) , Args... args)
         {
-            delegate = reinterpret_cast<core::BaseDelegate<std::any> *const>(new core::MethodDelegate(object,&T::method,args...));
+            delegate = reinterpret_cast<core::BaseDelegate<std::any> *const>(new core::MethodDelegate(object,method,args...));
             if(delegate == nullptr)
             {
                 return false;
