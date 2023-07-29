@@ -82,17 +82,17 @@ void sys::RenderSystem::start()
     }
 }
 
-void sys::RenderSystem::update(float deltaTime)
+void sys::RenderSystem::render(float alpha)
 {
     for(auto& sprite:spritesComponent)
     {
         updateSpriteModelMatrix(sprite);
         updateViewAndProjectionMatrices(&sprite);
-        sprite.update(deltaTime);
+        sprite.update(alpha);
     }
     for(auto& spriteInstenced:instancedSpritesComponents)
     {
         updateViewAndProjectionMatrices(&spriteInstenced);
-        spriteInstenced.update(deltaTime);
+        spriteInstenced.update(alpha);
     }
 }

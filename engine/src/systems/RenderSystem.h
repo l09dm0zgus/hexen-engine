@@ -9,13 +9,13 @@
 #include "../components/graphics/SpriteInstancedComponent.h"
 #include "../components/transform/TransformComponent.h"
 #include "../components/camera/CameraComponent.h"
-#include "ISystem.h"
+#include "IRenderSystem.h"
 #include <vector>
 #include <memory>
 
 namespace sys
 {
-    class RenderSystem : public ISystem
+    class RenderSystem : public IRenderSystem
     {
     public:
         explicit RenderSystem(core::u32 sizeOfVectors);
@@ -24,7 +24,7 @@ namespace sys
         static std::shared_ptr<comp::TransformComponent> createTransformComponent();
         static std::shared_ptr<comp::CameraComponent> createCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
         void start() override;
-        void update(float deltaTime) override;
+        void render(float alpha) override;
     private:
         static std::vector<comp::rend::SpriteComponent> spritesComponent;
         static std::vector<comp::rend::SpriteInstancedComponent> instancedSpritesComponents;
