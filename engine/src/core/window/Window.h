@@ -19,6 +19,7 @@ namespace core
         void swapBuffers();
         void close();
         void clear();
+        void resize();
         bool isOpen() const noexcept;
         i32 pollEvents(SDL_Event *sdlEvent);
         SDL_DisplayMode getDisplayMode() const noexcept;

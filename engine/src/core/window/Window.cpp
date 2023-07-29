@@ -199,4 +199,10 @@ void core::Window::setIcon(const std::string &pathToIcon)
     SDL_SetWindowIcon(window,icon);
 }
 
+void core::Window::resize()
+{
+    SDL_GetWindowSize(window, &width, &height);
+    glViewport(0, 0, width, height);
+}
+
 
