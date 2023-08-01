@@ -34,6 +34,10 @@ void core::GameLoop::loop(const std::shared_ptr<Window> &window)
         }
 
         //render
+        window->clear();
+        systemManager->render(getAlpha());
+        window->swapBuffers();
+        //render
         systemManager->render(getAlpha());
         sys::TaskSystem::waitForCounter();
     }
