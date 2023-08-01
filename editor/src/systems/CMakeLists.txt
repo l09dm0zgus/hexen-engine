@@ -3,4 +3,6 @@ project(${EDITOR_NAME})
 target_sources(${EDITOR_NAME} PRIVATE
         DebugRenderSystem.h
         DebugRenderSystem.cpp
+        EditorSystemsManager.h
+        EditorSystemsManager.cpp
         )

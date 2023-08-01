@@ -8,6 +8,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSystem.h
         ${CMAKE_CURRENT_SOURCE_DIR}/TaskSystem.h
         ${CMAKE_CURRENT_SOURCE_DIR}/TaskSystem.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/SystemManager.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/SystemManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/SystemsManager.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/SystemsManager.cpp
         )

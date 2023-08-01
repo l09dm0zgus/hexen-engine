@@ -12,7 +12,7 @@ namespace core
 
 namespace sys
 {
-    class SystemManager : public core::mem::AllocatedObject
+    class SystemsManager : public core::mem::AllocatedObject
     {
     private:
 
@@ -23,7 +23,7 @@ namespace sys
         * It allows access to various functionalities and resources provided by the system manager.
         */
 
-        static SystemManager* currentSystemManager;
+        static SystemsManager* currentSystemManager;
 
 
         /**
@@ -157,7 +157,7 @@ namespace sys
          * @param systemManager A pointer to the system manager object.
          */
 
-        HEXEN_INLINE static void setCurrentSystemManager(SystemManager* systemManager)
+        HEXEN_INLINE static void setCurrentSystemManager(SystemsManager* systemManager)
         {
             currentSystemManager = systemManager;
         }
@@ -167,7 +167,7 @@ namespace sys
         * @brief Default virtual destructor.
         */
 
-        virtual ~SystemManager() = default;
+        virtual ~SystemsManager() = default;
 
     };
 }

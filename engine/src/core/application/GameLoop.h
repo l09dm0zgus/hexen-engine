@@ -4,7 +4,7 @@
 
 #pragma once
 #include "../memory_pool/AllocatedObject.h"
-#include "../../systems/SystemManager.h"
+#include "../../systems/SystemsManager.h"
 #include <chrono>
 
 namespace core
@@ -24,7 +24,7 @@ namespace core
     public:
 
         /**
-         * @brief Initialize TaskSystem , allocating memory for SystemManager object,
+         * @brief Initialize TaskSystem , allocating memory for SystemsManager object,
          * and setting pointer to current system manager
          */
 
@@ -48,7 +48,7 @@ namespace core
         GameLoop& operator=(GameLoop&&) = delete;
 
         /**
-        * @brief Adds to SystemManager systems,and then them starts.
+        * @brief Adds to SystemsManager systems,and then them starts.
         */
 
         virtual void start();
@@ -146,7 +146,7 @@ namespace core
 
         const float msPerUpdate{0.2f};
 
-        std::shared_ptr<sys::SystemManager> systemManager;
+        std::shared_ptr<sys::SystemsManager> systemManager;
     };
 }
 

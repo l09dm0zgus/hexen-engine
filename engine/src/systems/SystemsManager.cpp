@@ -2,16 +2,15 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#include "SystemManager.h"
-#include "../core/graphics/Graphics.h"
+#include "SystemsManager.h"
 #include "../core/window/Window.h"
 #include "TaskSystem.h"
 #include <memory>
 
 
-sys::SystemManager* sys::SystemManager::currentSystemManager{nullptr};
+sys::SystemsManager* sys::SystemsManager::currentSystemManager{nullptr};
 
-void sys::SystemManager::processInput(const std::shared_ptr<core::Window> &window)
+void sys::SystemsManager::processInput(const std::shared_ptr<core::Window> &window)
 {
     //in future will be created InputSystem for handling input
     SDL_Event event;
@@ -33,7 +32,7 @@ void sys::SystemManager::processInput(const std::shared_ptr<core::Window> &windo
     }
 }
 
-void sys::SystemManager::start()
+void sys::SystemsManager::start()
 {
     for(auto& system : renderSystems)
     {
@@ -47,7 +46,7 @@ void sys::SystemManager::start()
 
 }
 
-void sys::SystemManager::render(float alpha)
+void sys::SystemsManager::render(float alpha)
 {
     for(auto& system : renderSystems)
     {
@@ -55,7 +54,7 @@ void sys::SystemManager::render(float alpha)
     }
 }
 
-void sys::SystemManager::update(float deltaTime)
+void sys::SystemsManager::update(float deltaTime)
 {
     for(auto& system : gameplaySystems)
     {

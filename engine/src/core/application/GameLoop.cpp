@@ -10,7 +10,7 @@
 
 void core::GameLoop::start()
 {
-    sys::SystemManager::addRenderSystem<sys::RenderSystem>(100);
+    sys::SystemsManager::addRenderSystem<sys::RenderSystem>(100);
     systemManager->start();
 }
 
@@ -79,14 +79,14 @@ core::GameLoop::GameLoop() : mem::AllocatedObject()
     //initialize thread and fiber pool
     sys::TaskSystem::initialize();
 
-    systemManager = mem::make_shared<sys::SystemManager>();
+    systemManager = mem::make_shared<sys::SystemsManager>();
 
     HEXEN_ASSERT(systemManager != nullptr , "System manager is nullptr!");
 
-    sys::SystemManager::setCurrentSystemManager(systemManager.get());
+    sys::SystemsManager::setCurrentSystemManager(systemManager.get());
 }
 
 core::GameLoop::~GameLoop()
 {
-    sys::SystemManager::setCurrentSystemManager(nullptr);
+    sys::SystemsManager::setCurrentSystemManager(nullptr);
 }
