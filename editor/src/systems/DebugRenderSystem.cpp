@@ -28,7 +28,7 @@ void edit::sys::DebugRenderSystem::render(float alpha)
 
 void edit::sys::DebugRenderSystem::addDebugGrid()
 {
-    if(debugGridComponent != nullptr)
+    if(debugGridComponent == nullptr)
     {
         debugGridComponent = core::mem::make_shared<comp::rend::DebugGridComponent>("vertex.glsl","debugFragment.glsl");
         debugGridTransform = core::mem::make_shared<::comp::TransformComponent>(glm::vec2{0.0f});

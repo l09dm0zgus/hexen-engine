@@ -14,6 +14,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         main.cpp
         application/Application.cpp
         application/Application.h
+        application/EditorGameLoop.h
+        application/EditorGameLoop.cpp
         project/Project.h
         project/Project.cpp
         )
