@@ -3,6 +3,7 @@
 //
 
 #include <systems/TaskSystem.h>
+#include <core/scene/SceneManager.h>
 #include <core/window/Window.h>
 #include "../gui/EditorGUI.h"
 #include "EditorGameLoop.h"
@@ -34,11 +35,7 @@ void edit::EditorGameLoop::loop(const std::shared_ptr<core::Window> &window)
     initializeClock();
 
     editorGui = core::mem::make_shared<gui::EditorGUI>(window->getSDLWindow(),window->getGLContext());
-    auto manager = dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
 
-    HEXEN_ASSERT(manager != nullptr,"Failed cast pointer to EditorSystemsManager");
-
-    manager->addDebugGrid();
 
     while (window->isOpen())
     {
@@ -53,6 +50,15 @@ void edit::EditorGameLoop::loop(const std::shared_ptr<core::Window> &window)
             //update
             systemManager->update(deltaTime);
             accumulator -= deltaTime;
+        }
+
+        if(core::SceneManager::getCurrentScene() != nullptr)
+        {
+            auto manager = dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
+
+            HEXEN_ASSERT(manager != nullptr,"Failed cast pointer to EditorSystemsManager");
+
+            manager->addDebugGrid();
         }
 
         //render
