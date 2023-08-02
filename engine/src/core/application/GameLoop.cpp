@@ -14,7 +14,7 @@ void core::GameLoop::start()
     systemManager->start();
 }
 
-void core::GameLoop::loop(const std::shared_ptr<Window> &window)
+void core::GameLoop::loop()
 {
     initializeClock();
 
@@ -73,12 +73,12 @@ void core::GameLoop::setAccumulator()
     }
 }
 
-float core::GameLoop::getAlpha()
+double core::GameLoop::getAlpha()
 {
     return accumulator / deltaTime;
 }
 
-core::GameLoop::GameLoop() : mem::AllocatedObject()
+core::GameLoop::GameLoop(const std::shared_ptr<Window> &newWindow)
 {
     //initialize thread and fiber pool
     sys::TaskSystem::initialize();
@@ -88,6 +88,7 @@ core::GameLoop::GameLoop() : mem::AllocatedObject()
     HEXEN_ASSERT(systemManager != nullptr , "System manager is nullptr!");
 
     sys::SystemsManager::setCurrentSystemManager(systemManager.get());
+    window = newWindow;
 }
 
 core::GameLoop::~GameLoop()

@@ -28,7 +28,7 @@ namespace core
          * and setting pointer to current system manager
          */
 
-        GameLoop();
+        GameLoop(const std::shared_ptr<Window> &newWindow);
 
 
         /**
@@ -61,10 +61,9 @@ namespace core
         * 1. Updates processing input events, updating game logic, etc.
         * 2. Renders objects, applying effects, etc.
         *
-        * @param window A shared pointer to the Window object to update and render.
         */
 
-        virtual void loop(const std::shared_ptr<Window> &window);
+        virtual void loop();
     protected:
 
         /**
@@ -110,7 +109,7 @@ namespace core
         * @brief Calculating interpolated value for rendering.
         */
 
-        float getAlpha();
+        double getAlpha();
 
         std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<double>> framesStart;
 
@@ -125,7 +124,7 @@ namespace core
         *       and the specific requirements of the application being developed.
         */
 
-        const float framesLimit{240.0f};
+        const double framesLimit{240.0f};
 
         /**
         * @brief Represents the time interval between frames.
@@ -140,13 +139,15 @@ namespace core
         * @see framesLimit
         */
 
-        const float deltaTime = 1 / framesLimit;
+        const double deltaTime = 1 / framesLimit;
 
-        float accumulator{0};
+        double accumulator{0.0};
 
-        const float msPerUpdate{0.2f};
+        const double msPerUpdate{0.2};
 
         std::shared_ptr<sys::SystemsManager> systemManager;
+
+        std::shared_ptr<Window> window;
     };
 }
 

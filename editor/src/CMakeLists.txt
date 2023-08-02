@@ -20,6 +20,7 @@ target_sources(${EDITOR_NAME} PRIVATE
         project/Project.cpp
         )
 
+
 target_include_directories(${EDITOR_NAME} PRIVATE ${PARENT_DIR}/engine/src)
 target_include_directories(${EDITOR_NAME} PRIVATE ${SDL_IMAGE_INCLUDE_DIR})
 target_include_directories(${EDITOR_NAME} PRIVATE ${GLM_INCLUDE_DIR})

@@ -35,7 +35,7 @@ namespace edit
        * and setting pointer to current system manager
        */
 
-        EditorGameLoop();
+        EditorGameLoop(const std::shared_ptr<core::Window> &newWindow);
 
 
         /**
@@ -71,7 +71,7 @@ namespace edit
         * @param window A shared pointer to the Window object to update and render.
         */
 
-        void loop(const std::shared_ptr<core::Window> &window) override;
+        void loop() override;
     private:
         std::shared_ptr<gui::EditorGUI> editorGui;
     };

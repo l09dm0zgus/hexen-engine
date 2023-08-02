@@ -9,7 +9,7 @@
 #include "EditorGameLoop.h"
 #include "../systems/EditorSystemsManager.h"
 
-edit::EditorGameLoop::EditorGameLoop()
+edit::EditorGameLoop::EditorGameLoop(const std::shared_ptr<core::Window> &newWindow) : core::GameLoop(newWindow)
 {
     systemManager = core::mem::make_shared<sys::EditorSystemsManager>();
 
@@ -17,7 +17,7 @@ edit::EditorGameLoop::EditorGameLoop()
 
     sys::EditorSystemsManager::setCurrentSystemManager(systemManager.get());
 
-
+    editorGui = core::mem::make_shared<gui::EditorGUI>(newWindow->getSDLWindow(),newWindow->getGLContext());
 }
 
 edit::EditorGameLoop::~EditorGameLoop()
@@ -30,12 +30,9 @@ void edit::EditorGameLoop::start()
     GameLoop::start();
 }
 
-void edit::EditorGameLoop::loop(const std::shared_ptr<core::Window> &window)
+void edit::EditorGameLoop::loop()
 {
     initializeClock();
-
-    editorGui = core::mem::make_shared<gui::EditorGUI>(window->getSDLWindow(),window->getGLContext());
-
 
     while (window->isOpen())
     {
@@ -54,7 +51,7 @@ void edit::EditorGameLoop::loop(const std::shared_ptr<core::Window> &window)
 
         if(core::SceneManager::getCurrentScene() != nullptr)
         {
-            auto manager = dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
+            auto manager = std::dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
 
             HEXEN_ASSERT(manager != nullptr,"Failed cast pointer to EditorSystemsManager");
 
