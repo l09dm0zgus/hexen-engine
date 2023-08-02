@@ -56,3 +56,8 @@ void edit::sys::EditorSystemsManager::addDebugGrid()
 {
     debugRenderSystem->addDebugGrid();
 }
+
+edit::sys::EditorSystemsManager::EditorSystemsManager()
+{
+    debugRenderSystem = std::make_shared<DebugRenderSystem>(100);
+}

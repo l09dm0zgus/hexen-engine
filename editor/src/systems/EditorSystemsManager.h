@@ -48,6 +48,8 @@ namespace edit::sys
         * It provides functionality for creating, updating, and destroying editor systems.
         */
 
+        EditorSystemsManager();
+
         ~EditorSystemsManager() override = default;
 
         /**
