@@ -14,22 +14,19 @@ void sys::SystemsManager::processInput(const std::shared_ptr<core::Window> &wind
 {
     //in future will be created InputSystem for handling input
     SDL_Event event;
-    while (window->isOpen())
+    while (window->pollEvents(&event))
     {
-        while (window->pollEvents(&event))
+        //editorGui.processEvent(&event);
+        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
         {
-            //editorGui.processEvent(&event);
-            if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
-            {
-                window->close();
-            }
-            else if (event.type == SDL_EVENT_WINDOW_RESIZED)
-            {
-               window->resize();
-            }
+            window->close();
         }
-        window->pollEvents(&event);
+        else if (event.type == SDL_EVENT_WINDOW_RESIZED)
+        {
+            window->resize();
+        }
     }
+    window->pollEvents(&event);
 }
 
 void sys::SystemsManager::start()

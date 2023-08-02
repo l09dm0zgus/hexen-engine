@@ -16,22 +16,19 @@ void edit::sys::EditorSystemsManager::setEditorGUI(const std::shared_ptr<gui::Ed
 void edit::sys::EditorSystemsManager::processInput(const std::shared_ptr<core::Window> &window)
 {
     SDL_Event event;
-    while (window->isOpen())
+    while (window->pollEvents(&event))
     {
-        while (window->pollEvents(&event))
+        editorGui->processEvent(&event);
+        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
         {
-            editorGui->processEvent(&event);
-            if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
-            {
-                window->close();
-            }
-            else if (event.type == SDL_EVENT_WINDOW_RESIZED)
-            {
-                window->resize();
-            }
+            window->close();
         }
-        window->pollEvents(&event);
+        else if (event.type == SDL_EVENT_WINDOW_RESIZED)
+        {
+            window->resize();
+        }
     }
+    window->pollEvents(&event);
 }
 
 void edit::sys::EditorSystemsManager::start()
