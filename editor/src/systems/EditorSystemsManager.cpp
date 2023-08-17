@@ -5,6 +5,7 @@
 #include "EditorSystemsManager.h"
 #include <core/window/Window.h>
 #include <systems/TaskSystem.h>
+#include <systems/RenderSystem.h>
 #include "../gui/EditorGUI.h"
 #include "DebugRenderSystem.h"
 
@@ -33,6 +34,8 @@ void edit::sys::EditorSystemsManager::processInput(const std::shared_ptr<core::W
 
 void edit::sys::EditorSystemsManager::start()
 {
+    auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
+    ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(windowSize.x,windowSize.y,45.0f);
     SystemsManager::start();
     ::sys::TaskSystem::addTask(::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::start);
 }
