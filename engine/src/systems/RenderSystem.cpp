@@ -115,9 +115,4 @@ std::shared_ptr<comp::CameraComponent> sys::RenderSystem::getMainCamera()
 }
 
 
-template<typename T, std::enable_if_t<std::is_base_of_v<comp::CameraComponent, T>, bool>> void sys::RenderSystem::addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight,float FOV)
-{
-    camerasComponents.emplace_back(core::mem::make_shared<T>(viewportWidth,viewportHeight,FOV));
-}
-
 

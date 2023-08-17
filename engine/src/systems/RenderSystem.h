@@ -99,7 +99,10 @@ namespace sys
          */
 
         template<typename T, std::enable_if_t<std::is_base_of_v<comp::CameraComponent, T>, bool> = true>
-        static void addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
+        static void addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
+        {
+            camerasComponents.emplace_back(core::mem::make_shared<T>(viewportWidth,viewportHeight,FOV));
+        }
 
         /**
         * @brief Retrieves the main camera instance from the RenderSystem.
