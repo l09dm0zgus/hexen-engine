@@ -24,6 +24,7 @@ namespace edit::gui
         void begin();
         void end();
         void attachWindow(std::shared_ptr<GUIWindow> guiWindow,const DockingPosition &dockingPosition);
+        std::shared_ptr<GUIWindow> getWindow(const std::string &name);
     private:
         bool isAttachedWindow{true};
         void setWindowsInDockspace();

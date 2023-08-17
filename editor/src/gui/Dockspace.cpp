@@ -5,6 +5,7 @@
 #include "Dockspace.h"
 #include <imgui.h>
 #include <imgui_internal.h>
+#include <SDL_log.h>
 
 void edit::gui::Dockspace::draw()
 {
@@ -82,4 +83,22 @@ void edit::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow,con
     windows.push_back(guiWindow);
     dockingPositions.set(guiWindow->getName(),dockingPosition);
     isAttachedWindow = true;
+}
+
+std::shared_ptr<edit::gui::GUIWindow> edit::gui::Dockspace::getWindow(const std::string &name)
+{
+    auto it = std::find_if(windows.begin(), windows.end(),[name = name](const auto &window){
+        return window->getName() == name;
+    });
+
+    if(it!= windows.end())
+    {
+        return *it;
+    }
+    else
+    {
+        SDL_Log("Failed to find editor window\n");
+        return nullptr;
+    }
+
 }
