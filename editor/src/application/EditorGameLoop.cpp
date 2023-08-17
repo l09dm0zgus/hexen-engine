@@ -27,6 +27,12 @@ edit::EditorGameLoop::~EditorGameLoop()
 
 void edit::EditorGameLoop::start()
 {
+    auto manager = std::dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
+
+    HEXEN_ASSERT(manager != nullptr , "Failed cast to EditorSystemsManager!");
+
+    manager->setEditorGUI(editorGui);
+
     GameLoop::start();
 }
 
