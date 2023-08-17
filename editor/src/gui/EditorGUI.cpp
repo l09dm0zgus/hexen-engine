@@ -9,11 +9,14 @@
 #include "editors_windows/MessageBox.h"
 #include "editors_windows/SceneHierarchyWindow.h"
 
+
+
 edit::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
 {
     const char *glslVersion = "#version 130";
     ImGui_ImplSDL3_InitForOpenGL(window, glContext);
     ImGui_ImplOpenGL3_Init(glslVersion);
+
 }
 
 edit::gui::EditorGUI::EditorGUI()
@@ -26,34 +29,39 @@ edit::gui::EditorGUI::EditorGUI()
     io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
     io->ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+    dockspace = std::make_shared<Dockspace>();
+
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
     style.loadThemeFromFile("editor_theme.json");
 
-    dockspace.attachWindow(core::mem::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::CENTER);
-    dockspace.attachWindow(core::mem::make_shared<MainMenuBar>("Menu Bar"),Dockspace::DockingPosition::NONE);
-    dockspace.attachWindow(core::mem::make_shared<AssetsWindow>("Assets"),Dockspace::DockingPosition::DOWN);
-    dockspace.attachWindow(core::mem::make_shared<SceneHierarchyWindow>("Scene Hierarchy"),Dockspace::DockingPosition::LEFT);
+    dockspace->attachWindow(core::mem::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::CENTER);
+    dockspace->attachWindow(core::mem::make_shared<MainMenuBar>("Menu Bar"),Dockspace::DockingPosition::NONE);
+    dockspace->attachWindow(core::mem::make_shared<AssetsWindow>("Assets"),Dockspace::DockingPosition::DOWN);
+    dockspace->attachWindow(core::mem::make_shared<SceneHierarchyWindow>("Scene Hierarchy"),Dockspace::DockingPosition::LEFT);
 }
+
+
 
 void edit::gui::EditorGUI::begin()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
-    dockspace.begin();
+    dockspace->begin();
 }
 
 void edit::gui::EditorGUI::draw()
 {
     bool isActive = true;
     //ImGui::ShowDemoWindow(&isActive);
-    dockspace.draw();
+    dockspace->draw();
     ImGuiMessageBox::draw();
     Shortcuts::processInput();
 }
+
 
 edit::gui::EditorGUI::~EditorGUI()
 {
@@ -61,6 +69,8 @@ edit::gui::EditorGUI::~EditorGUI()
     ImGui_ImplSDL3_Shutdown();
     ImGui::DestroyContext();
 }
+
+
 
 void edit::gui::EditorGUI::end()
 {
@@ -74,11 +84,18 @@ void edit::gui::EditorGUI::end()
         ImGui::RenderPlatformWindowsDefault();
         SDL_GL_MakeCurrent(backupCurrentWindow, backupCurrentContext);
     }
-    dockspace.end();
+    dockspace->end();
 }
+
+
 
 void edit::gui::EditorGUI::processEvent(SDL_Event *event)
 {
     ImGui_ImplSDL3_ProcessEvent(event);
+}
+
+std::shared_ptr<edit::gui::Dockspace> edit::gui::EditorGUI::getDockspace()
+{
+    return dockspace;
 }
 
