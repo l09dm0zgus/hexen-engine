@@ -66,6 +66,7 @@ core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
 
         showLogForAllocation(allocation);
 
+
         allocations.push_back(allocation);
 
         return allocation.address;
