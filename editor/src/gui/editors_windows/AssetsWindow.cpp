@@ -163,9 +163,12 @@ void edit::gui::AssetsWindow::showFilesInDirectory()
 void edit::gui::AssetsWindow::refresh()
 {
     icons.clear();
-    for(const auto& path : std::filesystem::directory_iterator(currentPath))
+    if(!currentPath.empty())
     {
-        icons.emplace_back(path, this);
+        for(const auto& path : std::filesystem::directory_iterator(currentPath))
+        {
+            icons.emplace_back(path, this);
+        }
     }
 }
 
