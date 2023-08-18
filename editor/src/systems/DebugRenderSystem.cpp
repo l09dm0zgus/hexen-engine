@@ -5,6 +5,8 @@
 #include <systems/TaskSystem.h>
 #include <systems/RenderSystem.h>
 #include "DebugRenderSystem.h"
+#include <profiling/Profiling.h>
+
 
 edit::sys::DebugRenderSystem::DebugRenderSystem(core::u32 sizeOfVectors)
 {
@@ -15,9 +17,9 @@ void edit::sys::DebugRenderSystem::start()
 {
 
 }
-
 void edit::sys::DebugRenderSystem::render(float alpha)
 {
+    ADD_FUNCTION_TO_PROFILING
     if (debugGridComponent != nullptr)
     {
         ::sys::TaskSystem::addTask<DebugRenderSystem,void,::comp::rend::RenderComponent*>(core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateModelMatrix,debugGridComponent.get());
@@ -25,9 +27,9 @@ void edit::sys::DebugRenderSystem::render(float alpha)
         ::sys::TaskSystem::addTask(core::threading::TaskPriority::Normal,debugGridComponent.get(),&comp::rend::DebugGridComponent::draw);
     }
 }
-
 void edit::sys::DebugRenderSystem::addDebugGrid()
 {
+    ADD_FUNCTION_TO_PROFILING
     if(debugGridComponent == nullptr)
     {
         debugGridComponent = core::mem::make_shared<comp::rend::DebugGridComponent>("shaders/BaseVertexShader.glsl","shaders/DebugLineFragmentShader.glsl");
@@ -37,11 +39,13 @@ void edit::sys::DebugRenderSystem::addDebugGrid()
 
 void edit::sys::DebugRenderSystem::updateModelMatrix(::comp::rend::RenderComponent *renderComponent)
 {
+    ADD_FUNCTION_TO_PROFILING
     renderComponent->setTransformMatrix(debugGridTransform->getTransformMatrix());
 }
 
 void edit::sys::DebugRenderSystem::updateViewAndProjectionMatrices(::comp::rend::RenderComponent *renderComponent)
 {
+    ADD_FUNCTION_TO_PROFILING
     auto camera = ::sys::RenderSystem::getMainCamera();
     HEXEN_ASSERT(camera != nullptr , "Main camera is nullptr!\n");
 

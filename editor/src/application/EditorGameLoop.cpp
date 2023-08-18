@@ -8,6 +8,8 @@
 #include "../gui/EditorGUI.h"
 #include "EditorGameLoop.h"
 #include "../systems/EditorSystemsManager.h"
+#include <profiling/Profiling.h>
+
 
 edit::EditorGameLoop::EditorGameLoop(const std::shared_ptr<core::Window> &newWindow) : core::GameLoop(newWindow)
 {
@@ -25,8 +27,10 @@ edit::EditorGameLoop::~EditorGameLoop()
     sys::EditorSystemsManager::setCurrentSystemManager(nullptr);
 }
 
+
 void edit::EditorGameLoop::start()
 {
+    ADD_FUNCTION_TO_PROFILING
     auto manager = std::dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
 
     HEXEN_ASSERT(manager != nullptr , "Failed cast to EditorSystemsManager!");
@@ -36,8 +40,10 @@ void edit::EditorGameLoop::start()
     GameLoop::start();
 }
 
+
 void edit::EditorGameLoop::loop()
 {
+    ADD_FUNCTION_TO_PROFILING
     initializeClock();
 
     while (window->isOpen())
@@ -72,5 +78,6 @@ void edit::EditorGameLoop::loop()
         editorGui->end();
         window->swapBuffers();
         ::sys::TaskSystem::waitForCounter();
+        END_FRAME
     }
 }

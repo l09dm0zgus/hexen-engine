@@ -8,6 +8,7 @@
 #include <systems/RenderSystem.h>
 #include "../gui/EditorGUI.h"
 #include "DebugRenderSystem.h"
+#include <profiling/Profiling.h>
 
 void edit::sys::EditorSystemsManager::setEditorGUI(const std::shared_ptr<gui::EditorGUI> &newEditorGUI)
 {
@@ -16,6 +17,7 @@ void edit::sys::EditorSystemsManager::setEditorGUI(const std::shared_ptr<gui::Ed
 
 void edit::sys::EditorSystemsManager::processInput(const std::shared_ptr<core::Window> &window)
 {
+    ADD_FUNCTION_TO_PROFILING
     SDL_Event event;
     while (window->pollEvents(&event))
     {
@@ -34,6 +36,7 @@ void edit::sys::EditorSystemsManager::processInput(const std::shared_ptr<core::W
 
 void edit::sys::EditorSystemsManager::start()
 {
+    ADD_FUNCTION_TO_PROFILING
     auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
     ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(windowSize.x,windowSize.y,45.0f);
     SystemsManager::start();
@@ -42,22 +45,25 @@ void edit::sys::EditorSystemsManager::start()
 
 void edit::sys::EditorSystemsManager::render(float alpha)
 {
+    ADD_FUNCTION_TO_PROFILING
     SystemsManager::render(alpha);
     ::sys::TaskSystem::addTask(::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::render,alpha);
 
 }
-
 void edit::sys::EditorSystemsManager::update(float deltaTime)
 {
+    ADD_FUNCTION_TO_PROFILING
     SystemsManager::update(deltaTime);
 }
 
 void edit::sys::EditorSystemsManager::addDebugGrid()
 {
+    ADD_FUNCTION_TO_PROFILING
     debugRenderSystem->addDebugGrid();
 }
 
 edit::sys::EditorSystemsManager::EditorSystemsManager()
 {
+    ADD_FUNCTION_TO_PROFILING
     debugRenderSystem = std::make_shared<DebugRenderSystem>(100);
 }

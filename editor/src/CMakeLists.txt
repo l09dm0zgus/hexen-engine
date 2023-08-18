@@ -3,7 +3,7 @@ project(${EDITOR_NAME})
 
 set(CMAKE_CXX_STANDARD 17)
 add_executable(${EDITOR_NAME})
-
+set(ENABLE_PROFILING OFF)
 
 add_subdirectory(gui)
 add_subdirectory(systems)
@@ -20,6 +20,14 @@ target_sources(${EDITOR_NAME} PRIVATE
         project/Project.cpp
         )
 
+
+if ({$ENABLE_PROFILING})
+        add_definitions(-DTRACY_ENABLE=1)
+
+        if(WIN32)
+                target_link_libraries(${EDITOR_NAME}  wsock32 ws2_32 -ldbghelp )
+        endif()
+endif()
 
 target_include_directories(${EDITOR_NAME} PRIVATE ${PARENT_DIR}/engine/src)
 target_include_directories(${EDITOR_NAME} PRIVATE ${SDL_IMAGE_INCLUDE_DIR})
