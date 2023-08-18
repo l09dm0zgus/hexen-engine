@@ -287,6 +287,12 @@ namespace core::threading
 
     int TaskScheduler::initialize(TaskSchedulerInitOptions options)
     {
+        settings = mem::make_unique<TaskSchedulerSettings>();
+
+        options.fiberPoolSize = settings->getFiberPoolSize();
+        options.threadPoolSize = settings->getUsedCores();
+
+
         // Sanity check to make sure the user doesn't double init
         if (isInitialized.load())
         {

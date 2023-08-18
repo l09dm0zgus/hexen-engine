@@ -17,13 +17,13 @@ namespace sys
         static void initialize();
         template<class T,typename Ret ,typename ...Args> static void addTask(core::threading::TaskPriority priority,T* object,Ret (T::*method)(Args...) , Args... args);
         template<typename Ret ,typename ...Args> static void addTask(core::threading::TaskPriority priority , Ret (*function)(Args...) , Args... args);
-        template<class T ,typename ...Args> static void addTask(core::threading::TaskPriority priority ,T* newFunctor, Args... args);
+        template<class T ,typename ...Args> static void addTask(core::threading::TaskPriority priority ,T* newFunctor(Args...), Args... args);
         static void addTasks(core::threading::TaskPriority priority,const std::array<core::threading::Task,400> &tasks);
         static void waitForCounter(core::i32 value = 0);
     };
 
     template<class T, typename... Args>
-    void TaskSystem::addTask(core::threading::TaskPriority priority, T *newFunctor, Args... args)
+    void TaskSystem::addTask(core::threading::TaskPriority priority, T *newFunctor(Args...), Args... args)
     {
         core::threading::Task task;
         task.bind(newFunctor,args...);
@@ -45,6 +45,7 @@ namespace sys
         task.bind(object,method,args...);
         scheduler.addTask(task,priority,&counter);
     }
+
 }
 
 
