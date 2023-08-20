@@ -6,6 +6,8 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <SDL_log.h>
+#include "editors_windows/SceneWindow.h"
+
 
 void edit::gui::Dockspace::draw()
 {
@@ -20,6 +22,8 @@ void edit::gui::Dockspace::draw()
         window->draw();
     }
 }
+
+
 
 void edit::gui::Dockspace::begin()
 {
@@ -101,4 +105,11 @@ std::shared_ptr<edit::gui::GUIWindow> edit::gui::Dockspace::getWindow(const std:
         return nullptr;
     }
 
+}
+
+
+std::shared_ptr<edit::gui::FramebufferWindow> edit::gui::Dockspace::getSceneWindow()
+{
+    auto  sceneWindow = getWindow("Scene");
+    return std::dynamic_pointer_cast<FramebufferWindow>(sceneWindow);
 }

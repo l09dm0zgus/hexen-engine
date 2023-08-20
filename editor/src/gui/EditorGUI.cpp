@@ -99,3 +99,24 @@ std::shared_ptr<edit::gui::Dockspace> edit::gui::EditorGUI::getDockspace()
     return dockspace;
 }
 
+
+
+void edit::gui::EditorGUI::bindFramebuffer()
+{
+    auto window = dockspace->getSceneWindow();
+    if (window != nullptr)
+    {
+        window->bindFramebuffer();
+    }
+}
+
+void edit::gui::EditorGUI::unbindFramebuffer()
+{
+    auto window = dockspace->getSceneWindow();
+    if (window != nullptr)
+    {
+        window->unbindFramebuffer();
+    }
+}
+
+

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <GL/glew.h>
 
+
 edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWindow(name)
 {
     frameBufferTexture = core::mem::make_unique<core::rend::FrameBufferTexture>(glm::vec2(1280,720));
@@ -20,8 +21,8 @@ edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWi
     frameBufferObject.unbind();
     frameBufferTexture->unbind();
     frameBufferObject.unbindRenderBuffer();
-
 }
+
 
 void edit::gui::FramebufferWindow::draw()
 {
@@ -39,6 +40,8 @@ void edit::gui::FramebufferWindow::draw()
     ImGui::End();
 }
 
+
+
 void edit::gui::FramebufferWindow::clear()
 {
     // Set background color as cornflower blue
@@ -47,12 +50,13 @@ void edit::gui::FramebufferWindow::clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+
 void edit::gui::FramebufferWindow::end()
 {
-    frameBufferObject.bind();
-    render();
-    frameBufferObject.unbind();
+
 }
+
+
 
 void edit::gui::FramebufferWindow::begin()
 {
@@ -62,4 +66,18 @@ void edit::gui::FramebufferWindow::begin()
 void edit::gui::FramebufferWindow::render()
 {
     clear();
+}
+
+
+void edit::gui::FramebufferWindow::bindFramebuffer()
+{
+    frameBufferObject.bind();
+    render();
+}
+
+
+void edit::gui::FramebufferWindow::unbindFramebuffer()
+{
+
+    frameBufferObject.unbind();
 }

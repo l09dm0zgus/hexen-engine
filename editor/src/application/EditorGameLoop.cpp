@@ -70,12 +70,14 @@ void edit::EditorGameLoop::loop()
             manager->addDebugGrid();
         }
 
-        //render
-        window->clear();
         editorGui->begin();
         editorGui->draw();
-        systemManager->render(getAlpha());
         editorGui->end();
+
+        editorGui->bindFramebuffer();
+        systemManager->render(getAlpha());
+        editorGui->unbindFramebuffer();
+
         window->swapBuffers();
         ::sys::TaskSystem::waitForCounter();
         END_FRAME
