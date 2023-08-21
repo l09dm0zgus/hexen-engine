@@ -8,11 +8,11 @@ void comp::TransformComponent::updateTransformMatrix()
 {
     if(bIsDirty)
     {
-        transformMatrix = glm::translate(transformMatrix,glm::vec3(position,zCoordinates.z));
+        transformMatrix = glm::translate(transformMatrix,glm::vec3(position,1));
 
         transformMatrix = rotate(transformMatrix,rotation);
 
-        transformMatrix = glm::scale(transformMatrix,glm::vec3(scale,zCoordinates.x));
+        transformMatrix = glm::scale(transformMatrix,glm::vec3(scale,1));
 
         bIsDirty = false;
     }

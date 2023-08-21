@@ -482,8 +482,6 @@ namespace comp
 
         glm::vec2 scale{1.0f};
 
-        glm::vec3 zCoordinates{0.0f};
-
         float layer{0.0f};
 
         /**
