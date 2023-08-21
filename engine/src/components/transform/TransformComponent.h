@@ -482,7 +482,7 @@ namespace comp
 
         glm::vec2 scale{1.0f};
 
-        float layer{0.0f};
+        float layer{1.0f};
 
         /**
         * @brief The layerDivider variable represents the value used to divide a layer.

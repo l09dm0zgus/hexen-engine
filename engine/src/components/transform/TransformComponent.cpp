@@ -8,7 +8,7 @@ void comp::TransformComponent::updateTransformMatrix()
 {
     if(bIsDirty)
     {
-        transformMatrix = glm::translate(transformMatrix,glm::vec3(position,1));
+        transformMatrix = glm::translate(transformMatrix,glm::vec3(position,layer));
 
         transformMatrix = rotate(transformMatrix,rotation);
 
@@ -42,7 +42,7 @@ glm::mat4 comp::TransformComponent::getTransformMatrix() const noexcept
 
 void comp::TransformComponent::setLayer(float layer)
 {
-    zCoordinates.z = layer/layerDivider;
+    this->layer = layer/layerDivider;
     bIsDirty = false;
 }
 
@@ -50,7 +50,7 @@ inline glm::mat4 comp::TransformComponent::rotate(const glm::mat4 &transformMatr
 {
     const auto transformX = glm::rotate(glm::mat4(1.0f),rotation.x,glm::vec3(1.0f, 0.0f, 0.0f));
     const auto transformY = glm::rotate(glm::mat4(1.0f),rotation.y,glm::vec3(0.0f, 1.0f, 0.0f));
-    const auto transformZ = glm::rotate(glm::mat4(1.0f),zCoordinates.y,glm::vec3(0.0f, 0.0f, 1.0f));
+    const auto transformZ = glm::rotate(glm::mat4(1.0f),0.0f,glm::vec3(0.0f, 0.0f, 1.0f));
     const auto rotationMatrix = transformY * transformX * transformZ;
     return transformMatrix * rotationMatrix;
 }
