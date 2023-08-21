@@ -21,8 +21,10 @@ void comp::CameraComponent::updateViewMatrix()
 
 comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight,float FOV)
 {
-    glViewport(0,0,viewportWidth,viewportWidth);
-    projection = glm::perspective(glm::radians(FOV), static_cast<float>(viewportWidth) / static_cast<float>(viewportHeight), 0.1f, 100.0f);
+    this->FOV = FOV;
+
+    updateProjectionMatrix(viewportWidth,viewportHeight);
+
     SDL_Log("Viewport size width : %i , height : %i",viewportWidth,viewportHeight);
     updateViewMatrix();
 }
@@ -71,4 +73,11 @@ void comp::CameraComponent::rotate(float yawAngle, float pitchAngle)
     direction.z = sin(glm::radians(yawAngle)) * cos(glm::radians(pitchAngle));
 
     cameraTarget = glm::normalize(direction);
+}
+
+
+void comp::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
+{
+    glViewport(0,0,newWindowWidth,newWindowHeight);
+    projection = glm::perspective(glm::radians(FOV), static_cast<float>(newWindowWidth) / static_cast<float>(newWindowHeight), 0.1f, 100.0f);
 }

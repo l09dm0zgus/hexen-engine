@@ -25,6 +25,18 @@ namespace comp
 
         CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
 
+        /**
+        * @fn setPosition
+        * @brief Sets the position of the object.
+        * @tparam T The type of the new position.
+        * @param newPosition The new position to set.
+        *
+        * @note This function sets the position of the object.
+        *       It takes a new position as a parameter and assigns it to the object's position.
+        *       The position is passed as rvalue reference, allowing for efficient move semantics.
+        *       The function is marked as noexcept, indicating that it does not throw any exceptions.
+        */
+
         template<class T>void setPosition(T&& newPosition) noexcept
         {
             position = std::forward<T>(newPosition);
@@ -41,8 +53,21 @@ namespace comp
         * @return The view matrix of the camera.
         */
 
-
         glm::mat4 getViewMatrix();
+
+        /**
+        * @brief Updates the projection matrix of the camera component.
+        *
+        * This function is used to update the projection matrix of the camera component based on the new screen dimensions.
+        *
+        * @param newWindowWidth The new width of the screen.
+        * @param newWindowHeight The new height of the screen.
+        *
+        *
+        * @note Make sure to call this function whenever the screen dimensions change to ensure accurate rendering.
+        */
+
+        void updateProjectionMatrix(core::u32 newWindowWidth,core::u32 newWindowHeight);
 
         /**
         * @brief Retrieves the projection matrix of the camera component.
@@ -124,11 +149,12 @@ namespace comp
         void rotate(float yawAngle = 0.0f, float pitchAngle = 0.0f);
     private:
         float deltaTime{0};
-        glm::vec3 position{1.0f};
+        glm::vec3 position{0.0f};
         glm::mat4 view{1.0f};
         glm::mat4 projection{1.0f};
         glm::vec3 cameraTarget{0.0f,0.0f,-1.0f};
         glm::vec3 cameraUp{0.0f,1.0f,0.0f};
+        float FOV{0.0f};
 
         /**
         * @brief Updates the view matrix of the camera component.
