@@ -33,6 +33,10 @@ void edit::gui::FramebufferWindow::draw()
         ImGui::BeginChild("GameRender");
         // Get the size of the child (i.e. the whole draw size of the windows).
         ImVec2 windowSize = ImGui::GetWindowSize();
+
+        size.x = windowSize.x;
+        size.y = windowSize.y;
+
         // Because I use the texture from OpenGL, I need to invert the V from the UV.
         ImGui::Image((ImTextureID)frameBufferTexture->getID(), windowSize, ImVec2(0, 1), ImVec2(1, 0));
         ImGui::EndChild();

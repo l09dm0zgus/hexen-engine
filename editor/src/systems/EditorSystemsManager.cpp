@@ -47,6 +47,9 @@ void edit::sys::EditorSystemsManager::render(float alpha)
 {
     ADD_FUNCTION_TO_PROFILING
     SystemsManager::render(alpha);
+
+    auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
+    ::sys::RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x,windowSize.y);
     ::sys::TaskSystem::addTask(::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::render,alpha);
 
 }

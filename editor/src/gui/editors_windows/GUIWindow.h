@@ -52,7 +52,7 @@ namespace edit::gui
         *
         * This function returns the size of the window.
         *
-        * @return The size of the object.
+        * @return The size of the window.
         *
         * @note This function is marked as noexcept, indicating that it does not throw any exceptions.
         *
@@ -167,6 +167,16 @@ namespace edit::gui
 
         GUIWindow& operator=(const GUIWindow &guiWindow) = delete;
     protected:
+
+        /**
+        * @brief Represents the size of an editor window.
+        *
+        * The Size class is used to store the dimensions of an object or region in a 2D space. It provides
+        * methods for accessing and modifying the width and height values.
+        */
+
+        glm::vec2 size{200, 200};
+
     private:
 
         void setWindowSize();
@@ -183,13 +193,6 @@ namespace edit::gui
 
         std::string name;
 
-        /**
-        * @brief Represents the size of an editor window.
-        *
-        * The Size class is used to store the dimensions of an object or region in a 2D space. It provides
-        * methods for accessing and modifying the width and height values.
-        */
 
-        glm::vec2 size{200, 200};
     };
 }
