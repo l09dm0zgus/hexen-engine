@@ -17,7 +17,9 @@ void comp::CameraComponent::updateViewMatrix()
     view = glm::lookAt(position, position + cameraTarget, cameraUp);
 }
 
-comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
+
+
+comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight,float FOV)
 {
     glViewport(0,0,viewportWidth,viewportWidth);
     projection = glm::perspective(glm::radians(FOV), static_cast<float>(viewportWidth) / static_cast<float>(viewportHeight), 0.1f, 100.0f);
@@ -25,19 +27,11 @@ comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewpo
     updateViewMatrix();
 }
 
-
-
-template<class T>
-void comp::CameraComponent::setPosition(T&& newPosition) noexcept
-{
-    position = std::forward<T>(newPosition);
-    updateViewMatrix();
-}
-
 glm::mat4 comp::CameraComponent::getViewMatrix()
 {
     return view;
 }
+
 
 glm::mat4 comp::CameraComponent::getProjectionMatrix()
 {
@@ -49,7 +43,32 @@ void comp::CameraComponent::start()
 
 }
 
+
 void comp::CameraComponent::update(float deltaTime)
 {
+    this->deltaTime = deltaTime;
+}
 
+
+void comp::CameraComponent::move(float value)
+{
+    position += value * deltaTime * cameraTarget;
+    updateViewMatrix();
+}
+
+void comp::CameraComponent::zoom(float value)
+{
+    position += glm::normalize(glm::cross(cameraTarget, cameraUp)) * value * deltaTime;
+    updateViewMatrix();
+}
+
+void comp::CameraComponent::rotate(float yawAngle, float pitchAngle)
+{
+    glm::vec3 direction;
+
+    direction.x = cos(glm::radians(yawAngle)) * cos(glm::radians(pitchAngle));
+    direction.y = sin(glm::radians(pitchAngle));
+    direction.z = sin(glm::radians(yawAngle)) * cos(glm::radians(pitchAngle));
+
+    cameraTarget = glm::normalize(direction);
 }
