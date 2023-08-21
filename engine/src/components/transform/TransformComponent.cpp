@@ -6,12 +6,17 @@
 
 void comp::TransformComponent::updateTransformMatrix()
 {
-    transformMatrix = glm::translate(transformMatrix,glm::vec3(position,zCoordinates.z));
+    if(bIsDirty)
+    {
+        transformMatrix = glm::translate(transformMatrix,glm::vec3(position,zCoordinates.z));
 
-    transformMatrix = rotate(transformMatrix,rotation);
+        transformMatrix = rotate(transformMatrix,rotation);
 
-    transformMatrix = glm::scale(transformMatrix,glm::vec3(scale,zCoordinates.x));
-    bIsDirty = false;
+        transformMatrix = glm::scale(transformMatrix,glm::vec3(scale,zCoordinates.x));
+
+        bIsDirty = false;
+    }
+
 }
 
 glm::vec2 comp::TransformComponent::getScale() const noexcept
@@ -166,6 +171,7 @@ template<class T>
 void comp::TransformComponent::setPosition(T &&newPosition) noexcept
 {
     position = std::forward<T>(newPosition);
+
     bIsDirty = true;
 }
 

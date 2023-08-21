@@ -33,7 +33,9 @@ void edit::sys::DebugRenderSystem::addDebugGrid()
     if(debugGridComponent == nullptr)
     {
         debugGridComponent = core::mem::make_shared<comp::rend::DebugGridComponent>("shaders/BaseVertexShader.glsl","shaders/DebugLineFragmentShader.glsl");
-        debugGridTransform = core::mem::make_shared<::comp::TransformComponent>(glm::vec2{0.0f});
+        debugGridTransform = core::mem::make_shared<::comp::TransformComponent>(glm::vec2(1.0f));
+        debugGridTransform->updateTransformMatrix();
+
     }
 }
 
