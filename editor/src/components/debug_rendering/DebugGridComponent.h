@@ -17,7 +17,7 @@ namespace edit::comp::rend
     {
     private:
 
-        glm::vec4 color{0.0f, 1.0f, 0.0f, 0.75f};
+        glm::vec3 color{0.0f, 1.0f, 0.0f};
 
         /**
         * @brief Represents a grid structure.

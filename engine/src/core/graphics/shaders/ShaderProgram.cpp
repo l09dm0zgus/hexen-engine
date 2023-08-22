@@ -111,3 +111,10 @@ void core::rend::shader::ShaderProgram::setVector4Uniform(const std::string &uni
 {
     glUniform4d(glGetUniformLocation(shaderProgram, uniformVariable.c_str()),vector.x,vector.y,vector.z,vector.w);
 }
+
+
+
+void core::rend::shader::ShaderProgram::setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const
+{
+    glUniform3f(glGetUniformLocation(shaderProgram, uniformVariable.c_str()),vector.x,vector.y,vector.z);
+}

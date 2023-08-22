@@ -66,7 +66,7 @@ void edit::comp::rend::DebugGridComponent::draw() noexcept
     shaderProgram->setMatrix4Uniform("model" , getTransformMatrix());
     shaderProgram->setMatrix4Uniform("projection",getProjectionMatrix());
     shaderProgram->setMatrix4Uniform("view" , getViewMatrix());
-    shaderProgram->setVector4Uniform("color",color);
+    shaderProgram->setVector3Uniform("color",color);
 
 
     VAO.bind();

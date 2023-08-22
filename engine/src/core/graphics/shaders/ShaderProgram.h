@@ -98,6 +98,21 @@ class ShaderProgram : public mem::AllocatedObject
 
 
     void setVector4Uniform(const std::string  &uniformVariable,const glm::vec4 &vector) const;
+
+    /**
+    * @brief Sets the value of a uniform variable of type vec3 in the shader program.
+    *
+    * This function sets the value of the uniform variable with the given name
+    * to the specified 3D vector. The uniform variable must exist in the shader program.
+    *
+    * @param uniformVariable The name of the uniform variable.
+    * @param vector The 3D vector value to set.
+    *
+    * @note The shader program must be currently active and linked in order to set the uniform variable.
+    */
+
+    void setVector3Uniform(const std::string &uniformVariable,const glm::vec3 &vector) const;
+
     private:
         ShaderFile vertexShaderFile;
         ShaderFile fragmentShaderFile;
