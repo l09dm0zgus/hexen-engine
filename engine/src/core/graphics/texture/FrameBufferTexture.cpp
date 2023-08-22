@@ -9,6 +9,7 @@
 
 #include "FrameBufferTexture.h"
 
+
 core::u32 core::rend::FrameBufferTexture::getID() const noexcept
 {
     return object;
@@ -22,6 +23,8 @@ void core::rend::FrameBufferTexture::resize(const glm::vec2 &size) const
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, object, 0);
 }
+
+
 
 core::rend::FrameBufferTexture::FrameBufferTexture(const glm::vec2 &size)
 {

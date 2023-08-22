@@ -10,10 +10,13 @@
 #include <GLES3/gl31.h>
 #endif
 
+
 core::rend::RenderBufferObject::RenderBufferObject()
 {
     glGenRenderbuffers(1,&object);
 }
+
+
 
 core::rend::RenderBufferObject::~RenderBufferObject()
 {
@@ -25,7 +28,8 @@ core::u32 core::rend::RenderBufferObject::getID() const noexcept
     return object;
 }
 
-void core::rend::RenderBufferObject::bind() const {
+void core::rend::RenderBufferObject::bind() const
+{
     glBindRenderbuffer(GL_RENDERBUFFER, object);
 }
 
