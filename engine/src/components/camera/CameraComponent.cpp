@@ -14,23 +14,31 @@
 
 void comp::CameraComponent::updateViewMatrix()
 {
+    glm::vec3 direction;
+
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+    cameraTarget = glm::normalize(direction);
+
+    cameraRight = glm::normalize(glm::cross(cameraTarget, worldUp));
+    cameraUp = glm::normalize(glm::cross(cameraRight, cameraTarget));
+
     view = glm::lookAt(position, position + cameraTarget, cameraUp);
 }
-
-
 
 comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight,float FOV)
 {
     this->FOV = FOV;
 
     updateProjectionMatrix(viewportWidth,viewportHeight);
-
-    SDL_Log("Viewport size width : %i , height : %i",viewportWidth,viewportHeight);
     updateViewMatrix();
 }
 
 glm::mat4 comp::CameraComponent::getViewMatrix()
 {
+    updateViewMatrix();
     return view;
 }
 
@@ -66,18 +74,17 @@ void comp::CameraComponent::zoom(float value)
 
 void comp::CameraComponent::rotate(float yawAngle, float pitchAngle)
 {
-    glm::vec3 direction;
-
-    direction.x = cos(glm::radians(yawAngle)) * cos(glm::radians(pitchAngle));
-    direction.y = sin(glm::radians(pitchAngle));
-    direction.z = sin(glm::radians(yawAngle)) * cos(glm::radians(pitchAngle));
-
-    cameraTarget = glm::normalize(direction);
+    yaw += yawAngle * deltaTime;
+    pitch += pitchAngle * deltaTime;
+    updateViewMatrix();
 }
 
 
 void comp::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
 {
     glViewport(0,0,newWindowWidth,newWindowHeight);
+
+    SDL_Log("Viewport size width : %i , height : %i, FOV: %f",newWindowWidth,newWindowHeight,FOV);
+
     projection = glm::perspective(glm::radians(FOV), static_cast<float>(newWindowWidth) / static_cast<float>(newWindowHeight), 0.1f, 100.0f);
 }

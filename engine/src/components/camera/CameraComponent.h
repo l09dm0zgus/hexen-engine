@@ -149,12 +149,18 @@ namespace comp
         void rotate(float yawAngle = 0.0f, float pitchAngle = 0.0f);
     private:
         float deltaTime{0};
-        glm::vec3 position{0.0f};
+        glm::vec3 position{0.0f,0.0f,0.0f};
         glm::mat4 view{1.0f};
         glm::mat4 projection{1.0f};
         glm::vec3 cameraTarget{0.0f,0.0f,-1.0f};
-        glm::vec3 cameraUp{0.0f,1.0f,0.0f};
-        float FOV{0.0f};
+        glm::vec3 cameraUp{1.0f};
+        glm::vec3 cameraRight{1.0f};
+        glm::vec3 worldUp{0.0f,1.0f,0.0f};
+
+        float FOV{45.0f};
+        float yaw{-90.0f};
+        float pitch{0};
+
 
         /**
         * @brief Updates the view matrix of the camera component.
