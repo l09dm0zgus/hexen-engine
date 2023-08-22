@@ -31,5 +31,5 @@ void core::rend::RenderBufferObject::bind() const {
 
 void core::rend::RenderBufferObject::unbind()
 {
-    glBindRenderbuffer(GL_RENDERBUFFER,object);
+    glBindRenderbuffer(GL_RENDERBUFFER,0);
 }
