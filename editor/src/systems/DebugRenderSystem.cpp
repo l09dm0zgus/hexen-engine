@@ -24,7 +24,7 @@ void edit::sys::DebugRenderSystem::render(float alpha)
     {
         ::sys::TaskSystem::addTask<DebugRenderSystem,void,::comp::rend::RenderComponent*>(core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateModelMatrix,debugGridComponent.get());
         ::sys::TaskSystem::addTask<DebugRenderSystem,void,::comp::rend::RenderComponent*>(core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateViewAndProjectionMatrices,debugGridComponent.get());;
-        ::sys::TaskSystem::addTask(core::threading::TaskPriority::Normal,debugGridComponent.get(),&comp::rend::DebugGridComponent::draw);
+        debugGridComponent->draw();
     }
 }
 void edit::sys::DebugRenderSystem::addDebugGrid()
@@ -33,9 +33,8 @@ void edit::sys::DebugRenderSystem::addDebugGrid()
     if(debugGridComponent == nullptr)
     {
         debugGridComponent = core::mem::make_shared<comp::rend::DebugGridComponent>("shaders/BaseVertexShader.glsl","shaders/DebugLineFragmentShader.glsl");
-        debugGridTransform = core::mem::make_shared<::comp::TransformComponent>(glm::vec2(1.0f));
+        debugGridTransform = core::mem::make_shared<::comp::TransformComponent>(glm::vec2(0.0f));
         debugGridTransform->updateTransformMatrix();
-
     }
 }
 

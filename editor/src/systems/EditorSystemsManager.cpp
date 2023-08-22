@@ -37,9 +37,12 @@ void edit::sys::EditorSystemsManager::processInput(const std::shared_ptr<core::W
 void edit::sys::EditorSystemsManager::start()
 {
     ADD_FUNCTION_TO_PROFILING
-    auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
-    ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(windowSize.x,windowSize.y,45.0f);
+
+    currentSceneWindowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
+    ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(currentSceneWindowSize.x,currentSceneWindowSize.y,45.0f);
+
     SystemsManager::start();
+
     ::sys::TaskSystem::addTask(::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::start);
 }
 
@@ -49,9 +52,16 @@ void edit::sys::EditorSystemsManager::render(float alpha)
     SystemsManager::render(alpha);
 
     auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
-    ::sys::RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x,windowSize.y);
-    ::sys::TaskSystem::addTask(::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::render,alpha);
+    if(windowSize != currentSceneWindowSize)
+    {
+        ::sys::TaskSystem::addTask(::core::threading::TaskPriority::Normal,+[](glm::vec2 windowSize){
+            ::sys::RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x,windowSize.y);
+        },windowSize);
 
+        currentSceneWindowSize = windowSize;
+    }
+
+    debugRenderSystem->render(alpha);
 }
 void edit::sys::EditorSystemsManager::update(float deltaTime)
 {

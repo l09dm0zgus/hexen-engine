@@ -12,7 +12,6 @@
 core::rend::FrameBufferObject::FrameBufferObject()
 {
     glGenFramebuffers(1,&object);
-    bind();
 }
 
 core::rend::FrameBufferObject::~FrameBufferObject()

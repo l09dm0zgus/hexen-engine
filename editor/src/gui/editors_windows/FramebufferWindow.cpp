@@ -11,7 +11,8 @@
 
 edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWindow(name)
 {
-    frameBufferTexture = core::mem::make_unique<core::rend::FrameBufferTexture>(glm::vec2(1280,720));
+    frameBufferObject.bind();
+    frameBufferTexture = core::mem::make_unique<core::rend::FrameBufferTexture>(glm::vec2(size.x,size.y));
     frameBufferObject.bindRenderBuffer();
     frameBufferObject.setSize(glm::vec2(1280,720));
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -19,8 +20,8 @@ edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWi
         std::cout << "S_ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
     }
     frameBufferObject.unbind();
-    frameBufferTexture->unbind();
     frameBufferObject.unbindRenderBuffer();
+    frameBufferTexture->unbind();
 }
 
 
@@ -28,17 +29,10 @@ void edit::gui::FramebufferWindow::draw()
 {
     ImGui::Begin(getName().c_str());
     {
-        // Using a Child allow to fill all the space of the window.
-        // It also alows customization
+
         ImGui::BeginChild("GameRender");
-        // Get the size of the child (i.e. the whole draw size of the windows).
-        ImVec2 windowSize = ImGui::GetWindowSize();
 
-        size.x = windowSize.x;
-        size.y = windowSize.y;
-
-        // Because I use the texture from OpenGL, I need to invert the V from the UV.
-        ImGui::Image((ImTextureID)frameBufferTexture->getID(), windowSize, ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::Image((ImTextureID)frameBufferTexture->getID(), ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::EndChild();
     }
     ImGui::End();
@@ -48,9 +42,7 @@ void edit::gui::FramebufferWindow::draw()
 
 void edit::gui::FramebufferWindow::clear()
 {
-    // Set background color as cornflower blue
-    glClearColor(0.39f, 0.58f, 0.93f, 1.f);
-    // Clear color buffer
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -64,7 +56,15 @@ void edit::gui::FramebufferWindow::end()
 
 void edit::gui::FramebufferWindow::begin()
 {
+    ImVec2 windowSize = ImGui::GetWindowSize();
+    if(windowSize.x != size.x && windowSize.y != size.y)
+    {
+        size.x = windowSize.x;
+        size.y = windowSize.y;
 
+        frameBufferObject.setSize(size);
+        frameBufferTexture->resize(size);
+    }
 }
 
 void edit::gui::FramebufferWindow::render()
@@ -77,11 +77,13 @@ void edit::gui::FramebufferWindow::bindFramebuffer()
 {
     frameBufferObject.bind();
     render();
+    glEnable(GL_DEPTH_TEST);
 }
 
 
 void edit::gui::FramebufferWindow::unbindFramebuffer()
 {
 
+    glDisable(GL_DEPTH_TEST);
     frameBufferObject.unbind();
 }

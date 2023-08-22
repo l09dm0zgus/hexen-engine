@@ -4,6 +4,8 @@
 
 #pragma once
 #include <systems/SystemsManager.h>
+#include <glm/detail/type_vec1.hpp>
+#include <glm/vec2.hpp>
 
 namespace edit::gui
 {
@@ -38,6 +40,10 @@ namespace edit::sys
         */
 
         std::shared_ptr<DebugRenderSystem> debugRenderSystem;
+
+        glm::vec2 currentSceneWindowSize{0.0f};
+
+
     public:
 
         /**
