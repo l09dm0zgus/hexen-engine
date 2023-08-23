@@ -32,6 +32,17 @@ void edit::gui::FramebufferWindow::draw()
 
         ImGui::BeginChild("GameRender");
 
+        ImVec2 windowSize = ImGui::GetWindowSize();
+
+        if(windowSize.x != size.x || windowSize.y != size.y)
+        {
+            frameBufferObject.setSize(size);
+            frameBufferTexture->resize(size);
+        }
+
+        size.x = windowSize.x;
+        size.y = windowSize.y;
+
         ImGui::Image((ImTextureID)frameBufferTexture->getID(), ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::EndChild();
     }
@@ -56,15 +67,8 @@ void edit::gui::FramebufferWindow::end()
 
 void edit::gui::FramebufferWindow::begin()
 {
-    ImVec2 windowSize = ImGui::GetWindowSize();
-    if(windowSize.x != size.x && windowSize.y != size.y)
-    {
-        size.x = windowSize.x;
-        size.y = windowSize.y;
 
-        frameBufferObject.setSize(size);
-        frameBufferTexture->resize(size);
-    }
+
 }
 
 void edit::gui::FramebufferWindow::render()
