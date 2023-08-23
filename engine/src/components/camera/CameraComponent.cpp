@@ -62,10 +62,15 @@ void comp::CameraComponent::update(float deltaTime)
     this->deltaTime = deltaTime;
 }
 
-
-void comp::CameraComponent::move(float value)
+void comp::CameraComponent::moveForward(float value)
 {
-    position += value * deltaTime * cameraTarget;
+    position.z += value * deltaTime;
+    updateViewMatrix();
+}
+
+void comp::CameraComponent::moveRight(float value)
+{
+    position.x += value * deltaTime;
     updateViewMatrix();
 }
 
@@ -93,6 +98,7 @@ void comp::CameraComponent::pitch(float pitchAngle)
     currentPitchAngle += pitchAngle * deltaTime;
     updateViewMatrix();
 }
+
 
 
 

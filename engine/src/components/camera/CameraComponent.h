@@ -107,17 +107,21 @@ namespace comp
         void update(float deltaTime) override;
 
         /**
-        * @brief Moves the camera based on the given value.
+        * Moves the camera component forward by the specified value.
         *
-        * This function translates the camera's position based on the specified value.
-        * A positive value moves the camera forward, while a negative value moves the camera backward.
+        * @param value The distance to move the camera forward.
+        */
+
+        void moveForward(float value);
+
+        /**
+        * Moves the camera component to the right by the specified value.
         *
-        * @param value The value to move the camera by.
-        *
+        * @param value The amount to move the camera to the right.
         */
 
 
-        void move(float value);
+        void moveRight(float value);
 
         /**
         * @brief Adjusts the zoom level of the camera.
