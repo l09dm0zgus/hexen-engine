@@ -23,7 +23,7 @@ namespace comp
         * field of view, and other camera-related functionalities.
         */
 
-        CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
+        CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV,bool isIsometric = true);
 
         /**
         * @fn setPosition
@@ -135,21 +135,31 @@ namespace comp
         void zoom(float value);
 
         /**
-        * @brief Rotates the camera by the specified yaw and pitch angles.
+        * Sets the yaw angle of the camera component.
         *
-        * This method rotates the camera by the specified yaw and pitch angles. The yaw angle
-        * represents the rotation around the vertical axis, while the pitch angle represents
-        * the rotation around the horizontal axis.
+        * The yaw angle determines the horizontal rotation of the camera
+        * around the vertical axis. A positive yaw angle rotates the camera
+        * to the right, while a negative yaw angle rotates it to the left.
         *
-        * @param yawAngle The yaw angle in degrees.
-        * @param pitchAngle The pitch angle in degrees.
-        *
+        * @param yawAngle The yaw angle to set, in degrees.
         */
 
-        void rotate(float yawAngle = 0.0f, float pitchAngle = 0.0f);
+        void yaw(float yawAngle);
+
+        /**
+        * Changes the pitch angle of the camera.
+        *
+        * This function allows you to change the pitch angle of the camera.
+        *
+        * @param pitchAngle The new pitch angle to set, in degrees.
+        */
+
+        void pitch(float pitchAngle);
+
     private:
+        bool bIsIsometric{true};
         float deltaTime{0};
-        glm::vec3 position{0.0f,0.0f,0.0f};
+        glm::vec3 position{5.0f,15.0f,5.0f};
         glm::mat4 view{1.0f};
         glm::mat4 projection{1.0f};
         glm::vec3 cameraTarget{0.0f,0.0f,-1.0f};
@@ -158,8 +168,8 @@ namespace comp
         glm::vec3 worldUp{0.0f,1.0f,0.0f};
 
         float FOV{45.0f};
-        float yaw{-90.0f};
-        float pitch{0};
+        float currentYawAngle{-45.0};
+        float currentPitchAngle{270.0f};
 
 
         /**

@@ -39,7 +39,7 @@ void edit::sys::EditorSystemsManager::start()
     ADD_FUNCTION_TO_PROFILING
 
     currentSceneWindowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
-    ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(currentSceneWindowSize.x,currentSceneWindowSize.y,45.0f);
+    ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(currentSceneWindowSize.x,currentSceneWindowSize.y,25.0f);
 
     SystemsManager::start();
 
