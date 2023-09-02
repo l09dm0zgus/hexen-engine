@@ -14,11 +14,13 @@ edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWi
     frameBufferObject.bind();
     frameBufferTexture = core::mem::make_unique<core::rend::FrameBufferTexture>(glm::vec2(size.x,size.y));
     frameBufferObject.bindRenderBuffer();
-    frameBufferObject.setSize(glm::vec2(1280,720));
+    frameBufferObject.setSize(size);
+
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         std::cout << "S_ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
     }
+
     frameBufferObject.unbind();
     frameBufferObject.unbindRenderBuffer();
     frameBufferTexture->unbind();
