@@ -83,7 +83,7 @@ namespace edit::comp::rend
 
         std::vector<glm::vec3> vertices;
 
-        std::vector<glm::uvec3> indices;
+        std::vector<glm::uvec4> indices;
 
         /**
         * @brief Represents the EBO (Element Buffer Object) variable.

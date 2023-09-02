@@ -42,9 +42,9 @@ void core::rend::ElementsBufferObject::unbind()
 
 
 
-void core::rend::ElementsBufferObject::bind(const std::vector<glm::uvec3> &indices) const
+void core::rend::ElementsBufferObject::bind(const std::vector<glm::uvec4> &indices) const
 {
-    auto bufferSize = indices.size() * sizeof(glm::uvec3);
+    auto bufferSize = indices.size() * sizeof(glm::uvec4);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,object);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferSize, glm::value_ptr(indices[0]), GL_STATIC_DRAW);
 }

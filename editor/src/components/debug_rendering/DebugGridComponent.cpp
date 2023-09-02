@@ -18,28 +18,27 @@ edit::comp::rend::DebugGridComponent::DebugGridComponent(const std::string &vert
 
     if(grid != nullptr)
     {
-        auto slices = grid->getNumberOfCells();
-        for(core::i32 j = 0; j <= slices; ++j)
+        for(core::i32 j = 0; j <= grid->getSize().x; ++j)
         {
-            for(core::i32 i = 0; i <= slices; ++i)
+            for(core::i32 i = 0; i <= grid->getSize().y; ++i)
             {
-                float x = (float)i - grid->getUnitSize().x / (float)grid->getNumberOfCells();;
-                float y = 0;
-                float z = (float)j - grid->getUnitSize().y / (float)grid->getNumberOfCells();;
+                auto x = (float)i - grid->getUnitSize().y /grid->getNumberOfCells();
+                auto y = 0;
+                auto z = (float)j - grid->getUnitSize().x / grid->getNumberOfCells();
                 vertices.emplace_back(x, y, z);
             }
         }
 
-        for(core::i32 j = 0; j<slices; ++j)
+        for(core::i32 j = 0; j < grid->getSize().x; ++j)
         {
-            for(core::i32 i = 0; i<slices; ++i)
+            for(core::i32 i = 0; i < grid->getSize().y; ++i)
             {
 
-                int row1 =  j    * (slices+1);
-                int row2 = (j+1) * (slices+1);
+                core::u32 row1 =  j    * (grid->getSize().x + 1);
+                core::u32 row2 = (j+1) * (grid->getSize().y + 1);
 
-                indices.push_back(glm::uvec4(row1+i, row1+i+1, row1+i+1, row2+i+1));
-                indices.push_back(glm::uvec4(row2+i+1, row2+i, row2+i, row1+i));
+                indices.emplace_back(row1+i, row1+i+1, row1+i+1, row2+i+1);
+                indices.emplace_back(row2+i+1, row2+i, row2+i, row1+i);
 
             }
         }

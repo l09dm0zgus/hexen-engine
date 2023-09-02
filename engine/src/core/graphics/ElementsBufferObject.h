@@ -75,11 +75,11 @@ namespace core::rend
         * This method binds the provided indices to the ElementsBufferObject.
         * The indices are used to specify the vertex connectivity for batch rendering.
         *
-        * @param indices The vector of glm::uvec3 indices representing the vertex connectivity.
+        * @param indices The vector of glm::uvec4 indices representing the vertex connectivity.
         *
         */
 
-        void bind(const std::vector<glm::uvec3> &indices) const;
+        void bind(const std::vector<glm::uvec4> &indices) const;
 
     private:
         u32 object{0};
