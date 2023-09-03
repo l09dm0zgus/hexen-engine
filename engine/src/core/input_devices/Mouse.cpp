@@ -4,7 +4,7 @@
 
 #include "Mouse.h"
 
-void core::input::Mouse::proccessInput(const SDL_Event &event)
+void core::input::Mouse::processInput(const SDL_Event &event)
 {
     switch (event.type)
     {

@@ -41,7 +41,7 @@ namespace core::input
         * and handle their corresponding actions.
         */
 
-        void proccessInput(const SDL_Event &event);
+        void processInput(const SDL_Event &event);
 
         /**
         * @brief Gets the current position of the mouse.
