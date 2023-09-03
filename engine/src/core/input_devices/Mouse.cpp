@@ -9,12 +9,18 @@ void core::input::Mouse::processInput(const SDL_Event &event)
     switch (event.type)
     {
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
+
             bIsLeftButtonPressed = event.button.button == SDL_BUTTON_LEFT;
             bIsRightButtonPressed = event.button.button == SDL_BUTTON_RIGHT;
             bIsMiddleButtonPressed = event.button.button == SDL_BUTTON_MIDDLE;
             bIsX1ButtonPressed = event.button.button == SDL_BUTTON_X1;
             bIsX2ButtonPressed = event.button.button == SDL_BUTTON_X2;
 
+            bIsLeftButtonReleased = !bIsLeftButtonPressed;
+            bIsRightButtonReleased = !bIsRightButtonPressed;
+            bIsMiddleButtonReleased = !bIsMiddleButtonPressed;
+            bIsX1ButtonReleased = !bIsX1ButtonPressed;
+            bIsX2ButtonReleased = !bIsX2ButtonPressed;
 
             if(bIsLeftButtonPressed)
             {
@@ -31,11 +37,18 @@ void core::input::Mouse::processInput(const SDL_Event &event)
 
             break;
         case SDL_EVENT_MOUSE_BUTTON_UP:
-            bIsLeftMouseReleased = event.button.button == SDL_BUTTON_LEFT;
-            bIsRightMouseReleased = event.button.button == SDL_BUTTON_RIGHT;
+
+            bIsLeftButtonReleased = event.button.button == SDL_BUTTON_LEFT;
+            bIsRightButtonReleased = event.button.button == SDL_BUTTON_RIGHT;
             bIsMiddleButtonReleased = event.button.button == SDL_BUTTON_MIDDLE;
             bIsX1ButtonReleased = event.button.button == SDL_BUTTON_X1;
             bIsX2ButtonReleased = event.button.button == SDL_BUTTON_X2;
+
+            bIsLeftButtonPressed = !bIsLeftButtonReleased;
+            bIsRightButtonPressed = !bIsRightButtonReleased;
+            bIsMiddleButtonPressed = !bIsMiddleButtonReleased;
+            bIsX1ButtonPressed = !bIsX1ButtonReleased;
+            bIsX2ButtonReleased = !bIsX2ButtonReleased;
 
             if(bIsLeftButtonPressed)
             {
@@ -94,14 +107,14 @@ glm::vec2 core::input::Mouse::getRightMouseReleasedPosition() const noexcept
     return rightButtonReleasedPosition;
 }
 
-bool core::input::Mouse::isLeftMouseReleased() const noexcept
+bool core::input::Mouse::isLeftButtonReleased() const noexcept
 {
-    return bIsLeftMouseReleased;
+    return bIsLeftButtonReleased;
 }
 
-bool core::input::Mouse::isRightMouseReleased() const noexcept
+bool core::input::Mouse::isRightButtonReleased() const noexcept
 {
-    return bIsRightMouseReleased;
+    return bIsRightButtonReleased;
 }
 
 glm::vec2 core::input::Mouse::getWheelPosition() const noexcept
@@ -115,7 +128,7 @@ bool core::input::Mouse::isMiddleButtonPressed() const noexcept
 }
 
 
-bool core::input::Mouse::isMiddleMouseReleased() const noexcept
+bool core::input::Mouse::isMiddleButtonReleased() const noexcept
 {
     return bIsMiddleButtonReleased;
 }

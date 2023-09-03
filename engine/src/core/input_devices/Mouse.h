@@ -22,8 +22,8 @@ namespace core::input
 
         bool bIsLeftButtonPressed = false;
         bool bIsRightButtonPressed = false;
-        bool bIsLeftMouseReleased = false;
-        bool bIsRightMouseReleased = false;
+        bool bIsLeftButtonReleased = false;
+        bool bIsRightButtonReleased = false;
         bool bIsMiddleButtonPressed = false;
         bool bIsMiddleButtonReleased = false;
         bool bIsX1ButtonPressed = false;
@@ -82,7 +82,7 @@ namespace core::input
         * @note This function is constant and noexcept.
         */
 
-        [[nodiscard]] bool isLeftMouseReleased() const noexcept;
+        [[nodiscard]] bool isLeftButtonReleased() const noexcept;
 
         /**
         * @brief Checks if the right mouse button is released.
@@ -94,7 +94,7 @@ namespace core::input
         *
         * @code{.cpp}
         * core::input::Mouse mouse;
-        * if (mouse.isRightMouseReleased())
+        * if (mouse.isRightButtonReleased())
         * {
         *     // Right mouse button is released
         * }
@@ -105,7 +105,7 @@ namespace core::input
         * @endcode
         */
 
-        [[nodiscard]] bool isRightMouseReleased() const noexcept;
+        [[nodiscard]] bool isRightButtonReleased() const noexcept;
 
         /**
        * @brief Retrieves the position of the right mouse button being pressed.
@@ -202,7 +202,7 @@ namespace core::input
         * @see isMiddleMousePressed()
         */
 
-        [[nodiscard]] bool isMiddleMouseReleased() const noexcept;
+        [[nodiscard]] bool isMiddleButtonReleased() const noexcept;
 
         /**
         * @brief Checks if the X1 button of the mouse is currently pressed.
