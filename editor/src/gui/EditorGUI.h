@@ -11,10 +11,10 @@
 #include <SDL3/SDL.h>
 #include "Style.h"
 #include "Dockspace.h"
-
+#include <gui/IGUI.h>
 namespace edit::gui
 {
-    class EditorGUI
+class EditorGUI : public ::gui::IGUI
     {
     public:
         /**
@@ -101,10 +101,10 @@ namespace edit::gui
         * This function handles the SDL events and performs relevant actions in the editor GUI. It uses the provided SDL_Event
         * parameter to determine the type of event and takes appropriate actions accordingly.
         *
-        * @param event Pointer to the SDL event to be processed.
+        * @param event SDL event to be processed.
         */
 
-        void processEvent(SDL_Event *event);
+        void processEvent(const SDL_Event &event) override;
 
         /**
         * @brief Retrieves the dockspace for the EditorGUI.

@@ -89,9 +89,9 @@ void edit::gui::EditorGUI::end()
 
 
 
-void edit::gui::EditorGUI::processEvent(SDL_Event *event)
+void edit::gui::EditorGUI::processEvent(const SDL_Event &event)
 {
-    ImGui_ImplSDL3_ProcessEvent(event);
+    ImGui_ImplSDL3_ProcessEvent(&event);
 }
 
 std::shared_ptr<edit::gui::Dockspace> edit::gui::EditorGUI::getDockspace()
