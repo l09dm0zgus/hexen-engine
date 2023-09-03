@@ -26,6 +26,6 @@ target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/A
         ${CMAKE_CURRENT_SOURCE_DIR}/application/Settings.h
         ${CMAKE_CURRENT_SOURCE_DIR}/application/Settings.cpp)
 
-
+add_subdirectory(input_devices)
 add_subdirectory(graphics)
 add_subdirectory(threading)
