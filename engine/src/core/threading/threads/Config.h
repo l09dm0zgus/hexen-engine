@@ -10,23 +10,7 @@
 #	endif
 #endif
 
-// Determine the OS
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
-#	define HEXEN_OS_WINDOWS
-#elif defined(__APPLE__)
-#	define HEXEN_OS_APPLE
-#	include "TargetConditionals.h"
 
-#	if defined(TARGET_OS_MAC)
-#		define HEXEN_OS_MAC
-#	elif defined(TARGET_OS_IPHONE)
-#		define HEXEN_OS_iOS
-#	else
-#		error Unknown Apple platform
-#	endif
-#elif defined(__linux__) || defined(__ANDROID__)
-#	define HEXEN_OS_LINUX
-#endif
 
 #if defined(_MSC_VER)  || defined(__MINGW32__) || defined(__MINGW64__)
 #	define HEXEN_WIN32_THREADS
