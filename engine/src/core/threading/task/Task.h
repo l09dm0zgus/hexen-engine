@@ -6,12 +6,14 @@ namespace core::threading
     class TaskScheduler;
     struct Task
     {
+    private:
+    public:
         Task() = default;
-
         template<class T,typename Ret ,typename ...Args>
         bool bind(T* object,Ret (T::*method)(Args...) , Args... args)
         {
             delegate = reinterpret_cast<core::BaseDelegate<std::any> *const>(new core::MethodDelegate(object,method,args...));
+
             if(delegate == nullptr)
             {
                 return false;
@@ -124,6 +126,9 @@ namespace core::threading
             if(delegate != nullptr)
             {
                 delegate->execute();
+
+                delete delegate;
+                delegate = nullptr;
             }
         }
 
