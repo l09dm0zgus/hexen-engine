@@ -16,7 +16,23 @@
 #include <functional>
 #include <memory>
 #include <any>
+// Determine the OS
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
+#	define HEXEN_OS_WINDOWS
+#elif defined(__APPLE__)
+#	define HEXEN_OS_APPLE
+#	include "TargetConditionals.h"
 
+#	if defined(TARGET_OS_MAC)
+#		define HEXEN_OS_MAC
+#	elif defined(TARGET_OS_IPHONE)
+#		define HEXEN_OS_iOS
+#	else
+#		error Unknown Apple platform
+#	endif
+#elif defined(__linux__) || defined(__ANDROID__)
+#	define HEXEN_OS_LINUX
+#endif
 #if defined(__GNUC__) || defined(__GNUG__)
     #define HEXEN_INLINE                                  inline __attribute__((always_inline))
 #elif defined(_MSC_VER)
@@ -59,7 +75,7 @@ namespace core
 #endif
 #if defined(__unix__)
     const std::string PATH_SLASH("/");
-#elif defined(WIN32)
+#elif defined(HEXEN_OS_WINDOWS)
     const std::string PATH_SLASH("\\");
 #endif
 
@@ -589,7 +605,7 @@ namespace core
                 do
                 {
                     slotIndex++;
-                } while (slotIndex < owner->slots.size() && not owner->slots[slotIndex].isUsed);
+                } while (slotIndex < owner->slots.size() && !owner->slots[slotIndex].isUsed);
 
                 return *this;
             }
@@ -639,7 +655,7 @@ namespace core
                 do
                 {
                     this->slotIndex++;
-                } while (this->slotIndex < this->owner->slots.size() && not this->owner->slots[this->slotIndex].isUsed);
+                } while (this->slotIndex < this->owner->slots.size() && !this->owner->slots[this->slotIndex].isUsed);
                 return *this;
             }
 
@@ -655,7 +671,7 @@ namespace core
         ConstIterator begin() const
         {
             auto iterator = ConstIterator(this,0);
-            while (iterator.slotIndex < slots.size() && not slots[iterator.slotIndex].isUsed)
+            while (iterator.slotIndex < slots.size() && !slots[iterator.slotIndex].isUsed)
             {
                 iterator.slotIndex++;
             }
