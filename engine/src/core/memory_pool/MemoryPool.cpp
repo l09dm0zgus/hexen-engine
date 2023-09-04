@@ -7,6 +7,12 @@
 #include <malloc.h>
 #include <algorithm>
 
+
+/**
+ * @class MemoryPool
+ * @brief This class represents a memory pool with a specified size.
+ */
+
 core::mem::MemoryPool::MemoryPool(u64 size) : size(size)
 {
     memory = malloc(size);
@@ -28,6 +34,7 @@ void core::mem::MemoryPool::free(vptr address) noexcept
         iterator->occupiedBytes = 0;
     }
 }
+
 
 core::mem::MemoryPool::~MemoryPool()
 {
