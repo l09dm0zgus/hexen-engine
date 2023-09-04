@@ -37,40 +37,34 @@ core::mem::MemoryPool::~MemoryPool()
 
 core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
 {
-    auto freeAllocationIterator = std::find_if(allocations.begin(),allocations.end(),[size = allocationSize](const auto &allocation)
+    for(auto &allocation : allocations)
     {
-       return allocation.freeFlag == 1u && allocation.allocatedBytes >= size;
-    });
+        if(allocation.freeFlag == 1u && allocation.allocatedBytes >= size)
+        {
+            allocation.freeFlag = 255u;
+            allocation.occupiedBytes = allocationSize;
+            showLogForAllocation(allocation);
+            return allocation.address;
+        }
+        if((allocation.allocatedBytes - allocation.occupiedBytes) >= size)
+        {
+            Allocation newAllocation{};
+            newAllocation.freeFlag = 0u;
+            newAllocation.allocatedBytes = allocation.allocatedBytes - allocation.occupiedBytes;
+            newAllocation.occupiedBytes  = allocationSize;
+            newAllocation.address = (vptr) (((u64)allocation.allocatedBytes) + (allocation.occupiedBytes));
 
-    if(freeAllocationIterator != allocations.end())
-    {
-        freeAllocationIterator->freeFlag = 255u;
-        freeAllocationIterator->occupiedBytes = allocationSize;
-        showLogForAllocation(*freeAllocationIterator);
-        return freeAllocationIterator->address;
+            allocation.allocatedBytes = allocation.occupiedBytes;
+
+            showLogForAllocation(newAllocation);
+
+
+            allocations.push_back(newAllocation);
+
+            return newAllocation.address;
+        }
     }
 
-    freeAllocationIterator = std::find_if(allocations.begin(),allocations.end(),[size = allocationSize](const auto &allocation){
-        return (allocation.allocatedBytes - allocation.occupiedBytes) >= size;
-    });
-
-    if(freeAllocationIterator != allocations.end())
-    {
-        Allocation allocation{};
-        allocation.freeFlag = 0u;
-        allocation.allocatedBytes = freeAllocationIterator->allocatedBytes - freeAllocationIterator->occupiedBytes;
-        allocation.occupiedBytes  = allocationSize;
-        allocation.address = (vptr) (((u64)freeAllocationIterator->allocatedBytes) + (freeAllocationIterator->occupiedBytes));
-
-        freeAllocationIterator->allocatedBytes = freeAllocationIterator->occupiedBytes;
-
-        showLogForAllocation(allocation);
-
-
-        allocations.push_back(allocation);
-
-        return allocation.address;
-    }
     if(lastAddress >= maxAddress)
     {
         SDL_Log("Failed to allocate memory for object.\n");

@@ -12,10 +12,10 @@ namespace core::mem
     {
         struct Allocation
         {
-            u8 freeFlag;
-            u64 allocatedBytes;
-            u64 occupiedBytes;
-            vptr address;
+            u8 freeFlag{0};
+            u64 allocatedBytes{0};
+            u64 occupiedBytes{0};
+            vptr address{nullptr};
         };
     public:
         explicit MemoryPool(u64 size);
