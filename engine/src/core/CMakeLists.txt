@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
-project(${PROJECT_NAME})
 
-
-target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/Application.h
+target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/Application.h
         ${CMAKE_CURRENT_SOURCE_DIR}/application/Application.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/exceptions/ComponentNotFound.h
         ${CMAKE_CURRENT_SOURCE_DIR}/exceptions/ComponentNotFound.cpp

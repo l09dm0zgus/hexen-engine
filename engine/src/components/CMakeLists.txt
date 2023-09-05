@@ -1,8 +1,7 @@
 
 cmake_minimum_required(VERSION 3.6)
-project(${PROJECT_NAME})
 
-target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.h
+target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.h
          ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.cpp
          ${CMAKE_CURRENT_SOURCE_DIR}/graphics/RenderComponent.h
          ${CMAKE_CURRENT_SOURCE_DIR}/graphics/RenderComponent.cpp

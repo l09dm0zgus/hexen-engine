@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(${PROJECT_NAME})
+
 
 file(GLOB SRC_FILES
         "*.cpp"
@@ -7,6 +7,6 @@ file(GLOB SRC_FILES
         "*.h"
 )
 
-target_sources(${PROJECT_NAME} PRIVATE
+target_sources(${ENGINE_NAME} PRIVATE
         ${SRC_FILES}
 )

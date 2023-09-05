@@ -9,7 +9,7 @@ project(boost_context ASM)
 include(SetSourceGroup)
 
 
-option(FTL_FIBER_CANARY_BYTES "Enable canary bytes in fiber switching logic, to help debug errors" OFF)
+option(HEXEN_FIBER_CANARY_BYTES "Enable canary bytes in fiber switching logic, to help debug errors" OFF)
 
 
 # Determine the target architecture
@@ -19,6 +19,7 @@ option(FTL_FIBER_CANARY_BYTES "Enable canary bytes in fiber switching logic, to 
 #
 # Enable the assemblers
 if (WIN32 AND MSVC)
+	set(CMAKE_ASM_MASM_CREATE_STATIC_LIBRARY "<CMAKE_AR> /OUT:<TARGET> <LINK_FLAGS> <OBJECTS>")
 	enable_language(ASM_MASM)
 else()
 	enable_language(ASM)
