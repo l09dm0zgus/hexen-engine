@@ -2,9 +2,8 @@
 .idea
 .gradle
 build
-editor/cmake-build-debug
-editor/cmake-build-debug-wsl
-engine/cmake-build-debug
-editor/cmake-build-release
+cmake-build-debug
+cmake-build-debug-wsl
+cmake-build-release
 editor/.idea
 local.properties
