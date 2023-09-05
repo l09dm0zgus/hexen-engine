@@ -33,7 +33,7 @@ else()
     target_link_libraries(${ENGINE_NAME}  SDL3::SDL3 SDL3_image libglew_static boost_context glm)
 endif (BUILD_ANDROID)
 
-set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image/include/SDL3)
+set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image/include/SDL3_image)
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glm)
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL/include)
 set(JSON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/json/include)
