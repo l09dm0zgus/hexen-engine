@@ -20,19 +20,6 @@ elseif(BUILD_SHARED)
     add_subdirectory(engine)
 endif()
 
-if (${BUILD_ANDROID} STREQUAL  OFF)
-
-endif ()
-
-if (BUILD_ANDROID)
-    target_link_libraries(${ENGINE_NAME}   SDL3::SDL3 SDL3_image GLESv3 boost_context glm)
-else()
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake)
-    set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake/include)
-    include_directories(${GLEW_INCLUDE_DIR})
-    target_link_libraries(${ENGINE_NAME}  SDL3::SDL3 SDL3_image libglew_static boost_context glm)
-endif (BUILD_ANDROID)
-
 set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image/include/SDL3_image)
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glm)
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL/include)
@@ -41,10 +28,22 @@ set(CONTEXT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/boost_cont
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glm)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL EXCLUDE_FROM_ALL)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image EXCLUDE_FROM_ALL)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/json)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/boost_context)
+
+
+if (BUILD_ANDROID)
+    target_link_libraries(${ENGINE_NAME} PRIVATE  SDL3_image::SDL3_image  SDL3::SDL3 GLESv3 boost_context glm)
+else()
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake)
+    set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake/include)
+    include_directories(${GLEW_INCLUDE_DIR})
+    target_link_libraries(${ENGINE_NAME} PRIVATE SDL3_image::SDL3_image  SDL3::SDL3 libglew_static boost_context glm)
+endif (BUILD_ANDROID)
+
+
 
 include_directories(${SDL_IMAGE_INCLUDE_DIR})
 include_directories(${GLM_INCLUDE_DIR})

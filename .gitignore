@@ -7,3 +7,5 @@ cmake-build-debug-wsl
 cmake-build-release
 editor/.idea
 local.properties
+out
+.vs
