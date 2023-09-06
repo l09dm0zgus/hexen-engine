@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include "../../core/Types.h"
 #include "../Component.h"
-namespace comp
+namespace hexen::engine::components::graphics
 {
     class CameraComponent : public Component
     {
@@ -53,7 +53,7 @@ namespace comp
         * @return The view matrix of the camera.
         */
 
-        glm::mat4 getViewMatrix();
+        [[nodiscard]] glm::mat4 getViewMatrix();
 
         /**
         * @brief Updates the projection matrix of the camera component.
@@ -81,7 +81,7 @@ namespace comp
         * @return The 4x4 projection matrix representing the camera component's projection transformation.
         */
 
-        glm::mat4 getProjectionMatrix();
+        [[nodiscard]] glm::mat4 getProjectionMatrix();
 
         /**
         * @brief Starts the camera component.

@@ -8,13 +8,13 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-namespace comp::rend
+namespace hexen::engine::components::graphics
 {
     class RenderComponent : public Component
     {
     public:
         RenderComponent() = default;
-        ~RenderComponent() = default;
+        ~RenderComponent() override = default;
         RenderComponent(const RenderComponent& renderComponent) = default;
         RenderComponent(RenderComponent &&) = default;
         RenderComponent& operator=(RenderComponent&& renderComponent) = default;
@@ -33,9 +33,9 @@ namespace comp::rend
             transform = std::forward<T>(newTransform);
         };
 
-        glm::mat4 getProjectionMatrix() const noexcept;
-        glm::mat4 getViewMatrix() const noexcept;
-        glm::mat4 getTransformMatrix() const noexcept;
+        [[nodiscard]] glm::mat4 getProjectionMatrix() const noexcept;
+        [[nodiscard]] glm::mat4 getViewMatrix() const noexcept;
+        [[nodiscard]] glm::mat4 getTransformMatrix() const noexcept;
 
         virtual void start() override;
         virtual void update(float deltaTime) override;

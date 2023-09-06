@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <fstream>
 
-core::threading::TaskSchedulerSettings::TaskSchedulerSettings()
+hexen::engine::core::threading::TaskSchedulerSettings::TaskSchedulerSettings()
 {
     if(!std::filesystem::exists(pathToSettingsFile))
     {
@@ -22,24 +22,24 @@ core::threading::TaskSchedulerSettings::TaskSchedulerSettings()
     }
 }
 
-core::u32 core::threading::TaskSchedulerSettings::getFiberPoolSize() const
+hexen::engine::core::u32 hexen::engine::core::threading::TaskSchedulerSettings::getFiberPoolSize() const
 {
     return settingsFile["task_scheduler"]["fiber_pool_size"];
 }
 
-core::u32 core::threading::TaskSchedulerSettings::getUsedCores() const
+hexen::engine::core::u32 hexen::engine::core::threading::TaskSchedulerSettings::getUsedCores() const
 {
     return settingsFile["task_scheduler"]["used_cores"];
 }
 
-void core::threading::TaskSchedulerSettings::setFiberPoolSize(core::u32 fiberPoolSize)
+void hexen::engine::core::threading::TaskSchedulerSettings::setFiberPoolSize(core::u32 fiberPoolSize)
 {
     settingsFile["task_scheduler"]["fiber_pool_size"] = fiberPoolSize;
     std::ofstream file(pathToSettingsFile);
     file << settingsFile.dump(2);
 }
 
-void core::threading::TaskSchedulerSettings::setUsedCores(core::u32 usedCores)
+void hexen::engine::core::threading::TaskSchedulerSettings::setUsedCores(core::u32 usedCores)
 {
     settingsFile["task_scheduler"]["used_cores"] = usedCores;
     std::ofstream file(pathToSettingsFile);

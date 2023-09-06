@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     template <typename T>
     class WaitFreeQueue
@@ -43,7 +43,7 @@ namespace core::threading
             std::unique_ptr<CircularArray> previous;
 
         public:
-            size_t size() const
+            [[nodiscard]] size_t size() const
             {
                 return items.size();
             }

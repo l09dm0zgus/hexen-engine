@@ -11,9 +11,9 @@
 
 #define GLM_SWIZZLE
 
-namespace comp
+namespace hexen::engine::components
 {
-    class TransformComponent: public comp::Component
+    class TransformComponent: public components::Component
     {
     public:
 
@@ -260,7 +260,7 @@ namespace comp
         * @sa setLayer()
         */
 
-        float getLayer() const noexcept;
+        [[nodiscard]] float getLayer() const noexcept;
 
 
         /**
@@ -279,7 +279,7 @@ namespace comp
         * @see setScale()
         */
 
-        glm::vec2 getScale() const noexcept;
+        [[nodiscard]] glm::vec2 getScale() const noexcept;
 
 
         /**
@@ -299,7 +299,7 @@ namespace comp
         * @see setPosition()
         */
 
-        glm::vec2 getPosition() const noexcept;
+        [[nodiscard]] glm::vec2 getPosition() const noexcept;
 
         /**
         * @brief Get the rotation of an object.
@@ -311,7 +311,7 @@ namespace comp
         * @return A constant reference to the rotation value.
         */
 
-        glm::vec2 getRotation() const noexcept;
+        [[nodiscard]] glm::vec2 getRotation() const noexcept;
 
 
         /**
@@ -362,7 +362,7 @@ namespace comp
         * @note This function does not modify the object's state.
         */
 
-        glm::mat4 getTransformMatrix() const noexcept;
+        [[nodiscard]] glm::mat4 getTransformMatrix() const noexcept;
 
 
         /**
@@ -377,7 +377,7 @@ namespace comp
         *
         */
 
-        bool isDirty() const noexcept;
+        [[nodiscard]] bool isDirty() const noexcept;
 
 
         /**
@@ -471,7 +471,7 @@ namespace comp
         * @return The resulting rotation matrix after applying the given rotations.
         */
 
-        glm::mat4 rotate(const glm::mat4 &rotationMatrix, /***/const glm::vec2 &rotation) const;
+        [[nodiscard]] glm::mat4 rotate(const glm::mat4 &rotationMatrix, /***/const glm::vec2 &rotation) const;
 
 
         glm::mat4 transformMatrix{1.0f};

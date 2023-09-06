@@ -11,12 +11,12 @@
 #include "dialogs/CopyingFilesWindow.h"
 #include "AssetsIcon.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class AssetsWindow : public GUIWindow
     {
     private:
-        void drawNode(core::i32 i);
+        void drawNode(engine::core::i32 i);
         void pushButtonStyle();
         void popButtonStyle();
         void showFilesInDirectory();

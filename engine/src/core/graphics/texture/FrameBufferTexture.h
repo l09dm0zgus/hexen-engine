@@ -7,12 +7,12 @@
 #include <glm/vec2.hpp>
 #include "../../memory_pool/AllocatedObject.h"
 
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
-    class FrameBufferTexture : public mem::AllocatedObject
+class FrameBufferTexture : public core::memory::AllocatedObject
     {
     private:
-        u32 object{0};
+        core::u32 object{0};
     public:
 
         /**
@@ -47,7 +47,7 @@ namespace core::rend
         * @return The ID of the frame buffer texture.
         */
 
-        u32 getID() const noexcept;
+        [[nodiscard]] core::u32 getID() const noexcept;
 
         /**
         * @brief Unbinds the FrameBufferTexture object.

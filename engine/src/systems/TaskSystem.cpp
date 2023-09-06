@@ -4,20 +4,20 @@
 
 #include "TaskSystem.h"
 
-core::threading::TaskScheduler sys::TaskSystem::scheduler;
-core::threading::TaskCounter sys::TaskSystem::counter(&scheduler);
+hexen::engine::core::threading::TaskScheduler hexen::engine::systems::TaskSystem::scheduler;
+hexen::engine::core::threading::TaskCounter hexen::engine::systems::TaskSystem::counter(&scheduler);
 
-void sys::TaskSystem::waitForCounter(core::i32 value)
+void hexen::engine::systems::TaskSystem::waitForCounter(core::i32 value)
 {
     scheduler.waitForCounter(&counter,value);
 }
 
-void sys::TaskSystem::initialize()
+void hexen::engine::systems::TaskSystem::initialize()
 {
     scheduler.initialize();
 }
 
-void sys::TaskSystem::addTasks(core::threading::TaskPriority priority,const std::array<core::threading::Task, 400> &tasks)
+void hexen::engine::systems::TaskSystem::addTasks(core::threading::TaskPriority priority,const std::array<core::threading::Task, 400> &tasks)
 {
     scheduler.addTasks(tasks,priority,&counter);
 }

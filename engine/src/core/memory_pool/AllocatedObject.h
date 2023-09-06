@@ -7,7 +7,7 @@
 #include "../Types.h"
 #include "MemoryPool.h"
 #include <memory>
-namespace core::mem
+namespace hexen::engine::core::memory
 {
     class AllocatedObject
     {

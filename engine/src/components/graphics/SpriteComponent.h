@@ -14,24 +14,24 @@
 #include <vector>
 #include "RenderComponent.h"
 
-namespace comp::rend
+namespace hexen::engine::components::graphics
 {
     class SpriteComponent : public RenderComponent
     {
     public:
         SpriteComponent(const std::string &vertexShaderPath , const std::string &fragmentShaderPath);
-        ~SpriteComponent() = default;
+        ~SpriteComponent() override = default;
         void draw() noexcept override;
         void addTexture(const std::string &pathToImage);
     private:
-        std::vector<std::shared_ptr<core::rend::Texture>> textures;
-        core::rend::VertexBufferObject VBO;
-        core::rend::RectangleData vertices;
-        core::rend::ElementsBufferObject EBO;
+        std::vector<std::shared_ptr<hexen::engine::graphics::gl::Texture>> textures;
+        hexen::engine::graphics::gl::VertexBufferObject VBO;
+        hexen::engine::graphics::gl::RectangleData vertices;
+        hexen::engine::graphics::gl::ElementsBufferObject EBO;
     protected:
-        core::rend::VertexAttributes attributes;
-        core::rend::VertexArrayObject VAO;
-        std::shared_ptr<core::rend::shader::ShaderProgram> shaderProgram{nullptr};
+        hexen::engine::graphics::gl::VertexAttributes attributes;
+        hexen::engine::graphics::gl::VertexArrayObject VAO;
+        std::shared_ptr<hexen::engine::graphics::gl::shader::ShaderProgram> shaderProgram{nullptr};
         void bindTextures();
     };
 }

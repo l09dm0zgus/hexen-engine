@@ -5,7 +5,7 @@
 #pragma once
 
 #include "../Types.h"
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     class VertexArrayObject
     {
@@ -15,7 +15,7 @@ namespace core::rend
         void bind() const;
         void unbind();
     private:
-        u32 object{0};
+        core::u32 object{0};
     };
 
 }

@@ -9,14 +9,14 @@
 #include <SDL_image.h>
 #include <string>
 #include "../../memory_pool/AllocatedObject.h"
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
-    class Texture : public mem::AllocatedObject
+class Texture : public core::memory::AllocatedObject
     {
     public:
         explicit Texture(const std::string &pathToImage,int wrapMode = 0x2901 ,int filterMode = 0x2600);
-        void bind(u32 id) const;
-        u32 getId() const noexcept;
+        void bind(core::u32 id) const;
+        [[nodiscard]] core::u32 getId() const noexcept;
         ~Texture() override;
         Texture(const Texture &texture) = default;
         Texture(Texture &&texture) = default;
@@ -24,7 +24,7 @@ namespace core::rend
         Texture& operator=(Texture &&texture) = default;
     private:
         SDL_Surface *surface{nullptr};
-        u32 textureId;
+        core::u32 textureId;
         void setTextureParameters(int wrapMode ,int filterMode);
 
     };

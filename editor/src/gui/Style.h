@@ -8,7 +8,7 @@
 #include <core/Types.h>
 #include <string>
 #include <nlohmann/json.hpp>
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class Style
     {
@@ -37,7 +37,7 @@ namespace edit::gui
 
         nlohmann::json styleFile;
         ImGuiStyle *style{nullptr};
-        core::HashTable<std::string,core::i32> colors;
+        hexen::engine::core::HashTable<std::string,hexen::engine::core::i32> colors;
     };
 }
 

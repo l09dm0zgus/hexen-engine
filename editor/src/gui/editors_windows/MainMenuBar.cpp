@@ -7,12 +7,12 @@
 #include <utility>
 #include "menus/FileMenu.h"
 
-edit::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
+hexen::editor::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
 {
-    menus.push_back(core::mem::make_shared<FileMenu>("File"));
+    menus.push_back(hexen::engine::core::memory::make_shared<FileMenu>("File"));
 }
 
-void edit::gui::MainMenuBar::begin()
+void hexen::editor::gui::MainMenuBar::begin()
 {
     for(auto & menu : menus)
     {
@@ -20,7 +20,7 @@ void edit::gui::MainMenuBar::begin()
     }
 }
 
-void edit::gui::MainMenuBar::draw()
+void hexen::editor::gui::MainMenuBar::draw()
 {
     for(auto & menu : menus)
     {
@@ -28,7 +28,7 @@ void edit::gui::MainMenuBar::draw()
     }
 }
 
-void edit::gui::MainMenuBar::end()
+void hexen::editor::gui::MainMenuBar::end()
 {
     for(auto & menu : menus)
     {

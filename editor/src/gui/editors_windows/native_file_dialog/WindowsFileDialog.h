@@ -22,7 +22,7 @@
 #include <windows.h>
 #include <shobjidl.h>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class WindowsFileDialog : public INativeFileDialog
     {
@@ -37,8 +37,8 @@ namespace edit::gui
         HRESULT comInitialize();
         void comUninitialize(HRESULT hresult);
         std::string copyWideCharToSTDString(const wchar_t *string);
-        core::i32 getUTF8ByteCountForWideChar(const wchar_t *string);
-        core::i32 copyWideCharToExisitingSTDString(const wchar_t *string,std::string &outString);
+        hexen::engine::core::i32 getUTF8ByteCountForWideChar(const wchar_t *string);
+        hexen::engine::core::i32 copyWideCharToExisitingSTDString(const wchar_t *string,std::string &outString);
         void copySTDStringToWideChar(const std::string &str,std::vector<wchar_t> &outString);
         Status addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList);
         Status allocatePathSet(IShellItemArray *shellItems, PathSet *pathSet);
@@ -46,7 +46,7 @@ namespace edit::gui
         void releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog);
         void releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog);
 
-        const core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;
-        const core::i32 maxStringLenght{256};
+        const hexen::engine::core::i32 COM_INITFLAGS = ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE;
+        const hexen::engine::core::i32 maxStringLenght{256};
     };
 }

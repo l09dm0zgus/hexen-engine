@@ -8,7 +8,7 @@
 #include "menus/Menu.h"
 #include "menus/FileMenu.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class MainMenuBar : public GUIWindow
     {

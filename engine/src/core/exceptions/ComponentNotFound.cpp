@@ -4,12 +4,12 @@
 
 #include "ComponentNotFound.h"
 
-core::exc::ComponentNotFound::ComponentNotFound(std::string componentName) : componentName(std::move(componentName))
+hexen::engine::exceptions::ComponentNotFound::ComponentNotFound(std::string componentName) : componentName(std::move(componentName))
 {
 
 }
 
-const char *core::exc::ComponentNotFound::what() const noexcept
+const char *hexen::engine::exceptions::ComponentNotFound::what() const noexcept
 {
     return std::string("Error:Component with name: " + componentName + " not found!\n").c_str();
 }

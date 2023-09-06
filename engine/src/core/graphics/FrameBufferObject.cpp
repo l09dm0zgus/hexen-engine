@@ -10,28 +10,28 @@
 #include "FrameBufferObject.h"
 
 
-core::rend::FrameBufferObject::FrameBufferObject()
+hexen::engine::graphics::gl::FrameBufferObject::FrameBufferObject()
 {
     glGenFramebuffers(1,&object);
 }
 
 
-core::rend::FrameBufferObject::~FrameBufferObject()
+hexen::engine::graphics::gl::FrameBufferObject::~FrameBufferObject()
 {
     glDeleteFramebuffers(1,&object);
 }
 
-void core::rend::FrameBufferObject::bind() const
+void hexen::engine::graphics::gl::FrameBufferObject::bind() const
 {
     glBindFramebuffer(GL_FRAMEBUFFER,object);
 }
 
-void core::rend::FrameBufferObject::unbind()
+void hexen::engine::graphics::gl::FrameBufferObject::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER,0);
 }
 
-void core::rend::FrameBufferObject::setSize(const glm::vec2 &size) const
+void hexen::engine::graphics::gl::FrameBufferObject::setSize(const glm::vec2 &size) const
 {
     renderBufferObject.bind();
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size.x, size.y);
@@ -39,12 +39,12 @@ void core::rend::FrameBufferObject::setSize(const glm::vec2 &size) const
 }
 
 
-void core::rend::FrameBufferObject::bindRenderBuffer()
+void hexen::engine::graphics::gl::FrameBufferObject::bindRenderBuffer()
 {
     renderBufferObject.bind();
 }
 
-void core::rend::FrameBufferObject::unbindRenderBuffer()
+void hexen::engine::graphics::gl::FrameBufferObject::unbindRenderBuffer()
 {
     renderBufferObject.unbind();
 

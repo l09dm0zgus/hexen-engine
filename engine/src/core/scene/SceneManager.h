@@ -6,7 +6,7 @@
 #include "Scene.h"
 
 
-namespace core
+namespace hexen::engine::core
 {
     class SceneManager
     {

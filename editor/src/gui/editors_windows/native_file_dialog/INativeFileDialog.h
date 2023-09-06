@@ -8,9 +8,9 @@
 #include <core/memory_pool/AllocatedObject.h>
 #include <string>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
-class INativeFileDialog : public core::mem::AllocatedObject
+class INativeFileDialog : public engine::core::memory::AllocatedObject
     {
     public:
         INativeFileDialog() = default;
@@ -21,7 +21,7 @@ class INativeFileDialog : public core::mem::AllocatedObject
         INativeFileDialog& operator=(const INativeFileDialog &iNativeFileDialog) = delete;
 
         using FileFilter = std::vector<std::pair<std::string,std::string>>;
-        enum class Status : core::i32
+        enum class Status : engine::core::i32
         {
             STATUS_OK,
             STATUS_ERROR,
@@ -31,7 +31,7 @@ class INativeFileDialog : public core::mem::AllocatedObject
     struct PathSet
     {
         std::vector<std::string> path;
-        core::i32 count;
+        engine::core::i32 count;
     };
     virtual Status openDialog(const FileFilter &filterList,const std::string &defaultPath,std::string &pathToFile) = 0;
     virtual Status openDialog(const FileFilter &filterList,const std::string &defaultPath,PathSet *pathToFiles) = 0;
@@ -42,7 +42,7 @@ class INativeFileDialog : public core::mem::AllocatedObject
     {
         auto s = str;
         std::vector<std::string> splittedString;
-        core::i32 position = 0;
+        engine::core::i32 position = 0;
         std::string token;
         while ((position = s.find(delimiter)) != std::string::npos)
         {

@@ -9,14 +9,14 @@
 #include "../gui/IGUI.h"
 #include "../core/input_devices/Mouse.h"
 
-namespace core
+namespace hexen::engine::core
 {
     class Window;
 }
 
-namespace sys::input
+namespace hexen::engine::systems
 {
-    class InputSystem : public core::mem::AllocatedObject
+    class InputSystem : public core::memory::AllocatedObject
     {
 
     private:
@@ -56,7 +56,7 @@ namespace sys::input
 
         explicit InputSystem(const std::string &pathToFile = "mappings.json");
         ~InputSystem() override = default;
-        void processInput(const std::shared_ptr<core::Window> &window);
+        void processInput(const std::shared_ptr<hexen::engine::core::Window> &window);
         void addGUI(const std::shared_ptr<gui::IGUI> &gui);
     private:
 

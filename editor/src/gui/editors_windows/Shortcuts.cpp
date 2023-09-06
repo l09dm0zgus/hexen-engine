@@ -5,14 +5,14 @@
 #include <core/Types.h>
 #include "Shortcuts.h"
 
-std::map<edit::gui::Shortcuts::Keys ,std::function<void()>> edit::gui::Shortcuts::shortcuts;
+std::map<hexen::editor::gui::Shortcuts::Keys ,std::function<void()>> hexen::editor::gui::Shortcuts::shortcuts;
 
-void edit::gui::Shortcuts::addShortcut(const Keys &keys, const std::function<void()>& callback)
+void hexen::editor::gui::Shortcuts::addShortcut(const Keys &keys, const std::function<void()>& callback)
 {
     shortcuts[keys] = callback;
 }
 
-void edit::gui::Shortcuts::processInput()
+void hexen::editor::gui::Shortcuts::processInput()
 {
 
     for(const auto& shortcut : shortcuts)

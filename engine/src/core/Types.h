@@ -41,7 +41,7 @@
     #define HEXEN_INLINE                                  inline
 #endif
 
-namespace core
+namespace hexen::engine::core
 {
     using i8 = int8_t;
     using i16 = int16_t;
@@ -126,7 +126,7 @@ namespace core
         }
 
         virtual void execute() = 0;
-        virtual std::size_t getId() const = 0;
+        [[nodiscard]] virtual std::size_t getId() const = 0;
         virtual ~BaseDelegate() = default;
 
     };
@@ -154,7 +154,7 @@ namespace core
             process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
         }
 
-        std::size_t getId() const override
+        [[nodiscard]] std::size_t getId() const override
         {
             std::any object = callableMethod;
             return  object.type().hash_code();
@@ -179,7 +179,7 @@ namespace core
         }
 
 
-        std::size_t getId() const override
+        [[nodiscard]] std::size_t getId() const override
         {
             std::any object = callableFunction;
             return  object.type().hash_code();
@@ -211,7 +211,7 @@ namespace core
         }
 
 
-        std::size_t getId() const override
+        [[nodiscard]] std::size_t getId() const override
         {
             std::any object = functor;
             return  object.type().hash_code();
@@ -291,12 +291,12 @@ namespace core
             return Hash{}(std::forward<T>(key)) & mask();
         }
 
-        u32 mask() const noexcept
+        [[nodiscard]] u32 mask() const noexcept
         {
             HEXEN_ASSERT(slots.size() && !(slots.size() & (slots.size() -1)) , "table size must be a power of two");
             return slots.size() - 1;
         }
-        bool isShouldRehash() const
+        [[nodiscard]] bool isShouldRehash() const
         {
             // keep load factor below 0.75
             // this ratio is chosen carefully so that it can be optimized well:
@@ -400,7 +400,7 @@ namespace core
     public:
         HashTable() noexcept : slots{},count{0} , maxHashOffset{0}{}
 
-        HashTable(u32 capacity) noexcept : HashTable()
+        explicit HashTable(u32 capacity) noexcept : HashTable()
         {
             // Make sure the real capacity is a power of two >= 8.
             // We should also keep in mind that the number of elements
@@ -525,17 +525,17 @@ namespace core
             }
         }
 
-        u32 size() const noexcept
+        [[nodiscard]] u32 size() const noexcept
         {
             return count;
         }
 
-        bool empty() const
+        [[nodiscard]] bool empty() const
         {
             return size() == 0;
         };
 
-        double loadFactor() const
+        [[nodiscard]] double loadFactor() const
         {
             return double(size() / slots.size());
         }

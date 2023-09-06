@@ -6,7 +6,7 @@
 
 #include "SpriteComponent.h"
 #include "../../core/Types.h"
-namespace comp::rend
+namespace hexen::engine::components::graphics
 {
     class SpriteInstancedComponent : public SpriteComponent
     {
@@ -14,7 +14,7 @@ namespace comp::rend
         SpriteInstancedComponent(const std::string &vertexShaderPath , const std::string &fragmentShaderPath,core::i32 numberOfInstances,glm::mat4 *instancesMatrices);
         void draw() noexcept override;
     private:
-        core::rend::VertexBufferObject instancesBuffer;
+        hexen::engine::graphics::gl::VertexBufferObject instancesBuffer;
         core::i32 numberOfInstances{0};
         glm::mat4 *instancesMatrices{nullptr};
     };

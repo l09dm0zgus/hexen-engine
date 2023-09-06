@@ -2,7 +2,7 @@
 
 #include "BaseCounter.h"
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     class TaskScheduler;
 

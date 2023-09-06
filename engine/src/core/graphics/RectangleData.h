@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     enum RectangleDataSizes
     {

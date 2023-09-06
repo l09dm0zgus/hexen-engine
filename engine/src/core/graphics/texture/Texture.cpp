@@ -9,7 +9,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-void core::rend::Texture::setTextureParameters(int wrapMode, int filterMode)
+void hexen::engine::graphics::gl::Texture::setTextureParameters(int wrapMode, int filterMode)
 {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
@@ -18,18 +18,18 @@ void core::rend::Texture::setTextureParameters(int wrapMode, int filterMode)
 
 }
 
-core::rend::Texture::~Texture()
+hexen::engine::graphics::gl::Texture::~Texture()
 {
     SDL_DestroySurface(surface);
 }
 
-void core::rend::Texture::bind(u32 id) const
+void hexen::engine::graphics::gl::Texture::bind(core::u32 id) const
 {
     glActiveTexture(GL_TEXTURE0+id);
     glBindTexture(GL_TEXTURE_2D,textureId);
 }
 
-core::rend::Texture::Texture(const std::string &pathToImage, int wrapMode, int filterMode) : textureId(0)
+hexen::engine::graphics::gl::Texture::Texture(const std::string &pathToImage, int wrapMode, int filterMode) : textureId(0)
 {
     surface = IMG_Load(pathToImage.c_str());
     if(surface == nullptr)
@@ -50,7 +50,7 @@ core::rend::Texture::Texture(const std::string &pathToImage, int wrapMode, int f
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-core::u32 core::rend::Texture::getId() const noexcept
+hexen::engine::core::u32 hexen::engine::graphics::gl::Texture::getId() const noexcept
 {
     return textureId;
 }

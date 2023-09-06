@@ -9,7 +9,7 @@
 #include "editors_windows/SceneWindow.h"
 
 
-void edit::gui::Dockspace::draw()
+void hexen::editor::gui::Dockspace::draw()
 {
     id = ImGui::DockSpaceOverViewport();
     if(isAttachedWindow)
@@ -25,7 +25,7 @@ void edit::gui::Dockspace::draw()
 
 
 
-void edit::gui::Dockspace::begin()
+void hexen::editor::gui::Dockspace::begin()
 {
     for(auto& window : windows)
     {
@@ -33,7 +33,7 @@ void edit::gui::Dockspace::begin()
     }
 }
 
-void edit::gui::Dockspace::end()
+void hexen::editor::gui::Dockspace::end()
 {
     for(auto& window : windows)
     {
@@ -41,7 +41,7 @@ void edit::gui::Dockspace::end()
     }
 }
 
-void edit::gui::Dockspace::setWindowsInDockspace()
+void hexen::editor::gui::Dockspace::setWindowsInDockspace()
 {
 
     ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -82,14 +82,14 @@ void edit::gui::Dockspace::setWindowsInDockspace()
     ImGui::DockBuilderFinish(id);
 }
 
-void edit::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow,const DockingPosition &dockingPosition)
+void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow,const DockingPosition &dockingPosition)
 {
     windows.push_back(guiWindow);
     dockingPositions.set(guiWindow->getName(),dockingPosition);
     isAttachedWindow = true;
 }
 
-std::shared_ptr<edit::gui::GUIWindow> edit::gui::Dockspace::getWindow(const std::string &name)
+std::shared_ptr<hexen::editor::gui::GUIWindow> hexen::editor::gui::Dockspace::getWindow(const std::string &name)
 {
     auto it = std::find_if(windows.begin(), windows.end(),[name = name](const auto &window){
         return window->getName() == name;
@@ -108,7 +108,7 @@ std::shared_ptr<edit::gui::GUIWindow> edit::gui::Dockspace::getWindow(const std:
 }
 
 
-std::shared_ptr<edit::gui::FramebufferWindow> edit::gui::Dockspace::getSceneWindow()
+std::shared_ptr<hexen::editor::gui::FramebufferWindow> hexen::editor::gui::Dockspace::getSceneWindow()
 {
     auto  sceneWindow = getWindow("Scene");
     return std::dynamic_pointer_cast<FramebufferWindow>(sceneWindow);

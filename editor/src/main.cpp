@@ -4,7 +4,7 @@
 #include "application/Application.h"
 int main()
 {
-    edit::Application app;
+    hexen::editor::Application app;
     app.run();
 
     return 0;

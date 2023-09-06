@@ -4,7 +4,7 @@
 
 #include <thread>
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     BaseCounter::BaseCounter(TaskScheduler *const taskScheduler, u32 initialValue, u32 fiberSlots): taskScheduler(taskScheduler), value(initialValue), lock(0),freeSlots(freeSlotsStorage), freeSlotsStorage(),waitingFibers(waitingFibersStorage),fiberSlots(fiberSlots)
     {

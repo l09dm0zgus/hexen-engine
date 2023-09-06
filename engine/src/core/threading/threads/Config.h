@@ -51,7 +51,7 @@
 #	include <new>
 #endif
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
 #ifdef __cpp_lib_hardware_interference_size
 constexpr static size_t cacheLineSize = std::hardware_destructive_interference_size;

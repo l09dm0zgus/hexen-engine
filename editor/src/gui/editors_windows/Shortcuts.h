@@ -8,7 +8,7 @@
 #include <functional>
 #include <imgui.h>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class Shortcuts
     {

@@ -6,7 +6,7 @@
 
 #include "INativeFileDialog.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class FileDialog
     {

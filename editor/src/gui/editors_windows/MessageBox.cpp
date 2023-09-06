@@ -3,9 +3,9 @@
 //
 #include "MessageBox.h"
 
-std::vector<edit::gui::ImGuiMessageBox::MessageBoxData> edit::gui::ImGuiMessageBox::messagesBoxesData;
+std::vector<hexen::editor::gui::ImGuiMessageBox::MessageBoxData> hexen::editor::gui::ImGuiMessageBox::messagesBoxesData;
 
-bool edit::gui::bufferingBar(const char *label, float value, const ImVec2 &newSize, const ImU32 &backgroundColor,const ImU32 &foregroundColor)
+bool hexen::editor::gui::bufferingBar(const char *label, float value, const ImVec2 &newSize, const ImU32 &backgroundColor,const ImU32 &foregroundColor)
 {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     if (window->SkipItems)

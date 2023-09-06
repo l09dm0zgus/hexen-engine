@@ -7,7 +7,7 @@
 #include <filesystem>
 #include "../core/window/Window.h"
 
-void sys::input::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
+void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
 {
     SDL_Event event;
     while (window->pollEvents(&event))
@@ -34,7 +34,7 @@ void sys::input::InputSystem::processInput(const std::shared_ptr<core::Window> &
     window->pollEvents(&event);
 }
 
-sys::input::InputSystem::InputSystem(const std::string &pathToFile)
+hexen::engine::systems::InputSystem::InputSystem(const std::string &pathToFile)
 {
     path = pathToFile;
     if(std::filesystem::exists(pathToFile))
@@ -46,10 +46,10 @@ sys::input::InputSystem::InputSystem(const std::string &pathToFile)
         createMappingsFile();
     }
 
-    mouse = core::mem::make_unique<core::input::Mouse>();
+    mouse = core::memory::make_unique<core::input::Mouse>();
 }
 
-void sys::input::InputSystem::createMappingsFile()
+void hexen::engine::systems::InputSystem::createMappingsFile()
 {
     keyMappingsFile["mappings"]["number_of_actions"] = 0;
     keyMappingsFile["mappings"]["number_of_axis"] = 0;
@@ -58,7 +58,7 @@ void sys::input::InputSystem::createMappingsFile()
 
 }
 
-void sys::input::InputSystem::loadMappingsFile()
+void hexen::engine::systems::InputSystem::loadMappingsFile()
 {
     std::ifstream file(path);
     keyMappingsFile = nlohmann::json::parse(file);
@@ -77,42 +77,42 @@ void sys::input::InputSystem::loadMappingsFile()
     }
 }
 
-void sys::input::InputSystem::addGUI(const std::shared_ptr<gui::IGUI> &gui)
+void  hexen::engine::systems::InputSystem::addGUI(const std::shared_ptr<gui::IGUI> &gui)
 {
     guis.push_back(gui);
 }
 
-void sys::input::InputSystem::addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey)
+void  hexen::engine::systems::InputSystem::addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey)
 {
 
 }
 
-void sys::input::InputSystem::addNewAxisMapping(const sys::input::InputSystem::AxisMapping &axisMapping)
+void hexen::engine::systems::InputSystem::addNewAxisMapping(const hexen::engine::systems::InputSystem::AxisMapping &axisMapping)
 {
 
 }
 
-void sys::input::InputSystem::addNewActionMapping(const std::string &name, core::u32 sdlKey)
+void hexen::engine::systems::InputSystem::addNewActionMapping(const std::string &name, core::u32 sdlKey)
 {
 
 }
 
-void sys::input::InputSystem::addNewActionMapping(const sys::input::InputSystem::ActionMapping &actionMapping)
+void hexen::engine::systems::InputSystem::addNewActionMapping(const hexen::engine::systems::InputSystem::ActionMapping &actionMapping)
 {
 
 }
 
-void sys::input::InputSystem::bindAction(const std::string &name, const std::function<void()> &actionCallback)
+void hexen::engine::systems::InputSystem::bindAction(const std::string &name, const std::function<void()> &actionCallback)
 {
 
 }
 
-void sys::input::InputSystem::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback)
+void hexen::engine::systems::InputSystem::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback)
 {
 
 }
 
-void sys::input::InputSystem::changeMapping(const std::string &name, core::u32, core::u32 newKey)
+void hexen::engine::systems::InputSystem::changeMapping(const std::string &name, core::u32, core::u32 newKey)
 {
 
 }

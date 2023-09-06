@@ -11,27 +11,27 @@
 #include <profiling/Profiling.h>
 
 
-edit::EditorGameLoop::EditorGameLoop(const std::shared_ptr<core::Window> &newWindow) : core::GameLoop(newWindow)
+hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow) : hexen::engine::core::GameLoop(newWindow)
 {
-    systemManager = core::mem::make_shared<sys::EditorSystemsManager>();
+    systemManager = hexen::engine::core::memory::make_shared<hexen::editor::systems::EditorSystemsManager>();
 
     HEXEN_ASSERT(systemManager != nullptr , "System manager is nullptr!");
 
-    sys::EditorSystemsManager::setCurrentSystemManager(systemManager.get());
+    systems::EditorSystemsManager::setCurrentSystemManager(systemManager.get());
 
-    editorGui = core::mem::make_shared<gui::EditorGUI>(newWindow->getSDLWindow(),newWindow->getGLContext());
+    editorGui = engine::core::memory::make_shared<gui::EditorGUI>(newWindow->getSDLWindow(),newWindow->getGLContext());
 }
 
-edit::EditorGameLoop::~EditorGameLoop()
+hexen::editor::EditorGameLoop::~EditorGameLoop()
 {
-    sys::EditorSystemsManager::setCurrentSystemManager(nullptr);
+    systems::EditorSystemsManager::setCurrentSystemManager(nullptr);
 }
 
 
-void edit::EditorGameLoop::start()
+void hexen::editor::EditorGameLoop::start()
 {
     ADD_FUNCTION_TO_PROFILING
-    auto manager = std::dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
+    auto manager = std::dynamic_pointer_cast<systems::EditorSystemsManager>(systemManager);
 
     HEXEN_ASSERT(manager != nullptr , "Failed cast to EditorSystemsManager!");
 
@@ -41,7 +41,7 @@ void edit::EditorGameLoop::start()
 }
 
 
-void edit::EditorGameLoop::loop()
+void hexen::editor::EditorGameLoop::loop()
 {
     ADD_FUNCTION_TO_PROFILING
     initializeClock();
@@ -61,9 +61,9 @@ void edit::EditorGameLoop::loop()
             accumulator -= deltaTime;
         }
 
-        if(core::SceneManager::getCurrentScene() != nullptr)
+        if(engine::core::SceneManager::getCurrentScene() != nullptr)
         {
-            auto manager = std::dynamic_pointer_cast<sys::EditorSystemsManager>(systemManager);
+            auto manager = std::dynamic_pointer_cast<systems::EditorSystemsManager>(systemManager);
 
             HEXEN_ASSERT(manager != nullptr,"Failed cast pointer to EditorSystemsManager");
 
@@ -81,7 +81,7 @@ void edit::EditorGameLoop::loop()
         editorGui->end();
 
         window->swapBuffers();
-        ::sys::TaskSystem::waitForCounter();
+        engine::systems::TaskSystem::waitForCounter();
         END_FRAME
     }
 }

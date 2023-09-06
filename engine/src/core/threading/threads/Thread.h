@@ -21,7 +21,7 @@ typedef __darwin_pthread_t pthread_t;                 // NOLINT(modernize-use-us
 #	endif
 #endif
 
-namespace core::threading::thread
+namespace hexen::engine::core::threading::thread
 {
     // Create wrapper types so all our function signatures are the same
 #if defined(HEXEN_WIN32_THREADS)

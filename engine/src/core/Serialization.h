@@ -11,7 +11,7 @@
 #define _MAKE_FIELD_NAME(n) n##ReflextionData
 #define MAKE_FIELD_NAME(n) _MAKE_FIELD_NAME(n)
 
-namespace core
+namespace hexen::engine::core
 {
     template<typename T>
     struct ReflectionData

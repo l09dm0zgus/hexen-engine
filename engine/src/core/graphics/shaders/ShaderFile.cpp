@@ -6,7 +6,7 @@
 #include <SDL3/SDL.h>
 
 
-void core::rend::shader::ShaderFile::read(const std::string &path)
+void hexen::engine::graphics::shader::ShaderFile::read(const std::string &path)
 {
     SDL_RWops *file = SDL_RWFromFile(path.c_str(),"r");
     if(file != nullptr)
@@ -32,7 +32,7 @@ void core::rend::shader::ShaderFile::read(const std::string &path)
     SDL_RWclose(file);
 }
 
-char *core::rend::shader::ShaderFile::getContent()
+char *hexen::engine::graphics::shader::ShaderFile::getContent()
 {
     return const_cast<char *>(shaderText.c_str());
 }

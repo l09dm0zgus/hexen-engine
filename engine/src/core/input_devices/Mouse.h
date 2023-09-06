@@ -6,7 +6,7 @@
 #include <SDL3/SDL.h>
 #include <glm/vec2.hpp>
 
-namespace core::input
+namespace hexen::engine::core::input
 {
     class Mouse
     {

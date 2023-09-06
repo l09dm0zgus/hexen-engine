@@ -6,7 +6,7 @@
 #include <memory>
 #include "../core/threading/Threading.h"
 
-namespace sys
+namespace hexen::engine::systems
 {
     class TaskSystem
     {

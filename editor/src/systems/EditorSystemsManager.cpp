@@ -10,43 +10,31 @@
 #include "DebugRenderSystem.h"
 #include <profiling/Profiling.h>
 
-void edit::sys::EditorSystemsManager::setEditorGUI(const std::shared_ptr<gui::EditorGUI> &newEditorGUI)
+void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::shared_ptr<hexen::editor::gui::EditorGUI> &newEditorGUI)
 {
     editorGui  = newEditorGUI;
+    inputSystem->addGUI(newEditorGUI);
 }
 
-void edit::sys::EditorSystemsManager::processInput(const std::shared_ptr<core::Window> &window)
+void hexen::editor::systems::EditorSystemsManager::processInput(const std::shared_ptr<hexen::engine::core::Window> &window)
 {
     ADD_FUNCTION_TO_PROFILING
-    SDL_Event event;
-    while (window->pollEvents(&event))
-    {
-        editorGui->processEvent(&event);
-        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
-        {
-            window->close();
-        }
-        else if (event.type == SDL_EVENT_WINDOW_RESIZED)
-        {
-            window->resize();
-        }
-    }
-    window->pollEvents(&event);
+    inputSystem->processInput(window);
 }
 
-void edit::sys::EditorSystemsManager::start()
+void hexen::editor::systems::EditorSystemsManager::start()
 {
     ADD_FUNCTION_TO_PROFILING
 
     currentSceneWindowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
-    ::sys::RenderSystem::addCameraComponent<::comp::CameraComponent>(currentSceneWindowSize.x,currentSceneWindowSize.y,25.0f);
+    hexen::engine::systems::RenderSystem::addCameraComponent<hexen::engine::components::graphics::CameraComponent>(currentSceneWindowSize.x,currentSceneWindowSize.y,25.0f);
 
     SystemsManager::start();
 
-    ::sys::TaskSystem::addTask(::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::start);
+    hexen::engine::systems::TaskSystem::addTask(hexen::engine::core::threading::TaskPriority::High,debugRenderSystem.get(),&DebugRenderSystem::start);
 }
 
-void edit::sys::EditorSystemsManager::render(float alpha)
+void hexen::editor::systems::EditorSystemsManager::render(float alpha)
 {
     ADD_FUNCTION_TO_PROFILING
     SystemsManager::render(alpha);
@@ -54,8 +42,8 @@ void edit::sys::EditorSystemsManager::render(float alpha)
     auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
     if(windowSize != currentSceneWindowSize)
     {
-        ::sys::TaskSystem::addTask(::core::threading::TaskPriority::Normal,+[](glm::vec2 windowSize){
-            ::sys::RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x,windowSize.y);
+        hexen::engine::systems::TaskSystem::addTask(hexen::engine::core::threading::TaskPriority::Normal,+[](glm::vec2 windowSize){
+            hexen::engine::systems::RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x,windowSize.y);
         },windowSize);
 
         currentSceneWindowSize = windowSize;
@@ -63,20 +51,21 @@ void edit::sys::EditorSystemsManager::render(float alpha)
 
     debugRenderSystem->render(alpha);
 }
-void edit::sys::EditorSystemsManager::update(float deltaTime)
+void hexen::editor::systems::EditorSystemsManager::update(float deltaTime)
 {
     ADD_FUNCTION_TO_PROFILING
     SystemsManager::update(deltaTime);
 }
 
-void edit::sys::EditorSystemsManager::addDebugGrid()
+void hexen::editor::systems::EditorSystemsManager::addDebugGrid()
 {
     ADD_FUNCTION_TO_PROFILING
     debugRenderSystem->addDebugGrid();
 }
 
-edit::sys::EditorSystemsManager::EditorSystemsManager()
+hexen::editor::systems::EditorSystemsManager::EditorSystemsManager()
 {
     ADD_FUNCTION_TO_PROFILING
     debugRenderSystem = std::make_shared<DebugRenderSystem>(100);
+    inputSystem = hexen::engine::core::memory::make_unique<hexen::engine::systems::InputSystem>();
 }

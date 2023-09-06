@@ -6,11 +6,11 @@
 #include <filesystem>
 #include <iostream>
 
-edit::gui::DeleteFileWindow::DeleteFileWindow(std::string name) : DialogWindow(std::move(name))
+hexen::editor::gui::DeleteFileWindow::DeleteFileWindow(std::string name) : DialogWindow(std::move(name))
 {
 
 }
-void edit::gui::DeleteFileWindow::setPath(const std::string &pathToFile)
+void hexen::editor::gui::DeleteFileWindow::setPath(const std::string &pathToFile)
 {
     path = pathToFile;
 
@@ -20,7 +20,7 @@ void edit::gui::DeleteFileWindow::setPath(const std::string &pathToFile)
     };
 }
 
-void edit::gui::DeleteFileWindow::drawContent()
+void hexen::editor::gui::DeleteFileWindow::drawContent()
 {
     ImGui::Text(text.c_str(),path.c_str());
     ImGui::SameLine();

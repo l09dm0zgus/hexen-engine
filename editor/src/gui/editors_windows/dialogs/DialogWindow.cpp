@@ -4,38 +4,38 @@
 
 #include "DialogWindow.h"
 
-edit::gui::DialogWindow::DialogWindow(std::string name) : GUIWindow(name) {
+hexen::editor::gui::DialogWindow::DialogWindow(std::string name) : GUIWindow(name) {
 
 }
 
-edit::gui::DialogWindow::Action edit::gui::DialogWindow::getLastAction()
+hexen::editor::gui::DialogWindow::Action hexen::editor::gui::DialogWindow::getLastAction()
 {
     auto result = action;
     action = Action::NONE;
     return result;
 }
 
-void edit::gui::DialogWindow::setAction(edit::gui::DialogWindow::Action newAction)
+void hexen::editor::gui::DialogWindow::setAction(hexen::editor::gui::DialogWindow::Action newAction)
 {
     action = newAction;
 }
 
-void edit::gui::DialogWindow::setOpen(bool newIsOpen)
+void hexen::editor::gui::DialogWindow::setOpen(bool newIsOpen)
 {
     isOpen = newIsOpen;
 }
 
-void edit::gui::DialogWindow::begin()
+void hexen::editor::gui::DialogWindow::begin()
 {
 
 }
 
-void edit::gui::DialogWindow::end()
+void hexen::editor::gui::DialogWindow::end()
 {
 
 }
 
-void edit::gui::DialogWindow::draw()
+void hexen::editor::gui::DialogWindow::draw()
 {
     if(isOpen)
     {

@@ -7,29 +7,29 @@
 #include <algorithm>
 #include "../core/exceptions/ComponentNotFound.h"
 
-ent::Entity::Entity()
+hexen::engine::entity::Entity::Entity()
 {
     UUID = generateUUIDV4();
 }
 
-ent::Entity::Entity(std::string UUID)  : UUID(std::move(UUID))
+hexen::engine::entity::Entity::Entity(std::string UUID)  : UUID(std::move(UUID))
 {
 
 }
 
-std::string ent::Entity::getUUID() const noexcept
+std::string hexen::engine::entity::Entity::getUUID() const noexcept
 {
     return UUID;
 }
 
 template<class T>
-T ent::Entity::getComponentByUUID(const std::string &UUID)
+T hexen::engine::entity::Entity::getComponentByUUID(const std::string &UUID)
 {
     return dynamic_cast<T>(components[UUID]);
 }
 
 template<class T>
-T ent::Entity::getComponentByName(const std::string &name)
+T hexen::engine::entity::Entity::getComponentByName(const std::string &name)
 {
     auto component = std::find_if(components.cbegin(),components.cend(), [name = name](auto& comp)
     {
@@ -41,6 +41,6 @@ T ent::Entity::getComponentByName(const std::string &name)
     }
     else
     {
-        throw core::exc::ComponentNotFound(name);
+        throw hexen::engine::exceptions::ComponentNotFound(name);
     }
 }

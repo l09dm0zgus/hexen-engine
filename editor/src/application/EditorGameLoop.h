@@ -5,17 +5,17 @@
 #pragma once
 #include <core/application/GameLoop.h>
 
-namespace core
+namespace hexen::engine::core
 {
     class Window;
 }
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class EditorGUI;
 }
 
-namespace edit
+namespace hexen::editor
 {
     /**
     * @class EditorGameLoop
@@ -26,7 +26,7 @@ namespace edit
     */
 
 
-    class EditorGameLoop : public core::GameLoop
+    class EditorGameLoop : public hexen::engine::core::GameLoop
     {
     public:
 
@@ -35,7 +35,7 @@ namespace edit
        * and setting pointer to current system manager
        */
 
-        EditorGameLoop(const std::shared_ptr<core::Window> &newWindow);
+        explicit EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow);
 
 
         /**
@@ -61,14 +61,13 @@ namespace edit
         void start() override;
 
         /**
-        * @brief Executes a loop that continuously updates and renders the given window.
+        * @brief Executes a loop that continuously updates and renders.
         *
         * The loop function takes a shared pointer to a Window object and continuously performs
         * the following steps until the window is closed:
         * 1. Updates processing input events, updating game logic, etc.
         * 2. Renders objects, applying effects, etc.
         *
-        * @param window A shared pointer to the Window object to update and render.
         */
 
         void loop() override;

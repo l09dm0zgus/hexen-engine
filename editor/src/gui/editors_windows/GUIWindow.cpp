@@ -6,22 +6,22 @@
 
 #include <utility>
 
-edit::gui::GUIWindow::GUIWindow(std::string name) : name(std::move(name))
+hexen::editor::gui::GUIWindow::GUIWindow(std::string name) : name(std::move(name))
 {
     setWindowSize();
 }
 
-std::string edit::gui::GUIWindow::getName() const noexcept
+std::string hexen::editor::gui::GUIWindow::getName() const noexcept
 {
     return name;
 }
 
-void edit::gui::GUIWindow::setWindowSize()
+void hexen::editor::gui::GUIWindow::setWindowSize()
 {
     ImGui::SetNextWindowSize(ImVec2(size.x,size.y));
 }
 
-glm::vec2 edit::gui::GUIWindow::getSize() const noexcept
+glm::vec2 hexen::editor::gui::GUIWindow::getSize() const noexcept
 {
     return size;
 }

@@ -10,9 +10,9 @@
 #include <core/memory_pool/AllocatedObject.h>
 #include <vector>
 
-namespace edit
+namespace hexen::editor
 {
-class Project : public core::mem::AllocatedObject
+class Project : public hexen::engine::core::memory::AllocatedObject
     {
     private:
         std::string path;
@@ -20,7 +20,7 @@ class Project : public core::mem::AllocatedObject
         std::string pathToProjectFile;
         static std::unique_ptr<Project> currentProject;
         nlohmann::json fileProject;
-        core::u32 numberOfScenes{0};
+        hexen::engine::core::u32 numberOfScenes{0};
         void parseJSON();
         void setName();
         void setPath();
@@ -30,14 +30,14 @@ class Project : public core::mem::AllocatedObject
        static void setCurrentProject(const std::string &path,const std::string &name);
        static void setCurrentProject(const std::string &pathToProject);
        static Project * getCurrentProject()  noexcept;
-       void setVerion(const std::string &version);
-       std::string getVersion() const;
+       void setVersion(const std::string &version);
+       [[nodiscard]] std::string getVersion() const;
        void setName(const std::string &name);
-       std::string getName() const;
+       [[nodiscard]] std::string getName() const;
        void addScene(const std::string &sceneName);
        std::vector<std::string> getScenes();
        void setEngineVersion(const std::string &engineVersion);
-       std::string getEngineVersion() const;
+       [[nodiscard]] std::string getEngineVersion() const;
        void save();
        std::string getPath();
     };

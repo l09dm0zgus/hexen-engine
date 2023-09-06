@@ -5,12 +5,12 @@
 
 #include <glm/vec2.hpp>
 #include "../memory_pool/AllocatedObject.h"
-namespace core
+namespace hexen::engine::core
 {
-    class Grid : public mem::AllocatedObject
+    class Grid : public memory::AllocatedObject
     {
     public:
-        struct Cell : public mem::AllocatedObject
+        struct Cell : public memory::AllocatedObject
         {
             Cell() : position(0) , size(0){}
             Cell(float x, float y, float width, float height) : position(x, y),size(width,height) {}
@@ -20,7 +20,7 @@ namespace core
     private:
         glm::vec2 unitSize{0};
         float numberOfCells{0};
-        glm::vec2 size;
+        glm::vec2 size{};
         Cell **cells{nullptr};
     public:
 
@@ -54,7 +54,7 @@ namespace core
         */
 
 
-        glm::vec2  getUnitSize() const noexcept;
+        [[nodiscard]] glm::vec2  getUnitSize() const noexcept;
 
         /**
         * @brief Returns the number of cells in the grid.
@@ -69,7 +69,7 @@ namespace core
         * @see Grid
         */
 
-        float getNumberOfCells() const noexcept;
+        [[nodiscard]] float getNumberOfCells() const noexcept;
 
         /**
         * @brief Get the size of the Grid.
@@ -83,7 +83,7 @@ namespace core
         * @note This function is guaranteed to be noexcept.
         */
 
-        glm::vec2 getSize() const noexcept;
+        [[nodiscard]] glm::vec2 getSize() const noexcept;
 
         /**
         * @brief Checks if a given point is within the bounds of the cell in the grid.

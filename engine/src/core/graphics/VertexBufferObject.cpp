@@ -12,40 +12,40 @@
 #endif
 
 
-core::rend::VertexBufferObject::VertexBufferObject()
+hexen::engine::graphics::gl::VertexBufferObject::VertexBufferObject()
 {
     glGenBuffers(1,&object);
 }
 
 
-core::rend::VertexBufferObject::~VertexBufferObject()
+hexen::engine::graphics::gl::VertexBufferObject::~VertexBufferObject()
 {
     glDeleteBuffers(1, &object);
 }
 
 
 
-void core::rend::VertexBufferObject::bind(const RectangleData &rectangleData) const
+void hexen::engine::graphics::gl::VertexBufferObject::bind(const RectangleData &rectangleData) const
 {
     constexpr auto bufferSize = sizeof(float) * RectangleDataSizes::VERTICES_ARRAY_SIZE;
     glBindBuffer(GL_ARRAY_BUFFER,object);
     glBufferData(GL_ARRAY_BUFFER, bufferSize, rectangleData.vertices, GL_STATIC_DRAW);
 }
 
-void core::rend::VertexBufferObject::unbind()
+void hexen::engine::graphics::gl::VertexBufferObject::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
-void core::rend::VertexBufferObject::bind(size_t size, vptr data) const
+void hexen::engine::graphics::gl::VertexBufferObject::bind(size_t size, core::vptr data) const
 {
     glBindBuffer(GL_ARRAY_BUFFER, object);
     glBufferData(GL_ARRAY_BUFFER, static_cast<long>(size), data, GL_STATIC_DRAW);
 }
 
 
-void core::rend::VertexBufferObject::bind(const std::vector<glm::vec3> &vertices)
+void hexen::engine::graphics::gl::VertexBufferObject::bind(const std::vector<glm::vec3> &vertices)
 {
     auto bufferSize = vertices.size() * sizeof(glm::vec3);
     glBindBuffer(GL_ARRAY_BUFFER, object);

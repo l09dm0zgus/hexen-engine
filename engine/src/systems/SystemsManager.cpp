@@ -8,9 +8,9 @@
 #include <memory>
 
 
-sys::SystemsManager* sys::SystemsManager::currentSystemManager{nullptr};
+hexen::engine::systems::SystemsManager* hexen::engine::systems::SystemsManager::currentSystemManager{nullptr};
 
-void sys::SystemsManager::processInput(const std::shared_ptr<core::Window> &window)
+void hexen::engine::systems::SystemsManager::processInput(const std::shared_ptr<core::Window> &window)
 {
     //in future will be created InputSystem for handling input
     SDL_Event event;
@@ -29,7 +29,7 @@ void sys::SystemsManager::processInput(const std::shared_ptr<core::Window> &wind
     window->pollEvents(&event);
 }
 
-void sys::SystemsManager::start()
+void hexen::engine::systems::SystemsManager::start()
 {
     for(auto& system : renderSystems)
     {
@@ -43,7 +43,7 @@ void sys::SystemsManager::start()
 
 }
 
-void sys::SystemsManager::render(float alpha)
+void hexen::engine::systems::SystemsManager::render(float alpha)
 {
     for(auto& system : renderSystems)
     {
@@ -51,7 +51,7 @@ void sys::SystemsManager::render(float alpha)
     }
 }
 
-void sys::SystemsManager::update(float deltaTime)
+void hexen::engine::systems::SystemsManager::update(float deltaTime)
 {
     for(auto& system : gameplaySystems)
     {

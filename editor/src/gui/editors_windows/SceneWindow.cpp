@@ -5,12 +5,12 @@
 #include "SceneWindow.h"
 
 
-edit::gui::SceneWindow::SceneWindow(const std::string &name) : FramebufferWindow(name)
+hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : FramebufferWindow(name)
 {
 
 }
 
-void edit::gui::SceneWindow::render()
+void hexen::editor::gui::SceneWindow::render()
 {
     FramebufferWindow::render();
 }

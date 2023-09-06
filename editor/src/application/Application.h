@@ -6,7 +6,7 @@
 #include <core/window/Window.h>
 #include "EditorGameLoop.h"
 
-namespace edit
+namespace hexen::editor
 {
     class Application
     {
@@ -14,9 +14,9 @@ namespace edit
         Application();
         void run();
     private:
-        std::shared_ptr<core::Window> window;
+        std::shared_ptr< hexen::engine::core::Window> window;
         std::unique_ptr<EditorGameLoop> mainGameLoop;
-        core::Settings settings;
+        hexen::engine::core::Settings settings;
     };
 
 }

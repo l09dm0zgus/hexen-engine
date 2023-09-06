@@ -4,7 +4,7 @@
 
 #include "TransformComponent.h"
 
-void comp::TransformComponent::updateTransformMatrix()
+void hexen::engine::components::TransformComponent::updateTransformMatrix()
 {
     if(bIsDirty)
     {
@@ -19,34 +19,34 @@ void comp::TransformComponent::updateTransformMatrix()
 
 }
 
-glm::vec2 comp::TransformComponent::getScale() const noexcept
+glm::vec2 hexen::engine::components::TransformComponent::getScale() const noexcept
 {
     return scale;
 }
 
-glm::vec2 comp::TransformComponent::getPosition() const noexcept
+glm::vec2 hexen::engine::components::TransformComponent::getPosition() const noexcept
 {
     return position;
 }
 
-glm::vec2 comp::TransformComponent::getRotation() const noexcept
+glm::vec2 hexen::engine::components::TransformComponent::getRotation() const noexcept
 {
     return rotation;
 }
 
-glm::mat4 comp::TransformComponent::getTransformMatrix() const noexcept
+glm::mat4 hexen::engine::components::TransformComponent::getTransformMatrix() const noexcept
 {
     return transformMatrix;
 }
 
 
-void comp::TransformComponent::setLayer(float layer)
+void hexen::engine::components::TransformComponent::setLayer(float layer)
 {
     this->layer = layer/layerDivider;
     bIsDirty = false;
 }
 
-inline glm::mat4 comp::TransformComponent::rotate(const glm::mat4 &transformMatrix, const glm::vec2 &rotation) const
+inline glm::mat4 hexen::engine::components::TransformComponent::rotate(const glm::mat4 &transformMatrix, const glm::vec2 &rotation) const
 {
     const auto transformX = glm::rotate(glm::mat4(1.0f),rotation.x,glm::vec3(1.0f, 0.0f, 0.0f));
     const auto transformY = glm::rotate(glm::mat4(1.0f),rotation.y,glm::vec3(0.0f, 1.0f, 0.0f));
@@ -55,64 +55,64 @@ inline glm::mat4 comp::TransformComponent::rotate(const glm::mat4 &transformMatr
     return transformMatrix * rotationMatrix;
 }
 
-float comp::TransformComponent::getLayer() const noexcept
+float hexen::engine::components::TransformComponent::getLayer() const noexcept
 {
     return layer;
 }
 
-comp::TransformComponent::TransformComponent(float layer) : layer(layer)
+hexen::engine::components::TransformComponent::TransformComponent(float layer) : layer(layer)
 {
 }
 
-comp::TransformComponent::TransformComponent(const glm::vec2 &newPosition)
+hexen::engine::components::TransformComponent::TransformComponent(const glm::vec2 &newPosition)
 {
     setPosition(newPosition);
 }
 
-comp::TransformComponent::TransformComponent(const glm::mat4 &newTransform) : transformMatrix(newTransform)
+hexen::engine::components::TransformComponent::TransformComponent(const glm::mat4 &newTransform) : transformMatrix(newTransform)
 {
 
 }
 
-comp::TransformComponent::TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation)
+hexen::engine::components::TransformComponent::TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation)
 {
     setPosition(newPosition);
     setRotation(newRotation);
 }
 
-comp::TransformComponent::TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation,const glm::vec2 &newScale)
+hexen::engine::components::TransformComponent::TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation,const glm::vec2 &newScale)
 {
     setPosition(newPosition);
     setRotation(newRotation);
     setScale(newScale);
 }
 
-comp::TransformComponent::TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation,const glm::vec2 &newScale, float layer) : TransformComponent(newPosition,newRotation,newScale)
+hexen::engine::components::TransformComponent::TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation,const glm::vec2 &newScale, float layer) : TransformComponent(newPosition,newRotation,newScale)
 {
     this->layer = layer;
 }
 
-void comp::TransformComponent::start()
+void hexen::engine::components::TransformComponent::start()
 {
 
 }
 
-void comp::TransformComponent::update(float deltaTime)
+void hexen::engine::components::TransformComponent::update(float deltaTime)
 {
 
 }
 
-comp::TransformComponent::TransformComponent(const comp::TransformComponent &transformComponent): Component(transformComponent)
+hexen::engine::components::TransformComponent::TransformComponent(const hexen::engine::components::TransformComponent &transformComponent): Component(transformComponent)
 {
     copy(transformComponent);
 }
 
-comp::TransformComponent::TransformComponent(comp::TransformComponent &&transformComponent) noexcept
+hexen::engine::components::TransformComponent::TransformComponent(hexen::engine::components::TransformComponent &&transformComponent) noexcept
 {
     move(std::move(transformComponent));
 }
 
-void comp::TransformComponent::copy(const comp::TransformComponent &transformComponent)
+void hexen::engine::components::TransformComponent::copy(const hexen::engine::components::TransformComponent &transformComponent)
 {
     setPosition(transformComponent.getPosition());
     setRotation(transformComponent.getRotation());
@@ -120,7 +120,7 @@ void comp::TransformComponent::copy(const comp::TransformComponent &transformCom
     setLayer(transformComponent.getLayer());
 }
 
-void comp::TransformComponent::move(comp::TransformComponent &&transformComponent) noexcept
+void hexen::engine::components::TransformComponent::move(hexen::engine::components::TransformComponent &&transformComponent) noexcept
 {
     setPosition(transformComponent.getPosition());
     setRotation(transformComponent.getRotation());
@@ -128,7 +128,7 @@ void comp::TransformComponent::move(comp::TransformComponent &&transformComponen
     setLayer(transformComponent.getLayer());
 }
 
-comp::TransformComponent &comp::TransformComponent::operator=(const comp::TransformComponent &transformComponent)
+hexen::engine::components::TransformComponent &hexen::engine::components::TransformComponent::operator=(const hexen::engine::components::TransformComponent &transformComponent)
 {
     if(this == &transformComponent)
     {
@@ -138,7 +138,7 @@ comp::TransformComponent &comp::TransformComponent::operator=(const comp::Transf
     return *this;
 }
 
-comp::TransformComponent &comp::TransformComponent::operator=(comp::TransformComponent &&transformComponent) noexcept
+hexen::engine::components::TransformComponent &hexen::engine::components::TransformComponent::operator=(hexen::engine::components::TransformComponent &&transformComponent) noexcept
 {
     if(this == &transformComponent)
     {
@@ -148,30 +148,29 @@ comp::TransformComponent &comp::TransformComponent::operator=(comp::TransformCom
     return *this;
 }
 
-bool comp::TransformComponent::isDirty() const noexcept
+bool hexen::engine::components::TransformComponent::isDirty() const noexcept
 {
     return bIsDirty;
 }
 
 template<class T>
-void comp::TransformComponent::setScale(T &&newScale) noexcept
+void hexen::engine::components::TransformComponent::setScale(T &&newScale) noexcept
 {
     scale = std::forward<T>(newScale);
     bIsDirty = true;
 }
 
 template<class T>
-void comp::TransformComponent::setRotation(T &&newRotation) noexcept
+void hexen::engine::components::TransformComponent::setRotation(T &&newRotation) noexcept
 {
     rotation = std::forward<T>(newRotation);
     bIsDirty = true;
 }
 
 template<class T>
-void comp::TransformComponent::setPosition(T &&newPosition) noexcept
+void hexen::engine::components::TransformComponent::setPosition(T &&newPosition) noexcept
 {
     position = std::forward<T>(newPosition);
-
     bIsDirty = true;
 }
 

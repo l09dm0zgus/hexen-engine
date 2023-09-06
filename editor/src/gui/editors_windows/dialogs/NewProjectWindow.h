@@ -7,12 +7,12 @@
 #include <core/Types.h>
 #include "DialogWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class NewProjectWindow : public DialogWindow
     {
     private:
-        enum ArraySizes : core::u64
+        enum ArraySizes : engine::core::u64
         {
             PROJECT_NAME_SIZE = 256,
             PATH_TO_PROJECT_SIZE = 512,

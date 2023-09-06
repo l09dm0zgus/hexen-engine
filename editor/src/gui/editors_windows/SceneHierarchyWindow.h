@@ -7,16 +7,16 @@
 #include <core/scene/SceneManager.h>
 #include "GUIWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class SceneHierarchyWindow : public GUIWindow
     {
     private:
         bool isOpen{true};
-        void drawEntityChilds(core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &&childs);
-        void drawEntity(const std::shared_ptr<ent::SceneEntity> &entity);
-        void startDragAndDropSource(const std::shared_ptr<ent::SceneEntity>& sceneEntity);
-        void startDragAndDropTarget(std::shared_ptr<ent::SceneEntity>&& sceneEntity);
+        void drawEntityChilds(hexen::engine::core::HashTable<std::string,std::shared_ptr<hexen::engine::entity::SceneEntity>> &&childs);
+        void drawEntity(const std::shared_ptr<hexen::engine::entity::SceneEntity> &entity);
+        void startDragAndDropSource(const std::shared_ptr<hexen::engine::entity::SceneEntity>& sceneEntity);
+        void startDragAndDropTarget(std::shared_ptr<hexen::engine::entity::SceneEntity>&& sceneEntity);
         void drawSearchBar();
         void drawContextMenu();
         void drawAddSceneEntity();
@@ -24,11 +24,11 @@ namespace edit::gui
         void drawDelete();
         void checkHoveredItem();
 
-        std::shared_ptr<core::Scene> scene;
-        std::shared_ptr<ent::SceneEntity>  hoveredNode;
+        std::shared_ptr<hexen::engine::core::Scene> scene;
+        std::shared_ptr<hexen::engine::entity::SceneEntity>  hoveredNode;
         std::string searchQuery;
-        core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> findedChilds;
-        core::HashTable<std::string,bool> isNodeNameEditing;
+        hexen::engine::core::HashTable<std::string,std::shared_ptr<hexen::engine::entity::SceneEntity>> findedChilds;
+        hexen::engine::core::HashTable<std::string,bool> isNodeNameEditing;
         const std::string PAYLOAD_NAME{"SCENE_HIERARCHY_PAYLOAD"};
         bool isItemHovered{false};
     public:

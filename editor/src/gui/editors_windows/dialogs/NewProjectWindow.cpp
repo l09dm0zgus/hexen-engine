@@ -9,23 +9,23 @@
 #include "../MessageBox.h"
 #include "../../../project/Project.h"
 
-edit::gui::NewProjectWindow::NewProjectWindow(std::string name) : DialogWindow(std::move(name))
+hexen::editor::gui::NewProjectWindow::NewProjectWindow(std::string name) : DialogWindow(std::move(name))
 {
     clearStrings();
 }
 
-std::string edit::gui::NewProjectWindow::getProjectPath()
+std::string hexen::editor::gui::NewProjectWindow::getProjectPath()
 {
     return projectPath;
 }
 
-void edit::gui::NewProjectWindow::clearStrings()
+void hexen::editor::gui::NewProjectWindow::clearStrings()
 {
     memset(projectName,'\0',PROJECT_NAME_SIZE);
     memset(pathToProject,'\0',PATH_TO_PROJECT_SIZE);
 }
 
-void edit::gui::NewProjectWindow::drawContent()
+void hexen::editor::gui::NewProjectWindow::drawContent()
 {
     ImGui::Text("Project name:");
     ImGui::SameLine();

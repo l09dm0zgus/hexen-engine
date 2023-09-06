@@ -11,9 +11,9 @@
 #include <core/graphics/VertexAttributes.h>
 #include <core/graphics/VertexArrayObject.h>
 
-namespace edit::comp::rend
+namespace hexen::editor::components::graphics
 {
-    class DebugGridComponent : public ::comp::rend::RenderComponent
+class DebugGridComponent : public hexen::engine::components::graphics::RenderComponent
     {
     private:
 
@@ -25,7 +25,7 @@ namespace edit::comp::rend
         * The Grid class represents a rectangular grid composed of cells.
         */
 
-        std::unique_ptr<core::Grid> grid;
+        std::unique_ptr<hexen::engine::core::Grid> grid;
 
         /**
         * @brief The shader program variable.
@@ -36,7 +36,7 @@ namespace edit::comp::rend
         * Make sure to check for nullptr before using this variable to avoid null pointer access.
         */
 
-        std::shared_ptr<core::rend::shader::ShaderProgram> shaderProgram{nullptr};
+        std::shared_ptr<hexen::engine::graphics::gl::shader::ShaderProgram> shaderProgram{nullptr};
 
         /**
         * @brief Represents a Vertex Buffer Object (VBO).
@@ -45,7 +45,7 @@ namespace edit::comp::rend
         * It is commonly used in computer graphics to efficiently store and render geometric data on the GPU.
         */
 
-        core::rend::VertexBufferObject VBO;
+        hexen::engine::graphics::gl::VertexBufferObject VBO;
         /**
         * @brief The vertices variable represents a collection of vertices in a geometric shape.
         *
@@ -92,10 +92,9 @@ namespace edit::comp::rend
         * with a VAO (Vertex Array Object) and a VBO (Vertex Buffer Object) to render complex shapes.
         */
 
-        core::rend::ElementsBufferObject EBO;
+        hexen::engine::graphics::gl::ElementsBufferObject EBO;
 
-
-        core::rend::VertexAttributes attributes;
+        hexen::engine::graphics::gl::VertexAttributes attributes;
 
         /**
         * @brief Vertex Array Object
@@ -107,9 +106,8 @@ namespace edit::comp::rend
         * attributes and is used for efficient rendering of dynamic objects.
         */
 
-        core::rend::VertexArrayObject VAO;
-
-        core::i32 lenght{0};
+        hexen::engine::graphics::gl::VertexArrayObject VAO;
+        hexen::engine::core::i32 lenght{0};
 
     public:
 

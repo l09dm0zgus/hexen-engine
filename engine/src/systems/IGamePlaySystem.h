@@ -8,9 +8,9 @@
 #include "../core/memory_pool/MemoryPool.h"
 
 
-namespace sys
+namespace hexen::engine::systems
 {
-    class IGamePlaySystem : public core::mem::AllocatedObject
+    class IGamePlaySystem : public core::memory::AllocatedObject
     {
     public:
 
@@ -33,7 +33,7 @@ namespace sys
         * and rules. It provides a set of methods that should be implemented by any concrete game play system.
         */
 
-        virtual ~IGamePlaySystem() = default;
+        ~IGamePlaySystem() override = default;
 
         /**
         * @class IGamePlaySystem

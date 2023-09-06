@@ -10,7 +10,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-void comp::rend::SpriteInstancedComponent::draw() noexcept
+void hexen::engine::components::graphics::SpriteInstancedComponent::draw() noexcept
 {
 
     shaderProgram->use();
@@ -21,7 +21,7 @@ void comp::rend::SpriteInstancedComponent::draw() noexcept
     glDrawElementsInstanced(GL_TRIANGLES, 0, 6, nullptr,numberOfInstances);
 }
 
-comp::rend::SpriteInstancedComponent::SpriteInstancedComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath,core::i32 numberOfInstances, glm::mat4 *instancesMatrices)  : SpriteComponent(vertexShaderPath,fragmentShaderPath) , numberOfInstances(numberOfInstances),instancesMatrices(instancesMatrices)
+hexen::engine::components::graphics::SpriteInstancedComponent::SpriteInstancedComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath,core::i32 numberOfInstances, glm::mat4 *instancesMatrices)  : SpriteComponent(vertexShaderPath,fragmentShaderPath) , numberOfInstances(numberOfInstances),instancesMatrices(instancesMatrices)
 {
     VAO.bind();
     instancesBuffer.bind(numberOfInstances*sizeof(glm::mat4), (void *) &instancesMatrices[0]);

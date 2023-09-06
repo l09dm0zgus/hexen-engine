@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <nlohmann/json.hpp>
 
-namespace core
+namespace hexen::engine::core
 {
     class Settings
     {
@@ -36,16 +36,16 @@ namespace core
 
         Settings();
 
-        std::string getRenderAPI() const;
+        [[nodiscard]] std::string getRenderAPI() const;
         void setRenderAPI(const std::string &renderAPI);
 
-        std::string getPathToIcon() const;
+        [[nodiscard]] std::string getPathToIcon() const;
         void setPathToIcon(const std::string &pathToIcon);
 
-        WindowSettings getWindowSettings() const;
+        [[nodiscard]] WindowSettings getWindowSettings() const;
         void setWindowSettings(const WindowSettings &windowSettings);
 
-        OpenGLSettings getOpenGLSettings() const;
+        [[nodiscard]] OpenGLSettings getOpenGLSettings() const;
         void setOpenGLSettings(const OpenGLSettings &openGlSettings);
 
 

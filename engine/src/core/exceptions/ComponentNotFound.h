@@ -3,16 +3,14 @@
 //
 
 #pragma once
-
-
 #include <string>
-namespace core::exc
+namespace hexen::engine::exceptions
 {
     class ComponentNotFound : std::exception
     {
     public:
-        ComponentNotFound(std::string componentName);
-        const char* what() const noexcept override;
+        explicit ComponentNotFound(std::string componentName);
+        [[nodiscard]] const char* what() const noexcept override;
     private:
         std::string componentName;
     };

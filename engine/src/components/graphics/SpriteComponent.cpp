@@ -9,7 +9,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-void comp::rend::SpriteComponent::draw() noexcept
+void hexen::engine::components::graphics::SpriteComponent::draw() noexcept
 {
     shaderProgram->setMatrix4Uniform("model" , getTransformMatrix());
     shaderProgram->setMatrix4Uniform("projection",getProjectionMatrix());
@@ -21,14 +21,14 @@ void comp::rend::SpriteComponent::draw() noexcept
 
 }
 
-void comp::rend::SpriteComponent::addTexture(const std::string &pathToImage)
+void hexen::engine::components::graphics::SpriteComponent::addTexture(const std::string &pathToImage)
 {
     shaderProgram->use();
     shaderProgram->setIntUniform("textures[" +std::to_string(textures.size())+"]",static_cast<core::i32>(textures.size()));
-    textures.push_back(core::mem::make_shared<core::rend::Texture>(pathToImage));
+    textures.push_back(core::memory::make_shared<hexen::engine::graphics::gl::Texture>(pathToImage));
 }
 
-void comp::rend::SpriteComponent::bindTextures()
+void hexen::engine::components::graphics::SpriteComponent::bindTextures()
 {
     for(int i = 0;i<textures.size();i++)
     {
@@ -36,10 +36,10 @@ void comp::rend::SpriteComponent::bindTextures()
     }
 }
 
-comp::rend::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)  : RenderComponent()
+hexen::engine::components::graphics::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)  : RenderComponent()
 {
     textures.reserve(5);
-    shaderProgram = core::mem::make_shared<core::rend::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);
+    shaderProgram = core::memory::make_shared<hexen::engine::graphics::gl::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);
     VAO.bind();
     VBO.bind(vertices);
     EBO.bind(vertices);

@@ -6,12 +6,12 @@
 
 #include "../Types.h"
 
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     class RenderBufferObject
     {
     private:
-        u32 object{0};
+        core::u32 object{0};
     public:
 
         /**
@@ -25,7 +25,7 @@ namespace core::rend
         * @note This method is constant and noexcept.
         */
 
-        u32 getID() const noexcept;
+        [[nodiscard]] core::u32 getID() const noexcept;
 
         /**
         * @class RenderBufferObject

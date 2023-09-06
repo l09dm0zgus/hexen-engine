@@ -6,13 +6,13 @@
 #include <core/Types.h>
 #include "editors_windows/GUIWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class  FramebufferWindow;
     class Dockspace
     {
     public:
-        enum class DockingPosition : core::u8
+        enum class DockingPosition : hexen::engine::core::u8
         {
            UP,
            DOWN,
@@ -127,11 +127,12 @@ namespace edit::gui
 
         void setWindowsInDockspace();
 
-        core::u32 id;
-        core::u32 dockUpId{0};
-        core::u32 dockDownId{0};
-        core::u32 dockLeftId{0};
-        core::u32 dockRightId{0};
+        hexen::engine::core::u32 id;
+        hexen::engine::core::u32 dockUpId{0};
+        hexen::engine::core::u32 dockDownId{0};
+        hexen::engine::core::u32 dockLeftId{0};
+        hexen::engine::core::u32 dockRightId{0};
+
         /**
         * @brief Represents a collection of windows in a graphical user interface.
         *
@@ -147,6 +148,6 @@ namespace edit::gui
 
         std::vector<std::shared_ptr<GUIWindow>> windows;
 
-        core::HashTable<std::string,DockingPosition> dockingPositions;
+        hexen::engine::core::HashTable<std::string,DockingPosition> dockingPositions;
     };
 }

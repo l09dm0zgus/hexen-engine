@@ -8,23 +8,23 @@
 #else
 #include <GLES3/gl31.h>
 #endif
-core::rend::VertexArrayObject::VertexArrayObject()
+hexen::engine::graphics::gl::VertexArrayObject::VertexArrayObject()
 {
     glGenVertexArrays(1,&object);
 }
 
-void core::rend::VertexArrayObject::bind() const
+void hexen::engine::graphics::gl::VertexArrayObject::bind() const
 {
     glBindVertexArray(object);
 
 }
 
-core::rend::VertexArrayObject::~VertexArrayObject()
+hexen::engine::graphics::gl::VertexArrayObject::~VertexArrayObject()
 {
     glDeleteVertexArrays(1, &object);
 }
 
-void core::rend::VertexArrayObject::unbind()
+void hexen::engine::graphics::gl::VertexArrayObject::unbind()
 {
     glBindVertexArray(0);
 }

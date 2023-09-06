@@ -5,7 +5,7 @@
 
 #include "FramebufferWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class SceneWindow : public FramebufferWindow
     {

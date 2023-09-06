@@ -8,46 +8,46 @@
 #include <profiling/Profiling.h>
 
 
-edit::sys::DebugRenderSystem::DebugRenderSystem(core::u32 sizeOfVectors)
+hexen::editor::systems::DebugRenderSystem::DebugRenderSystem(hexen::engine::core::u32 sizeOfVectors)
 {
 
 }
 
-void edit::sys::DebugRenderSystem::start()
+void hexen::editor::systems::DebugRenderSystem::start()
 {
 
 }
-void edit::sys::DebugRenderSystem::render(float alpha)
+void hexen::editor::systems::DebugRenderSystem::render(float alpha)
 {
     ADD_FUNCTION_TO_PROFILING
     if (debugGridComponent != nullptr)
     {
-        ::sys::TaskSystem::addTask<DebugRenderSystem,void,::comp::rend::RenderComponent*>(core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateModelMatrix,debugGridComponent.get());
-        ::sys::TaskSystem::addTask<DebugRenderSystem,void,::comp::rend::RenderComponent*>(core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateViewAndProjectionMatrices,debugGridComponent.get());;
+        hexen::engine::systems::TaskSystem::addTask<DebugRenderSystem,void,hexen::engine::components::graphics::RenderComponent*>(hexen::engine::core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateModelMatrix,debugGridComponent.get());
+        hexen::engine::systems::TaskSystem::addTask<DebugRenderSystem,void,hexen::engine::components::graphics::RenderComponent*>(hexen::engine::core::threading::TaskPriority::Normal, this,&DebugRenderSystem::updateViewAndProjectionMatrices,debugGridComponent.get());;
         debugGridComponent->draw();
     }
 }
-void edit::sys::DebugRenderSystem::addDebugGrid()
+void hexen::editor::systems::DebugRenderSystem::addDebugGrid()
 {
     ADD_FUNCTION_TO_PROFILING
     if(debugGridComponent == nullptr)
     {
-        debugGridComponent = core::mem::make_shared<comp::rend::DebugGridComponent>("shaders/BaseVertexShader.glsl","shaders/DebugLineFragmentShader.glsl");
-        debugGridTransform = core::mem::make_shared<::comp::TransformComponent>(glm::vec2(0.0f));
+        debugGridComponent = hexen::engine::core::memory::make_shared<hexen::editor::components::graphics::DebugGridComponent>("shaders/BaseVertexShader.glsl","shaders/DebugLineFragmentShader.glsl");
+        debugGridTransform = hexen::engine::core::memory::make_shared<hexen::engine::components::TransformComponent>(glm::vec2(0.0f));
         debugGridTransform->updateTransformMatrix();
     }
 }
 
-void edit::sys::DebugRenderSystem::updateModelMatrix(::comp::rend::RenderComponent *renderComponent)
+void hexen::editor::systems::DebugRenderSystem::updateModelMatrix(hexen::engine::components::graphics::RenderComponent *renderComponent)
 {
     ADD_FUNCTION_TO_PROFILING
     renderComponent->setTransformMatrix(debugGridTransform->getTransformMatrix());
 }
 
-void edit::sys::DebugRenderSystem::updateViewAndProjectionMatrices(::comp::rend::RenderComponent *renderComponent)
+void hexen::editor::systems::DebugRenderSystem::updateViewAndProjectionMatrices(hexen::engine::components::graphics::RenderComponent *renderComponent)
 {
     ADD_FUNCTION_TO_PROFILING
-    auto camera = ::sys::RenderSystem::getMainCamera();
+    auto camera = hexen::engine::systems::RenderSystem::getMainCamera();
     HEXEN_ASSERT(camera != nullptr , "Main camera is nullptr!\n");
 
     renderComponent->setProjectionMatrix(camera->getProjectionMatrix());

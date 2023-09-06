@@ -9,10 +9,10 @@
 #include <GL/glew.h>
 
 
-edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWindow(name)
+hexen::editor::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWindow(name)
 {
     frameBufferObject.bind();
-    frameBufferTexture = core::mem::make_unique<core::rend::FrameBufferTexture>(glm::vec2(size.x,size.y));
+    frameBufferTexture = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::FrameBufferTexture>(glm::vec2(size.x,size.y));
     frameBufferObject.bindRenderBuffer();
     frameBufferObject.setSize(size);
 
@@ -27,7 +27,7 @@ edit::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWi
 }
 
 
-void edit::gui::FramebufferWindow::draw()
+void hexen::editor::gui::FramebufferWindow::draw()
 {
     ImGui::Begin(getName().c_str());
     {
@@ -53,33 +53,33 @@ void edit::gui::FramebufferWindow::draw()
 
 
 
-void edit::gui::FramebufferWindow::clear()
+void hexen::editor::gui::FramebufferWindow::clear()
 {
     glClearColor(0.39f, 0.58f, 0.93f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 
-void edit::gui::FramebufferWindow::end()
+void hexen::editor::gui::FramebufferWindow::end()
 {
 
 }
 
 
 
-void edit::gui::FramebufferWindow::begin()
+void hexen::editor::gui::FramebufferWindow::begin()
 {
 
 
 }
 
-void edit::gui::FramebufferWindow::render()
+void hexen::editor::gui::FramebufferWindow::render()
 {
     clear();
 }
 
 
-void edit::gui::FramebufferWindow::bindFramebuffer()
+void hexen::editor::gui::FramebufferWindow::bindFramebuffer()
 {
     frameBufferObject.bind();
     render();
@@ -87,7 +87,7 @@ void edit::gui::FramebufferWindow::bindFramebuffer()
 }
 
 
-void edit::gui::FramebufferWindow::unbindFramebuffer()
+void hexen::editor::gui::FramebufferWindow::unbindFramebuffer()
 {
 
     glDisable(GL_DEPTH_TEST);

@@ -8,13 +8,13 @@
 #include "../../systems/TaskSystem.h"
 #include "../../systems/RenderSystem.h"
 
-void core::GameLoop::start()
+void hexen::engine::core::GameLoop::start()
 {
-    sys::SystemsManager::addRenderSystem<sys::RenderSystem>(100);
+    systems::SystemsManager::addRenderSystem<systems::RenderSystem>(100);
     systemManager->start();
 }
 
-void core::GameLoop::loop()
+void hexen::engine::core::GameLoop::loop()
 {
     initializeClock();
 
@@ -39,13 +39,13 @@ void core::GameLoop::loop()
         window->swapBuffers();
         //render
         systemManager->render(getAlpha());
-        sys::TaskSystem::waitForCounter();
+        systems::TaskSystem::waitForCounter();
     }
 }
 
 
 
-void core::GameLoop::initializeClock()
+void hexen::engine::core::GameLoop::initializeClock()
 {
     framesStart = std::chrono::steady_clock::now();
 
@@ -53,7 +53,7 @@ void core::GameLoop::initializeClock()
 
 
 
-void core::GameLoop::setFrameStart()
+void hexen::engine::core::GameLoop::setFrameStart()
 {
     auto currentTime = std::chrono::steady_clock::now();
 
@@ -65,7 +65,7 @@ void core::GameLoop::setFrameStart()
 
 
 
-void core::GameLoop::setAccumulator()
+void hexen::engine::core::GameLoop::setAccumulator()
 {
     if(accumulator > msPerUpdate)
     {
@@ -73,25 +73,25 @@ void core::GameLoop::setAccumulator()
     }
 }
 
-double core::GameLoop::getAlpha()
+double hexen::engine::core::GameLoop::getAlpha()
 {
     return accumulator / deltaTime;
 }
 
-core::GameLoop::GameLoop(const std::shared_ptr<Window> &newWindow)
+hexen::engine::core::GameLoop::GameLoop(const std::shared_ptr<Window> &newWindow)
 {
     //initialize thread and fiber pool
-    sys::TaskSystem::initialize();
+    systems::TaskSystem::initialize();
 
-    systemManager = mem::make_shared<sys::SystemsManager>();
+    systemManager = memory::make_shared<systems::SystemsManager>();
 
     HEXEN_ASSERT(systemManager != nullptr , "System manager is nullptr!");
 
-    sys::SystemsManager::setCurrentSystemManager(systemManager.get());
+    systems::SystemsManager::setCurrentSystemManager(systemManager.get());
     window = newWindow;
 }
 
-core::GameLoop::~GameLoop()
+hexen::engine::core::GameLoop::~GameLoop()
 {
-    sys::SystemsManager::setCurrentSystemManager(nullptr);
+    systems::SystemsManager::setCurrentSystemManager(nullptr);
 }

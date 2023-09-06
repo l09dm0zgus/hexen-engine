@@ -4,7 +4,7 @@
 #include <limits>
 #include "../../Types.h"
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
 
     class TaskScheduler;

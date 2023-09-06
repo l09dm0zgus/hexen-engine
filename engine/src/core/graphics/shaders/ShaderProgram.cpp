@@ -14,7 +14,7 @@
 
 
 
-core::rend::shader::ShaderProgram::ShaderProgram(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
+hexen::engine::graphics::gl::shader::ShaderProgram::ShaderProgram(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
 {
     vertexShaderFile.read(vertexShaderPath);
     fragmentShaderFile.read(fragmentShaderPath);
@@ -24,7 +24,7 @@ core::rend::shader::ShaderProgram::ShaderProgram(const std::string &vertexShader
 }
 
 
-void core::rend::shader::ShaderProgram::compileVertexShader()
+void hexen::engine::graphics::gl::shader::ShaderProgram::compileVertexShader()
 {
     vertexShaderText = vertexShaderFile.getContent();
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -34,9 +34,9 @@ void core::rend::shader::ShaderProgram::compileVertexShader()
 }
 
 
-inline void core::rend::shader::ShaderProgram::showCompilerLog(u32 shader) const noexcept
+inline void hexen::engine::graphics::gl::shader::ShaderProgram::showCompilerLog(core::u32 shader) const noexcept
 {
-    i32 success{0};
+    core::i32 success{0};
     char infoLog[512];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if(!success)
@@ -48,7 +48,7 @@ inline void core::rend::shader::ShaderProgram::showCompilerLog(u32 shader) const
 
 
 
-inline void core::rend::shader::ShaderProgram::compileFragmentShader()
+inline void hexen::engine::graphics::gl::shader::ShaderProgram::compileFragmentShader()
 {
     fragmentShaderText = fragmentShaderFile.getContent();
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -59,14 +59,14 @@ inline void core::rend::shader::ShaderProgram::compileFragmentShader()
 
 
 
-core::rend::shader::ShaderProgram::~ShaderProgram()
+hexen::engine::graphics::gl::shader::ShaderProgram::~ShaderProgram()
 {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }
 
 
-void core::rend::shader::ShaderProgram::linkShaders()
+void hexen::engine::graphics::gl::shader::ShaderProgram::linkShaders()
 {
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
@@ -75,11 +75,10 @@ void core::rend::shader::ShaderProgram::linkShaders()
     showLinkerLog();
 }
 
-/***/
 
-void core::rend::shader::ShaderProgram::showLinkerLog() const noexcept
+void hexen::engine::graphics::gl::shader::ShaderProgram::showLinkerLog() const noexcept
 {
-   i32 success{0};
+   core::i32 success{0};
    char infoLog[512];
    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
    if (!success)
@@ -91,30 +90,30 @@ void core::rend::shader::ShaderProgram::showLinkerLog() const noexcept
 }
 
 
-void core::rend::shader::ShaderProgram::use() const noexcept
+void hexen::engine::graphics::gl::shader::ShaderProgram::use() const noexcept
 {
     glUseProgram(shaderProgram);
 }
 
-void core::rend::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, i32 value) const
+void hexen::engine::graphics::gl::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, core::i32 value) const
 {
     glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
 }
 
-void core::rend::shader::ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const
+void hexen::engine::graphics::gl::shader::ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const
 {
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 
-void core::rend::shader::ShaderProgram::setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const
+void hexen::engine::graphics::gl::shader::ShaderProgram::setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const
 {
     glUniform4d(glGetUniformLocation(shaderProgram, uniformVariable.c_str()),vector.x,vector.y,vector.z,vector.w);
 }
 
 
 
-void core::rend::shader::ShaderProgram::setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const
+void hexen::engine::graphics::gl::shader::ShaderProgram::setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const
 {
     glUniform3f(glGetUniformLocation(shaderProgram, uniformVariable.c_str()),vector.x,vector.y,vector.z);
 }

@@ -3,22 +3,23 @@
 //
 #include <filesystem>
 #include <fstream>
+#include <core/Types.h>
 #include "Project.h"
 
-std::unique_ptr<edit::Project> edit::Project::currentProject;
+std::unique_ptr<hexen::editor::Project> hexen::editor::Project::currentProject;
 
 
-edit::Project* edit::Project::getCurrentProject() noexcept
+hexen::editor::Project* hexen::editor::Project::getCurrentProject() noexcept
 {
     return currentProject.get();
 }
 
-edit::Project::Project(const std::string &path,const std::string &name) : path(path) , name(name)
+hexen::editor::Project::Project(const std::string &path,const std::string &name) : path(path) , name(name)
 {
     pathToProjectFile.append(path);
-    pathToProjectFile.append(core::PATH_SLASH);
+    pathToProjectFile.append(hexen::engine::core::PATH_SLASH);
     pathToProjectFile.append(name);
-    pathToProjectFile.append(core::PATH_SLASH);
+    pathToProjectFile.append(hexen::engine::core::PATH_SLASH);
     pathToProjectFile.append(name);
     pathToProjectFile.append(".hxproj");
 
@@ -32,10 +33,10 @@ edit::Project::Project(const std::string &path,const std::string &name) : path(p
         std::filesystem::create_directory(path + "/" + name);
         std::filesystem::create_directory(path + "/" + name + "/Scenes");
         std::filesystem::create_directory(path + "/" + name + "/Assets");
-        setVerion("1.0");
+        setVersion("1.0");
         setName(name);
         addScene("Main");
-        setEngineVersion(core::ENGINE_VERSION);
+        setEngineVersion(hexen::engine::core::ENGINE_VERSION);
         save();
     }
 
@@ -43,40 +44,40 @@ edit::Project::Project(const std::string &path,const std::string &name) : path(p
     setPath();
 }
 
-void edit::Project::setVerion(const std::string &version)
+void hexen::editor::Project::setVersion(const std::string &version)
 {
     fileProject["project"]["version"] = version;
 }
 
-std::string edit::Project::getVersion() const
+std::string hexen::editor::Project::getVersion() const
 {
     return fileProject["project"]["version"];
 }
 
-void edit::Project::setName(const std::string &name)
+void hexen::editor::Project::setName(const std::string &name)
 {
     fileProject["project"]["name"] = name;
 }
 
-std::string edit::Project::getName() const
+std::string hexen::editor::Project::getName() const
 {
     return fileProject["project"]["name"];
 }
 
-void edit::Project::addScene(const std::string &sceneName)
+void hexen::editor::Project::addScene(const std::string &sceneName)
 {
     fileProject["project"]["scenes"][std::to_string(numberOfScenes)] = sceneName;
     numberOfScenes++;
     fileProject["project"]["scenes"]["number_of_scenes"] = numberOfScenes;
 }
 
-std::vector<std::string> edit::Project::getScenes()
+std::vector<std::string> hexen::editor::Project::getScenes()
 {
     std::vector<std::string> scenesNames;
     numberOfScenes = fileProject["project"]["scenes"]["number_of_scenes"];
 
     scenesNames.reserve(numberOfScenes);
-    for(core::i32 i = 0;i < numberOfScenes;i++)
+    for(engine::core::i32 i = 0;i < numberOfScenes;i++)
     {
         scenesNames.push_back(fileProject["project"]["scenes"][std::to_string(i)]);
     }
@@ -84,23 +85,23 @@ std::vector<std::string> edit::Project::getScenes()
     return scenesNames;
 }
 
-void edit::Project::setEngineVersion(const std::string &engineVersion)
+void hexen::editor::Project::setEngineVersion(const std::string &engineVersion)
 {
     fileProject["project"]["engine_version"] = engineVersion;
 }
 
-std::string edit::Project::getEngineVersion() const
+std::string hexen::editor::Project::getEngineVersion() const
 {
     return fileProject["project"]["engine_version"];
 }
 
-void edit::Project::save()
+void hexen::editor::Project::save()
 {
     std::ofstream file(pathToProjectFile);
     file << fileProject.dump(2);
 }
 
-edit::Project::Project(const std::string &pathToProject)  : pathToProjectFile(pathToProject)
+hexen::editor::Project::Project(const std::string &pathToProject)  : pathToProjectFile(pathToProject)
 {
     parseJSON();
 
@@ -108,33 +109,33 @@ edit::Project::Project(const std::string &pathToProject)  : pathToProjectFile(pa
     setPath();
 }
 
-void edit::Project::parseJSON()
+void hexen::editor::Project::parseJSON()
 {
     std::ifstream file(pathToProjectFile);
     fileProject = nlohmann::json::parse(file);
 }
 
-std::string edit::Project::getPath()
+std::string hexen::editor::Project::getPath()
 {
     return path;
 }
 
-void edit::Project::setCurrentProject(const std::string &path, const std::string &name)
+void hexen::editor::Project::setCurrentProject(const std::string &path, const std::string &name)
 {
-    currentProject = core::mem::make_unique<Project>(path,name);
+    currentProject = hexen::engine::core::memory::make_unique<Project>(path,name);
 }
 
-void edit::Project::setCurrentProject(const std::string &pathToProject)
+void hexen::editor::Project::setCurrentProject(const std::string &pathToProject)
 {
-    currentProject = core::mem::make_unique<Project>(pathToProject);
+    currentProject = hexen::engine::core::memory::make_unique<Project>(pathToProject);
 }
 
-void edit::Project::setPath()
+void hexen::editor::Project::setPath()
 {
     path = std::filesystem::path(pathToProjectFile).parent_path().string();
 }
 
-void edit::Project::setName()
+void hexen::editor::Project::setName()
 {
     name = std::filesystem::path(pathToProjectFile).stem().string();
 }

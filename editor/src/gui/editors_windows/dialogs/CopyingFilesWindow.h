@@ -6,7 +6,7 @@
 #include "DialogWindow.h"
 #include <filesystem>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class CopyingFilesWindow : public  DialogWindow
     {
@@ -15,7 +15,7 @@ namespace edit::gui
         std::vector<std::filesystem::path> filesToCopy;
         std::string text = "Copying file : %s";
         std::vector<std::filesystem::path>::const_iterator currentFileToCopy;
-        core::i32 copedFiles{0};
+        engine::core::i32 copedFiles{0};
         void drawContent() override;
     public:
         explicit CopyingFilesWindow(std::string name);

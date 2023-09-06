@@ -5,7 +5,7 @@
 #pragma once
 
 #include <string>
-namespace core::rend::shader
+namespace hexen::engine::graphics::shader
 {
     class ShaderFile
     {

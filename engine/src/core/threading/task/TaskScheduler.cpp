@@ -18,7 +18,7 @@
 #	include <pthread.h>
 #endif
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     constexpr static unsigned failedPopAttemptsHeuristic = 5;
     constexpr static int initErrorDoubleCall = -30;
@@ -287,7 +287,7 @@ namespace core::threading
 
     int TaskScheduler::initialize(TaskSchedulerInitOptions options)
     {
-        settings = mem::make_unique<TaskSchedulerSettings>();
+        settings = memory::make_unique<TaskSchedulerSettings>();
 
         options.fiberPoolSize = settings->getFiberPoolSize();
         options.threadPoolSize = settings->getUsedCores();
@@ -304,10 +304,12 @@ namespace core::threading
         // Initialize the flags
         emptyQueueBehavior.store(options.behavior);
 
-        if (options.threadPoolSize == 0) {
+        if (options.threadPoolSize == 0)
+        {
             // 1 threads for each logical processor
             numberOfThreads = thread::getNumberOfHardwareThreads();
-        } else
+        }
+        else
         {
             numberOfThreads = options.threadPoolSize;
         }
@@ -444,7 +446,7 @@ namespace core::threading
         delete[] quitFibers;
     }
 
-    void TaskScheduler::addTask(Task task, TaskPriority priority, TaskCounter *counter)
+    void TaskScheduler::addTask(const Task& task, TaskPriority priority, TaskCounter *counter)
     {
         HEXEN_ASSERT(task.delegate != nullptr,"Task given to TaskScheduler:addTask has a nullptr Function");
 

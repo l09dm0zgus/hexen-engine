@@ -4,12 +4,12 @@
 
 #include "DeleteSelectedFilesWindow.h"
 
-edit::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string name) : DeleteFileWindow(std::move(name))
+hexen::editor::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string name) : DeleteFileWindow(std::move(name))
 {
     text = "Delete this selected files?";
 }
 
-void edit::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::filesystem::path> &selectedFiles)
+void hexen::editor::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::filesystem::path> &selectedFiles)
 {
     paths = selectedFiles;
     deleteCallback = [this]()
@@ -21,7 +21,7 @@ void edit::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::files
     };
 }
 
-void edit::gui::DeleteSelectedFilesWindow::drawContent()
+void hexen::editor::gui::DeleteSelectedFilesWindow::drawContent()
 {
     DeleteFileWindow::drawContent();
 }

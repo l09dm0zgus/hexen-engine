@@ -6,17 +6,17 @@
 #include "AssetsWindow.h"
 #include <misc/cpp/imgui_stdlib.h>
 
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::fileIcon;
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::animationFileIcon;
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::entityFileIcon;
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::folderIcon;
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::sceneFileIcon;
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::soundFileIcon;
-std::unique_ptr<core::rend::Texture> edit::gui::AssetIcon::tilesetFileIcon;
-edit::gui::AssetsWindow* edit::gui::AssetIcon::assetsWindow{nullptr};
-core::HashTable<core::u32,std::string> edit::gui::AssetIcon::engineFileExtensions;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::fileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::animationFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::entityFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::folderIcon;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::sceneFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::soundFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::tilesetFileIcon;
+hexen::editor::gui::AssetsWindow* hexen::editor::gui::AssetIcon::assetsWindow{nullptr};
+hexen::engine::core::HashTable<hexen::engine::core::u32,std::string> hexen::editor::gui::AssetIcon::engineFileExtensions;
 
-edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
+hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
 {
 
     name = path.path().filename();
@@ -29,13 +29,13 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
     {
         //use static class members for memory optimization
 
-        folderIcon = core::mem::make_unique<core::rend::Texture>(pathToFolderIcon);
-        soundFileIcon = core::mem::make_unique<core::rend::Texture>(pathToSoundFileIcon);
-        fileIcon = core::mem::make_unique<core::rend::Texture>(pathToFileIcon);
-        sceneFileIcon = core::mem::make_unique<core::rend::Texture>(pathToSceneFileIcon);
-        animationFileIcon = core::mem::make_unique<core::rend::Texture>(pathToAnimationFileIcon);
-        tilesetFileIcon = core::mem::make_unique<core::rend::Texture>(pathToTilesetFileIcon);
-        entityFileIcon = core::mem::make_unique<core::rend::Texture>(pathToEntityFileIcon);
+        folderIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToFolderIcon);
+        soundFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToSoundFileIcon);
+        fileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToFileIcon);
+        sceneFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToSceneFileIcon);
+        animationFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToAnimationFileIcon);
+        tilesetFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToTilesetFileIcon);
+        entityFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToEntityFileIcon);
 
         engineFileExtensions.set(sceneFileIcon->getId(),".hxscene");
         engineFileExtensions.set(animationFileIcon->getId(),".hxanim");
@@ -68,7 +68,7 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
 
             };
 
-            imageFileIcon = core::mem::make_unique<core::rend::Texture>(path.path().string());
+            imageFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(path.path().string());
             textureId = imageFileIcon->getId();
         }
         else if(isAudio != soundFileExtensions.cend())
@@ -99,12 +99,12 @@ edit::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, As
 
 }
 
-void edit::gui::AssetIcon::setSize(const glm::vec2 &newSize)
+void hexen::editor::gui::AssetIcon::setSize(const glm::vec2 &newSize)
 {
     size = newSize;
 }
 
-void edit::gui::AssetIcon::draw()
+void hexen::editor::gui::AssetIcon::draw()
 {
     isCtrlPressed = ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
     ImGui::PushStyleColor(ImGuiCol_Button,color);
@@ -125,7 +125,7 @@ void edit::gui::AssetIcon::draw()
     ImGui::NextColumn();
 }
 
-void edit::gui::AssetIcon::createDragAndDropSource()
+void hexen::editor::gui::AssetIcon::createDragAndDropSource()
 {
     if(ImGui::BeginDragDropSource())
     {
@@ -134,7 +134,7 @@ void edit::gui::AssetIcon::createDragAndDropSource()
     }
 }
 
-void edit::gui::AssetIcon::createDragAndDropTarget()
+void hexen::editor::gui::AssetIcon::createDragAndDropTarget()
 {
     if(ImGui::BeginDragDropTarget())
     {
@@ -152,7 +152,7 @@ void edit::gui::AssetIcon::createDragAndDropTarget()
     }
 }
 
-void edit::gui::AssetIcon::showFilename()
+void hexen::editor::gui::AssetIcon::showFilename()
 {
     if(!isEditingName)
     {
@@ -176,7 +176,7 @@ void edit::gui::AssetIcon::showFilename()
     }
 }
 
-void edit::gui::AssetIcon::selectingFiles()
+void hexen::editor::gui::AssetIcon::selectingFiles()
 {
     if(isCtrlPressed && isClicked)
     {
@@ -197,12 +197,12 @@ void edit::gui::AssetIcon::selectingFiles()
 }
 
 
-std::string edit::gui::AssetIcon::getPath() const noexcept
+std::string hexen::editor::gui::AssetIcon::getPath() const noexcept
 {
     return pathToFile;
 }
 
-void edit::gui::AssetIcon::setAssetWindowHoveredIcon()
+void hexen::editor::gui::AssetIcon::setAssetWindowHoveredIcon()
 {
     if(ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup))
     {
@@ -210,7 +210,7 @@ void edit::gui::AssetIcon::setAssetWindowHoveredIcon()
     }
 }
 
-void edit::gui::AssetIcon::renameFile()
+void hexen::editor::gui::AssetIcon::renameFile()
 {
     isEditingName = true;
 }

@@ -7,7 +7,7 @@
 #include "../graphics/Graphics.h"
 #include "../../entity/scene/SceneEntity.h"
 
-void core::Application::run()
+void hexen::engine::core::Application::run()
 {
     SDL_Log("Main thread started.\n");
     double dt = 1 / 60.0;
@@ -45,7 +45,7 @@ void core::Application::run()
  //  sprite->addTexture("images/test.jpg");
     //Camera camera(window->getDisplayMode().w,window->getDisplayMode().h,45.0f);
 
-    std::unique_ptr<ent::SceneEntity> scene = core::mem::make_unique<ent::SceneEntity>("SceneRoot",generateUUIDV4());
+    std::unique_ptr<entity::SceneEntity> scene = core::memory::make_unique<entity::SceneEntity>("SceneRoot",generateUUIDV4());
     SDL_Event event;
     while (window->isOpen())
     {
@@ -79,8 +79,8 @@ void core::Application::run()
     }
 }
 
-core::Application::Application()
+hexen::engine::core::Application::Application()
 {
-    window = mem::make_unique<Window>(settings);
+    window = memory::make_unique<Window>(settings);
     SDL_Log("Main window created.\n");
 }

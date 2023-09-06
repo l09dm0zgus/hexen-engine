@@ -6,16 +6,17 @@
 #include <systems/SystemsManager.h>
 #include <glm/detail/type_vec1.hpp>
 #include <glm/vec2.hpp>
+#include <systems/InputSystem.h>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class EditorGUI;
 }
 
-namespace edit::sys
+namespace hexen::editor::systems
 {
     class DebugRenderSystem;
-    class EditorSystemsManager : public ::sys::SystemsManager
+class EditorSystemsManager : public hexen::engine::systems::SystemsManager
     {
     private:
 
@@ -43,7 +44,7 @@ namespace edit::sys
 
         glm::vec2 currentSceneWindowSize{0.0f};
 
-
+        std::unique_ptr<hexen::engine::systems::InputSystem> inputSystem;
     public:
 
         /**
@@ -76,7 +77,7 @@ namespace edit::sys
         * @param window A shared pointer to the core::Window object that received the input.
         */
 
-        void processInput(const std::shared_ptr<core::Window> &window) override;
+        void processInput(const std::shared_ptr<hexen::engine::core::Window> &window) override;
 
         /**
         * @brief Starts the process.

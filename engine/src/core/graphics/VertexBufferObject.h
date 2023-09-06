@@ -8,7 +8,7 @@
 #include <cstddef>
 #include "RectangleData.h"
 #include "../Types.h"
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     class VertexBufferObject
     {
@@ -50,7 +50,7 @@ namespace core::rend
         * @param data A pointer to the data being bound.
         */
 
-        void bind(size_t size,vptr data) const;
+        void bind(size_t size,core::vptr data) const;
 
         /**
         * @brief Binds a Vertex Buffer Object (VBO) to the current rendering context
@@ -84,6 +84,6 @@ namespace core::rend
 
         void unbind();
     private:
-        u32 object{0};
+        core::u32 object{0};
     };
 }

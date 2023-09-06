@@ -5,7 +5,7 @@
 
 #include "../../Types.h"
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
 
     using FiberStartRoutine = void (*)(void *arg);

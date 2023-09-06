@@ -9,9 +9,9 @@
 #include <core/memory_pool/AllocatedObject.h>
 #include <glm/vec2.hpp>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
-    class GUIWindow : public core::mem::AllocatedObject
+    class GUIWindow : public engine::core::memory::AllocatedObject
     {
     public:
         /**
@@ -25,7 +25,7 @@ namespace edit::gui
         *       to not throw any exceptions (noexcept).
         */
 
-        std::string getName() const noexcept;
+        [[nodiscard]] std::string getName() const noexcept;
 
         /**
         * @brief Sets the size of the window.
@@ -58,7 +58,7 @@ namespace edit::gui
         *
         */
 
-        glm::vec2 getSize() const noexcept;
+        [[nodiscard]] glm::vec2 getSize() const noexcept;
 
         /**
         * @brief Pure virtual function for drawing.

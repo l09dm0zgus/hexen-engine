@@ -6,13 +6,13 @@
 
 #include "../GUIWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class DialogWindow : public GUIWindow
     {
     public:
 
-        enum class Action : core::i32
+        enum class Action : engine::core::i32
         {
             PRESSED_OK,
             PRESSED_CANCEL,

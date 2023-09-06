@@ -6,16 +6,16 @@
 
 #include <cstddef>
 #include "../Types.h"
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     class VertexAttributes
     {
     public:
-        void add(i32 size,i32 stride,i32 offset);
-        void add(i32 size,size_t typeSize,i32 offset);
-        void vertexDivisor(i32 index,i32 divisor);
+        void add(core::i32 size,core::i32 stride,core::i32 offset);
+        void add(core::i32 size,size_t typeSize,core::i32 offset);
+        void vertexDivisor(core::i32 index,core::i32 divisor);
     private:
-        i32 attributes{0};
+        core::i32 attributes{0};
     };
 
 }

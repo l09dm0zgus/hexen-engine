@@ -7,7 +7,7 @@
 #include "Menu.h"
 #include "../dialogs/NewProjectWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class FileMenu  : public Menu
     {

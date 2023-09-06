@@ -8,7 +8,7 @@
 
 #include <gtk/gtk.h>
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class GTKFileDialog  : public INativeFileDialog
     {

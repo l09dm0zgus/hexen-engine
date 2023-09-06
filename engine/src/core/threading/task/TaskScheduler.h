@@ -13,7 +13,7 @@
 #include <vector>
 #include <array>
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     class BaseCounter;
     class TaskCounter;
@@ -186,7 +186,7 @@ namespace core::threading
         */
 
         Task taskToExecute;
-        TaskCounter *counter;
+        TaskCounter *counter{};
         };
 
         struct ReadyFiberBundle
@@ -709,7 +709,7 @@ namespace core::threading
         *
         */
 
-        void addTask(Task task,TaskPriority priority,TaskCounter *counter = nullptr);
+        void addTask(const Task& task,TaskPriority priority,TaskCounter *counter = nullptr);
 
         /**
         * @brief Add multiple tasks to the task scheduler.
@@ -783,7 +783,7 @@ namespace core::threading
         * @return The index of the current thread.
         */
 
-        HEXEN_NOINLINE u32 getCurrentThreadIndex() const;
+        [[nodiscard]] HEXEN_NOINLINE u32 getCurrentThreadIndex() const;
 
 
         /**
@@ -796,7 +796,7 @@ namespace core::threading
         */
 
 
-        u32 getCurrentFiberIndex() const;
+        [[nodiscard]] u32 getCurrentFiberIndex() const;
 
 
         /**
@@ -808,7 +808,7 @@ namespace core::threading
         * @return The current count of threads.
         */
 
-        u32 getThreadCount() const noexcept
+        [[nodiscard]] u32 getThreadCount() const noexcept
         {
             return numberOfThreads;
         }
@@ -826,7 +826,7 @@ namespace core::threading
         * internal state of the object and does not throw any exceptions.
         */
 
-        u32 getFiberCount() const noexcept
+        [[nodiscard]] u32 getFiberCount() const noexcept
         {
             return fiberPoolSize;
         }
@@ -912,7 +912,7 @@ namespace core::threading
         * @return int The index of the next available fiber.
         */
 
-        u32 getNextFreeFiberIndex() const;
+        [[nodiscard]] u32 getNextFreeFiberIndex() const;
 
         /**
         * @brief Cleans up old fiber.

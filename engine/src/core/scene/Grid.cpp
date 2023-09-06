@@ -5,22 +5,22 @@
 #include "Grid.h"
 #include "SceneManager.h"
 
-glm::vec2 core::Grid::getSize() const noexcept
+glm::vec2 hexen::engine::core::Grid::getSize() const noexcept
 {
     return size;
 }
 
-float core::Grid::getNumberOfCells() const noexcept
+float hexen::engine::core::Grid::getNumberOfCells() const noexcept
 {
     return numberOfCells;
 }
 
-glm::vec2  core::Grid::getUnitSize() const noexcept
+glm::vec2  hexen::engine::core::Grid::getUnitSize() const noexcept
 {
     return unitSize;
 }
 
-core::Grid::Grid()
+hexen::engine::core::Grid::Grid()
 {
     auto currentScene = SceneManager::getCurrentScene();
     if(currentScene != nullptr)
@@ -46,7 +46,7 @@ core::Grid::Grid()
     }
 }
 
-core::Grid::~Grid()
+hexen::engine::core::Grid::~Grid()
 {
     for(u32 i = 0; i < size.y; i++)
     {
@@ -56,7 +56,7 @@ core::Grid::~Grid()
 }
 
 
-std::shared_ptr<core::Grid::Cell> core::Grid::checkIfPointInCell(const glm::vec2 &point)
+std::shared_ptr<hexen::engine::core::Grid::Cell> hexen::engine::core::Grid::checkIfPointInCell(const glm::vec2 &point)
 {
     auto previousCell = cells[0][0];
     u32 i = 0;
@@ -82,7 +82,7 @@ std::shared_ptr<core::Grid::Cell> core::Grid::checkIfPointInCell(const glm::vec2
 
             if(cellPositionY <= point.y && point.y <= cellSizeY + cellPositionY)
             {
-                return mem::make_shared<Cell>(cells[j][i]);
+                return memory::make_shared<Cell>(cells[j][i]);
             }
         }
     }

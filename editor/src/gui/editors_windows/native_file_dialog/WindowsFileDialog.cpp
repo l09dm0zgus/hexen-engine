@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iostream>
 
-BOOL edit::gui::WindowsFileDialog::isCOMInitialized(HRESULT hresult)
+BOOL hexen::editor::gui::WindowsFileDialog::isCOMInitialized(HRESULT hresult)
 {
     if (hresult == RPC_E_CHANGED_MODE)
     {
@@ -16,12 +16,12 @@ BOOL edit::gui::WindowsFileDialog::isCOMInitialized(HRESULT hresult)
     return SUCCEEDED(hresult);
 }
 
-HRESULT edit::gui::WindowsFileDialog::comInitialize()
+HRESULT hexen::editor::gui::WindowsFileDialog::comInitialize()
 {
     return ::CoInitializeEx(nullptr, COM_INITFLAGS);;
 }
 
-void edit::gui::WindowsFileDialog::comUninitialize(HRESULT hresult)
+void hexen::editor::gui::WindowsFileDialog::comUninitialize(HRESULT hresult)
 {
     // do not uninitialize if RPC_E_CHANGED_MODE occurred -- this
     // case does not refcount COM.
@@ -29,9 +29,9 @@ void edit::gui::WindowsFileDialog::comUninitialize(HRESULT hresult)
         ::CoUninitialize();
 }
 
-std::string edit::gui::WindowsFileDialog::copyWideCharToSTDString(const wchar_t *string)
+std::string hexen::editor::gui::WindowsFileDialog::copyWideCharToSTDString(const wchar_t *string)
 {
-    auto wideStringLenght = static_cast<core::i32 >(wcslen(string));
+    auto wideStringLenght = static_cast<hexen::engine::core::i32 >(wcslen(string));
 
     auto bytesNeeded = WideCharToMultiByte( CP_UTF8, 0,string, wideStringLenght , nullptr, 0, nullptr, nullptr);
 
@@ -57,7 +57,7 @@ std::string edit::gui::WindowsFileDialog::copyWideCharToSTDString(const wchar_t 
 
 }
 
-core::i32 edit::gui::WindowsFileDialog::getUTF8ByteCountForWideChar(const wchar_t *string)
+hexen::engine::core::i32 hexen::editor::gui::WindowsFileDialog::getUTF8ByteCountForWideChar(const wchar_t *string)
 {
     auto bytesNeeded = WideCharToMultiByte( CP_UTF8, 0,string, -1,nullptr, 0, nullptr, nullptr);
 
@@ -66,7 +66,7 @@ core::i32 edit::gui::WindowsFileDialog::getUTF8ByteCountForWideChar(const wchar_
     return bytesNeeded + 1;
 }
 
-core::i32 edit::gui::WindowsFileDialog::copyWideCharToExisitingSTDString(const wchar_t *string, std::string &outString)
+hexen::engine::core::i32 hexen::editor::gui::WindowsFileDialog::copyWideCharToExisitingSTDString(const wchar_t *string, std::string &outString)
 {
     auto  bytesNeeded = getUTF8ByteCountForWideChar(string);
 
@@ -81,7 +81,7 @@ core::i32 edit::gui::WindowsFileDialog::copyWideCharToExisitingSTDString(const w
     return bytesWritten;
 }
 
-void edit::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &str, std::vector<wchar_t> &outString)
+void hexen::editor::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &str, std::vector<wchar_t> &outString)
 {
     auto charsNeeded =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), str.size(), nullptr, 0 );
 
@@ -95,20 +95,20 @@ void edit::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &st
 
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList)
 {
     const auto specsListSize= filterList.size();
 
     auto *specList = new COMDLG_FILTERSPEC [specsListSize];
 
-    for(core::i32 i = 0; i < specsListSize; i++)
+    for(hexen::engine::core::i32 i = 0; i < specsListSize; i++)
     {
         std::vector<wchar_t> name;
         copySTDStringToWideChar(filterList[i].first,name);
         specList[i].pszName = name.data();
     }
 
-    for(core::i32 i = 0; i < specsListSize; i++)
+    for(hexen::engine::core::i32 i = 0; i < specsListSize; i++)
     {
         std::string fileSpec;
         if (filterList[i].second == "all")
@@ -118,7 +118,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
         else
         {
             std::vector<std::string> splittedStrings = splitString(filterList[i].second,";");
-            core::i32 j = 0;
+            hexen::engine::core::i32 j = 0;
             for(auto& str : splittedStrings)
             {
                 fileSpec.append("*.");
@@ -141,7 +141,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::addFiltersToD
     return Status::STATUS_OK;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, edit::gui::INativeFileDialog::PathSet *pathSet)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, hexen::editor::gui::INativeFileDialog::PathSet *pathSet)
 {
 
     assert(shellItems);
@@ -156,7 +156,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathS
         return Status::STATUS_ERROR;
     }
 
-    pathSet->count = static_cast<core::i32>(numberOfShellItems);
+    pathSet->count = static_cast<engine::core::i32>(numberOfShellItems);
 
     for (DWORD i = 0; i < numberOfShellItems; ++i )
     {
@@ -192,7 +192,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::allocatePathS
     return Status::STATUS_OK;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::setDefaultPath(IFileDialog *dialog, const std::string &defaultPath)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::setDefaultPath(IFileDialog *dialog, const std::string &defaultPath)
 {
     if(defaultPath.empty())
     {
@@ -225,7 +225,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::setDefaultPat
     return Status::STATUS_OK;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
 
@@ -310,7 +310,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     return status;
 }
 
-void edit::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog)
+void hexen::editor::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog)
 {
     if (fileOpenDialog != nullptr)
     {
@@ -318,7 +318,7 @@ void edit::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *file
     }
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,PathSet *pathToFiles)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,PathSet *pathToFiles)
 {
     Status status = Status::STATUS_ERROR;
 
@@ -404,7 +404,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::openDialog(co
     return status;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::saveDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
 
@@ -489,7 +489,7 @@ edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::saveDialog(co
     return status;
 }
 
-void edit::gui::WindowsFileDialog::releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog)
+void hexen::editor::gui::WindowsFileDialog::releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog)
 {
     if ( fileSaveDialog != nullptr )
     {
@@ -497,7 +497,7 @@ void edit::gui::WindowsFileDialog::releaseSaveFileDialog(::IFileSaveDialog *file
     }
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::WindowsFileDialog::pickDialog(const std::string &defaultPath, std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::pickDialog(const std::string &defaultPath, std::string &pathToFile)
 {
     Status status = Status::STATUS_ERROR;
     DWORD dwOptions = 0;

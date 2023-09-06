@@ -7,9 +7,9 @@
 #include "../../Types.h"
 #include "../../memory_pool/AllocatedObject.h"
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
-    class TaskSchedulerSettings : public mem::AllocatedObject
+    class TaskSchedulerSettings : public memory::AllocatedObject
     {
     public:
 
@@ -36,7 +36,7 @@ namespace core::threading
         * @return The size of the fiber pool as an integer.
         */
 
-        u32 getFiberPoolSize() const;
+        [[nodiscard]] u32 getFiberPoolSize() const;
 
         /**
         * @brief Get the number of used cores.
@@ -47,7 +47,7 @@ namespace core::threading
         * @return The number of used cores as an integer.
         */
 
-        u32 getUsedCores() const;
+        [[nodiscard]] u32 getUsedCores() const;
 
         /**
         * Set the size of the fiber pool.

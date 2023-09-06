@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Types.h"
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     class TaskScheduler;
     struct Task

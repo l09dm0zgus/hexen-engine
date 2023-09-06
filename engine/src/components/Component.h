@@ -6,12 +6,12 @@
 
 #include <string>
 #include "../core/memory_pool/AllocatedObject.h"
-namespace comp
+namespace hexen::engine::components
 {
-    class Component : public core::mem::AllocatedObject
+    class Component : public core::memory::AllocatedObject
     {
     public:
-        ~Component() = default;
+        ~Component() override = default;
         virtual void start() = 0;
         virtual void update(float deltaTime) = 0;
 
@@ -19,7 +19,7 @@ namespace comp
         {
             ownerUUID = std::forward<T>(newOwnerUUID);
         }
-        std::string getOwnerUUID() const noexcept
+        [[nodiscard]] std::string getOwnerUUID() const noexcept
         {
             return ownerUUID;
         }
@@ -29,7 +29,7 @@ namespace comp
             name = std::forward<T>(newName);
         }
 
-        std::string getName() const noexcept
+        [[nodiscard]] std::string getName() const noexcept
         {
             return name;
         }

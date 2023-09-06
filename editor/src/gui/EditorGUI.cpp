@@ -11,7 +11,7 @@
 
 
 
-edit::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
+hexen::editor::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
 {
     const char *glslVersion = "#version 130";
     ImGui_ImplSDL3_InitForOpenGL(window, glContext);
@@ -19,7 +19,7 @@ edit::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : E
 
 }
 
-edit::gui::EditorGUI::EditorGUI()
+hexen::editor::gui::EditorGUI::EditorGUI()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -37,15 +37,15 @@ edit::gui::EditorGUI::EditorGUI()
     //ImGui::StyleColorsLight();
     style.loadThemeFromFile("editor_theme.json");
 
-    dockspace->attachWindow(core::mem::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::CENTER);
-    dockspace->attachWindow(core::mem::make_shared<MainMenuBar>("Menu Bar"),Dockspace::DockingPosition::NONE);
-    dockspace->attachWindow(core::mem::make_shared<AssetsWindow>("Assets"),Dockspace::DockingPosition::DOWN);
-    dockspace->attachWindow(core::mem::make_shared<SceneHierarchyWindow>("Scene Hierarchy"),Dockspace::DockingPosition::LEFT);
+    dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneWindow>("Scene"),Dockspace::DockingPosition::CENTER);
+    dockspace->attachWindow(hexen::engine::core::memory::make_shared<MainMenuBar>("Menu Bar"),Dockspace::DockingPosition::NONE);
+    dockspace->attachWindow(hexen::engine::core::memory::make_shared<AssetsWindow>("Assets"),Dockspace::DockingPosition::DOWN);
+    dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneHierarchyWindow>("Scene Hierarchy"),Dockspace::DockingPosition::LEFT);
 }
 
 
 
-void edit::gui::EditorGUI::begin()
+void hexen::editor::gui::EditorGUI::begin()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL3_NewFrame();
@@ -53,7 +53,7 @@ void edit::gui::EditorGUI::begin()
     dockspace->begin();
 }
 
-void edit::gui::EditorGUI::draw()
+void hexen::editor::gui::EditorGUI::draw()
 {
     bool isActive = true;
     //ImGui::ShowDemoWindow(&isActive);
@@ -63,7 +63,7 @@ void edit::gui::EditorGUI::draw()
 }
 
 
-edit::gui::EditorGUI::~EditorGUI()
+hexen::editor::gui::EditorGUI::~EditorGUI()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL3_Shutdown();
@@ -72,7 +72,7 @@ edit::gui::EditorGUI::~EditorGUI()
 
 
 
-void edit::gui::EditorGUI::end()
+void hexen::editor::gui::EditorGUI::end()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -89,19 +89,19 @@ void edit::gui::EditorGUI::end()
 
 
 
-void edit::gui::EditorGUI::processEvent(const SDL_Event &event)
+void hexen::editor::gui::EditorGUI::processEvent(const SDL_Event &event)
 {
     ImGui_ImplSDL3_ProcessEvent(&event);
 }
 
-std::shared_ptr<edit::gui::Dockspace> edit::gui::EditorGUI::getDockspace()
+std::shared_ptr<hexen::editor::gui::Dockspace> hexen::editor::gui::EditorGUI::getDockspace()
 {
     return dockspace;
 }
 
 
 
-void edit::gui::EditorGUI::bindFramebuffer()
+void hexen::editor::gui::EditorGUI::bindFramebuffer()
 {
     auto window = dockspace->getSceneWindow();
     if (window != nullptr)
@@ -110,7 +110,7 @@ void edit::gui::EditorGUI::bindFramebuffer()
     }
 }
 
-void edit::gui::EditorGUI::unbindFramebuffer()
+void hexen::editor::gui::EditorGUI::unbindFramebuffer()
 {
     auto window = dockspace->getSceneWindow();
     if (window != nullptr)

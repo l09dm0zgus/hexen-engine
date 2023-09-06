@@ -4,7 +4,7 @@
 
 #include "Mouse.h"
 
-void core::input::Mouse::processInput(const SDL_Event &event)
+void hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
 {
     switch (event.type)
     {
@@ -72,93 +72,93 @@ void core::input::Mouse::processInput(const SDL_Event &event)
     }
 }
 
-glm::vec2 core::input::Mouse::getPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getPosition() const noexcept
 {
     return position;
 }
 
-bool core::input::Mouse::isRightButtonPressed() const noexcept
+bool hexen::engine::core::input::Mouse::isRightButtonPressed() const noexcept
 {
     return bIsRightButtonPressed;
 }
 
-bool core::input::Mouse::isLeftButtonPressed() const noexcept
+bool hexen::engine::core::input::Mouse::isLeftButtonPressed() const noexcept
 {
     return bIsLeftButtonPressed;
 }
 
-glm::vec2 core::input::Mouse::getRightButtonPressedPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getRightButtonPressedPosition() const noexcept
 {
     return rightButtonPressedPosition;
 }
 
-glm::vec2 core::input::Mouse::getLeftButtonPressedPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getLeftButtonPressedPosition() const noexcept
 {
     return leftButtonPressedPosition;
 }
 
-glm::vec2 core::input::Mouse::getLeftMouseReleasedPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getLeftMouseReleasedPosition() const noexcept
 {
     return leftButtonReleasedPosition;
 }
 
-glm::vec2 core::input::Mouse::getRightMouseReleasedPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getRightMouseReleasedPosition() const noexcept
 {
     return rightButtonReleasedPosition;
 }
 
-bool core::input::Mouse::isLeftButtonReleased() const noexcept
+bool hexen::engine::core::input::Mouse::isLeftButtonReleased() const noexcept
 {
     return bIsLeftButtonReleased;
 }
 
-bool core::input::Mouse::isRightButtonReleased() const noexcept
+bool hexen::engine::core::input::Mouse::isRightButtonReleased() const noexcept
 {
     return bIsRightButtonReleased;
 }
 
-glm::vec2 core::input::Mouse::getWheelPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getWheelPosition() const noexcept
 {
     return wheelPosition;
 }
 
-bool core::input::Mouse::isMiddleButtonPressed() const noexcept
+bool hexen::engine::core::input::Mouse::isMiddleButtonPressed() const noexcept
 {
     return bIsMiddleButtonPressed;
 }
 
 
-bool core::input::Mouse::isMiddleButtonReleased() const noexcept
+bool hexen::engine::core::input::Mouse::isMiddleButtonReleased() const noexcept
 {
     return bIsMiddleButtonReleased;
 }
 
-bool core::input::Mouse::isX1ButtonPressed() const noexcept
+bool hexen::engine::core::input::Mouse::isX1ButtonPressed() const noexcept
 {
     return bIsX1ButtonPressed;
 }
 
-bool core::input::Mouse::isX2ButtonPressed() const noexcept
+bool hexen::engine::core::input::Mouse::isX2ButtonPressed() const noexcept
 {
     return bIsX2ButtonPressed;
 }
 
-bool core::input::Mouse::isX1ButtonReleased() const noexcept
+bool hexen::engine::core::input::Mouse::isX1ButtonReleased() const noexcept
 {
     return bIsX1ButtonReleased;
 }
 
-bool core::input::Mouse::isX2ButtonReleased() const noexcept
+bool hexen::engine::core::input::Mouse::isX2ButtonReleased() const noexcept
 {
     return bIsX2ButtonReleased;
 }
 
-glm::vec2 core::input::Mouse::getLastPressedButtonPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getLastPressedButtonPosition() const noexcept
 {
     return lastPressedButtonPosition;
 }
 
-glm::vec2 core::input::Mouse::getLastReleasedButtonPosition() const noexcept
+glm::vec2 hexen::engine::core::input::Mouse::getLastReleasedButtonPosition() const noexcept
 {
     return lastReleasedButtonPosition;
 }

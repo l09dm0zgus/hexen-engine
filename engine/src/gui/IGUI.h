@@ -7,7 +7,7 @@
 #include <SDL_events.h>
 #include "../core/memory_pool/AllocatedObject.h"
 
-namespace gui
+namespace  hexen::engine::gui
 {
     /**
      * @class IGUI
@@ -17,12 +17,12 @@ namespace gui
      * Has one virtual method for processing events from SDL.
      */
 
-    class IGUI : public core::mem::AllocatedObject
+    class IGUI : public core::memory::AllocatedObject
     {
     public:
         IGUI() = default;
         IGUI(IGUI&&) = delete;
-        virtual ~IGUI() = default;
+        ~IGUI() override = default;
         IGUI(const IGUI&) = delete;
         IGUI& operator=(IGUI&&) = delete;
         IGUI& operator=(const IGUI&) = delete;

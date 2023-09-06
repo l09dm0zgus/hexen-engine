@@ -4,14 +4,14 @@
 
 #include "SceneManager.h"
 
-std::shared_ptr<core::Scene> core::SceneManager::currentScene;
+std::shared_ptr<hexen::engine::core::Scene> hexen::engine::core::SceneManager::currentScene;
 
-void core::SceneManager::loadScene(const std::string &path)
+void hexen::engine::core::SceneManager::loadScene(const std::string &path)
 {
-    currentScene = mem::make_shared<Scene>(path);
+    currentScene = memory::make_shared<Scene>(path);
 }
 
-std::shared_ptr<core::Scene> core::SceneManager::getCurrentScene()
+std::shared_ptr<hexen::engine::core::Scene> hexen::engine::core::SceneManager::getCurrentScene()
 {
     return currentScene;
 }

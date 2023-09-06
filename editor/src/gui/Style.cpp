@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <fstream>
 
-edit::gui::Style::Style()
+hexen::editor::gui::Style::Style()
 {
     colors.set("text",ImGuiCol_Text);
     colors.set("header",ImGuiCol_Header);
@@ -65,7 +65,7 @@ edit::gui::Style::Style()
     colors.set("modal_window_dim_background",ImGuiCol_ModalWindowDimBg);
 }
 
-void edit::gui::Style::setPaddingValues()
+void hexen::editor::gui::Style::setPaddingValues()
 {
     styleFile["padding"]["cell_padding"] = {style->CellPadding.x,style->CellPadding.y};
     styleFile["padding"]["display_safe_area_padding"] = {style->DisplaySafeAreaPadding.x,style->DisplaySafeAreaPadding.y};
@@ -76,14 +76,14 @@ void edit::gui::Style::setPaddingValues()
     styleFile["padding"]["window_padding"] = {style->WindowPadding.x,style->WindowPadding.y};
 }
 
-void edit::gui::Style::setAntiAliasedValues()
+void hexen::editor::gui::Style::setAntiAliasedValues()
 {
     styleFile["anti_aliased_fill"] = style->AntiAliasedFill;
     styleFile["anti_aliased_lines"] = style->AntiAliasedLines;
     styleFile["anti_aliased_lines_use_tex"] = style->AntiAliasedLinesUseTex;
 }
 
-void edit::gui::Style::setAlignValues()
+void hexen::editor::gui::Style::setAlignValues()
 {
     styleFile["align"]["button_text_align"] = {style->ButtonTextAlign.x,style->ButtonTextAlign.y};
     styleFile["align"]["selectable_text_align"] = {style->SelectableTextAlign.x,style->SelectableTextAlign.y};
@@ -91,7 +91,7 @@ void edit::gui::Style::setAlignValues()
     styleFile["align"]["window_title_align"] = {style->WindowTitleAlign.x,style->WindowTitleAlign.y};
 }
 
-void edit::gui::Style::setSizeValues()
+void hexen::editor::gui::Style::setSizeValues()
 {
     styleFile["size"]["child_border_size"] = style->ChildBorderSize;
     styleFile["size"]["frame_border_size"] = style->FrameBorderSize;
@@ -104,7 +104,7 @@ void edit::gui::Style::setSizeValues()
     styleFile["size"]["window_minimal_size"] = {style->WindowMinSize.x , style->WindowMinSize.y};
 }
 
-void edit::gui::Style::setRoundingValues()
+void hexen::editor::gui::Style::setRoundingValues()
 {
     styleFile["rounding"]["child_rounding"] = style->ChildRounding;
     styleFile["rounding"]["frame_rounding"] = style->FrameRounding;
@@ -115,7 +115,7 @@ void edit::gui::Style::setRoundingValues()
     styleFile["rounding"]["window_rounding"] = style->WindowRounding;
 }
 
-void edit::gui::Style::setSpacingValues()
+void hexen::editor::gui::Style::setSpacingValues()
 {
     styleFile["spacing"]["columns_minimal_spacing"] = style->ColumnsMinSpacing;
     styleFile["spacing"]["indent_spacing"] = style->IndentSpacing;
@@ -123,7 +123,7 @@ void edit::gui::Style::setSpacingValues()
     styleFile["spacing"]["item_spacing"] = {style->ItemSpacing.x,style->ItemSpacing.y};
 }
 
-void edit::gui::Style::setColorValues()
+void hexen::editor::gui::Style::setColorValues()
 {
     for(auto & color:colors)
     {
@@ -131,7 +131,7 @@ void edit::gui::Style::setColorValues()
     }
 }
 
-void edit::gui::Style::setMiscValues()
+void hexen::editor::gui::Style::setMiscValues()
 {
     styleFile["misc"]["alpha"] = style->Alpha;
     styleFile["misc"]["circle_tessellation_max_error"] = style->CircleTessellationMaxError;
@@ -144,7 +144,7 @@ void edit::gui::Style::setMiscValues()
     styleFile["misc"]["window_menu_button_position"] = style->WindowMenuButtonPosition;
 }
 
-void edit::gui::Style::getPaddingValues()
+void hexen::editor::gui::Style::getPaddingValues()
 {
     style->CellPadding = {styleFile["padding"]["cell_padding"][0],styleFile["padding"]["cell_padding"][1]};
     style->DisplaySafeAreaPadding = {styleFile["padding"]["display_safe_area_padding"][0],styleFile["padding"]["display_safe_area_padding"][1]};
@@ -155,14 +155,14 @@ void edit::gui::Style::getPaddingValues()
     style->WindowPadding = {styleFile["padding"]["window_padding"][0],styleFile["padding"]["window_padding"][1]};
 }
 
-void edit::gui::Style::getAntiAliasedValues()
+void hexen::editor::gui::Style::getAntiAliasedValues()
 {
     style->AntiAliasedFill = styleFile["anti_aliased_fill"];
     style->AntiAliasedLines = styleFile["anti_aliased_lines"];
     style->AntiAliasedLinesUseTex = styleFile["anti_aliased_lines_use_tex"];
 }
 
-void edit::gui::Style::getAlignValues()
+void hexen::editor::gui::Style::getAlignValues()
 {
     style->ButtonTextAlign = {styleFile["align"]["button_text_align"][0],styleFile["align"]["button_text_align"][1]};
     style->SelectableTextAlign = {styleFile["align"]["selectable_text_align"][0],styleFile["align"]["selectable_text_align"][1]};
@@ -170,7 +170,7 @@ void edit::gui::Style::getAlignValues()
     style->WindowTitleAlign = {styleFile["align"]["window_title_align"][0],styleFile["align"]["window_title_align"][1]};
 }
 
-void edit::gui::Style::getSizeValues()
+void hexen::editor::gui::Style::getSizeValues()
 {
     style->ChildBorderSize = styleFile["size"]["child_border_size"];
     style->FrameBorderSize = styleFile["size"]["frame_border_size"];
@@ -183,7 +183,7 @@ void edit::gui::Style::getSizeValues()
     style->WindowMinSize = {styleFile["size"]["window_minimal_size"][0] , styleFile["size"]["window_minimal_size"][1]};
 }
 
-void edit::gui::Style::getRoundingValues()
+void hexen::editor::gui::Style::getRoundingValues()
 {
     style->ChildRounding = styleFile["rounding"]["child_rounding"];
     style->FrameRounding = styleFile["rounding"]["frame_rounding"];
@@ -194,7 +194,7 @@ void edit::gui::Style::getRoundingValues()
     style->WindowRounding = styleFile["rounding"]["window_rounding"];
 }
 
-void edit::gui::Style::getSpacingValues()
+void hexen::editor::gui::Style::getSpacingValues()
 {
     style->ColumnsMinSpacing = styleFile["spacing"]["columns_minimal_spacing"];
     style->IndentSpacing = styleFile["spacing"]["indent_spacing"];
@@ -202,7 +202,7 @@ void edit::gui::Style::getSpacingValues()
     style->ItemSpacing = {styleFile["spacing"]["item_spacing"][0],styleFile["spacing"]["item_spacing"][1]};
 }
 
-void edit::gui::Style::getColorValues()
+void hexen::editor::gui::Style::getColorValues()
 {
     for(auto & color:colors)
     {
@@ -210,7 +210,7 @@ void edit::gui::Style::getColorValues()
     }
 }
 
-void edit::gui::Style::getMiscValues()
+void hexen::editor::gui::Style::getMiscValues()
 {
     style->Alpha = styleFile["misc"]["alpha"];
     style->CircleTessellationMaxError = styleFile["misc"]["circle_tessellation_max_error"];
@@ -223,7 +223,7 @@ void edit::gui::Style::getMiscValues()
     style->WindowMenuButtonPosition = styleFile["misc"]["window_menu_button_position"];
 }
 
-void edit::gui::Style::loadThemeFromFile(const std::string &path)
+void hexen::editor::gui::Style::loadThemeFromFile(const std::string &path)
 {
     style = &ImGui::GetStyle();
     loadFonts();
@@ -256,7 +256,7 @@ void edit::gui::Style::loadThemeFromFile(const std::string &path)
     }
 }
 
-void edit::gui::Style::loadFonts()
+void hexen::editor::gui::Style::loadFonts()
 {
     ImGuiIO& io = ImGui::GetIO();
     io.Fonts->AddFontDefault();

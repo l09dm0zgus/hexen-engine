@@ -10,9 +10,9 @@
 #include "../../../project/Project.h"
 #include <imgui.h>
 
-edit::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
+hexen::editor::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
 {
-    newProjectWindow = core::mem::make_unique<NewProjectWindow>("New Project");
+    newProjectWindow = engine::core::memory::make_unique<NewProjectWindow>("New Project");
 
     saveAsFileCallback = [](){
 
@@ -68,23 +68,23 @@ edit::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
     Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_LeftShift,ImGuiKey_S}, saveAsFileCallback);
 }
 
-void edit::gui::FileMenu::begin()
+void hexen::editor::gui::FileMenu::begin()
 {
     newProjectWindow->begin();
 }
 
-void edit::gui::FileMenu::draw()
+void hexen::editor::gui::FileMenu::draw()
 {
     showMainMenu();
     newProjectWindow->draw();
 }
 
-void edit::gui::FileMenu::end()
+void hexen::editor::gui::FileMenu::end()
 {
     newProjectWindow->end();
 }
 
-void edit::gui::FileMenu::showMainMenu()
+void hexen::editor::gui::FileMenu::showMainMenu()
 {
     if(ImGui::BeginMainMenuBar())
     {
@@ -93,9 +93,7 @@ void edit::gui::FileMenu::showMainMenu()
     }
 }
 
-
-
-void edit::gui::FileMenu::show()
+void hexen::editor::gui::FileMenu::show()
 {
     auto callback = [this]() {
         showNewScene();
@@ -114,19 +112,19 @@ void edit::gui::FileMenu::show()
     showMenu(getName(),callback);
 }
 
-void edit::gui::FileMenu::showNewScene()
+void hexen::editor::gui::FileMenu::showNewScene()
 {
 
     showMenuItem( ICON_FA_MAP " New Scene","CTRL+N",newSceneCallback);
 }
 
-void edit::gui::FileMenu::showOpenScene()
+void hexen::editor::gui::FileMenu::showOpenScene()
 {
 
     showMenuItem( ICON_FA_FILE_IMPORT" Open Scene","CTRL+O",openSceneCallback);
 }
 
-void edit::gui::FileMenu::showOpenRecentScene()
+void hexen::editor::gui::FileMenu::showOpenRecentScene()
 {
     auto callback = [this]() {
 
@@ -134,18 +132,18 @@ void edit::gui::FileMenu::showOpenRecentScene()
     showMenu(ICON_FA_FILE_IMPORT" Open Recent Scene",callback);
 }
 
-void edit::gui::FileMenu::showSave()
+void hexen::editor::gui::FileMenu::showSave()
 {
 
     showMenuItem(ICON_FA_SAVE" Save","CTRL+S",saveFileCallback);
 }
 
-void edit::gui::FileMenu::showSaveAs()
+void hexen::editor::gui::FileMenu::showSaveAs()
 {
     showMenuItem(ICON_FA_FOLDER_OPEN " Save As...","CTRL+SHIFT+S",saveAsFileCallback);
 }
 
-void edit::gui::FileMenu::showNewProject()
+void hexen::editor::gui::FileMenu::showNewProject()
 {
     auto callback = [this] ()
     {
@@ -154,7 +152,7 @@ void edit::gui::FileMenu::showNewProject()
     showMenuItem(ICON_FA_FOLDER_OPEN " New Project...", "",callback);
 }
 
-void edit::gui::FileMenu::showOpenProject()
+void hexen::editor::gui::FileMenu::showOpenProject()
 {
     auto callback = [this]() {
 
@@ -178,7 +176,7 @@ void edit::gui::FileMenu::showOpenProject()
     showMenuItem(ICON_FA_FILE" Open Project...", "",callback);
 }
 
-void edit::gui::FileMenu::showSaveProject()
+void hexen::editor::gui::FileMenu::showSaveProject()
 {
     auto callback = [this]() {
         if(Project::getCurrentProject() != nullptr)
@@ -189,7 +187,7 @@ void edit::gui::FileMenu::showSaveProject()
     showMenuItem(ICON_FA_SAVE" Save Project", "",callback);
 }
 
-void edit::gui::FileMenu::showExit()
+void hexen::editor::gui::FileMenu::showExit()
 {
     auto callback = [this]() {
 

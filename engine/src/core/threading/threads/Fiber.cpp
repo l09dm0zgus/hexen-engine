@@ -15,14 +15,14 @@
 #	endif
 #endif
 
-namespace core::threading
+namespace hexen::engine::core::threading
 {
     void memoryGuard(vptr memory, size_t bytes);
     void memoryGuardRelease(vptr memory, size_t bytes);
     size_t systemPageSize();
     void *alignedAlloc(size_t size, size_t alignment);
     void alignedFree(void *block);
-    size_t roundUp(size_t numToRound, size_t multiple);
+    size_t roundUp(size_t numberToRound, size_t multiple);
 
     Fiber::Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg): arg(arg)
     {

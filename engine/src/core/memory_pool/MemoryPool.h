@@ -6,7 +6,7 @@
 
 #include "../Types.h"
 #include <vector>
-namespace core::mem
+namespace hexen::engine::core::memory
 {
     class MemoryPool
     {

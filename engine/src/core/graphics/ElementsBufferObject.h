@@ -7,7 +7,7 @@
 #include "RectangleData.h"
 #include "../Types.h"
 
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     class ElementsBufferObject
     {
@@ -82,6 +82,6 @@ namespace core::rend
         void bind(const std::vector<glm::uvec4> &indices) const;
 
     private:
-        u32 object{0};
+        core::u32 object{0};
     };
 }

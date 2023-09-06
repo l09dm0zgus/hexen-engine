@@ -54,18 +54,18 @@ void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity
 #include <GLES3/gl31.h>
 #endif
 
-void core::Window::close()
+void hexen::engine::core::Window::close()
 {
     bIsOpen = false;
 
 }
 
-void core::Window::swapBuffers()
+void hexen::engine::core::Window::swapBuffers()
 {
     SDL_GL_SwapWindow(window);
 }
 
-void core::Window::clear()
+void hexen::engine::core::Window::clear()
 {
     // Set background color as cornflower blue
     glClearColor(0.39f, 0.58f, 0.93f, 1.f);
@@ -73,7 +73,7 @@ void core::Window::clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-core::Window::~Window()
+hexen::engine::core::Window::~Window()
 {
     SDL_Log("Main Window has been destroyed.\n");
     SDL_DestroySurface(icon);
@@ -83,22 +83,22 @@ core::Window::~Window()
     SDL_Quit();
 }
 
-SDL_DisplayMode core::Window::getDisplayMode() const noexcept
+SDL_DisplayMode hexen::engine::core::Window::getDisplayMode() const noexcept
 {
     return displayMode;
 }
 
-SDL_Window *core::Window::getSDLWindow() const noexcept
+SDL_Window *hexen::engine::core::Window::getSDLWindow() const noexcept
 {
     return window;
 }
 
-SDL_GLContext core::Window::getGLContext() const noexcept
+SDL_GLContext hexen::engine::core::Window::getGLContext() const noexcept
 {
     return glContext;
 }
 
-core::Window::Window(const Settings &settings) : mem::AllocatedObject() , settings(settings)
+hexen::engine::core::Window::Window(const Settings &settings) :settings(settings)
 {
     auto  windowSettings = settings.getWindowSettings();
 
@@ -110,9 +110,9 @@ core::Window::Window(const Settings &settings) : mem::AllocatedObject() , settin
     setIcon(settings.getPathToIcon());
 }
 
-void core::Window::initSDL()
+void hexen::engine::core::Window::initSDL()
 {
-    if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
+    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         SDL_Log( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
     }
@@ -125,17 +125,17 @@ void core::Window::initSDL()
     }
 }
 
-core::i32 core::Window::pollEvents(SDL_Event *sdlEvent)
+hexen::engine::core::i32 hexen::engine::core::Window::pollEvents(SDL_Event *sdlEvent)
 {
     return SDL_PollEvent(sdlEvent);
 }
 
-bool core::Window::isOpen() const noexcept
+bool hexen::engine::core::Window::isOpen() const noexcept
 {
     return bIsOpen;
 }
 
-void core::Window::setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings)
+void hexen::engine::core::Window::setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings)
 {
 
 #ifndef  __ANDROID__
@@ -192,14 +192,14 @@ void core::Window::setOpenGLVersion(const Settings::OpenGLSettings &openGlSettin
     }
 }
 
-void core::Window::setIcon(const std::string &pathToIcon)
+void hexen::engine::core::Window::setIcon(const std::string &pathToIcon)
 {
     icon = IMG_Load(pathToIcon.c_str());
 
     SDL_SetWindowIcon(window,icon);
 }
 
-void core::Window::resize()
+void hexen::engine::core::Window::resize()
 {
     SDL_GetWindowSize(window, &width, &height);
     glViewport(0, 0, width, height);

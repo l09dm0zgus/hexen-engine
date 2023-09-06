@@ -12,9 +12,9 @@
 #include "Style.h"
 #include "Dockspace.h"
 #include <gui/IGUI.h>
-namespace edit::gui
+namespace hexen::editor::gui
 {
-class EditorGUI : public ::gui::IGUI
+class EditorGUI : public hexen::engine::gui::IGUI
     {
     public:
         /**

@@ -4,7 +4,7 @@
 #pragma once
 
 #include "../window/Window.h"
-namespace core
+namespace hexen::engine::core
 {
     class Application
     {

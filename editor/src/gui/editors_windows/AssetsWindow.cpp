@@ -12,13 +12,13 @@
 #include "../../project/Project.h"
 
 
-edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
+hexen::editor::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
 {
     setSize(glm::vec2(1280,400));
 
-    deleteFileWindow = core::mem::make_unique<DeleteFileWindow>("Delete");
-    deleteSelectedFilesWindow = core::mem::make_unique<DeleteSelectedFilesWindow>("Delete selected");
-    copyingFilesWindow = core::mem::make_unique<CopyingFilesWindow>("Copying");
+    deleteFileWindow = hexen::engine::core::memory::make_unique<DeleteFileWindow>("Delete");
+    deleteSelectedFilesWindow = hexen::engine::core::memory::make_unique<DeleteSelectedFilesWindow>("Delete selected");
+    copyingFilesWindow = hexen::engine::core::memory::make_unique<CopyingFilesWindow>("Copying");
 
     deleteSelectedFilesCallback = [this](){
         deleteSelectedFilesWindow->setPaths(selectedFiles);
@@ -33,14 +33,14 @@ edit::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(na
     Shortcuts::addShortcut({ImGuiKey_LeftCtrl,ImGuiKey_R},refreshCallback);
 }
 
-void edit::gui::AssetsWindow::begin()
+void hexen::editor::gui::AssetsWindow::begin()
 {
     deleteFileWindow->begin();
     deleteSelectedFilesWindow->begin();
     copyingFilesWindow->begin();
 }
 
-void edit::gui::AssetsWindow::draw()
+void hexen::editor::gui::AssetsWindow::draw()
 {
     ImGui::Begin(getName().c_str(),&isOpen,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
 
@@ -55,7 +55,7 @@ void edit::gui::AssetsWindow::draw()
         }
         if(ImGui::BeginMenuBar())
         {
-            for(core::i32 i = 0; i < directoryList.size(); i++)
+            for(hexen::engine::core::i32 i = 0; i < directoryList.size(); i++)
             {
                 drawNode(i);
             }
@@ -65,7 +65,7 @@ void edit::gui::AssetsWindow::draw()
 
         auto panelWitdh = ImGui::GetContentRegionAvail().x;
         auto cellSize = iconsSize.x + padding;
-        auto columnNumber = static_cast<core::i32>(panelWitdh / cellSize);
+        auto columnNumber = static_cast<hexen::engine::core::i32>(panelWitdh / cellSize);
 
         ImGui::Columns(columnNumber, nullptr, false);
         showFilesInDirectory();
@@ -96,14 +96,14 @@ void edit::gui::AssetsWindow::draw()
     ImGui::End();
 }
 
-void edit::gui::AssetsWindow::end()
+void hexen::editor::gui::AssetsWindow::end()
 {
     deleteFileWindow->end();
     deleteSelectedFilesWindow->end();
     copyingFilesWindow->end();
 }
 
-void edit::gui::AssetsWindow::drawNode(core::i32 i)
+void hexen::editor::gui::AssetsWindow::drawNode(hexen::engine::core::i32 i)
 {
     auto nodeName = directoryList[i] + " " + ICON_FA_FOLDER;
 
@@ -136,7 +136,7 @@ void edit::gui::AssetsWindow::drawNode(core::i32 i)
     ImGui::PopStyleColor(2);
 }
 
-void edit::gui::AssetsWindow::pushButtonStyle()
+void hexen::editor::gui::AssetsWindow::pushButtonStyle()
 {
     ImGui::PushStyleColor(ImGuiCol_Button,ImVec4(0.0f,0.0f,0.0f,0.0f));
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered,ImVec4(1.0f,1.0f,1.0f,0.1f));
@@ -144,12 +144,12 @@ void edit::gui::AssetsWindow::pushButtonStyle()
 
 }
 
-void edit::gui::AssetsWindow::popButtonStyle()
+void hexen::editor::gui::AssetsWindow::popButtonStyle()
 {
     ImGui::PopStyleColor(3);
 }
 
-void edit::gui::AssetsWindow::showFilesInDirectory()
+void hexen::editor::gui::AssetsWindow::showFilesInDirectory()
 {
     pushButtonStyle();
     for(auto& icon : icons)
@@ -160,7 +160,7 @@ void edit::gui::AssetsWindow::showFilesInDirectory()
 }
 
 
-void edit::gui::AssetsWindow::refresh()
+void hexen::editor::gui::AssetsWindow::refresh()
 {
     icons.clear();
     if(!currentPath.empty())
@@ -172,7 +172,7 @@ void edit::gui::AssetsWindow::refresh()
     }
 }
 
-void edit::gui::AssetsWindow::resizeIcons()
+void hexen::editor::gui::AssetsWindow::resizeIcons()
 {
     for(auto& icon : icons)
     {
@@ -180,7 +180,7 @@ void edit::gui::AssetsWindow::resizeIcons()
     }
 }
 
-void edit::gui::AssetsWindow::drawMenu()
+void hexen::editor::gui::AssetsWindow::drawMenu()
 {
     isShowedContextMenu = ImGui::BeginPopupContextWindow();
     if(isShowedContextMenu)
@@ -201,7 +201,7 @@ void edit::gui::AssetsWindow::drawMenu()
     }
 }
 
-void edit::gui::AssetsWindow::drawImportNewAssets()
+void hexen::editor::gui::AssetsWindow::drawImportNewAssets()
 {
     if(ImGui::MenuItem(ICON_FA_FILE_IMPORT " Import New Assets..."))
     {
@@ -232,7 +232,7 @@ void edit::gui::AssetsWindow::drawImportNewAssets()
     }
 }
 
-void edit::gui::AssetsWindow::drawDelete()
+void hexen::editor::gui::AssetsWindow::drawDelete()
 {
    if(currentHoveredIcon != nullptr && selectedFiles.empty())
    {
@@ -257,7 +257,7 @@ void edit::gui::AssetsWindow::drawDelete()
 
 }
 
-void edit::gui::AssetsWindow::drawRename()
+void hexen::editor::gui::AssetsWindow::drawRename()
 {
 
     if(currentHoveredIcon != nullptr)
@@ -274,7 +274,7 @@ void edit::gui::AssetsWindow::drawRename()
     }
 }
 
-void edit::gui::AssetsWindow::getActionsFromDialogs()
+void hexen::editor::gui::AssetsWindow::getActionsFromDialogs()
 {
     dialogWindowActions.clear();
     dialogWindowActions.push_back(deleteFileWindow->getLastAction());
@@ -291,7 +291,7 @@ void edit::gui::AssetsWindow::getActionsFromDialogs()
     }
 }
 
-void edit::gui::AssetsWindow::drawCreateEntity()
+void hexen::editor::gui::AssetsWindow::drawCreateEntity()
 {
     if(ImGui::MenuItem(ICON_FA_FILE_ALT" Create Entity..."))
     {
@@ -299,7 +299,7 @@ void edit::gui::AssetsWindow::drawCreateEntity()
     }
 }
 
-void edit::gui::AssetsWindow::drawCreateTileset()
+void hexen::editor::gui::AssetsWindow::drawCreateTileset()
 {
     if(ImGui::MenuItem(ICON_FA_FILE_IMAGE" Create Tileset..."))
     {
@@ -307,7 +307,7 @@ void edit::gui::AssetsWindow::drawCreateTileset()
     }
 }
 
-void edit::gui::AssetsWindow::drawCreateAnimation()
+void hexen::editor::gui::AssetsWindow::drawCreateAnimation()
 {
     if(ImGui::MenuItem(ICON_FA_FILE_VIDEO" Create Animation..."))
     {
@@ -316,7 +316,7 @@ void edit::gui::AssetsWindow::drawCreateAnimation()
 
 }
 
-void edit::gui::AssetsWindow::drawCreateScene()
+void hexen::editor::gui::AssetsWindow::drawCreateScene()
 {
     if(ImGui::MenuItem(ICON_FA_MAP" Create Scene..."))
     {
@@ -324,7 +324,7 @@ void edit::gui::AssetsWindow::drawCreateScene()
     }
 }
 
-void edit::gui::AssetsWindow::drawRefresh()
+void hexen::editor::gui::AssetsWindow::drawRefresh()
 {
     if(ImGui::MenuItem("Refresh","CTRL+R"))
     {
@@ -332,7 +332,7 @@ void edit::gui::AssetsWindow::drawRefresh()
     }
 }
 
-void edit::gui::AssetsWindow::drawNewFolder()
+void hexen::editor::gui::AssetsWindow::drawNewFolder()
 {
     if(ImGui::MenuItem(ICON_FA_FOLDER" New Folder"))
     {

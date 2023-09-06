@@ -6,9 +6,9 @@
 #include "ShaderFile.h"
 #include <glm/glm.hpp>
 #include "../../memory_pool/AllocatedObject.h"
-namespace core::rend::shader
+namespace hexen::engine::graphics::gl::shader
 {
-class ShaderProgram : public mem::AllocatedObject
+class ShaderProgram : public core::memory::AllocatedObject
     {
     public:
 
@@ -59,7 +59,7 @@ class ShaderProgram : public mem::AllocatedObject
         */
 
 
-    void setIntUniform(const std::string &uniformVariable,i32 value) const;
+    void setIntUniform(const std::string &uniformVariable,core::i32 value) const;
 
         /**
         * @brief Set a mat4 uniform variable in the shader program.
@@ -114,11 +114,11 @@ class ShaderProgram : public mem::AllocatedObject
     void setVector3Uniform(const std::string &uniformVariable,const glm::vec3 &vector) const;
 
     private:
-        ShaderFile vertexShaderFile;
-        ShaderFile fragmentShaderFile;
-        u32 vertexShader{0};
-        u32 fragmentShader{0};
-        u32 shaderProgram{0};
+        hexen::engine::graphics::shader::ShaderFile vertexShaderFile;
+        hexen::engine::graphics::shader::ShaderFile fragmentShaderFile;
+        core::u32 vertexShader{0};
+        core::u32 fragmentShader{0};
+        core::u32 shaderProgram{0};
         char* fragmentShaderText{nullptr};
         char* vertexShaderText{nullptr};
 
@@ -169,7 +169,7 @@ class ShaderProgram : public mem::AllocatedObject
         */
 
 
-    void showCompilerLog(u32 shader) const noexcept;
-    void showLinkerLog() const noexcept;
+        void showCompilerLog(core::u32 shader) const noexcept;
+        void showLinkerLog() const noexcept;
     };
 }

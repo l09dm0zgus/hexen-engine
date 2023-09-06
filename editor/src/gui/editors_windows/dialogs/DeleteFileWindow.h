@@ -6,7 +6,7 @@
 
 #include "DialogWindow.h"
 #include <filesystem>
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class DeleteFileWindow : public DialogWindow
     {

@@ -12,12 +12,12 @@
 #	include <windows.h>
 
 #	include <process.h>
-#	include <stdlib.h>
+#	include <cstdlib>
 
 #	pragma warning(push)
 #	pragma warning(disable : 4996) // 'mbstowcs': _CRT_SECURE_NO_WARNINGS
 
-namespace core::threading::thread
+namespace hexen::engine::core::threading::thread
 {
 
     static void setThreadName(HANDLE handle, const char *threadName)
@@ -37,7 +37,7 @@ namespace core::threading::thread
         {
             using SetThreadDescriptionPtr_t = HRESULT(WINAPI *)(_In_ HANDLE hThread, _In_ PCWSTR lpThreadDescription);
 
-            SetThreadDescriptionPtr_t funcPtr = reinterpret_cast<SetThreadDescriptionPtr_t>(::GetProcAddress(hMod, "SetThreadDescription"));
+            auto funcPtr = reinterpret_cast<SetThreadDescriptionPtr_t>(::GetProcAddress(hMod, "SetThreadDescription"));
             if (funcPtr != nullptr)
             {
                 funcPtr(handle, bufWide);
@@ -131,7 +131,7 @@ namespace core::threading::thread
 #	include <string.h>
 #	include <unistd.h>
 
-namespace core::threading::thread
+namespace hexen::engine::core::threading::thread
 {
     bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
     {
@@ -237,10 +237,10 @@ namespace core::threading::thread
 
 #include <thread>
 
-namespace core::threading::thread
+namespace hexen::engine::core::threading::thread
 {
 
-    u32 getNumberOfHardwareThreads()
+    hexen::engine::core::u32 getNumberOfHardwareThreads()
     {
 	    return std::thread::hardware_concurrency();
     }

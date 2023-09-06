@@ -12,9 +12,9 @@ namespace comp
     class TransformComponent;
 }
 
-namespace edit::sys
+namespace hexen::editor::systems
 {
-class DebugRenderSystem : public ::sys::IRenderSystem
+class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
 {
     public:
 
@@ -32,7 +32,7 @@ class DebugRenderSystem : public ::sys::IRenderSystem
     *
     */
 
-    explicit DebugRenderSystem(core::u32 sizeOfVectors);
+    explicit DebugRenderSystem(hexen::engine::core::u32 sizeOfVectors);
 
     /**
     * @brief Start the operation.
@@ -86,7 +86,7 @@ class DebugRenderSystem : public ::sys::IRenderSystem
      */
 
 
-    void updateModelMatrix(::comp::rend::RenderComponent *renderComponent);
+    void updateModelMatrix(hexen::engine::components::graphics::RenderComponent *renderComponent);
 
     /**
     * @brief Updates the view and projection matrices for rendering a sprite component.
@@ -102,11 +102,11 @@ class DebugRenderSystem : public ::sys::IRenderSystem
     * @see comp::rend::RenderComponent
     */
 
-    void updateViewAndProjectionMatrices(::comp::rend::RenderComponent *renderComponent);
+    void updateViewAndProjectionMatrices(hexen::engine::components::graphics::RenderComponent *renderComponent);
 
-    std::shared_ptr<comp::rend::DebugGridComponent> debugGridComponent{nullptr};
+    std::shared_ptr<hexen::editor::components::graphics::DebugGridComponent> debugGridComponent{nullptr};
 
-    std::shared_ptr<::comp::TransformComponent> debugGridTransform;
+    std::shared_ptr<hexen::engine::components::TransformComponent> debugGridTransform;
     };
 }
 

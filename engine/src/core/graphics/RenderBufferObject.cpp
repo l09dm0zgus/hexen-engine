@@ -11,29 +11,29 @@
 #endif
 
 
-core::rend::RenderBufferObject::RenderBufferObject()
+hexen::engine::graphics::gl::RenderBufferObject::RenderBufferObject()
 {
     glGenRenderbuffers(1,&object);
 }
 
 
 
-core::rend::RenderBufferObject::~RenderBufferObject()
+hexen::engine::graphics::gl::RenderBufferObject::~RenderBufferObject()
 {
     glDeleteRenderbuffers(1,&object);
 }
 
-core::u32 core::rend::RenderBufferObject::getID() const noexcept
+hexen::engine::core::u32 hexen::engine::graphics::gl::RenderBufferObject::getID() const noexcept
 {
     return object;
 }
 
-void core::rend::RenderBufferObject::bind() const
+void hexen::engine::graphics::gl::RenderBufferObject::bind() const
 {
     glBindRenderbuffer(GL_RENDERBUFFER, object);
 }
 
-void core::rend::RenderBufferObject::unbind()
+void hexen::engine::graphics::gl::RenderBufferObject::unbind()
 {
     glBindRenderbuffer(GL_RENDERBUFFER,0);
 }

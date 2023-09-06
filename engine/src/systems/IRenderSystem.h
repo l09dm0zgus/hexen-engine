@@ -5,9 +5,9 @@
 #pragma once
 #include "../core/memory_pool/AllocatedObject.h"
 
-namespace sys
+namespace hexen::engine::systems
 {
-    class IRenderSystem : public core::mem::AllocatedObject
+    class IRenderSystem : public core::memory::AllocatedObject
     {
     public:
         /**
@@ -31,7 +31,7 @@ namespace sys
         * interface, it should not be directly instantiated.
         */
 
-        ~IRenderSystem() = default;
+        ~IRenderSystem() override = default;
 
         /**
         * @class IRenderSystem

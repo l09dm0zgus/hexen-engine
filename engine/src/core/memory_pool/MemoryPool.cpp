@@ -13,7 +13,7 @@
  * @brief This class represents a memory pool with a specified size.
  */
 
-core::mem::MemoryPool::MemoryPool(u64 size) : size(size)
+hexen::engine::core::memory::MemoryPool::MemoryPool(u64 size) : size(size)
 {
     memory = malloc(size);
     lastAddress = memory;
@@ -21,7 +21,7 @@ core::mem::MemoryPool::MemoryPool(u64 size) : size(size)
     SDL_Log("Allocated memory in pool : %lu bytes.\nMemory address : %p.\n",size,memory);
 }
 
-void core::mem::MemoryPool::free(vptr address) noexcept
+void hexen::engine::core::memory::MemoryPool::free(vptr address) noexcept
 {
     auto iterator = std::find_if(allocations.begin(),allocations.end(),[address = address](const auto &allocation)
     {
@@ -36,13 +36,13 @@ void core::mem::MemoryPool::free(vptr address) noexcept
 }
 
 
-core::mem::MemoryPool::~MemoryPool()
+hexen::engine::core::memory::MemoryPool::~MemoryPool()
 {
     free(memory);
     SDL_Log("Freed memory from pool  address : %p.Size of freed memory: %lu.\n",memory,size);
 }
 
-core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
+hexen::engine::core::vptr hexen::engine::core::memory::MemoryPool::allocate(u64 allocationSize)
 {
     for(auto &allocation : allocations)
     {
@@ -91,7 +91,7 @@ core::vptr core::mem::MemoryPool::allocate(u64 allocationSize)
     return allocation.address;
 }
 
-inline void core::mem::MemoryPool::showLogForAllocation(const MemoryPool::Allocation &allocation)
+inline void hexen::engine::core::memory::MemoryPool::showLogForAllocation(const MemoryPool::Allocation &allocation)
 {
     auto freeMemory = (((u64)maxAddress) - (u64)lastAddress);
     SDL_Log("Allocated memory from address : %p.\nOccupied Bytes: %lu.\nAllocated memory for object: %lu.\nPool size : %lu.\nPool memory begin address : %p.\nAllocation objects : %zu.\nFree memory in pool: %lu.\n" ,allocation.address,allocation.occupiedBytes,allocation.allocatedBytes,size,memory,allocations.size(),freeMemory);

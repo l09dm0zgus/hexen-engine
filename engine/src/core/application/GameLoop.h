@@ -7,7 +7,7 @@
 #include "../../systems/SystemsManager.h"
 #include <chrono>
 
-namespace core
+namespace hexen::engine::core
 {
     class Window;
 
@@ -19,7 +19,7 @@ namespace core
     * and rendering processes while taking care of timing and frame rate control.
     */
 
-    class GameLoop : public mem::AllocatedObject
+    class GameLoop : public memory::AllocatedObject
     {
     public:
 
@@ -28,7 +28,7 @@ namespace core
          * and setting pointer to current system manager
          */
 
-        GameLoop(const std::shared_ptr<Window> &newWindow);
+        explicit GameLoop(const std::shared_ptr<Window> &newWindow);
 
 
         /**
@@ -36,7 +36,7 @@ namespace core
          * Just setting pointer to current system manager to nullptr.
          */
 
-        virtual ~GameLoop();
+        ~GameLoop() override;
 
         GameLoop(const GameLoop&) = delete;
 
@@ -145,7 +145,7 @@ namespace core
 
         const double msPerUpdate{0.2};
 
-        std::shared_ptr<sys::SystemsManager> systemManager;
+        std::shared_ptr<systems::SystemsManager> systemManager;
 
         std::shared_ptr<Window> window;
     };

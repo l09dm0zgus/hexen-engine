@@ -12,7 +12,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-void comp::CameraComponent::updateViewMatrix()
+void hexen::engine::components::graphics::CameraComponent::updateViewMatrix()
 {
 
     if(bIsIsometric)
@@ -33,67 +33,67 @@ void comp::CameraComponent::updateViewMatrix()
 
 }
 
-comp::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight,float FOV,bool isIsometric)
+hexen::engine::components::graphics::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight,float FOV,bool isIsometric)
 {
     this->FOV = FOV;
     updateProjectionMatrix(viewportWidth,viewportHeight);
     updateViewMatrix();
 }
 
-glm::mat4 comp::CameraComponent::getViewMatrix()
+glm::mat4 hexen::engine::components::graphics::CameraComponent::getViewMatrix()
 {
     return view;
 }
 
 
-glm::mat4 comp::CameraComponent::getProjectionMatrix()
+glm::mat4 hexen::engine::components::graphics::CameraComponent::getProjectionMatrix()
 {
     return projection;
 }
 
-void comp::CameraComponent::start()
+void hexen::engine::components::graphics::CameraComponent::start()
 {
 
 }
 
 
-void comp::CameraComponent::update(float deltaTime)
+void hexen::engine::components::graphics::CameraComponent::update(float deltaTime)
 {
     this->deltaTime = deltaTime;
 }
 
-void comp::CameraComponent::moveForward(float value)
+void hexen::engine::components::graphics::CameraComponent::moveForward(float value)
 {
     position.z += value * deltaTime;
     updateViewMatrix();
 }
 
-void comp::CameraComponent::moveRight(float value)
+void hexen::engine::components::graphics::CameraComponent::moveRight(float value)
 {
     position.x += value * deltaTime;
     updateViewMatrix();
 }
 
-void comp::CameraComponent::zoom(float value)
+void hexen::engine::components::graphics::CameraComponent::zoom(float value)
 {
     position += glm::normalize(glm::cross(cameraTarget, cameraUp)) * value * deltaTime;
     updateViewMatrix();
 }
 
-void comp::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
+void hexen::engine::components::graphics::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
 {
     glViewport(0,0,newWindowWidth,newWindowHeight);
     projection = glm::perspective(glm::radians(FOV), static_cast<float>(newWindowWidth) / static_cast<float>(newWindowHeight), 0.1f, 100.0f);
 }
 
-void comp::CameraComponent::yaw(float yawAngle)
+void hexen::engine::components::graphics::CameraComponent::yaw(float yawAngle)
 {
     currentYawAngle += yawAngle * deltaTime;
     updateViewMatrix();
 
 }
 
-void comp::CameraComponent::pitch(float pitchAngle)
+void hexen::engine::components::graphics::CameraComponent::pitch(float pitchAngle)
 {
     currentPitchAngle += pitchAngle * deltaTime;
     updateViewMatrix();

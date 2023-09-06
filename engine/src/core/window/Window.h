@@ -9,9 +9,9 @@
 #include "../memory_pool/AllocatedObject.h"
 #include "../application/Settings.h"
 
-namespace core
+namespace hexen::engine::core
 {
-    class Window : public mem::AllocatedObject
+    class Window : public memory::AllocatedObject
     {
     public:
         explicit Window(const Settings &settings);
@@ -20,11 +20,11 @@ namespace core
         void close();
         void clear();
         void resize();
-        bool isOpen() const noexcept;
+        [[nodiscard]] bool isOpen() const noexcept;
         i32 pollEvents(SDL_Event *sdlEvent);
-        SDL_DisplayMode getDisplayMode() const noexcept;
-        SDL_Window* getSDLWindow() const noexcept;
-        SDL_GLContext  getGLContext() const noexcept;
+        [[nodiscard]] SDL_DisplayMode getDisplayMode() const noexcept;
+        [[nodiscard]] SDL_Window* getSDLWindow() const noexcept;
+        [[nodiscard]] SDL_GLContext  getGLContext() const noexcept;
     private:
         Settings settings;
         void initSDL();
@@ -38,7 +38,7 @@ namespace core
         void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
         void setIcon(const std::string &pathToIcon);
 
-        SDL_Surface *icon;
+        SDL_Surface *icon{};
     };
 }
 

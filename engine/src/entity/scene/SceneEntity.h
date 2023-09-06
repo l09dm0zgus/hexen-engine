@@ -8,21 +8,21 @@
 #include "../../core/Types.h"
 #include "../../components/transform/TransformComponent.h"
 
-namespace ent
+namespace hexen::engine::entity
 {
     class SceneEntity : public Entity
     {
     public:
         explicit SceneEntity(std::string name);
         SceneEntity(std::string name, const std::string &UUID);
-        std::string getName() const noexcept;
-        SceneEntity* getParent() const noexcept;
+        [[nodiscard]] std::string getName() const noexcept;
+        [[nodiscard]] SceneEntity* getParent() const noexcept;
         void setParent(SceneEntity *newParent);
-        std::shared_ptr<comp::TransformComponent> transformComponent;
-        bool hasChildrens() const noexcept;
-        core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
-        std::shared_ptr<SceneEntity> getChild(const std::string &name) const noexcept;
-        std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID) const noexcept;
+        std::shared_ptr<components::TransformComponent> transformComponent;
+        [[nodiscard]] bool hasChildrens() const noexcept;
+        [[nodiscard]] core::HashTable<std::string,std::shared_ptr<SceneEntity>> getChildrens() const noexcept;
+        [[nodiscard]] std::shared_ptr<SceneEntity> getChild(const std::string &name) const noexcept;
+        [[nodiscard]] std::shared_ptr<SceneEntity> getChildByUUID(const std::string &UUID) const noexcept;
         bool isDescendantExist(const std::string &descendantUUID);
 
         template<class T>
@@ -32,19 +32,19 @@ namespace ent
         }
 
         //helper static methods for finding nodes in Scene
-        static bool isNodeExist(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID);
-        static std::shared_ptr<SceneEntity> getNode(const std::shared_ptr<ent::SceneEntity> &node,const std::string &UUID);
-        static bool searchNode(const std::shared_ptr<ent::SceneEntity> &node, const std::string &searchQuery,core::HashTable<std::string,std::shared_ptr<ent::SceneEntity>> &findedNodes);
+        static bool isNodeExist(const std::shared_ptr<entity::SceneEntity> &node,const std::string &UUID);
+        static std::shared_ptr<SceneEntity> getNode(const std::shared_ptr<entity::SceneEntity> &node,const std::string &UUID);
+        static bool searchNode(const std::shared_ptr<entity::SceneEntity> &node, const std::string &searchQuery,core::HashTable<std::string,std::shared_ptr<entity::SceneEntity>> &findedNodes);
 
         template<class T, class... Ts> void addChild(Ts&&... params)
         {
-            childrens.set(generateUUIDV4(),core::mem::make_shared<T>(params...));
+            childrens.set(generateUUIDV4(),core::memory::make_shared<T>(params...));
         }
 
         template<class T> void addChild(T &&entityName)
         {
             std::string childUUID = generateUUIDV4();
-            auto child = core::mem::make_shared<SceneEntity>(entityName,childUUID);
+            auto child = core::memory::make_shared<SceneEntity>(entityName,childUUID);
             childrens.set(childUUID,child);
             childrens[childUUID]->setParent(this);
         }
@@ -59,7 +59,7 @@ namespace ent
         std::string name;
         core::HashTable<std::string,std::shared_ptr<SceneEntity>> childrens;
         SceneEntity *parent{nullptr};
-        core::HashTable<std::string, std::shared_ptr<ent::SceneEntity>>::ConstIterator find(const std::string &name) const;
+        [[nodiscard]] core::HashTable<std::string, std::shared_ptr<entity::SceneEntity>>::ConstIterator find(const std::string &name) const;
     };
 }
 

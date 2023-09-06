@@ -5,7 +5,7 @@
 #include <iostream>
 #include "GtkFileDialog.h"
 
-void edit::gui::GTKFileDialog::addFiltersToDialog(GtkWidget *dialog,const edit::gui::INativeFileDialog::FileFilter &fileFilter)
+void hexen::editor::gui::GTKFileDialog::addFiltersToDialog(GtkWidget *dialog,const hexen::editor::gui::INativeFileDialog::FileFilter &fileFilter)
 {
     GtkFileFilter *gtkFileFilter;
     gtkFileFilter = gtk_file_filter_new();
@@ -29,12 +29,12 @@ void edit::gui::GTKFileDialog::addFiltersToDialog(GtkWidget *dialog,const edit::
     gtk_file_chooser_add_filter( GTK_FILE_CHOOSER(dialog), gtkFileFilter );
 }
 
-void edit::gui::GTKFileDialog::setDefaultPath(GtkWidget *dialog, const std::string &defaultPath)
+void hexen::editor::gui::GTKFileDialog::setDefaultPath(GtkWidget *dialog, const std::string &defaultPath)
 {
     gtk_file_chooser_set_current_folder( GTK_FILE_CHOOSER(dialog), defaultPath.c_str() );
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::allocatePathSet(GSList *fileList, edit::gui::INativeFileDialog::PathSet *pathSet)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::allocatePathSet(GSList *fileList, edit::gui::INativeFileDialog::PathSet *pathSet)
 {
     pathSet->count = g_slist_length( fileList );
     assert( pathSet->count > 0 );
@@ -48,7 +48,7 @@ edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::allocatePathSet(G
     return Status::STATUS_OK;
 }
 
-void edit::gui::GTKFileDialog::waitForCleanUp()
+void hexen::editor::gui::GTKFileDialog::waitForCleanUp()
 {
     while (gtk_events_pending())
     {
@@ -56,7 +56,7 @@ void edit::gui::GTKFileDialog::waitForCleanUp()
     }
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::openDialog(const edit::gui::INativeFileDialog::FileFilter &filterList,const std::string &defaultPath, std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::openDialog(const edit::gui::INativeFileDialog::FileFilter &filterList,const std::string &defaultPath, std::string &pathToFile)
 {
     GtkWidget *dialog;
     Status result;
@@ -90,7 +90,7 @@ edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::openDialog(const 
     return result;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::openDialog(const edit::gui::INativeFileDialog::FileFilter &filterList,const std::string &defaultPath, PathSet *pathToFiles)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::openDialog(const hexen::editor::gui::INativeFileDialog::FileFilter &filterList,const std::string &defaultPath, PathSet *pathToFiles)
 {
     GtkWidget *dialog;
     Status result;
@@ -131,7 +131,7 @@ edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::openDialog(const 
     return result;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::saveDialog(const edit::gui::INativeFileDialog::FileFilter &filterList,const std::string &defaultPath, std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::saveDialog(const hexen::editor::gui::INativeFileDialog::FileFilter &filterList,const std::string &defaultPath, std::string &pathToFile)
 {
     GtkWidget *dialog;
     Status result;
@@ -165,7 +165,7 @@ edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::saveDialog(const 
     return result;
 }
 
-edit::gui::INativeFileDialog::Status edit::gui::GTKFileDialog::pickDialog(const std::string &defaultPath, std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::pickDialog(const std::string &defaultPath, std::string &pathToFile)
 {
     GtkWidget *dialog;
     Status result;

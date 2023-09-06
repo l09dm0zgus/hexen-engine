@@ -9,7 +9,7 @@
 #include <core/graphics/texture/FrameBufferTexture.h>
 #include "GUIWindow.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class FramebufferWindow : public GUIWindow
     {
@@ -99,8 +99,8 @@ namespace edit::gui
         */
 
         void clear();
-        core::rend::FrameBufferObject frameBufferObject;
-        std::unique_ptr<core::rend::FrameBufferTexture> frameBufferTexture;
+        hexen::engine::graphics::gl::FrameBufferObject frameBufferObject;
+        std::unique_ptr<hexen::engine::graphics::gl::FrameBufferTexture> frameBufferTexture;
     protected:
 
         /**

@@ -5,13 +5,13 @@
 #include "Application.h"
 
 
-edit::Application::Application()
+hexen::editor::Application::Application()
 {
-    window = core::mem::make_shared<core::Window>(settings);
-    mainGameLoop = core::mem::make_unique<EditorGameLoop>(window);
+    window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
+    mainGameLoop = hexen::engine::core::memory::make_unique<EditorGameLoop>(window);
 }
 
-void edit::Application::run()
+void hexen::editor::Application::run()
 {
     mainGameLoop->start();
     mainGameLoop->loop();

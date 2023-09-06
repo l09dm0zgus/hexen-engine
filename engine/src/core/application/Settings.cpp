@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <fstream>
 
-core::Settings::Settings()
+hexen::engine::core::Settings::Settings()
 {
     if(!std::filesystem::exists(pathToSettings + settingsFileName))
     {
@@ -23,7 +23,7 @@ core::Settings::Settings()
     }
 }
 
-void core::Settings::setRenderAPI(const std::string &renderAPI)
+void hexen::engine::core::Settings::setRenderAPI(const std::string &renderAPI)
 {
     std::ofstream settingsFile(pathToSettings + settingsFileName);
     settingsJson["settings"]["render_api"] = renderAPI;
@@ -31,12 +31,12 @@ void core::Settings::setRenderAPI(const std::string &renderAPI)
 
 }
 
-std::string core::Settings::getRenderAPI() const
+std::string hexen::engine::core::Settings::getRenderAPI() const
 {
     return settingsJson["settings"]["render_api"];
 }
 
-void core::Settings::setWindowSettings(const core::Settings::WindowSettings &windowSettings)
+void hexen::engine::core::Settings::setWindowSettings(const hexen::engine::core::Settings::WindowSettings &windowSettings)
 {
     std::ofstream settingsFile(pathToSettings + settingsFileName);
 
@@ -48,7 +48,7 @@ void core::Settings::setWindowSettings(const core::Settings::WindowSettings &win
     settingsFile << settingsJson.dump(2);
 }
 
-core::Settings::WindowSettings core::Settings::getWindowSettings() const
+hexen::engine::core::Settings::WindowSettings hexen::engine::core::Settings::getWindowSettings() const
 {
     WindowSettings windowSettings{};
 
@@ -60,7 +60,7 @@ core::Settings::WindowSettings core::Settings::getWindowSettings() const
     return windowSettings;
 }
 
-void core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &openGlSettings)
+void hexen::engine::core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &openGlSettings)
 {
     std::ofstream settingsFile(pathToSettings + settingsFileName);
 
@@ -71,7 +71,7 @@ void core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &ope
     settingsFile << settingsJson.dump(2);
 }
 
-core::Settings::OpenGLSettings core::Settings::getOpenGLSettings() const
+hexen::engine::core::Settings::OpenGLSettings hexen::engine::core::Settings::getOpenGLSettings() const
 {
     OpenGLSettings openGlSettings{};
 
@@ -83,7 +83,7 @@ core::Settings::OpenGLSettings core::Settings::getOpenGLSettings() const
     return openGlSettings;
 }
 
-void core::Settings::setPathToIcon(const std::string &pathToIcon)
+void hexen::engine::core::Settings::setPathToIcon(const std::string &pathToIcon)
 {
     std::ofstream settingsFile(pathToSettings + settingsFileName);
 
@@ -92,7 +92,7 @@ void core::Settings::setPathToIcon(const std::string &pathToIcon)
     settingsFile << settingsJson.dump(2);
 }
 
-std::string core::Settings::getPathToIcon() const
+std::string hexen::engine::core::Settings::getPathToIcon() const
 {
     return settingsJson["settings"]["path_to_icon"];
 }

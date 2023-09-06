@@ -3,27 +3,27 @@
 //
 #include "RenderComponent.h"
 
-void comp::rend::RenderComponent::update(float deltaTime)
+void hexen::engine::components::graphics::RenderComponent::update(float deltaTime)
 {
     draw();
 }
 
-void comp::rend::RenderComponent::start()
+void hexen::engine::components::graphics::RenderComponent::start()
 {
 
 }
 
-glm::mat4 comp::rend::RenderComponent::getProjectionMatrix() const noexcept
+glm::mat4 hexen::engine::components::graphics::RenderComponent::getProjectionMatrix() const noexcept
 {
     return projection;
 }
 
-glm::mat4 comp::rend::RenderComponent::getViewMatrix() const noexcept
+glm::mat4 hexen::engine::components::graphics::RenderComponent::getViewMatrix() const noexcept
 {
     return view;
 }
 
-glm::mat4 comp::rend::RenderComponent::getTransformMatrix() const noexcept
+glm::mat4 hexen::engine::components::graphics::RenderComponent::getTransformMatrix() const noexcept
 {
     return transform;
 }

@@ -10,17 +10,17 @@
 #include <GLES3/gl31.h>
 #endif
 
-edit::comp::rend::DebugGridComponent::DebugGridComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
+hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::string &vertexShaderPath,const std::string &fragmentShaderPath)
 {
-    shaderProgram = core::mem::make_shared<core::rend::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);
+    shaderProgram = hexen::engine::core::memory::make_shared<hexen::engine::graphics::gl::shader::ShaderProgram>(vertexShaderPath,fragmentShaderPath);
 
-    grid = core::mem::make_unique<core::Grid>();
+    grid = hexen::engine::core::memory::make_unique<hexen::engine::core::Grid>();
 
     if(grid != nullptr)
     {
-        for(core::i32 j = 0; j <= grid->getSize().x; ++j)
+        for(hexen::engine::core::i32 j = 0; j <= grid->getSize().x; ++j)
         {
-            for(core::i32 i = 0; i <= grid->getSize().y; ++i)
+            for(hexen::engine::core::i32 i = 0; i <= grid->getSize().y; ++i)
             {
                 auto x = (float)i - grid->getUnitSize().y /grid->getNumberOfCells();
                 auto y = 0;
@@ -29,13 +29,13 @@ edit::comp::rend::DebugGridComponent::DebugGridComponent(const std::string &vert
             }
         }
 
-        for(core::i32 j = 0; j < grid->getSize().x; ++j)
+        for(hexen::engine::core::i32 j = 0; j < grid->getSize().x; ++j)
         {
-            for(core::i32 i = 0; i < grid->getSize().y; ++i)
+            for(hexen::engine::core::i32 i = 0; i < grid->getSize().y; ++i)
             {
 
-                core::u32 row1 =  j    * (grid->getSize().x + 1);
-                core::u32 row2 = (j+1) * (grid->getSize().y + 1);
+                hexen::engine::core::u32 row1 =  j    * (grid->getSize().x + 1);
+                hexen::engine::core::u32 row2 = (j+1) * (grid->getSize().y + 1);
 
                 indices.emplace_back(row1+i, row1+i+1, row1+i+1, row2+i+1);
                 indices.emplace_back(row2+i+1, row2+i, row2+i, row1+i);
@@ -57,7 +57,7 @@ edit::comp::rend::DebugGridComponent::DebugGridComponent(const std::string &vert
 
 }
 
-void edit::comp::rend::DebugGridComponent::draw() noexcept
+void hexen::editor::components::graphics::DebugGridComponent::draw() noexcept
 {
     glEnable(GL_DEPTH_TEST);
 

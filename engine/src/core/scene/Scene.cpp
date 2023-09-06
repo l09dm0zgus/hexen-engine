@@ -4,9 +4,9 @@
 
 #include "Scene.h"
 
-core::Scene::Scene(const std::string &name) : name(name) , size(1024.0f) , unitSize(32.0f)
+hexen::engine::core::Scene::Scene(const std::string &name) : name(name) , size(1024.0f) , unitSize(32.0f)
 {
-    root = mem::make_shared<ent::SceneEntity>(name);
+    root = memory::make_shared<entity::SceneEntity>(name);
 
     //temporary , entities will be loaded from file
     root->addChild("Scene_Entity_0");
@@ -17,49 +17,49 @@ core::Scene::Scene(const std::string &name) : name(name) , size(1024.0f) , unitS
     root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_5");
 }
 
-core::Scene::Scene(const std::string &name, const glm::vec2 &size, const glm::vec2 &unitSize) : Scene(name)
+hexen::engine::core::Scene::Scene(const std::string &name, const glm::vec2 &size, const glm::vec2 &unitSize) : Scene(name)
 {
     this->unitSize = unitSize;
     this->size = size;
 }
 
-core::Scene::SceneIterator core::Scene::begin()
+hexen::engine::core::Scene::SceneIterator hexen::engine::core::Scene::begin()
 {
     return SceneIterator(root,0);
 }
 
-core::Scene::SceneIterator core::Scene::end()
+hexen::engine::core::Scene::SceneIterator hexen::engine::core::Scene::end()
 {
     return SceneIterator(root);
 }
 
-core::Scene::SceneConstantIterator core::Scene::cbegin() const
+hexen::engine::core::Scene::SceneConstantIterator hexen::engine::core::Scene::cbegin() const
 {
     return SceneConstantIterator(root, 0);
 }
 
-core::Scene::SceneConstantIterator core::Scene::cend() const
+hexen::engine::core::Scene::SceneConstantIterator hexen::engine::core::Scene::cend() const
 {
     return SceneConstantIterator(root);
 }
 
-core::Scene::SceneConstantIterator core::Scene::find(const std::string &UUID) const
+hexen::engine::core::Scene::SceneConstantIterator hexen::engine::core::Scene::find(const std::string &UUID) const
 {
-    return SceneConstantIterator(ent::SceneEntity::getNode(root,UUID));
+    return SceneConstantIterator(entity::SceneEntity::getNode(root,UUID));
 }
 
-core::Scene::SceneIterator core::Scene::find(const std::string &UUID)
+hexen::engine::core::Scene::SceneIterator hexen::engine::core::Scene::find(const std::string &UUID)
 {
-    return SceneIterator(ent::SceneEntity::getNode(root,UUID));
+    return SceneIterator(entity::SceneEntity::getNode(root,UUID));
 }
 
-void core::Scene::erase(const std::string &UUID)
+void hexen::engine::core::Scene::erase(const std::string &UUID)
 {
     auto it = find(UUID);
     erase(it);
 }
 
-void core::Scene::erase(const core::Scene::SceneIterator &sceneIterator)
+void hexen::engine::core::Scene::erase(const core::Scene::SceneIterator &sceneIterator)
 {
     if(sceneIterator != end() && sceneIterator->getParent() != nullptr)
     {
@@ -67,7 +67,7 @@ void core::Scene::erase(const core::Scene::SceneIterator &sceneIterator)
     }
 }
 
-void core::Scene::forEach(std::function<void(std::shared_ptr<ent::SceneEntity> &)> callback)
+void hexen::engine::core::Scene::forEach(std::function<void(std::shared_ptr<entity::SceneEntity> &)> callback)
 {
     for(auto entity : *this)
     {
@@ -75,26 +75,26 @@ void core::Scene::forEach(std::function<void(std::shared_ptr<ent::SceneEntity> &
     }
 }
 
-std::shared_ptr<ent::SceneEntity> core::Scene::getRootNode() const noexcept
+std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::getRootNode() const noexcept
 {
     return root;
 }
 
-core::Scene::SceneIterator core::Scene::SceneIterator::operator++(core::i32)
+hexen::engine::core::Scene::SceneIterator hexen::engine::core::Scene::SceneIterator::operator++(core::i32)
 {
     auto tmp = *this;
     ++(*this);
     return tmp;
 }
 
-core::Scene::SceneIterator core::Scene::SceneIterator::operator--(core::i32)
+hexen::engine::core::Scene::SceneIterator hexen::engine::core::Scene::SceneIterator::operator--(core::i32)
 {
     auto tmp = *this;
     --(*this);
     return tmp;
 }
 
-void core::Scene::SceneIterator::traverseTree(const std::shared_ptr<ent::SceneEntity> &node)
+void hexen::engine::core::Scene::SceneIterator::traverseTree(const std::shared_ptr<entity::SceneEntity> &node)
 {
     auto it = std::find(visitedNode.cbegin(),visitedNode.cend(),node->getUUID());
     if(it == visitedNode.cend())
@@ -110,77 +110,77 @@ void core::Scene::SceneIterator::traverseTree(const std::shared_ptr<ent::SceneEn
 
 
 
-std::shared_ptr<ent::SceneEntity> core::Scene::SceneIterator::operator->() const
+std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::SceneIterator::operator->() const
 {
     assert(index < visitedNode.size() && "cannot dereference end iterator");
-    return ent::SceneEntity::getNode(root,visitedNode[index]);
+    return entity::SceneEntity::getNode(root,visitedNode[index]);
 }
 
-std::shared_ptr<ent::SceneEntity> core::Scene::SceneIterator::operator*() const
+std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::SceneIterator::operator*() const
 {
     return operator->();
 }
 
-bool core::Scene::SceneIterator::operator==(const core::Scene::SceneIterator &sceneIterator) const
+bool hexen::engine::core::Scene::SceneIterator::operator==(const core::Scene::SceneIterator &sceneIterator) const
 {
     return root == sceneIterator.root && index == sceneIterator.index;
 }
 
-bool core::Scene::SceneIterator::operator!=(const core::Scene::SceneIterator &sceneIterator) const
+bool hexen::engine::core::Scene::SceneIterator::operator!=(const core::Scene::SceneIterator &sceneIterator) const
 {
     return !operator==(sceneIterator);
 }
 
-core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<ent::SceneEntity> &root,u32 index) : root(root) , index(index)
+hexen::engine::core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<hexen::engine::entity::SceneEntity> &root,u32 index) : root(root) , index(index)
 {
     traverseTree(root);
 }
 
-core::Scene::SceneIterator &core::Scene::SceneIterator::operator++()
+hexen::engine::core::Scene::SceneIterator &hexen::engine::core::Scene::SceneIterator::operator++()
 {
     assert(index < visitedNode.size() && "cannot increment end iterator");
     index++;
     return *this;
 }
 
-core::Scene::SceneIterator &core::Scene::SceneIterator::operator--()
+hexen::engine::core::Scene::SceneIterator &hexen::engine::core::Scene::SceneIterator::operator--()
 {
     index--;
     return *this;
 }
 
-core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<ent::SceneEntity> &root) : root(root)
+hexen::engine::core::Scene::SceneIterator::SceneIterator(const std::shared_ptr<entity::SceneEntity> &root) : root(root)
 {
     traverseTree(root);
     index = visitedNode.size();
 }
 
-glm::vec2 core::Scene::getUnitSize() const noexcept
+glm::vec2 hexen::engine::core::Scene::getUnitSize() const noexcept
 {
     return unitSize;
 }
 
-glm::vec2 core::Scene::getSize() const noexcept
+glm::vec2 hexen::engine::core::Scene::getSize() const noexcept
 {
     return size;
 }
 
-const std::shared_ptr<ent::SceneEntity> core::Scene::SceneConstantIterator::operator->() const
+const std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::SceneConstantIterator::operator->() const
 {
     return SceneIterator::operator->();
 }
 
-const std::shared_ptr<ent::SceneEntity> core::Scene::SceneConstantIterator::operator*() const
+const std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::SceneConstantIterator::operator*() const
 {
     return SceneIterator::operator*();
 }
 
-core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root,u32 index ): SceneIterator(root,index)
+hexen::engine::core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<hexen::engine::entity::SceneEntity> &root,u32 index ): SceneIterator(root,index)
 {
 
 }
 
-core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<ent::SceneEntity> &root) : SceneIterator(root)
+hexen::engine::core::Scene::SceneConstantIterator::SceneConstantIterator(const std::shared_ptr<hexen::engine::entity::SceneEntity> &root) : SceneIterator(root)
 {
 
 }

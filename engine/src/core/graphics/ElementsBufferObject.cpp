@@ -14,19 +14,19 @@
 
 
 
-core::rend::ElementsBufferObject::ElementsBufferObject()
+hexen::engine::graphics::gl::ElementsBufferObject::ElementsBufferObject()
 {
     glGenBuffers(1,&object);
 }
 
 
-core::rend::ElementsBufferObject::~ElementsBufferObject()
+hexen::engine::graphics::gl::ElementsBufferObject::~ElementsBufferObject()
 {
     glDeleteBuffers(1,&object);
 }
 
 
-void core::rend::ElementsBufferObject::bind(const core::rend::RectangleData &rectangleData) const
+void hexen::engine::graphics::gl::ElementsBufferObject::bind(const hexen::engine::graphics::gl::RectangleData &rectangleData) const
 {
     constexpr auto bufferSize = sizeof(float) * RectangleDataSizes::INDICES_ARRAY_SIZE;
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,object);
@@ -35,14 +35,14 @@ void core::rend::ElementsBufferObject::bind(const core::rend::RectangleData &rec
 
 
 
-void core::rend::ElementsBufferObject::unbind()
+void hexen::engine::graphics::gl::ElementsBufferObject::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
 
-void core::rend::ElementsBufferObject::bind(const std::vector<glm::uvec4> &indices) const
+void hexen::engine::graphics::gl::ElementsBufferObject::bind(const std::vector<glm::uvec4> &indices) const
 {
     auto bufferSize = indices.size() * sizeof(glm::uvec4);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,object);

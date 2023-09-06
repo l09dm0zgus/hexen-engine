@@ -4,7 +4,7 @@
 
 #include "AllocatedObject.h"
 #include <SDL3/SDL.h>
-namespace core::mem
+namespace hexen::engine::core::memory
 {
     void handler()
     {
@@ -14,7 +14,7 @@ namespace core::mem
 }
 
 
-std::unique_ptr<core::mem::MemoryPool> core::mem::AllocatedObject::memoryPool = nullptr;
+std::unique_ptr<hexen::engine::core::memory::MemoryPool> hexen::engine::core::memory::AllocatedObject::memoryPool = nullptr;
 /**
  * @brief Overloaded new operator for allocating memory for objects of AllocatedObject.
  *
@@ -25,7 +25,7 @@ std::unique_ptr<core::mem::MemoryPool> core::mem::AllocatedObject::memoryPool = 
  * @return A pointer to the allocated memory for the object.
  */
 
-core::vptr core::mem::AllocatedObject::operator new(u64 size)
+hexen::engine::core::vptr hexen::engine::core::memory::AllocatedObject::operator new(u64 size)
 {
     if(memoryPool == nullptr)
     {
@@ -54,7 +54,7 @@ core::vptr core::mem::AllocatedObject::operator new(u64 size)
     }
 }
 
-void core::mem::AllocatedObject::operator delete(core::vptr address) noexcept
+void hexen::engine::core::memory::AllocatedObject::operator delete(core::vptr address) noexcept
 {
     if(address == nullptr)
     {
@@ -66,7 +66,7 @@ void core::mem::AllocatedObject::operator delete(core::vptr address) noexcept
     }
 }
 
-core::mem::AllocatedObject::AllocatedObject()
+hexen::engine::core::memory::AllocatedObject::AllocatedObject()
 {
     std::set_new_handler(handler);
 }

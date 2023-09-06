@@ -5,25 +5,25 @@
 #include "CopyingFilesWindow.h"
 #include "../MessageBox.h"
 
-edit::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : DialogWindow(std::move(name))
+hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : DialogWindow(std::move(name))
 {
 
 }
 
 
-void edit::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
+void hexen::editor::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
     filesToCopy = files;
     copedFiles = 0;
     currentFileToCopy = filesToCopy.cbegin();
 }
 
-void edit::gui::CopyingFilesWindow::setCurrentPath(const std::filesystem::path &currentPath)
+void hexen::editor::gui::CopyingFilesWindow::setCurrentPath(const std::filesystem::path &currentPath)
 {
     this->currentPath = currentPath;
 }
 
-void edit::gui::CopyingFilesWindow::drawContent()
+void hexen::editor::gui::CopyingFilesWindow::drawContent()
 {
     if(currentFileToCopy != filesToCopy.cend())
     {

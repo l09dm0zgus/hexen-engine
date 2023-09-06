@@ -5,14 +5,14 @@
 #include "../core/memory_pool/AllocatedObject.h"
 #include "IRenderSystem.h"
 #include "IGamePlaySystem.h"
-namespace core
+namespace hexen::engine::core
 {
     class Window;
 }
 
-namespace sys
+namespace hexen::engine::systems
 {
-    class SystemsManager : public core::mem::AllocatedObject
+    class SystemsManager : public hexen::engine::core::memory::AllocatedObject
     {
     private:
 
@@ -123,7 +123,7 @@ namespace sys
         {
             if(currentSystemManager != nullptr)
             {
-                currentSystemManager->gameplaySystems.emplace_back(core::mem::make_unique<T>(args...));
+                currentSystemManager->gameplaySystems.emplace_back(core::memory::make_unique<T>(args...));
             }
         }
 
@@ -144,7 +144,7 @@ namespace sys
         {
             if(currentSystemManager != nullptr)
             {
-                currentSystemManager->renderSystems.emplace_back(core::mem::make_unique<T>(args...));
+                currentSystemManager->renderSystems.emplace_back(core::memory::make_unique<T>(args...));
 
             }
         }
@@ -167,7 +167,7 @@ namespace sys
         * @brief Default virtual destructor.
         */
 
-        virtual ~SystemsManager() = default;
+        ~SystemsManager() override = default;
 
     };
 }

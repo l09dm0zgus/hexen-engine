@@ -8,7 +8,7 @@
 #include "../Types.h"
 #include "RenderBufferObject.h"
 
-namespace core::rend
+namespace hexen::engine::graphics::gl
 {
     class FrameBufferObject
     {
@@ -84,7 +84,7 @@ namespace core::rend
 
 
         /**
-        * \brief Binds a render buffer to the currently active frame buffer object.
+        * @brief Binds a render buffer to the currently active frame buffer object.
         *
         * This method binds the specified render buffer to the currently active
         * frame buffer object. The render buffer must already be allocated and
@@ -108,7 +108,7 @@ namespace core::rend
 
         void unbindRenderBuffer();
     private:
-        u32 object{0};
+        core::u32 object{0};
         RenderBufferObject renderBufferObject;
     };
 }

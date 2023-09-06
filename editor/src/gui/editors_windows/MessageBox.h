@@ -11,7 +11,7 @@
 #include <iostream>
 #include "imgui_internal.h"
 
-namespace edit::gui
+namespace hexen::editor::gui
 {
     class ImGuiMessageBox
     {
@@ -21,7 +21,7 @@ namespace edit::gui
             std::string title;
             std::string text;
             glm::vec2 size;
-            core::i32 id;
+            hexen::engine::core::i32 id;
             bool isActive = true;
             bool isOpened = true;
         };
@@ -58,7 +58,7 @@ namespace edit::gui
         template<class T>
         static HEXEN_INLINE void add(T &&title,T &&text, const glm::vec2 &size = glm::vec2(230,75))  noexcept
         {
-            auto id = core::hashString(text + title);
+            auto id = engine::core::hashString(text + title);
             auto it = std::find_if(messagesBoxesData.begin(),messagesBoxesData.end(),[id = id](const auto  &data){
                 return id == data.id;
             });
