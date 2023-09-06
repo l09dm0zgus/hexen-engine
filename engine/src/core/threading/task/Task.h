@@ -12,7 +12,8 @@ namespace core::threading
         template<class T,typename Ret ,typename ...Args>
         bool bind(T* object,Ret (T::*method)(Args...) , Args... args)
         {
-            delegate = reinterpret_cast<core::BaseDelegate<std::any> *const>(new core::MethodDelegate(object,method,args...));
+            auto methodDelegate = std::shared_ptr<core::MethodDelegate<T,Ret,Args...>>(new core::MethodDelegate(object,method,args...));
+            delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(methodDelegate);
 
             if(delegate == nullptr)
             {
@@ -24,7 +25,8 @@ namespace core::threading
         template<typename Ret ,typename ...Args>
         bool bind (Ret (*callableFunction)(Args...) , Args... args)
         {
-            delegate = reinterpret_cast<core::BaseDelegate<std::any> *const>(new core::FunctionDelegate(callableFunction,args...));
+            auto functionDelegate = std::shared_ptr<core::FunctionDelegate<Ret,Args...>>(new core::FunctionDelegate(callableFunction,args...));
+            delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functionDelegate);
 
             if(delegate == nullptr)
             {
@@ -85,7 +87,8 @@ namespace core::threading
         template<typename T ,typename ...Args>
         bool bind(T* object , Args... args)
         {
-            delegate = reinterpret_cast<core::BaseDelegate<std::any> *const>(new core::FunctorDelegate(object,args...));
+            auto functorDelegate = std::shared_ptr<core::FunctorDelegate<T,Args...>>(new core::FunctorDelegate(object,args...));
+            delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functorDelegate);
 
             if(delegate == nullptr)
             {
@@ -121,19 +124,16 @@ namespace core::threading
         }
 
 
-        void execute()
+        void execute() const
         {
             if(delegate != nullptr)
             {
                 delegate->execute();
-
-                delete delegate;
-                delegate = nullptr;
             }
         }
 
-        BaseDelegate<std::any> *delegate{nullptr};
-        vptr ArgumentsData;
+        std::shared_ptr<BaseDelegate<std::any>> delegate{nullptr};
+        vptr ArgumentsData{};
     };
 
     enum class TaskPriority
