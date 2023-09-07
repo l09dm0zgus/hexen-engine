@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 15.06.2023.
 //
 
-#include <core/Types.h>
-#include "Shortcuts.h"
+#include <core/Types.hpp>
+#include "Shortcuts.hpp"
 
 std::map<hexen::editor::gui::Shortcuts::Keys ,std::function<void()>> hexen::editor::gui::Shortcuts::shortcuts;
 

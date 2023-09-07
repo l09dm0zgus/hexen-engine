@@ -7,7 +7,7 @@
 #include <GLES3/gl31.h>
 #endif
 #include <SDL3/SDL.h>
-#include "FrameBufferObject.h"
+#include "FrameBufferObject.hpp"
 
 
 hexen::engine::graphics::gl::FrameBufferObject::FrameBufferObject()

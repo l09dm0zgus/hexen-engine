@@ -1,7 +1,7 @@
 //
 // Created by cx9ps3 on 16.06.2023.
 //
-#include "MessageBox.h"
+#include "MessageBox.hpp"
 
 std::vector<hexen::editor::gui::ImGuiMessageBox::MessageBoxData> hexen::editor::gui::ImGuiMessageBox::messagesBoxesData;
 

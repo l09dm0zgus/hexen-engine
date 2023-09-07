@@ -3,8 +3,8 @@
 //
 
 #include <GL/glew.h>
-#include "Application.h"
-#include "../graphics/Graphics.h"
+#include "Application.hpp"
+#include "../graphics/Graphics.hpp"
 #include "../../entity/scene/SceneEntity.h"
 
 void hexen::engine::core::Application::run()

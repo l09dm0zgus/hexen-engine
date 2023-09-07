@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#include "DeleteSelectedFilesWindow.h"
+#include "DeleteSelectedFilesWindow.hpp"
 
 hexen::editor::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string name) : DeleteFileWindow(std::move(name))
 {

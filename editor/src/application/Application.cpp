@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 25.05.2023.
 //
 
-#include "Application.h"
+#include "Application.hpp"
 
 
 hexen::editor::Application::Application()

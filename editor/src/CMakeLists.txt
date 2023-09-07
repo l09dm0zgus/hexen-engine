@@ -11,10 +11,10 @@ target_sources(${EDITOR_NAME} PRIVATE
         Application.rc
         main.cpp
         application/Application.cpp
-        application/Application.h
-        application/EditorGameLoop.h
+        application/Application.hpp
+        application/EditorGameLoop.hpp
         application/EditorGameLoop.cpp
-        project/Project.h
+        project/Project.hpp
         project/Project.cpp
         )
 

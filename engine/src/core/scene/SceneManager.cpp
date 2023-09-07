@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 11.07.2023.
 //
 
-#include "SceneManager.h"
+#include "SceneManager.hpp"
 
 std::shared_ptr<hexen::engine::core::Scene> hexen::engine::core::SceneManager::currentScene;
 

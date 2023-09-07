@@ -2,9 +2,9 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#include "SystemsManager.h"
-#include "../core/window/Window.h"
-#include "TaskSystem.h"
+#include "SystemsManager.hpp"
+#include "../core/window/Window.hpp"
+#include "TaskSystem.hpp"
 #include <memory>
 
 

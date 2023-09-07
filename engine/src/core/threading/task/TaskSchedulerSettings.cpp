@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 18.08.2023.
 //
 
-#include "TaskSchedulerSettings.h"
+#include "TaskSchedulerSettings.hpp"
 #include <filesystem>
 #include <fstream>
 

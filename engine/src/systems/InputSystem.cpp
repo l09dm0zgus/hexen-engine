@@ -2,10 +2,10 @@
 // Created by cx9ps3 on 02.09.2023.
 //
 
-#include "InputSystem.h"
+#include "InputSystem.hpp"
 #include <fstream>
 #include <filesystem>
-#include "../core/window/Window.h"
+#include "../core/window/Window.hpp"
 
 void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
 {

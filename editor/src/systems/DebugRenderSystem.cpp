@@ -2,9 +2,9 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#include <systems/TaskSystem.h>
-#include <systems/RenderSystem.h>
-#include "DebugRenderSystem.h"
+#include <systems/TaskSystem.hpp>
+#include <systems/RenderSystem.hpp>
+#include "DebugRenderSystem.hpp"
 #include <profiling/Profiling.h>
 
 

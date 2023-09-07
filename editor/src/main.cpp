@@ -1,7 +1,7 @@
 //
 // Created by cx9ps3 on 24.05.2023.
 //
-#include "application/Application.h"
+#include "application/Application.hpp"
 int main()
 {
     hexen::editor::Application app;

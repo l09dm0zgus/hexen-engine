@@ -10,7 +10,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-#include "ElementsBufferObject.h"
+#include "ElementsBufferObject.hpp"
 
 
 

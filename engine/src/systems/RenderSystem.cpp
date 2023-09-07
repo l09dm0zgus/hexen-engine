@@ -2,9 +2,9 @@
 // Created by cx9ps3 on 23.05.2023.
 //
 
-#include "RenderSystem.h"
+#include "RenderSystem.hpp"
 #include <algorithm>
-#include "TaskSystem.h"
+#include "TaskSystem.hpp"
 
 
 std::vector<hexen::engine::components::graphics::SpriteComponent> hexen::engine::systems::RenderSystem::spritesComponent;

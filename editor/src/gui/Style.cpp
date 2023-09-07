@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 29.05.2023.
 //
 
-#include "Style.h"
-#include "IconsFontAwesome5.h"
+#include "Style.hpp"
+#include "IconsFontAwesome5.hpp"
 #include <filesystem>
 #include <fstream>
 

@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 03.01.23.
 //
 
-#include "VertexAttributes.h"
+#include "VertexAttributes.hpp"
 #ifndef  __ANDROID__
 #include <GL/glew.h>
 #else

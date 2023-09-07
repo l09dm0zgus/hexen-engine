@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.20)
 project(${EDITOR_NAME})
 
 target_sources(${EDITOR_NAME} PRIVATE
-        DialogWindow.h
+        DialogWindow.hpp
         DialogWindow.cpp
-        DeleteFileWindow.h
+        DeleteFileWindow.hpp
         DeleteFileWindow.cpp
-        DeleteSelectedFilesWindow.h
+        DeleteSelectedFilesWindow.hpp
         DeleteSelectedFilesWindow.cpp
-        CopyingFilesWindow.h
+        CopyingFilesWindow.hpp
         CopyingFilesWindow.cpp
         )

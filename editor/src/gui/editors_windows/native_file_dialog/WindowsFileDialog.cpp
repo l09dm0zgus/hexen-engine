@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 11.06.2023.
 //
 
-#include "WindowsFileDialog.h"
+#include "WindowsFileDialog.hpp"
 #include <algorithm>
 #include <iostream>
 

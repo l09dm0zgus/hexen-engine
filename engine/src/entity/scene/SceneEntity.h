@@ -5,8 +5,8 @@
 #ifndef BATTLEBLAZE_SCENEENTITY_H
 #define BATTLEBLAZE_SCENEENTITY_H
 #include "../Entity.h"
-#include "../../core/Types.h"
-#include "../../components/transform/TransformComponent.h"
+#include "../../core/Types.hpp"
+#include "../../components/transform/TransformComponent.hpp"
 
 namespace hexen::engine::entity
 {

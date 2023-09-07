@@ -7,7 +7,7 @@
 #include <GLES3/gl31.h>
 #endif
 
-#include "FrameBufferTexture.h"
+#include "FrameBufferTexture.hpp"
 
 
 hexen::engine::core::u32 hexen::engine::graphics::gl::FrameBufferTexture::getID() const noexcept

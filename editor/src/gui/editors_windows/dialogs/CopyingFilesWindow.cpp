@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#include "CopyingFilesWindow.h"
-#include "../MessageBox.h"
+#include "CopyingFilesWindow.hpp"
+#include "../MessageBox.hpp"
 
 hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : DialogWindow(std::move(name))
 {

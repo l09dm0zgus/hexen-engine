@@ -1,13 +1,13 @@
 //
 // Created by cx9ps3 on 25.05.2023.
 //
-#include "EditorGUI.h"
-#include "editors_windows/AssetsWindow.h"
-#include "editors_windows/MainMenuBar.h"
-#include "editors_windows/SceneWindow.h"
-#include "editors_windows/Shortcuts.h"
-#include "editors_windows/MessageBox.h"
-#include "editors_windows/SceneHierarchyWindow.h"
+#include "EditorGUI.hpp"
+#include "editors_windows/AssetsWindow.hpp"
+#include "editors_windows/MainMenuBar.hpp"
+#include "editors_windows/SceneWindow.hpp"
+#include "editors_windows/Shortcuts.hpp"
+#include "editors_windows/MessageBox.hpp"
+#include "editors_windows/SceneHierarchyWindow.hpp"
 
 
 

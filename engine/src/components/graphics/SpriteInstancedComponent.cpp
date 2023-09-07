@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 14.01.23.
 //
 
-#include "SpriteInstancedComponent.h"
+#include "SpriteInstancedComponent.hpp"
 
 #ifndef  __ANDROID__
 #include <GL/glew.h>

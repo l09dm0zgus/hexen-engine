@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 27.06.2023.
 //
 
-#include "DialogWindow.h"
+#include "DialogWindow.hpp"
 
 hexen::editor::gui::DialogWindow::DialogWindow(std::string name) : GUIWindow(name) {
 

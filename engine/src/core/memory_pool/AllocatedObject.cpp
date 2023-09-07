@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 09.05.2023.
 //
 
-#include "AllocatedObject.h"
+#include "AllocatedObject.hpp"
 #include <SDL3/SDL.h>
 namespace hexen::engine::core::memory
 {

@@ -3,8 +3,8 @@
 //
 #include <filesystem>
 #include <fstream>
-#include <core/Types.h>
-#include "Project.h"
+#include <core/Types.hpp>
+#include "Project.hpp"
 
 std::unique_ptr<hexen::editor::Project> hexen::editor::Project::currentProject;
 

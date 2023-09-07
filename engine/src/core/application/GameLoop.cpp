@@ -2,11 +2,11 @@
 // Created by cx9ps3 on 29.07.2023.
 //
 
-#include "GameLoop.h"
+#include "GameLoop.hpp"
 #include <chrono>
-#include "../window/Window.h"
-#include "../../systems/TaskSystem.h"
-#include "../../systems/RenderSystem.h"
+#include "../window/Window.hpp"
+#include "../../systems/TaskSystem.hpp"
+#include "../../systems/RenderSystem.hpp"
 
 void hexen::engine::core::GameLoop::start()
 {

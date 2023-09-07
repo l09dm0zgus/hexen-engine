@@ -5,7 +5,7 @@
 #include "Entity.h"
 
 #include <algorithm>
-#include "../core/exceptions/ComponentNotFound.h"
+#include "../core/exceptions/ComponentNotFound.hpp"
 
 hexen::engine::entity::Entity::Entity()
 {

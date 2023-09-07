@@ -2,11 +2,11 @@
 // Created by cx9ps3 on 09.06.2023.
 //
 
-#include "Dockspace.h"
+#include "Dockspace.hpp"
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <SDL_log.h>
-#include "editors_windows/SceneWindow.h"
+#include "editors_windows/SceneWindow.hpp"
 
 
 void hexen::editor::gui::Dockspace::draw()

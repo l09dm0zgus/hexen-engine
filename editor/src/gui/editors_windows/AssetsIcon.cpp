@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 27.06.2023.
 //
 
-#include "AssetsIcon.h"
-#include "AssetsWindow.h"
+#include "AssetsIcon.hpp"
+#include "AssetsWindow.hpp"
 #include <misc/cpp/imgui_stdlib.h>
 
 std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::fileIcon;

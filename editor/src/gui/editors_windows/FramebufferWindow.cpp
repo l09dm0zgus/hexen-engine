@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#include "FramebufferWindow.h"
+#include "FramebufferWindow.hpp"
 #include "imgui.h"
 #include "imgui_internal.h"
 #include <iostream>

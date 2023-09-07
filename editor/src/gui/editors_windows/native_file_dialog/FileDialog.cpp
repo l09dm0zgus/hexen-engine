@@ -2,12 +2,12 @@
 // Created by cx9ps3 on 14.06.2023.
 //
 
-#include "FileDialog.h"
+#include "FileDialog.hpp"
 
 #if defined(__unix__)
 #include "GtkFileDialog.h"
 #elif defined(WIN32)
-#include "WindowsFileDialog.h"
+#include "WindowsFileDialog.hpp"
 #endif
 
 hexen::editor::gui::FileDialog::FileDialog()

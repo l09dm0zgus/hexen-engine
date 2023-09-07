@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 10.01.23.
 //
 
-#include "CameraComponent.h"
+#include "CameraComponent.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
 #include <SDL3/SDL.h>

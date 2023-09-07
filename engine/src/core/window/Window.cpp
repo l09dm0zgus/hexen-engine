@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 28.12.22.
 //
 
-#include "Window.h"
+#include "Window.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <filesystem>

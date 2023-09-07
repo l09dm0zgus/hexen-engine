@@ -1,7 +1,7 @@
 //
 // Created by cx9ps3 on 26.01.23.
 //
-#include "RenderComponent.h"
+#include "RenderComponent.hpp"
 
 void hexen::engine::components::graphics::RenderComponent::update(float deltaTime)
 {

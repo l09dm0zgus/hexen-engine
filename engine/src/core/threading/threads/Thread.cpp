@@ -1,5 +1,5 @@
 
-#include "Thread.h"
+#include "Thread.hpp"
 
 #if defined(HEXEN_WIN32_THREADS)
 

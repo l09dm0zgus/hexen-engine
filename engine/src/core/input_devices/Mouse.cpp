@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 03.09.2023.
 //
 
-#include "Mouse.h"
+#include "Mouse.hpp"
 
 void hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
 {

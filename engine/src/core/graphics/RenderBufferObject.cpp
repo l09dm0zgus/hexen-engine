@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 09.06.2023.
 //
 
-#include "RenderBufferObject.h"
+#include "RenderBufferObject.hpp"
 
 #ifndef  __ANDROID__
 #include <GL/glew.h>

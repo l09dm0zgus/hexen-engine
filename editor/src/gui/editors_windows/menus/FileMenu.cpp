@@ -2,12 +2,12 @@
 // Created by cx9ps3 on 19.06.2023.
 //
 
-#include "FileMenu.h"
-#include "../Shortcuts.h"
-#include "../native_file_dialog/FileDialog.h"
-#include "../MessageBox.h"
-#include "../../IconsFontAwesome5.h"
-#include "../../../project/Project.h"
+#include "FileMenu.hpp"
+#include "../Shortcuts.hpp"
+#include "../native_file_dialog/FileDialog.hpp"
+#include "../MessageBox.hpp"
+#include "../../IconsFontAwesome5.hpp"
+#include "../../../project/Project.hpp"
 #include <imgui.h>
 
 hexen::editor::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))

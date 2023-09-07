@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 20.05.2023.
 //
 
-#include "ComponentNotFound.h"
+#include "ComponentNotFound.hpp"
 
 hexen::engine::exceptions::ComponentNotFound::ComponentNotFound(std::string componentName) : componentName(std::move(componentName))
 {

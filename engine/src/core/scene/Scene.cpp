@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 24.05.2023.
 //
 
-#include "Scene.h"
+#include "Scene.hpp"
 
 hexen::engine::core::Scene::Scene(const std::string &name) : name(name) , size(1024.0f) , unitSize(32.0f)
 {

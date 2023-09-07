@@ -1,15 +1,15 @@
 //
 // Created by cx9ps3 on 19.06.2023.
 //
-#include <core/graphics/texture/Texture.h>
-#include "AssetsWindow.h"
-#include "native_file_dialog/FileDialog.h"
-#include "MessageBox.h"
+#include "core/graphics/texture/Texture.hpp"
+#include "AssetsWindow.hpp"
+#include "native_file_dialog/FileDialog.hpp"
+#include "MessageBox.hpp"
 #include <algorithm>
 #include <iostream>
-#include "Shortcuts.h"
-#include "../IconsFontAwesome5.h"
-#include "../../project/Project.h"
+#include "Shortcuts.hpp"
+#include "../IconsFontAwesome5.hpp"
+#include "../../project/Project.hpp"
 
 
 hexen::editor::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))

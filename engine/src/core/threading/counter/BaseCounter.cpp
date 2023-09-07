@@ -1,6 +1,6 @@
-#include "BaseCounter.h"
+#include "BaseCounter.hpp"
 
-#include "../task/TaskScheduler.h"
+#include "../task/TaskScheduler.hpp"
 
 #include <thread>
 

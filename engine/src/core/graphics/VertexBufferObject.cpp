@@ -4,7 +4,7 @@
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "VertexBufferObject.h"
+#include "VertexBufferObject.hpp"
 #ifndef  __ANDROID__
 #include "GL/glew.h"
 #else

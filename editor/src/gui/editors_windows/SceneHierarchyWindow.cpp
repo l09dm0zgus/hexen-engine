@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 28.06.2023.
 //
 
-#include "SceneHierarchyWindow.h"
-#include "../IconsFontAwesome5.h"
+#include "SceneHierarchyWindow.hpp"
+#include "../IconsFontAwesome5.hpp"
 #include <misc/cpp/imgui_stdlib.h>
 
 hexen::editor::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name) : GUIWindow(std::move(name))

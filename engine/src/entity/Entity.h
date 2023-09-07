@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "../core/uuid/uuid.h"
-#include "../core/Types.h"
-#include "../components/Component.h"
+#include "../core/uuid/uuid.hpp"
+#include "../core/Types.hpp"
+#include "../components/Component.hpp"
 #include <iostream>
 
 namespace hexen::engine::entity

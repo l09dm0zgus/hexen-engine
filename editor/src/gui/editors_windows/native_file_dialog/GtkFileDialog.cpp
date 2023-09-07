@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "GtkFileDialog.h"
+#include "GtkFileDialog.hpp"
 
 void hexen::editor::gui::GTKFileDialog::addFiltersToDialog(GtkWidget *dialog,const hexen::editor::gui::INativeFileDialog::FileFilter &fileFilter)
 {

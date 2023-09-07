@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 26.06.2023.
 //
 
-#include "DeleteFileWindow.h"
+#include "DeleteFileWindow.hpp"
 #include <filesystem>
 #include <iostream>
 

@@ -2,12 +2,12 @@
 // Created by cx9ps3 on 01.08.2023.
 //
 
-#include "EditorSystemsManager.h"
-#include <core/window/Window.h>
-#include <systems/TaskSystem.h>
-#include <systems/RenderSystem.h>
-#include "../gui/EditorGUI.h"
-#include "DebugRenderSystem.h"
+#include "EditorSystemsManager.hpp"
+#include "core/window/Window.hpp"
+#include <systems/TaskSystem.hpp>
+#include <systems/RenderSystem.hpp>
+#include "../gui/EditorGUI.hpp"
+#include "DebugRenderSystem.hpp"
 #include <profiling/Profiling.h>
 
 void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::shared_ptr<hexen::editor::gui::EditorGUI> &newEditorGUI)

@@ -2,10 +2,10 @@
 // Created by cx9ps3 on 10.06.2023.
 //
 
-#include "MainMenuBar.h"
+#include "MainMenuBar.hpp"
 
 #include <utility>
-#include "menus/FileMenu.h"
+#include "menus/FileMenu.hpp"
 
 hexen::editor::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
 {

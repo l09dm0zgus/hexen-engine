@@ -2,12 +2,12 @@
 // Created by cx9ps3 on 01.08.2023.
 //
 
-#include <systems/TaskSystem.h>
-#include <core/scene/SceneManager.h>
-#include <core/window/Window.h>
-#include "../gui/EditorGUI.h"
-#include "EditorGameLoop.h"
-#include "../systems/EditorSystemsManager.h"
+#include <systems/TaskSystem.hpp>
+#include <core/scene/SceneManager.hpp>
+#include "core/window/Window.hpp"
+#include "../gui/EditorGUI.hpp"
+#include "EditorGameLoop.hpp"
+#include "../systems/EditorSystemsManager.hpp"
 #include <profiling/Profiling.h>
 
 

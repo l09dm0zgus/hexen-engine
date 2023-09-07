@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 19.06.2023.
 //
 
-#include "Menu.h"
+#include "Menu.hpp"
 
 hexen::editor::gui::Menu::Menu(std::string name)  : GUIWindow(std::move(name))
 {

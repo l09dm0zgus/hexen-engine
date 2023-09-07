@@ -2,25 +2,25 @@ cmake_minimum_required(VERSION 3.20)
 project(${EDITOR_NAME})
 
 target_sources(${EDITOR_NAME} PRIVATE
-        SceneWindow.h
+        SceneWindow.hpp
         SceneWindow.cpp
         GUIWindow.cpp
-        GUIWindow.h
-        MainMenuBar.h
+        GUIWindow.hpp
+        MainMenuBar.hpp
         MainMenuBar.cpp
-        Shortcuts.h
+        Shortcuts.hpp
         Shortcuts.cpp
-        dialogs/NewProjectWindow.h
+        dialogs/NewProjectWindow.hpp
         dialogs/NewProjectWindow.cpp
-        MessageBox.h
+        MessageBox.hpp
         MessageBox.cpp
-        AssetsWindow.h
+        AssetsWindow.hpp
         AssetsWindow.cpp
-        AssetsIcon.h
+        AssetsIcon.hpp
         AssetsIcon.cpp
-        SceneHierarchyWindow.h
+        SceneHierarchyWindow.hpp
         SceneHierarchyWindow.cpp
-        FramebufferWindow.h
+        FramebufferWindow.hpp
         FramebufferWindow.cpp
         )
 

@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 09.01.23.
 //
 
-#include "TransformComponent.h"
+#include "TransformComponent.hpp"
 
 void hexen::engine::components::TransformComponent::updateTransformMatrix()
 {

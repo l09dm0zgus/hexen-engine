@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 29.07.2023.
 //
 
-#include "TaskSystem.h"
+#include "TaskSystem.hpp"
 
 hexen::engine::core::threading::TaskScheduler hexen::engine::systems::TaskSystem::scheduler;
 hexen::engine::core::threading::TaskCounter hexen::engine::systems::TaskSystem::counter(&scheduler);

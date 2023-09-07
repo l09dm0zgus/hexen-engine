@@ -2,8 +2,8 @@
 // Created by cx9ps3 on 29.07.2023.
 //
 
-#include "Grid.h"
-#include "SceneManager.h"
+#include "Grid.hpp"
+#include "SceneManager.hpp"
 
 glm::vec2 hexen::engine::core::Grid::getSize() const noexcept
 {

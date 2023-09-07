@@ -2,12 +2,12 @@
 // Created by cx9ps3 on 16.06.2023.
 //
 
-#include "NewProjectWindow.h"
+#include "NewProjectWindow.hpp"
 #include "imgui.h"
-#include "../native_file_dialog/FileDialog.h"
+#include "../native_file_dialog/FileDialog.hpp"
 #include <memory.h>
-#include "../MessageBox.h"
-#include "../../../project/Project.h"
+#include "../MessageBox.hpp"
+#include "../../../project/Project.hpp"
 
 hexen::editor::gui::NewProjectWindow::NewProjectWindow(std::string name) : DialogWindow(std::move(name))
 {

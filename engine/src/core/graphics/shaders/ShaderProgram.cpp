@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 03.01.23.
 //
 
-#include "ShaderProgram.h"
+#include "ShaderProgram.hpp"
 #include <SDL3/SDL.h>
 
 #ifndef  __ANDROID__
