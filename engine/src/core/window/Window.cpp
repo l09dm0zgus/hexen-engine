@@ -112,7 +112,7 @@ hexen::engine::core::Window::Window(const Settings &settings) :settings(settings
 
 void hexen::engine::core::Window::initSDL()
 {
-    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
         SDL_Log( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
     }
