@@ -176,7 +176,8 @@ namespace hexen::engine::core::input
 
         static void removeNewGamepad(SDL_JoystickID gamepadID);
     private:
-        SDL_GamepadButtonEvent buttonEvent{};
+        u8 pressedButton{};
+        u8 releasedButton{};
         SDL_Gamepad *controller{nullptr};
         std::string name;
         SDL_JoystickID gamepadID;
