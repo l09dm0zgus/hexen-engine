@@ -12,6 +12,10 @@
 namespace hexen::engine::core
 {
     class Window;
+    namespace input
+    {
+        class Gamepad;
+    }
 }
 
 namespace hexen::engine::systems
@@ -21,6 +25,7 @@ namespace hexen::engine::systems
 
     private:
         std::unique_ptr<core::input::Mouse> mouse;
+        std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> gamepads;
 
         nlohmann::json keyMappingsFile;
         core::HashTable<std::string,std::function<void()>> actionMappingCallbacks;

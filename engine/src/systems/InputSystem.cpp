@@ -6,6 +6,7 @@
 #include <fstream>
 #include <filesystem>
 #include "../core/window/Window.hpp"
+#include "../core/input_devices/Gamepad.hpp"
 
 void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
 {
@@ -16,10 +17,19 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
         {
             gui->processEvent(event);
         }
+
         mouse->processInput(event);
 
-        std::cout << "Pressed Left button: " <<std::boolalpha << mouse->isLeftButtonPressed() << " pressed Right button: " << std::boolalpha << mouse->isRightButtonPressed() << " pressed middle button: " << std::boolalpha << mouse->isMiddleButtonPressed() << " is x1 button pressed : " << std::boolalpha << mouse->isX1ButtonPressed() << " is x2 button pressed : " << std::boolalpha << mouse->isX2ButtonPressed() << "\n";
-        std::cout << "Released Left button: " << std::boolalpha << mouse->isLeftButtonReleased() << " released  right button: " << std::boolalpha << mouse->isRightButtonReleased() << " released middle button: " << std::boolalpha << mouse->isMiddleButtonReleased() << " is released x1 button : " << std::boolalpha << mouse->isX1ButtonReleased() << " is x2 button released button: " << std::boolalpha << mouse->isX2ButtonReleased() << "\n";
+        for(auto& gamepad : gamepads)
+        {
+            gamepad->processInput(event);
+            if(gamepad->isButtonPressed(core::input::Gamepad::Button::A))
+            {
+                std::cout << "A key pressed\n";
+            }
+            std::cout << "Left Thumbstick X: " << gamepad->getLeftThumbstickX() << " Y:" << gamepad->getLeftThumbstickY() << "\n";
+            std::cout << "Right Thumbstick X: " << gamepad->getRightThumbstickX() << " Y:" << gamepad->getRightThumbstickY() << "\n";
+        }
 
         if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
         {
@@ -28,6 +38,14 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
         else if (event.type == SDL_EVENT_WINDOW_RESIZED)
         {
             window->resize();
+        }
+        else if (event.type == SDL_EVENT_GAMEPAD_ADDED)
+        {
+            core::input::Gamepad::addNewGamepad(event.gdevice.which);
+        }
+        else if (event.type == SDL_EVENT_GAMEPAD_REMOVED)
+        {
+            core::input::Gamepad::removeNewGamepad(event.gdevice.which);
         }
     }
 
@@ -47,6 +65,8 @@ hexen::engine::systems::InputSystem::InputSystem(const std::string &pathToFile)
     }
 
     mouse = core::memory::make_unique<core::input::Mouse>();
+    gamepads =  core::input::Gamepad::getAllAvailableGamepads();
+
 }
 
 void hexen::engine::systems::InputSystem::createMappingsFile()
