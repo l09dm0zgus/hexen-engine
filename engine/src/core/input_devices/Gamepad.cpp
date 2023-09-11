@@ -14,9 +14,12 @@ hexen::engine::core::input::Gamepad::Gamepad(hexen::engine::core::i32 index)
     {
         SDL_Log("Failed to open device controller : %s",SDL_GetError());
     }
-    gamepadID = SDL_GetGamepadInstanceID(controller);
-    name = SDL_GetGamepadName(controller);
-    std::cout << "Added gamepad : " << name << std::endl;
+    else
+    {
+        gamepadID = SDL_GetGamepadInstanceID(controller);
+        name = SDL_GetGamepadName(controller);
+        std::cout << "Added gamepad : " << name << std::endl;
+    }
 }
 
 void hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
@@ -90,7 +93,7 @@ std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> hexen::engine:
 {
     i32  numbersOfGamepads;
     auto joysticksIDs = SDL_GetGamepads(&numbersOfGamepads);
-
+    std::cout << "Number of Gamepads : " << numbersOfGamepads << std::endl;
     gamepads.reserve(numbersOfGamepads);
 
     for(i32 i = 0; i < numbersOfGamepads; i++)
