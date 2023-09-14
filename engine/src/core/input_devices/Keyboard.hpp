@@ -7,6 +7,11 @@
 #include "../Types.hpp"
 #include <SDL.h>
 
+#if defined (HEXEN_OS_WINDOWS)
+    #undef DELETE
+    #undef OUT
+#endif
+
 namespace hexen::engine::core::input
 {
     class Keyboard
