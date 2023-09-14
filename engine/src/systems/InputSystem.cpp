@@ -19,19 +19,14 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
         }
 
         mouse->processInput(event);
+        keyboard->processInput(event);
 
         for(auto& gamepad : gamepads)
         {
             gamepad->processInput(event);
-            if(gamepad->isButtonPressed(core::input::Gamepad::Button::A))
-            {
-                std::cout << "A key pressed\n";
-            }
-            std::cout << "Left Thumbstick X: " << gamepad->getLeftThumbstickX() << " Y:" << gamepad->getLeftThumbstickY() << "\n";
-            std::cout << "Right Thumbstick X: " << gamepad->getRightThumbstickX() << " Y:" << gamepad->getRightThumbstickY() << "\n";
         }
 
-        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
+        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED || keyboard->isKeyPressed(core::input::Keyboard::Key::ESCAPE))
         {
             window->close();
         }
@@ -64,6 +59,7 @@ hexen::engine::systems::InputSystem::InputSystem(const std::string &pathToFile)
         createMappingsFile();
     }
 
+    keyboard = core::memory::make_unique<core::input::Keyboard>();
     mouse = core::memory::make_unique<core::input::Mouse>();
     gamepads =  core::input::Gamepad::getAllAvailableGamepads();
 

@@ -8,7 +8,7 @@
 #include <functional>
 #include "../gui/IGUI.hpp"
 #include "../core/input_devices/Mouse.hpp"
-
+#include "../core/input_devices/Keyboard.hpp"
 namespace hexen::engine::core
 {
     class Window;
@@ -25,6 +25,7 @@ namespace hexen::engine::systems
 
     private:
         std::unique_ptr<core::input::Mouse> mouse;
+        std::unique_ptr<core::input::Keyboard> keyboard;
         std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> gamepads;
 
         nlohmann::json keyMappingsFile;
