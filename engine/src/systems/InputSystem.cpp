@@ -17,9 +17,10 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
         {
             gui->processEvent(event);
         }
+        processKeyboardInput(event);
 
         mouse->processInput(event);
-        keyboard->processInput(event);
+
 
         for(auto& gamepad : gamepads)
         {
@@ -132,3 +133,53 @@ void hexen::engine::systems::InputSystem::changeMapping(const std::string &name,
 {
 
 }
+
+void hexen::engine::systems::InputSystem::processKeyboardInput(const SDL_Event &event)
+{
+    if(keyboard->processInput(event))
+    {
+        ActionMapping actionMapping;
+        AxisMapping axisMapping;
+        if(findActionMappingById(keyboard->currentKeyScancode,actionMapping))
+        {
+            actionMappingCallbacks[actionMapping.name]();
+            return;
+        }
+        else if(findAxisMappingById(keyboard->currentKeyScancode,axisMapping))
+        {
+            axisMappingsCallbacks[axisMapping.name](axisMapping.value);
+            return;
+        }
+    }
+}
+
+bool hexen::engine::systems::InputSystem::findActionMappingById(hexen::engine::core::u32 id,hexen::engine::systems::InputSystem::ActionMapping &actionMapping)
+{
+    auto actionMappingsIterator = std::find_if(actionMappings.cbegin(),actionMappings.cend(),[id = id](const ActionMapping& actionMapping){
+        return actionMapping.sdlKey == id;
+    });
+
+    if(actionMappingsIterator != actionMappings.cend())
+    {
+        actionMapping = *actionMappingsIterator;
+        return true;
+    }
+    return false;
+
+}
+
+bool hexen::engine::systems::InputSystem::findAxisMappingById(hexen::engine::core::u32 id,hexen::engine::systems::InputSystem::AxisMapping &axisMapping)
+{
+    auto axisMappingsIterator = std::find_if(axisMappings.cbegin(),axisMappings.cend(),[id = id](const AxisMapping& axisMapping){
+        return axisMapping.sdlKey == id;
+    });
+
+    if(axisMappingsIterator != axisMappings.cend())
+    {
+        axisMapping = *axisMappingsIterator;
+        return true;
+    }
+
+    return false;
+}
+

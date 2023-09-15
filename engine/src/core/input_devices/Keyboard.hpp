@@ -12,13 +12,22 @@
     #undef OUT
 #endif
 
+namespace hexen::engine::systems
+{
+    class InputSystem;
+}
+
 namespace hexen::engine::core::input
 {
     class Keyboard
     {
     private:
         const u8 *keyboardState{nullptr};
+        u32 currentKeyScancode;
     public:
+
+        friend class hexen::engine::systems::InputSystem;
+
         enum class Key : core::i32
         {
             UNKNOWN = 0,
@@ -321,10 +330,10 @@ namespace hexen::engine::core::input
         *
         * @param event The SDL_Event object containing keyboard event data.
         *
-        * @return void
+        * @return bool True if the is vent associated   with the keyboard otherwise false.
         */
 
-        void processInput(const SDL_Event &event);
+        bool processInput(const SDL_Event &event);
 
         /**
         * @brief Checks if a specific key on the keyboard is currently pressed.

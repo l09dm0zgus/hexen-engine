@@ -4,9 +4,18 @@
 
 #include "Keyboard.hpp"
 
-void hexen::engine::core::input::Keyboard::processInput(const SDL_Event &event)
+bool hexen::engine::core::input::Keyboard::processInput(const SDL_Event &event)
 {
     SDL_PumpEvents();
+
+    auto isKeyboardEvent = event.type == SDL_EVENT_KEY_UP || event.type == SDL_EVENT_KEY_DOWN;
+
+    if(isKeyboardEvent)
+    {
+        currentKeyScancode = event.key.keysym.scancode;
+    }
+
+    return isKeyboardEvent;
 }
 
 hexen::engine::core::input::Keyboard::Keyboard()

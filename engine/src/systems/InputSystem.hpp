@@ -36,6 +36,7 @@ namespace hexen::engine::systems
     public:
         struct ActionMapping
         {
+            ActionMapping() :sdlKey(0) {};
             ActionMapping(const std::string& name,core::u32 sdlKey) : name(name), sdlKey(sdlKey) {};
             core::u32 sdlKey;
             std::string name;
@@ -43,6 +44,7 @@ namespace hexen::engine::systems
 
         struct AxisMapping
         {
+            AxisMapping() :  sdlKey(0) , value(0.0f) {};
             AxisMapping(const std::string& name,float value,core::u32 sdlKey) : name(name),value(value),sdlKey(sdlKey) {};
             core::u32 sdlKey;
             float value;
@@ -70,6 +72,13 @@ namespace hexen::engine::systems
         void loadMappingsFile();
         std::vector<ActionMapping> actionMappings;
         std::vector<AxisMapping> axisMappings;
+
+        void processKeyboardInput(const SDL_Event &event);
+        //void processGamepadsInput(const SDL_Event &event);
+
+
+        bool findActionMappingById(core::u32 id,ActionMapping &actionMapping);
+        bool findAxisMappingById(core::u32 id,AxisMapping &axisMapping);
     };
 
 }
