@@ -17,15 +17,11 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
         {
             gui->processEvent(event);
         }
+
         processKeyboardInput(event);
+        processGamepadsInput(event);
 
         mouse->processInput(event);
-
-
-        for(auto& gamepad : gamepads)
-        {
-            gamepad->processInput(event);
-        }
 
         if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED || keyboard->isKeyPressed(core::input::Keyboard::Key::ESCAPE))
         {
@@ -85,12 +81,12 @@ void hexen::engine::systems::InputSystem::loadMappingsFile()
 
     for(core::i32 i = 0; i < numberOfAxisMappings; i++)
     {
-        axisMappings.emplace_back(keyMappingsFile["mappings"]["axis_mappings"][i]["axis_name"],keyMappingsFile["mappings"]["axis_mappings"][i]["value"],keyMappingsFile["mappings"]["axis_mappings"][i]["axis_key"]);
+        axisMappings.emplace_back(keyMappingsFile["mappings"]["axis_mappings"][i]["axis_name"], keyMappingsFile["mappings"]["axis_mappings"][i]["value"], keyMappingsFile["mappings"]["axis_mappings"][i]["axis_key"],keyMappingsFile["mappings"]["axis_mappings"][i]["player_id"]);
     }
 
     for(core::i32 i = 0; i < numberOfActionMappings; i++)
     {
-        actionMappings.emplace_back(keyMappingsFile["mapping"]["action_mappings"][i]["action_name"],keyMappingsFile["mapping"]["action_mappings"][i]["action_key"]);
+        actionMappings.emplace_back(keyMappingsFile["mapping"]["action_mappings"][i]["action_name"], keyMappingsFile["mapping"]["action_mappings"][i]["action_key"], keyMappingsFile["mapping"]["action_mappings"][i]["player_id"]);
     }
 }
 
@@ -142,12 +138,14 @@ void hexen::engine::systems::InputSystem::processKeyboardInput(const SDL_Event &
         AxisMapping axisMapping;
         if(findActionMappingById(keyboard->currentKeyScancode,actionMapping))
         {
-            actionMappingCallbacks[actionMapping.name]();
+            auto callback  = findActionMappingCallback(actionMapping.playerId,actionMapping.name);
+            callback();
             return;
         }
         else if(findAxisMappingById(keyboard->currentKeyScancode,axisMapping))
         {
-            axisMappingsCallbacks[axisMapping.name](axisMapping.value);
+            auto callback = findAxisMappingCallback(axisMapping.playerId,axisMapping.name);
+            callback(axisMapping.value);
             return;
         }
     }
@@ -181,5 +179,76 @@ bool hexen::engine::systems::InputSystem::findAxisMappingById(hexen::engine::cor
     }
 
     return false;
+}
+
+void hexen::engine::systems::InputSystem::processGamepadsInput(const SDL_Event &event)
+{
+    auto players = 0;
+    for(auto& gamepad : gamepads)
+    {
+        if(gamepad->processInput(event))
+        {
+            ActionMapping actionMapping;
+            AxisMapping axisMapping;
+            auto currentEventId = gamepad->currentEventId;
+
+            if(findActionMappingById(currentEventId,actionMapping))
+            {
+                auto callback  = findActionMappingCallback(players,actionMapping.name);
+                callback();
+                return;
+            }
+            else if(findAxisMappingById(currentEventId,axisMapping))
+            {
+                auto axis = static_cast<core::input::Gamepad::Axis>(currentEventId);
+                auto axisValue = 0.0f;
+
+                switch(axis)
+                {
+                    case core::input::Gamepad::Axis::LEFT_X:
+                        axisValue = gamepad->getLeftThumbstickX();
+                        break;
+                    case core::input::Gamepad::Axis::LEFT_Y:
+                        axisValue = gamepad->getLeftThumbstickY();
+                        break;
+                    case core::input::Gamepad::Axis::RIGHT_X:
+                        axisValue = gamepad->getRightThumbstickX();
+                        break;
+                    case core::input::Gamepad::Axis::RIGHT_Y:
+                        axisValue = gamepad->getRightThumbstickY();
+                        break;
+                }
+
+                auto callback = findAxisMappingCallback(players,axisMapping.name);
+                callback((axisValue / MAX_GAMEPAD_AXIS_VALUE) * axisMapping.value);
+
+                return;
+            }
+        }
+
+        players++;
+    }
+}
+
+hexen::engine::systems::InputSystem::ActionMappingCallback hexen::engine::systems::InputSystem::findActionMappingCallback(hexen::engine::core::u32 playerId ,const std::string &name)
+{
+    auto it = std::find_if(actionMappingCallbacks.cbegin(), actionMappingCallbacks.cend(),[&name,playerId = playerId](const ActionMappingCallback &callback){
+        return callback.playerId == playerId && callback.name == name;
+    });
+
+    HEXEN_ASSERT(it != actionMappingCallbacks.cend() ,"Not founded callback to this player\n");
+
+    return *it;
+}
+
+hexen::engine::systems::InputSystem::AxisMappingCallback hexen::engine::systems::InputSystem::findAxisMappingCallback(hexen::engine::core::u32 playerId, const std::string &name)
+{
+    auto it = std::find_if(axisMappingCallbacks.cbegin(), axisMappingCallbacks.cend(),[&name,playerId = playerId](const AxisMappingCallback &callback){
+        return callback.playerId == playerId && callback.name == name;
+    });
+
+    HEXEN_ASSERT(it != axisMappingCallbacks.cend() ,"Not founded callback to this player \n");
+
+    return *it;
 }
 

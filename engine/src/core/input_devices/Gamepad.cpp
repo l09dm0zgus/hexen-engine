@@ -22,7 +22,7 @@ hexen::engine::core::input::Gamepad::Gamepad(hexen::engine::core::i32 index)
     }
 }
 
-void hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
+bool hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
 {
     leftAxisY = 0;
     leftAxisX = 0;
@@ -31,9 +31,12 @@ void hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
     releasedButton = -1;
     pressedButton = -1;
 
+    auto isGamepadEvent = event.type == SDL_EVENT_GAMEPAD_AXIS_MOTION || event.type == SDL_EVENT_GAMEPAD_BUTTON_DOWN || event.type == SDL_EVENT_GAMEPAD_BUTTON_UP;
+
     switch (event.type)
     {
         case SDL_EVENT_GAMEPAD_AXIS_MOTION:
+            currentEventId = event.gaxis.axis;
             switch (event.gaxis.axis)
             {
                 case SDL_GAMEPAD_AXIS_LEFTX:
@@ -52,11 +55,14 @@ void hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
             break;
         case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
             pressedButton = event.gbutton.button;
+            currentEventId = pressedButton;
             break;
         case SDL_EVENT_GAMEPAD_BUTTON_UP:
             releasedButton = event.gbutton.button;
+            currentEventId = releasedButton;
             break;
     }
+    return isGamepadEvent;
 }
 
 

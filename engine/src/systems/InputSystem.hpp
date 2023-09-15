@@ -22,33 +22,73 @@ namespace hexen::engine::systems
 {
     class InputSystem : public core::memory::AllocatedObject
     {
-
     private:
+
+        struct ActionMappingCallback
+        {
+
+        private:
+            std::function<void()> callback;
+        public:
+            core::u32 playerId;
+            std::string name;
+
+            void operator()()
+            {
+                callback();
+            }
+        };
+
+        struct AxisMappingCallback
+        {
+
+        private:
+            std::function<void(float)> callback;
+        public:
+            core::u32 playerId;
+            std::string name;
+
+            void operator()(float value) const
+            {
+                callback(value);
+            }
+        };
+
+        using ActionMappingsCallbacks = std::vector<ActionMappingCallback>;
+        using AxisMappingCallbacks = std::vector<AxisMappingCallback>;
+
         std::unique_ptr<core::input::Mouse> mouse;
         std::unique_ptr<core::input::Keyboard> keyboard;
         std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> gamepads;
 
         nlohmann::json keyMappingsFile;
-        core::HashTable<std::string,std::function<void()>> actionMappingCallbacks;
-        core::HashTable<std::string,std::function<void(float)>> axisMappingsCallbacks;
+
+        ActionMappingsCallbacks actionMappingCallbacks;
+        AxisMappingCallbacks axisMappingCallbacks;
+
         std::string path;
         std::vector<std::shared_ptr<gui::IGUI>> guis;
+
+        static constexpr core::u32 MAX_GAMEPAD_AXIS_VALUE = 32767;
+
     public:
         struct ActionMapping
         {
             ActionMapping() :sdlKey(0) {};
-            ActionMapping(const std::string& name,core::u32 sdlKey) : name(name), sdlKey(sdlKey) {};
+            ActionMapping(const std::string& name,core::u32 sdlKey,core::u8 playerId = 0) : name(name), sdlKey(sdlKey) , playerId(playerId){};
             core::u32 sdlKey;
             std::string name;
+            core::u8 playerId{};
         };
 
         struct AxisMapping
         {
             AxisMapping() :  sdlKey(0) , value(0.0f) {};
-            AxisMapping(const std::string& name,float value,core::u32 sdlKey) : name(name),value(value),sdlKey(sdlKey) {};
+            AxisMapping(const std::string& name,float value,core::u32 sdlKey,core::u8 playerId = 0) : name(name),value(value),sdlKey(sdlKey) ,playerId(playerId) {};
             core::u32 sdlKey;
             float value;
             std::string name;
+            core::u8 playerId{};
         };
 
         void addNewAxisMapping(const std::string& name,float value,core::u32 sdlKey);
@@ -74,11 +114,13 @@ namespace hexen::engine::systems
         std::vector<AxisMapping> axisMappings;
 
         void processKeyboardInput(const SDL_Event &event);
-        //void processGamepadsInput(const SDL_Event &event);
-
+        void processGamepadsInput(const SDL_Event &event);
 
         bool findActionMappingById(core::u32 id,ActionMapping &actionMapping);
         bool findAxisMappingById(core::u32 id,AxisMapping &axisMapping);
+
+        ActionMappingCallback findActionMappingCallback(core::u32 playerId,const std::string &name);
+        AxisMappingCallback findAxisMappingCallback(core::u32 playerId,const std::string &name); ;
     };
 
 }

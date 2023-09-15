@@ -330,7 +330,7 @@ namespace hexen::engine::core::input
         *
         * @param event The SDL_Event object containing keyboard event data.
         *
-        * @return bool True if the is vent associated   with the keyboard otherwise false.
+        * @return bool True if the is event associated with the keyboard otherwise false.
         */
 
         bool processInput(const SDL_Event &event);
