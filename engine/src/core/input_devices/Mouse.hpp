@@ -6,32 +6,34 @@
 #include <SDL3/SDL.h>
 #include <glm/vec2.hpp>
 
+namespace hexen::engine::systems
+{
+    class InputSystem;
+}
+
+
 namespace hexen::engine::core::input
 {
     class Mouse
     {
     private:
+        friend class hexen::engine::systems::InputSystem;
         glm::vec2 position{0.0f};
         glm::vec2 wheelPosition{0.0f};
-        glm::vec2 rightButtonPressedPosition{0.0f};
-        glm::vec2 leftButtonPressedPosition{0.0f};
-        glm::vec2 rightButtonReleasedPosition{0.0f};
-        glm::vec2 leftButtonReleasedPosition{0.0f};
         glm::vec2 lastPressedButtonPosition{0.0f};
         glm::vec2 lastReleasedButtonPosition{0.0f};
-
-        bool bIsLeftButtonPressed = false;
-        bool bIsRightButtonPressed = false;
-        bool bIsLeftButtonReleased = false;
-        bool bIsRightButtonReleased = false;
-        bool bIsMiddleButtonPressed = false;
-        bool bIsMiddleButtonReleased = false;
-        bool bIsX1ButtonPressed = false;
-        bool bIsX2ButtonReleased = false;
-        bool bIsX2ButtonPressed = false;
-        bool bIsX1ButtonReleased = false;
+        core::u8 currentButton = 0;
 
     public:
+
+        enum class Button : u8
+        {
+            LEFT = SDL_BUTTON_LEFT,
+            RIGHT = SDL_BUTTON_RIGHT,
+            MIDDLE = SDL_BUTTON_MIDDLE,
+            X1 = SDL_BUTTON_X1,
+            X2 = SDL_BUTTON_X2
+        };
 
         /**
         * @class Mouse
@@ -57,199 +59,25 @@ namespace hexen::engine::core::input
         * @return bool True if the right mouse button is currently pressed, false otherwise.
         */
 
-        [[nodiscard]] bool isRightButtonPressed() const noexcept;
-
         /**
-        * @brief Check if the left button of the mouse is pressed.
+        * @brief Checks if a mouse button is currently pressed.
         *
-        * This function checks whether the left button of the mouse is currently being pressed.
+        * This function checks whether the specified mouse button is currently pressed.
         *
-        * @return True if the left button is currently being pressed, false otherwise.
-        *
-        * @note This function does not throw any exceptions.
+        * @param button The mouse button to check.
+        * @return True if the mouse button is currently pressed, false otherwise.
         */
 
-        [[nodiscard]] bool isLeftButtonPressed() const noexcept;
+        [[nodiscard]] bool isButtonPressed(Button button) const;
 
         /**
-        * @brief Check if the left mouse button has been released.
+        * Check if a mouse button has been released.
         *
-        * This function returns true if the left mouse button has been released since the last check,
-        * otherwise it returns false.
-        *
-        * @return `true` if the left mouse button has been released, `false` otherwise.
-        *
-        * @note This function is constant and noexcept.
+        * @param button The mouse button to check.
+        * @return True if the specified mouse button has been released, false otherwise.
         */
 
-        [[nodiscard]] bool isLeftButtonReleased() const noexcept;
-
-        /**
-        * @brief Checks if the right mouse button is released.
-        * @return `true` if the right mouse button is released, `false` otherwise.
-        * @note This function is noexcept, meaning it does not throw any exceptions.
-        * @note This is a const member function, so it does not modify the state of the Mouse object.
-        *
-        * @par Example Usage:
-        *
-        * @code{.cpp}
-        * core::input::Mouse mouse;
-        * if (mouse.isRightButtonReleased())
-        * {
-        *     // Right mouse button is released
-        * }
-        * else
-        * {
-        *     // Right mouse button is not released
-        * }
-        * @endcode
-        */
-
-        [[nodiscard]] bool isRightButtonReleased() const noexcept;
-
-        /**
-       * @brief Retrieves the position of the right mouse button being pressed.
-       *
-       * @return The position of the right mouse button press as a Point object.
-       *
-       * This function returns the position of the right mouse button press relative to the screen coordinates.
-       * It is used to determine the position on the screen where the right mouse button was last pressed.
-       * The returned position is in pixels and represents the top-left corner of the screen as (0, 0).
-       *
-       * @note This function assumes that the mouse is connected and functioning properly.
-       * If the right mouse button has not been pressed, the behavior of this function is undefined.
-       *
-       * @sa Point, core::input::Mouse, core::input::Mouse::isRightButtonPressed()
-       */
-
-        [[nodiscard]] glm::vec2 getRightButtonPressedPosition() const noexcept;
-
-        /**
-        * @fn core::input::Mouse::getLeftButtonPressedPosition() const noexcept
-        * @brief Retrieves the position where the left mouse button was pressed.
-        *
-        * @details This method returns the position (x, y coordinates) where the left mouse button was last pressed down.
-        *          The position is relative to the application window and is measured in pixels.
-        *
-        * @note This function is used to retrieve the position of the left mouse button's press event only.
-        *       If the left button is currently released or not pressed at all, the returned position will be undefined.
-        *
-        * @return The position (x, y coordinates) where the left mouse button was pressed or an undefined position if the button is not pressed.
-        *
-        * @exception None
-        *
-        * @see core::input::Mouse::isLeftButtonPressed()
-        * @see core::input::Mouse::getPosition()
-        */
-
-        [[nodiscard]] glm::vec2 getLeftButtonPressedPosition() const noexcept;
-
-        /**
-        * @brief Retrieves the position at which the left mouse button was released.
-        *
-        * This function returns the position at which the left mouse button was released.
-        * The returned position represents the coordinates of the mouse cursor relative to the application window.
-        *
-        * @warning This function assumes that the left mouse button is in the released state.
-        *          If the left mouse button is still being pressed, the returned position may not be accurate.
-        *
-        * @return The position at which the left mouse button was released, as a Point object.
-        * @sa Point
-        */
-
-        [[nodiscard]] glm::vec2 getLeftMouseReleasedPosition() const noexcept;
-
-        /**
-        * @brief Get the position where the right mouse button was released.
-        *
-        * This method returns the position (x, y coordinates) where the right mouse button
-        * was released on the screen.
-        *
-        * @return The position where the right mouse button was released.
-        *
-        * @note This method throws no exceptions.
-        */
-
-        [[nodiscard]] glm::vec2 getRightMouseReleasedPosition() const noexcept;
-
-        /**
-        * @brief Checks if the middle button of the mouse is currently pressed.
-        *
-        * @return True if the middle button is pressed, false otherwise.
-        */
-
-        [[nodiscard]] bool isMiddleButtonPressed() const noexcept;
-
-        /**
-        * @brief Checks if the middle mouse button is released.
-        *
-        * This function determines if the middle mouse button is released. It can
-        * be used to query the current state of the middle mouse button and react
-        * accordingly.
-        *
-        * @return True if the middle mouse button is released, false otherwise.
-        *
-        * @note This function is non-blocking and can be called at any time to
-        * check the current state of the middle mouse button.
-        *
-        * @par Thread Safety
-        * This function is thread-safe and can be called safely from multiple
-        * threads without causing race conditions.
-        *
-        * @par Exception Safety
-        * This function is noexcept, meaning it does not throw any exceptions.
-        *
-        * @see isMiddleMousePressed()
-        */
-
-        [[nodiscard]] bool isMiddleButtonReleased() const noexcept;
-
-        /**
-        * @brief Checks if the X1 button of the mouse is currently pressed.
-        *
-        * @return True if the X1 button is pressed, false otherwise.
-        *
-        * @note This function is noexcept.
-        */
-
-        [[nodiscard]] bool isX1ButtonPressed() const noexcept;
-
-        /**
-        * @brief Checks if the X2 button of the mouse is currently pressed.
-        *
-        * @return true if the X2 button is pressed, false otherwise.
-        *
-        * @note This function does not throw exceptions.
-        */
-
-        [[nodiscard]] bool isX2ButtonPressed() const noexcept;
-
-        /**
-        * @brief Check if the X1 button on the mouse is released.
-        *
-        * This function returns true if the X1 button on the mouse is released,
-        * meaning it was previously pressed and is now in a released state.
-        * Otherwise, it returns false.
-        *
-        * @return true if the X1 button is released, false otherwise.
-        */
-
-
-        [[nodiscard]] bool isX1ButtonReleased() const noexcept;
-
-        /**
-        * @brief Check if the X2 mouse button is released.
-        * @return True if the X2 button is released, false otherwise.
-        *
-        * This function determines whether the X2 button on the mouse is released or not.
-        * It is a constant function and does not throw any exceptions (noexcept).
-        *
-        * @note The X2 button is an additional button found on some gaming mice, usually located
-        *       on the side of the mouse. This button is not available on all mice and may have a
-        *       different behavior depending on the mouse model and vendor.
-        */
-
-        [[nodiscard]] bool isX2ButtonReleased() const noexcept;
+        [[nodiscard]] bool isButtonReleased(Button button) const;
 
         /**
         * @brief Returns the position of the last button pressed on the mouse.
@@ -278,19 +106,7 @@ namespace hexen::engine::core::input
 
         [[nodiscard]] glm::vec2 getLastReleasedButtonPosition() const noexcept;
 
-        /**
-        * @fn int core::input::Mouse::getWheelPosition() const noexcept
-        * @brief Retrieves the current position of the mouse wheel.
-        *
-        * Movements to the left generate negative x values and to the right generate positive x values.
-        * Movements down (scroll backward) generate negative y values and up (scroll forward) generate positive y values.
-        *
-        * @note This function is specific to the Mouse class in the core::input namespace.
-        *
-        * @sa core::input::Mouse
-        */
 
-        [[nodiscard]] glm::vec2 getWheelPosition() const noexcept;
     };
 }
 
