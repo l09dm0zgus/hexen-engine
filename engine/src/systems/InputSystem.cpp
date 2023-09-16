@@ -11,17 +11,18 @@
 void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
 {
     SDL_Event event;
+
     while (window->pollEvents(&event))
     {
+        windowSize = window->getSize();
+
         for(auto& gui : guis)
         {
             gui->processEvent(event);
         }
-
         processKeyboardInput(event);
         processGamepadsInput(event);
-
-        mouse->processInput(event);
+        processMouseInput(event);
 
         if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED || keyboard->isKeyPressed(core::input::Keyboard::Key::ESCAPE))
         {
@@ -250,5 +251,47 @@ hexen::engine::systems::InputSystem::AxisMappingCallback hexen::engine::systems:
     HEXEN_ASSERT(it != axisMappingCallbacks.cend() ,"Not founded callback to this player \n");
 
     return *it;
+}
+
+void hexen::engine::systems::InputSystem::processMouseInput(const SDL_Event &event)
+{
+    if(mouse->processInput(event))
+    {
+        ActionMapping actionMapping;
+        AxisMapping axisMapping;
+
+        if(findActionMappingById(mouse->currentButton,actionMapping))
+        {
+            auto callback  = findActionMappingCallback(0,actionMapping.name);
+            callback();
+            return;
+        }
+        else if(findAxisMappingById(mouse->currentButton,axisMapping))
+        {
+
+            auto axis = 0.0f;
+            if(mouse->isMouseMovingOnX)
+            {
+                axis = mouse->getPosition().x / windowSize.x;
+            }
+            else if(mouse->isMouseMovingOnY)
+            {
+                axis = mouse->getPosition().y / windowSize.y;
+            }
+            else if (mouse->isMouseWheelMovingOnX)
+            {
+                axis = mouse->getWheelPosition().x;
+            }
+            else if (mouse->isMouseWheelMovingOnY)
+            {
+                axis = mouse->getWheelPosition().y;
+            }
+
+            auto callback = findAxisMappingCallback(0,axisMapping.name);
+            callback(axis * axisMapping.value);
+
+            return;
+        }
+    }
 }
 

@@ -5,6 +5,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <glm/vec2.hpp>
+#include "../Types.hpp"
 
 namespace hexen::engine::systems
 {
@@ -23,6 +24,11 @@ namespace hexen::engine::core::input
         glm::vec2 lastPressedButtonPosition{0.0f};
         glm::vec2 lastReleasedButtonPosition{0.0f};
         core::u8 currentButton = 0;
+        bool isMouseMovingOnX{false};
+        bool isMouseMovingOnY{false};
+        bool isMouseWheelMovingOnX{false};
+        bool isMouseWheelMovingOnY{false};
+
 
     public:
 
@@ -34,6 +40,7 @@ namespace hexen::engine::core::input
             X1 = SDL_BUTTON_X1,
             X2 = SDL_BUTTON_X2
         };
+
 
         /**
         * @class Mouse
@@ -108,7 +115,21 @@ namespace hexen::engine::core::input
 
         [[nodiscard]] glm::vec2 getLastReleasedButtonPosition() const noexcept;
 
+        /**
+        * @brief Retrieves the current position of the mouse wheel.
+        *
+        * This function returns the current position of the mouse wheel, expressed as the
+        * number of ticks it has been scrolled vertically since the application started.
+        *
+        * @return The number of vertical wheel ticks scrolled since the application started.
+        *
+        * @note The returned value may be positive or negative, indicating forward or backward scrolling respectively.
+        * @note This function is guaranteed to be noexcept.
+        *
+        * @sa Mouse::isButtonPressed(), Mouse::getPosition(), Mouse::setPosition()
+        */
 
+        [[nodiscard]] glm::vec2 getWheelPosition() const noexcept;
     };
 }
 

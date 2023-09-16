@@ -71,6 +71,7 @@ namespace hexen::engine::systems
 
         static constexpr core::u32 MAX_GAMEPAD_AXIS_VALUE = 32767;
 
+        glm::vec2 windowSize{0};
     public:
         struct ActionMapping
         {
@@ -115,6 +116,7 @@ namespace hexen::engine::systems
 
         void processKeyboardInput(const SDL_Event &event);
         void processGamepadsInput(const SDL_Event &event);
+        void processMouseInput(const SDL_Event &event);
 
         bool findActionMappingById(core::u32 id,ActionMapping &actionMapping);
         bool findAxisMappingById(core::u32 id,AxisMapping &axisMapping);

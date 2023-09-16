@@ -3,11 +3,16 @@
 //
 
 #include "Mouse.hpp"
-#include "../Types.hpp"
+
 
 bool hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
 {
     auto isMouseEvent = false;
+    isMouseWheelMovingOnX = false;
+    isMouseWheelMovingOnY = false;
+    isMouseMovingOnX = false;
+    isMouseMovingOnY = false;
+
     switch (event.type)
     {
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
@@ -17,10 +22,16 @@ bool hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
             isMouseEvent = true;
             break;
         case SDL_EVENT_MOUSE_MOTION:
+
+            isMouseMovingOnX = event.motion.x != position.x;
+            isMouseMovingOnY = event.motion.y != position.y;
             position = glm::vec2(event.motion.x,event.motion.y);
             isMouseEvent = true;
             break;
         case SDL_EVENT_MOUSE_WHEEL:
+
+            isMouseWheelMovingOnX = event.wheel.x != wheelPosition.x;
+            isMouseWheelMovingOnY = event.wheel.y != wheelPosition.y;
             wheelPosition = glm::vec2(event.wheel.x,event.wheel.y);
             isMouseEvent = true;
             break;
@@ -51,5 +62,10 @@ bool hexen::engine::core::input::Mouse::isButtonPressed(hexen::engine::core::inp
 bool hexen::engine::core::input::Mouse::isButtonReleased(hexen::engine::core::input::Mouse::Button button) const
 {
     return static_cast<core::u8>(button) == currentButton;
+}
+
+glm::vec2 hexen::engine::core::input::Mouse::getWheelPosition() const noexcept
+{
+    return wheelPosition;
 }
 
