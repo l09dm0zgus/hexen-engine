@@ -15,7 +15,23 @@
 #include <SDL_image.h>
 
 
-void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity,GLsizei Length,const GLchar* Message,const void* UserParam)
+/**
+ * @brief Callback function for handling OpenGL debug messages.
+ *
+ * This function is used as a callback for `GLDebugMessageCallback`. It receives debug messages
+ * from the OpenGL implementation and allows you to handle them in a custom way.
+ * The severity, type, and message content are provided as parameters to the function.
+ *
+ * @param Source    The source that generated the message.
+ * @param Type      The type of the debug message.
+ * @param Id        The ID of the debug message.
+ * @param Severity  The severity level of the debug message.
+ * @param Length    The length of the message string.
+ * @param Message   A pointer to the null-terminated message string.
+ * @param UserParam A user-defined parameter that can be set when registering the callback.
+ */
+
+void  GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam)
 {
     static std::map<GLenum, const GLchar*> Sources =
     {
@@ -57,7 +73,6 @@ void  GLDebugMessageCallback(GLenum Source,GLenum Type,GLuint Id,GLenum Severity
 void hexen::engine::core::Window::close()
 {
     bIsOpen = false;
-
 }
 
 void hexen::engine::core::Window::swapBuffers()
@@ -98,7 +113,7 @@ SDL_GLContext hexen::engine::core::Window::getGLContext() const noexcept
     return glContext;
 }
 
-hexen::engine::core::Window::Window(const Settings &settings) :settings(settings)
+hexen::engine::core::Window::Window(const Settings &settings) : settings(settings)
 {
     auto  windowSettings = settings.getWindowSettings();
 
@@ -192,6 +207,7 @@ void hexen::engine::core::Window::setOpenGLVersion(const Settings::OpenGLSetting
     }
 }
 
+
 void hexen::engine::core::Window::setIcon(const std::string &pathToIcon)
 {
     icon = IMG_Load(pathToIcon.c_str());
@@ -203,6 +219,12 @@ void hexen::engine::core::Window::resize()
 {
     SDL_GetWindowSize(window, &width, &height);
     glViewport(0, 0, width, height);
+}
+
+glm::vec2 hexen::engine::core::Window::getSize()
+{
+    SDL_GetWindowSize(window, &width,&height);
+    return {width,height};
 }
 
 
