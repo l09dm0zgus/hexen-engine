@@ -5,22 +5,27 @@
 #include "Mouse.hpp"
 #include "../Types.hpp"
 
-void hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
+bool hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
 {
+    auto isMouseEvent = false;
     switch (event.type)
     {
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
         case  SDL_EVENT_MOUSE_BUTTON_UP:
             currentButton = event.button.button;
             lastPressedButtonPosition = glm::vec2(event.button.x,event.button.y);
+            isMouseEvent = true;
             break;
         case SDL_EVENT_MOUSE_MOTION:
             position = glm::vec2(event.motion.x,event.motion.y);
+            isMouseEvent = true;
             break;
         case SDL_EVENT_MOUSE_WHEEL:
             wheelPosition = glm::vec2(event.wheel.x,event.wheel.y);
+            isMouseEvent = true;
             break;
     }
+    return isMouseEvent;
 }
 
 glm::vec2 hexen::engine::core::input::Mouse::getPosition() const noexcept

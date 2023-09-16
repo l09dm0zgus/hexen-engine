@@ -41,9 +41,11 @@ namespace hexen::engine::core::input
         *
         * The Mouse class provides methods to process mouse input events
         * and handle their corresponding actions.
+        *
+        * @return bool True if the is event associated with the mouse otherwise false.
         */
 
-        void processInput(const SDL_Event &event);
+        bool processInput(const SDL_Event &event);
 
         /**
         * @brief Gets the current position of the mouse.
