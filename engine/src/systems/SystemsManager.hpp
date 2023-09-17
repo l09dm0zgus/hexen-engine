@@ -5,6 +5,7 @@
 #include "../core/memory_pool/AllocatedObject.hpp"
 #include "IRenderSystem.hpp"
 #include "IGamePlaySystem.hpp"
+
 namespace hexen::engine::core
 {
     class Window;
@@ -12,8 +13,12 @@ namespace hexen::engine::core
 
 namespace hexen::engine::systems
 {
+    class InputSystem;
+
     class SystemsManager : public hexen::engine::core::memory::AllocatedObject
     {
+    protected:
+        std::shared_ptr<hexen::engine::systems::InputSystem> inputSystem;
     private:
 
         /**
@@ -162,12 +167,31 @@ namespace hexen::engine::systems
             currentSystemManager = systemManager;
         }
 
+        HEXEN_INLINE static SystemsManager* getCurrentSystemManager()
+        {
+            return currentSystemManager;
+        }
+
+        /**
+        * @class SystemsManager
+        * @brief Class responsible for managing all systems in the game engine.
+        *
+        * The SystemsManager class is responsible for creating, managing, and updating all systems
+        * in the game engine. It acts as a central hub for accessing and coordinating the different
+        * systems that make up the engine.
+        *
+        * This class is part of the Hexen game engine.
+        */
+
+        SystemsManager();
 
         /**
         * @brief Default virtual destructor.
         */
 
         ~SystemsManager() override = default;
+
+        [[nodiscard]] std::shared_ptr<InputSystem> getInputSystem() const noexcept;
 
     };
 }

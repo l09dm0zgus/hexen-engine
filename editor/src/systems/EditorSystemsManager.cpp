@@ -19,7 +19,7 @@ void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::share
 void hexen::editor::systems::EditorSystemsManager::processInput(const std::shared_ptr<hexen::engine::core::Window> &window)
 {
     ADD_FUNCTION_TO_PROFILING
-    inputSystem->processInput(window);
+    SystemsManager::processInput(window);
 }
 
 void hexen::editor::systems::EditorSystemsManager::start()
@@ -63,9 +63,8 @@ void hexen::editor::systems::EditorSystemsManager::addDebugGrid()
     debugRenderSystem->addDebugGrid();
 }
 
-hexen::editor::systems::EditorSystemsManager::EditorSystemsManager()
+hexen::editor::systems::EditorSystemsManager::EditorSystemsManager() : SystemsManager()
 {
     ADD_FUNCTION_TO_PROFILING
     debugRenderSystem = std::make_shared<DebugRenderSystem>(100);
-    inputSystem = hexen::engine::core::memory::make_unique<hexen::engine::systems::InputSystem>();
 }

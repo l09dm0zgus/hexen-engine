@@ -5,6 +5,7 @@
 #include "SystemsManager.hpp"
 #include "../core/window/Window.hpp"
 #include "TaskSystem.hpp"
+#include "InputSystem.hpp"
 #include <memory>
 
 
@@ -12,21 +13,7 @@ hexen::engine::systems::SystemsManager* hexen::engine::systems::SystemsManager::
 
 void hexen::engine::systems::SystemsManager::processInput(const std::shared_ptr<core::Window> &window)
 {
-    //in future will be created InputSystem for handling input
-    SDL_Event event;
-    while (window->pollEvents(&event))
-    {
-        //editorGui.processEvent(&event);
-        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
-        {
-            window->close();
-        }
-        else if (event.type == SDL_EVENT_WINDOW_RESIZED)
-        {
-            window->resize();
-        }
-    }
-    window->pollEvents(&event);
+    inputSystem->processInput(window);
 }
 
 void hexen::engine::systems::SystemsManager::start()
@@ -57,4 +44,14 @@ void hexen::engine::systems::SystemsManager::update(float deltaTime)
     {
         TaskSystem::addTask(core::threading::TaskPriority::High,system.get(),&IGamePlaySystem::update,deltaTime);
     }
+}
+
+hexen::engine::systems::SystemsManager::SystemsManager()
+{
+    inputSystem = hexen::engine::core::memory::make_unique<hexen::engine::systems::InputSystem>();
+}
+
+std::shared_ptr<hexen::engine::systems::InputSystem> hexen::engine::systems::SystemsManager::getInputSystem() const noexcept
+{
+    return inputSystem;
 }

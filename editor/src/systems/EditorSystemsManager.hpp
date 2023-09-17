@@ -44,7 +44,7 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
 
         glm::vec2 currentSceneWindowSize{0.0f};
 
-        std::unique_ptr<hexen::engine::systems::InputSystem> inputSystem;
+
     public:
 
         /**
