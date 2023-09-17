@@ -104,7 +104,7 @@ namespace hexen::engine::systems
         void bindAction(const std::string& name,const std::function<void()> &actionCallback,bool enableForMultiplePLayers = false);
         void bindAxis(const std::string& name,const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers = false);
 
-        void changeMapping(const std::string& name,core::u32, core::u32 newKey);
+        void changeMapping(const std::string& name, core::u32 newKey);
 
         explicit InputSystem(const std::string &pathToFile = "mappings.json");
         ~InputSystem() override = default;

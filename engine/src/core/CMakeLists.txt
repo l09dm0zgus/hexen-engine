@@ -4,6 +4,8 @@ target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/application/Ap
         ${CMAKE_CURRENT_SOURCE_DIR}/application/Application.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/exceptions/ComponentNotFound.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/exceptions/ComponentNotFound.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/exceptions/MappingNotFound.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/exceptions/MappingNotFound.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/memory_pool/AllocatedObject.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/memory_pool/AllocatedObject.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/memory_pool/MemoryPool.hpp

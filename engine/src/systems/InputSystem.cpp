@@ -152,8 +152,28 @@ void hexen::engine::systems::InputSystem::bindAxis(const std::string &name, cons
     axisMappingCallbacks.push_back(callback);
 }
 
-void hexen::engine::systems::InputSystem::changeMapping(const std::string &name, core::u32, core::u32 newKey)
+void hexen::engine::systems::InputSystem::changeMapping(const std::string &name, core::u32 newKey)
 {
+    auto actionMappingsIterator = std::find_if(actionMappings.begin(), actionMappings.end(),[&name](const ActionMapping &mapping){
+        return mapping.name == name;
+    });
+
+    auto axisMappingsIterator = std::find_if(axisMappings.begin(), axisMappings.end(),[&name](const AxisMapping &mapping){
+        return mapping.name == name;
+    });
+
+    if(actionMappingsIterator != actionMappings.end())
+    {
+        actionMappingsIterator->sdlKey = newKey;
+    }
+    else if(axisMappingsIterator != axisMappings.end())
+    {
+        axisMappingsIterator->sdlKey = newKey;
+    }
+    else
+    {
+        throw "Not founded axis or action with this name";
+    }
 
 }
 
