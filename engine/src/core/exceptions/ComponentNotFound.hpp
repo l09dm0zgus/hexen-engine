@@ -6,12 +6,13 @@
 #include <string>
 namespace hexen::engine::exceptions
 {
-    class ComponentNotFound : std::exception
+    class ComponentNotFound : public std::exception
     {
     public:
         explicit ComponentNotFound(std::string componentName);
         [[nodiscard]] const char* what() const noexcept override;
     private:
         std::string componentName;
+        std::string message;
     };
 }
