@@ -20,6 +20,7 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
         {
             gui->processEvent(event);
         }
+
         processKeyboardInput(event);
         processGamepadsInput(event);
         processMouseInput(event);
@@ -96,34 +97,59 @@ void  hexen::engine::systems::InputSystem::addGUI(const std::shared_ptr<gui::IGU
     guis.push_back(gui);
 }
 
-void  hexen::engine::systems::InputSystem::addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey)
+void  hexen::engine::systems::InputSystem::addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey,core::u8 playerId)
 {
-
+    axisMappings.emplace_back(name, value, sdlKey, playerId);
 }
 
 void hexen::engine::systems::InputSystem::addNewAxisMapping(const hexen::engine::systems::InputSystem::AxisMapping &axisMapping)
 {
-
+    axisMappings.push_back(axisMapping);
 }
 
-void hexen::engine::systems::InputSystem::addNewActionMapping(const std::string &name, core::u32 sdlKey)
+void hexen::engine::systems::InputSystem::addNewActionMapping(const std::string &name, core::u32 sdlKey,core::u8 playerId)
 {
+    actionMappings.emplace_back(name, sdlKey, playerId);
 
 }
 
 void hexen::engine::systems::InputSystem::addNewActionMapping(const hexen::engine::systems::InputSystem::ActionMapping &actionMapping)
 {
-
+    actionMappings.push_back(actionMapping);
 }
 
-void hexen::engine::systems::InputSystem::bindAction(const std::string &name, const std::function<void()> &actionCallback)
+void hexen::engine::systems::InputSystem::bindAction(const std::string& name,const std::function<void()> &actionCallback,bool enableForMultiplePLayers)
 {
+    ActionMappingCallback callback(actionCallback,name);
 
+    if(enableForMultiplePLayers)
+    {
+        callback.playerId = bindedActionsForPlayers;
+        bindedActionsForPlayers++;
+    }
+    else
+    {
+        callback.playerId = 0;
+    }
+
+    actionMappingCallbacks.push_back(callback);
 }
 
-void hexen::engine::systems::InputSystem::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback)
+void hexen::engine::systems::InputSystem::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers)
 {
+    AxisMappingCallback callback(axisCallback,name);
 
+    if(enableForMultiplePLayers)
+    {
+        callback.playerId = bindedAxisForPlayers;
+        bindedAxisForPlayers++;
+    }
+    else
+    {
+        callback.playerId = 0;
+    }
+
+    axisMappingCallbacks.push_back(callback);
 }
 
 void hexen::engine::systems::InputSystem::changeMapping(const std::string &name, core::u32, core::u32 newKey)
@@ -293,5 +319,34 @@ void hexen::engine::systems::InputSystem::processMouseInput(const SDL_Event &eve
             return;
         }
     }
+}
+
+void hexen::engine::systems::InputSystem::saveMappings()
+{
+    std::ofstream file(path);
+
+    keyMappingsFile["mappings"]["number_of_axis"] = axisMappings.size();
+    keyMappingsFile["mappings"]["number_of_actions"] = actionMappings.size();
+
+    core::u32 i = 0;
+    for(const auto& mapping : axisMappings)
+    {
+        keyMappingsFile["mappings"]["axis_mappings"][i]["axis_name"] = mapping.name;
+        keyMappingsFile["mappings"]["axis_mappings"][i]["value"] = mapping.value;
+        keyMappingsFile["mappings"]["axis_mappings"][i]["axis_key"] = mapping.sdlKey;
+        keyMappingsFile["mappings"]["axis_mappings"][i]["player_id"] = mapping.playerId;
+        i++;
+    }
+
+    i = 0;
+    for(const auto& mapping : actionMappings)
+    {
+        keyMappingsFile["mapping"]["action_mappings"][i]["action_name"] = mapping.name;
+        keyMappingsFile["mapping"]["action_mappings"][i]["action_key"] = mapping.playerId;
+        keyMappingsFile["mapping"]["action_mappings"][i]["player_id"] = mapping.sdlKey;
+        i++;
+    }
+
+    file << keyMappingsFile.dump(2);
 }
 

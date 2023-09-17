@@ -30,9 +30,9 @@ namespace hexen::engine::systems
         private:
             std::function<void()> callback;
         public:
-            core::u32 playerId;
+            core::u32 playerId{};
             std::string name;
-
+            ActionMappingCallback(const std::function<void()> &callback,const std::string &name) : callback(callback) , name(name) {};
             void operator()()
             {
                 callback();
@@ -45,9 +45,9 @@ namespace hexen::engine::systems
         private:
             std::function<void(float)> callback;
         public:
-            core::u32 playerId;
+            core::u32 playerId{};
             std::string name;
-
+            AxisMappingCallback(const std::function<void(float)> &callback,const std::string &name) : callback(callback) , name(name) {}
             void operator()(float value) const
             {
                 callback(value);
@@ -72,6 +72,8 @@ namespace hexen::engine::systems
         static constexpr core::u32 MAX_GAMEPAD_AXIS_VALUE = 32767;
 
         glm::vec2 windowSize{0};
+        core::u8 bindedActionsForPlayers{0};
+        core::u8 bindedAxisForPlayers{0};
     public:
         struct ActionMapping
         {
@@ -92,14 +94,15 @@ namespace hexen::engine::systems
             core::u8 playerId{};
         };
 
-        void addNewAxisMapping(const std::string& name,float value,core::u32 sdlKey);
+        void saveMappings();
+        void addNewAxisMapping(const std::string& name,float value,core::u32 sdlKey,core::u8 playerId = 0);
         void addNewAxisMapping(const AxisMapping& axisMapping);
 
-        void addNewActionMapping(const std::string& name,core::u32 sdlKey);
+        void addNewActionMapping(const std::string& name,core::u32 sdlKey,core::u8 playerId = 0);
         void addNewActionMapping(const ActionMapping& actionMapping);
 
-        void bindAction(const std::string& name,const std::function<void()> &actionCallback);
-        void bindAxis(const std::string& name,const std::function<void(float)> &axisCallback);
+        void bindAction(const std::string& name,const std::function<void()> &actionCallback,bool enableForMultiplePLayers = false);
+        void bindAxis(const std::string& name,const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers = false);
 
         void changeMapping(const std::string& name,core::u32, core::u32 newKey);
 
