@@ -7,6 +7,7 @@
 #include <filesystem>
 #include "../core/window/Window.hpp"
 #include "../core/input_devices/Gamepad.hpp"
+#include "../core/exceptions/MappingNotFound.hpp"
 
 void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
 {
@@ -64,6 +65,7 @@ hexen::engine::systems::InputSystem::InputSystem(const std::string &pathToFile)
 
 }
 
+
 void hexen::engine::systems::InputSystem::createMappingsFile()
 {
     keyMappingsFile["mappings"]["number_of_actions"] = 0;
@@ -97,17 +99,19 @@ void  hexen::engine::systems::InputSystem::addGUI(const std::shared_ptr<gui::IGU
     guis.push_back(gui);
 }
 
-void  hexen::engine::systems::InputSystem::addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey,core::u8 playerId)
+
+void  hexen::engine::systems::InputSystem::addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey, core::u8 playerId)
 {
     axisMappings.emplace_back(name, value, sdlKey, playerId);
 }
+
 
 void hexen::engine::systems::InputSystem::addNewAxisMapping(const hexen::engine::systems::InputSystem::AxisMapping &axisMapping)
 {
     axisMappings.push_back(axisMapping);
 }
 
-void hexen::engine::systems::InputSystem::addNewActionMapping(const std::string &name, core::u32 sdlKey,core::u8 playerId)
+void hexen::engine::systems::InputSystem::addNewActionMapping(const std::string &name, core::u32 sdlKey, core::u8 playerId)
 {
     actionMappings.emplace_back(name, sdlKey, playerId);
 
@@ -118,7 +122,8 @@ void hexen::engine::systems::InputSystem::addNewActionMapping(const hexen::engin
     actionMappings.push_back(actionMapping);
 }
 
-void hexen::engine::systems::InputSystem::bindAction(const std::string& name,const std::function<void()> &actionCallback,bool enableForMultiplePLayers)
+
+void hexen::engine::systems::InputSystem::bindAction(const std::string& name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers)
 {
     ActionMappingCallback callback(actionCallback,name);
 
@@ -135,7 +140,7 @@ void hexen::engine::systems::InputSystem::bindAction(const std::string& name,con
     actionMappingCallbacks.push_back(callback);
 }
 
-void hexen::engine::systems::InputSystem::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers)
+void hexen::engine::systems::InputSystem::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers)
 {
     AxisMappingCallback callback(axisCallback,name);
 
@@ -172,7 +177,7 @@ void hexen::engine::systems::InputSystem::changeMapping(const std::string &name,
     }
     else
     {
-        throw "Not founded axis or action with this name";
+        throw hexen::engine::exceptions::MappingNotFound(name);
     }
 
 }
@@ -198,7 +203,7 @@ void hexen::engine::systems::InputSystem::processKeyboardInput(const SDL_Event &
     }
 }
 
-bool hexen::engine::systems::InputSystem::findActionMappingById(hexen::engine::core::u32 id,hexen::engine::systems::InputSystem::ActionMapping &actionMapping)
+bool hexen::engine::systems::InputSystem::findActionMappingById(hexen::engine::core::u32 id, hexen::engine::systems::InputSystem::ActionMapping &actionMapping)
 {
     auto actionMappingsIterator = std::find_if(actionMappings.cbegin(),actionMappings.cend(),[id = id](const ActionMapping& actionMapping){
         return actionMapping.sdlKey == id;
@@ -213,7 +218,7 @@ bool hexen::engine::systems::InputSystem::findActionMappingById(hexen::engine::c
 
 }
 
-bool hexen::engine::systems::InputSystem::findAxisMappingById(hexen::engine::core::u32 id,hexen::engine::systems::InputSystem::AxisMapping &axisMapping)
+bool hexen::engine::systems::InputSystem::findAxisMappingById(hexen::engine::core::u32 id, hexen::engine::systems::InputSystem::AxisMapping &axisMapping)
 {
     auto axisMappingsIterator = std::find_if(axisMappings.cbegin(),axisMappings.cend(),[id = id](const AxisMapping& axisMapping){
         return axisMapping.sdlKey == id;
@@ -277,7 +282,8 @@ void hexen::engine::systems::InputSystem::processGamepadsInput(const SDL_Event &
     }
 }
 
-hexen::engine::systems::InputSystem::ActionMappingCallback hexen::engine::systems::InputSystem::findActionMappingCallback(hexen::engine::core::u32 playerId ,const std::string &name)
+
+hexen::engine::systems::InputSystem::ActionMappingCallback hexen::engine::systems::InputSystem::findActionMappingCallback(hexen::engine::core::u32 playerId , const std::string &name)
 {
     auto it = std::find_if(actionMappingCallbacks.cbegin(), actionMappingCallbacks.cend(),[&name,playerId = playerId](const ActionMappingCallback &callback){
         return callback.playerId == playerId && callback.name == name;
