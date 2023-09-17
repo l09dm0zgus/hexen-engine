@@ -18,6 +18,11 @@ namespace hexen::engine::core
     }
 }
 
+namespace hexen::engine::input
+{
+    class InputHelper;
+}
+
 namespace hexen::engine::systems
 {
     class InputSystem : public core::memory::AllocatedObject
@@ -45,6 +50,8 @@ namespace hexen::engine::systems
         private:
             std::function<void(float)> callback;
         public:
+            friend class hexen::engine::input::InputHelper;
+
             core::u32 playerId{};
             std::string name;
             AxisMappingCallback(const std::function<void(float)> &callback,const std::string &name) : callback(callback) , name(name) {}
