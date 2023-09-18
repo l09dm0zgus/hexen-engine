@@ -87,3 +87,18 @@ bool hexen::engine::input::InputHelper::isButtonReleased(hexen::engine::core::in
     }
     return false;
 }
+
+glm::vec2 hexen::engine::input::InputHelper::getCursorPosition() noexcept
+{
+    return getInputSystem()->mouse->getPosition();
+}
+
+glm::vec2 hexen::engine::input::InputHelper::getMouseLastPressedButtonPosition() noexcept
+{
+    return getInputSystem()->mouse->getLastPressedButtonPosition();
+}
+
+glm::vec2 hexen::engine::input::InputHelper::getMouseLastReleasedButtonPosition() noexcept
+{
+    return getInputSystem()->mouse->getLastReleasedButtonPosition();
+}

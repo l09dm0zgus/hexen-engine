@@ -178,6 +178,43 @@ namespace hexen::engine::input
 
         static bool isButtonReleased(core::input::Gamepad::Button button);
 
+        /**
+        * @brief Gets the current position of the mouse.
+        *
+        * @return A 2D vector representing the x and y coordinates of the mouse position.
+        */
+
+        [[nodiscard]] static  glm::vec2 getCursorPosition()  noexcept;
+
+
+        /**
+        * @brief Returns the position of the last button pressed on the mouse.
+        *
+        * This function retrieves the position of the last button press event that occurred on the mouse.
+        * The position is returned as a vector containing the x and y coordinates in screen space.
+        *
+        * @note This function is only applicable when using a mouse input device.
+        *
+        * @return A constant Vector2 containing the x and y coordinates of the last button press event.
+        *
+        * @sa Mouse
+        */
+
+        [[nodiscard]] static  glm::vec2 getMouseLastPressedButtonPosition()  noexcept;
+
+        /**
+        * @brief Retrieves the position where the last mouse button was released.
+        *
+        * @return The last released mouse button position as a 2D vector.
+        *
+        * @note The function is noexcept, meaning it guarantees not to throw any exceptions.
+        *       The returned position is relative to the window/screen.
+        *       If no button has been released since the application started, the result may be unspecified.
+        */
+
+        [[nodiscard]] static glm::vec2 getMouseLastReleasedButtonPosition() noexcept;
+
+
     private:
         static std::shared_ptr<systems::InputSystem> getInputSystem();
     };
