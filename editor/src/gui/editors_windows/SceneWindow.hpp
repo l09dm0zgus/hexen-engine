@@ -7,17 +7,13 @@
 
 namespace hexen::editor::gui
 {
-    class SceneWindow : public FramebufferWindow
-    {
-    public:
-       explicit SceneWindow(const std::string &name);
-    private:
-        void render() override;
+	class SceneWindow : public FramebufferWindow
+	{
+	public:
+		explicit SceneWindow(const std::string &name);
 
-    };
+	private:
+		void render() override;
+	};
 
-}
-
-
-
-
+}// namespace hexen::editor::gui

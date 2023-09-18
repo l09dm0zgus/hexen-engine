@@ -3,24 +3,23 @@
 //
 
 #pragma once
-#include <systems/SystemsManager.hpp>
 #include <glm/detail/type_vec1.hpp>
 #include <glm/vec2.hpp>
 #include <systems/InputSystem.hpp>
+#include <systems/SystemsManager.hpp>
 
 namespace hexen::editor::gui
 {
-    class EditorGUI;
+	class EditorGUI;
 }
 
 namespace hexen::editor::systems
 {
-    class DebugRenderSystem;
-class EditorSystemsManager : public hexen::engine::systems::SystemsManager
-    {
-    private:
-
-        /**
+	class DebugRenderSystem;
+	class EditorSystemsManager : public hexen::engine::systems::SystemsManager
+	{
+	private:
+		/**
         * @brief The EditorGui class represents a graphical user interface for an editor.
         *
         * This class provides methods to create and manage the editor GUI elements.
@@ -31,23 +30,22 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         * and extended to meet specific requirements.
         */
 
-        std::shared_ptr<gui::EditorGUI> editorGui;
+		std::shared_ptr<gui::EditorGUI> editorGui;
 
-        /**
+		/**
         * @file DebugRenderSystem.h
         *
         * @brief This file contains the declaration of the DebugRenderSystem class, which
         *        is responsible for rendering debug information in a game or application.
         */
 
-        std::shared_ptr<DebugRenderSystem> debugRenderSystem;
+		std::shared_ptr<DebugRenderSystem> debugRenderSystem;
 
-        glm::vec2 currentSceneWindowSize{0.0f};
+		glm::vec2 currentSceneWindowSize {0.0f};
 
 
-    public:
-
-        /**
+	public:
+		/**
         * @class EditorSystemsManager
         * @brief The EditorSystemsManager class represents a manager for editor systems.
         *
@@ -55,11 +53,11 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         * It provides functionality for creating, updating, and destroying editor systems.
         */
 
-        EditorSystemsManager();
+		EditorSystemsManager();
 
-        ~EditorSystemsManager() override = default;
+		~EditorSystemsManager() override = default;
 
-        /**
+		/**
         * @brief Set the Editor GUI object.
         *
         * This function allows setting a new Editor GUI object for the software.
@@ -67,9 +65,9 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         * @param newEditorGUI A shared pointer to the new Editor GUI object to be set.
         */
 
-        void setEditorGUI(const std::shared_ptr<gui::EditorGUI> &newEditorGUI);
+		void setEditorGUI(const std::shared_ptr<gui::EditorGUI> &newEditorGUI);
 
-        /**
+		/**
         * @brief Process the input received from the window.
         *
         * This function is responsible for processing user input received from the window. It overrides a base class function.
@@ -77,9 +75,9 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         * @param window A shared pointer to the core::Window object that received the input.
         */
 
-        void processInput(const std::shared_ptr<hexen::engine::core::Window> &window) override;
+		void processInput(const std::shared_ptr<hexen::engine::core::Window> &window) override;
 
-        /**
+		/**
         * @brief Starts the process.
         *
         * This function is an override of the start() method and is responsible for starting the process.
@@ -87,9 +85,9 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         *
         */
 
-        void start() override;
+		void start() override;
 
-        /**
+		/**
         * @brief Updates the object based on the elapsed time since the last update.
         *
         * This function is called in each frame to update the object's state.
@@ -115,18 +113,18 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         * @see GameLoop
         */
 
-        void update(float deltaTime) override;
+		void update(float deltaTime) override;
 
 
-        /**
+		/**
         * @brief Calling render() in all render systems
         *
         * @param alpha interpolated value for correct position of rendered object.
         */
 
-        void render(float alpha) override;
+		void render(float alpha) override;
 
-        /**
+		/**
         * @brief Add debug grid overlays to the current scene
         *
         * This function adds debug grid overlays to the current scene for debugging purposes.
@@ -136,7 +134,6 @@ class EditorSystemsManager : public hexen::engine::systems::SystemsManager
         *
         */
 
-        void addDebugGrid();
-    };
-}
-
+		void addDebugGrid();
+	};
+}// namespace hexen::editor::systems

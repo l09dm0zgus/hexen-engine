@@ -8,37 +8,36 @@
 
 hexen::editor::gui::DeleteFileWindow::DeleteFileWindow(std::string name) : DialogWindow(std::move(name))
 {
-
 }
 void hexen::editor::gui::DeleteFileWindow::setPath(const std::string &pathToFile)
 {
-    path = pathToFile;
+	path = pathToFile;
 
-    deleteCallback = [this]()
-    {
-        std::filesystem::remove_all(std::filesystem::path(path));
-    };
+	deleteCallback = [this]()
+	{
+		std::filesystem::remove_all(std::filesystem::path(path));
+	};
 }
 
 void hexen::editor::gui::DeleteFileWindow::drawContent()
 {
-    ImGui::Text(text.c_str(),path.c_str());
-    ImGui::SameLine();
+	ImGui::Text(text.c_str(), path.c_str());
+	ImGui::SameLine();
 
-    if (ImGui::Button("Delete"))
-    {
-        setAction(Action::PRESSED_OK);
-        deleteCallback();
-        ImGui::CloseCurrentPopup();
-    }
+	if (ImGui::Button("Delete"))
+	{
+		setAction(Action::PRESSED_OK);
+		deleteCallback();
+		ImGui::CloseCurrentPopup();
+	}
 
-    auto windowWidth = ImGui::GetWindowSize().x;
-    ImGui::SetCursorPosX(windowWidth * 0.5f);
-    ImGui::SameLine();
+	auto windowWidth = ImGui::GetWindowSize().x;
+	ImGui::SetCursorPosX(windowWidth * 0.5f);
+	ImGui::SameLine();
 
-    if (ImGui::Button("Cancel"))
-    {
-        setAction(Action::PRESSED_CANCEL);
-        ImGui::CloseCurrentPopup();
-    }
+	if (ImGui::Button("Cancel"))
+	{
+		setAction(Action::PRESSED_CANCEL);
+		ImGui::CloseCurrentPopup();
+	}
 }

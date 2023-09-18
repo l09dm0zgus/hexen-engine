@@ -3,31 +3,30 @@
 //
 
 #pragma once
-#include <components/graphics/RenderComponent.hpp>
-#include <core/scene/Grid.hpp>
 #include "core/graphics/shaders/Shaders.hpp"
+#include <components/graphics/RenderComponent.hpp>
 #include <core/graphics/ElementsBufferObject.hpp>
-#include <core/graphics/VertexBufferObject.hpp>
-#include <core/graphics/VertexAttributes.hpp>
 #include <core/graphics/VertexArrayObject.hpp>
+#include <core/graphics/VertexAttributes.hpp>
+#include <core/graphics/VertexBufferObject.hpp>
+#include <core/scene/Grid.hpp>
 
 namespace hexen::editor::components::graphics
 {
-class DebugGridComponent : public hexen::engine::components::graphics::RenderComponent
-    {
-    private:
+	class DebugGridComponent : public hexen::engine::components::graphics::RenderComponent
+	{
+	private:
+		glm::vec3 color {0.0f, 1.0f, 0.0f};
 
-        glm::vec3 color{0.0f, 1.0f, 0.0f};
-
-        /**
+		/**
         * @brief Represents a grid structure.
         *
         * The Grid class represents a rectangular grid composed of cells.
         */
 
-        std::unique_ptr<hexen::engine::core::Grid> grid;
+		std::unique_ptr<hexen::engine::core::Grid> grid;
 
-        /**
+		/**
         * @brief The shader program variable.
         *
         * This variable represents a shader program.
@@ -36,17 +35,17 @@ class DebugGridComponent : public hexen::engine::components::graphics::RenderCom
         * Make sure to check for nullptr before using this variable to avoid null pointer access.
         */
 
-        std::shared_ptr<hexen::engine::graphics::gl::shader::ShaderProgram> shaderProgram{nullptr};
+		std::shared_ptr<hexen::engine::graphics::gl::shader::ShaderProgram> shaderProgram {nullptr};
 
-        /**
+		/**
         * @brief Represents a Vertex Buffer Object (VBO).
         *
         * A VBO is a buffer object that stores vertices and other data that define a set of primitives.
         * It is commonly used in computer graphics to efficiently store and render geometric data on the GPU.
         */
 
-        hexen::engine::graphics::gl::VertexBufferObject VBO;
-        /**
+		hexen::engine::graphics::gl::VertexBufferObject VBO;
+		/**
         * @brief The vertices variable represents a collection of vertices in a geometric shape.
         *
         * In geometry, a vertex is a point where two or more lines meet. This variable
@@ -81,22 +80,22 @@ class DebugGridComponent : public hexen::engine::components::graphics::RenderCom
         * @see https://en.wikipedia.org/wiki/Vertex_(geometry)
         */
 
-        std::vector<glm::vec3> vertices;
+		std::vector<glm::vec3> vertices;
 
-        std::vector<glm::uvec4> indices;
+		std::vector<glm::uvec4> indices;
 
-        /**
+		/**
         * @brief Represents the EBO (Element Buffer Object) variable.
         *
         * The EBO variable is used to store indices for vertex data in OpenGL. It is typically used together
         * with a VAO (Vertex Array Object) and a VBO (Vertex Buffer Object) to render complex shapes.
         */
 
-        hexen::engine::graphics::gl::ElementsBufferObject EBO;
+		hexen::engine::graphics::gl::ElementsBufferObject EBO;
 
-        hexen::engine::graphics::gl::VertexAttributes attributes;
+		hexen::engine::graphics::gl::VertexAttributes attributes;
 
-        /**
+		/**
         * @brief Vertex Array Object
         *
         * This variable represents a Vertex Array Object (VAO) used in computer graphics programming.
@@ -106,12 +105,11 @@ class DebugGridComponent : public hexen::engine::components::graphics::RenderCom
         * attributes and is used for efficient rendering of dynamic objects.
         */
 
-        hexen::engine::graphics::gl::VertexArrayObject VAO;
-        hexen::engine::core::i32 lenght{0};
+		hexen::engine::graphics::gl::VertexArrayObject VAO;
+		hexen::engine::core::i32 lenght {0};
 
-    public:
-
-        /**
+	public:
+		/**
         * @class DebugGridComponent
         *
         * @brief The DebugGridComponent class renders a debug grid using the provided vertex and fragment shader paths.
@@ -121,9 +119,9 @@ class DebugGridComponent : public hexen::engine::components::graphics::RenderCom
         * and a fragment shader for fragment coloring.
         */
 
-        DebugGridComponent(const std::string &vertexShaderPath ,const std::string &fragmentShaderPath);
+		DebugGridComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 
-        /**
+		/**
         * @brief Sets the color of an grid.
         *
         * This function sets the color of an object to the specified color.
@@ -134,12 +132,13 @@ class DebugGridComponent : public hexen::engine::components::graphics::RenderCom
         *
         */
 
-        template<class T> void setColor(T&& newColor)
-        {
-            color = std::forward<T>(newColor);
-        }
+		template<class T>
+		void setColor(T &&newColor)
+		{
+			color = std::forward<T>(newColor);
+		}
 
-        /**
+		/**
         * @brief Draws the grid.
         *
         * This method is responsible for drawing the object. The exact implementation
@@ -151,9 +150,6 @@ class DebugGridComponent : public hexen::engine::components::graphics::RenderCom
         *
         */
 
-        void draw() noexcept override;
-    };
-}
-
-
-
+		void draw() noexcept override;
+	};
+}// namespace hexen::editor::components::graphics

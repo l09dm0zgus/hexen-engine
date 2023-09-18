@@ -6,22 +6,22 @@
 #include "../window/Window.hpp"
 namespace hexen::engine::core
 {
-    class Application
-    {
-    public:
-        Application();
-        ~Application() = default;
-        Application(const Application &application) = delete;
-        Application(Application &&application) =delete;
+	class Application
+	{
+	public:
+		Application();
+		~Application() = default;
+		Application(const Application &application) = delete;
+		Application(Application &&application) = delete;
 
-        Application& operator=(const Application &application) = delete;
-        Application& operator=(Application &&application) = delete;
+		Application &operator=(const Application &application) = delete;
+		Application &operator=(Application &&application) = delete;
 
-        void run();
-    private:
-        std::unique_ptr<Window> window;
-        Settings settings;
+		void run();
 
-    };
+	private:
+		std::unique_ptr<Window> window;
+		Settings settings;
+	};
 
-}
+}// namespace hexen::engine::core

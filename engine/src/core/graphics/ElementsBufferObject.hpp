@@ -3,17 +3,16 @@
 //
 #pragma once
 
-#include <glm/vec3.hpp>
-#include "RectangleData.hpp"
 #include "../Types.hpp"
+#include "RectangleData.hpp"
+#include <glm/vec3.hpp>
 
 namespace hexen::engine::graphics::gl
 {
-    class ElementsBufferObject
-    {
-    public:
-
-        /**
+	class ElementsBufferObject
+	{
+	public:
+		/**
         * @class ElementsBufferObject
         *
         * @brief Represents a buffer object for storing elements data.
@@ -27,9 +26,9 @@ namespace hexen::engine::graphics::gl
         * This class provides a constructor that initializes the elements buffer object.
         */
 
-        ElementsBufferObject();
+		ElementsBufferObject();
 
-        /**
+		/**
         * @class ElementsBufferObject
         * @brief This class represents a buffer object for storing vertex element data in graphics rendering.
         *
@@ -38,9 +37,9 @@ namespace hexen::engine::graphics::gl
         * the buffer object, as well as to update the buffer with new data.
         */
 
-        ~ElementsBufferObject();
+		~ElementsBufferObject();
 
-        /**
+		/**
         * Binds the buffer object with the provided rectangle data.
         *
         * This function binds the buffer object with the specified rectangle data,
@@ -53,9 +52,9 @@ namespace hexen::engine::graphics::gl
         */
 
 
-        void bind(const RectangleData &rectangleData) const;
+		void bind(const RectangleData &rectangleData) const;
 
-        /**
+		/**
         * @brief Unbinds the elements buffer object.
         *
         * This function unbinds the elements buffer object currently bound to the rendering context.
@@ -67,9 +66,9 @@ namespace hexen::engine::graphics::gl
         * @see core::rend::ElementsBufferObject
         */
 
-        void unbind();
+		void unbind();
 
-        /**
+		/**
         * @brief Binds the indices to the ElementsBufferObject.
         *
         * This method binds the provided indices to the ElementsBufferObject.
@@ -79,9 +78,9 @@ namespace hexen::engine::graphics::gl
         *
         */
 
-        void bind(const std::vector<glm::uvec4> &indices) const;
+		void bind(const std::vector<glm::uvec4> &indices) const;
 
-    private:
-        core::u32 object{0};
-    };
-}
+	private:
+		core::u32 object {0};
+	};
+}// namespace hexen::engine::graphics::gl

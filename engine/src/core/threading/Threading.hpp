@@ -4,8 +4,8 @@
 #pragma once
 
 #include "counter/AtomicCounter.hpp"
-#include "counter/TaskCounter.hpp"
 #include "counter/BaseCounter.hpp"
+#include "counter/TaskCounter.hpp"
 #include "task/Callbacks.hpp"
 #include "task/Task.hpp"
 #include "task/TaskScheduler.hpp"
@@ -13,4 +13,3 @@
 #include "threads/Fiber.hpp"
 #include "threads/Thread.hpp"
 #include "threads/WaitFreeQueue.hpp"
-

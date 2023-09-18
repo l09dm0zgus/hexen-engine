@@ -3,79 +3,79 @@
 //
 
 #include "NewProjectWindow.hpp"
-#include "imgui.h"
-#include "../native_file_dialog/FileDialog.hpp"
-#include <memory.h>
-#include "../MessageBox.hpp"
 #include "../../../project/Project.hpp"
+#include "../MessageBox.hpp"
+#include "../native_file_dialog/FileDialog.hpp"
+#include "imgui.h"
+#include <memory.h>
 
 hexen::editor::gui::NewProjectWindow::NewProjectWindow(std::string name) : DialogWindow(std::move(name))
 {
-    clearStrings();
+	clearStrings();
 }
 
 std::string hexen::editor::gui::NewProjectWindow::getProjectPath()
 {
-    return projectPath;
+	return projectPath;
 }
 
 void hexen::editor::gui::NewProjectWindow::clearStrings()
 {
-    memset(projectName,'\0',PROJECT_NAME_SIZE);
-    memset(pathToProject,'\0',PATH_TO_PROJECT_SIZE);
+	memset(projectName, '\0', PROJECT_NAME_SIZE);
+	memset(pathToProject, '\0', PATH_TO_PROJECT_SIZE);
 }
 
 void hexen::editor::gui::NewProjectWindow::drawContent()
 {
-    ImGui::Text("Project name:");
-    ImGui::SameLine();
-    ImGui::InputText("##Project name",projectName, PROJECT_NAME_SIZE);
+	ImGui::Text("Project name:");
+	ImGui::SameLine();
+	ImGui::InputText("##Project name", projectName, PROJECT_NAME_SIZE);
 
-    ImGui::Text("Project Location:");
-    ImGui::SameLine();
-    ImGui::InputText("##Project Location",pathToProject, PATH_TO_PROJECT_SIZE);
-    ImGui::SameLine();
+	ImGui::Text("Project Location:");
+	ImGui::SameLine();
+	ImGui::InputText("##Project Location", pathToProject, PATH_TO_PROJECT_SIZE);
+	ImGui::SameLine();
 
-    if (ImGui::Button("Open..."))
-    {
-        FileDialog fileDialog;
-        std::string path;
-        auto status = fileDialog.pickDialog("",path);
+	if (ImGui::Button("Open..."))
+	{
+		FileDialog fileDialog;
+		std::string path;
+		auto status = fileDialog.pickDialog("", path);
 
-        if(status == INativeFileDialog::Status::STATUS_ERROR)
-        {
-            ImGuiMessageBox::add(std::string("Error!"),std::string("Failed to pick folder"));
-        }
-        memcpy(pathToProject,path.c_str(),path.size());
-    }
+		if (status == INativeFileDialog::Status::STATUS_ERROR)
+		{
+			ImGuiMessageBox::add(std::string("Error!"), std::string("Failed to pick folder"));
+		}
+		memcpy(pathToProject, path.c_str(), path.size());
+	}
 
-    auto windowWidth = ImGui::GetWindowSize().x;
+	auto windowWidth = ImGui::GetWindowSize().x;
 
-    ImGui::SetCursorPosX(windowWidth * 0.5f);
-    if (ImGui::Button("Ok"))
-    {
-        if (projectName[0] == '\0')
-        {
-            ImGuiMessageBox::add(std::string("Error!"),std::string("Project name cannot be empty!"));
-            setAction(Action::FAILED);
-        }
-        else if (pathToProject[0] == '\0')
-        {
-            ImGuiMessageBox::add(std::string("Error!"),std::string("Project location cannot be empty!"));
-            setAction(Action::FAILED);
-        }
-        else
-        {
-            Project::setCurrentProject(pathToProject,projectName);
-            setAction(Action::PRESSED_OK);
-            clearStrings();
-            ImGui::CloseCurrentPopup();
-        }
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Cancel"))
-    {
-        setAction(Action::PRESSED_CANCEL);
-        ImGui::CloseCurrentPopup();
-    }
+	ImGui::SetCursorPosX(windowWidth * 0.5f);
+	if (ImGui::Button("Ok"))
+	{
+		if (projectName[0] == '\0')
+		{
+			ImGuiMessageBox::add(std::string("Error!"), std::string("Project name cannot be empty!"));
+			setAction(Action::FAILED);
+		}
+		else if (pathToProject[0] == '\0')
+		{
+			ImGuiMessageBox::add(std::string("Error!"), std::string("Project location cannot be empty!"));
+			setAction(Action::FAILED);
+		}
+		else
+		{
+			Project::setCurrentProject(pathToProject, projectName);
+			setAction(Action::PRESSED_OK);
+			clearStrings();
+			ImGui::CloseCurrentPopup();
+		}
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Cancel"))
+	{
+		setAction(Action::PRESSED_CANCEL);
+		ImGui::CloseCurrentPopup();
+	}
 }

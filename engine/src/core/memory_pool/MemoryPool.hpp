@@ -8,18 +8,18 @@
 #include <vector>
 namespace hexen::engine::core::memory
 {
-    class MemoryPool
-    {
-        struct Allocation
-        {
-            u8 freeFlag{0};
-            u64 allocatedBytes{0};
-            u64 occupiedBytes{0};
-            vptr address{nullptr};
-        };
-    public:
+	class MemoryPool
+	{
+		struct Allocation
+		{
+			u8 freeFlag {0};
+			u64 allocatedBytes {0};
+			u64 occupiedBytes {0};
+			vptr address {nullptr};
+		};
 
-        /**
+	public:
+		/**
         * @class MemoryPool
         * @brief This class represents a memory pool with a specific size.
         *
@@ -27,9 +27,9 @@ namespace hexen::engine::core::memory
         * It allows allocation and deallocation of memory within the pool.
         */
 
-        explicit MemoryPool(u64 size);
+		explicit MemoryPool(u64 size);
 
-        /**
+		/**
         * @class MemoryPool
         * @brief Represents a memory pool that dynamically allocates and releases memory.
         *
@@ -37,9 +37,9 @@ namespace hexen::engine::core::memory
         * memory chunks. It allows efficient allocation and deallocation of memory blocks.
         */
 
-        ~MemoryPool();
+		~MemoryPool();
 
-        /**
+		/**
         * @class MemoryPool
         * @brief A class representing a memory pool for allocating fixed-size memory blocks.
         *
@@ -48,9 +48,9 @@ namespace hexen::engine::core::memory
         * This class is useful in scenarios where there is a need for frequent allocation and deallocation of fixed-size blocks.
          */
 
-        vptr allocate(u64 size);
+		vptr allocate(u64 size);
 
-        /**
+		/**
         * @brief Frees the memory block at the given address.
         *
         * This function is used to deallocate a previously allocated memory block by the MemoryPool.
@@ -61,16 +61,16 @@ namespace hexen::engine::core::memory
         * @param address The address of the memory block to be freed.
         */
 
-        void free(vptr address) noexcept;
+		void free(vptr address) noexcept;
 
-        MemoryPool(MemoryPool&& memoryPool) = delete;
-        MemoryPool(const MemoryPool& memoryPool) = delete;
+		MemoryPool(MemoryPool &&memoryPool) = delete;
+		MemoryPool(const MemoryPool &memoryPool) = delete;
 
-        MemoryPool& operator=(MemoryPool&& memoryPool) = delete;
-        MemoryPool& operator=(const MemoryPool &memoryPool) = delete;
-    private:
+		MemoryPool &operator=(MemoryPool &&memoryPool) = delete;
+		MemoryPool &operator=(const MemoryPool &memoryPool) = delete;
 
-        /**
+	private:
+		/**
         * @brief Displays the log entry for a specific allocation.
         *
         * This function displays the log entry for a given allocation in the memory pool.
@@ -78,11 +78,11 @@ namespace hexen::engine::core::memory
         * @param allocation The allocation for which to display the log entry.
         */
 
-        inline void showLogForAllocation(const Allocation &allocation);
-        std::vector<Allocation> allocations;
-        u64 size;
-        vptr memory;
-        vptr lastAddress;
-        vptr maxAddress;
-    };
-}
+		inline void showLogForAllocation(const Allocation &allocation);
+		std::vector<Allocation> allocations;
+		u64 size;
+		vptr memory;
+		vptr lastAddress;
+		vptr maxAddress;
+	};
+}// namespace hexen::engine::core::memory

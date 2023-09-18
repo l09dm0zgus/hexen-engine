@@ -4,18 +4,18 @@
 
 #pragma once
 
-#include <glm/vec2.hpp>
 #include "../../memory_pool/AllocatedObject.hpp"
+#include <glm/vec2.hpp>
 
 namespace hexen::engine::graphics::gl
 {
-class FrameBufferTexture : public core::memory::AllocatedObject
-    {
-    private:
-        core::u32 object{0};
-    public:
+	class FrameBufferTexture : public core::memory::AllocatedObject
+	{
+	private:
+		core::u32 object {0};
 
-        /**
+	public:
+		/**
         * @class FrameBufferTexture
         * @brief Represents a texture used as a frame buffer object attachment.
         *
@@ -26,9 +26,9 @@ class FrameBufferTexture : public core::memory::AllocatedObject
         * This class provides a constructor to create a FrameBufferTexture object with a specified size.
         */
 
-        explicit FrameBufferTexture(const glm::vec2 &size);
+		explicit FrameBufferTexture(const glm::vec2 &size);
 
-        /**
+		/**
         * @class FrameBufferTexture
         * @brief Represents a texture attached to a frame buffer object.
         *
@@ -37,9 +37,9 @@ class FrameBufferTexture : public core::memory::AllocatedObject
         */
 
 
-        ~FrameBufferTexture() override;
+		~FrameBufferTexture() override;
 
-        /**
+		/**
         * @brief Retrieves the ID of the frame buffer texture.
         *
         * This function returns the ID of the frame buffer texture.
@@ -47,9 +47,9 @@ class FrameBufferTexture : public core::memory::AllocatedObject
         * @return The ID of the frame buffer texture.
         */
 
-        [[nodiscard]] core::u32 getID() const noexcept;
+		[[nodiscard]] core::u32 getID() const noexcept;
 
-        /**
+		/**
         * @brief Unbinds the FrameBufferTexture object.
         *
         * This function unbinds the FrameBufferTexture object, meaning that it is no longer the active
@@ -60,15 +60,14 @@ class FrameBufferTexture : public core::memory::AllocatedObject
         */
 
 
-        void unbind();
+		void unbind();
 
-        /**
+		/**
         * Resizes the framebuffer texture to the given size.
         *
         * @param size The new size of the framebuffer texture.
         */
 
-        void resize(const glm::vec2 &size) const;
-    };
-}
-
+		void resize(const glm::vec2 &size) const;
+	};
+}// namespace hexen::engine::graphics::gl

@@ -4,18 +4,17 @@
 
 #pragma once
 
+#include "GUIWindow.hpp"
 #include <core/Types.hpp>
 #include <core/graphics/FrameBufferObject.hpp>
 #include <core/graphics/texture/FrameBufferTexture.hpp>
-#include "GUIWindow.hpp"
 
 namespace hexen::editor::gui
 {
-    class FramebufferWindow : public GUIWindow
-    {
-    public:
-
-        /**
+	class FramebufferWindow : public GUIWindow
+	{
+	public:
+		/**
         * @class FramebufferWindow
         * @brief Represents a window using a framebuffer for rendering.
         *
@@ -23,16 +22,16 @@ namespace hexen::editor::gui
         * for creating and managing a window that uses a framebuffer for rendering.
         */
 
-        explicit FramebufferWindow(const std::string &name);
+		explicit FramebufferWindow(const std::string &name);
 
-        /**
+		/**
         * @class edit::gui::FramebufferWindow
         * @brief The FramebufferWindow class represents a GUI window for rendering and editing.
         */
 
-        void begin() override;
+		void begin() override;
 
-        /**
+		/**
         * @brief Renders the GUI framebuffer window.
         *
         * This function is responsible for rendering the graphical user interface
@@ -41,16 +40,16 @@ namespace hexen::editor::gui
         * @note This function does not return any value.
         */
 
-        void draw() override;
+		void draw() override;
 
-        /**
+		/**
         * @class FramebufferWindow
         * @brief Handles the rendering and display of a framebuffer window.
         */
 
-        void end() override;
+		void end() override;
 
-        /**
+		/**
         * Binds the framebuffer associated with the GUI window.
         *
         * This function is responsible for binding the framebuffer associated with the
@@ -61,9 +60,9 @@ namespace hexen::editor::gui
         */
 
 
-        void bindFramebuffer();
+		void bindFramebuffer();
 
-        /**
+		/**
         *
         * @brief Unbinds the currently bound framebuffer for this FramebufferWindow.
         *
@@ -77,10 +76,10 @@ namespace hexen::editor::gui
         */
 
 
-        void unbindFramebuffer();
-    private:
+		void unbindFramebuffer();
 
-        /**
+	private:
+		/**
         * Clears the contents of the framebuffer window.
         *
         * This function clears the contents of the framebuffer window by filling it with
@@ -98,12 +97,12 @@ namespace hexen::editor::gui
         * @see FramebufferWindow
         */
 
-        void clear();
-        hexen::engine::graphics::gl::FrameBufferObject frameBufferObject;
-        std::unique_ptr<hexen::engine::graphics::gl::FrameBufferTexture> frameBufferTexture;
-    protected:
+		void clear();
+		hexen::engine::graphics::gl::FrameBufferObject frameBufferObject;
+		std::unique_ptr<hexen::engine::graphics::gl::FrameBufferTexture> frameBufferTexture;
 
-        /**
+	protected:
+		/**
         * @class FramebufferWindow
         * @brief This class handles the rendering of the framebuffer window.
         *
@@ -111,6 +110,6 @@ namespace hexen::editor::gui
         * It is a member of the "edit::gui" namespace.
         */
 
-        virtual void render();
-    };
-}
+		virtual void render();
+	};
+}// namespace hexen::editor::gui

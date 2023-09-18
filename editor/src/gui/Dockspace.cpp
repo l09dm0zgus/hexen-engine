@@ -3,113 +3,109 @@
 //
 
 #include "Dockspace.hpp"
+#include "editors_windows/SceneWindow.hpp"
+#include <SDL_log.h>
 #include <imgui.h>
 #include <imgui_internal.h>
-#include <SDL_log.h>
-#include "editors_windows/SceneWindow.hpp"
 
 
 void hexen::editor::gui::Dockspace::draw()
 {
-    id = ImGui::DockSpaceOverViewport();
-    if(isAttachedWindow)
-    {
-        isAttachedWindow = false;
-        setWindowsInDockspace();
-    }
-    for(auto& window : windows)
-    {
-        window->draw();
-    }
+	id = ImGui::DockSpaceOverViewport();
+	if (isAttachedWindow)
+	{
+		isAttachedWindow = false;
+		setWindowsInDockspace();
+	}
+	for (auto &window : windows)
+	{
+		window->draw();
+	}
 }
-
 
 
 void hexen::editor::gui::Dockspace::begin()
 {
-    for(auto& window : windows)
-    {
-        window->begin();
-    }
+	for (auto &window : windows)
+	{
+		window->begin();
+	}
 }
 
 void hexen::editor::gui::Dockspace::end()
 {
-    for(auto& window : windows)
-    {
-        window->end();
-    }
+	for (auto &window : windows)
+	{
+		window->end();
+	}
 }
 
 void hexen::editor::gui::Dockspace::setWindowsInDockspace()
 {
 
-    ImGuiViewport* viewport = ImGui::GetMainViewport();
+	ImGuiViewport *viewport = ImGui::GetMainViewport();
 
-    ImGui::DockBuilderRemoveNode(id); // clear any previous layout
-    ImGui::DockBuilderAddNode(id, ImGuiDockNodeFlags_PassthruCentralNode | ImGuiDockNodeFlags_DockSpace);
-    ImGui::DockBuilderSetNodeSize(id, viewport->Size);
+	ImGui::DockBuilderRemoveNode(id);// clear any previous layout
+	ImGui::DockBuilderAddNode(id, ImGuiDockNodeFlags_PassthruCentralNode | ImGuiDockNodeFlags_DockSpace);
+	ImGui::DockBuilderSetNodeSize(id, viewport->Size);
 
-    dockUpId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Up,0.2f, nullptr,&id);
-    dockDownId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Down,0.25f, nullptr,&id);
-    dockLeftId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Left,0.2f, nullptr,&id);
-    dockRightId = ImGui::DockBuilderSplitNode(id,ImGuiDir_Right,0.15f, nullptr,&id);
+	dockUpId = ImGui::DockBuilderSplitNode(id, ImGuiDir_Up, 0.2f, nullptr, &id);
+	dockDownId = ImGui::DockBuilderSplitNode(id, ImGuiDir_Down, 0.25f, nullptr, &id);
+	dockLeftId = ImGui::DockBuilderSplitNode(id, ImGuiDir_Left, 0.2f, nullptr, &id);
+	dockRightId = ImGui::DockBuilderSplitNode(id, ImGuiDir_Right, 0.15f, nullptr, &id);
 
-    for(auto &dockingPosition : dockingPositions)
-    {
-        switch (dockingPosition.value)
-        {
-            case DockingPosition::DOWN:
-                ImGui::DockBuilderDockWindow( dockingPosition.key.c_str(), dockDownId);
-                break;
-            case DockingPosition::UP:
-                ImGui::DockBuilderDockWindow( dockingPosition.key.c_str(), dockUpId);
-                break;
-            case DockingPosition::LEFT:
-                ImGui::DockBuilderDockWindow( dockingPosition.key.c_str(), dockLeftId);
-                break;
-            case DockingPosition::RIGHT:
-                ImGui::DockBuilderDockWindow( dockingPosition.key.c_str(), dockRightId);
-                break;
-            case DockingPosition::CENTER:
-                ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(),id);
-                break;
-            default:
-                break;
-
-        }
-    }
-    ImGui::DockBuilderFinish(id);
+	for (auto &dockingPosition : dockingPositions)
+	{
+		switch (dockingPosition.value)
+		{
+			case DockingPosition::DOWN:
+				ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(), dockDownId);
+				break;
+			case DockingPosition::UP:
+				ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(), dockUpId);
+				break;
+			case DockingPosition::LEFT:
+				ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(), dockLeftId);
+				break;
+			case DockingPosition::RIGHT:
+				ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(), dockRightId);
+				break;
+			case DockingPosition::CENTER:
+				ImGui::DockBuilderDockWindow(dockingPosition.key.c_str(), id);
+				break;
+			default:
+				break;
+		}
+	}
+	ImGui::DockBuilderFinish(id);
 }
 
-void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow,const DockingPosition &dockingPosition)
+void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow, const DockingPosition &dockingPosition)
 {
-    windows.push_back(guiWindow);
-    dockingPositions.set(guiWindow->getName(),dockingPosition);
-    isAttachedWindow = true;
+	windows.push_back(guiWindow);
+	dockingPositions.set(guiWindow->getName(), dockingPosition);
+	isAttachedWindow = true;
 }
 
 std::shared_ptr<hexen::editor::gui::GUIWindow> hexen::editor::gui::Dockspace::getWindow(const std::string &name)
 {
-    auto it = std::find_if(windows.begin(), windows.end(),[name = name](const auto &window){
-        return window->getName() == name;
-    });
+	auto it = std::find_if(windows.begin(), windows.end(), [name = name](const auto &window)
+			{ return window->getName() == name; });
 
-    if(it!= windows.end())
-    {
-        return *it;
-    }
-    else
-    {
-        SDL_Log("Failed to find editor window\n");
-        return nullptr;
-    }
-
+	if (it != windows.end())
+	{
+		return *it;
+	}
+	else
+	{
+		SDL_Log("Failed to find editor window\n");
+		return nullptr;
+	}
 }
 
 
 std::shared_ptr<hexen::editor::gui::FramebufferWindow> hexen::editor::gui::Dockspace::getSceneWindow()
 {
-    auto  sceneWindow = getWindow("Scene");
-    return std::dynamic_pointer_cast<FramebufferWindow>(sceneWindow);
+	auto sceneWindow = getWindow("Scene");
+	return std::dynamic_pointer_cast<FramebufferWindow>(sceneWindow);
 }

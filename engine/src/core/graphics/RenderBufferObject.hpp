@@ -8,13 +8,13 @@
 
 namespace hexen::engine::graphics::gl
 {
-    class RenderBufferObject
-    {
-    private:
-        core::u32 object{0};
-    public:
+	class RenderBufferObject
+	{
+	private:
+		core::u32 object {0};
 
-        /**
+	public:
+		/**
         * @brief Get the ID of the RenderBufferObject.
         *
         * This function retrieves the ID of the RenderBufferObject.
@@ -25,9 +25,9 @@ namespace hexen::engine::graphics::gl
         * @note This method is constant and noexcept.
         */
 
-        [[nodiscard]] core::u32 getID() const noexcept;
+		[[nodiscard]] core::u32 getID() const noexcept;
 
-        /**
+		/**
         * @class RenderBufferObject
         *
         * @brief The RenderBufferObject class represents a render buffer object used for off-screen rendering.
@@ -37,9 +37,9 @@ namespace hexen::engine::graphics::gl
         */
 
 
-        RenderBufferObject();
+		RenderBufferObject();
 
-        /**
+		/**
         * @class RenderBufferObject
         * @brief Class representing a render buffer object.
         *
@@ -47,23 +47,23 @@ namespace hexen::engine::graphics::gl
         * It provides functionality to create, bind, and delete the render buffer object.
         */
 
-        ~RenderBufferObject();
+		~RenderBufferObject();
 
-        /**
+		/**
         * @brief Binds the render buffer object.
         *
         * This function binds the render buffer object to the current rendering context.
         *
         */
 
-        void bind() const;
+		void bind() const;
 
-        /**
+		/**
         * @brief Unbinds the RenderBufferObject.
         *
         * This function unbinds the currently bound RenderBufferObject.
         */
 
-        void unbind();
-    };
-}
+		void unbind();
+	};
+}// namespace hexen::engine::graphics::gl

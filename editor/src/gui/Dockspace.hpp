@@ -3,26 +3,26 @@
 //
 #pragma once
 
-#include <core/Types.hpp>
 #include "editors_windows/GUIWindow.hpp"
+#include <core/Types.hpp>
 
 namespace hexen::editor::gui
 {
-    class  FramebufferWindow;
-    class Dockspace
-    {
-    public:
-        enum class DockingPosition : hexen::engine::core::u8
-        {
-           UP,
-           DOWN,
-           LEFT,
-           RIGHT,
-           CENTER,
-           NONE
-        };
+	class FramebufferWindow;
+	class Dockspace
+	{
+	public:
+		enum class DockingPosition : hexen::engine::core::u8
+		{
+			UP,
+			DOWN,
+			LEFT,
+			RIGHT,
+			CENTER,
+			NONE
+		};
 
-        /**
+		/**
         * @brief This function draws the Dockspace GUI element.
         *
         * The draw() function is a member function of the Dockspace class
@@ -34,9 +34,9 @@ namespace hexen::editor::gui
         *
         */
 
-        void draw();
+		void draw();
 
-        /**
+		/**
         * @brief Begins the rendering of a dockspace GUI element.
         *
         * This function starts the rendering of a dockspace GUI element. The dockspace is an
@@ -47,9 +47,9 @@ namespace hexen::editor::gui
         * @see end()
         */
 
-        void begin();
+		void begin();
 
-        /**
+		/**
         * @brief End the rendering of the dockspace.
         *
         * This function is used to complete the rendering of the dockspace in a GUI application.
@@ -59,9 +59,9 @@ namespace hexen::editor::gui
         * @see begin()
         */
 
-        void end();
+		void end();
 
-        /**
+		/**
         * @brief Attaches a GUI window to a specific docking position.
         *
         * This function attaches the given GUI window to the specified docking position.
@@ -75,9 +75,9 @@ namespace hexen::editor::gui
         * @see DockingPosition
         */
 
-        void attachWindow(std::shared_ptr<GUIWindow> guiWindow, const DockingPosition &dockingPosition);
+		void attachWindow(std::shared_ptr<GUIWindow> guiWindow, const DockingPosition &dockingPosition);
 
-        /**
+		/**
         * @brief Retrieves the window with the specified name.
         *
         * This function fetches the window object that matches the specified name.
@@ -87,19 +87,18 @@ namespace hexen::editor::gui
         * @return The window object if found, otherwise nullptr.
         */
 
-        std::shared_ptr<GUIWindow> getWindow(const std::string &name);
+		std::shared_ptr<GUIWindow> getWindow(const std::string &name);
 
-        /**
+		/**
         * @brief Get the scene window associated with the dockspace.
         *
         * @return A pointer to the scene window, or nullptr if no scene window is associated.
         */
 
-        std::shared_ptr<FramebufferWindow> getSceneWindow();
+		std::shared_ptr<FramebufferWindow> getSceneWindow();
 
-    private:
-
-        /**
+	private:
+		/**
         * @brief Indicates whether the window is currently attached or not.
         *
         * This variable determines whether the window is currently attached to another window
@@ -112,9 +111,9 @@ namespace hexen::editor::gui
         *
         */
 
-        bool isAttachedWindow{true};
+		bool isAttachedWindow {true};
 
-        /**
+		/**
         * @brief Sets the windows in the dockspace.
         * This function is used to set the windows in the dockspace in the application's user interface.
         *
@@ -125,15 +124,15 @@ namespace hexen::editor::gui
         *
         */
 
-        void setWindowsInDockspace();
+		void setWindowsInDockspace();
 
-        hexen::engine::core::u32 id;
-        hexen::engine::core::u32 dockUpId{0};
-        hexen::engine::core::u32 dockDownId{0};
-        hexen::engine::core::u32 dockLeftId{0};
-        hexen::engine::core::u32 dockRightId{0};
+		hexen::engine::core::u32 id;
+		hexen::engine::core::u32 dockUpId {0};
+		hexen::engine::core::u32 dockDownId {0};
+		hexen::engine::core::u32 dockLeftId {0};
+		hexen::engine::core::u32 dockRightId {0};
 
-        /**
+		/**
         * @brief Represents a collection of windows in a graphical user interface.
         *
         * The `windows` variable is a container that holds multiple window objects
@@ -146,8 +145,8 @@ namespace hexen::editor::gui
         *
         */
 
-        std::vector<std::shared_ptr<GUIWindow>> windows;
+		std::vector<std::shared_ptr<GUIWindow>> windows;
 
-        hexen::engine::core::HashTable<std::string,DockingPosition> dockingPositions;
-    };
-}
+		hexen::engine::core::HashTable<std::string, DockingPosition> dockingPositions;
+	};
+}// namespace hexen::editor::gui

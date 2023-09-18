@@ -3,59 +3,58 @@
 //
 
 #pragma once
-#include <SDL.h>
 #include "../Types.hpp"
+#include <SDL.h>
 
 namespace hexen::engine::systems
 {
-    class InputSystem;
+	class InputSystem;
 }
 
 namespace hexen::engine::core::input
 {
 
-    class Gamepad
-    {
-    public:
+	class Gamepad
+	{
+	public:
+		friend class hexen::engine::systems::InputSystem;
 
-        friend class hexen::engine::systems::InputSystem;
+		enum class Button : u32
+		{
+			A = SDL_GAMEPAD_BUTTON_A,
+			B = SDL_GAMEPAD_BUTTON_B,
+			Y = SDL_GAMEPAD_BUTTON_Y,
+			X = SDL_GAMEPAD_BUTTON_X,
+			LEFT_STICK = SDL_GAMEPAD_BUTTON_LEFT_STICK,
+			RIGHT_STICK = SDL_GAMEPAD_BUTTON_RIGHT_STICK,
+			BACK = SDL_GAMEPAD_BUTTON_BACK,
+			START = SDL_GAMEPAD_BUTTON_START,
+			GUIDE = SDL_GAMEPAD_BUTTON_GUIDE,
+			LEFT_SHOULDER = SDL_GAMEPAD_BUTTON_LEFT_SHOULDER,
+			RIGHT_SHOULDER = SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER,
+			DPAD_UP = SDL_GAMEPAD_BUTTON_DPAD_UP,
+			DPAD_DOWN = SDL_GAMEPAD_BUTTON_DPAD_DOWN,
+			DPAD_RIGHT = SDL_GAMEPAD_BUTTON_DPAD_LEFT,
+			DPAD_LEFT = SDL_GAMEPAD_BUTTON_DPAD_LEFT,
+			MISC1 = SDL_GAMEPAD_BUTTON_MISC1,
+			TOUCHPAD = SDL_GAMEPAD_BUTTON_TOUCHPAD,
+			LEFT_PADDLE1 = SDL_GAMEPAD_BUTTON_LEFT_PADDLE1,
+			LEFT_PADDLE2 = SDL_GAMEPAD_BUTTON_LEFT_PADDLE2,
+			RIGHT_PADDLE1 = SDL_GAMEPAD_BUTTON_RIGHT_PADDLE1,
+			RIGHT_PADDLE2 = SDL_GAMEPAD_BUTTON_RIGHT_PADDLE2,
+			LEFT_TRIGGER = SDL_GAMEPAD_AXIS_LEFT_TRIGGER,
+			RIGHT_TRIGGER = SDL_GAMEPAD_AXIS_RIGHT_TRIGGER,
+		};
 
-        enum class Button : u32
-        {
-            A = SDL_GAMEPAD_BUTTON_A,
-            B = SDL_GAMEPAD_BUTTON_B,
-            Y = SDL_GAMEPAD_BUTTON_Y,
-            X = SDL_GAMEPAD_BUTTON_X,
-            LEFT_STICK = SDL_GAMEPAD_BUTTON_LEFT_STICK,
-            RIGHT_STICK = SDL_GAMEPAD_BUTTON_RIGHT_STICK,
-            BACK = SDL_GAMEPAD_BUTTON_BACK,
-            START = SDL_GAMEPAD_BUTTON_START,
-            GUIDE  = SDL_GAMEPAD_BUTTON_GUIDE,
-            LEFT_SHOULDER = SDL_GAMEPAD_BUTTON_LEFT_SHOULDER,
-            RIGHT_SHOULDER = SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER,
-            DPAD_UP = SDL_GAMEPAD_BUTTON_DPAD_UP,
-            DPAD_DOWN = SDL_GAMEPAD_BUTTON_DPAD_DOWN,
-            DPAD_RIGHT = SDL_GAMEPAD_BUTTON_DPAD_LEFT,
-            DPAD_LEFT = SDL_GAMEPAD_BUTTON_DPAD_LEFT,
-            MISC1 = SDL_GAMEPAD_BUTTON_MISC1,
-            TOUCHPAD = SDL_GAMEPAD_BUTTON_TOUCHPAD,
-            LEFT_PADDLE1 = SDL_GAMEPAD_BUTTON_LEFT_PADDLE1,
-            LEFT_PADDLE2 = SDL_GAMEPAD_BUTTON_LEFT_PADDLE2,
-            RIGHT_PADDLE1 = SDL_GAMEPAD_BUTTON_RIGHT_PADDLE1,
-            RIGHT_PADDLE2 = SDL_GAMEPAD_BUTTON_RIGHT_PADDLE2,
-            LEFT_TRIGGER = SDL_GAMEPAD_AXIS_LEFT_TRIGGER,
-            RIGHT_TRIGGER = SDL_GAMEPAD_AXIS_RIGHT_TRIGGER,
-        };
+		enum class Axis : u32
+		{
+			LEFT_X = SDL_GAMEPAD_AXIS_LEFTX,
+			LEFT_Y = SDL_GAMEPAD_AXIS_LEFTY,
+			RIGHT_X = SDL_GAMEPAD_AXIS_RIGHTX,
+			RIGHT_Y = SDL_GAMEPAD_AXIS_RIGHTY,
+		};
 
-        enum class Axis : u32
-        {
-            LEFT_X = SDL_GAMEPAD_AXIS_LEFTX,
-            LEFT_Y = SDL_GAMEPAD_AXIS_LEFTY,
-            RIGHT_X = SDL_GAMEPAD_AXIS_RIGHTX,
-            RIGHT_Y = SDL_GAMEPAD_AXIS_RIGHTY,
-        };
-
-        /**
+		/**
         * @class Gamepad
         * @brief Represents a gamepad input device.
         *
@@ -64,9 +63,9 @@ namespace hexen::engine::core::input
         * button presses and analog stick positions.
         */
 
-        explicit Gamepad(i32 index);
+		explicit Gamepad(i32 index);
 
-        /**
+		/**
         * @class Gamepad
         * @brief Represents a gamepad input device.
         *
@@ -76,9 +75,9 @@ namespace hexen::engine::core::input
         * @note This class assumes familiarity with the gamepad input system and how to query for gamepad events.
         */
 
-        ~Gamepad();
+		~Gamepad();
 
-        /**
+		/**
         * @class hexen::engine::core::input::Gamepad
         * @brief This class handles gamepad input processing.
         *
@@ -89,9 +88,9 @@ namespace hexen::engine::core::input
         * @return bool True if the is event associated with the gamepad otherwise false.
         */
 
-        bool processInput(const SDL_Event &event);
+		bool processInput(const SDL_Event &event);
 
-        /**
+		/**
         * @brief Check if a gamepad button is pressed.
         *
         * This function checks whether the specified gamepad button is currently pressed.
@@ -100,9 +99,9 @@ namespace hexen::engine::core::input
         * @return True if the button is pressed, false otherwise.
         */
 
-        [[nodiscard]] bool isButtonPressed(Button button) const;
+		[[nodiscard]] bool isButtonPressed(Button button) const;
 
-        /**
+		/**
         * @class Gamepad
         * @brief The Gamepad class provides functionality to handle gamepad input.
         *
@@ -110,9 +109,9 @@ namespace hexen::engine::core::input
         * has been released.
         */
 
-        [[nodiscard]] bool isButtonReleased(Button button) const;
+		[[nodiscard]] bool isButtonReleased(Button button) const;
 
-        /**
+		/**
         * @brief Get the name of the gamepad
         *
         * @return The name of the gamepad
@@ -120,9 +119,9 @@ namespace hexen::engine::core::input
         *       It is a constant function and does not throw any exceptions.
         */
 
-        [[nodiscard]] std::string getName() const noexcept;
+		[[nodiscard]] std::string getName() const noexcept;
 
-        /**
+		/**
         * @brief Retrieves the X-axis value of the left thumbstick of the gamepad.
         *
         * This function retrieves the raw X-axis value of the left thumbstick of the gamepad.
@@ -130,9 +129,9 @@ namespace hexen::engine::core::input
         * @return The current X-axis value of the left thumbstick.
         */
 
-        [[nodiscard]] float getLeftThumbstickX() const noexcept;
+		[[nodiscard]] float getLeftThumbstickX() const noexcept;
 
-        /**
+		/**
         * @brief Retrieves the X-axis value of the right thumbstick on the gamepad.
         *
         * @return The X-axis value of the right thumbstick as a floating-point number
@@ -143,26 +142,26 @@ namespace hexen::engine::core::input
         * @sa getRightThumbstickY(), getLeftThumbstickX(), getLeftThumbstickY()
         */
 
-        [[nodiscard]] float getLeftThumbstickY() const noexcept;
+		[[nodiscard]] float getLeftThumbstickY() const noexcept;
 
-        /**
+		/**
         * Retrieves the Y-axis value of the left thumbstick on a gamepad.
         *
         * @return The Y-axis value of the left thumbstick as a floating-point number.
         */
 
-        [[nodiscard]] float getRightThumbstickX() const noexcept;
+		[[nodiscard]] float getRightThumbstickX() const noexcept;
 
-        /**
+		/**
         * @class hexen::engine::core::input::Gamepad
         * @brief Provides access to the gamepad input functionality.
         *
         * This class allows the retrieval of gamepad input data, including the thumbstick values.
         */
 
-        [[nodiscard]] float getRightThumbstickY() const noexcept;
+		[[nodiscard]] float getRightThumbstickY() const noexcept;
 
-        /**
+		/**
         * @brief Retrieves the ID of the gamepad.
         *
         * This method returns the unique identifier of the gamepad. The ID represents
@@ -174,10 +173,10 @@ namespace hexen::engine::core::input
         *       the internal state of the gamepad and it does not throw any exceptions.
         */
 
-        [[nodiscard]] SDL_JoystickID getID() const noexcept;
+		[[nodiscard]] SDL_JoystickID getID() const noexcept;
 
 
-        /**
+		/**
         * @brief Retrieve a list of all available gamepads connected to the system.
         *
         * This static function returns a vector containing information about all connected gamepads.
@@ -189,21 +188,21 @@ namespace hexen::engine::core::input
         * @warning The returned vector may be empty if no gamepads are connected.
         */
 
-        static std::vector<std::shared_ptr<Gamepad>> getAllAvailableGamepads();
+		static std::vector<std::shared_ptr<Gamepad>> getAllAvailableGamepads();
 
-        static void addNewGamepad(SDL_JoystickID gamepadID);
+		static void addNewGamepad(SDL_JoystickID gamepadID);
 
-        static void removeNewGamepad(SDL_JoystickID gamepadID);
-    private:
-        u8 pressedButton{};
-        u8 releasedButton{};
-        SDL_Gamepad *controller{nullptr};
-        std::string name;
-        SDL_JoystickID gamepadID;
-        float leftAxisX{}, rightAxisX{};
-        float leftAxisY{}, rightAxisY{};
-        static std::vector<std::shared_ptr<Gamepad>> gamepads;
-        u32 currentEventId{0};
-    };
-}
+		static void removeNewGamepad(SDL_JoystickID gamepadID);
 
+	private:
+		u8 pressedButton {};
+		u8 releasedButton {};
+		SDL_Gamepad *controller {nullptr};
+		std::string name;
+		SDL_JoystickID gamepadID;
+		float leftAxisX {}, rightAxisX {};
+		float leftAxisY {}, rightAxisY {};
+		static std::vector<std::shared_ptr<Gamepad>> gamepads;
+		u32 currentEventId {0};
+	};
+}// namespace hexen::engine::core::input

@@ -8,29 +8,30 @@
 
 namespace hexen::editor::gui
 {
-    class DialogWindow : public GUIWindow
-    {
-    public:
+	class DialogWindow : public GUIWindow
+	{
+	public:
+		enum class Action : engine::core::i32
+		{
+			PRESSED_OK,
+			PRESSED_CANCEL,
+			NONE,
+			FAILED
+		};
 
-        enum class Action : engine::core::i32
-        {
-            PRESSED_OK,
-            PRESSED_CANCEL,
-            NONE,
-            FAILED
-        };
+		explicit DialogWindow(std::string name);
+		Action getLastAction();
+		void setOpen(bool newIsOpen);
+		void begin() override;
+		void end() override;
+		void draw() override;
 
-        explicit DialogWindow(std::string name);
-        Action getLastAction();
-        void setOpen(bool newIsOpen);
-        void begin() override;
-        void end() override;
-        void draw() override;
-    protected:
-        void setAction(Action newAction);
-        bool isOpen = false;
-        virtual void drawContent() = 0;
-    private:
-        Action action;
-    };
-}
+	protected:
+		void setAction(Action newAction);
+		bool isOpen = false;
+		virtual void drawContent() = 0;
+
+	private:
+		Action action;
+	};
+}// namespace hexen::editor::gui

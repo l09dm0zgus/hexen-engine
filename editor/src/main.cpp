@@ -4,8 +4,8 @@
 #include "application/Application.hpp"
 int main()
 {
-    hexen::editor::Application app;
-    app.run();
+	hexen::editor::Application app;
+	app.run();
 
-    return 0;
+	return 0;
 }

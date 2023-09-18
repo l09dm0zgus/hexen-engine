@@ -4,34 +4,34 @@
 
 #include "MainMenuBar.hpp"
 
-#include <utility>
 #include "menus/FileMenu.hpp"
+#include <utility>
 
 hexen::editor::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
 {
-    menus.push_back(hexen::engine::core::memory::make_shared<FileMenu>("File"));
+	menus.push_back(hexen::engine::core::memory::make_shared<FileMenu>("File"));
 }
 
 void hexen::editor::gui::MainMenuBar::begin()
 {
-    for(auto & menu : menus)
-    {
-        menu->begin();
-    }
+	for (auto &menu : menus)
+	{
+		menu->begin();
+	}
 }
 
 void hexen::editor::gui::MainMenuBar::draw()
 {
-    for(auto & menu : menus)
-    {
-        menu->draw();
-    }
+	for (auto &menu : menus)
+	{
+		menu->draw();
+	}
 }
 
 void hexen::editor::gui::MainMenuBar::end()
 {
-    for(auto & menu : menus)
-    {
-        menu->end();
-    }
+	for (auto &menu : menus)
+	{
+		menu->end();
+	}
 }

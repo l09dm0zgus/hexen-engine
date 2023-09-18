@@ -6,4 +6,3 @@
 
 #include "ShaderFile.hpp"
 #include "ShaderProgram.hpp"
-

@@ -3,28 +3,27 @@
 //
 
 #include "VertexArrayObject.hpp"
-#ifndef  __ANDROID__
-#include "GL/glew.h"
+#ifndef __ANDROID__
+	#include "GL/glew.h"
 #else
-#include <GLES3/gl31.h>
+	#include <GLES3/gl31.h>
 #endif
 hexen::engine::graphics::gl::VertexArrayObject::VertexArrayObject()
 {
-    glGenVertexArrays(1,&object);
+	glGenVertexArrays(1, &object);
 }
 
 void hexen::engine::graphics::gl::VertexArrayObject::bind() const
 {
-    glBindVertexArray(object);
-
+	glBindVertexArray(object);
 }
 
 hexen::engine::graphics::gl::VertexArrayObject::~VertexArrayObject()
 {
-    glDeleteVertexArrays(1, &object);
+	glDeleteVertexArrays(1, &object);
 }
 
 void hexen::engine::graphics::gl::VertexArrayObject::unbind()
 {
-    glBindVertexArray(0);
+	glBindVertexArray(0);
 }

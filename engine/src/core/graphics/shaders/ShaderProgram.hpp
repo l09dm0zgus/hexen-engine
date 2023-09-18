@@ -3,25 +3,24 @@
 //
 #pragma once
 
+#include "../../memory_pool/AllocatedObject.hpp"
 #include "ShaderFile.hpp"
 #include <glm/glm.hpp>
-#include "../../memory_pool/AllocatedObject.hpp"
 namespace hexen::engine::graphics::gl::shader
 {
-class ShaderProgram : public core::memory::AllocatedObject
-    {
-    public:
-
-        /**
+	class ShaderProgram : public core::memory::AllocatedObject
+	{
+	public:
+		/**
         * @class ShaderProgram
         * @brief Represents a shader program that consists of a vertex and fragment shader.
         *
         * This class handles the compilation and linking of shaders from their respective file paths.
         */
 
-        ShaderProgram(const std::string &vertexShaderPath,const std::string &fragmentShaderPath);
+		ShaderProgram(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 
-        /**
+		/**
         * @class ShaderProgram
         * @brief Represents a shader program used in the rendering process.
         *
@@ -29,9 +28,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         * It also handles the destruction and cleanup of shader program resources.
         */
 
-        ~ShaderProgram() override;
+		~ShaderProgram() override;
 
-        /**
+		/**
         * @brief Activates the shader program for rendering.
         *
         * This function activates the shader program for rendering. It should be called before rendering any objects
@@ -42,9 +41,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         * @note This function is noexcept, meaning it will not throw any exceptions.
         */
 
-        void use() const noexcept;
+		void use() const noexcept;
 
-        /**
+		/**
         * Sets the value of an integer uniform variable in the shader program.
         *
         * @param uniformVariable The name of the uniform variable in the shader program.
@@ -59,9 +58,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         */
 
 
-    void setIntUniform(const std::string &uniformVariable,core::i32 value) const;
+		void setIntUniform(const std::string &uniformVariable, core::i32 value) const;
 
-        /**
+		/**
         * @brief Set a mat4 uniform variable in the shader program.
         *
         * This function sets the value of a mat4 uniform variable in the shader program.
@@ -79,9 +78,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         */
 
 
-    void setMatrix4Uniform(const std::string &uniformVariable,const glm::mat4 &matrix) const;
+		void setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const;
 
-    /**
+		/**
     * Sets a vector4 uniform variable in the shader program.
     *
     * @param uniformVariable The name of the uniform variable.
@@ -97,9 +96,9 @@ class ShaderProgram : public core::memory::AllocatedObject
     */
 
 
-    void setVector4Uniform(const std::string  &uniformVariable,const glm::vec4 &vector) const;
+		void setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const;
 
-    /**
+		/**
     * @brief Sets the value of a uniform variable of type vec3 in the shader program.
     *
     * This function sets the value of the uniform variable with the given name
@@ -111,18 +110,18 @@ class ShaderProgram : public core::memory::AllocatedObject
     * @note The shader program must be currently active and linked in order to set the uniform variable.
     */
 
-    void setVector3Uniform(const std::string &uniformVariable,const glm::vec3 &vector) const;
+		void setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const;
 
-    private:
-        hexen::engine::graphics::shader::ShaderFile vertexShaderFile;
-        hexen::engine::graphics::shader::ShaderFile fragmentShaderFile;
-        core::u32 vertexShader{0};
-        core::u32 fragmentShader{0};
-        core::u32 shaderProgram{0};
-        char* fragmentShaderText{nullptr};
-        char* vertexShaderText{nullptr};
+	private:
+		hexen::engine::graphics::shader::ShaderFile vertexShaderFile;
+		hexen::engine::graphics::shader::ShaderFile fragmentShaderFile;
+		core::u32 vertexShader {0};
+		core::u32 fragmentShader {0};
+		core::u32 shaderProgram {0};
+		char *fragmentShaderText {nullptr};
+		char *vertexShaderText {nullptr};
 
-        /**
+		/**
         * @brief Compiles the vertex shader of the ShaderProgram.
         *
         * This function compiles the vertex shader of the ShaderProgram.
@@ -137,9 +136,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         *
         */
 
-        void compileVertexShader();
+		void compileVertexShader();
 
-        /**
+		/**
         * @brief Compiles the fragment shader of the ShaderProgram.
         *
         * This function compiles the fragment shader source code associated with the ShaderProgram object.
@@ -149,9 +148,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         *
         */
 
-        void compileFragmentShader();
+		void compileFragmentShader();
 
-        /**
+		/**
         * @brief Links multiple shaders into a shader program.
         *
         * This function is a member function of the ShaderProgram class inside the core::rend::shader namespace.
@@ -159,9 +158,9 @@ class ShaderProgram : public core::memory::AllocatedObject
         *
         */
 
-        void linkShaders();
+		void linkShaders();
 
-        /**
+		/**
         * Retrieves the compiler log for a specific shader program.
         *
         * @param shader The identifier of the shader program to retrieve the compiler log from.
@@ -169,7 +168,7 @@ class ShaderProgram : public core::memory::AllocatedObject
         */
 
 
-        void showCompilerLog(core::u32 shader) const noexcept;
-        void showLinkerLog() const noexcept;
-    };
-}
+		void showCompilerLog(core::u32 shader) const noexcept;
+		void showLinkerLog() const noexcept;
+	};
+}// namespace hexen::engine::graphics::gl::shader

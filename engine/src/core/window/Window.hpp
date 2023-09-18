@@ -4,18 +4,17 @@
 
 #pragma once
 
+#include "../application/Settings.hpp"
+#include "../memory_pool/AllocatedObject.hpp"
 #include <SDL3/SDL.h>
 #include <string>
-#include "../memory_pool/AllocatedObject.hpp"
-#include "../application/Settings.hpp"
 
 namespace hexen::engine::core
 {
-    class Window : public memory::AllocatedObject
-    {
-    public:
-
-        /**
+	class Window : public memory::AllocatedObject
+	{
+	public:
+		/**
         * @class hexen::engine::core::Window
         * @brief The Window class represents a window in the game engine.
         *
@@ -23,9 +22,9 @@ namespace hexen::engine::core
         * which contains the necessary configuration settings for the window.
         */
 
-        explicit Window(const Settings &settings);
+		explicit Window(const Settings &settings);
 
-        /**
+		/**
         * @class hexen::engine::core::Window
         * @brief The Window class represents a window in the game engine.
         *
@@ -35,9 +34,9 @@ namespace hexen::engine::core
         * graphics.
         */
 
-        ~Window() override;
+		~Window() override;
 
-        /**
+		/**
         * @brief Swaps the front and back buffers of the window.
         *
         * This function is responsible for swapping the buffers of the window, which allows
@@ -47,10 +46,10 @@ namespace hexen::engine::core
         * @attention This function should only be called once per frame.
         */
 
-        void swapBuffers();
-        void close();
+		void swapBuffers();
+		void close();
 
-        /**
+		/**
         * @brief Clears the contents of the Window.
         *
         * This function clears the contents of the Window by setting the background color
@@ -58,9 +57,9 @@ namespace hexen::engine::core
         *
         */
 
-        void clear();
+		void clear();
 
-        /**
+		/**
         * @brief Resizes the window to the specified dimensions.
         *
         * This function resizes the window to the given width and height, in pixels.
@@ -70,18 +69,18 @@ namespace hexen::engine::core
         */
 
 
-        void resize();
+		void resize();
 
-        /**
+		/**
         * @class hexen::engine::core::Window
         * @brief Represents the window used in the game engine.
         *
         * The Window class provides methods to retrieve the size of the window.
         */
 
-        glm::vec2 getSize();
+		glm::vec2 getSize();
 
-        /**
+		/**
         * @brief Check if the window is open.
         *
         * A member function of the Window class in the hexen::engine::core namespace.
@@ -90,12 +89,12 @@ namespace hexen::engine::core
         * @return True if the window is open, false otherwise.
         */
 
-        [[nodiscard]] bool isOpen() const noexcept;
+		[[nodiscard]] bool isOpen() const noexcept;
 
 
-        i32 pollEvents(SDL_Event *sdlEvent);
+		i32 pollEvents(SDL_Event *sdlEvent);
 
-        /**
+		/**
         * @brief Get the current display mode of the window.
         *
         * This function returns the current display mode of the window, including information such as the width, height, bit depth, and refresh rate.
@@ -107,9 +106,9 @@ namespace hexen::engine::core
         */
 
 
-        [[nodiscard]] SDL_DisplayMode getDisplayMode() const noexcept;
+		[[nodiscard]] SDL_DisplayMode getDisplayMode() const noexcept;
 
-        /**
+		/**
         * @brief Get the SDL window instance.
         *
         * This function is used to retrieve the SDL window created by the Window class.
@@ -117,9 +116,9 @@ namespace hexen::engine::core
         * @return The SDL_Window pointer representing the window instance.
         */
 
-        [[nodiscard]] SDL_Window* getSDLWindow() const noexcept;
+		[[nodiscard]] SDL_Window *getSDLWindow() const noexcept;
 
-        /**
+		/**
         * @brief Retrieves the OpenGL context associated with the window.
         *
         * This method returns the OpenGL context that is associated with the window. The OpenGL context
@@ -130,11 +129,12 @@ namespace hexen::engine::core
         *
         */
 
-        [[nodiscard]] SDL_GLContext  getGLContext() const noexcept;
-    private:
-        Settings settings;
+		[[nodiscard]] SDL_GLContext getGLContext() const noexcept;
 
-        /**
+	private:
+		Settings settings;
+
+		/**
         * @brief Initializes the SDL library for the Window class.
         *
         * This function initializes the Simple DirectMedia Layer (SDL) library
@@ -143,16 +143,16 @@ namespace hexen::engine::core
         *
         */
 
-        void initSDL();
-        SDL_DisplayMode displayMode{};
-        SDL_Window* window{nullptr};
-        SDL_GLContext glContext{nullptr};
-        i32 height{720};
-        i32 width{1280};
-        std::string title;
-        bool bIsOpen{true};
+		void initSDL();
+		SDL_DisplayMode displayMode {};
+		SDL_Window *window {nullptr};
+		SDL_GLContext glContext {nullptr};
+		i32 height {720};
+		i32 width {1280};
+		std::string title;
+		bool bIsOpen {true};
 
-        /**
+		/**
         * @class hexen::engine::core::Window
         * @brief The Window class handles all operations related to the application window.
         *
@@ -162,10 +162,9 @@ namespace hexen::engine::core
         * like the depth and stencil buffer sizes.
         */
 
-        void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
-        void setIcon(const std::string &pathToIcon);
+		void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
+		void setIcon(const std::string &pathToIcon);
 
-        SDL_Surface *icon{};
-    };
-}
-
+		SDL_Surface *icon {};
+	};
+}// namespace hexen::engine::core

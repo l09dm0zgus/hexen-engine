@@ -4,19 +4,20 @@
 
 #pragma once
 
-#include "SpriteComponent.hpp"
 #include "../../core/Types.hpp"
+#include "SpriteComponent.hpp"
 namespace hexen::engine::components::graphics
 {
-    class SpriteInstancedComponent : public SpriteComponent
-    {
-    public:
-        SpriteInstancedComponent(const std::string &vertexShaderPath , const std::string &fragmentShaderPath,core::i32 numberOfInstances,glm::mat4 *instancesMatrices);
-        void draw() noexcept override;
-    private:
-        hexen::engine::graphics::gl::VertexBufferObject instancesBuffer;
-        core::i32 numberOfInstances{0};
-        glm::mat4 *instancesMatrices{nullptr};
-    };
+	class SpriteInstancedComponent : public SpriteComponent
+	{
+	public:
+		SpriteInstancedComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath, core::i32 numberOfInstances, glm::mat4 *instancesMatrices);
+		void draw() noexcept override;
 
-}
+	private:
+		hexen::engine::graphics::gl::VertexBufferObject instancesBuffer;
+		core::i32 numberOfInstances {0};
+		glm::mat4 *instancesMatrices {nullptr};
+	};
+
+}// namespace hexen::engine::components::graphics

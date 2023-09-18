@@ -10,11 +10,10 @@
 
 namespace hexen::engine::systems
 {
-    class IGamePlaySystem : public core::memory::AllocatedObject
-    {
-    public:
-
-        /**
+	class IGamePlaySystem : public core::memory::AllocatedObject
+	{
+	public:
+		/**
         * @class IGamePlaySystem
         * @brief Interface for the game play system.
         *
@@ -23,9 +22,9 @@ namespace hexen::engine::systems
         * It provides the necessary methods to control the game's behavior, such as starting, pausing, and ending the game.
         */
 
-        IGamePlaySystem() = default;
+		IGamePlaySystem() = default;
 
-        /**
+		/**
         * @class IGamePlaySystem
         * @brief Interface for the Game Play System
         *
@@ -33,18 +32,18 @@ namespace hexen::engine::systems
         * and rules. It provides a set of methods that should be implemented by any concrete game play system.
         */
 
-        ~IGamePlaySystem() override = default;
+		~IGamePlaySystem() override = default;
 
-        /**
+		/**
         * @class IGamePlaySystem
         * @brief Interface for the game play system.
         *
         * This interface provides the necessary methods and operation for the game play system.
         */
 
-        IGamePlaySystem(IGamePlaySystem &&system) = delete;
+		IGamePlaySystem(IGamePlaySystem &&system) = delete;
 
-        /**
+		/**
         * @class IGamePlaySystem
         * @brief Class for the game play system interface.
         *
@@ -52,8 +51,8 @@ namespace hexen::engine::systems
         * and deletes the copy constructor by default. Objects of classes derived from this interface should not be copyable.
         */
 
-        IGamePlaySystem(const IGamePlaySystem& system) = delete;
-        /**
+		IGamePlaySystem(const IGamePlaySystem &system) = delete;
+		/**
         * @brief Assignment operator (deleted)
         *
         * This assignment operator is deleted and cannot be used to assign an rvalue of type IGamePlaySystem to another IGamePlaySystem object.
@@ -64,9 +63,9 @@ namespace hexen::engine::systems
         * @return IGamePlaySystem& A reference to the assigned IGamePlaySystem object
         */
 
-        IGamePlaySystem& operator=(IGamePlaySystem &&system) = delete;
+		IGamePlaySystem &operator=(IGamePlaySystem &&system) = delete;
 
-        /**
+		/**
         * @brief Copy assignment operator.
         *
         * This assignment operator is deleted to prevent copying of IGamePlaySystem objects.
@@ -78,15 +77,15 @@ namespace hexen::engine::systems
         * @see IGamePlaySystem
          */
 
-        IGamePlaySystem& operator=(const IGamePlaySystem &system) = delete;
+		IGamePlaySystem &operator=(const IGamePlaySystem &system) = delete;
 
-        /**
+		/**
         * @brief Starts before entry in main game loop
         */
 
-        virtual void start() = 0;
+		virtual void start() = 0;
 
-        /**
+		/**
         * @brief Update the game logic in game loop.
         *
         * This pure virtual function should be overridden in derived classes to update the variable using the provided delta time value.
@@ -94,8 +93,6 @@ namespace hexen::engine::systems
         * @param deltaTime The time elapsed since the last update.
          */
 
-        virtual void update(float deltaTime) = 0;
-
-    };
-}
-
+		virtual void update(float deltaTime) = 0;
+	};
+}// namespace hexen::engine::systems

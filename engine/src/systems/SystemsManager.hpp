@@ -3,35 +3,35 @@
 //
 #pragma once
 #include "../core/memory_pool/AllocatedObject.hpp"
-#include "IRenderSystem.hpp"
 #include "IGamePlaySystem.hpp"
+#include "IRenderSystem.hpp"
 
 namespace hexen::engine::core
 {
-    class Window;
+	class Window;
 }
 
 namespace hexen::engine::systems
 {
-    class InputSystem;
+	class InputSystem;
 
-    class SystemsManager : public hexen::engine::core::memory::AllocatedObject
-    {
-    protected:
-        std::shared_ptr<hexen::engine::systems::InputSystem> inputSystem;
-    private:
+	class SystemsManager : public hexen::engine::core::memory::AllocatedObject
+	{
+	protected:
+		std::shared_ptr<hexen::engine::systems::InputSystem> inputSystem;
 
-        /**
+	private:
+		/**
         * @brief Represents the current system manager.
         *
         * The currentSystemManager variable is used to keep track of the active system manager within the software application.
         * It allows access to various functionalities and resources provided by the system manager.
         */
 
-        static SystemsManager* currentSystemManager;
+		static SystemsManager *currentSystemManager;
 
 
-        /**
+		/**
          * @brief The number of components.
          *
          * This variable represents the number of components. It is initialized to zero.
@@ -39,9 +39,9 @@ namespace hexen::engine::systems
          *
          */
 
-        core::i32 numberOfComponents{0};
+		core::i32 numberOfComponents {0};
 
-        /**
+		/**
         * @brief The collection of rendering systems.
         *
         * This variable represents a collection of rendering systems used in the application.
@@ -54,9 +54,9 @@ namespace hexen::engine::systems
         *
         */
 
-        std::vector<std::unique_ptr<IRenderSystem>> renderSystems;
+		std::vector<std::unique_ptr<IRenderSystem>> renderSystems;
 
-        /**
+		/**
         * @brief This variable holds the list of gameplay systems.
         *
         * It represents the collection of different systems involved in the gameplay of the game.
@@ -67,11 +67,10 @@ namespace hexen::engine::systems
         *
         */
 
-        std::vector<std::unique_ptr<IGamePlaySystem>> gameplaySystems;
+		std::vector<std::unique_ptr<IGamePlaySystem>> gameplaySystems;
 
-    public:
-
-        /**
+	public:
+		/**
         * @brief Processes the input from a given window.
         *
         * This function processes the input from a specified window and performs any necessary actions based on the input.
@@ -79,25 +78,25 @@ namespace hexen::engine::systems
         * @param window The window from which the input will be processed.
         */
 
-        virtual void processInput(const std::shared_ptr<core::Window> &window);
+		virtual void processInput(const std::shared_ptr<core::Window> &window);
 
 
-        /**
+		/**
          * @brief Starts all systems,called before main loop.
          */
 
-        virtual void start();
+		virtual void start();
 
 
-        /**
+		/**
          * @brief Calling render() in all render systems
          *
          * @param alpha interpolated value for correct position of rendered object.
          */
 
-        virtual void render(float alpha);
+		virtual void render(float alpha);
 
-        /**
+		/**
          * @brief Updates the game play systems.
          *
          * @param deltaTime The time interval between the current and previous frame.
@@ -109,9 +108,9 @@ namespace hexen::engine::systems
          *
          */
 
-        virtual void update(float deltaTime);
+		virtual void update(float deltaTime);
 
-        /**
+		/**
          * @brief Construct and initialize a new game play system in current system manager.
          *
          * This constructor takes any number of arguments of type `Args`. These arguments
@@ -124,15 +123,16 @@ namespace hexen::engine::systems
          * @tparam T  Type based on IGamePlaySystem class.
          */
 
-        template<class T,typename ...Args> HEXEN_INLINE static void addGamePlaySystem(Args... args)
-        {
-            if(currentSystemManager != nullptr)
-            {
-                currentSystemManager->gameplaySystems.emplace_back(core::memory::make_unique<T>(args...));
-            }
-        }
+		template<class T, typename... Args>
+		HEXEN_INLINE static void addGamePlaySystem(Args... args)
+		{
+			if (currentSystemManager != nullptr)
+			{
+				currentSystemManager->gameplaySystems.emplace_back(core::memory::make_unique<T>(args...));
+			}
+		}
 
-        /**
+		/**
        * @brief Construct and initialize a new render system.
        *
        * This constructor takes any number of arguments of type `Args`. These arguments
@@ -145,16 +145,16 @@ namespace hexen::engine::systems
        * @tparam T  Type based on IRenderSystem class.
        */
 
-        template<class T,typename ...Args> HEXEN_INLINE static void addRenderSystem(Args... args)
-        {
-            if(currentSystemManager != nullptr)
-            {
-                currentSystemManager->renderSystems.emplace_back(core::memory::make_unique<T>(args...));
+		template<class T, typename... Args>
+		HEXEN_INLINE static void addRenderSystem(Args... args)
+		{
+			if (currentSystemManager != nullptr)
+			{
+				currentSystemManager->renderSystems.emplace_back(core::memory::make_unique<T>(args...));
+			}
+		}
 
-            }
-        }
-
-        /**
+		/**
          * @brief Sets the current system manager.
          *
          * This function allows the user to set the current system manager
@@ -162,17 +162,17 @@ namespace hexen::engine::systems
          * @param systemManager A pointer to the system manager object.
          */
 
-        HEXEN_INLINE static void setCurrentSystemManager(SystemsManager* systemManager)
-        {
-            currentSystemManager = systemManager;
-        }
+		HEXEN_INLINE static void setCurrentSystemManager(SystemsManager *systemManager)
+		{
+			currentSystemManager = systemManager;
+		}
 
-        HEXEN_INLINE static SystemsManager* getCurrentSystemManager()
-        {
-            return currentSystemManager;
-        }
+		HEXEN_INLINE static SystemsManager *getCurrentSystemManager()
+		{
+			return currentSystemManager;
+		}
 
-        /**
+		/**
         * @class SystemsManager
         * @brief Class responsible for managing all systems in the game engine.
         *
@@ -183,19 +183,14 @@ namespace hexen::engine::systems
         * This class is part of the Hexen game engine.
         */
 
-        SystemsManager();
+		SystemsManager();
 
-        /**
+		/**
         * @brief Default virtual destructor.
         */
 
-        ~SystemsManager() override = default;
+		~SystemsManager() override = default;
 
-        [[nodiscard]] std::shared_ptr<InputSystem> getInputSystem() const noexcept;
-
-    };
-}
-
-
-
-
+		[[nodiscard]] std::shared_ptr<InputSystem> getInputSystem() const noexcept;
+	};
+}// namespace hexen::engine::systems

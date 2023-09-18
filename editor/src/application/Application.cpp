@@ -7,12 +7,12 @@
 
 hexen::editor::Application::Application()
 {
-    window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
-    mainGameLoop = hexen::engine::core::memory::make_unique<EditorGameLoop>(window);
+	window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
+	mainGameLoop = hexen::engine::core::memory::make_unique<EditorGameLoop>(window);
 }
 
 void hexen::editor::Application::run()
 {
-    mainGameLoop->start();
-    mainGameLoop->loop();
+	mainGameLoop->start();
+	mainGameLoop->loop();
 }

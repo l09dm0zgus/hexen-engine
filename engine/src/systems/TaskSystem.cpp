@@ -9,15 +9,15 @@ hexen::engine::core::threading::TaskCounter hexen::engine::systems::TaskSystem::
 
 void hexen::engine::systems::TaskSystem::waitForCounter(core::i32 value)
 {
-    scheduler.waitForCounter(&counter,value);
+	scheduler.waitForCounter(&counter, value);
 }
 
 void hexen::engine::systems::TaskSystem::initialize()
 {
-    scheduler.initialize();
+	scheduler.initialize();
 }
 
-void hexen::engine::systems::TaskSystem::addTasks(core::threading::TaskPriority priority,const std::array<core::threading::Task, 400> &tasks)
+void hexen::engine::systems::TaskSystem::addTasks(core::threading::TaskPriority priority, const std::array<core::threading::Task, 400> &tasks)
 {
-    scheduler.addTasks(tasks,priority,&counter);
+	scheduler.addTasks(tasks, priority, &counter);
 }

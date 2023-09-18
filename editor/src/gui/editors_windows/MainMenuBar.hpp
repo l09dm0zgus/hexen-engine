@@ -5,22 +5,21 @@
 #pragma once
 
 #include "GUIWindow.hpp"
-#include "menus/Menu.hpp"
 #include "menus/FileMenu.hpp"
+#include "menus/Menu.hpp"
 
 namespace hexen::editor::gui
 {
-    class MainMenuBar : public GUIWindow
-    {
-    private:
-        std::vector<std::shared_ptr<Menu>> menus;
-    public:
-        explicit MainMenuBar(std::string name);
-        void begin() override;
-        void draw() override;
-        void end() override;
-    };
+	class MainMenuBar : public GUIWindow
+	{
+	private:
+		std::vector<std::shared_ptr<Menu>> menus;
 
-}
+	public:
+		explicit MainMenuBar(std::string name);
+		void begin() override;
+		void draw() override;
+		void end() override;
+	};
 
-
+}// namespace hexen::editor::gui

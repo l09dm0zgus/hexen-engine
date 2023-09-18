@@ -7,10 +7,10 @@
 
 namespace hexen::engine::systems
 {
-    class IRenderSystem : public core::memory::AllocatedObject
-    {
-    public:
-        /**
+	class IRenderSystem : public core::memory::AllocatedObject
+	{
+	public:
+		/**
         * @class IRenderSystem
         * @brief Interface for a render system
         *
@@ -18,9 +18,9 @@ namespace hexen::engine::systems
         * required for rendering graphics in game.
         */
 
-        IRenderSystem() = default;
+		IRenderSystem() = default;
 
-        /**
+		/**
         * @class IRenderSystem
         * @brief Interface for a rendering system.
         *
@@ -31,9 +31,9 @@ namespace hexen::engine::systems
         * interface, it should not be directly instantiated.
         */
 
-        ~IRenderSystem() override = default;
+		~IRenderSystem() override = default;
 
-        /**
+		/**
         * @class IRenderSystem
         * @brief Interface for the Render System.
         *
@@ -41,9 +41,9 @@ namespace hexen::engine::systems
         * It defines the behavior and functionalities of the Render System.
         */
 
-        IRenderSystem(IRenderSystem&&) = delete;
+		IRenderSystem(IRenderSystem &&) = delete;
 
-        /**
+		/**
         * @class IRenderSystem
         * @brief Represents an interface for rendering system.
         *
@@ -51,9 +51,9 @@ namespace hexen::engine::systems
         * Objects of this class cannot be copied or assigned, as indicated by the deleted copy constructor.
         */
 
-        IRenderSystem(const IRenderSystem&) = delete;
+		IRenderSystem(const IRenderSystem &) = delete;
 
-        /**
+		/**
          * @brief Assignment operator for the IRenderSystem class.
          *
          * This operator is deleted and cannot be used. It prevents
@@ -63,9 +63,9 @@ namespace hexen::engine::systems
          * @return A reference to the left-hand side object.
          */
 
-        IRenderSystem& operator=(IRenderSystem&&) = delete;
+		IRenderSystem &operator=(IRenderSystem &&) = delete;
 
-        /**
+		/**
          * @brief The copy assignment operator.
          *
          * This operator is deleted using the "delete" keyword, which means
@@ -77,16 +77,16 @@ namespace hexen::engine::systems
          * @return A reference to the modified IRenderSystem object.
          */
 
-        IRenderSystem& operator=(const IRenderSystem&) = delete;
+		IRenderSystem &operator=(const IRenderSystem &) = delete;
 
-        /**
+		/**
          * @brief Initialize the render components.
          *
          */
 
-        virtual void start() = 0;
+		virtual void start() = 0;
 
-        /**
+		/**
          * @brief Virtual function for rendering.
          *
          * This function is designed to be inherited by concrete rendering classes.
@@ -98,6 +98,6 @@ namespace hexen::engine::systems
          *
          * @param alpha The floating point value used for interpolation.
          */
-         virtual void render(float alpha) = 0;
-    };
-}
+		virtual void render(float alpha) = 0;
+	};
+}// namespace hexen::engine::systems

@@ -4,20 +4,19 @@
 
 #pragma once
 
+#include "../Component.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../Component.hpp"
 
 #define GLM_SWIZZLE
 
 namespace hexen::engine::components
 {
-    class TransformComponent: public components::Component
-    {
-    public:
-
-        /**
+	class TransformComponent : public components::Component
+	{
+	public:
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -29,9 +28,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        TransformComponent() = default;
+		TransformComponent() = default;
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -43,9 +42,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        ~TransformComponent() override = default;
+		~TransformComponent() override = default;
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -57,9 +56,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        explicit TransformComponent(float layer);
+		explicit TransformComponent(float layer);
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -71,9 +70,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        explicit TransformComponent(const glm::vec2 &newPosition);
+		explicit TransformComponent(const glm::vec2 &newPosition);
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -85,9 +84,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        explicit TransformComponent(const glm::mat4 &newTransform);
+		explicit TransformComponent(const glm::mat4 &newTransform);
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -99,9 +98,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        TransformComponent(const TransformComponent &transformComponent);
+		TransformComponent(const TransformComponent &transformComponent);
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -113,9 +112,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        TransformComponent(TransformComponent &&transformComponent) noexcept;
+		TransformComponent(TransformComponent &&transformComponent) noexcept;
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -127,9 +126,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        TransformComponent(const glm::vec2 &newPosition, const glm::vec2 &newRotation);
+		TransformComponent(const glm::vec2 &newPosition, const glm::vec2 &newRotation);
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -141,9 +140,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        TransformComponent(const glm::vec2 &newPosition,const glm::vec2 &newRotation,const glm::vec2 &newScale);
+		TransformComponent(const glm::vec2 &newPosition, const glm::vec2 &newRotation, const glm::vec2 &newScale);
 
-        /**
+		/**
         * @class TransformComponent
         * @brief Class representing a transform component.
         *
@@ -155,9 +154,9 @@ namespace hexen::engine::components
         * manipulate and retrieve the transform properties as needed.
         */
 
-        TransformComponent(const glm::vec2 &newPosition, /***/const glm::vec2 &newRotation, const glm::vec2 &newScale,float layer);
+		TransformComponent(const glm::vec2 &newPosition, /***/ const glm::vec2 &newRotation, const glm::vec2 &newScale, float layer);
 
-        /**
+		/**
         * @brief Copy assignment operator for TransformComponent.
         *
         * This assignment operator copy the data from the given lvalue TransformComponent
@@ -167,9 +166,9 @@ namespace hexen::engine::components
         * @return A reference to this TransformComponent object.
         */
 
-        TransformComponent& operator=( const TransformComponent &transformComponent);
+		TransformComponent &operator=(const TransformComponent &transformComponent);
 
-        /**
+		/**
         * @brief Move assignment operator for TransformComponent.
         *
         * This assignment operator moves the data from the given rvalue TransformComponent
@@ -180,9 +179,9 @@ namespace hexen::engine::components
         */
 
 
-        TransformComponent& operator=(TransformComponent &&transformComponent) noexcept;
+		TransformComponent &operator=(TransformComponent &&transformComponent) noexcept;
 
-        /**
+		/**
         * @brief Set the position of the object.
         *
         * This function sets the position of the object using the provided new position.
@@ -193,11 +192,11 @@ namespace hexen::engine::components
         * @param newPosition The new position to be set.
         */
 
-        template<class T>
-        void setPosition(T&& newPosition) noexcept;
+		template<class T>
+		void setPosition(T &&newPosition) noexcept;
 
 
-        /**
+		/**
         * @brief Sets the rotation to a new value.
         *
         * This function sets the rotation to the provided value. The rotation is represented by the 'newRotation' parameter,
@@ -210,11 +209,11 @@ namespace hexen::engine::components
         *       This means that it is safe to call this function even in environments with restricted exception handling.
         */
 
-        template<class T>
-        void setRotation(T&& newRotation) noexcept;
+		template<class T>
+		void setRotation(T &&newRotation) noexcept;
 
 
-        /**
+		/**
         * @brief Sets the scale for the object.
         *
         * This function sets the scale for the object to the specified value. The new scale
@@ -226,10 +225,10 @@ namespace hexen::engine::components
         *
         */
 
-        template<class T>
-        void setScale(T&& newScale) noexcept;
+		template<class T>
+		void setScale(T &&newScale) noexcept;
 
-        /**
+		/**
         * Sets the layer value of the object.
         *
         * This function updates the layer value of the object
@@ -241,10 +240,10 @@ namespace hexen::engine::components
         * @see getLayer()
         */
 
-        void setLayer(float layer);
+		void setLayer(float layer);
 
 
-        /**
+		/**
         * @brief Get the layer of the object.
         *
         * This function retrieves the layer of the object. The layer represents the
@@ -260,10 +259,10 @@ namespace hexen::engine::components
         * @sa setLayer()
         */
 
-        [[nodiscard]] float getLayer() const noexcept;
+		[[nodiscard]] float getLayer() const noexcept;
 
 
-        /**
+		/**
         * @brief Retrieves the scale of the object.
         *
         * This function returns the scale of the object.
@@ -279,10 +278,10 @@ namespace hexen::engine::components
         * @see setScale()
         */
 
-        [[nodiscard]] glm::vec2 getScale() const noexcept;
+		[[nodiscard]] glm::vec2 getScale() const noexcept;
 
 
-        /**
+		/**
         * @fn getPosition() const noexcept
         * @brief Retrieves the position of an object.
         *
@@ -299,9 +298,9 @@ namespace hexen::engine::components
         * @see setPosition()
         */
 
-        [[nodiscard]] glm::vec2 getPosition() const noexcept;
+		[[nodiscard]] glm::vec2 getPosition() const noexcept;
 
-        /**
+		/**
         * @brief Get the rotation of an object.
         *
         * This function returns the rotation of an object. The rotation value is retrieved as a constant reference,
@@ -311,10 +310,10 @@ namespace hexen::engine::components
         * @return A constant reference to the rotation value.
         */
 
-        [[nodiscard]] glm::vec2 getRotation() const noexcept;
+		[[nodiscard]] glm::vec2 getRotation() const noexcept;
 
 
-        /**
+		/**
         * @brief Update the transform matrix.
         *
         * This function updates the transform matrix based on the current transformation
@@ -324,9 +323,9 @@ namespace hexen::engine::components
         *
         */
 
-        void updateTransformMatrix();
+		void updateTransformMatrix();
 
-        /**
+		/**
         * @brief Updates the transform matrix based on the provided parent transform.
         *
         * This function updates the transform matrix of an object based on the provided parent transform.
@@ -344,14 +343,15 @@ namespace hexen::engine::components
         *
         */
 
-        template<class T>void updateTransformMatrix(T &&parentTransform)
-        {
-            updateTransformMatrix();
-            transformMatrix = transformMatrix * std::forward<T>(parentTransform);
-        }
+		template<class T>
+		void updateTransformMatrix(T &&parentTransform)
+		{
+			updateTransformMatrix();
+			transformMatrix = transformMatrix * std::forward<T>(parentTransform);
+		}
 
 
-        /**
+		/**
         * @brief Get the transform matrix object.
         *
         * This function retrieves the transformation matrix associated with an object.
@@ -362,10 +362,10 @@ namespace hexen::engine::components
         * @note This function does not modify the object's state.
         */
 
-        [[nodiscard]] glm::mat4 getTransformMatrix() const noexcept;
+		[[nodiscard]] glm::mat4 getTransformMatrix() const noexcept;
 
 
-        /**
+		/**
         * @brief Checks if the object has dirty flag.
         *
         * This method returns a boolean value indicating whether the object has been modified or not.
@@ -377,10 +377,10 @@ namespace hexen::engine::components
         *
         */
 
-        [[nodiscard]] bool isDirty() const noexcept;
+		[[nodiscard]] bool isDirty() const noexcept;
 
 
-        /**
+		/**
         * @brief Executes the start function.
         *
         * This function implements the start() function of the overridden class.
@@ -402,9 +402,9 @@ namespace hexen::engine::components
         *
         */
 
-        void start() override;
+		void start() override;
 
-        /**
+		/**
         * @brief Updates the object based on the deltaTime.
         *
         * This function is called to update the object's state based on the elapsed time since the last update.
@@ -426,10 +426,10 @@ namespace hexen::engine::components
         * - The implementation should consider the deltaTime value to update the object's internal state accordingly.
         */
 
-        void update(float  deltaTime) override;
-    private:
+		void update(float deltaTime) override;
 
-        /**
+	private:
+		/**
         * @brief Moves the transform component into this object.
         *
         * This function moves the given transform component into this object,
@@ -440,10 +440,10 @@ namespace hexen::engine::components
         * @param transformComponent The transform component to be moved.
         */
 
-        void move(TransformComponent &&transformComponent) noexcept;
+		void move(TransformComponent &&transformComponent) noexcept;
 
 
-        /**
+		/**
         * @brief Creates a deep copy of the given TransformComponent object.
         *
         * This function creates a deep copy of the given TransformComponent object and returns
@@ -456,9 +456,9 @@ namespace hexen::engine::components
         * @see TransformComponent
         */
 
-        void copy(const TransformComponent &transformComponent);
+		void copy(const TransformComponent &transformComponent);
 
-        /**
+		/**
         * @brief Rotates a given rotation matrix using rotation angles.
         *
         * This function takes a rotation matrix and rotation angles as input, and returns a
@@ -471,20 +471,20 @@ namespace hexen::engine::components
         * @return The resulting rotation matrix after applying the given rotations.
         */
 
-        [[nodiscard]] glm::mat4 rotate(const glm::mat4 &rotationMatrix, /***/const glm::vec2 &rotation) const;
+		[[nodiscard]] glm::mat4 rotate(const glm::mat4 &rotationMatrix, /***/ const glm::vec2 &rotation) const;
 
 
-        glm::mat4 transformMatrix{1.0f};
+		glm::mat4 transformMatrix {1.0f};
 
-        glm::vec2 position{0.0f};
+		glm::vec2 position {0.0f};
 
-        glm::vec2 rotation{0.0f};
+		glm::vec2 rotation {0.0f};
 
-        glm::vec2 scale{1.0f};
+		glm::vec2 scale {1.0f};
 
-        float layer{1.0f};
+		float layer {1.0f};
 
-        /**
+		/**
         * @brief The layerDivider variable represents the value used to divide a layer.
         *
         * The layerDivider is a floating-point variable that determines the division of a layer into multiple sub-layers.
@@ -496,9 +496,9 @@ namespace hexen::engine::components
         *
         */
 
-        const float layerDivider{10.0f};
+		const float layerDivider {10.0f};
 
-        /**
+		/**
         * @brief Indicates whether the variable is dirty or not.
         *
         * This variable is used to track the state of an object or a data value.
@@ -510,7 +510,7 @@ namespace hexen::engine::components
         * @warning Modifying the object or data value while bIsDirty is true without properly handling the consequences may result in undesired behavior.
         */
 
-        bool bIsDirty{true};
-    };
+		bool bIsDirty {true};
+	};
 
-}
+}// namespace hexen::engine::components

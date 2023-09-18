@@ -8,16 +8,15 @@
 
 namespace hexen::editor::gui
 {
-    class DeleteSelectedFilesWindow : public DeleteFileWindow
-    {
-    private:
-        std::vector<std::filesystem::path> paths;
-        void drawContent() override;
-    public:
-        explicit DeleteSelectedFilesWindow(std::string name);
-        void setPaths(const std::vector<std::filesystem::path> &selectedFiles);
-    };
+	class DeleteSelectedFilesWindow : public DeleteFileWindow
+	{
+	private:
+		std::vector<std::filesystem::path> paths;
+		void drawContent() override;
 
-}
+	public:
+		explicit DeleteSelectedFilesWindow(std::string name);
+		void setPaths(const std::vector<std::filesystem::path> &selectedFiles);
+	};
 
-
+}// namespace hexen::editor::gui

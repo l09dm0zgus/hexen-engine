@@ -8,585 +8,581 @@
 
 BOOL hexen::editor::gui::WindowsFileDialog::isCOMInitialized(HRESULT hresult)
 {
-    if (hresult == RPC_E_CHANGED_MODE)
-    {
-        // If COM was previously initialized with different init flags,
-        return TRUE;
-    }
-    return SUCCEEDED(hresult);
+	if (hresult == RPC_E_CHANGED_MODE)
+	{
+		// If COM was previously initialized with different init flags,
+		return TRUE;
+	}
+	return SUCCEEDED(hresult);
 }
 
 HRESULT hexen::editor::gui::WindowsFileDialog::comInitialize()
 {
-    return ::CoInitializeEx(nullptr, COM_INITFLAGS);;
+	return ::CoInitializeEx(nullptr, COM_INITFLAGS);
 }
 
 void hexen::editor::gui::WindowsFileDialog::comUninitialize(HRESULT hresult)
 {
-    // do not uninitialize if RPC_E_CHANGED_MODE occurred -- this
-    // case does not refcount COM.
-    if (SUCCEEDED(hresult))
-        ::CoUninitialize();
+	// do not uninitialize if RPC_E_CHANGED_MODE occurred -- this
+	// case does not refcount COM.
+	if (SUCCEEDED(hresult))
+		::CoUninitialize();
 }
 
 std::string hexen::editor::gui::WindowsFileDialog::copyWideCharToSTDString(const wchar_t *string)
 {
-    auto wideStringLenght = static_cast<hexen::engine::core::i32 >(wcslen(string));
+	auto wideStringLenght = static_cast<hexen::engine::core::i32>(wcslen(string));
 
-    auto bytesNeeded = WideCharToMultiByte( CP_UTF8, 0,string, wideStringLenght , nullptr, 0, nullptr, nullptr);
+	auto bytesNeeded = WideCharToMultiByte(CP_UTF8, 0, string, wideStringLenght, nullptr, 0, nullptr, nullptr);
 
-    assert( bytesNeeded );
+	assert(bytesNeeded);
 
-    bytesNeeded += 1;
+	bytesNeeded += 1;
 
-    char *outString =  new char [bytesNeeded];
+	char *outString = new char[bytesNeeded];
 
-    if (outString == nullptr)
-    {
-        return {""};
-    }
+	if (outString == nullptr)
+	{
+		return {""};
+	}
 
-    int bytesWritten = WideCharToMultiByte( CP_UTF8, 0,string, -1,outString, bytesNeeded, nullptr, nullptr );
+	int bytesWritten = WideCharToMultiByte(CP_UTF8, 0, string, -1, outString, bytesNeeded, nullptr, nullptr);
 
-    assert( bytesWritten );
+	assert(bytesWritten);
 
-    std::string result(outString);
+	std::string result(outString);
 
-    delete [] outString;
-    return result;
-
+	delete[] outString;
+	return result;
 }
 
 hexen::engine::core::i32 hexen::editor::gui::WindowsFileDialog::getUTF8ByteCountForWideChar(const wchar_t *string)
 {
-    auto bytesNeeded = WideCharToMultiByte( CP_UTF8, 0,string, -1,nullptr, 0, nullptr, nullptr);
+	auto bytesNeeded = WideCharToMultiByte(CP_UTF8, 0, string, -1, nullptr, 0, nullptr, nullptr);
 
-    assert( bytesNeeded );
+	assert(bytesNeeded);
 
-    return bytesNeeded + 1;
+	return bytesNeeded + 1;
 }
 
 hexen::engine::core::i32 hexen::editor::gui::WindowsFileDialog::copyWideCharToExisitingSTDString(const wchar_t *string, std::string &outString)
 {
-    auto  bytesNeeded = getUTF8ByteCountForWideChar(string);
+	auto bytesNeeded = getUTF8ByteCountForWideChar(string);
 
-    auto temporaryBuffer = const_cast<char* >(outString.c_str());
+	auto temporaryBuffer = const_cast<char *>(outString.c_str());
 
-    auto bytesWritten  =  WideCharToMultiByte( CP_UTF8, 0,string, -1,temporaryBuffer, bytesNeeded,nullptr, 0 );
+	auto bytesWritten = WideCharToMultiByte(CP_UTF8, 0, string, -1, temporaryBuffer, bytesNeeded, nullptr, 0);
 
-    outString = std::string(temporaryBuffer);
+	outString = std::string(temporaryBuffer);
 
-    assert( bytesWritten );
+	assert(bytesWritten);
 
-    return bytesWritten;
+	return bytesWritten;
 }
 
 void hexen::editor::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &str, std::vector<wchar_t> &outString)
 {
-    auto charsNeeded =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), str.size(), nullptr, 0 );
+	auto charsNeeded = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), nullptr, 0);
 
-    charsNeeded += 1;
+	charsNeeded += 1;
 
-    outString.reserve(charsNeeded);
+	outString.reserve(charsNeeded);
 
-    auto result =  MultiByteToWideChar(CP_UTF8, 0,str.c_str(), str.size(),outString.data(), charsNeeded);
+	auto result = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), outString.data(), charsNeeded);
 
-    outString[charsNeeded-1] = '\0';
-
+	outString[charsNeeded - 1] = '\0';
 }
 
-hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string,std::string>> &filterList)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string, std::string>> &filterList)
 {
-    const auto specsListSize= filterList.size();
+	const auto specsListSize = filterList.size();
 
-    auto *specList = new COMDLG_FILTERSPEC [specsListSize];
+	auto *specList = new COMDLG_FILTERSPEC[specsListSize];
 
-    for(hexen::engine::core::i32 i = 0; i < specsListSize; i++)
-    {
-        std::vector<wchar_t> name;
-        copySTDStringToWideChar(filterList[i].first,name);
-        specList[i].pszName = name.data();
-    }
+	for (hexen::engine::core::i32 i = 0; i < specsListSize; i++)
+	{
+		std::vector<wchar_t> name;
+		copySTDStringToWideChar(filterList[i].first, name);
+		specList[i].pszName = name.data();
+	}
 
-    for(hexen::engine::core::i32 i = 0; i < specsListSize; i++)
-    {
-        std::string fileSpec;
-        if (filterList[i].second == "all")
-        {
-            fileSpec = "*.*";
-        }
-        else
-        {
-            std::vector<std::string> splittedStrings = splitString(filterList[i].second,";");
-            hexen::engine::core::i32 j = 0;
-            for(auto& str : splittedStrings)
-            {
-                fileSpec.append("*.");
-                fileSpec.append(str);
-                if(j != splittedStrings.size() - 1)
-                {
-                    fileSpec.append(";");
-                }
-                j++;
-            }
-        }
-        std::vector<wchar_t> spec;
-        copySTDStringToWideChar(fileSpec,spec);
-        specList[i].pszSpec = spec.data();
-    }
+	for (hexen::engine::core::i32 i = 0; i < specsListSize; i++)
+	{
+		std::string fileSpec;
+		if (filterList[i].second == "all")
+		{
+			fileSpec = "*.*";
+		}
+		else
+		{
+			std::vector<std::string> splittedStrings = splitString(filterList[i].second, ";");
+			hexen::engine::core::i32 j = 0;
+			for (auto &str : splittedStrings)
+			{
+				fileSpec.append("*.");
+				fileSpec.append(str);
+				if (j != splittedStrings.size() - 1)
+				{
+					fileSpec.append(";");
+				}
+				j++;
+			}
+		}
+		std::vector<wchar_t> spec;
+		copySTDStringToWideChar(fileSpec, spec);
+		specList[i].pszSpec = spec.data();
+	}
 
-    fileOpenDialog->SetFileTypes( specsListSize, specList );
-    delete [] specList;
+	fileOpenDialog->SetFileTypes(specsListSize, specList);
+	delete[] specList;
 
-    return Status::STATUS_OK;
+	return Status::STATUS_OK;
 }
 
 hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, hexen::editor::gui::INativeFileDialog::PathSet *pathSet)
 {
 
-    assert(shellItems);
-    assert(pathSet);
+	assert(shellItems);
+	assert(pathSet);
 
-    // How many items in shellItems?
-    DWORD numberOfShellItems;
-    HRESULT result = shellItems->GetCount(&numberOfShellItems);
+	// How many items in shellItems?
+	DWORD numberOfShellItems;
+	HRESULT result = shellItems->GetCount(&numberOfShellItems);
 
-    if ( !SUCCEEDED(result) )
-    {
-        return Status::STATUS_ERROR;
-    }
+	if (!SUCCEEDED(result))
+	{
+		return Status::STATUS_ERROR;
+	}
 
-    pathSet->count = static_cast<engine::core::i32>(numberOfShellItems);
+	pathSet->count = static_cast<engine::core::i32>(numberOfShellItems);
 
-    for (DWORD i = 0; i < numberOfShellItems; ++i )
-    {
-        ::IShellItem *shellItem;
-        result = shellItems->GetItemAt(i, &shellItem);
-        if ( !SUCCEEDED(result) )
-        {
-            return Status::STATUS_ERROR;
-        }
+	for (DWORD i = 0; i < numberOfShellItems; ++i)
+	{
+		::IShellItem *shellItem;
+		result = shellItems->GetItemAt(i, &shellItem);
+		if (!SUCCEEDED(result))
+		{
+			return Status::STATUS_ERROR;
+		}
 
-        // Confirm SFGAO_FILESYSTEM is true for this shellitem, or ignore it.
-        SFGAOF attributes;
-        result = shellItem->GetAttributes( SFGAO_FILESYSTEM, &attributes );
+		// Confirm SFGAO_FILESYSTEM is true for this shellitem, or ignore it.
+		SFGAOF attributes;
+		result = shellItem->GetAttributes(SFGAO_FILESYSTEM, &attributes);
 
-        if ( !SUCCEEDED(result) )
-        {
-            return Status::STATUS_ERROR;
-        }
+		if (!SUCCEEDED(result))
+		{
+			return Status::STATUS_ERROR;
+		}
 
-        if ( !(attributes & SFGAO_FILESYSTEM) )
-        {
-            continue;
-        }
+		if (!(attributes & SFGAO_FILESYSTEM))
+		{
+			continue;
+		}
 
-        LPWSTR name;
-        shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
+		LPWSTR name;
+		shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
 
-        pathSet->path.push_back(copyWideCharToSTDString(name));
+		pathSet->path.push_back(copyWideCharToSTDString(name));
 
-        CoTaskMemFree(name);
-    }
+		CoTaskMemFree(name);
+	}
 
-    return Status::STATUS_OK;
+	return Status::STATUS_OK;
 }
 
 hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::setDefaultPath(IFileDialog *dialog, const std::string &defaultPath)
 {
-    if(defaultPath.empty())
-    {
-        return Status::STATUS_OK;
-    }
+	if (defaultPath.empty())
+	{
+		return Status::STATUS_OK;
+	}
 
-    std::vector<wchar_t> defaultPathW = {0};
+	std::vector<wchar_t> defaultPathW = {0};
 
-    copySTDStringToWideChar(defaultPath,defaultPathW);
+	copySTDStringToWideChar(defaultPath, defaultPathW);
 
-    IShellItem *folder;
-    HRESULT result = SHCreateItemFromParsingName( &defaultPathW[0], nullptr, IID_PPV_ARGS(&folder) );
+	IShellItem *folder;
+	HRESULT result = SHCreateItemFromParsingName(&defaultPathW[0], nullptr, IID_PPV_ARGS(&folder));
 
-    // Valid non results.
-    if ( result == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) || result == HRESULT_FROM_WIN32(ERROR_INVALID_DRIVE) )
-    {
-        return Status::STATUS_OK;
-    }
+	// Valid non results.
+	if (result == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) || result == HRESULT_FROM_WIN32(ERROR_INVALID_DRIVE))
+	{
+		return Status::STATUS_OK;
+	}
 
-    if ( !SUCCEEDED(result) )
-    {
-        return Status::STATUS_OK;
-    }
+	if (!SUCCEEDED(result))
+	{
+		return Status::STATUS_OK;
+	}
 
-    // Could also call SetDefaultFolder(), but this guarantees defaultPath -- more consistency across API.
-    dialog->SetFolder( folder );
+	// Could also call SetDefaultFolder(), but this guarantees defaultPath -- more consistency across API.
+	dialog->SetFolder(folder);
 
-    folder->Release();
+	folder->Release();
 
-    return Status::STATUS_OK;
+	return Status::STATUS_OK;
 }
 
-hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath, std::string &pathToFile)
 {
-    Status status = Status::STATUS_ERROR;
+	Status status = Status::STATUS_ERROR;
 
-    HRESULT coResult = comInitialize();
+	HRESULT coResult = comInitialize();
 
-    if (!isCOMInitialized(coResult))
-    {
-        return status;
-    }
+	if (!isCOMInitialized(coResult))
+	{
+		return status;
+	}
 
-    // Create dialog
-    ::IFileOpenDialog *fileOpenDialog(nullptr);
-    HRESULT result = ::CoCreateInstance(::CLSID_FileOpenDialog, nullptr,CLSCTX_ALL, ::IID_IFileOpenDialog,reinterpret_cast<void**>(&fileOpenDialog) );
+	// Create dialog
+	::IFileOpenDialog *fileOpenDialog(nullptr);
+	HRESULT result = ::CoCreateInstance(::CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, ::IID_IFileOpenDialog, reinterpret_cast<void **>(&fileOpenDialog));
 
-    if ( !SUCCEEDED(result) )
-    {
-        std::cout << "Could not create dialog.\n";
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	if (!SUCCEEDED(result))
+	{
+		std::cout << "Could not create dialog.\n";
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Build the filter list
-    if (addFiltersToDialog( fileOpenDialog, filterList ) != Status::STATUS_OK )
-    {
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	// Build the filter list
+	if (addFiltersToDialog(fileOpenDialog, filterList) != Status::STATUS_OK)
+	{
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Set the default path
-    if (setDefaultPath( fileOpenDialog, defaultPath ) != Status::STATUS_OK)
-    {
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	// Set the default path
+	if (setDefaultPath(fileOpenDialog, defaultPath) != Status::STATUS_OK)
+	{
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Show the dialog.
-    result = fileOpenDialog->Show(nullptr);
+	// Show the dialog.
+	result = fileOpenDialog->Show(nullptr);
 
-    if ( SUCCEEDED(result) )
-    {
-        // Get the file name
-        ::IShellItem *shellItem(nullptr);
-        result = fileOpenDialog->GetResult(&shellItem);
-        if ( !SUCCEEDED(result) )
-        {
-            std::cout << "Could not get shell item from dialog.\n";
-            releaseOpenFileDialog(fileOpenDialog);
-        }
+	if (SUCCEEDED(result))
+	{
+		// Get the file name
+		::IShellItem *shellItem(nullptr);
+		result = fileOpenDialog->GetResult(&shellItem);
+		if (!SUCCEEDED(result))
+		{
+			std::cout << "Could not get shell item from dialog.\n";
+			releaseOpenFileDialog(fileOpenDialog);
+		}
 
-        wchar_t *filePath(nullptr);
-        result = shellItem->GetDisplayName(::SIGDN_FILESYSPATH, &filePath);
+		wchar_t *filePath(nullptr);
+		result = shellItem->GetDisplayName(::SIGDN_FILESYSPATH, &filePath);
 
-        if ( !SUCCEEDED(result) )
-        {
-            std::cout << "Could not get file path for selected.\n";
-            shellItem->Release();
-            releaseOpenFileDialog(fileOpenDialog);
-        }
+		if (!SUCCEEDED(result))
+		{
+			std::cout << "Could not get file path for selected.\n";
+			shellItem->Release();
+			releaseOpenFileDialog(fileOpenDialog);
+		}
 
-        pathToFile = copyWideCharToSTDString(filePath);
-        CoTaskMemFree(filePath);
+		pathToFile = copyWideCharToSTDString(filePath);
+		CoTaskMemFree(filePath);
 
-        if (pathToFile.empty())
-        {
-            /* error is malloc-based, error message would be redundant */
-            shellItem->Release();
-            releaseOpenFileDialog(fileOpenDialog);
-        }
+		if (pathToFile.empty())
+		{
+			/* error is malloc-based, error message would be redundant */
+			shellItem->Release();
+			releaseOpenFileDialog(fileOpenDialog);
+		}
 
-        status = Status::STATUS_OK;
+		status = Status::STATUS_OK;
 
-        shellItem->Release();
-    }
-    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
-    {
-        status = Status::STATUS_CANCEL;
-    }
-    else
-    {
-        std::cout << "File dialog box show failed.\n";
-        status = Status::STATUS_ERROR;
-    }
-    comUninitialize(coResult);
+		shellItem->Release();
+	}
+	else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED))
+	{
+		status = Status::STATUS_CANCEL;
+	}
+	else
+	{
+		std::cout << "File dialog box show failed.\n";
+		status = Status::STATUS_ERROR;
+	}
+	comUninitialize(coResult);
 
-    return status;
+	return status;
 }
 
 void hexen::editor::gui::WindowsFileDialog::releaseOpenFileDialog(::IFileOpenDialog *fileOpenDialog)
 {
-    if (fileOpenDialog != nullptr)
-    {
-        fileOpenDialog->Release();
-    }
+	if (fileOpenDialog != nullptr)
+	{
+		fileOpenDialog->Release();
+	}
 }
 
-hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath,PathSet *pathToFiles)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::openDialog(const FileFilter &filterList, const std::string &defaultPath, PathSet *pathToFiles)
 {
-    Status status = Status::STATUS_ERROR;
+	Status status = Status::STATUS_ERROR;
 
-    HRESULT coResult = comInitialize();
-    if (!isCOMInitialized(coResult))
-    {
-        std::cout << "Could not initialize COM.\n";
-        return status;
-    }
+	HRESULT coResult = comInitialize();
+	if (!isCOMInitialized(coResult))
+	{
+		std::cout << "Could not initialize COM.\n";
+		return status;
+	}
 
-    // Create dialog
-    ::IFileOpenDialog *fileOpenDialog(nullptr);
-    HRESULT result = ::CoCreateInstance(::CLSID_FileOpenDialog, nullptr,CLSCTX_ALL, ::IID_IFileOpenDialog,reinterpret_cast<void**>(&fileOpenDialog) );
+	// Create dialog
+	::IFileOpenDialog *fileOpenDialog(nullptr);
+	HRESULT result = ::CoCreateInstance(::CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, ::IID_IFileOpenDialog, reinterpret_cast<void **>(&fileOpenDialog));
 
-    if ( !SUCCEEDED(result) )
-    {
-        fileOpenDialog = nullptr;
-        std::cout << "Could not create dialog.\n";
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	if (!SUCCEEDED(result))
+	{
+		fileOpenDialog = nullptr;
+		std::cout << "Could not create dialog.\n";
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Build the filter list
-    if ( addFiltersToDialog( fileOpenDialog, filterList ) != Status::STATUS_OK)
-    {
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	// Build the filter list
+	if (addFiltersToDialog(fileOpenDialog, filterList) != Status::STATUS_OK)
+	{
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Set the default path
-    if ( setDefaultPath( fileOpenDialog, defaultPath ) != Status::STATUS_OK )
-    {
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	// Set the default path
+	if (setDefaultPath(fileOpenDialog, defaultPath) != Status::STATUS_OK)
+	{
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Set a flag for multiple options
-    DWORD dwFlags;
-    result = fileOpenDialog->GetOptions(&dwFlags);
-    if ( !SUCCEEDED(result) )
-    {
-        std::cout << "Could not get options.\n";
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	// Set a flag for multiple options
+	DWORD dwFlags;
+	result = fileOpenDialog->GetOptions(&dwFlags);
+	if (!SUCCEEDED(result))
+	{
+		std::cout << "Could not get options.\n";
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    result = fileOpenDialog->SetOptions(dwFlags | FOS_ALLOWMULTISELECT);
-    if ( !SUCCEEDED(result) )
-    {
-        std::cout << "Could not set options.\n";
-        releaseOpenFileDialog(fileOpenDialog);
-    }
+	result = fileOpenDialog->SetOptions(dwFlags | FOS_ALLOWMULTISELECT);
+	if (!SUCCEEDED(result))
+	{
+		std::cout << "Could not set options.\n";
+		releaseOpenFileDialog(fileOpenDialog);
+	}
 
-    // Show the dialog.
-    result = fileOpenDialog->Show(nullptr);
-    if ( SUCCEEDED(result) )
-    {
-        IShellItemArray *shellItems;
-        result = fileOpenDialog->GetResults( &shellItems );
+	// Show the dialog.
+	result = fileOpenDialog->Show(nullptr);
+	if (SUCCEEDED(result))
+	{
+		IShellItemArray *shellItems;
+		result = fileOpenDialog->GetResults(&shellItems);
 
-        if ( !SUCCEEDED(result) )
-        {
-            std::cout << "Could not get shell items.\n";
-            releaseOpenFileDialog(fileOpenDialog);
-        }
+		if (!SUCCEEDED(result))
+		{
+			std::cout << "Could not get shell items.\n";
+			releaseOpenFileDialog(fileOpenDialog);
+		}
 
-        if ( allocatePathSet( shellItems, pathToFiles ) == Status::STATUS_ERROR )
-        {
-            shellItems->Release();
-            releaseOpenFileDialog(fileOpenDialog);
-        }
+		if (allocatePathSet(shellItems, pathToFiles) == Status::STATUS_ERROR)
+		{
+			shellItems->Release();
+			releaseOpenFileDialog(fileOpenDialog);
+		}
 
-        shellItems->Release();
-        status = Status::STATUS_OK;
-    }
-    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
-    {
-        status = Status::STATUS_CANCEL;
-    }
-    else
-    {
-        std::cout << "File dialog box show failed.\n";
-        status = Status::STATUS_ERROR;
-    }
+		shellItems->Release();
+		status = Status::STATUS_OK;
+	}
+	else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED))
+	{
+		status = Status::STATUS_CANCEL;
+	}
+	else
+	{
+		std::cout << "File dialog box show failed.\n";
+		status = Status::STATUS_ERROR;
+	}
 
-    comUninitialize(coResult);
-    return status;
+	comUninitialize(coResult);
+	return status;
 }
 
-hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::saveDialog(const FileFilter &filterList, const std::string &defaultPath,std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::saveDialog(const FileFilter &filterList, const std::string &defaultPath, std::string &pathToFile)
 {
-    Status status = Status::STATUS_ERROR;
+	Status status = Status::STATUS_ERROR;
 
-    HRESULT coResult = comInitialize();
-    if (!isCOMInitialized(coResult))
-    {
-        std::cout << "Could not initialize COM.\n";
-        return status;
-    }
+	HRESULT coResult = comInitialize();
+	if (!isCOMInitialized(coResult))
+	{
+		std::cout << "Could not initialize COM.\n";
+		return status;
+	}
 
-    // Create dialog
-    ::IFileSaveDialog *fileSaveDialog(nullptr);
-    HRESULT result = ::CoCreateInstance(::CLSID_FileSaveDialog, nullptr,CLSCTX_ALL, ::IID_IFileSaveDialog,reinterpret_cast<void**>(&fileSaveDialog) );
+	// Create dialog
+	::IFileSaveDialog *fileSaveDialog(nullptr);
+	HRESULT result = ::CoCreateInstance(::CLSID_FileSaveDialog, nullptr, CLSCTX_ALL, ::IID_IFileSaveDialog, reinterpret_cast<void **>(&fileSaveDialog));
 
-    if ( !SUCCEEDED(result) )
-    {
-        fileSaveDialog = nullptr;
-        std::cout << "Could not create dialog.\n";
-        releaseSaveFileDialog(fileSaveDialog);
-    }
+	if (!SUCCEEDED(result))
+	{
+		fileSaveDialog = nullptr;
+		std::cout << "Could not create dialog.\n";
+		releaseSaveFileDialog(fileSaveDialog);
+	}
 
-    // Build the filter list
-    if ( addFiltersToDialog( fileSaveDialog, filterList ) != Status::STATUS_OK)
-    {
-        releaseSaveFileDialog(fileSaveDialog);
-    }
+	// Build the filter list
+	if (addFiltersToDialog(fileSaveDialog, filterList) != Status::STATUS_OK)
+	{
+		releaseSaveFileDialog(fileSaveDialog);
+	}
 
-    // Set the default path
-    if ( setDefaultPath( fileSaveDialog, defaultPath ) != Status::STATUS_OK)
-    {
-        releaseSaveFileDialog(fileSaveDialog);
-    }
+	// Set the default path
+	if (setDefaultPath(fileSaveDialog, defaultPath) != Status::STATUS_OK)
+	{
+		releaseSaveFileDialog(fileSaveDialog);
+	}
 
-    // Show the dialog.
-    result = fileSaveDialog->Show(NULL);
-    if ( SUCCEEDED(result) )
-    {
-        // Get the file name
-        ::IShellItem *shellItem;
-        result = fileSaveDialog->GetResult(&shellItem);
-        if ( !SUCCEEDED(result) )
-        {
-            std::cout << "Could not get shell item from dialog.\n";
-            releaseSaveFileDialog(fileSaveDialog);
-        }
+	// Show the dialog.
+	result = fileSaveDialog->Show(NULL);
+	if (SUCCEEDED(result))
+	{
+		// Get the file name
+		::IShellItem *shellItem;
+		result = fileSaveDialog->GetResult(&shellItem);
+		if (!SUCCEEDED(result))
+		{
+			std::cout << "Could not get shell item from dialog.\n";
+			releaseSaveFileDialog(fileSaveDialog);
+		}
 
-        wchar_t *filePath(nullptr);
-        result = shellItem->GetDisplayName(::SIGDN_FILESYSPATH, &filePath);
+		wchar_t *filePath(nullptr);
+		result = shellItem->GetDisplayName(::SIGDN_FILESYSPATH, &filePath);
 
-        if ( !SUCCEEDED(result) )
-        {
-            shellItem->Release();
-            std::cout << "Could not get file path for selected.\n";
-            releaseSaveFileDialog(fileSaveDialog);
-        }
+		if (!SUCCEEDED(result))
+		{
+			shellItem->Release();
+			std::cout << "Could not get file path for selected.\n";
+			releaseSaveFileDialog(fileSaveDialog);
+		}
 
-        pathToFile = copyWideCharToSTDString( filePath );
-        CoTaskMemFree(filePath);
+		pathToFile = copyWideCharToSTDString(filePath);
+		CoTaskMemFree(filePath);
 
-        if (pathToFile.empty())
-        {
-            /* error is malloc-based, error message would be redundant */
-            shellItem->Release();
-            releaseSaveFileDialog(fileSaveDialog);
-        }
+		if (pathToFile.empty())
+		{
+			/* error is malloc-based, error message would be redundant */
+			shellItem->Release();
+			releaseSaveFileDialog(fileSaveDialog);
+		}
 
-        status = Status::STATUS_OK;
-        shellItem->Release();
-    }
-    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
-    {
-        status = Status::STATUS_CANCEL;
-    }
-    else
-    {
-        std::cout << "File dialog box show failed.\n";
-        status = Status::STATUS_ERROR;
-    }
+		status = Status::STATUS_OK;
+		shellItem->Release();
+	}
+	else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED))
+	{
+		status = Status::STATUS_CANCEL;
+	}
+	else
+	{
+		std::cout << "File dialog box show failed.\n";
+		status = Status::STATUS_ERROR;
+	}
 
-    comUninitialize(coResult);
+	comUninitialize(coResult);
 
-    return status;
+	return status;
 }
 
 void hexen::editor::gui::WindowsFileDialog::releaseSaveFileDialog(::IFileSaveDialog *fileSaveDialog)
 {
-    if ( fileSaveDialog != nullptr )
-    {
-        fileSaveDialog->Release();
-    }
+	if (fileSaveDialog != nullptr)
+	{
+		fileSaveDialog->Release();
+	}
 }
 
 hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::pickDialog(const std::string &defaultPath, std::string &pathToFile)
 {
-    Status status = Status::STATUS_ERROR;
-    DWORD dwOptions = 0;
+	Status status = Status::STATUS_ERROR;
+	DWORD dwOptions = 0;
 
-    HRESULT coResult = comInitialize();
-    if (!isCOMInitialized(coResult))
-    {
-        std::cout << "CoInitializeEx failed.\n";
-        return status;
-    }
+	HRESULT coResult = comInitialize();
+	if (!isCOMInitialized(coResult))
+	{
+		std::cout << "CoInitializeEx failed.\n";
+		return status;
+	}
 
-    // Create dialog
-    ::IFileOpenDialog *fileDialog(nullptr);
-    HRESULT result = CoCreateInstance(CLSID_FileOpenDialog, nullptr,CLSCTX_ALL,IID_PPV_ARGS(&fileDialog));
-    if ( !SUCCEEDED(result) )
-    {
-        std::cout << "CoCreateInstance for CLSID_FileOpenDialog failed.\n";
-        releaseOpenFileDialog(fileDialog);
-    }
+	// Create dialog
+	::IFileOpenDialog *fileDialog(nullptr);
+	HRESULT result = CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, IID_PPV_ARGS(&fileDialog));
+	if (!SUCCEEDED(result))
+	{
+		std::cout << "CoCreateInstance for CLSID_FileOpenDialog failed.\n";
+		releaseOpenFileDialog(fileDialog);
+	}
 
-    // Set the default path
-    if (setDefaultPath(fileDialog, defaultPath) != Status::STATUS_OK)
-    {
-        std::cout << "SetDefaultPath failed.\n";
-        releaseOpenFileDialog(fileDialog);
-    }
+	// Set the default path
+	if (setDefaultPath(fileDialog, defaultPath) != Status::STATUS_OK)
+	{
+		std::cout << "SetDefaultPath failed.\n";
+		releaseOpenFileDialog(fileDialog);
+	}
 
-    // Get the dialogs options
-    if (!SUCCEEDED(fileDialog->GetOptions(&dwOptions)))
-    {
-        std::cout << "GetOptions for IFileDialog failed.\n";
-        releaseOpenFileDialog(fileDialog);
-    }
+	// Get the dialogs options
+	if (!SUCCEEDED(fileDialog->GetOptions(&dwOptions)))
+	{
+		std::cout << "GetOptions for IFileDialog failed.\n";
+		releaseOpenFileDialog(fileDialog);
+	}
 
-    // Add in FOS_PICKFOLDERS which hides files and only allows selection of folders
-    if (!SUCCEEDED(fileDialog->SetOptions(dwOptions | FOS_PICKFOLDERS)))
-    {
-        std::cout << "SetOptions for IFileDialog failed.\n";
-        releaseOpenFileDialog(fileDialog);
-    }
+	// Add in FOS_PICKFOLDERS which hides files and only allows selection of folders
+	if (!SUCCEEDED(fileDialog->SetOptions(dwOptions | FOS_PICKFOLDERS)))
+	{
+		std::cout << "SetOptions for IFileDialog failed.\n";
+		releaseOpenFileDialog(fileDialog);
+	}
 
-    // Show the dialog to the user
-    result = fileDialog->Show(nullptr);
-    if ( SUCCEEDED(result) )
-    {
-        // Get the folder name
-        ::IShellItem *shellItem(nullptr);
+	// Show the dialog to the user
+	result = fileDialog->Show(nullptr);
+	if (SUCCEEDED(result))
+	{
+		// Get the folder name
+		::IShellItem *shellItem(nullptr);
 
-        result = fileDialog->GetResult(&shellItem);
-        if ( !SUCCEEDED(result) )
-        {
-            std::cout << "Could not get file path for selected.\n";
-            shellItem->Release();
-            releaseOpenFileDialog(fileDialog);
-        }
+		result = fileDialog->GetResult(&shellItem);
+		if (!SUCCEEDED(result))
+		{
+			std::cout << "Could not get file path for selected.\n";
+			shellItem->Release();
+			releaseOpenFileDialog(fileDialog);
+		}
 
-        wchar_t *path = nullptr;
-        result = shellItem->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &path);
-        if ( !SUCCEEDED(result) )
-        {
-            std::cout << "GetDisplayName for IShellItem failed.\n";
-            shellItem->Release();
-            releaseOpenFileDialog(fileDialog);
-        }
+		wchar_t *path = nullptr;
+		result = shellItem->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &path);
+		if (!SUCCEEDED(result))
+		{
+			std::cout << "GetDisplayName for IShellItem failed.\n";
+			shellItem->Release();
+			releaseOpenFileDialog(fileDialog);
+		}
 
-        pathToFile = copyWideCharToSTDString(path);
-        CoTaskMemFree(path);
-        if ( pathToFile.empty() )
-        {
-            shellItem->Release();
-            releaseOpenFileDialog(fileDialog);
-        }
+		pathToFile = copyWideCharToSTDString(path);
+		CoTaskMemFree(path);
+		if (pathToFile.empty())
+		{
+			shellItem->Release();
+			releaseOpenFileDialog(fileDialog);
+		}
 
-        status = Status::STATUS_OK;
-        shellItem->Release();
-    }
-    else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED) )
-    {
-        status = Status::STATUS_CANCEL;
-    }
-    else
-    {
-        std::cout << "Show for IFileDialog failed.\n";
-        status = Status::STATUS_ERROR;
-    }
+		status = Status::STATUS_OK;
+		shellItem->Release();
+	}
+	else if (result == HRESULT_FROM_WIN32(ERROR_CANCELLED))
+	{
+		status = Status::STATUS_CANCEL;
+	}
+	else
+	{
+		std::cout << "Show for IFileDialog failed.\n";
+		status = Status::STATUS_ERROR;
+	}
 
-    comUninitialize(coResult);
+	comUninitialize(coResult);
 
-    return status;
+	return status;
 }
-
-

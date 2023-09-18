@@ -3,26 +3,26 @@
 //
 
 #include "VertexAttributes.hpp"
-#ifndef  __ANDROID__
-#include <GL/glew.h>
+#ifndef __ANDROID__
+	#include <GL/glew.h>
 #else
-#include <GLES3/gl31.h>
+	#include <GLES3/gl31.h>
 #endif
-void hexen::engine::graphics::gl::VertexAttributes::add(core::i32 size,core::i32 stride,core::i32 offset)
+void hexen::engine::graphics::gl::VertexAttributes::add(core::i32 size, core::i32 stride, core::i32 offset)
 {
-    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE,static_cast<int>(stride * sizeof(float)), (void*)(offset * sizeof(float)));
-    glEnableVertexAttribArray(attributes);
-    attributes++;
+	glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE, static_cast<int>(stride * sizeof(float)), (void *) (offset * sizeof(float)));
+	glEnableVertexAttribArray(attributes);
+	attributes++;
 }
 
 void hexen::engine::graphics::gl::VertexAttributes::add(core::i32 size, size_t typeSize, core::i32 offset)
 {
-    glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE,  static_cast<int>(typeSize), (void*)(offset));
-    glEnableVertexAttribArray(attributes);
-    attributes++;
+	glVertexAttribPointer(attributes, size, GL_FLOAT, GL_FALSE, static_cast<int>(typeSize), (void *) (offset));
+	glEnableVertexAttribArray(attributes);
+	attributes++;
 }
 
 void hexen::engine::graphics::gl::VertexAttributes::vertexDivisor(core::i32 index, core::i32 divisor)
 {
-    glVertexAttribDivisor(index,divisor);
+	glVertexAttribDivisor(index, divisor);
 }

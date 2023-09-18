@@ -4,20 +4,20 @@
 
 #pragma once
 
-#include <imgui.h>
-#include <backends/imgui_impl_sdl3.h>
-#include <backends/imgui_impl_opengl3_loader.h>
-#include <backends/imgui_impl_opengl3.h>
-#include <SDL3/SDL.h>
-#include "Style.hpp"
 #include "Dockspace.hpp"
+#include "Style.hpp"
+#include <SDL3/SDL.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <backends/imgui_impl_opengl3_loader.h>
+#include <backends/imgui_impl_sdl3.h>
 #include <gui/IGUI.hpp>
+#include <imgui.h>
 namespace hexen::editor::gui
 {
-class EditorGUI : public hexen::engine::gui::IGUI
-    {
-    public:
-        /**
+	class EditorGUI : public hexen::engine::gui::IGUI
+	{
+	public:
+		/**
         * @class EditorGUI
         * @brief A class for handling the graphical user interface of the editor.
         *
@@ -26,9 +26,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * the OpenGL context for rendering the interface.
         */
 
-        explicit EditorGUI();
+		explicit EditorGUI();
 
-        /**
+		/**
         * @class EditorGUI
         * @brief The EditorGUI class represents the graphical user interface for the editor.
         *
@@ -36,9 +36,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * including controls, windows, and menus.
         */
 
-        explicit EditorGUI(SDL_Window* window,SDL_GLContext glContext);
+		explicit EditorGUI(SDL_Window *window, SDL_GLContext glContext);
 
-        /**
+		/**
         * @class EditorGUI
         * @brief The EditorGUI class represents the graphical user interface for the editor.
         *
@@ -50,18 +50,18 @@ class EditorGUI : public hexen::engine::gui::IGUI
         *
         */
 
-        ~EditorGUI();
+		~EditorGUI();
 
-        /**
+		/**
         * @brief Starts the GUI of editor.
         *
         * This function is used to start the GUI of editor. It is responsible for initializing
         * the necessary components and displaying the initial state of the editor interface.
         *
         */
-        void begin();
+		void begin();
 
-        /**
+		/**
         * @brief Draws the GUI for the EditorGUI class.
         *
         * This function is responsible for drawing the graphical user interface (GUI) for the EditorGUI class. It renders all
@@ -75,9 +75,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         */
 
 
-        void draw();
+		void draw();
 
-        /**
+		/**
         * @brief Flags the end of the editor.
         *
         * This function is used to flag the end of the editor. It performs any necessary cleanup or finalization procedures before closing the editor.
@@ -93,9 +93,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * ```
         */
 
-        void end();
+		void end();
 
-        /**
+		/**
         * @brief Processes SDL events in the editor GUI.
         *
         * This function handles the SDL events and performs relevant actions in the editor GUI. It uses the provided SDL_Event
@@ -104,9 +104,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * @param event SDL event to be processed.
         */
 
-        void processEvent(const SDL_Event &event) override;
+		void processEvent(const SDL_Event &event) override;
 
-        /**
+		/**
         * @brief Retrieves the dockspace for the EditorGUI.
         *
         * This function returns the dockspace object that is utilized in the EditorGUI class
@@ -114,9 +114,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * @return The dockspace object used by the EditorGUI.
         */
 
-        std::shared_ptr<Dockspace> getDockspace();
+		std::shared_ptr<Dockspace> getDockspace();
 
-        /**
+		/**
         * Binds the framebuffer for rendering in the Editor GUI.
         *
         * This function is responsible for binding the framebuffer before rendering
@@ -127,9 +127,9 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * @see unbindFramebuffer()
         */
 
-        void bindFramebuffer();
+		void bindFramebuffer();
 
-        /**
+		/**
         * @brief Unbinds the currently bound framebuffer in the EditorGUI.
         *
         * This function unbinds the currently bound framebuffer in the EditorGUI. After calling this function,
@@ -141,13 +141,11 @@ class EditorGUI : public hexen::engine::gui::IGUI
         * @see bindFramebuffer()
         */
 
-        void unbindFramebuffer();
+		void unbindFramebuffer();
 
-    private:
-        Style style;
-        ImGuiIO *io{nullptr};
-        std::shared_ptr<Dockspace> dockspace;
-    };
-}
-
-
+	private:
+		Style style;
+		ImGuiIO *io {nullptr};
+		std::shared_ptr<Dockspace> dockspace;
+	};
+}// namespace hexen::editor::gui

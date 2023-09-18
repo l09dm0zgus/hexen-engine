@@ -6,8 +6,7 @@
 
 
 #include "RectangleData.hpp"
-#include "shaders/Shaders.hpp"
 #include "VertexArrayObject.hpp"
 #include "VertexAttributes.hpp"
 #include "VertexBufferObject.hpp"
-
+#include "shaders/Shaders.hpp"

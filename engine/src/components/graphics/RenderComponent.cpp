@@ -5,27 +5,24 @@
 
 void hexen::engine::components::graphics::RenderComponent::update(float deltaTime)
 {
-    draw();
+	draw();
 }
 
 void hexen::engine::components::graphics::RenderComponent::start()
 {
-
 }
 
 glm::mat4 hexen::engine::components::graphics::RenderComponent::getProjectionMatrix() const noexcept
 {
-    return projection;
+	return projection;
 }
 
 glm::mat4 hexen::engine::components::graphics::RenderComponent::getViewMatrix() const noexcept
 {
-    return view;
+	return view;
 }
 
 glm::mat4 hexen::engine::components::graphics::RenderComponent::getTransformMatrix() const noexcept
 {
-    return transform;
+	return transform;
 }
-
-

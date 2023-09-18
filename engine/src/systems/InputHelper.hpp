@@ -3,17 +3,17 @@
 //
 
 #pragma once
-#include <memory>
-#include <functional>
-#include "InputSystem.hpp"
 #include "../core/input_devices/Gamepad.hpp"
+#include "InputSystem.hpp"
+#include <functional>
+#include <memory>
 
 namespace hexen::engine::input
 {
-    class InputHelper
-    {
-    public:
-        /**
+	class InputHelper
+	{
+	public:
+		/**
         * Binds an action to a given callback function in the InputSystem.
         *
         * @param name The name of the action to bind.
@@ -38,9 +38,9 @@ namespace hexen::engine::input
         * the fireCallback() function will be executed. The action is not enabled for multiple players.
         */
 
-        static void bindAction(const std::string& name,const std::function<void()> &actionCallback,bool enableForMultiplePLayers = false);
+		static void bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers = false);
 
-        /**
+		/**
         * Binds an axis with a callback function.
         *
         * This function binds the specified axis with a callback function, allowing the user to define custom behavior
@@ -53,9 +53,9 @@ namespace hexen::engine::input
         *                                 axis will be bound separately for each player.
         */
 
-        static void bindAxis(const std::string& name,const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers = false);
+		static void bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers = false);
 
-        /**
+		/**
        * @class hexen::engine::systems::InputSystem
        * @brief The InputSystem class manages the input mappings and saving them.
        *
@@ -63,9 +63,9 @@ namespace hexen::engine::input
        * define input mappings for different actions and save them to a file.
        */
 
-        static void saveMappings();
+		static void saveMappings();
 
-        /**
+		/**
         * @brief Adds a new axis mapping for input handling.
         *
         * @param name The name of the axis mapping.
@@ -74,9 +74,9 @@ namespace hexen::engine::input
         * @param playerId The ID of the player to which the input belongs.
         */
 
-        static void addNewAxisMapping(const std::string& name,float value,core::u32 sdlKey,core::u8 playerId = 0);
+		static void addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey, core::u8 playerId = 0);
 
-        /**
+		/**
         * @brief Adds a new axis mapping to the InputSystem.
         *
         * This function adds a new axis mapping to the InputSystem. An axis mapping is used to define a logical axis
@@ -88,9 +88,9 @@ namespace hexen::engine::input
         * @see hexen::engine::systems::InputSystem::AxisMapping
         */
 
-        static void addNewAxisMapping(const systems::InputSystem::AxisMapping& axisMapping);
+		static void addNewAxisMapping(const systems::InputSystem::AxisMapping &axisMapping);
 
-        /**
+		/**
         * @brief Adds a new action mapping to the InputSystem.
         *
         * @param name      The name of the action mapping.
@@ -98,10 +98,10 @@ namespace hexen::engine::input
         * @param playerId  The ID of the player.
         */
 
-        static void addNewActionMapping(const std::string& name,core::u32 sdlKey,core::u8 playerId = 0);
+		static void addNewActionMapping(const std::string &name, core::u32 sdlKey, core::u8 playerId = 0);
 
 
-        /**
+		/**
         * @brief Adds a new action mapping to the InputSystem.
         *
         * This function adds a new action mapping to the InputSystem.
@@ -111,16 +111,16 @@ namespace hexen::engine::input
         * @see hexen::engine::systems::InputSystem::ActionMapping
         */
 
-        static void addNewActionMapping(const systems::InputSystem::ActionMapping& actionMapping);
+		static void addNewActionMapping(const systems::InputSystem::ActionMapping &actionMapping);
 
-        /**
+		/**
         * @class InputSystem
         * @brief Handles changing the mapping of a specific input name to a new key.
         */
 
-        static void changeMapping(const std::string& name, core::u32 newKey);
+		static void changeMapping(const std::string &name, core::u32 newKey);
 
-        /**
+		/**
          * @brief Checks if a button on the keyboard is currently pressed.
         *
         * This function checks whether the specified key on the keyboard is currently
@@ -130,9 +130,9 @@ namespace hexen::engine::input
         * @return true if the button is currently pressed, false otherwise.
         */
 
-        static bool isButtonPressed(core::input::Keyboard::Key key);
+		static bool isButtonPressed(core::input::Keyboard::Key key);
 
-        /**
+		/**
         * @brief Checks if a button on the mouse is currently pressed.
         *
         * This function checks whether the specified button on the  mouse is currently
@@ -142,9 +142,9 @@ namespace hexen::engine::input
         * @return true if the button is currently pressed, false otherwise.
         */
 
-        static bool isButtonPressed(core::input::Mouse::Button button);
+		static bool isButtonPressed(core::input::Mouse::Button button);
 
-        /**
+		/**
         * @brief Checks if a specific button on the mouse is released.
         *
         * This function checks if a specified button on the mouse is currently in the released state.
@@ -153,9 +153,9 @@ namespace hexen::engine::input
         * @return @c true if the specified button is released, @c false otherwise.
         */
 
-        static bool isButtonReleased(core::input::Mouse::Button button);
+		static bool isButtonReleased(core::input::Mouse::Button button);
 
-        /**
+		/**
         * @brief Checks if a button on the first available gamepad is currently pressed.
         *
         * This function checks whether the specified button on the gamepad is currently
@@ -165,9 +165,9 @@ namespace hexen::engine::input
         * @return true if the button is currently pressed, false otherwise.
         */
 
-        static bool isButtonPressed(core::input::Gamepad::Button button);
+		static bool isButtonPressed(core::input::Gamepad::Button button);
 
-        /**
+		/**
         * @brief Checks if a specific button on the first available gamepad is released.
         *
         * This function checks if a specified button on the gamepad is currently in the released state.
@@ -176,18 +176,18 @@ namespace hexen::engine::input
         * @return @c true if the specified button is released, @c false otherwise.
          */
 
-        static bool isButtonReleased(core::input::Gamepad::Button button);
+		static bool isButtonReleased(core::input::Gamepad::Button button);
 
-        /**
+		/**
         * @brief Gets the current position of the mouse.
         *
         * @return A 2D vector representing the x and y coordinates of the mouse position.
         */
 
-        [[nodiscard]] static  glm::vec2 getCursorPosition()  noexcept;
+		[[nodiscard]] static glm::vec2 getCursorPosition() noexcept;
 
 
-        /**
+		/**
         * @brief Returns the position of the last button pressed on the mouse.
         *
         * This function retrieves the position of the last button press event that occurred on the mouse.
@@ -200,9 +200,9 @@ namespace hexen::engine::input
         * @sa Mouse
         */
 
-        [[nodiscard]] static  glm::vec2 getMouseLastPressedButtonPosition()  noexcept;
+		[[nodiscard]] static glm::vec2 getMouseLastPressedButtonPosition() noexcept;
 
-        /**
+		/**
         * @brief Retrieves the position where the last mouse button was released.
         *
         * @return The last released mouse button position as a 2D vector.
@@ -212,11 +212,10 @@ namespace hexen::engine::input
         *       If no button has been released since the application started, the result may be unspecified.
         */
 
-        [[nodiscard]] static glm::vec2 getMouseLastReleasedButtonPosition() noexcept;
+		[[nodiscard]] static glm::vec2 getMouseLastReleasedButtonPosition() noexcept;
 
 
-    private:
-        static std::shared_ptr<systems::InputSystem> getInputSystem();
-    };
-}
-
+	private:
+		static std::shared_ptr<systems::InputSystem> getInputSystem();
+	};
+}// namespace hexen::engine::input

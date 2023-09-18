@@ -3,107 +3,109 @@
 //
 
 #pragma once
-#include "../core/memory_pool/AllocatedObject.hpp"
-#include <nlohmann/json.hpp>
-#include <functional>
-#include "../gui/IGUI.hpp"
-#include "../core/input_devices/Mouse.hpp"
 #include "../core/input_devices/Keyboard.hpp"
+#include "../core/input_devices/Mouse.hpp"
+#include "../core/memory_pool/AllocatedObject.hpp"
+#include "../gui/IGUI.hpp"
+#include <functional>
+#include <nlohmann/json.hpp>
 namespace hexen::engine::core
 {
-    class Window;
-    namespace input
-    {
-        class Gamepad;
-    }
-}
+	class Window;
+	namespace input
+	{
+		class Gamepad;
+	}
+}// namespace hexen::engine::core
 
 namespace hexen::engine::input
 {
-    class InputHelper;
+	class InputHelper;
 }
 
 namespace hexen::engine::systems
 {
-    class InputSystem : public core::memory::AllocatedObject
-    {
-    private:
+	class InputSystem : public core::memory::AllocatedObject
+	{
+	private:
+		struct ActionMappingCallback
+		{
 
-        struct ActionMappingCallback
-        {
+		private:
+			std::function<void()> callback;
 
-        private:
-            std::function<void()> callback;
-        public:
-            core::u32 playerId{};
-            std::string name;
-            ActionMappingCallback(const std::function<void()> &callback,const std::string &name) : callback(callback) , name(name) {};
-            void operator()()
-            {
-                callback();
-            }
-        };
+		public:
+			core::u32 playerId {};
+			std::string name;
+			ActionMappingCallback(const std::function<void()> &callback, const std::string &name) : callback(callback), name(name) {};
+			void operator()()
+			{
+				callback();
+			}
+		};
 
-        struct AxisMappingCallback
-        {
+		struct AxisMappingCallback
+		{
 
-        private:
-            std::function<void(float)> callback;
-        public:
-            friend class hexen::engine::input::InputHelper;
+		private:
+			std::function<void(float)> callback;
 
-            core::u32 playerId{};
-            std::string name;
-            AxisMappingCallback(const std::function<void(float)> &callback,const std::string &name) : callback(callback) , name(name) {}
-            void operator()(float value) const
-            {
-                callback(value);
-            }
-        };
+		public:
+			friend class hexen::engine::input::InputHelper;
 
-        using ActionMappingsCallbacks = std::vector<ActionMappingCallback>;
-        using AxisMappingCallbacks = std::vector<AxisMappingCallback>;
+			core::u32 playerId {};
+			std::string name;
+			AxisMappingCallback(const std::function<void(float)> &callback, const std::string &name) : callback(callback), name(name) {}
+			void operator()(float value) const
+			{
+				callback(value);
+			}
+		};
 
-        std::unique_ptr<core::input::Mouse> mouse;
-        std::unique_ptr<core::input::Keyboard> keyboard;
-        std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> gamepads;
+		using ActionMappingsCallbacks = std::vector<ActionMappingCallback>;
+		using AxisMappingCallbacks = std::vector<AxisMappingCallback>;
 
-        nlohmann::json keyMappingsFile;
+		std::unique_ptr<core::input::Mouse> mouse;
+		std::unique_ptr<core::input::Keyboard> keyboard;
+		std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> gamepads;
 
-        ActionMappingsCallbacks actionMappingCallbacks;
-        AxisMappingCallbacks axisMappingCallbacks;
+		nlohmann::json keyMappingsFile;
 
-        std::string path;
-        std::vector<std::shared_ptr<gui::IGUI>> guis;
+		ActionMappingsCallbacks actionMappingCallbacks;
+		AxisMappingCallbacks axisMappingCallbacks;
 
-        static constexpr core::u32 MAX_GAMEPAD_AXIS_VALUE = 32767;
+		std::string path;
+		std::vector<std::shared_ptr<gui::IGUI>> guis;
 
-        glm::vec2 windowSize{0};
-        core::u8 bindedActionsForPlayers{0};
-        core::u8 bindedAxisForPlayers{0};
+		static constexpr core::u32 MAX_GAMEPAD_AXIS_VALUE = 32767;
 
-        friend class hexen::engine::input::InputHelper;
-    public:
-        struct ActionMapping
-        {
-            ActionMapping() :sdlKey(0) {};
-            ActionMapping(const std::string& name,core::u32 sdlKey,core::u8 playerId = 0) : name(name), sdlKey(sdlKey) , playerId(playerId){};
-            core::u32 sdlKey;
-            std::string name;
-            core::u8 playerId{};
-        };
+		glm::vec2 windowSize {0};
+		core::u8 bindedActionsForPlayers {0};
+		core::u8 bindedAxisForPlayers {0};
 
-        struct AxisMapping
-        {
-            AxisMapping() :  sdlKey(0) , value(0.0f) {};
-            AxisMapping(const std::string& name,float value,core::u32 sdlKey,core::u8 playerId = 0) : name(name),value(value),sdlKey(sdlKey) ,playerId(playerId) {};
-            core::u32 sdlKey;
-            float value;
-            std::string name;
-            core::u8 playerId{};
-        };
+		friend class hexen::engine::input::InputHelper;
 
-        /**
+	public:
+		struct ActionMapping
+		{
+			ActionMapping() : sdlKey(0) {};
+			ActionMapping(const std::string &name, core::u32 sdlKey, core::u8 playerId = 0) : name(name), sdlKey(sdlKey), playerId(playerId) {};
+			core::u32 sdlKey;
+			std::string name;
+			core::u8 playerId {};
+		};
+
+		struct AxisMapping
+		{
+			AxisMapping() : sdlKey(0), value(0.0f) {};
+			AxisMapping(const std::string &name, float value, core::u32 sdlKey, core::u8 playerId = 0) : name(name), value(value), sdlKey(sdlKey), playerId(playerId) {};
+			core::u32 sdlKey;
+			float value;
+			std::string name;
+			core::u8 playerId {};
+		};
+
+		/**
         * @class hexen::engine::systems::InputSystem
         * @brief The InputSystem class manages the input mappings and saving them.
         *
@@ -111,9 +113,9 @@ namespace hexen::engine::systems
         * define input mappings for different actions and save them to a file.
         */
 
-        void saveMappings();
+		void saveMappings();
 
-        /**
+		/**
         * @brief Adds a new axis mapping for input handling.
         *
         * @param name The name of the axis mapping.
@@ -122,9 +124,9 @@ namespace hexen::engine::systems
         * @param playerId The ID of the player to which the input belongs.
         */
 
-        void addNewAxisMapping(const std::string& name,float value,core::u32 sdlKey,core::u8 playerId = 0);
+		void addNewAxisMapping(const std::string &name, float value, core::u32 sdlKey, core::u8 playerId = 0);
 
-        /**
+		/**
         * @brief Adds a new axis mapping to the InputSystem.
         *
         * This function adds a new axis mapping to the InputSystem. An axis mapping is used to define a logical axis
@@ -136,9 +138,9 @@ namespace hexen::engine::systems
         * @see hexen::engine::systems::InputSystem::AxisMapping
         */
 
-        void addNewAxisMapping(const AxisMapping& axisMapping);
+		void addNewAxisMapping(const AxisMapping &axisMapping);
 
-        /**
+		/**
         * @brief Adds a new action mapping to the InputSystem.
         *
         * @param name      The name of the action mapping.
@@ -146,10 +148,10 @@ namespace hexen::engine::systems
         * @param playerId  The ID of the player.
         */
 
-        void addNewActionMapping(const std::string& name,core::u32 sdlKey,core::u8 playerId = 0);
+		void addNewActionMapping(const std::string &name, core::u32 sdlKey, core::u8 playerId = 0);
 
 
-        /**
+		/**
         * @brief Adds a new action mapping to the InputSystem.
         *
         * This function adds a new action mapping to the InputSystem.
@@ -159,10 +161,10 @@ namespace hexen::engine::systems
         * @see hexen::engine::systems::InputSystem::ActionMapping
         */
 
-        void addNewActionMapping(const ActionMapping& actionMapping);
+		void addNewActionMapping(const ActionMapping &actionMapping);
 
 
-        /**
+		/**
         * Binds an action to a given callback function in the InputSystem.
         *
         * @param name The name of the action to bind.
@@ -187,9 +189,9 @@ namespace hexen::engine::systems
         * the fireCallback() function will be executed. The action is not enabled for multiple players.
         */
 
-        void bindAction(const std::string& name,const std::function<void()> &actionCallback,bool enableForMultiplePLayers = false);
+		void bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers = false);
 
-        /**
+		/**
         * Binds an axis with a callback function.
         *
         * This function binds the specified axis with a callback function, allowing the user to define custom behavior
@@ -202,16 +204,16 @@ namespace hexen::engine::systems
         *                                 axis will be bound separately for each player.
         */
 
-        void bindAxis(const std::string& name,const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers = false);
+		void bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers = false);
 
-        /**
+		/**
         * @class InputSystem
         * @brief Handles changing the mapping of a specific input name to a new key.
         */
 
-        void changeMapping(const std::string& name, core::u32 newKey);
+		void changeMapping(const std::string &name, core::u32 newKey);
 
-        /**
+		/**
         * @class InputSystem
         * @brief Manages the input system of the game engine.
         *
@@ -220,10 +222,10 @@ namespace hexen::engine::systems
         * input system by loading input configuration from a file.
         */
 
-        explicit InputSystem(const std::string &pathToFile = "mappings.json");
-        ~InputSystem() override = default;
+		explicit InputSystem(const std::string &pathToFile = "mappings.json");
+		~InputSystem() override = default;
 
-        /**
+		/**
         * @brief Process input from the given window.
         *
         * This function is responsible for processing input events from the provided window.
@@ -232,19 +234,19 @@ namespace hexen::engine::systems
         * @param window The shared pointer to the core::Window object.
         */
 
-        void processInput(const std::shared_ptr<hexen::engine::core::Window> &window);
+		void processInput(const std::shared_ptr<hexen::engine::core::Window> &window);
 
-        /**
+		/**
         * @class InputSystem
         * @brief The InputSystem class manages the GUI input for the Hexen engine.
         *
         * This class allows the addition of GUI elements to be managed by the input system.
         */
 
-        void addGUI(const std::shared_ptr<gui::IGUI> &gui);
-    private:
+		void addGUI(const std::shared_ptr<gui::IGUI> &gui);
 
-        /**
+	private:
+		/**
         * @brief Creates a mappings file for input system.
         *
         * This function creates a new mappings file for the input system,
@@ -253,9 +255,9 @@ namespace hexen::engine::systems
         *
         */
 
-        void createMappingsFile();
+		void createMappingsFile();
 
-        /**
+		/**
         * @class hexen::engine::systems::InputSystem
         * @brief A class responsible for loading input mappings from a file.
         *
@@ -270,11 +272,11 @@ namespace hexen::engine::systems
         */
 
 
-        void loadMappingsFile();
-        std::vector<ActionMapping> actionMappings;
-        std::vector<AxisMapping> axisMappings;
+		void loadMappingsFile();
+		std::vector<ActionMapping> actionMappings;
+		std::vector<AxisMapping> axisMappings;
 
-        /**
+		/**
         * @class InputSystem
         * @brief Handles keyboard input for the game engine.
         *
@@ -283,9 +285,9 @@ namespace hexen::engine::systems
         * inputs into actions that can be used by other systems within the game engine.
         */
 
-        void processKeyboardInput(const SDL_Event &event);
+		void processKeyboardInput(const SDL_Event &event);
 
-        /**
+		/**
         * @brief Process gamepad input event.
         *
         * This method is responsible for processing gamepad input events. It receives an SDL_Event object that represents
@@ -294,9 +296,9 @@ namespace hexen::engine::systems
         * @param event The SDL_Event object representing the gamepad input event.
         */
 
-        void processGamepadsInput(const SDL_Event &event);
+		void processGamepadsInput(const SDL_Event &event);
 
-        /**
+		/**
         * @class InputSystem
         * @brief Responsible for processing mouse input events
         *
@@ -308,18 +310,18 @@ namespace hexen::engine::systems
         * and facilitates interaction between the user and the game.
         */
 
-        void processMouseInput(const SDL_Event &event);
+		void processMouseInput(const SDL_Event &event);
 
-        /**
+		/**
         * @class InputSystem
         * @brief System for managing input and action mappings.
         *
         * This class provides functionality for finding action mappings by ID.
         */
 
-        bool findActionMappingById(core::u32 id,ActionMapping &actionMapping);
+		bool findActionMappingById(core::u32 id, ActionMapping &actionMapping);
 
-        /**
+		/**
         * @brief Find the axis mapping by ID.
         *
         * This function searches for the axis mapping with the specified ID and assigns it to the provided AxisMapping object.
@@ -329,9 +331,9 @@ namespace hexen::engine::systems
         */
 
 
-        bool findAxisMappingById(core::u32 id,AxisMapping &axisMapping);
+		bool findAxisMappingById(core::u32 id, AxisMapping &axisMapping);
 
-        /**
+		/**
         * @class InputSystem
         * @brief A class that handles input actions mapping for a specific player.
         *
@@ -357,9 +359,9 @@ namespace hexen::engine::systems
         */
 
 
-        ActionMappingCallback findActionMappingCallback(core::u32 playerId,const std::string &name);
+		ActionMappingCallback findActionMappingCallback(core::u32 playerId, const std::string &name);
 
-        /**
+		/**
         * @brief Finds the axis mapping callback for a specific player and name.
         *
         * This function searches for the axis mapping callback associated with a specific player and name.
@@ -369,7 +371,8 @@ namespace hexen::engine::systems
         * @return The axis mapping callback for the specified player and name.
         */
 
-        AxisMappingCallback findAxisMappingCallback(core::u32 playerId,const std::string &name); ;
-    };
+		AxisMappingCallback findAxisMappingCallback(core::u32 playerId, const std::string &name);
+		;
+	};
 
-}
+}// namespace hexen::engine::systems

@@ -6,5 +6,5 @@
 
 const char *hexen::engine::exceptions::MappingNotFound::what() const noexcept
 {
-    return message.c_str();
+	return message.c_str();
 }

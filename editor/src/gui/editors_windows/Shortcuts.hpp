@@ -4,20 +4,21 @@
 
 #pragma once
 
-#include <map>
 #include <functional>
 #include <imgui.h>
+#include <map>
 
 namespace hexen::editor::gui
 {
-    class Shortcuts
-    {
-    public:
-        using Keys = std::vector<ImGuiKey>;
+	class Shortcuts
+	{
+	public:
+		using Keys = std::vector<ImGuiKey>;
 
-        static void addShortcut(const Keys &keys, const std::function<void()>& callback);
-        static void processInput();
-    private:
-        static std::map<Keys,std::function<void()>> shortcuts;
-    };
-}
+		static void addShortcut(const Keys &keys, const std::function<void()> &callback);
+		static void processInput();
+
+	private:
+		static std::map<Keys, std::function<void()>> shortcuts;
+	};
+}// namespace hexen::editor::gui

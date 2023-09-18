@@ -4,18 +4,18 @@
 
 #pragma once
 
-#include <functional>
 #include "../GUIWindow.hpp"
+#include <functional>
 
 namespace hexen::editor::gui
 {
-    class Menu : public GUIWindow
-    {
-    public:
-        explicit Menu(std::string name);
-    protected:
-        void showMenu(const std::string &name,const std::function<void()> &callback);
-        void showMenuItem(const std::string &name, const std::string &shortcutText, const std::function<void()> &callback);
-    };
-}
+	class Menu : public GUIWindow
+	{
+	public:
+		explicit Menu(std::string name);
 
+	protected:
+		void showMenu(const std::string &name, const std::function<void()> &callback);
+		void showMenuItem(const std::string &name, const std::string &shortcutText, const std::function<void()> &callback);
+	};
+}// namespace hexen::editor::gui

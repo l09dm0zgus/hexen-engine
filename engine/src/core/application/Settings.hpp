@@ -10,45 +10,40 @@
 
 namespace hexen::engine::core
 {
-    class Settings
-    {
-    private:
+	class Settings
+	{
+	private:
+		const std::string pathToSettings = ".settings/";
+		const std::string settingsFileName = "settings.hxs";
+		nlohmann::json settingsJson;
 
+	public:
+		struct WindowSettings
+		{
+			glm::vec2 size;
+			std::string name;
+			bool isFullscreen;
+		};
 
-        const std::string pathToSettings = ".settings/";
-        const std::string settingsFileName = "settings.hxs";
-        nlohmann::json settingsJson;
-    public:
+		struct OpenGLSettings
+		{
+			core::i8 majorVersion;
+			core::i8 minorVersion;
+			bool isShowDebugLogs;
+		};
 
-        struct WindowSettings
-        {
-            glm::vec2 size;
-            std::string name;
-            bool isFullscreen;
-        };
+		Settings();
 
-        struct OpenGLSettings
-        {
-            core::i8 majorVersion;
-            core::i8 minorVersion;
-            bool isShowDebugLogs;
-        };
+		[[nodiscard]] std::string getRenderAPI() const;
+		void setRenderAPI(const std::string &renderAPI);
 
-        Settings();
+		[[nodiscard]] std::string getPathToIcon() const;
+		void setPathToIcon(const std::string &pathToIcon);
 
-        [[nodiscard]] std::string getRenderAPI() const;
-        void setRenderAPI(const std::string &renderAPI);
+		[[nodiscard]] WindowSettings getWindowSettings() const;
+		void setWindowSettings(const WindowSettings &windowSettings);
 
-        [[nodiscard]] std::string getPathToIcon() const;
-        void setPathToIcon(const std::string &pathToIcon);
-
-        [[nodiscard]] WindowSettings getWindowSettings() const;
-        void setWindowSettings(const WindowSettings &windowSettings);
-
-        [[nodiscard]] OpenGLSettings getOpenGLSettings() const;
-        void setOpenGLSettings(const OpenGLSettings &openGlSettings);
-
-
-    };
-}
-
+		[[nodiscard]] OpenGLSettings getOpenGLSettings() const;
+		void setOpenGLSettings(const OpenGLSettings &openGlSettings);
+	};
+}// namespace hexen::engine::core

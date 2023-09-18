@@ -4,22 +4,21 @@
 
 #pragma once
 
-#include "../core/Types.hpp"
+#include "../components/camera/CameraComponent.hpp"
 #include "../components/graphics/SpriteComponent.hpp"
 #include "../components/graphics/SpriteInstancedComponent.hpp"
 #include "../components/transform/TransformComponent.hpp"
-#include "../components/camera/CameraComponent.hpp"
+#include "../core/Types.hpp"
 #include "IRenderSystem.hpp"
-#include <vector>
 #include <memory>
+#include <vector>
 
 namespace hexen::engine::systems
 {
-    class RenderSystem : public IRenderSystem
-    {
-    public:
-
-        /**
+	class RenderSystem : public IRenderSystem
+	{
+	public:
+		/**
         * @class RenderSystem
         * @brief The RenderSystem class handles the rendering of graphics.
         *
@@ -28,9 +27,9 @@ namespace hexen::engine::systems
         * the graphics in a given scene.
         */
 
-        explicit RenderSystem(core::u32 sizeOfVectors);
+		explicit RenderSystem(core::u32 sizeOfVectors);
 
-        /**
+		/**
         * @brief Creates a sprite component.
         *
         * This function creates a sprite component using the provided vertex shader and fragment shader paths.
@@ -46,9 +45,9 @@ namespace hexen::engine::systems
         */
 
 
-        static std::shared_ptr<hexen::engine::components::graphics::SpriteComponent> createSpriteComponent(const std::string &vertexShaderPath , const std::string &fragmentShaderPath);
+		static std::shared_ptr<hexen::engine::components::graphics::SpriteComponent> createSpriteComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 
-        /**
+		/**
         * Creates an instanced sprite with the provided vertex and fragment shader paths,
         * for the given number of instances and instances matrices.
         *
@@ -66,9 +65,9 @@ namespace hexen::engine::systems
         *       The matrix should be in the column-major order.
         */
 
-        static std::shared_ptr<hexen::engine::components::graphics::SpriteInstancedComponent> createSpriteInstancedSprite(const std::string &vertexShaderPath , const std::string &fragmentShaderPath,core::i32 numberOfInstances,glm::mat4 *instancesMatrices);
+		static std::shared_ptr<hexen::engine::components::graphics::SpriteInstancedComponent> createSpriteInstancedSprite(const std::string &vertexShaderPath, const std::string &fragmentShaderPath, core::i32 numberOfInstances, glm::mat4 *instancesMatrices);
 
-        /**
+		/**
         * @brief Creates a transform component for rendering purposes.
         *
         * This function creates and returns a transform component object that can be used in rendering systems.
@@ -77,11 +76,10 @@ namespace hexen::engine::systems
         * @return A pointer to the newly created transform component.
         */
 
-        static std::shared_ptr<hexen::engine::components::TransformComponent> createTransformComponent();
+		static std::shared_ptr<hexen::engine::components::TransformComponent> createTransformComponent();
 
 
-
-        /**
+		/**
          * @brief Adds a camera component to the render system.
          *
          * This function adds a camera component to the render system, allowing rendering of objects
@@ -98,13 +96,13 @@ namespace hexen::engine::systems
          * This function creates and initializes a new camera component with the specified viewport
          */
 
-        template<typename T, std::enable_if_t<std::is_base_of_v<hexen::engine::components::graphics::CameraComponent, T>, bool> = true>
-        static void addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
-        {
-            camerasComponents.emplace_back(core::memory::make_shared<T>(viewportWidth,viewportHeight,FOV));
-        }
+		template<typename T, std::enable_if_t<std::is_base_of_v<hexen::engine::components::graphics::CameraComponent, T>, bool> = true>
+		static void addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
+		{
+			camerasComponents.emplace_back(core::memory::make_shared<T>(viewportWidth, viewportHeight, FOV));
+		}
 
-        /**
+		/**
         * @brief Retrieves the main camera instance from the RenderSystem.
         *
         * This function returns the main camera object managed by the RenderSystem. The main camera is responsible for rendering
@@ -117,9 +115,9 @@ namespace hexen::engine::systems
         *
         */
 
-        static std::shared_ptr<hexen::engine::components::graphics::CameraComponent> getMainCamera();
+		static std::shared_ptr<hexen::engine::components::graphics::CameraComponent> getMainCamera();
 
-        /**
+		/**
         * @brief Starts the rendering system
         *
         * This function initializes the rendering system and prepares it for rendering
@@ -132,9 +130,9 @@ namespace hexen::engine::systems
         * @endcode
         */
 
-        void start() override;
+		void start() override;
 
-        /**
+		/**
         * @brief Render the scene with the given alpha value.
         *
         * This function is a member of the RenderSystem class within the sys namespace. It is responsible
@@ -145,10 +143,10 @@ namespace hexen::engine::systems
         * @see sys::RenderSystem
         */
 
-        void render(float alpha) override;
-    private:
+		void render(float alpha) override;
 
-        /**
+	private:
+		/**
         * @brief Represents the spritesComponent of the RenderSystem in the sys namespace.
         *
         * The spritesComponent is responsible for managing the sprites of the RenderSystem.
@@ -156,9 +154,9 @@ namespace hexen::engine::systems
         *
         */
 
-        static std::vector<hexen::engine::components::graphics::SpriteComponent> spritesComponent;
+		static std::vector<hexen::engine::components::graphics::SpriteComponent> spritesComponent;
 
-        /**
+		/**
         * @brief The instancedSpritesComponents variable stores the sprite components
         *        used for instanced rendering in the RenderSystem.
         *
@@ -169,9 +167,9 @@ namespace hexen::engine::systems
         **/
 
 
-        static std::vector<hexen::engine::components::graphics::SpriteInstancedComponent> instancedSpritesComponents;
+		static std::vector<hexen::engine::components::graphics::SpriteInstancedComponent> instancedSpritesComponents;
 
-        /**
+		/**
         * @brief Represents a container for render system transform components.
         *
         * The transformComponents  represents a container that holds the transform
@@ -184,9 +182,9 @@ namespace hexen::engine::systems
         *
         */
 
-        static std::vector<hexen::engine::components::TransformComponent> transformComponents;
+		static std::vector<hexen::engine::components::TransformComponent> transformComponents;
 
-        /**
+		/**
         * @brief The camerasComponents variable is a member of the sys::RenderSystem class.
         *
         * This variable holds the camera components used by the render system. It is an
@@ -196,9 +194,9 @@ namespace hexen::engine::systems
         * @see CameraComponent
         */
 
-        static std::vector<std::shared_ptr<hexen::engine::components::graphics::CameraComponent>> camerasComponents;
+		static std::vector<std::shared_ptr<hexen::engine::components::graphics::CameraComponent>> camerasComponents;
 
-        /**
+		/**
         * @brief The identifier of the main camera in the Render System.
         *
         * The mainCameraId variable represents the identifier assigned to the main camera within the Render System.
@@ -213,9 +211,9 @@ namespace hexen::engine::systems
         * @see sys::RenderSystem
         */
 
-        static core::i32 mainCameraId;
+		static core::i32 mainCameraId;
 
-        /**
+		/**
         * @brief Updates the model matrix of the sprite component.
         *
         * This function calculates and updates the model matrix of the specified sprite component.
@@ -225,9 +223,9 @@ namespace hexen::engine::systems
         */
 
 
-        void updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+		void updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
 
-        /**
+		/**
         * @brief Updates the view and projection matrices for rendering a sprite component.
         *
         * This function is used to update the view and projection matrices required for rendering
@@ -241,7 +239,6 @@ namespace hexen::engine::systems
         * @see comp::rend::SpriteComponent
         */
 
-        void updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
-    };
-}
-
+		void updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+	};
+}// namespace hexen::engine::systems

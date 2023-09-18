@@ -7,10 +7,9 @@
 
 hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : FramebufferWindow(name)
 {
-
 }
 
 void hexen::editor::gui::SceneWindow::render()
 {
-    FramebufferWindow::render();
+	FramebufferWindow::render();
 }

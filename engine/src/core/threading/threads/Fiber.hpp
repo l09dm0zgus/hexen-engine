@@ -8,58 +8,55 @@
 namespace hexen::engine::core::threading
 {
 
-    using FiberStartRoutine = void (*)(void *arg);
+	using FiberStartRoutine = void (*)(void *arg);
 
-    class Fiber
-    {
-    public:
+	class Fiber
+	{
+	public:
+		Fiber() = default;
 
-	    Fiber() = default;
-
-	    Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg);
-
-
-	    Fiber(Fiber const &other) = delete;
-
-	    Fiber &operator=(Fiber const &other) = delete;
+		Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg);
 
 
-	    Fiber(Fiber &&other) noexcept: Fiber()
-        {
-            swap(*this, other);
-	    }
+		Fiber(Fiber const &other) = delete;
 
-	    Fiber &operator=(Fiber &&other) noexcept
-        {
-            swap(*this, other);
+		Fiber &operator=(Fiber const &other) = delete;
 
-		    return *this;
-	    }
-	    ~Fiber();
 
-    private:
-	    void *stack{nullptr};
-	    size_t systemPageSize{0};
-	    size_t stackSize{0};
-	    boost_context::fcontext_t context{nullptr};
-	    void *arg{nullptr};
+		Fiber(Fiber &&other) noexcept : Fiber()
+		{
+			swap(*this, other);
+		}
 
-public:
+		Fiber &operator=(Fiber &&other) noexcept
+		{
+			swap(*this, other);
 
-	void switchToFiber(Fiber *const fiber)
-    {
-		boost_context::jump_fcontext(&context, fiber->context, fiber->arg);
-	}
+			return *this;
+		}
+		~Fiber();
 
-	void reset(FiberStartRoutine const startRoutine, void *const arg)
-    {
-        context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
-        this->arg = arg;
-	}
+	private:
+		void *stack {nullptr};
+		size_t systemPageSize {0};
+		size_t stackSize {0};
+		boost_context::fcontext_t context {nullptr};
+		void *arg {nullptr};
 
-private:
+	public:
+		void switchToFiber(Fiber *const fiber)
+		{
+			boost_context::jump_fcontext(&context, fiber->context, fiber->arg);
+		}
 
-	static void swap(Fiber &first, Fiber &second) noexcept;
-};
+		void reset(FiberStartRoutine const startRoutine, void *const arg)
+		{
+			context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
+			this->arg = arg;
+		}
 
-}
+	private:
+		static void swap(Fiber &first, Fiber &second) noexcept;
+	};
+
+}// namespace hexen::engine::core::threading

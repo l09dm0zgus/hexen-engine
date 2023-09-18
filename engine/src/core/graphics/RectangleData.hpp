@@ -6,9 +6,9 @@
 
 namespace hexen::engine::graphics::gl
 {
-    enum RectangleDataSizes
-    {
-        /**
+	enum RectangleDataSizes
+	{
+		/**
         * @brief The size of the vertices array.
         *
         * This variable represents the size of the vertices array, which is used to store vertices for procedural generation or rendering.
@@ -16,9 +16,9 @@ namespace hexen::engine::graphics::gl
          *
         */
 
-        VERTICES_ARRAY_SIZE = 12,
+		VERTICES_ARRAY_SIZE = 12,
 
-        /**
+		/**
         * @brief The maximum size of the indices array.
         *
         * This constant defines the maximum size of the indices array used in the program.
@@ -33,11 +33,11 @@ namespace hexen::engine::graphics::gl
         * @ref IndicesArrayExample provides an example usage of this constant.
         */
 
-    INDICES_ARRAY_SIZE = 6
-    };
-    struct RectangleData
-    {
-        /**
+		INDICES_ARRAY_SIZE = 6
+	};
+	struct RectangleData
+	{
+		/**
         * @brief The array of vertices for a rectangle.
         *
         * This array represents the 3D coordinates of the vertices for a rectangle in 3D space.
@@ -59,15 +59,14 @@ namespace hexen::engine::graphics::gl
         * @see RectangleDataSizes
         */
 
-        const float vertices[RectangleDataSizes::VERTICES_ARRAY_SIZE] =
-                {
-                        -1.0f, -1.0f, -0.0f,
-                        1.0f,  1.0f, -0.0f,
-                        -1.0f,  1.0f, -0.0f,
-                        1.0f, -1.0f, -0.0f
-                };
+		const float vertices[RectangleDataSizes::VERTICES_ARRAY_SIZE] =
+				{
+						-1.0f, -1.0f, -0.0f,
+						1.0f, 1.0f, -0.0f,
+						-1.0f, 1.0f, -0.0f,
+						1.0f, -1.0f, -0.0f};
 
-        /**
+		/**
         * @brief Array representing the indices of a rectangle.
         *
         * This array defines the order in which the vertices of a rectangle are connected to draw it.
@@ -85,11 +84,9 @@ namespace hexen::engine::graphics::gl
         *
         */
 
-        const unsigned int indices[RectangleDataSizes::INDICES_ARRAY_SIZE] =
-                {
-                        0, 1, 2,
-                        0, 3, 1
-                };
-    };
-}
-
+		const unsigned int indices[RectangleDataSizes::INDICES_ARRAY_SIZE] =
+				{
+						0, 1, 2,
+						0, 3, 1};
+	};
+}// namespace hexen::engine::graphics::gl

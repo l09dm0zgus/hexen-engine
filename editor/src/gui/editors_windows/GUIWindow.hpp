@@ -4,17 +4,17 @@
 
 #pragma once
 
-#include <string>
-#include <imgui.h>
 #include <core/memory_pool/AllocatedObject.hpp>
 #include <glm/vec2.hpp>
+#include <imgui.h>
+#include <string>
 
 namespace hexen::editor::gui
 {
-    class GUIWindow : public engine::core::memory::AllocatedObject
-    {
-    public:
-        /**
+	class GUIWindow : public engine::core::memory::AllocatedObject
+	{
+	public:
+		/**
         * @brief Get the name.
         *
         * This function is used to retrieve the name associated with the window.
@@ -25,9 +25,9 @@ namespace hexen::editor::gui
         *       to not throw any exceptions (noexcept).
         */
 
-        [[nodiscard]] std::string getName() const noexcept;
+		[[nodiscard]] std::string getName() const noexcept;
 
-        /**
+		/**
         * @brief Sets the size of the window.
         *
         * This function sets the size of the window to the new size passed as an argument.
@@ -41,13 +41,14 @@ namespace hexen::editor::gui
         * @note This function allows for both lvalue and rvalue references to the new size.
         */
 
-        template<class T> void setSize(T &&newSize)
-        {
-            size = std::forward<T>(newSize);
-            setWindowSize();
-        }
+		template<class T>
+		void setSize(T &&newSize)
+		{
+			size = std::forward<T>(newSize);
+			setWindowSize();
+		}
 
-        /**
+		/**
         * @brief Retrieves the size of the window.
         *
         * This function returns the size of the window.
@@ -58,9 +59,9 @@ namespace hexen::editor::gui
         *
         */
 
-        [[nodiscard]] glm::vec2 getSize() const noexcept;
+		[[nodiscard]] glm::vec2 getSize() const noexcept;
 
-        /**
+		/**
         * @brief Pure virtual function for drawing.
         *
         * This function is a pure virtual function that must be implemented in derived classes.
@@ -70,9 +71,9 @@ namespace hexen::editor::gui
         *
     */
 
-        virtual void draw() = 0;
+		virtual void draw() = 0;
 
-        /**
+		/**
         * @brief Pure virtual function for the beginning of an drawing editor window.
         *
         *
@@ -83,19 +84,19 @@ namespace hexen::editor::gui
         * @see end()
         */
 
-        virtual void begin() = 0;
+		virtual void begin() = 0;
 
 
-        /**
+		/**
         * @brief A function that signifies the end of an window drawing.
         *
         *
         * @see start()
         */
 
-        virtual void end() = 0;
+		virtual void end() = 0;
 
-        /**
+		/**
         * @class GUIWindow
         * @brief Represents a GUI window.
         *
@@ -106,10 +107,10 @@ namespace hexen::editor::gui
         *
         */
 
-        virtual ~GUIWindow() = default;
+		virtual ~GUIWindow() = default;
 
 
-        /**
+		/**
         * @class GUIWindow
         * @brief Represents a graphical user interface window.
         *
@@ -117,9 +118,9 @@ namespace hexen::editor::gui
         * It provides methods to set the window's name and perform other related operations.
         */
 
-        explicit GUIWindow(std::string name);
+		explicit GUIWindow(std::string name);
 
-        /**
+		/**
         * @brief Deleted move constructor for the GUIWindow class.
         *
         * This move constructor is deleted to prevent the GUIWindow instances
@@ -131,18 +132,18 @@ namespace hexen::editor::gui
         * @see GUIWindow
         */
 
-        GUIWindow(GUIWindow &&guiWindow) = delete;
+		GUIWindow(GUIWindow &&guiWindow) = delete;
 
-        /**
+		/**
         * @class GUIWindow
         * @brief Represents a GUI window.
         *
         * This class provides functionalities related to GUI windows.
         */
 
-        GUIWindow(const GUIWindow &guiWindow) = delete;
+		GUIWindow(const GUIWindow &guiWindow) = delete;
 
-        /**
+		/**
         * @brief Deleted move assignment operator for the GUIWindow class.
         *
         * This move assignment operator is deleted to prevent the GUIWindow instances
@@ -154,9 +155,9 @@ namespace hexen::editor::gui
         * @see GUIWindow
         */
 
-        GUIWindow& operator=(GUIWindow &&guiWindow) = delete;
+		GUIWindow &operator=(GUIWindow &&guiWindow) = delete;
 
-        /**
+		/**
         * @brief Assignment operator overload for the GUIWindow class.
         *
         * This assignment operator is explicitly deleted to prevent assigning one GUIWindow object to another.
@@ -165,23 +166,22 @@ namespace hexen::editor::gui
         * @return None. This assignment operator is deleted.
         */
 
-        GUIWindow& operator=(const GUIWindow &guiWindow) = delete;
-    protected:
+		GUIWindow &operator=(const GUIWindow &guiWindow) = delete;
 
-        /**
+	protected:
+		/**
         * @brief Represents the size of an editor window.
         *
         * The Size class is used to store the dimensions of an object or region in a 2D space. It provides
         * methods for accessing and modifying the width and height values.
         */
 
-        glm::vec2 size{200, 200};
+		glm::vec2 size {200, 200};
 
-    private:
+	private:
+		void setWindowSize();
 
-        void setWindowSize();
-
-        /**
+		/**
         * @brief The name variable stores the name value.
         *
         * The name variable is used to store a string representing a name. It can be used to store the name of a person,
@@ -191,8 +191,6 @@ namespace hexen::editor::gui
         * @note The name variable should be initialized with a valid name value before accessing or modifying it.
         */
 
-        std::string name;
-
-
-    };
-}
+		std::string name;
+	};
+}// namespace hexen::editor::gui

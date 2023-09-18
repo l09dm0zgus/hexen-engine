@@ -8,12 +8,10 @@ std::shared_ptr<hexen::engine::core::Scene> hexen::engine::core::SceneManager::c
 
 void hexen::engine::core::SceneManager::loadScene(const std::string &path)
 {
-    currentScene = memory::make_shared<Scene>(path);
+	currentScene = memory::make_shared<Scene>(path);
 }
 
 std::shared_ptr<hexen::engine::core::Scene> hexen::engine::core::SceneManager::getCurrentScene()
 {
-    return currentScene;
+	return currentScene;
 }
-
-

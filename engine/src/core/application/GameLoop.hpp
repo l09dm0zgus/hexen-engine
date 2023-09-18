@@ -3,15 +3,15 @@
 //
 
 #pragma once
-#include "../memory_pool/AllocatedObject.hpp"
 #include "../../systems/SystemsManager.hpp"
+#include "../memory_pool/AllocatedObject.hpp"
 #include <chrono>
 
 namespace hexen::engine::core
 {
-    class Window;
+	class Window;
 
-    /**
+	/**
     * @class GameLoop
     * @brief A class that handles the main game loop.
     *
@@ -19,41 +19,40 @@ namespace hexen::engine::core
     * and rendering processes while taking care of timing and frame rate control.
     */
 
-    class GameLoop : public memory::AllocatedObject
-    {
-    public:
-
-        /**
+	class GameLoop : public memory::AllocatedObject
+	{
+	public:
+		/**
          * @brief Initialize TaskSystem , allocating memory for SystemsManager object,
          * and setting pointer to current system manager
          */
 
-        explicit GameLoop(const std::shared_ptr<Window> &newWindow);
+		explicit GameLoop(const std::shared_ptr<Window> &newWindow);
 
 
-        /**
+		/**
          * @brief Virtual destructor,because class has virtual methods.
          * Just setting pointer to current system manager to nullptr.
          */
 
-        ~GameLoop() override;
+		~GameLoop() override;
 
-        GameLoop(const GameLoop&) = delete;
+		GameLoop(const GameLoop &) = delete;
 
 
-        GameLoop(GameLoop&&) = delete;
+		GameLoop(GameLoop &&) = delete;
 
-        GameLoop& operator=(const GameLoop&) = delete;
+		GameLoop &operator=(const GameLoop &) = delete;
 
-        GameLoop& operator=(GameLoop&&) = delete;
+		GameLoop &operator=(GameLoop &&) = delete;
 
-        /**
+		/**
         * @brief Adds to SystemsManager systems,and then them starts.
         */
 
-        virtual void start();
+		virtual void start();
 
-        /**
+		/**
         * @brief Executes a loop that continuously updates and renders the given window.
         *
         * The loop function takes a shared pointer to a Window object and continuously performs
@@ -63,10 +62,10 @@ namespace hexen::engine::core
         *
         */
 
-        virtual void loop();
-    protected:
+		virtual void loop();
 
-        /**
+	protected:
+		/**
         * @brief Initializes the clock used for the game loop.
         *
         * This function is responsible for creating and initializing the clock
@@ -77,9 +76,9 @@ namespace hexen::engine::core
         *
         */
 
-        void initializeClock();
+		void initializeClock();
 
-        /**
+		/**
         * @brief Sets the start time of the current frame in the game loop.
         *
         * This function is responsible for setting the start time of the current frame in the game loop.
@@ -91,9 +90,9 @@ namespace hexen::engine::core
         *
         */
 
-        void setFrameStart();
+		void setFrameStart();
 
-        /**
+		/**
         * @brief Sets the accumulator value for the game loop.
         *
         * This function is used in the game loop to set the value of the accumulator.
@@ -102,18 +101,18 @@ namespace hexen::engine::core
         *
         */
 
-        void setAccumulator();
+		void setAccumulator();
 
 
-        /**
+		/**
         * @brief Calculating interpolated value for rendering.
         */
 
-        double getAlpha();
+		double getAlpha();
 
-        std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<double>> framesStart;
+		std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> framesStart;
 
-        /**
+		/**
         * @brief The maximum number of frames per second to be rendered.
         *
         * This variable represents the limit for the number of frames per second (FPS) that should be rendered by the application.
@@ -124,9 +123,9 @@ namespace hexen::engine::core
         *       and the specific requirements of the application being developed.
         */
 
-        const double framesLimit{240.0f};
+		const double framesLimit {240.0f};
 
-        /**
+		/**
         * @brief Represents the time interval between frames.
         *
         * The deltaTime variable is calculated as the reciprocal of the framesLimit.
@@ -139,16 +138,14 @@ namespace hexen::engine::core
         * @see framesLimit
         */
 
-        const double deltaTime = 1 / framesLimit;
+		const double deltaTime = 1 / framesLimit;
 
-        double accumulator{0.0};
+		double accumulator {0.0};
 
-        const double msPerUpdate{0.2};
+		const double msPerUpdate {0.2};
 
-        std::shared_ptr<systems::SystemsManager> systemManager;
+		std::shared_ptr<systems::SystemsManager> systemManager;
 
-        std::shared_ptr<Window> window;
-    };
-}
-
-
+		std::shared_ptr<Window> window;
+	};
+}// namespace hexen::engine::core

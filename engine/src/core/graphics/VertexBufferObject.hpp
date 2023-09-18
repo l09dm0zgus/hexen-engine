@@ -5,16 +5,15 @@
 #pragma once
 
 
-#include <cstddef>
-#include "RectangleData.hpp"
 #include "../Types.hpp"
+#include "RectangleData.hpp"
+#include <cstddef>
 namespace hexen::engine::graphics::gl
 {
-    class VertexBufferObject
-    {
-    public:
-
-        /**
+	class VertexBufferObject
+	{
+	public:
+		/**
         * @class VertexBufferObject
         *
         * @brief The VertexBufferObject class represents a vertex buffer object used in rendering vertex data.
@@ -23,36 +22,36 @@ namespace hexen::engine::graphics::gl
         * functionality to create and manage a VBO.
         */
 
-        VertexBufferObject();
+		VertexBufferObject();
 
-        /**
+		/**
         * @class VertexBufferObject
         * Represents a vertex buffer object (VBO) used for storing vertex data.
         * The VertexBufferObject class manages the creation, deletion, and manipulation
         * of VBOs in a rendering context.
         */
 
-        ~VertexBufferObject();
+		~VertexBufferObject();
 
-        /**
+		/**
         * Binds the given RectangleData to the Vertex Buffer Object (VBO).
         *
         * @param rectangleData The RectangleData to bind.
         *
         */
 
-        void bind(const RectangleData &rectangleData) const;
+		void bind(const RectangleData &rectangleData) const;
 
-        /**
+		/**
         * Binds a vertex buffer object (VBO) with the specified size and data.
         *
         * @param size The size of the data being bound in bytes.
         * @param data A pointer to the data being bound.
         */
 
-        void bind(size_t size,core::vptr data) const;
+		void bind(size_t size, core::vptr data) const;
 
-        /**
+		/**
         * @brief Binds a Vertex Buffer Object (VBO) to the current rendering context
         *        using the provided vertices.
         *
@@ -66,9 +65,9 @@ namespace hexen::engine::graphics::gl
         *
         */
 
-        void bind(const std::vector<glm::vec3> &vertices);
+		void bind(const std::vector<glm::vec3> &vertices);
 
-        /**
+		/**
         * @brief Unbinds the Vertex Buffer Object (VBO).
         *
         * This function unbinds the currently bound Vertex Buffer Object (VBO)
@@ -82,8 +81,9 @@ namespace hexen::engine::graphics::gl
         */
 
 
-        void unbind();
-    private:
-        core::u32 object{0};
-    };
-}
+		void unbind();
+
+	private:
+		core::u32 object {0};
+	};
+}// namespace hexen::engine::graphics::gl

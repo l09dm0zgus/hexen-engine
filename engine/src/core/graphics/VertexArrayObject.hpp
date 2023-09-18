@@ -7,15 +7,16 @@
 #include "../Types.hpp"
 namespace hexen::engine::graphics::gl
 {
-    class VertexArrayObject
-    {
-    public:
-        VertexArrayObject();
-        ~VertexArrayObject();
-        void bind() const;
-        void unbind();
-    private:
-        core::u32 object{0};
-    };
+	class VertexArrayObject
+	{
+	public:
+		VertexArrayObject();
+		~VertexArrayObject();
+		void bind() const;
+		void unbind();
 
-}
+	private:
+		core::u32 object {0};
+	};
+
+}// namespace hexen::engine::graphics::gl

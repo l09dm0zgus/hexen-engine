@@ -10,18 +10,18 @@
 
 namespace hexen::editor::gui
 {
-    class GTKFileDialog  : public INativeFileDialog
-    {
-    public:
-        Status openDialog(const FileFilter &filterList,const std::string &defaultPath,std::string &pathToFile) override;
-        Status openDialog(const FileFilter &filterList,const std::string &defaultPath, PathSet *pathToFiles) override;
-        Status saveDialog(const FileFilter &filterList,const std::string &defaultPath,std::string &pathToFile) override;
-        Status pickDialog(const std::string &defaultPath,std::string &pathToFile) override;
+	class GTKFileDialog : public INativeFileDialog
+	{
+	public:
+		Status openDialog(const FileFilter &filterList, const std::string &defaultPath, std::string &pathToFile) override;
+		Status openDialog(const FileFilter &filterList, const std::string &defaultPath, PathSet *pathToFiles) override;
+		Status saveDialog(const FileFilter &filterList, const std::string &defaultPath, std::string &pathToFile) override;
+		Status pickDialog(const std::string &defaultPath, std::string &pathToFile) override;
 
-    private:
-        void addFiltersToDialog(GtkWidget *dialog,const FileFilter &fileFilter);
-        void setDefaultPath(GtkWidget *dialog,const std::string &defaultPath);
-        Status allocatePathSet(GSList *fileList, PathSet *pathSet);
-        void waitForCleanUp();
-    };
-}
+	private:
+		void addFiltersToDialog(GtkWidget *dialog, const FileFilter &fileFilter);
+		void setDefaultPath(GtkWidget *dialog, const std::string &defaultPath);
+		Status allocatePathSet(GSList *fileList, PathSet *pathSet);
+		void waitForCleanUp();
+	};
+}// namespace hexen::editor::gui

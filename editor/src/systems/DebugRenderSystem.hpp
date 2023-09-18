@@ -4,21 +4,20 @@
 
 #pragma once
 
+#include "../components/debug_rendering/DebugGridComponent.hpp"
 #include <core/Types.hpp>
 #include <systems/IRenderSystem.hpp>
-#include "../components/debug_rendering/DebugGridComponent.hpp"
 namespace comp
 {
-    class TransformComponent;
+	class TransformComponent;
 }
 
 namespace hexen::editor::systems
 {
-class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
-{
-    public:
-
-    /**
+	class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
+	{
+	public:
+		/**
     * @class DebugRenderSystem
     * @brief A system for rendering debug information.
     *
@@ -32,9 +31,9 @@ class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
     *
     */
 
-    explicit DebugRenderSystem(hexen::engine::core::u32 sizeOfVectors);
+		explicit DebugRenderSystem(hexen::engine::core::u32 sizeOfVectors);
 
-    /**
+		/**
     * @brief Start the operation.
     *
     * This function overrides the start() method of the base class and is called to initiate the operation.
@@ -46,9 +45,9 @@ class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
     * @see BaseClass::start()
     */
 
-    void start() override;
+		void start() override;
 
-    /**
+		/**
     * @brief Applies linear interpolation to render the object based on the given alpha value.
     *
     * This function overrides the base class's render function and applies linear interpolation
@@ -61,9 +60,9 @@ class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
     *
     */
 
-    void render(float alpha) override;
+		void render(float alpha) override;
 
-    /**
+		/**
     * @brief Adds a debugging grid to the screen.
     *
     * This function adds a debugging grid to the screen by drawing a grid made of lines using the current graphics context.
@@ -73,10 +72,10 @@ class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
     *
     */
 
-    void addDebugGrid();
-    private:
+		void addDebugGrid();
 
-    /**
+	private:
+		/**
     * @brief Updates the model matrix of the sprite component.
     *
     * This function calculates and updates the model matrix of the specified sprite component.
@@ -86,9 +85,9 @@ class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
      */
 
 
-    void updateModelMatrix(hexen::engine::components::graphics::RenderComponent *renderComponent);
+		void updateModelMatrix(hexen::engine::components::graphics::RenderComponent *renderComponent);
 
-    /**
+		/**
     * @brief Updates the view and projection matrices for rendering a sprite component.
     *
     * This function is used to update the view and projection matrices required for rendering
@@ -102,13 +101,10 @@ class DebugRenderSystem : public hexen::engine::systems::IRenderSystem
     * @see comp::rend::RenderComponent
     */
 
-    void updateViewAndProjectionMatrices(hexen::engine::components::graphics::RenderComponent *renderComponent);
+		void updateViewAndProjectionMatrices(hexen::engine::components::graphics::RenderComponent *renderComponent);
 
-    std::shared_ptr<hexen::editor::components::graphics::DebugGridComponent> debugGridComponent{nullptr};
+		std::shared_ptr<hexen::editor::components::graphics::DebugGridComponent> debugGridComponent {nullptr};
 
-    std::shared_ptr<hexen::engine::components::TransformComponent> debugGridTransform;
-    };
-}
-
-
-
+		std::shared_ptr<hexen::engine::components::TransformComponent> debugGridTransform;
+	};
+}// namespace hexen::editor::systems

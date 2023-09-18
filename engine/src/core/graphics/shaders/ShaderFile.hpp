@@ -7,15 +7,14 @@
 #include <string>
 namespace hexen::engine::graphics::shader
 {
-    class ShaderFile
-    {
-    private:
-        std::string shaderText;
-    public:
-        void read( const std::string &path);
-        char *getContent();
-    };
+	class ShaderFile
+	{
+	private:
+		std::string shaderText;
 
-}
+	public:
+		void read(const std::string &path);
+		char *getContent();
+	};
 
-
+}// namespace hexen::engine::graphics::shader

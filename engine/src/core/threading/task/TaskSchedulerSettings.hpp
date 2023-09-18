@@ -3,17 +3,16 @@
 //
 
 #pragma once
-#include <nlohmann/json.hpp>
 #include "../../Types.hpp"
 #include "../../memory_pool/AllocatedObject.hpp"
+#include <nlohmann/json.hpp>
 
 namespace hexen::engine::core::threading
 {
-    class TaskSchedulerSettings : public memory::AllocatedObject
-    {
-    public:
-
-        /**
+	class TaskSchedulerSettings : public memory::AllocatedObject
+	{
+	public:
+		/**
         * @class TaskSchedulerSettings
         * @brief This class represents the settings for a thread pool.
         *
@@ -26,9 +25,9 @@ namespace hexen::engine::core::threading
         * @see TaskScheduler
         */
 
-        TaskSchedulerSettings();
+		TaskSchedulerSettings();
 
-        /**
+		/**
         * @brief Get the size of the fiber pool.
         *
         * This function returns the current size of the fiber pool.
@@ -36,9 +35,9 @@ namespace hexen::engine::core::threading
         * @return The size of the fiber pool as an integer.
         */
 
-        [[nodiscard]] u32 getFiberPoolSize() const;
+		[[nodiscard]] u32 getFiberPoolSize() const;
 
-        /**
+		/**
         * @brief Get the number of used cores.
         *
         * This function returns the number of cores that are currently being used in a multi-core system.
@@ -47,17 +46,17 @@ namespace hexen::engine::core::threading
         * @return The number of used cores as an integer.
         */
 
-        [[nodiscard]] u32 getUsedCores() const;
+		[[nodiscard]] u32 getUsedCores() const;
 
-        /**
+		/**
         * Set the size of the fiber pool.
         *
         * @param fiberPoolSize The new size of the fiber pool.
         */
 
-        void setFiberPoolSize(u32 fiberPoolSize);
+		void setFiberPoolSize(u32 fiberPoolSize);
 
-        /**
+		/**
         * @brief Set the number of used cores.
         *
         * This function sets the number of used cores to the specified value.
@@ -65,19 +64,19 @@ namespace hexen::engine::core::threading
         * @param usedCores The number of used cores to set.
         */
 
-        void setUsedCores(u32 usedCores);
-    private:
+		void setUsedCores(u32 usedCores);
 
-        /**
+	private:
+		/**
         * @brief The file where the settings are stored.
         */
 
-        nlohmann::json settingsFile;
+		nlohmann::json settingsFile;
 
-        /**
+		/**
         * @brief The path to the settings file.
         */
 
-        std::string pathToSettingsFile = ".settings/tasks_settings.hxs";
-    };
-}
+		std::string pathToSettingsFile = ".settings/tasks_settings.hxs";
+	};
+}// namespace hexen::engine::core::threading

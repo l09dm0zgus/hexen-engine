@@ -4,17 +4,16 @@
 
 #pragma once
 
-#include <glm/vec2.hpp>
 #include "../Types.hpp"
 #include "RenderBufferObject.hpp"
+#include <glm/vec2.hpp>
 
 namespace hexen::engine::graphics::gl
 {
-    class FrameBufferObject
-    {
-    public:
-
-        /**
+	class FrameBufferObject
+	{
+	public:
+		/**
         * @class FrameBufferObject
         * @brief Represents a frame buffer object for rendering.
         *
@@ -23,9 +22,9 @@ namespace hexen::engine::graphics::gl
         * @note In order to use this class, the appropriate graphics context must be active.
         */
 
-        FrameBufferObject();
+		FrameBufferObject();
 
-        /**
+		/**
         * @class FrameBufferObject
         * @brief This class represents a frame buffer object.
         *
@@ -36,9 +35,9 @@ namespace hexen::engine::graphics::gl
         * @since 1.0.0
         */
 
-        ~FrameBufferObject();
+		~FrameBufferObject();
 
-        /**
+		/**
         *
         * @brief Binds the frame buffer object.
         *
@@ -58,9 +57,9 @@ namespace hexen::engine::graphics::gl
         * @endcode
         */
 
-        void bind() const;
+		void bind() const;
 
-        /**
+		/**
         * @brief Unbinds the FrameBufferObject.
         *
         * This function unbinds the currently bound FrameBufferObject, allowing subsequent rendering
@@ -70,9 +69,9 @@ namespace hexen::engine::graphics::gl
         * @sa core::rend::FrameBufferObject::bind()
         */
 
-        void unbind();
+		void unbind();
 
-        /**
+		/**
         * @brief Set the size of the render buffer storage.
         *
         * This function sets the size of the FrameBufferObject using a glm::vec2 parameter.
@@ -80,10 +79,10 @@ namespace hexen::engine::graphics::gl
         * @param size The size of the FrameBufferObject as a glm::vec2.
         */
 
-        void setSize(const glm::vec2 &size) const;
+		void setSize(const glm::vec2 &size) const;
 
 
-        /**
+		/**
         * @brief Binds a render buffer to the currently active frame buffer object.
         *
         * This method binds the specified render buffer to the currently active
@@ -93,9 +92,9 @@ namespace hexen::engine::graphics::gl
         *
         */
 
-        void bindRenderBuffer();
+		void bindRenderBuffer();
 
-        /**
+		/**
         * @brief Unbinds the currently bound render buffer from the frame buffer object.
         *
         * This function unbinds the currently bound render buffer from the frame buffer object.
@@ -106,9 +105,10 @@ namespace hexen::engine::graphics::gl
         * @see core::rend::FrameBufferObject::bindRenderBuffer()
         */
 
-        void unbindRenderBuffer();
-    private:
-        core::u32 object{0};
-        RenderBufferObject renderBufferObject;
-    };
-}
+		void unbindRenderBuffer();
+
+	private:
+		core::u32 object {0};
+		RenderBufferObject renderBufferObject;
+	};
+}// namespace hexen::engine::graphics::gl

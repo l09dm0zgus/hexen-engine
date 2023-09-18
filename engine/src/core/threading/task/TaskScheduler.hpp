@@ -1,35 +1,35 @@
 #pragma once
 
-#include "Callbacks.hpp"
 #include "../threads/Fiber.hpp"
-#include "Task.hpp"
 #include "../threads/Thread.hpp"
 #include "../threads/WaitFreeQueue.hpp"
+#include "Callbacks.hpp"
+#include "Task.hpp"
 #include "TaskSchedulerSettings.hpp"
 
+#include <array>
 #include <atomic>
 #include <condition_variable>
 #include <mutex>
 #include <vector>
-#include <array>
 
 namespace hexen::engine::core::threading
 {
-    class BaseCounter;
-    class TaskCounter;
-    class AtomicFlag;
-    class FullAtomicCounter;
+	class BaseCounter;
+	class TaskCounter;
+	class AtomicFlag;
+	class FullAtomicCounter;
 
-    enum class EmptyQueueBehavior
-    {
-     Spin,
-     Yield,
-     Sleep
-    };
+	enum class EmptyQueueBehavior
+	{
+		Spin,
+		Yield,
+		Sleep
+	};
 
-    struct TaskSchedulerInitOptions
-    {
-        /**
+	struct TaskSchedulerInitOptions
+	{
+		/**
         * @brief The `fiberPoolSize` variable represents the size of the fiber pool.
         *
         * This variable indicates the maximum number of fibers that can be active
@@ -52,9 +52,9 @@ namespace hexen::engine::core::threading
         * @see https://en.wikipedia.org/wiki/Fiber_(computer_science)
         */
 
-        u32 fiberPoolSize = 400;
+		u32 fiberPoolSize = 400;
 
-        /**
+		/**
         * @brief The number of threads in the thread pool.
         *
         * The `threadPoolSize` variable represents the number of threads that will be maintained in the thread pool. Setting it to 0 means that there are no threads in the pool. Increasing the value will result in more threads being available for executing tasks concurrently.
@@ -67,28 +67,27 @@ namespace hexen::engine::core::threading
         * @see Task
         */
 
-        u32 threadPoolSize = 0;
+		u32 threadPoolSize = 0;
 
-        /**
+		/**
         * @brief Enum class representing the behavior of an empty queue.
         */
 
-        EmptyQueueBehavior behavior = EmptyQueueBehavior::Spin;
+		EmptyQueueBehavior behavior = EmptyQueueBehavior::Spin;
 
-        /**
+		/**
         * @file Callbacks.h
         *
         * @brief Definition of callback functions
         */
 
-        EventCallbacks callbacks;
-    };
+		EventCallbacks callbacks;
+	};
 
-    class TaskScheduler
-    {
-    public:
-
-        /**
+	class TaskScheduler
+	{
+	public:
+		/**
         * @class TaskScheduler
         * @brief The TaskScheduler class is responsible for scheduling and managing tasks.
         *
@@ -96,9 +95,9 @@ namespace hexen::engine::core::threading
         * It allows adding new tasks, removing existing tasks, and executing tasks at a specific time or interval.
         */
 
-        TaskScheduler() = default;
+		TaskScheduler() = default;
 
-        /**
+		/**
         * @class TaskScheduler
         * @brief This class represents a task scheduler that manages the execution of tasks.
         *
@@ -109,9 +108,9 @@ namespace hexen::engine::core::threading
         * @note This class must be used as a singleton to ensure correct functionality.
         */
 
-        TaskScheduler(TaskScheduler const &) = delete;
+		TaskScheduler(TaskScheduler const &) = delete;
 
-        /**
+		/**
         * @class TaskScheduler
         * @brief Class that represents a task scheduler.
         *
@@ -123,9 +122,9 @@ namespace hexen::engine::core::threading
         * @see Task
         */
 
-        TaskScheduler(TaskScheduler &&) noexcept = delete;
+		TaskScheduler(TaskScheduler &&) noexcept = delete;
 
-        /**
+		/**
         * @brief Assignment operator overload (deleted)
         *
         * This assignment operator overload is deleted, meaning it is not
@@ -136,9 +135,9 @@ namespace hexen::engine::core::threading
         * @return This function does not return a value
         */
 
-        TaskScheduler &operator=(TaskScheduler const &) = delete;
+		TaskScheduler &operator=(TaskScheduler const &) = delete;
 
-        /**
+		/**
         *
         * @class TaskScheduler
         * @brief Represents a task scheduler with a deleted move assignment operator.
@@ -153,9 +152,9 @@ namespace hexen::engine::core::threading
         *
         */
 
-        TaskScheduler &operator=(TaskScheduler &&) noexcept = delete;
+		TaskScheduler &operator=(TaskScheduler &&) noexcept = delete;
 
-        /**
+		/**
         * @class TaskScheduler
         * @brief This class represents a task scheduler that manages the execution of multiple tasks.
         *
@@ -163,21 +162,20 @@ namespace hexen::engine::core::threading
         * It provides methods to add, remove, and query tasks, as well as to start and stop the scheduler.
         */
 
-        ~TaskScheduler();
+		~TaskScheduler();
 
-    private:
+	private:
+		enum class FiberDestination
+		{
+			None = 0,
+			ToPool = 1,
+			ToWaiting = 2,
+		};
 
-        enum class FiberDestination
-        {
-          None = 0,
-          ToPool = 1,
-          ToWaiting = 2,
-        };
+		struct TaskBundle
+		{
 
-        struct TaskBundle
-        {
-
-        /**
+			/**
         * @brief Variable representing a task that needs to be executed.
         *
         * This variable stores the details of a task that needs to be executed. It can be used to
@@ -185,14 +183,14 @@ namespace hexen::engine::core::threading
         * work or action that needs to be performed.
         */
 
-        Task taskToExecute;
-        TaskCounter *counter{};
-        };
+			Task taskToExecute;
+			TaskCounter *counter {};
+		};
 
-        struct ReadyFiberBundle
-        {
+		struct ReadyFiberBundle
+		{
 
-            /**
+			/**
             * @class ReadyFiberBundle
             * @brief A class representing a ready-to-use fiber bundle.
             *
@@ -206,9 +204,9 @@ namespace hexen::engine::core::threading
             *
             */
 
-            ReadyFiberBundle() = default;
+			ReadyFiberBundle() = default;
 
-            /**
+			/**
             * @brief Represents the fiber index.
             *
             * The fiberIndex variable is used to store the index of a fiber. It is typically an integer value that represents the position or identification of a fiber within a collection or system.
@@ -218,9 +216,9 @@ namespace hexen::engine::core::threading
             *
             */
 
-            u32 fiberIndex;
+			u32 fiberIndex;
 
-            /**
+			/**
             * @brief Indicates if the fiber connection is switched or not.
             *
             * This variable is used to determine whether the fiber connection has been switched or not.
@@ -236,21 +234,20 @@ namespace hexen::engine::core::threading
             *
             */
 
-            std::atomic<bool> fiberIsSwitched;
-        };
+			std::atomic<bool> fiberIsSwitched;
+		};
 
-        struct alignas(cacheLineSize) ThreadLocalStorage
-        {
-            /**
+		struct alignas(cacheLineSize) ThreadLocalStorage
+		{
+			/**
             * @class ThreadLocalStorage
             * @brief This class represents the thread-specific storage for a fiber system.
             */
 
-            ThreadLocalStorage(): currentFiberIndex(invalidIndex), oldFiberIndex(invalidIndex) {}
+			ThreadLocalStorage() : currentFiberIndex(invalidIndex), oldFiberIndex(invalidIndex) {}
 
-        public:
-
-            /**
+		public:
+			/**
             * @brief The `highPriorityTaskQueue` variable is a queue that stores high priority tasks.
             *
             * The queue data structure is a first-in, first-out (FIFO) collection of tasks with high priority.
@@ -269,9 +266,9 @@ namespace hexen::engine::core::threading
             * unsigned int numTasks = highPriorityTaskQueue.size(); // Get the number of tasks in the queue
             */
 
-            WaitFreeQueue<TaskBundle> highPriorityTaskQueue;
+			WaitFreeQueue<TaskBundle> highPriorityTaskQueue;
 
-            /**
+			/**
             * @class normalPriorityTaskQueue
             * @brief A queue for normal priority tasks
             *
@@ -281,9 +278,9 @@ namespace hexen::engine::core::threading
             * Tasks can be added to the queue and retrieved for execution.
             */
 
-            WaitFreeQueue<TaskBundle> normalPriorityTaskQueue;
+			WaitFreeQueue<TaskBundle> normalPriorityTaskQueue;
 
-            /**
+			/**
             * @brief The flag to indicate whether the old fiber is stored or not.
             *
             * The oldFiberStoredFlag is a pointer that points to the memory address of the flag
@@ -291,9 +288,9 @@ namespace hexen::engine::core::threading
             * point to a non-null memory address, otherwise, it will be set to nullptr.
             */
 
-            std::atomic<bool> *oldFiberStoredFlag{nullptr};
+			std::atomic<bool> *oldFiberStoredFlag {nullptr};
 
-            /**
+			/**
             * @brief An array of fibers that are ready to be executed and have been pinned to specific CPU cores.
             *
             * The `pinnedReadyFibers` variable represents an array of fibers that are ready to be executed and have been
@@ -314,9 +311,9 @@ namespace hexen::engine::core::threading
             *
             */
 
-            std::vector<ReadyFiberBundle *> pinnedReadyFibers;
+			std::vector<ReadyFiberBundle *> pinnedReadyFibers;
 
-            /**
+			/**
             * @var threadFiber
             * @brief This variable represents a thread of execution in a fiber-based multitasking model.
             *
@@ -333,18 +330,18 @@ namespace hexen::engine::core::threading
             * @see Fiber
             */
 
-            Fiber threadFiber;
+			Fiber threadFiber;
 
-            /**
+			/**
             * @brief The pinnedReadyFibersLock variable is used to synchronize access to the pinnedReadyFibers queue.
             *
             * This lock ensures that only one thread can access the pinnedReadyFibers queue at a time. It is used to prevent race conditions
             * and ensure thread safety when adding or removing fibers from the queue.
             *
             */
-            std::mutex pinnedReadyFibersLock;
+			std::mutex pinnedReadyFibersLock;
 
-            /**
+			/**
             * @brief The index of the current fiber.
             *
             * This variable represents the index of the current fiber within a collection of fibers.
@@ -353,9 +350,9 @@ namespace hexen::engine::core::threading
             * @note The index value starts from 0 for the first fiber.
             */
 
-            u32 currentFiberIndex;
+			u32 currentFiberIndex;
 
-            /**
+			/**
             * @brief The index of the old fiber.
             *
             * This variable represents the index of the old fiber. It is typically used in fiber reassignment or swapping scenarios.
@@ -367,18 +364,18 @@ namespace hexen::engine::core::threading
             *
             */
 
-            u32 oldFiberIndex;
+			u32 oldFiberIndex;
 
-            /**
+			/**
             * @brief The oldFiberDestination variable represents the destination of an old fiber.
             *
             * This variable is of type FiberDestination and is initialized with the value FiberDestination::None.
             * It is used to store the previous destination of a fiber before it is changed.
             */
 
-            FiberDestination oldFiberDestination{FiberDestination::None};
+			FiberDestination oldFiberDestination {FiberDestination::None};
 
-            /**
+			/**
             * @brief Variable to store the high priority last successful steal.
             *
             * This variable is used to track the high priority last successful steal.
@@ -392,9 +389,9 @@ namespace hexen::engine::core::threading
             * @see Other related variables/functions
             */
 
-            u32 higPriorityLastSuccessfulSteal{1};
+			u32 higPriorityLastSuccessfulSteal {1};
 
-            /**
+			/**
             * @brief Represents the last successful steal by a thread with normal priority.
             *
             * This variable stores the value of the last successful steal (i.e., the successful transfer of work from one thread to another) performed by a thread with normal priority.
@@ -404,9 +401,9 @@ namespace hexen::engine::core::threading
             * @note This documentation assumes a multi-threaded environment.
             */
 
-            u32 normalPriorityLastSuccessfulSteal{1};
+			u32 normalPriorityLastSuccessfulSteal {1};
 
-            /**
+			/**
             * @brief Number of failed attempts to pop from the queue.
             *
             * This variable keeps track of the number of times an attempt to pop an element
@@ -420,13 +417,13 @@ namespace hexen::engine::core::threading
             * @var failedQueuePopAttempts
             */
 
-            u32 failedQueuePopAttempts{0};
-        };
+			u32 failedQueuePopAttempts {0};
+		};
 
-    private:
-        // Member variables
+	private:
+		// Member variables
 
-        /**
+		/**
         * @brief The maximum invalid index value.
         *
         * This constant variable represents the maximum value that can be used to
@@ -461,9 +458,9 @@ namespace hexen::engine::core::threading
         *             and the 'numeric_limits' class are correctly imported.
         **/
 
-        constexpr static u32 invalidIndex = std::numeric_limits<u32>::max();
+		constexpr static u32 invalidIndex = std::numeric_limits<u32>::max();
 
-        /**
+		/**
         * @brief A constant variable indicating that no thread pinning is applied.
         *
         * This variable represents an upper limit value for a 32-bit unsigned integer type,
@@ -479,9 +476,9 @@ namespace hexen::engine::core::threading
         *
         */
 
-        constexpr static u32 noThreadPinning = std::numeric_limits<u32>::max();
+		constexpr static u32 noThreadPinning = std::numeric_limits<u32>::max();
 
-        /**
+		/**
          * @brief Storing of settings of TaskScheduler
          *
          * @see class TaskSchedulerSettings
@@ -489,17 +486,17 @@ namespace hexen::engine::core::threading
          * @file TaskSchedulerSettings.h
          */
 
-        std::unique_ptr<TaskSchedulerSettings> settings;
+		std::unique_ptr<TaskSchedulerSettings> settings;
 
-        /**
+		/**
         * @file Callbacks.h
         *
         * @brief Declaration of callback functions.
         */
 
-        EventCallbacks callbacks;
+		EventCallbacks callbacks;
 
-        /**
+		/**
         * @brief The number of threads to be used.
         *
         * This variable represents the number of threads that will be utilized
@@ -510,9 +507,9 @@ namespace hexen::engine::core::threading
         *
         */
 
-        u32 numberOfThreads{0};
+		u32 numberOfThreads {0};
 
-        /**
+		/**
         * @brief Array Of threads.
         *
         * This variable holds a  array of threads. Initially, it is set to nullptr.
@@ -520,9 +517,9 @@ namespace hexen::engine::core::threading
         * This variable is used to keep track of multiple threads within the program.
         */
 
-        thread::ThreadType *threads{nullptr};
+		thread::ThreadType *threads {nullptr};
 
-        /**
+		/**
         * @brief The size of the fiber pool.
         *
         * This variable represents the size of the fiber pool, which determines the maximum number of fibers that can be
@@ -542,9 +539,9 @@ namespace hexen::engine::core::threading
         * resource utilization.
         */
 
-        u32 fiberPoolSize{0};
+		u32 fiberPoolSize {0};
 
-        /**
+		/**
         * @brief  Array of fibers.
         *
         *  This variable stores a  array of fibers. The fibers are
@@ -560,26 +557,26 @@ namespace hexen::engine::core::threading
         *     - Deallocate the array of fibers and set fibers to nullptr if no longer needed.
         */
 
-        Fiber *fibers{nullptr};
+		Fiber *fibers {nullptr};
 
-        /**
+		/**
         * @brief Pointer to an array of free fibers.
         *
         * This pointer is used to track and manage the free fibers in a program. The variable 'freeFibers' is initialized to nullptr, indicating that there are currently no free fibers available. As fibers are created and released, this pointer is updated to reflect the current state of free fibers.
         *
         */
 
-        std::atomic<bool> *freeFibers{nullptr};
+		std::atomic<bool> *freeFibers {nullptr};
 
-        /**
+		/**
         * @brief Variable containing ready fiber bundles.
         *
         */
 
-        ReadyFiberBundle *readyFiberBundles{nullptr};
+		ReadyFiberBundle *readyFiberBundles {nullptr};
 
 
-        /**
+		/**
         * @brief Pointer variable to track the quitting state of fibers.
         *
         * This variable is used to indicate the state of quitting fibers. It is a pointer that can be set to nullptr initially,
@@ -589,9 +586,9 @@ namespace hexen::engine::core::threading
         * it means that fibers should quit.
         */
 
-        Fiber *quitFibers{nullptr};
+		Fiber *quitFibers {nullptr};
 
-        /**
+		/**
         * @brief This variable indicates whether an task scheduler has been initialized or not.
         *
         * By default, the value of isInitialized is set to false, indicating that the scheduler has not been initialized.
@@ -600,17 +597,17 @@ namespace hexen::engine::core::threading
         * @see initialize()
         */
 
-        std::atomic<bool> isInitialized{false};
+		std::atomic<bool> isInitialized {false};
 
-        /**
+		/**
         * @brief Boolean variable representing if the program should quit or not.
         *
         * It is initially set to false, indicating the program should not quit.
         */
 
-        std::atomic<bool> isQuit{false};
+		std::atomic<bool> isQuit {false};
 
-        /**
+		/**
         * @brief The number of times the quitting action has occurred.
         *
         * This variable keeps track of the number of times a quitting action
@@ -622,9 +619,9 @@ namespace hexen::engine::core::threading
         * @var quitCount
          */
 
-        std::atomic<u32> quitCount{0};
+		std::atomic<u32> quitCount {0};
 
-        /**
+		/**
         * @enum EmptyQueueBehavior
         * @brief Specifies the behavior when operating on an empty queue
         *
@@ -632,9 +629,9 @@ namespace hexen::engine::core::threading
         * The behavior is specified using the EmptyQueueBehavior enum value.
         */
 
-        std::atomic<EmptyQueueBehavior> emptyQueueBehavior{EmptyQueueBehavior::Spin};
+		std::atomic<EmptyQueueBehavior> emptyQueueBehavior {EmptyQueueBehavior::Spin};
 
-        /**
+		/**
         * @brief The threadSleepLock variable is used to synchronize threads when pausing their execution for a certain period of time.
         *
         * This variable ensures that only one thread can enter the sleep state at a time, providing thread safety and preventing concurrent execution.
@@ -646,9 +643,9 @@ namespace hexen::engine::core::threading
         *
         */
 
-        std::mutex threadSleepLock;
+		std::mutex threadSleepLock;
 
-        /**
+		/**
         * @brief An example of a condition variable for thread sleep synchronization.
         *
         * This condition variable is used to suspend a thread's execution until a certain condition is met.
@@ -659,9 +656,9 @@ namespace hexen::engine::core::threading
         * Note: Remember to use a mutex with the condition variable to avoid race conditions.
         */
 
-        std::condition_variable threadSleepCv;
+		std::condition_variable threadSleepCv;
 
-        /**
+		/**
         * @brief The threadLocalStorage variable represents a pointer to thread-specific storage.
         *
         * Thread-specific storage provides a way to store data that is private to each thread in a multithreaded environment.
@@ -674,16 +671,13 @@ namespace hexen::engine::core::threading
         *
         */
 
-        ThreadLocalStorage *threadLocalStorage{nullptr};
+		ThreadLocalStorage *threadLocalStorage {nullptr};
 
-        friend class BaseCounter;
-
-
-
-    public:
+		friend class BaseCounter;
 
 
-        /**
+	public:
+		/**
         * @brief Initializes the task scheduler with the given options.
         *
         * This function initializes the task scheduler with the provided initialization options.
@@ -694,9 +688,9 @@ namespace hexen::engine::core::threading
         * @see TaskSchedulerInitOptions
         */
 
-        i32 initialize(TaskSchedulerInitOptions options = TaskSchedulerInitOptions());
+		i32 initialize(TaskSchedulerInitOptions options = TaskSchedulerInitOptions());
 
-        /**
+		/**
         * @brief Add a task with specified priority to the task list.
         *
         * This function adds a task to the task list with the specified priority.
@@ -709,9 +703,9 @@ namespace hexen::engine::core::threading
         *
         */
 
-        void addTask(const Task& task,TaskPriority priority,TaskCounter *counter = nullptr);
+		void addTask(const Task &task, TaskPriority priority, TaskCounter *counter = nullptr);
 
-        /**
+		/**
         * @brief Add multiple tasks to the task scheduler.
         *
         * This function adds multiple tasks to the task scheduler provided. The tasks are
@@ -727,10 +721,10 @@ namespace hexen::engine::core::threading
         * @see TaskCounter
         */
 
-        void addTasks(const std::array<Task,400> &tasks, TaskPriority priority, TaskCounter *counter);
+		void addTasks(const std::array<Task, 400> &tasks, TaskPriority priority, TaskCounter *counter);
 
 
-        /**
+		/**
         * @brief Waits for the value of the atomic flag counter to become true.
         *
         * If the pinToCurrentThread parameter is set to true, the function will keep running on the current thread
@@ -743,10 +737,10 @@ namespace hexen::engine::core::threading
         *                            Default value is false.
         */
 
-        void waitForCounter(AtomicFlag *counter, bool pinToCurrentThread = false);
+		void waitForCounter(AtomicFlag *counter, bool pinToCurrentThread = false);
 
 
-        /**
+		/**
         * @brief Waits until the given counter reaches the specified value.
         *
         * This function blocks the execution until the counter reaches the desired value.
@@ -757,10 +751,10 @@ namespace hexen::engine::core::threading
         * @param pinToCurrentThread (optional) Specifies whether to pin the execution to the current thread. Default is false.
         */
 
-        void waitForCounter(FullAtomicCounter *counter,u32 value,bool pinToCurrentThread = false);
+		void waitForCounter(FullAtomicCounter *counter, u32 value, bool pinToCurrentThread = false);
 
 
-        /**
+		/**
         * @brief Waits for the counter to reach zero.
         *
         * This function blocks the current thread until the specified counter reaches zero.
@@ -772,10 +766,10 @@ namespace hexen::engine::core::threading
         *
         */
 
-        void waitForCounter(TaskCounter *counter, bool pinToCurrentThread = false);
+		void waitForCounter(TaskCounter *counter, bool pinToCurrentThread = false);
 
 
-        /**
+		/**
         * @brief Get the index of the current thread.
         *
         * This function returns the index of the current thread.
@@ -783,10 +777,10 @@ namespace hexen::engine::core::threading
         * @return The index of the current thread.
         */
 
-        [[nodiscard]] HEXEN_NOINLINE u32 getCurrentThreadIndex() const;
+		[[nodiscard]] HEXEN_NOINLINE u32 getCurrentThreadIndex() const;
 
 
-        /**
+		/**
         * @brief Retrieves the index of the current fiber.
         *
         * This function returns the index of the current fiber. The current fiber
@@ -796,10 +790,10 @@ namespace hexen::engine::core::threading
         */
 
 
-        [[nodiscard]] u32 getCurrentFiberIndex() const;
+		[[nodiscard]] u32 getCurrentFiberIndex() const;
 
 
-        /**
+		/**
         * @brief Returns the current count of threads.
         *
         * This function returns the current count of threads.
@@ -808,13 +802,13 @@ namespace hexen::engine::core::threading
         * @return The current count of threads.
         */
 
-        [[nodiscard]] u32 getThreadCount() const noexcept
-        {
-            return numberOfThreads;
-        }
+		[[nodiscard]] u32 getThreadCount() const noexcept
+		{
+			return numberOfThreads;
+		}
 
 
-        /**
+		/**
         * @brief Retrieves the fiber count.
         *
         * This function returns the fiber count as an integer value. The fiber count represents
@@ -826,12 +820,12 @@ namespace hexen::engine::core::threading
         * internal state of the object and does not throw any exceptions.
         */
 
-        [[nodiscard]] u32 getFiberCount() const noexcept
-        {
-            return fiberPoolSize;
-        }
+		[[nodiscard]] u32 getFiberCount() const noexcept
+		{
+			return fiberPoolSize;
+		}
 
-        /**
+		/**
         * @brief Sets the behavior when trying to perform an operation on an empty queue.
         *
         * This function allows the behavior to be set when attempting to perform an operation on an empty queue.
@@ -841,14 +835,13 @@ namespace hexen::engine::core::threading
         *                 It must be one of the EmptyQueueBehavior enum values: ABORT, RETURN_DEFAULT, or THROW_EXCEPTION.
         */
 
-        void setEmptyQueueBehavior(EmptyQueueBehavior const behavior)
-        {
-            emptyQueueBehavior.store(behavior, std::memory_order_relaxed);
-        }
+		void setEmptyQueueBehavior(EmptyQueueBehavior const behavior)
+		{
+			emptyQueueBehavior.store(behavior, std::memory_order_relaxed);
+		}
 
-    private:
-
-        /**
+	private:
+		/**
         * @brief Perform cleanup of a thread's local storage and task buffer.
         *
         * This function cleans up the given thread's local storage and task buffer.
@@ -858,10 +851,10 @@ namespace hexen::engine::core::threading
         *
         */
 
-        void cleanup(ThreadLocalStorage &tls, std::vector<TaskBundle> *taskBuffer);
+		void cleanup(ThreadLocalStorage &tls, std::vector<TaskBundle> *taskBuffer);
 
 
-        /**
+		/**
         * @brief Retrieves the next high priority task from the given task buffer.
         *
         * This function searches through the task buffer to find the task with the highest priority.
@@ -873,9 +866,9 @@ namespace hexen::engine::core::threading
         *
         */
 
-        bool getNextHighPriorityTask(TaskBundle *nextTask, std::vector<TaskBundle> *taskBuffer);
+		bool getNextHighPriorityTask(TaskBundle *nextTask, std::vector<TaskBundle> *taskBuffer);
 
-        /**
+		/**
         * @brief Get the next task with normal priority from the task bundle.
         *
         * This function retrieves the next task with normal priority from the given task bundle and stores it in the nextTask parameter.
@@ -887,9 +880,9 @@ namespace hexen::engine::core::threading
         * @return void
         */
 
-        bool getNextNormalPriorityTask(/***/TaskBundle *nextTask);
+		bool getNextNormalPriorityTask(/***/ TaskBundle *nextTask);
 
-        /**
+		/**
         * @brief Checks if a task in the provided TaskBundle is ready to execute.
         *
         * This function takes a pointer to a TaskBundle and checks if there is any task in the bundle
@@ -902,9 +895,9 @@ namespace hexen::engine::core::threading
         * @see TaskBundle
         */
 
-        bool taskIsReadyToExecute(TaskBundle *bundle) const;
+		bool taskIsReadyToExecute(TaskBundle *bundle) const;
 
-        /**
+		/**
         * @brief Get the index of the next available fiber.
         *
         * This function returns the index of the next free fiber in a pool of fibers.
@@ -912,9 +905,9 @@ namespace hexen::engine::core::threading
         * @return int The index of the next available fiber.
         */
 
-        [[nodiscard]] u32 getNextFreeFiberIndex() const;
+		[[nodiscard]] u32 getNextFreeFiberIndex() const;
 
-        /**
+		/**
         * @brief Cleans up old fiber.
         *
         * This function is responsible for cleaning up the old fiber. It should be called
@@ -923,10 +916,10 @@ namespace hexen::engine::core::threading
         * @note This function does not return any value.
         */
 
-        void cleanUpOldFiber();
+		void cleanUpOldFiber();
 
 
-        /**
+		/**
         * @brief Waits for the internal counter value to reach the specified value.
         *
         * This function blocks the execution until the internal counter of the provided BaseCounter object
@@ -938,10 +931,10 @@ namespace hexen::engine::core::threading
         *
         */
 
-        void waitForCounterInternal(BaseCounter *counter,u32 value, bool pinToCurrentThread);
+		void waitForCounterInternal(BaseCounter *counter, u32 value, bool pinToCurrentThread);
 
 
-        /**
+		/**
         * @brief Adds a ready fiber to the given bundle.
         *
         * This function is used to add a ready fiber to a bundle, given the pinned thread index and the bundle itself.
@@ -956,9 +949,9 @@ namespace hexen::engine::core::threading
         * @return None.
         */
 
-        void addReadyFiber(u32 pinnedThreadIndex, ReadyFiberBundle *bundle);
+		void addReadyFiber(u32 pinnedThreadIndex, ReadyFiberBundle *bundle);
 
-        /**
+		/**
         * @brief Function pointer type for thread start routine.
         *
         * This function pointer type is used to define the signature of the
@@ -970,10 +963,10 @@ namespace hexen::engine::core::threading
         * @return None.
         */
 
-        static HEXEN_THREAD_FUNC_DECL threadStartFunction(vptr arg);
+		static HEXEN_THREAD_FUNC_DECL threadStartFunction(vptr arg);
 
 
-        /**
+		/**
         * @brief Function to start a fiber.
         *
         * This function is used to start a fiber by executing the provided function.
@@ -981,9 +974,9 @@ namespace hexen::engine::core::threading
         * @param arg A pointer to any user-defined data that needs to be passed to the fiber function.
         */
 
-        static void fiberStartFunction(vptr arg);
+		static void fiberStartFunction(vptr arg);
 
-        /**
+		/**
         * @brief This function represents the function that will be executed by a
         *        thread when it is terminated.
         *
@@ -991,7 +984,7 @@ namespace hexen::engine::core::threading
         *
         */
 
-        static void threadEndFunction(vptr arg);
-    };
+		static void threadEndFunction(vptr arg);
+	};
 
-}
+}// namespace hexen::engine::core::threading

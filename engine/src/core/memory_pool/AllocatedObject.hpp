@@ -9,11 +9,10 @@
 #include <memory>
 namespace hexen::engine::core::memory
 {
-    class AllocatedObject
-    {
-    public:
-
-        /**
+	class AllocatedObject
+	{
+	public:
+		/**
         * @class core::mem::AllocatedObject
         *
         * @brief The `AllocatedObject` class provides the `operator delete` function used
@@ -41,10 +40,10 @@ namespace hexen::engine::core::memory
         * @remark This function does not throw any exceptions and is guaranteed to be noexcept.
         */
 
-        void operator delete(vptr address) noexcept;
-        vptr operator new(u64 size);
+		void operator delete(vptr address) noexcept;
+		vptr operator new(u64 size);
 
-        /**
+		/**
         * @class AllocatedObject
         * @brief Represents an allocated memory object.
         *
@@ -53,22 +52,21 @@ namespace hexen::engine::core::memory
         * destructor functions to manage the lifetime of the object.
         */
 
-        AllocatedObject();
-        virtual ~AllocatedObject() = default;
-        AllocatedObject(const AllocatedObject &allocationManager) = default;
-        AllocatedObject(AllocatedObject &&allocationManager) = default;
+		AllocatedObject();
+		virtual ~AllocatedObject() = default;
+		AllocatedObject(const AllocatedObject &allocationManager) = default;
+		AllocatedObject(AllocatedObject &&allocationManager) = default;
 
-        AllocatedObject& operator=(const AllocatedObject &allocationManager) = default;
-        AllocatedObject& operator=(AllocatedObject &&allocationManager) = default;
+		AllocatedObject &operator=(const AllocatedObject &allocationManager) = default;
+		AllocatedObject &operator=(AllocatedObject &&allocationManager) = default;
 
 
+	private:
+		static constexpr u64 POOL_SIZE = 8128;
+		static std::unique_ptr<MemoryPool> memoryPool;
+	};
 
-    private:
-        static constexpr u64 POOL_SIZE = 8128;
-        static std::unique_ptr<MemoryPool> memoryPool;
-    };
-
-    /**
+	/**
      * @brief Creates a unique_ptr object that owns and manages the provided object.
      *
      * This function is similar to the std::make_unique function introduced in C++14,
@@ -101,13 +99,13 @@ namespace hexen::engine::core::memory
      *     // No manual memory deallocation is required.
      */
 
-    template<class T, class... Ts>
-    inline auto make_unique(Ts&&... params)
-    {
-        return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
-    }
+	template<class T, class... Ts>
+	inline auto make_unique(Ts &&...params)
+	{
+		return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
+	}
 
-    /**
+	/**
      * @brief Creates a std::shared_ptr object using variadic template arguments.
      *
      * This function creates a std::shared_ptr object that manages ownership of a dynamically allocated object.
@@ -136,9 +134,9 @@ namespace hexen::engine::core::memory
      * @endcode
      */
 
-    template<class T, class... Ts>
-    inline auto make_shared(Ts&&... params)
-    {
-        return std::shared_ptr<T>(new T(std::forward<Ts>(params)...));
-    }
-}
+	template<class T, class... Ts>
+	inline auto make_shared(Ts &&...params)
+	{
+		return std::shared_ptr<T>(new T(std::forward<Ts>(params)...));
+	}
+}// namespace hexen::engine::core::memory
