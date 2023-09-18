@@ -52,3 +52,11 @@ void hexen::editor::systems::DebugRenderSystem::updateViewAndProjectionMatrices(
 	renderComponent->setProjectionMatrix(camera->getProjectionMatrix());
 	renderComponent->setViewMatrix(camera->getViewMatrix());
 }
+
+void hexen::editor::systems::DebugRenderSystem::updateCameras(float deltaTime)
+{
+	auto camera = hexen::engine::systems::RenderSystem::getMainCamera();
+	HEXEN_ASSERT(camera != nullptr, "Main camera is nullptr!\n");
+
+	camera->update(deltaTime);
+}

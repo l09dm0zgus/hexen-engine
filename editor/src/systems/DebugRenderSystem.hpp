@@ -74,6 +74,17 @@ namespace hexen::editor::systems
 
 		void addDebugGrid();
 
+		/**
+ 		* @class hexen::editor::systems::DebugRenderSystem
+ 		* @brief A system for rendering debug information for cameras in the editor.
+ 		*
+ 		* This system updates the debug rendering for cameras in the editor. It provides
+ 		* functionality to display visual representations of camera frustums, viewports,
+		* and other related debug information.
+ 		*/
+
+		void updateCameras(float deltaTime);
+
 	private:
 		/**
     * @brief Updates the model matrix of the sprite component.

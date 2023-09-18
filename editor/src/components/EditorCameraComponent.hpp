@@ -23,7 +23,7 @@ namespace hexen::editor::components::graphics
         * field of view, and other camera-related functionalities.
         */
 
-		EditorCameraComponent(engine::core::i32 viewportWidth, cengine::core::i32 viewportHeight, float FOV);
+		EditorCameraComponent(engine::core::i32 viewportWidth, engine::core::i32 viewportHeight, float FOV);
 
 		/**
         * Moves the camera component forward by the specified value.

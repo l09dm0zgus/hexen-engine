@@ -3,6 +3,7 @@
 //
 
 #include "EditorSystemsManager.hpp"
+#include "../components/EditorCameraComponent.hpp"
 #include "../gui/EditorGUI.hpp"
 #include "DebugRenderSystem.hpp"
 #include "core/window/Window.hpp"
@@ -10,6 +11,7 @@
 #include <systems/InputHelper.hpp>
 #include <systems/RenderSystem.hpp>
 #include <systems/TaskSystem.hpp>
+
 
 void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::shared_ptr<hexen::editor::gui::EditorGUI> &newEditorGUI)
 {
@@ -28,7 +30,7 @@ void hexen::editor::systems::EditorSystemsManager::start()
 	ADD_FUNCTION_TO_PROFILING
 
 	currentSceneWindowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
-	hexen::engine::systems::RenderSystem::addCameraComponent<hexen::engine::components::graphics::CameraComponent>(currentSceneWindowSize.x, currentSceneWindowSize.y, 90.0f);
+	hexen::engine::systems::RenderSystem::addCameraComponent<components::graphics::EditorCameraComponent>(currentSceneWindowSize.x, currentSceneWindowSize.y, 90.0f);
 
 	SystemsManager::start();
 
@@ -57,6 +59,7 @@ void hexen::editor::systems::EditorSystemsManager::update(float deltaTime)
 {
 	ADD_FUNCTION_TO_PROFILING
 	SystemsManager::update(deltaTime);
+	debugRenderSystem->updateCameras(deltaTime);
 }
 
 void hexen::editor::systems::EditorSystemsManager::addDebugGrid()

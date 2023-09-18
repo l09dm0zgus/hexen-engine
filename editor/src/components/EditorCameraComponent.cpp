@@ -25,6 +25,14 @@ void hexen::editor::components::graphics::EditorCameraComponent::start()
 {
 	CameraComponent::start();
 
+}
+void hexen::editor::components::graphics::EditorCameraComponent::update(float newDeltaTime)
+{
+	CameraComponent::update(newDeltaTime);
+	deltaTime = newDeltaTime;
+}
+hexen::editor::components::graphics::EditorCameraComponent::EditorCameraComponent(hexen::engine::core::i32 viewportWidth, engine::core::i32 viewportHeight, float FOV) : CameraComponent(viewportWidth, viewportHeight, FOV)
+{
 	engine::input::InputHelper::addNewAxisMapping("MoveForward", 1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::W));
 	engine::input::InputHelper::addNewAxisMapping("MoveForward", -1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::S));
 	engine::input::InputHelper::addNewAxisMapping("MoveRight", 1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::D));
@@ -40,12 +48,4 @@ void hexen::editor::components::graphics::EditorCameraComponent::start()
 
 	engine::input::InputHelper::bindAxis("Zoom", [this](float value)
 			{ zoom(value); });
-}
-void hexen::editor::components::graphics::EditorCameraComponent::update(float newDeltaTime)
-{
-	CameraComponent::update(newDeltaTime);
-	deltaTime = newDeltaTime;
-}
-hexen::editor::components::graphics::EditorCameraComponent::EditorCameraComponent(hexen::engine::core::i32 viewportWidth, cengine::core::i32 viewportHeight, float FOV) : CameraComponent(viewportWidth, viewportHeight, FOV)
-{
 }
