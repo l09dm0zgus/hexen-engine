@@ -5,16 +5,15 @@
 #pragma once
 
 
-#include <glm/glm.hpp>
 #include "../../core/Types.hpp"
 #include "../Component.hpp"
+#include <glm/glm.hpp>
 namespace hexen::engine::components::graphics
 {
-    class CameraComponent : public Component
-    {
-    public:
-
-        /**
+	class CameraComponent : public Component
+	{
+	public:
+		/**
         * @class comp::CameraComponent
         * @brief Represents a camera component used in a game engine.
         *
@@ -23,9 +22,9 @@ namespace hexen::engine::components::graphics
         * field of view, and other camera-related functionalities.
         */
 
-        CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV,bool isIsometric = true);
+		CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV, bool isIsometric = true);
 
-        /**
+		/**
         * @fn setPosition
         * @brief Sets the position of the object.
         * @tparam T The type of the new position.
@@ -37,13 +36,14 @@ namespace hexen::engine::components::graphics
         *       The function is marked as noexcept, indicating that it does not throw any exceptions.
         */
 
-        template<class T>void setPosition(T&& newPosition) noexcept
-        {
-            position = std::forward<T>(newPosition);
-            updateViewMatrix();
-        }
+		template<class T>
+		void setPosition(T &&newPosition) noexcept
+		{
+			position = std::forward<T>(newPosition);
+			updateViewMatrix();
+		}
 
-        /**
+		/**
         * @brief Get the view matrix of the camera.
         *
         * This function returns the view matrix of the camera component. The view matrix
@@ -53,9 +53,9 @@ namespace hexen::engine::components::graphics
         * @return The view matrix of the camera.
         */
 
-        [[nodiscard]] glm::mat4 getViewMatrix();
+		[[nodiscard]] glm::mat4 getViewMatrix();
 
-        /**
+		/**
         * @brief Updates the projection matrix of the camera component.
         *
         * This function is used to update the projection matrix of the camera component based on the new screen dimensions.
@@ -67,9 +67,9 @@ namespace hexen::engine::components::graphics
         * @note Make sure to call this function whenever the screen dimensions change to ensure accurate rendering.
         */
 
-        void updateProjectionMatrix(core::u32 newWindowWidth,core::u32 newWindowHeight);
+		void updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight);
 
-        /**
+		/**
         * @brief Retrieves the projection matrix of the camera component.
         *
         * This method returns the 4x4 projection matrix, which is used to transform
@@ -81,9 +81,9 @@ namespace hexen::engine::components::graphics
         * @return The 4x4 projection matrix representing the camera component's projection transformation.
         */
 
-        [[nodiscard]] glm::mat4 getProjectionMatrix();
+		[[nodiscard]] glm::mat4 getProjectionMatrix();
 
-        /**
+		/**
         * @brief Starts the camera component.
         *
         * This function starts the camera component by initializing the necessary resources and setting up the camera.
@@ -91,9 +91,9 @@ namespace hexen::engine::components::graphics
         *
         */
 
-        void start() override;
+		void start() override;
 
-        /**
+		/**
         * @brief Updates the CameraComponent based on the elapsed time.
         *
         * This function updates the CameraComponent based on the elapsed time.
@@ -104,53 +104,21 @@ namespace hexen::engine::components::graphics
         */
 
 
-        void update(float deltaTime) override;
+		void update(float deltaTime) override;
 
-        /**
-        * Moves the camera component forward by the specified value.
+		/**
+        * Sets the setYaw angle of the camera component.
         *
-        * @param value The distance to move the camera forward.
+        * The setYaw angle determines the horizontal rotation of the camera
+        * around the vertical axis. A positive setYaw angle rotates the camera
+        * to the right, while a negative setYaw angle rotates it to the left.
+        *
+        * @param yawAngle The setYaw angle to set, in degrees.
         */
 
-        void moveForward(float value);
+		void setYaw(float yawAngle);
 
-        /**
-        * Moves the camera component to the right by the specified value.
-        *
-        * @param value The amount to move the camera to the right.
-        */
-
-
-        void moveRight(float value);
-
-        /**
-        * @brief Adjusts the zoom level of the camera.
-        *
-        * This function allows adjusting the zoom level of the camera by applying a zoom factor.
-        *
-        * @param value The zoom factor to be applied. A value of 1.0 represents no zoom,
-        *              values greater than 0 represent a zoom-in effect,
-        *              values smaller than 0 represent a zoom-out effect.
-        *
-        * @note The zoom value can be negative to invert the zoom direction.
-        *
-        */
-
-        void zoom(float value);
-
-        /**
-        * Sets the yaw angle of the camera component.
-        *
-        * The yaw angle determines the horizontal rotation of the camera
-        * around the vertical axis. A positive yaw angle rotates the camera
-        * to the right, while a negative yaw angle rotates it to the left.
-        *
-        * @param yawAngle The yaw angle to set, in degrees.
-        */
-
-        void yaw(float yawAngle);
-
-        /**
+		/**
         * Changes the pitch angle of the camera.
         *
         * This function allows you to change the pitch angle of the camera.
@@ -158,25 +126,49 @@ namespace hexen::engine::components::graphics
         * @param pitchAngle The new pitch angle to set, in degrees.
         */
 
-        void pitch(float pitchAngle);
+		void setPitch(float pitchAngle);
 
-    private:
-        bool bIsIsometric{true};
-        float deltaTime{0};
-        glm::vec3 position{5.0f,15.0f,5.0f};
-        glm::mat4 view{1.0f};
-        glm::mat4 projection{1.0f};
-        glm::vec3 cameraTarget{0.0f,0.0f,-1.0f};
-        glm::vec3 cameraUp{1.0f};
-        glm::vec3 cameraRight{1.0f};
-        glm::vec3 worldUp{0.0f,1.0f,0.0f};
+		/**
+ 		* @brief Get the yaw value of the camera.
+ 		*
+ 		* This function returns the yaw value of the camera. The yaw represents
+ 		* the rotation around the vertical y-axis.
+ 		*
+ 		* @return The yaw value of the camera.
+ 		*/
 
-        float FOV{45.0f};
-        float currentYawAngle{-45.0};
-        float currentPitchAngle{270.0f};
+		[[nodiscard]]float getYaw() const noexcept;
 
+		/**
+ 		* @brief Get the pitch angle of the camera.
+ 		*
+ 		* This function returns the pitch angle of the camera component. The pitch angle
+ 		* represents the vertical rotation of the camera around its local x-axis.
+ 		*
+ 		* @return The pitch angle of the camera in degrees.
+ 		*
+	 	* @note This function is const and noexcept, meaning it does not throw any exceptions
+ 		*       and does not modify the internal state of the camera component.
+ 		*/
 
-        /**
+		[[nodiscard]]float getPitch() const noexcept;
+
+	private:
+		glm::mat4 view {1.0f};
+		glm::mat4 projection {1.0f};
+		glm::vec3 worldUp {0.0f, 1.0f, 0.0f};
+
+		float FOV {90.0f};
+		float currentYawAngle {-45.0};
+		float currentPitchAngle {270.0f};
+
+	protected:
+		glm::vec3 cameraUp {1.0f};
+		glm::vec3 cameraRight {1.0f};
+		glm::vec3 cameraTarget {0.0f, 0.0f, -1.0f};
+		glm::vec3 position {5.0f, 15.0f, 5.0f};
+
+		/**
         * @brief Updates the view matrix of the camera component.
         *
         * This function calculates and updates the view matrix of the camera component
@@ -185,7 +177,7 @@ namespace hexen::engine::components::graphics
         *
         */
 
-        void updateViewMatrix();
-    };
-}
+		void updateViewMatrix();
 
+	};
+}// namespace hexen::engine::components::graphics
