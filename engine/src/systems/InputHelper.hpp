@@ -5,11 +5,7 @@
 #pragma once
 #include <memory>
 #include <functional>
-
-namespace hexen::engine::systems
-{
-    class InputSystem;
-}
+#include "InputSystem.hpp"
 
 namespace hexen::engine::input
 {
@@ -57,6 +53,71 @@ namespace hexen::engine::input
         */
 
         static void bindAxis(const std::string& name,const std::function<void(float)> &axisCallback,bool enableForMultiplePLayers = false);
+
+        /**
+       * @class hexen::engine::systems::InputSystem
+       * @brief The InputSystem class manages the input mappings and saving them.
+       *
+       * This class provides functionalities to manage input mappings and save them. It allows the user to
+       * define input mappings for different actions and save them to a file.
+       */
+
+        static void saveMappings();
+
+        /**
+        * @brief Adds a new axis mapping for input handling.
+        *
+        * @param name The name of the axis mapping.
+        * @param value The value to be assigned to the axis.
+        * @param sdlKey The SDL key code for the input.
+        * @param playerId The ID of the player to which the input belongs.
+        */
+
+        static void addNewAxisMapping(const std::string& name,float value,core::u32 sdlKey,core::u8 playerId = 0);
+
+        /**
+        * @brief Adds a new axis mapping to the InputSystem.
+        *
+        * This function adds a new axis mapping to the InputSystem. An axis mapping is used to define a logical axis
+        * based on one or more physical inputs, such as keys, mouse movement, or joystick axes. The axis mapping allows
+        * mapping the physical inputs to a common logical axis, which can then be used for input processing.
+        *
+        * @param axisMapping The AxisMapping structure to be added.
+        *
+        * @see hexen::engine::systems::InputSystem::AxisMapping
+        */
+
+        static void addNewAxisMapping(const systems::InputSystem::AxisMapping& axisMapping);
+
+        /**
+        * @brief Adds a new action mapping to the InputSystem.
+        *
+        * @param name      The name of the action mapping.
+        * @param sdlKey    The SDL key code to associate with the action mapping.
+        * @param playerId  The ID of the player.
+        */
+
+        static void addNewActionMapping(const std::string& name,core::u32 sdlKey,core::u8 playerId = 0);
+
+
+        /**
+        * @brief Adds a new action mapping to the InputSystem.
+        *
+        * This function adds a new action mapping to the InputSystem.
+        *
+        * @param actionMapping The AxisMapping structure to be added.
+        *
+        * @see hexen::engine::systems::InputSystem::ActionMapping
+        */
+
+        static void addNewActionMapping(const systems::InputSystem::ActionMapping& actionMapping);
+
+        /**
+        * @class InputSystem
+        * @brief Handles changing the mapping of a specific input name to a new key.
+        */
+
+        static void changeMapping(const std::string& name, core::u32 newKey);
 
     private:
         static std::shared_ptr<systems::InputSystem> getInputSystem();
