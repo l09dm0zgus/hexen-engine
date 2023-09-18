@@ -18,6 +18,8 @@ std::shared_ptr<hexen::engine::systems::InputSystem> hexen::engine::input::Input
 
     auto  inputSystem = manager->getInputSystem();
     HEXEN_ASSERT(inputSystem != nullptr, "InputSystem is nullptr");
+
+    return inputSystem;
 }
 
 void hexen::engine::input::InputHelper::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers)
