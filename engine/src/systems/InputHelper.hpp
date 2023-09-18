@@ -6,6 +6,7 @@
 #include <memory>
 #include <functional>
 #include "InputSystem.hpp"
+#include "../core/input_devices/Gamepad.hpp"
 
 namespace hexen::engine::input
 {
@@ -118,6 +119,64 @@ namespace hexen::engine::input
         */
 
         static void changeMapping(const std::string& name, core::u32 newKey);
+
+        /**
+         * @brief Checks if a button on the keyboard is currently pressed.
+        *
+        * This function checks whether the specified key on the keyboard is currently
+        * pressed or not.
+        *
+        * @param key The key on the keyboard to check.
+        * @return true if the button is currently pressed, false otherwise.
+        */
+
+        static bool isButtonPressed(core::input::Keyboard::Key key);
+
+        /**
+        * @brief Checks if a button on the mouse is currently pressed.
+        *
+        * This function checks whether the specified button on the  mouse is currently
+        * pressed or not.
+        *
+        * @param button The button on the mouse to check.
+        * @return true if the button is currently pressed, false otherwise.
+        */
+
+        static bool isButtonPressed(core::input::Mouse::Button button);
+
+        /**
+        * @brief Checks if a specific button on the mouse is released.
+        *
+        * This function checks if a specified button on the mouse is currently in the released state.
+        *
+        * @param button The button on the mouse to check for release state.
+        * @return @c true if the specified button is released, @c false otherwise.
+        */
+
+        static bool isButtonReleased(core::input::Mouse::Button button);
+
+        /**
+        * @brief Checks if a button on the first available gamepad is currently pressed.
+        *
+        * This function checks whether the specified button on the gamepad is currently
+        * pressed or not.
+        *
+        * @param button The button on the gamepad to check.
+        * @return true if the button is currently pressed, false otherwise.
+        */
+
+        static bool isButtonPressed(core::input::Gamepad::Button button);
+
+        /**
+        * @brief Checks if a specific button on the first available gamepad is released.
+        *
+        * This function checks if a specified button on the gamepad is currently in the released state.
+        *
+        * @param button The button on the gamepad to check for release state.
+        * @return @c true if the specified button is released, @c false otherwise.
+         */
+
+        static bool isButtonReleased(core::input::Gamepad::Button button);
 
     private:
         static std::shared_ptr<systems::InputSystem> getInputSystem();

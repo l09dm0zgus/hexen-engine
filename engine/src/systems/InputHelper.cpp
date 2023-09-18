@@ -54,3 +54,36 @@ void hexen::engine::input::InputHelper::changeMapping(const std::string &name, h
 {
     getInputSystem()->changeMapping(name,newKey);
 }
+
+bool hexen::engine::input::InputHelper::isButtonPressed(hexen::engine::core::input::Keyboard::Key key)
+{
+    return getInputSystem()->keyboard->isKeyPressed(key);
+}
+
+bool hexen::engine::input::InputHelper::isButtonPressed(hexen::engine::core::input::Mouse::Button button)
+{
+    return getInputSystem()->mouse->isButtonPressed(button);
+}
+
+bool hexen::engine::input::InputHelper::isButtonReleased(hexen::engine::core::input::Mouse::Button button)
+{
+    return getInputSystem()->mouse->isButtonReleased(button);
+}
+
+bool hexen::engine::input::InputHelper::isButtonPressed(hexen::engine::core::input::Gamepad::Button button)
+{
+    if(!getInputSystem()->gamepads.empty())
+    {
+        return getInputSystem()->gamepads[0]->isButtonPressed(button);
+    }
+    return false;
+}
+
+bool hexen::engine::input::InputHelper::isButtonReleased(hexen::engine::core::input::Gamepad::Button button)
+{
+    if(!getInputSystem()->gamepads.empty())
+    {
+        return getInputSystem()->gamepads[0]->isButtonReleased(button);
+    }
+    return false;
+}
