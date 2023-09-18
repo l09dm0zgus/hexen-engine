@@ -41,7 +41,7 @@ namespace hexen::engine::core::input
             X2 = SDL_BUTTON_X2
         };
 
-        enum class AXIS : u8
+        enum class Axis : u8
         {
             X = 6,
             Y,
