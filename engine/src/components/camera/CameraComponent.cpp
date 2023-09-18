@@ -27,7 +27,7 @@ void hexen::engine::components::graphics::CameraComponent::updateViewMatrix()
 	cameraUp = glm::normalize(glm::cross(cameraRight, cameraTarget));
 }
 
-hexen::engine::components::graphics::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV, bool isIsometric)
+hexen::engine::components::graphics::CameraComponent::CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
 {
 	this->FOV = FOV;
 	updateProjectionMatrix(viewportWidth, viewportHeight);

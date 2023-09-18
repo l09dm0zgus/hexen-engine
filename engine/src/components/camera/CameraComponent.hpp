@@ -22,7 +22,7 @@ namespace hexen::engine::components::graphics
         * field of view, and other camera-related functionalities.
         */
 
-		CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV, bool isIsometric = true);
+		CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
 
 		/**
         * @fn setPosition
