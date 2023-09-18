@@ -81,6 +81,8 @@ namespace hexen::engine::systems
         glm::vec2 windowSize{0};
         core::u8 bindedActionsForPlayers{0};
         core::u8 bindedAxisForPlayers{0};
+
+        friend class hexen::engine::input::InputHelper;
     public:
         struct ActionMapping
         {
