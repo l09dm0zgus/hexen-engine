@@ -5,7 +5,7 @@
 
 #include "../Types.hpp"
 #include "RectangleData.hpp"
-#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 
 namespace hexen::engine::graphics::gl
 {

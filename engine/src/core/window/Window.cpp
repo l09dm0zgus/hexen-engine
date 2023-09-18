@@ -1,4 +1,4 @@
-`//
+//
 // Created by cx9ps3 on 28.12.22.
 //
 
@@ -15,7 +15,7 @@
 	#include <utility>
 
 
-		/**
+/**
  * @brief Callback function for handling OpenGL debug messages.
  *
  * This function is used as a callback for `GLDebugMessageCallback`. It receives debug messages
@@ -31,8 +31,7 @@
  * @param UserParam A user-defined parameter that can be set when registering the callback.
  */
 
-		void
-		GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severity, GLsizei Length, const GLchar *Message, const void *UserParam)
+void GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severity, GLsizei Length, const GLchar *Message, const void *UserParam)
 {
 	static std::map<GLenum, const GLchar *> Sources =
 			{
@@ -223,6 +222,3 @@ glm::vec2 hexen::engine::core::Window::getSize()
 	SDL_GetWindowSize(window, &width, &height);
 	return {width, height};
 }
-
-
-`

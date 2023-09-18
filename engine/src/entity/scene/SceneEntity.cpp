@@ -3,17 +3,16 @@
 //
 
 #include "SceneEntity.h"
+#include "../../systems/RenderSystem.hpp"
 #include <algorithm>
 
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name) : hexen::engine::entity::Entity(), name(std::move(name))
 {
-	//TODO add getting TransformComponent from system
-	transformComponent = core::memory::make_shared<components::TransformComponent>();
+	transformComponent = systems::RenderSystem::createTransformComponent();
 }
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : hexen::engine::entity::Entity(UUID), name(std::move(name))
 {
-	//TODO add getting TransformComponent from system
-	transformComponent = core::memory::make_shared<components::TransformComponent>();
+	transformComponent = systems::RenderSystem::createTransformComponent();
 }
 
 hexen::engine::entity::SceneEntity *hexen::engine::entity::SceneEntity::getParent() const noexcept

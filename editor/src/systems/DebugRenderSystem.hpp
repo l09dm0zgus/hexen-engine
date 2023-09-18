@@ -7,7 +7,7 @@
 #include "../components/debug_rendering/DebugGridComponent.hpp"
 #include <core/Types.hpp>
 #include <systems/IRenderSystem.hpp>
-namespace comp
+namespace hexen::engine::components
 {
 	class TransformComponent;
 }

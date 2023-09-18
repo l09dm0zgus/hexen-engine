@@ -8,6 +8,7 @@
 #include "../Types.hpp"
 #include "RectangleData.hpp"
 #include <cstddef>
+#include <glm/glm.hpp>
 namespace hexen::engine::graphics::gl
 {
 	class VertexBufferObject
