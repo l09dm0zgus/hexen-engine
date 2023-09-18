@@ -15,6 +15,17 @@ namespace hexen::editor::components::graphics
 
 	public:
 		/**
+        * @class hexen::editor::components::EditorCameraComponent
+        * @brief Represents a camera component used in editor.
+        *
+        * This class encapsulates the properties and behaviors of a camera used for rendering
+        * a viewport in a game engine. It provides methods for setting the viewport dimensions,
+        * field of view, and other camera-related functionalities.
+        */
+
+		EditorCameraComponent(engine::core::i32 viewportWidth, cengine::core::i32 viewportHeight, float FOV);
+
+		/**
         * Moves the camera component forward by the specified value.
         *
         * @param value The distance to move the camera forward.

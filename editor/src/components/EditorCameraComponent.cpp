@@ -46,3 +46,6 @@ void hexen::editor::components::graphics::EditorCameraComponent::update(float ne
 	CameraComponent::update(newDeltaTime);
 	deltaTime = newDeltaTime;
 }
+hexen::editor::components::graphics::EditorCameraComponent::EditorCameraComponent(hexen::engine::core::i32 viewportWidth, cengine::core::i32 viewportHeight, float FOV) : CameraComponent(viewportWidth, viewportHeight, FOV)
+{
+}
