@@ -34,7 +34,7 @@ void hexen::editor::gui::GTKFileDialog::setDefaultPath(GtkWidget *dialog, const 
 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), defaultPath.c_str());
 }
 
-hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::allocatePathSet(GSList *fileList, edit::gui::INativeFileDialog::PathSet *pathSet)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::allocatePathSet(GSList *fileList, editor::gui::INativeFileDialog::PathSet *pathSet)
 {
 	pathSet->count = g_slist_length(fileList);
 	assert(pathSet->count > 0);
@@ -56,7 +56,7 @@ void hexen::editor::gui::GTKFileDialog::waitForCleanUp()
 	}
 }
 
-hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::openDialog(const edit::gui::INativeFileDialog::FileFilter &filterList, const std::string &defaultPath, std::string &pathToFile)
+hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::GTKFileDialog::openDialog(const editor::gui::INativeFileDialog::FileFilter &filterList, const std::string &defaultPath, std::string &pathToFile)
 {
 	GtkWidget *dialog;
 	Status result;

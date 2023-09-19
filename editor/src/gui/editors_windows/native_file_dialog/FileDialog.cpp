@@ -5,7 +5,7 @@
 #include "FileDialog.hpp"
 
 #if defined(__unix__)
-	#include "GtkFileDialog.h"
+	#include "GtkFileDialog.hpp"
 #elif defined(WIN32)
 	#include "WindowsFileDialog.hpp"
 #endif
@@ -13,7 +13,7 @@
 hexen::editor::gui::FileDialog::FileDialog()
 {
 #if defined(__unix__)
-	nativeFileDialog = core::mem::make_unique<GTKFileDialog>();
+	nativeFileDialog = engine::core::memory::make_unique<GTKFileDialog>();
 #elif defined(WIN32)
 	nativeFileDialog = engine::core::memory::make_unique<WindowsFileDialog>();
 #endif
