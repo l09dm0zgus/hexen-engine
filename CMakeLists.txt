@@ -44,6 +44,12 @@ if(ENABLE_SANITIZERS)
     endif (WIN32)
 endif (ENABLE_SANITIZERS)
 
+if(MSVC)
+    target_compile_options(${ENGINE_NAME} PRIVATE /W4)
+else()
+    target_compile_options(${ENGINE_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
 set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image/include/SDL3_image)
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glm)
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL/include)

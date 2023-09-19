@@ -18,6 +18,11 @@ target_sources(${EDITOR_NAME} PRIVATE
         project/Project.cpp
         )
 
+if(MSVC)
+        target_compile_options(${EDITOR_NAME} PRIVATE /W4)
+else()
+        target_compile_options(${EDITOR_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         target_link_libraries(${EDITOR_NAME} nlohmann_json::nlohmann_json SDL3_image::SDL3_image SDL3::SDL3 libglew_static glm::glm  ${ENGINE_NAME})
