@@ -40,12 +40,9 @@ hexen::editor::components::graphics::EditorCameraComponent::EditorCameraComponen
 	engine::input::InputHelper::addNewAxisMapping("Zoom", 1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::Q));
 	engine::input::InputHelper::addNewAxisMapping("Zoom", -1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::E));
 
-	engine::input::InputHelper::bindAxis("MoveForward", [this](float value)
-			{ moveForward(value); });
+	engine::input::InputHelper::bindAxis("MoveForward", this,&EditorCameraComponent::moveForward);
 
-	engine::input::InputHelper::bindAxis("MoveRight", [this](float value)
-			{ moveRight(value); });
+	engine::input::InputHelper::bindAxis("MoveRight", this,&EditorCameraComponent::moveRight);
 
-	engine::input::InputHelper::bindAxis("Zoom", [this](float value)
-			{ zoom(value); });
+	engine::input::InputHelper::bindAxis("Zoom", this,&EditorCameraComponent::zoom);
 }

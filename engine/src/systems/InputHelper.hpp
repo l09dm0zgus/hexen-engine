@@ -13,6 +13,56 @@ namespace hexen::engine::input
 	class InputHelper
 	{
 	public:
+
+		/**
+ 		* Templated function `bindAction` for binding an action specified by `name` to a member function `method` of an instance of class T `object`.
+ 		*
+ 		* @tparam T The class type of the object on which the member function to be bound is declared.
+ 		*
+ 		* @param name The name of the action to be bound. This name will be used to invoke the action.
+ 		* @param object Pointer to the object on which the member function is to be invoked.
+ 		* @param method The member function of class type T which is to be bound to action.
+ 		* @param enableForMultiplePlayers Optional parameter, defaulting to false. If set true, the same action can be triggered by multiple players.
+ 		*
+ 		* The purpose of this function is to associate or "bind" a particular method (which could be a function of game logic,
+ 		* character behavior, etc.) of a game object to a named action. Once the action is bound to the function, the action's name can be used
+ 		* to trigger the function. This is particularly useful for configuring controls and user interaction in the game. For instance,
+ 		* a certain character's "jump" function might be bound to the action named "Jump", so that whenever the game logic decides
+ 		* that a "Jump" action has occurred (like when the player presses the corresponding button), the character's jump function will be
+ 		* executed.
+ 		*
+ 		* Usage:
+ 		* bindAction<ClassName>("ActionName", &instance, &ClassName::method);
+ 		*/
+
+		template<class T>
+		static void bindAction(const std::string &name,T *object,void (T::*method)() , bool enableForMultiplePLayers = false)
+		{
+			auto function = std::bind(method,object);
+			getInputSystem()->bindAction(name,function);
+		}
+
+		/**
+ 		* @tparam T  Any class type that has a method accepting a single float as argument.
+ 		*
+ 		* This is a template function to bind an axis in the input system to a specific method of a class.
+ 		* This is particularly useful to respond to varying degrees of input (like joystick or steering wheel)
+ 		* It binds the given method of the provided object instance to an input axis having the specified name.
+ 		*
+	 	* @param name   The name of the axis, as a string. This is the identifier for the axis in the input system.
+ 		* @param object  A pointer to an instance of a class of type T. It's the object to which the method is bound.
+ 		* @param method  A pointer to the member function of class type T to be bound to the axis. This method is expected to take a single float parameter, e.g., void (T::*method)(float).
+ 		* @param enableForMultiplePlayers Optional parameter, defaults to `false`. If `false`, axis is bound to a single player.
+ 		*                                      If `true`, it indicates the axis is applicable for multiple players.
+ 		*/
+
+		template<class T>
+		static void bindAxis(const std::string &name,T *object,void (T::*method)(float) , bool enableForMultiplePLayers = false)
+		{
+			auto function = std::bind(method, object,std::placeholders::_1);
+			getInputSystem()->bindAxis(name,function);
+		}
+
 		/**
         * Binds an action to a given callback function in the InputSystem.
         *

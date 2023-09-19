@@ -372,7 +372,6 @@ namespace hexen::engine::systems
         */
 
 		AxisMappingCallback findAxisMappingCallback(core::u32 playerId, const std::string &name);
-		;
 	};
 
 }// namespace hexen::engine::systems

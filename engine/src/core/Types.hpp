@@ -106,7 +106,7 @@ namespace hexen::engine::core
 	HEXEN_INLINE core::u32 hashString(const std::string &s)
 	{
 		core::u32 hash {0};
-		for (core::i32 i {0}; i < HASHING_ROUNDS; i++)
+		for (core::u32 i {0}; i < HASHING_ROUNDS; i++)
 		{
 			hash = crc32((core::u8 *) s.c_str(), s.size(), hash);
 		}
