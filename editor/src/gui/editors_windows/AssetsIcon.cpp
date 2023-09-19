@@ -107,7 +107,7 @@ void hexen::editor::gui::AssetIcon::draw()
 {
 	isCtrlPressed = ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
 	ImGui::PushStyleColor(ImGuiCol_Button, color);
-	isClicked = ImGui::ImageButton(name.string().c_str(), (ImTextureID) textureId, ImVec2(size.x, size.y));
+	isClicked = ImGui::ImageButton(name.string().c_str(), reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
 	setAssetWindowHoveredIcon();
 
 	createDragAndDropSource();
@@ -155,7 +155,8 @@ void hexen::editor::gui::AssetIcon::showFilename()
 {
 	if (!isEditingName)
 	{
-		ImGui::TextWrapped(name.string().c_str());
+		auto text = name.string().c_str();
+		ImGui::TextWrapped(text);
 		if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 		{
 			isEditingName = true;

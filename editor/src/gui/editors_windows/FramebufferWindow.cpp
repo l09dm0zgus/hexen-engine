@@ -45,7 +45,9 @@ void hexen::editor::gui::FramebufferWindow::draw()
 		size.x = windowSize.x;
 		size.y = windowSize.y;
 
-		ImGui::Image((ImTextureID) frameBufferTexture->getID(), ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
+		auto textureId = frameBufferTexture->getID();
+
+		ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::EndChild();
 	}
 	ImGui::End();
