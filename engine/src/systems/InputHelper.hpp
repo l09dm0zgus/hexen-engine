@@ -10,6 +10,14 @@
 
 namespace hexen::engine::input
 {
+	/**
+ 	* @class InputHelper
+ 	* @brief A helper class for handling user inputs.
+ 	*
+ 	* The InputHelper class provides functionalities
+ 	* for capturing and processing user inputs.
+ 	*/
+
 	class InputHelper
 	{
 	public:

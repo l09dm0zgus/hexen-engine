@@ -25,9 +25,19 @@ namespace hexen::engine::input
 
 namespace hexen::engine::systems
 {
+	/**
+ 	* @class InputSystem
+ 	* @brief A class that handles the input system for the game engine, inheriting from core::memory::AllocatedObject
+ 	*/
+
 	class InputSystem : public core::memory::AllocatedObject
 	{
 	private:
+		/**
+         * @struct ActionMappingCallback
+         * @brief A callback structure for action mappings
+         */
+
 		struct ActionMappingCallback
 		{
 
@@ -37,12 +47,32 @@ namespace hexen::engine::systems
 		public:
 			core::u32 playerId {};
 			std::string name;
+
+			/**
+             * @brief Constructor
+             * @param callback The function that is called when action is triggered
+             * @param name The name of the action
+             */
+
 			ActionMappingCallback(const std::function<void()> &callback, const std::string &name) : callback(callback), name(name) {};
+
+			/**
+            * @brief Overload function call operator
+            */
+
 			void operator()()
 			{
 				callback();
 			}
 		};
+
+		/**
+ 		* @struct AxisMappingCallback
+ 		* @brief This struct encapsulates the functionality of a callback for axis mapping.
+ 		*
+ 		* This struct is part of a real-time input handling system to manage input axis values.
+ 		* It holds necessary information such as a player id, name to trace the callback and an associated function to trigger.
+ 		*/
 
 		struct AxisMappingCallback
 		{
@@ -51,36 +81,107 @@ namespace hexen::engine::systems
 			std::function<void(float)> callback;
 
 		public:
-			friend class hexen::engine::input::InputHelper;
-
 			core::u32 playerId {};
 			std::string name;
+
+			/**
+     		*
+     		* @brief Constructor for AxisMappingCallback
+     		* @param callback The function to call when the axis input is detected.
+     		* @param name The name to use for the callback.
+     		*/
+
 			AxisMappingCallback(const std::function<void(float)> &callback, const std::string &name) : callback(callback), name(name) {}
+
+			/**
+     		* @brief Operator override to call the callback function.
+     		* @param value The axis value.
+     		*/
+
 			void operator()(float value) const
 			{
 				callback(value);
 			}
 		};
 
+		/**
+ 		* @brief Type alias for a list of ActionMappingCallback.
+ 		*/
+
 		using ActionMappingsCallbacks = std::vector<ActionMappingCallback>;
+
+		/**
+ 		* @brief Type alias for a list of AxisMappingCallback.
+ 		*/
+
 		using AxisMappingCallbacks = std::vector<AxisMappingCallback>;
 
+		/**
+ 		* @brief A unique pointer to a Mouse object.
+ 		*/
+
 		std::unique_ptr<core::input::Mouse> mouse;
+
+		/**
+ 		* @brief A unique pointer to a Keyboard object.
+ 		*/
+
 		std::unique_ptr<core::input::Keyboard> keyboard;
+
+		/**
+ 		* @brief A list of shared pointers to Gamepad objects.
+ 		*/
+
 		std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> gamepads;
+
+		/**
+ 		* @brief JSON object for key mappings.
+ 		*/
 
 		nlohmann::json keyMappingsFile;
 
+		/**
+ 		* @brief List of action mappings callbacks.
+ 		*/
+
 		ActionMappingsCallbacks actionMappingCallbacks;
+
+		/**
+ 		* @brief List of axis mappings callbacks.
+ 		*/
+
 		AxisMappingCallbacks axisMappingCallbacks;
 
 		std::string path;
+
+		/**
+ 		* @brief A list of shared pointers to IGUI objects.
+ 		*/
+
 		std::vector<std::shared_ptr<gui::IGUI>> guis;
+
+		/**
+ 		* @brief Maximum value for Gamepad Axis.
+ 		*/
 
 		static constexpr core::u32 MAX_GAMEPAD_AXIS_VALUE = 32767;
 
+		/**
+ 		* @brief Window size vector.
+ 		*/
+
 		glm::vec2 windowSize {0};
+
+		/**
+ 		* @brief Count of binded actions for players.
+ 		*/
+
 		core::u8 bindedActionsForPlayers {0};
+
+		/**
+ 		* @brief Count of binded axis for players.
+ 		*/
+
 		core::u8 bindedAxisForPlayers {0};
 
 		friend class hexen::engine::input::InputHelper;

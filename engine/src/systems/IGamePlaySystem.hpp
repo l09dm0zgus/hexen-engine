@@ -10,46 +10,58 @@
 
 namespace hexen::engine::systems
 {
+	/**
+ 	* @class IGamePlaySystem
+ 	* @brief This is an interface for the game play system.
+ 	*
+	* This class is derived from the @c core::memory::AllocatedObject class.
+ 	* Detailed description of the class. Explain how it is used, include sample code if appropriate.
+ 	*
+ 	*
+ 	* @sa core::memory::AllocatedObject
+ 	*/
+
 	class IGamePlaySystem : public core::memory::AllocatedObject
 	{
 	public:
+
 		/**
-        * @class IGamePlaySystem
-        * @brief Interface for the game play system.
-        *
-        * This class defines the interface for the game play system.
-        * Game play system is responsible for handling the game logic and mechanics.
-        * It provides the necessary methods to control the game's behavior, such as starting, pausing, and ending the game.
-        */
+ 		* @brief Default constructor for the IGamePlaySystem.
+ 		*
+ 		* This constructor initializes the IGamePlaySystem object using the default constructor provided by the compiler.
+ 		*/
 
 		IGamePlaySystem() = default;
 
 		/**
-        * @class IGamePlaySystem
-        * @brief Interface for the Game Play System
-        *
-        * This interface represents the Game Play System, which is responsible for managing the game play logic
-        * and rules. It provides a set of methods that should be implemented by any concrete game play system.
-        */
+ 		* @brief Default constructor for the IGamePlaySystem.
+ 		*
+ 		* This constructor initializes the IGamePlaySystem object using the default constructor provided by the compiler.
+ 		*/
 
 		~IGamePlaySystem() override = default;
 
 		/**
-        * @class IGamePlaySystem
-        * @brief Interface for the game play system.
-        *
-        * This interface provides the necessary methods and operation for the game play system.
-        */
+ 		* @brief Deleted move constructor.
+ 		*
+ 		* This constructor is declared as deleted because we don't want the objects
+ 		* of this class to be movable. This is a design decision to ensure exclusive ownership.
+ 		*
+ 		* @param system The IGamePlaySystem object to be moved. Since the function is deleted,
+ 		* this parameter would never actually be used.
+ 		*/
 
 		IGamePlaySystem(IGamePlaySystem &&system) = delete;
 
 		/**
-        * @class IGamePlaySystem
-        * @brief Class for the game play system interface.
-        *
-        * This class represents the interface of a game play system. It defines a pure virtual function for the copy constructor
-        * and deletes the copy constructor by default. Objects of classes derived from this interface should not be copyable.
-        */
+ 		* @brief Copy constructor for the IGamePlaySystem class
+ 		*
+ 		* This copy constructor is deleted to prevent the instances of this class
+ 		* from being able to be copied, which could lead to problems like
+ 		* shallow copies of pointers, double freeing of memory, etc.
+ 		*
+ 		* @param system The other IGamePlaySystem object to copy from
+ 		*/
 
 		IGamePlaySystem(const IGamePlaySystem &system) = delete;
 		/**

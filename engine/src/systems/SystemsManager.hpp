@@ -15,9 +15,23 @@ namespace hexen::engine::systems
 {
 	class InputSystem;
 
+	/**
+ 	* @class SystemsManager
+ 	* @brief Class responsible for managing all systems in the game engine.
+ 	*
+ 	* The SystemsManager class is responsible for creating, managing, and updating all systems
+ 	* in the game engine. It acts as a central hub for accessing and coordinating the different
+ 	* systems that make up the engine.
+ 	* This class is part of the Hexen game engine.
+ 	*/
+
 	class SystemsManager : public hexen::engine::core::memory::AllocatedObject
 	{
 	protected:
+		/**
+     	* @brief Input system that is shared across the game
+     	*/
+
 		std::shared_ptr<hexen::engine::systems::InputSystem> inputSystem;
 
 	private:
@@ -173,15 +187,8 @@ namespace hexen::engine::systems
 		}
 
 		/**
-        * @class SystemsManager
-        * @brief Class responsible for managing all systems in the game engine.
-        *
-        * The SystemsManager class is responsible for creating, managing, and updating all systems
-        * in the game engine. It acts as a central hub for accessing and coordinating the different
-        * systems that make up the engine.
-        *
-        * This class is part of the Hexen game engine.
-        */
+     	* @brief Constructor for SystemsManager class.
+     	*/
 
 		SystemsManager();
 
@@ -190,6 +197,12 @@ namespace hexen::engine::systems
         */
 
 		~SystemsManager() override = default;
+
+		/**
+     	* @brief Getter function for the input system
+     	*
+     	* @return Returns a shared pointer to the input system
+     	*/
 
 		[[nodiscard]] std::shared_ptr<InputSystem> getInputSystem() const noexcept;
 	};

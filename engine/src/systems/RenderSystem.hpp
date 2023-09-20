@@ -15,17 +15,22 @@
 
 namespace hexen::engine::systems
 {
+	/**
+	 * @class RenderSystem
+	 * @brief The RenderSystem class handles the rendering of graphics.
+	 *
+	 * The RenderSystem class manages the rendering process by creating and
+	 * managing various rendering resources. It provides functions to initialize, update, and render
+	 * the graphics in a given scene.
+	 */
 	class RenderSystem : public IRenderSystem
 	{
 	public:
 		/**
-        * @class RenderSystem
-        * @brief The RenderSystem class handles the rendering of graphics.
-        *
-        *  The RenderSystem class manages the rendering process by creating and
-        * managing various rendering resources. It provides functions to initialize, update, and render
-        * the graphics in a given scene.
-        */
+ 		* @brief This is the constructor for the RenderSystem class.
+ 		*
+ 		* @param sizeOfVectors This parameter represents the size of vectors to be used.
+ 		*/
 
 		explicit RenderSystem(core::u32 sizeOfVectors);
 

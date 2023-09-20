@@ -7,39 +7,48 @@
 
 namespace hexen::engine::systems
 {
+	/**
+ 	* @class IRenderSystem
+ 	* @brief This class represents the interface for the Render System.
+ 	*
+ 	* The IRenderSystem class provides an interface to be implemented by specific Render Systems.
+ 	* It inherits from the AllocatedObject class in the core::memory namespace.
+ 	*
+ 	* @see core::memory::AllocatedObject
+ 	*/
+
 	class IRenderSystem : public core::memory::AllocatedObject
 	{
 	public:
+
 		/**
-        * @class IRenderSystem
-        * @brief Interface for a render system
-        *
-        * This class defines the interface for a render system. It provides the base functionality
-        * required for rendering graphics in game.
-        */
+ 		* @brief Default constructor
+ 		*
+ 		* This is the default constructor for the IRenderSystem class
+ 		*/
 
 		IRenderSystem() = default;
 
 		/**
-        * @class IRenderSystem
-        * @brief Interface for a rendering system.
-        *
-        * This class defines the interface for a rendering system. It is intended to be used as a base class for implementing
-        * specific rendering systems.
-        *
-        * The IRenderSystem class provides a default constructor, allowing it to be instantiated. However, since it is an
-        * interface, it should not be directly instantiated.
-        */
+ 		* @brief Destructor for IRenderSystem
+ 		*
+ 		* This is the destructor for the IRenderSystem class.
+ 		* The destructor is declared as default, meaning the
+ 		* compiler will generate the destructor for you.
+ 		* The override keyword is used to specify that this
+		 * destructor overrides a virtual destructor in the base class.
+ 		*/
 
 		~IRenderSystem() override = default;
 
 		/**
-        * @class IRenderSystem
-        * @brief Interface for the Render System.
-        *
-        * The IRenderSystem interface provides methods for the Render System.
-        * It defines the behavior and functionalities of the Render System.
-        */
+		* @brief Deleted move constructor of IRenderSystem.
+		*
+		* Prevent copying of the underlying instance of the class by deleting the move constructor.
+		*
+		* @param IRenderSystem An rvalue reference to an IRenderSystem object to be moved.
+		* @note The constructor has been deleted to prevent move semantics.
+		*/
 
 		IRenderSystem(IRenderSystem &&) = delete;
 
