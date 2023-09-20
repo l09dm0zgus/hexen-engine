@@ -8,25 +8,49 @@
 namespace hexen::engine::core::threading
 {
 
-	using FiberStartRoutine = void (*)(void *arg);
+	/// Defines a function-pointer type for the starting routine of the fiber
+	using fiberStartRoutine = void (*)(hexen::engine::core::vptr arg);
+
+	/**
+	* @class Fiber
+ 	* The Fiber class represents a fiber (lightweight, non-preemptive
+ 	* threads) in the HexenEngine core.
+ 	*/
 
 	class Fiber
 	{
 	public:
+		///@brief Default constructor
 		Fiber() = default;
 
-		Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg);
+		/**
+        * @brief Constructor with parameters
+        * @param stackSize Size of the stack
+        * @param startRoutine Starting routine for the fiber
+        * @param arg Arguments for the thread
+        */
 
+		Fiber(size_t stackSize, fiberStartRoutine startRoutine, void *arg);
 
+		/// Disallow copying
 		Fiber(Fiber const &other) = delete;
 
 		Fiber &operator=(Fiber const &other) = delete;
 
+		/**
+        * @brief Move constructor
+        * @param other A Fiber object to move from
+        */
 
 		Fiber(Fiber &&other) noexcept : Fiber()
 		{
 			swap(*this, other);
 		}
+
+		/**
+        * @brief Move assignment operator
+        * @param other A Fiber object to move from
+        */
 
 		Fiber &operator=(Fiber &&other) noexcept
 		{
@@ -34,28 +58,50 @@ namespace hexen::engine::core::threading
 
 			return *this;
 		}
+
+		/// @brief Destructor
+
 		~Fiber();
 
 	private:
-		void *stack {nullptr};
+		vptr stack {nullptr};
 		size_t systemPageSize {0};
 		size_t stackSize {0};
 		boost_context::fcontext_t context {nullptr};
-		void *arg {nullptr};
+		vptr arg {nullptr};
 
 	public:
+
+		/**
+        * @brief Switch to a different fiber
+        * @param fiber The Fiber object to switch to
+        */
+
 		void switchToFiber(Fiber *const fiber)
 		{
 			boost_context::jump_fcontext(&context, fiber->context, fiber->arg);
 		}
 
-		void reset(FiberStartRoutine const startRoutine, void *const arg)
+		/**
+        * @brief Reset the fiber with a new start routine and arguments
+        * @param startRoutine The new starting routine for the fiber
+        * @param arg The new arguments for the thread
+        */
+
+		void reset(fiberStartRoutine const startRoutine, vptr const arg)
 		{
 			context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
 			this->arg = arg;
 		}
 
 	private:
+
+		/**
+        * @brief Swap two Fiber objects
+        * @param first The first Fiber object
+        * @param second The second Fiber object
+        */
+
 		static void swap(Fiber &first, Fiber &second) noexcept;
 	};
 

@@ -20,12 +20,30 @@ namespace hexen::engine::core::threading
 	class AtomicFlag;
 	class FullAtomicCounter;
 
+	/**
+ 	* @struct TaskSchedulerInitOptions
+ 	* @brief This struct is used for initializing task scheduler options.
+ 	*
+ 	* Use this struct to specify your preferred configuration for the task scheduler.
+ 	* You can adjust properties like priority, time-slice length, etc.
+ 	*
+ 	*/
+
 	enum class EmptyQueueBehavior
 	{
 		Spin,
 		Yield,
 		Sleep
 	};
+
+	/**
+ 	* @struct TaskSchedulerInitOptions
+ 	* @brief This struct is used for initializing task scheduler options.
+ 	*
+ 	* Use this struct to specify your preferred configuration for the task scheduler.
+ 	* You can adjust properties like priority, time-slice length, etc.
+ 	*
+ 	*/
 
 	struct TaskSchedulerInitOptions
 	{
@@ -84,87 +102,100 @@ namespace hexen::engine::core::threading
 		EventCallbacks callbacks;
 	};
 
+	/**
+     * @class TaskScheduler
+     * @brief The TaskScheduler class is responsible for scheduling and managing tasks.
+     *
+     *  The TaskScheduler class provides functionality for scheduling and managing tasks.
+     * It allows adding new tasks, removing existing tasks, and executing tasks at a specific time or interval.
+     */
+
 	class TaskScheduler
 	{
 	public:
 		/**
-        * @class TaskScheduler
-        * @brief The TaskScheduler class is responsible for scheduling and managing tasks.
-        *
-        *  The TaskScheduler class provides functionality for scheduling and managing tasks.
-        * It allows adding new tasks, removing existing tasks, and executing tasks at a specific time or interval.
-        */
-
+ 		* @brief Default constructor for TaskScheduler.
+ 		*
+		* The TaskScheduler is constructed with default properties.
+ 		* No parameters are needed.
+ 		*/
 		TaskScheduler() = default;
 
 		/**
-        * @class TaskScheduler
-        * @brief This class represents a task scheduler that manages the execution of tasks.
-        *
-        * The TaskScheduler class provides the functionality to schedule and execute tasks
-        * at specified times or intervals. It ensures that only one instance of the TaskScheduler
-        * can be created and disallows copy construction.
-        *
-        * @note This class must be used as a singleton to ensure correct functionality.
-        */
+ 		* @brief Deleted copy constructor for the TaskScheduler class.
+ 		*
+ 		* This constructor has been explicitly deleted to prevent
+ 		* instances of TaskScheduler from being copied. This is done
+ 		* to enforce that each TaskScheduler instance is unique.
+ 		*
+		*/
 
 		TaskScheduler(TaskScheduler const &) = delete;
 
 		/**
-        * @class TaskScheduler
-        * @brief Class that represents a task scheduler.
-        *
-        * The TaskScheduler class is responsible for scheduling and executing tasks asynchronously.
-        * It provides functionality to move (i.e., transfer ownership) of a TaskScheduler object.
-        *
-        * @note This class is non-copyable, and the move constructor is explicitly deleted.
-        *
-        * @see Task
-        */
+ 		* @brief Deleted move constructor for TaskScheduler
+ 		*
+ 		* This constructor is explicitly marked as `delete` to prevent
+ 		* instances of TaskScheduler from being moved. This is usually
+ 		* done when we want to prevent the creation of an object in a particular way.
+ 		*
+ 		* @param TaskScheduler &&  : Deleted rvalue reference to TaskScheduler object
+ 		* @return TaskScheduler : This won't return a TaskScheduler object as it's deleted
+ 		*/
 
 		TaskScheduler(TaskScheduler &&) noexcept = delete;
+		;
 
 		/**
-        * @brief Assignment operator overload (deleted)
-        *
-        * This assignment operator overload is deleted, meaning it is not
-        * allowed to assign one instance of TaskScheduler to another.
-        *
-        * @param rhs The right-hand side of the assignment
-        *
-        * @return This function does not return a value
-        */
+ 		* @brief Overloads the assignment operator for the TaskScheduler class to disable copying.
+ 		*
+ 		* This particular overload for the assignment operator was deleted to prevent the generation of
+ 		* a default one by the compiler. It's a common technique in C++ to reinforce the non-copyable
+ 		* nature of a class.
+ 		*
+ 		* @param const TaskScheduler reference as input
+ 		* @return a reference to TaskScheduler object
+		*/
 
 		TaskScheduler &operator=(TaskScheduler const &) = delete;
 
 		/**
-        *
-        * @class TaskScheduler
-        * @brief Represents a task scheduler with a deleted move assignment operator.
-        *
-        * This class is responsible for managing and scheduling tasks using a task queue.
-        *
-        * @note
-        * This class does not allow move assignment.
-        *
-        * @author Your Name
-        * @date Current Date
-        *
-        */
+ 		* @brief Copy assignment operator is deleted to avoid copying TaskScheduler objects
+ 		*
+ 		* This operator is declared with noexcept specifier and is deleted to avoid shallow copy
+ 		* or other undefined behaviour related with the move assignments.
+ 		*
+ 		* @param TaskScheduler&& - rvalue reference to an instance of the TaskScheduler class.
+ 		* @return A reference to TaskScheduler object
+ 		*/
 
 		TaskScheduler &operator=(TaskScheduler &&) noexcept = delete;
 
 		/**
-        * @class TaskScheduler
-        * @brief This class represents a task scheduler that manages the execution of multiple tasks.
-        *
-        * The TaskScheduler class allows registering tasks and scheduling their execution based on a specified interval.
-        * It provides methods to add, remove, and query tasks, as well as to start and stop the scheduler.
-        */
+ 		* @brief Destructor for the TaskScheduler class
+ 		*
+ 		* This destructor is called when the TaskScheduler object is being destroyed. It performs any necessary
+	 	* cleanup tasks to prevent memory leaks or data corruption.
+		*/
 
 		~TaskScheduler();
 
 	private:
+		/**
+ 		* @enum FiberDestination
+ 		* @brief An enumeration of the different destinations a fiber can go.
+ 		* Every fiber has to be directed to one of these destinations.
+ 		*
+ 		* @var FiberDestination::None
+ 		* Member 'None' is a specifier for when fiber doesn't move. It stays at its current location.
+ 		*
+ 		* @var FiberDestination::ToPool
+ 		* Member 'ToPool' specifies that the fiber is moved to the pool.
+		*
+ 		* @var FiberDestination::ToWaiting
+ 		* Member 'ToWaiting' specifies that the fiber is moved to the waiting area.
+ 		*/
+
 		enum class FiberDestination
 		{
 			None = 0,
@@ -172,37 +203,58 @@ namespace hexen::engine::core::threading
 			ToWaiting = 2,
 		};
 
+		/**
+ 		* @struct TaskBundle
+ 		* @brief A structure that represents a bundle of tasks.
+ 		*
+ 		* Detailed description of the `TaskBundle` structure, its purpose and how it works.
+ 		*/
+
 		struct TaskBundle
 		{
 
 			/**
-        * @brief Variable representing a task that needs to be executed.
-        *
-        * This variable stores the details of a task that needs to be executed. It can be used to
-        * schedule and manage tasks within a software application. The task can be any unit of
-        * work or action that needs to be performed.
-        */
+        	* @brief Variable representing a task that needs to be executed.
+        	*
+        	* This variable stores the details of a task that needs to be executed. It can be used to
+        	* schedule and manage tasks within a software application. The task can be any unit of
+        	* work or action that needs to be performed.
+        	*/
 
 			Task taskToExecute;
+
+			/**
+ 			*  @brief This is a pointer to a TaskCounter object.
+ 			*
+ 			*  This variable is used to track the number of tasks. It's not
+ 			*  fully initialized and must be set to an instance of TaskCounter
+ 			*  before its use.
+ 			*/
+
 			TaskCounter *counter {};
 		};
 
+		/**
+        * @struct ReadyFiberBundle
+        * @brief A class representing a ready-to-use fiber bundle.
+        *
+        * The ReadyFiberBundle class provides the necessary capabilities to manage a fiber bundle
+        * that is ready for use. It encapsulates the default constructor, which initializes the
+        * object with default values.
+        *
+        * Here is how to use the ReadyFiberBundle class:
+        * - Create an instance of ReadyFiberBundle using the default constructor.
+        * - Use the various methods and properties provided by the class to manipulate the fiber bundle.
+        *
+        */
+
 		struct ReadyFiberBundle
 		{
-
 			/**
-            * @class ReadyFiberBundle
-            * @brief A class representing a ready-to-use fiber bundle.
-            *
-            * The ReadyFiberBundle class provides the necessary capabilities to manage a fiber bundle
-            * that is ready for use. It encapsulates the default constructor, which initializes the
-            * object with default values.
-            *
-            * Here is how to use the ReadyFiberBundle class:
-            * - Create an instance of ReadyFiberBundle using the default constructor.
-            * - Use the various methods and properties provided by the class to manipulate the fiber bundle.
-            *
-            */
+ 			* @brief   Default constructor for ReadyFiberBundle.
+ 			*
+ 			*  This constructor creates an instance of ReadyFiberBundle with default values.
+ 			*/
 
 			ReadyFiberBundle() = default;
 
@@ -237,16 +289,32 @@ namespace hexen::engine::core::threading
 			std::atomic<bool> fiberIsSwitched;
 		};
 
+		/**
+ 		* @struct ThreadLocalStorage
+ 		*
+ 		* @brief A struct optimized for cache line size, reducing false sharing.
+ 		*
+ 		* Every instance of this struct will occupy memory aligned to the cache line size.
+ 		*
+ 		* @note The actual definition of the struct needs to be provided somewhere else.
+ 		* This here just declares the alignment directive.
+ 		*
+ 		* @warning The cache line size ('cacheLineSize') has to be declared and appropriately sized elsewhere in the code.
+ 		*
+		*/
+
 		struct alignas(cacheLineSize) ThreadLocalStorage
 		{
+
+		public:
 			/**
-            * @class ThreadLocalStorage
-            * @brief This class represents the thread-specific storage for a fiber system.
-            */
+     		* @brief Default constructor.
+    	 	*
+     		* The ThreadLocalStorage default constructor initializes currentFiberIndex and oldFiberIndex to an invalidIndex.
+     		*/
 
 			ThreadLocalStorage() : currentFiberIndex(invalidIndex), oldFiberIndex(invalidIndex) {}
 
-		public:
 			/**
             * @brief The `highPriorityTaskQueue` variable is a queue that stores high priority tasks.
             *

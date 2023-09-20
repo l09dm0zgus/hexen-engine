@@ -10,6 +10,13 @@
 
 namespace hexen::engine::core::threading
 {
+	/**
+	* @class WaitFreeQueue
+	* @brief A wait-free concurrent queue.
+	*
+	* @tparam T The type of the elements in the queue.
+	*/
+
 	template<typename T>
 	class WaitFreeQueue
 	{
@@ -17,12 +24,53 @@ namespace hexen::engine::core::threading
 		constexpr static size_t startingCircularArraySize = 32;
 
 	public:
+		/**
+    	* @brief Constructor.
+    	*
+    	* Initializes an empty queue.
+    	*/
+
 		WaitFreeQueue() : top(1), bottom(1), array(new CircularArray(startingCircularArraySize)) {}
 
+		/**
+     	* @brief Deleted copy constructor to ensure that instances of WaitFreeQueue can't be copied.
+     	*
+     	* @param other Another instance of WaitFreeQueue.
+     	*/
+
 		WaitFreeQueue(WaitFreeQueue const &) = delete;
+
+		/**
+     	* @brief Deleted move constructor to provide strong exception guarantee (noexcept).
+     	* Instances of WaitFreeQueue can't be moved.
+     	*
+     	* @param other Another instance of WaitFreeQueue.
+     	*/
+
 		WaitFreeQueue(WaitFreeQueue &&) noexcept = delete;
+
+		/**
+     	* @brief Deleted copy assignment operator to ensure that instances of WaitFreeQueue can't be copied.
+     	*
+     	* @param other Another instance of WaitFreeQueue.
+     	* @return reference to the instance.
+     	*/
+
 		WaitFreeQueue &operator=(WaitFreeQueue const &) = delete;
+
+		/**
+     	* @brief Deleted move assignment operator to provide strong exception guarantee (noexcept).
+     	* Instances of WaitFreeQueue can't be moved.
+     	*
+     	* @param other Another instance of WaitFreeQueue.
+     	* @return reference to the instance.
+     	*/
+
 		WaitFreeQueue &operator=(WaitFreeQueue &&) noexcept = delete;
+
+		/**
+     	* @brief Destructor that releases the memory allocated by the waiter-free queue.
+     	*/
 
 		~WaitFreeQueue()
 		{
@@ -30,37 +78,78 @@ namespace hexen::engine::core::threading
 		}
 
 	private:
+		/**
+ 		* @class CircularArray
+ 		* @brief A class that represents a circular array.
+ 		*
+ 		* This class provides methods for managing a circular array. It allows
+ 		* growing the array which returns a new circular array object and keeps
+ 		* a linked list of all previous arrays. This is done because other threads
+ 		* could still be accessing elements from the smaller arrays.
+ 		*/
+
 		class CircularArray
 		{
 		public:
+			/**
+     		* @brief Constructor for CircularArray class.
+     		* @param n The initial size of the circular array. It must be a power of 2.
+     		*/
+
 			explicit CircularArray(size_t const n) : items(n)
 			{
 				HEXEN_ASSERT(!(n == 0) && !(n & (n - 1)), "n must be a power of 2");
 			}
 
 		private:
-			std::vector<T> items;
-			std::unique_ptr<CircularArray> previous;
+			std::vector<T> items;					///@brief A vector storing the circular array elements
+			std::unique_ptr<CircularArray> previous;///@brief A unique pointer to the previous CircularArray object
 
 		public:
+			/**
+     		* @brief Get the size of the circular array.
+     		* @return The size of the circular array.
+     		*/
+
 			[[nodiscard]] size_t size() const
 			{
 				return items.size();
 			}
+
+			/**
+     		* @brief Get the element at the given index.
+     		* @param index The index from where to get the element.
+     		* @return The element at the given index.
+     		*/
 
 			T get(size_t const index)
 			{
 				return items[index & (size() - 1)];
 			}
 
+			/**
+     		* @brief Store an element at the given index in the circular array.
+     		* @param index The index where to put the element.
+     		* @param x The element to put in the circular array.
+     		*/
+
 			void put(size_t const index, T x)
 			{
 				items[index & (size() - 1)] = x;
 			}
 
-			// Growing the array returns a new circular_array object and keeps a
-			// linked list of all previous arrays. This is done because other threads
-			// could still be accessing elements from the smaller arrays.
+			/**
+     		* @brief Grow the circular array and move elements from the current array to the new one.
+     		*
+     		* Growing the array returns a new circular_array object and keeps a
+     		* linked list of all previous arrays. This is done because other threads
+     		* could still be accessing elements from the smaller arrays.
+     		*
+     		* @param top The start index.
+     		* @param bottom The end index.
+     		* @return The new, larger circular array.
+     		*/
+
 			CircularArray *grow(size_t const top, size_t const bottom)
 			{
 				auto *const newArray = new CircularArray(size() * 2);
@@ -75,12 +164,18 @@ namespace hexen::engine::core::threading
 
 #pragma warning(push)
 #pragma warning(disable : 4324)// MSVC warning C4324: structure was padded due to alignment specifier
-		alignas(cacheLineSize) std::atomic<uint64_t> top;
-		alignas(cacheLineSize) std::atomic<uint64_t> bottom;
+		alignas(cacheLineSize) std::atomic<core::u64> top;
+		alignas(cacheLineSize) std::atomic<core::u64> bottom;
 		alignas(cacheLineSize) std::atomic<CircularArray *> array;
 #pragma warning(pop)
 
 	public:
+		/**
+ 		* @brief Inserts a value at the bottom of the queue.
+ 		*
+ 		* @param value The value to be inserted into the queue.
+ 		*/
+
 		void push(T value)
 		{
 			auto b = bottom.load(std::memory_order_relaxed);
@@ -99,6 +194,15 @@ namespace hexen::engine::core::threading
 
 			bottom.store(b + 1, std::memory_order_relaxed);
 		}
+
+		/**
+ 		* @brief Removes a value from the bottom of the queue
+ 		*
+ 		* This function will return false and not alter the value of 'value' if the queue is empty.
+ 		*
+ 		* @param value A pointer where the removed value will be stored.
+ 		* @return true if a value was successfully removed, false otherwise.
+ 		*/
 
 		bool pop(T *value)
 		{
@@ -134,6 +238,19 @@ namespace hexen::engine::core::threading
 
 			return result;
 		}
+
+		/**
+ 		* @brief Removes a value from the top of the queue
+ 		*
+ 		* This function will return false and not alter the value of 'value' if the queue is empty.
+ 		*
+ 		* 'steal' implies that the value being removed comes from the more frequently accessed top side of the queue,
+ 		* in a setup where one thread primarily uses 'push' and 'pop' (the "bottom" of the queue) and another thread primarily
+ 		* uses 'steal' (the "top" of the queue). This may be useful in a work-stealing queue scenario.
+ 		*
+ 		* @param value A pointer where the stolen value will be stored.
+ 		* @return true if a value was successfully removed, false otherwise.
+ 		*/
 
 		bool steal(T *const value)
 		{

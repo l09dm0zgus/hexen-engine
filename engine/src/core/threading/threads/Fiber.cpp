@@ -24,7 +24,7 @@ namespace hexen::engine::core::threading
 	void alignedFree(void *block);
 	size_t roundUp(size_t numberToRound, size_t multiple);
 
-	Fiber::Fiber(size_t stackSize, FiberStartRoutine startRoutine, void *arg) : arg(arg)
+	Fiber::Fiber(size_t stackSize, fiberStartRoutine startRoutine, void *arg) : arg(arg)
 	{
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
 		systemPageSize = SystemPageSize();

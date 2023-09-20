@@ -9,21 +9,26 @@
 
 namespace hexen::engine::core::threading
 {
+	/**
+     * @class TaskSchedulerSettings
+     * @brief This class represents the settings for a thread pool.
+     *
+     * The TaskSchedulerSettings class encapsulates the configurable settings for a thread pool.
+     * These settings include the maximum number of threads.
+     *
+     * The default constructor creates a TaskSchedulerSettings object with default values for all settings.
+     * The settings can be modified using the appropriate setter methods.
+     *
+     * @see TaskScheduler
+     */
+
 	class TaskSchedulerSettings : public memory::AllocatedObject
 	{
 	public:
+
 		/**
-        * @class TaskSchedulerSettings
-        * @brief This class represents the settings for a thread pool.
-        *
-        * The TaskSchedulerSettings class encapsulates the configurable settings for a thread pool.
-        * These settings include the maximum number of threads.
-        *
-        * The default constructor creates a TaskSchedulerSettings object with default values for all settings.
-        * The settings can be modified using the appropriate setter methods.
-        *
-        * @see TaskScheduler
-        */
+ 		* @brief Default constructor for TaskSchedulerSettings.
+ 		*/
 
 		TaskSchedulerSettings();
 

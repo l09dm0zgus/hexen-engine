@@ -11,6 +11,13 @@
 
 namespace hexen::engine::core
 {
+	/**
+ 	* @brief Constant Iterator to the end of the collection.
+ 	* This is identical to end() but is used where the object is
+ 	* constant and allows for interface uniformity with non-constant objects.
+ 	* @return A ConstIterator pointing to past-the-end element.
+ 	*/
+
 	class Window : public memory::AllocatedObject
 	{
 	public:
@@ -47,6 +54,18 @@ namespace hexen::engine::core
         */
 
 		void swapBuffers();
+
+		/**
+ 		*  @brief This method is used to close the window
+ 		*  in the HexenEngine.
+ 		*
+ 		*  @details When this method is called, it will simply set
+ 		*  the bool variable bIsOpen to false which results in the
+ 		*  window being closed.
+ 		*
+ 		*
+ 		*/
+
 		void close();
 
 		/**
@@ -91,6 +110,17 @@ namespace hexen::engine::core
 
 		[[nodiscard]] bool isOpen() const noexcept;
 
+		/**
+ 		* @brief      Poll SDL events from event queue.
+ 		*
+ 		* This function polls for currently pending SDL events. It returns the next event available, or 0 if there are no more events.
+ 		*
+		* @param      sdlEvent  The SDL Event pointer to store the polled event.
+ 		*
+ 		* @return     Returns 1 if there is a pending event or 0 if there are none available.
+ 		*
+ 		* @note       If the function succeeds, the data in the event structure is modified.
+ 		*/
 
 		i32 pollEvents(SDL_Event *sdlEvent);
 
@@ -144,12 +174,47 @@ namespace hexen::engine::core
         */
 
 		void initSDL();
+
+		/**
+		* @brief Holds information about the display mode.
+		*/
+
 		SDL_DisplayMode displayMode {};
+
+		/**
+		* @brief Pointer to the SDL_Window structure, representing window to be created.
+		*/
+
 		SDL_Window *window {nullptr};
+
+		/**
+		* @brief  Represents OpenGL context.
+		*/
+
 		SDL_GLContext glContext {nullptr};
+
+		/**
+		* @brief  Holds the height of the window, default is 720.
+		*/
+
 		i32 height {720};
+
+		/**
+		* @brief  Holds the width of the window, default is 1280.
+		*/
+
 		i32 width {1280};
+
+		/**
+		* @brief  Variable for Window's title.
+		*/
+
 		std::string title;
+
+		/**
+		* @brief  Boolean variable indicating if the window is open or not. Default is true (open).
+		*/
+
 		bool bIsOpen {true};
 
 		/**
@@ -163,6 +228,15 @@ namespace hexen::engine::core
         */
 
 		void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
+
+		/**
+ 		* @brief Sets the icon of the object by path.
+ 		*
+ 		* This function is used to set the icon for an object, the icon will be loaded from a path provided.
+ 		*
+ 		* @param pathToIcon The filesystem path to the icon file.
+ 		*/
+
 		void setIcon(const std::string &pathToIcon);
 
 		SDL_Surface *icon {};
