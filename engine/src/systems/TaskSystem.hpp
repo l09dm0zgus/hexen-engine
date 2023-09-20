@@ -8,10 +8,31 @@
 
 namespace hexen::engine::systems
 {
+	/**
+ 	* @class TaskSystem
+ 	* @brief This class manages tasks in the system.
+ 	*
+ 	* Manages tasks by using the TaskScheduler and TaskCounter objects.
+ 	*/
+
 	class TaskSystem
 	{
 	private:
+
+		/**
+	 	* @brief A TaskScheduler object manages the tasks in the background.
+	 	*
+	 	* This object is responsible for the scheduling and execution of tasks. It operates independently of the TaskSystem.
+	 	*/
+
 		static core::threading::TaskScheduler scheduler;
+
+		/**
+         * @brief A TaskCounter object keeps track of the number of tasks.
+         *
+         * This object keeps count of the tasks in the TaskSystem. It operates independently of the TaskSystem.
+  	 	 */
+
 		static core::threading::TaskCounter counter;
 
 	public:
