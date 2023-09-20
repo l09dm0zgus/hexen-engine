@@ -42,19 +42,37 @@
 
 namespace hexen::engine::core
 {
+	/// @brief hardware integer of size 8 bits (alias for int8_t).
 	using i8 = int8_t;
+
+	/// @brief hardware integer of size 16 bits (alias for int16_t).
 	using i16 = int16_t;
+
+	/// @brief hardware integer of size 32 bits (alias for int32_t).
 	using i32 = int32_t;
+
+	/// @brief hardware integer of size 64 bits (alias for int64_t).
 	using i64 = int64_t;
 
+
+	/// @brief unsigned integer of size 8 bits (alias for uint8_t).
 	using u8 = uint8_t;
+
+	/// @brief unsigned integer of size 16 bits (alias for uint16_t).
 	using u16 = uint16_t;
+
+	/// @brief unsigned integer of size 32 bits (alias for uint32_t).
 	using u32 = uint32_t;
+
+	/// @brief unsigned integer of size 64 bits (alias for uint64_t).
 	using u64 = uint64_t;
+
+	/// @brief pointer to void (alias for void*).
 	using vptr = void *;
+
 	using size = size_t;
 
-	const std::string ENGINE_VERSION = std::string("0.0.0.1");
+	const std::string ENGINE_VERSION = std::string("1.0");
 
 #define HEXEN_EXPAND(s) s
 #define HEXEN_STR_IMPL(s) #s
@@ -86,8 +104,23 @@ namespace hexen::engine::core
 		u8 a;
 	};
 
+	/// Polynomial used for CRC32 calculation.
 	constexpr core::u32 polynomial = 0xEDB88320;
+
+	/// HASHING_ROUNDS represents the number of rounds to hash.
 	constexpr core::u32 HASHING_ROUNDS = 32;
+
+
+	/**
+ 	* @brief This function computes the CRC32 (Cyclic Redundancy Check).
+ 	*
+ 	* It uses the polynomial defined earlier. The function is inline for optimization.
+ 	*
+ 	* @param data The input data for which to compute the checksum.
+ 	* @param length The length of the input data.
+ 	* @param previousCRC The previous CRC value, if any (default is 0).
+ 	* @return The computed CRC32 value from the given data.
+ 	*/
 
 	HEXEN_INLINE core::u32 crc32(const core::u8 *data, core::u32 lenght, core::u32 previousCRC = 0)
 	{
@@ -103,6 +136,15 @@ namespace hexen::engine::core
 		return ~crc;
 	}
 
+	/**
+ 	* @brief This function creates a hash string using the CRC32 function.
+ 	*
+ 	* It uses the HASHING_ROUNDS constant for the number of rounds to hash.
+ 	*
+ 	* @param s The string to hash.
+ 	* @return The CRC32 hashed value of the input string.
+ 	*/
+
 	HEXEN_INLINE core::u32 hashString(const std::string &s)
 	{
 		core::u32 hash {0};
@@ -113,6 +155,12 @@ namespace hexen::engine::core
 		return hash;
 	}
 
+	/**
+ 	* @class BaseDelegate
+ 	* @brief This is a base class for delegate templates.
+ 	* @tparam Args Template parameters, the argument types for this delegate.
+ 	*/
+
 	template<typename... Args>
 	class BaseDelegate
 	{
@@ -120,22 +168,68 @@ namespace hexen::engine::core
 		std::tuple<Args...> parameters;
 
 	public:
+
+		/**
+     	* @brief BaseDelegate constructor
+     	* @param args The arguments for the delegate.
+     	*/
+
 		explicit BaseDelegate(Args... args)
 		{
 			parameters = std::make_tuple(args...);
 		}
 
+		/**
+     	* @brief Execute method which is meant to be overridden.
+     	*/
+
 		virtual void execute() = 0;
+
+		/**
+     	* @brief getId method which is meant to be overridden.
+     	* @return the ID of the delegate.
+     	*/
+
 		[[nodiscard]] virtual std::size_t getId() const = 0;
+
+		/**
+     	* @brief Default destructor
+     	*/
+
 		virtual ~BaseDelegate() = default;
 	};
+
+	/**
+ 	* @class MethodDelegate
+ 	* @brief This is a delegate class for methods.
+ 	* @tparam T The type of the class where the method resides.
+ 	* @tparam Ret The return type of the method this delegate represents.
+ 	* @tparam Args The argument types for the method this delegate represents.
+ 	*/
 
 	template<class T, typename Ret, typename... Args>
 	class MethodDelegate : public BaseDelegate<Args...>
 	{
 	private:
+
+		/**
+     	* @brief Instance of the method this delegate represents.
+     	*/
+
 		Ret (T::*callableMethod)(Args...);
+
+		/**
+     	* @brief Instance of the method this delegate represents.
+     	*/
+
 		T *callableObject;
+
+		/**
+     	* @brief Process sequence
+     	* @tparam I
+     	* @param indexSequence
+     	*/
+
 		template<typename std::size_t... I>
 		void process(std::index_sequence<I...> indexSequence)
 		{
@@ -143,16 +237,33 @@ namespace hexen::engine::core
 		}
 
 	public:
+
+		/**
+     	* @brief MethodDelegate constructor
+     	* @param object The object that method is associated with.
+     	* @param method The method function pointer.
+     	* @param args The arguments for the delegate method.
+     	*/
+
 		explicit MethodDelegate(T *object, Ret (T::*method)(Args...), Args... args) : BaseDelegate<Args...>(args...)
 		{
 			callableMethod = method;
 			callableObject = object;
 		}
 
+		/**
+     	* @brief Execute the delegate
+     	*/
+
 		void execute() override
 		{
 			process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
 		}
+
+		/**
+     	* @brief Get the method's unique id
+     	* @return The method delegate's ID
+     	*/
 
 		[[nodiscard]] std::size_t getId() const override
 		{
@@ -161,24 +272,49 @@ namespace hexen::engine::core
 		}
 	};
 
+	/**
+ 	* @class FunctionDelegate
+ 	* @tparam Ret The return type of the callable function.
+ 	* @tparam Args The types of the arguments the callable function takes.
+ 	* @extends BaseDelegate<Args...>
+ 	* @brief A delegate class to hold and call a function with specified arguments.
+ 	*/
 
 	template<typename Ret, typename... Args>
 	class FunctionDelegate : public BaseDelegate<Args...>
 	{
 	private:
+		/** @brief The callable function this delegate holds. */
 		Ret (*callableFunction)(Args...);
 
 	public:
+
+		/**
+     	* @brief Constructor taking a callable function and its arguments to initialize this delegate.
+     	* @param function The function this delegate should hold.
+     	* @param args The arguments to the function.
+     	*/
+
 		explicit FunctionDelegate(Ret (*function)(Args...), Args... args) : BaseDelegate<Args...>(args...)
 		{
 			callableFunction = function;
 		}
+
+		/**
+     	* @brief Executes the held function with the stored arguments.
+     	*/
 
 		void execute() override
 		{
 			std::apply(callableFunction, this->parameters);
 		}
 
+		/**
+     	* @brief Computes the unique hash code of the held callable function.
+     	* @return The hash code as a size_t value.
+     	* @note The returned id is not predictable and may change between different executions
+     	*       and platforms.
+     	*/
 
 		[[nodiscard]] std::size_t getId() const override
 		{
@@ -187,12 +323,26 @@ namespace hexen::engine::core
 		}
 	};
 
+	/**
+ 	* @class FunctorDelegate
+ 	* @tparam T The type of the functor to be stored in the delegate.
+ 	* @tparam Args The types of the arguments the functor takes.
+ 	* @extends BaseDelegate<Args...>
+ 	* @brief A delegate class to hold and call a functor.
+ 	*/
 
 	template<class T, typename... Args>
 	class FunctorDelegate : public BaseDelegate<Args...>
 	{
 	private:
+		/** @brief The functor this delegate holds. */
 		T *functor;
+
+		/**
+     	* @brief Helper method to apply the parameters to the functor.
+     	* @tparam I Indices sequence.
+     	* @param indexSequence An index sequence generated by std::make_index_sequence.
+     	*/
 
 		template<typename std::size_t... I>
 		void process(std::index_sequence<I...> indexSequence)
@@ -201,16 +351,33 @@ namespace hexen::engine::core
 		}
 
 	public:
+
+		/**
+     	* @brief Constructor taking a functor and its arguments to initialize this delegate.
+     	* @param newFunctor The functor this delegate should hold.
+     	* @param args The arguments to the functor.
+     	*/
+
 		explicit FunctorDelegate(T *newFunctor, Args... args) : BaseDelegate<Args...>(args...)
 		{
 			functor = newFunctor;
 		}
+
+		/**
+     	* @brief Executes the held functor with the stored arguments.
+     	*/
 
 		void execute() override
 		{
 			process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
 		}
 
+		/**
+     	* @brief Computes the unique hash code of the held functor.
+     	* @return The hash code as a size_t value.
+     	* @note The returned id is not predictable and may change between different executions
+     	*       and platforms.
+     	*/
 
 		[[nodiscard]] std::size_t getId() const override
 		{
@@ -219,10 +386,23 @@ namespace hexen::engine::core
 		}
 	};
 
+	/**
+ 	* A HashTable class.
+ 	*
+ 	* This is a simple HashTable implementation.
+ 	* It maps keys (of type Key) to values (of type Value).
+ 	*
+ 	* @tparam Key The type of the keys.
+ 	* @tparam Value The type of the Value.
+ 	* @tparam Hash The type of the function object that hashes the Key.
+ 	* @tparam Equal The type of the function object that compares two keys for equality.
+ 	*/
+
 	template<typename Key, typename Value, typename Hash = std::hash<Key>, typename Equal = std::equal_to<Key>>
 	class HashTable
 	{
 	public:
+		/** @brief A structure for storing Key-Value pairs. */
 		struct KeyValue
 		{
 			Key key;
@@ -242,20 +422,58 @@ namespace hexen::engine::core
 		using constPointer = const valueType *;
 
 	private:
+		/**
+ * @struct Slot
+ * @brief A struct to encapsulate a key-value pair.
+ *
+ * @details This struct also maintains an 'isUsed' Boolean to indicate whether the Key-Value pair is in use.
+ */
 		struct Slot
 		{
+			/// @brief Represents a Key-Value pair.
 			KeyValue keyValue;
+
+			/// @brief Boolean represents whether keyValue is in use.
 			bool isUsed;
+
+			/**
+	 		* @brief Default contructor which initializes Slot.
+	 		*/
+
 			Slot() noexcept : keyValue(), isUsed(false) {}
+
+			/**
+	 		* @brief Parameterized constructor which constructs Slot with given key and value.
+	 		*
+	 		* @param key The key for keyValue.
+	 		* @param value The value for keyValue.
+	 		*/
 
 			Slot(Key key, Value value) : keyValue {std::move(key), std::move(value)}, isUsed(true) {}
 
+			/**
+     		* @brief Copy constructor.
+     		*/
+
 			Slot(const Slot &other) = default;
+
+			/**
+	 		* @brief Move constructor which moves slot into new slot.
+		 	*
+	 		* @param slot The slot to be moved.
+	 		*/
 
 			Slot(Slot &&slot) noexcept : keyValue(std::move(slot.keyValue)), isUsed(slot.isUsed)
 			{
 				slot.isUsed = false;
 			}
+
+			/**
+     		* @brief swaps contents of lhs slot and rhs slot.
+     		*
+     		* @param lhs Left-hand slot.
+     		* @param rhs Right-hand slot.
+     		*/
 
 			friend void swap(Slot &lhs, Slot &rhs) noexcept
 			{
@@ -263,6 +481,13 @@ namespace hexen::engine::core
 				swap(lhs.keyValue, rhs.keyValue);
 				swap(lhs.isUsed, rhs.isUsed);
 			}
+
+			/**
+     		* @brief Overloads assignment operator for Slot.
+     		*
+     		* @param slot Slot to be assigned.
+     		* @return Current Slot.
+    	 	*/
 
 			Slot &operator=(Slot slot)
 			{
@@ -275,6 +500,13 @@ namespace hexen::engine::core
 				return *this;
 			}
 
+			/**
+	 		* @brief Template function to compare key with keyValue's key.
+	 		*
+	 		* @param key key for comparison.
+	 		* @return True if keys are equal, False otherwise.
+	 		*/
+
 			template<class T>
 			bool equals(T &&key) const
 			{
@@ -282,11 +514,24 @@ namespace hexen::engine::core
 				return Equal {}(keyValue.key, std::forward<T>(key));
 			}
 		};
+
 		std::vector<Slot> slots;
-		u32 count;
-		u32 maxHashOffset;
+		u32 count{};
+		u32 maxHashOffset{};
+
+
+		/**
+     	* @brief A function to get the current instance of the table.
+     	* @return The current instance.
+     	*/
 
 		auto cthis() const { return this; }
+
+		/**
+     	* @brief Gets the index associated with a given key.
+     	* @param key The key to get the index for.
+     	* @return The index.
+     	*/
 
 		template<class T>
 		u32 keyIndex(T &&key) const
@@ -294,11 +539,23 @@ namespace hexen::engine::core
 			return Hash {}(std::forward<T>(key)) & mask();
 		}
 
+		/**
+     	* @brief Mask function used as part of hash function.
+     	* Asserts that the table size is a power of two.
+     	* @return The mask for the hash function.
+     	*/
+
 		[[nodiscard]] u32 mask() const noexcept
 		{
 			HEXEN_ASSERT(slots.size() && !(slots.size() & (slots.size() - 1)), "table size must be a power of two");
 			return slots.size() - 1;
 		}
+
+		/**
+     	* @brief Determines whether the table needs to be rehashed.
+     	* @return true if rehash needed, false otherwise.
+     	*/
+
 		[[nodiscard]] bool isShouldRehash() const
 		{
 			// keep load factor below 0.75
@@ -306,6 +563,12 @@ namespace hexen::engine::core
 			// it is equivalent with ((size << 1) + size) >> 2.
 			return slots.empty() || count >= slots.size() * 3 / 4;
 		}
+
+		/**
+     	* @brief Gets the slot associated with a key.
+     	* @param key The key get the slot for.
+     	* @return The slot associated with the given key.
+     	*/
 
 		template<class T>
 		const Slot *getSlot(T &&key) const
@@ -337,11 +600,26 @@ namespace hexen::engine::core
 			return nullptr;
 		}
 
+		/**
+     	* @brief Get slot associated with a key.
+     	* Non-const variant.
+     	* @param key The key to search.
+     	* @return The slot associated with the given key.
+     	*/
+
 		template<class T>
 		Slot *getSlot(T &&key)
 		{
 			return const_cast<Slot *>(cthis()->getSlot(std::forward<T>(key)));
 		}
+
+		/**
+     	* @brief Insert a new key-value pair to the hash table.
+     	* No rehash is done after insertion.
+     	* @param key The key of the pair to insert.
+     	* @param value The value of the pair to insert.
+     	* @return Pointer to the inserted key-value pair.
+     	*/
 
 		template<class T, class V>
 		KeyValue *insertNonexistentNoRehash(T &&key, V &&value)
@@ -375,6 +653,10 @@ namespace hexen::engine::core
 			return &slots[i].keyValue;
 		}
 
+		/**
+     	* @brief Rehashes the hash table if it should be rehashed.
+     	*/
+
 		void rehash()
 		{
 			const u32 newSize = slots.empty() ? 8 : slots.size() * 2;
@@ -402,7 +684,17 @@ namespace hexen::engine::core
 		}
 
 	public:
+		/**
+		 * @brief Default constructor
+		 */
+
 		HashTable() noexcept : slots {}, count {0}, maxHashOffset {0} {}
+
+		/**
+		 * @brief Construct HashTable with a specific initial capacity
+		 *
+		 * @param capacity Initial capacity
+		 */
 
 		explicit HashTable(u32 capacity) noexcept : HashTable()
 		{
@@ -418,13 +710,31 @@ namespace hexen::engine::core
 			slots.resize(realCapacity);
 		}
 
+
+		/**
+		 * @brief Copy constructor
+		 *
+		 * @param hashTable Another HashTable to copy
+		 */
+
 		HashTable(const HashTable &hashTable) = default;
 
+		/**
+		 * @brief Move constructor
+		 *
+		 * @param hashTable Another HashTable to move into this one
+		 */
 
 		HashTable(HashTable &&hashTable) noexcept : slots {std::move(hashTable.slots)}, count {hashTable.count}, maxHashOffset {hashTable.maxHashOffset}
 		{
 			hashTable.clear();
 		}
+
+		/**
+		 * @brief Construct from a list of key-value pairs.
+		 *
+		 * @param elements The initializer list.
+		 */
 
 		HashTable(std::initializer_list<KeyValue> elements) : HashTable(elements.size())
 		{
@@ -434,6 +744,12 @@ namespace hexen::engine::core
 			}
 		}
 
+		/**
+		* @brief Function to swap the contents of two HashTable objects
+		* @param lhs First HashTable object
+		* @param rhs Second HashTable object
+		*/
+
 		friend void swap(HashTable &lhs, HashTable &rhs) noexcept
 		{
 			using std::swap;
@@ -441,6 +757,12 @@ namespace hexen::engine::core
 			swap(lhs.count, rhs.count);
 			swap(lhs.maxHashOffset, rhs.maxHashOffset);
 		}
+
+		/**
+ 		* @brief Overloaded assignment operator for the HashTable class
+ 		* @param hashTable HashTable object to be assigned
+ 		* @return A reference to the current HashTable object
+ 		*/
 
 		HashTable &operator=(HashTable hashTable)
 		{
@@ -453,12 +775,22 @@ namespace hexen::engine::core
 			return *this;
 		}
 
+		/**
+ 		* @brief Function to clear the HashTable
+ 		*/
+
 		void clear() noexcept
 		{
 			slots.clear();
 			count = 0;
 			maxHashOffset = 0;
 		}
+
+		/**
+ 		* @brief Function to get a value by a key
+ 		* @param key The key of the value to be retrieved
+ 		* @return A pointer to the value if it exists, else nullptr
+ 		*/
 
 		const Value *get(const Key &key) const
 		{
@@ -470,6 +802,12 @@ namespace hexen::engine::core
 			return nullptr;
 		}
 
+		/**
+ 		* @brief Function to get a value by a key
+ 		* @param key The key of the value to be retrieved
+ 		* @return A pointer to the value if it exists, else nullptr
+ 		*/
+
 		Value *get(const Key &key)
 		{
 			if (Slot *slot = getSlot(key))
@@ -479,6 +817,13 @@ namespace hexen::engine::core
 
 			return nullptr;
 		}
+
+		/**
+ 		* @brief Function to set a key-value pair
+ 		* @param key The key of the value to be set
+ 		* @param value The value to be set
+ 		* @return A pointer to the value set
+ 		*/
 
 		Value *set(const Key &key, Value value)
 		{
@@ -500,6 +845,13 @@ namespace hexen::engine::core
 			return &keyValue->value;
 		}
 
+		/**
+ 		* @brief Function to set a key-value pair
+ 		* @param key The key of the value to be set
+ 		* @param value The value to be set
+ 		* @return A pointer to the value set
+ 		*/
+
 		Value *set(Key &&key, Value value)
 		{
 			// if the key is already in the table, just replace it and move on
@@ -519,6 +871,12 @@ namespace hexen::engine::core
 			auto keyValue = insertNonexistentNoRehash(std::move(key), std::move(value));
 			return &keyValue->value;
 		}
+
+		/**
+ 		* @brief Function to remove a key-value pair from the HashTable
+ 		* @param key The key of the value to be removed
+ 		*/
+
 		void remove(const Key &key)
 		{
 			if (Slot *slot = getSlot(key))
@@ -529,20 +887,41 @@ namespace hexen::engine::core
 			}
 		}
 
+		/**
+ 		* @brief Function to retrieve the size of the HashTable
+ 		* @return The number of elements in the HashTable
+ 		*/
+
 		[[nodiscard]] u32 size() const noexcept
 		{
 			return count;
 		}
+
+		/**
+ 		* @brief Function to check if the HashTable is empty
+ 		* @return True if the size of the HashTable is 0, else False
+ 		*/
 
 		[[nodiscard]] bool empty() const
 		{
 			return size() == 0;
 		};
 
+		/**
+ 		* @brief Function to calculate the load factor of the HashTable
+ 		* @return The load factor of the HashTable
+ 		*/
+
 		[[nodiscard]] double loadFactor() const
 		{
 			return double(size() / slots.size());
 		}
+
+		/**
+ 		* @brief Overloaded subscript operator for the HashTable class
+ 		* @param key The key of the value to be retrieved
+ 		* @return A reference to the value associated with the key
+ 		*/
 
 		Value &operator[](const Key &key)
 		{
@@ -552,6 +931,13 @@ namespace hexen::engine::core
 			}
 			return *set(key, {});
 		}
+
+		/**
+ 		* @brief Overloaded subscript operator for the HashTable class
+ 		* @param key The key of the value to be retrieved
+ 		* @return A reference to the value associated with the key
+ 		*/
+
 		Value &operator[](Key &&key)
 		{
 			if (Value *value = get(key))
@@ -560,6 +946,12 @@ namespace hexen::engine::core
 			}
 			return *set(std::move(key), {});
 		}
+
+		/**
+ 		* @brief Overloaded subscript operator for retrieving const values
+ 		* @param key The key of the value to be retrieved
+ 		* @return A reference to the value associated with the key
+ 		*/
 
 		const Value &operator[](const Key &key) const
 		{
@@ -573,6 +965,11 @@ namespace hexen::engine::core
 			abort();
 		}
 
+		/**
+		* @struct ConstIterator
+ 		* @brief Class for constant iteration over a hash table.
+ 		*/
+
 		struct ConstIterator
 		{
 		protected:
@@ -580,6 +977,13 @@ namespace hexen::engine::core
 
 			const HashTable *owner {nullptr};
 			u32 slotIndex {0};
+
+			/**
+		 	* @brief Constructs a ConstIterator at a specific position.
+		 	* @param owner The owning hashtable.
+		 	* @param slotIndex Initial slot position for the iterator.
+		 	*/
+
 			ConstIterator(const HashTable *owner, u32 slotIndex) : owner(owner), slotIndex(slotIndex) {}
 
 		public:
@@ -589,7 +993,16 @@ namespace hexen::engine::core
 			using pointer = const value_type *;
 			using reference = const value_type &;
 
+			/**
+		 	* @brief Copy constructor.
+		 	* @param hashTable The ConstIterator to copy from.
+		 	*/
+
 			ConstIterator(const ConstIterator &hashTable) = default;
+
+			/**
+		 	* @brief Overloading the pointer operator.
+		 	*/
 
 			const KeyValue *operator->() const
 			{
@@ -597,10 +1010,19 @@ namespace hexen::engine::core
 				return &owner->slots[slotIndex].keyValue;
 			}
 
+			/**
+		 	* @brief Overloading the dereference operator.
+		 	*/
+
 			const KeyValue &operator*() const
 			{
 				return *operator->();
 			}
+
+
+			/**
+		 	* @brief Overloading the pre-increment operator.
+		 	*/
 
 			ConstIterator &operator++()
 			{
@@ -613,6 +1035,10 @@ namespace hexen::engine::core
 				return *this;
 			}
 
+			/**
+		 	* @brief Overloading the post-increment operator.
+		 	*/
+
 			ConstIterator operator++(core::i32)
 			{
 				auto previous(*this);
@@ -620,11 +1046,19 @@ namespace hexen::engine::core
 				return previous;
 			}
 
+			/**
+		 	* @brief Overloading the equality operator.
+		 	*/
+
 			bool operator==(const ConstIterator &constIterator) const
 			{
 				HEXEN_ASSERT(owner == constIterator.owner, "different iterators owners!");
 				return owner == constIterator.owner && slotIndex == constIterator.slotIndex;
 			}
+
+			/**
+		 	* @brief Overloading the inequality operator.
+		 	*/
 
 			bool operator!=(const ConstIterator &constIterator) const
 			{
@@ -632,25 +1066,64 @@ namespace hexen::engine::core
 			}
 		};
 
+		/**
+ 		* @struct Iterator
+ 		* @brief A class that implements the Iterator pattern for the HashTable class.
+ 		*
+ 		* Iterator is a subclass of ConstIterator. It allows modification of the elements it is iterating over.
+ 		*/
+
 		struct Iterator : public ConstIterator
 		{
 
 		private:
+
+			/**
+     		* @brief Declare HashTable class as friend to grant it access to the Iterator's private and protected members.
+     		*/
+
 			friend class HashTable;
+
+			/**
+     		* @brief Explicit constructor that initializes Iterator from ConstIterator.
+     		* @param constIterator The ConstIterator instance to initialize the Iterator.
+     		*/
+
 			explicit Iterator(const ConstIterator &constIterator) : ConstIterator(constIterator) {}
 
 		public:
+
+			/**
+     		* @brief Copy constructor that initializes Iterator from another Iterator.
+     		* @param iterator The Iterator instance to copy from.
+     		*/
+
 			Iterator(const Iterator &iterator) : ConstIterator(iterator) {}
+
+			/**
+     		* @brief Overloading dereference operator(*) to return the current KeyValue element.
+     		* @return Current KeyValue element.
+     		*/
 
 			KeyValue &operator*() const
 			{
 				return *operator->();
 			}
 
+			/**
+     		* @brief Overloading member access operator(->) to return a pointer to the current KeyValue element.
+     		* @return Pointer to the current KeyValue element.
+     		*/
+
 			KeyValue *operator->() const
 			{
 				return const_cast<KeyValue *>(static_cast<const ConstIterator *>(this)->operator->());
 			}
+
+			/**
+     		* @brief Overloading increment operator++() for iterator to move to the next KeyValue element.
+     		* @return Iterator pointing to the next KeyValue element.
+     		*/
 
 			Iterator &operator++()
 			{
@@ -662,6 +1135,12 @@ namespace hexen::engine::core
 				return *this;
 			}
 
+			/**
+     		* @brief Overloading post-increment operator++(int) for iterator to move to the next KeyValue element.
+     		* @param An integer to differentiate it from the prefix increment operator.
+     		* @return Iterator pointing to the current KeyValue element before the increment.
+     		*/
+
 			Iterator operator++(core::i32)
 			{
 				auto previous(*this);
@@ -669,6 +1148,12 @@ namespace hexen::engine::core
 				return previous;
 			}
 		};
+
+		/**
+		 * @brief Returns a new iterator pointing to the start of the HashTable
+		 *
+		 * @return A ConstIterator pointing to the start of the HashTable
+		 */
 
 		ConstIterator begin() const
 		{
@@ -680,30 +1165,72 @@ namespace hexen::engine::core
 			return iterator;
 		}
 
+		/**
+		 * @brief Returns a new iterator pointing to the end of the HashTable
+		 *
+		 * @return A ConstIterator pointing to the end of the HashTable
+		 */
+
 		ConstIterator end() const
 		{
 			return ConstIterator(this, slots.size());
 		}
+
+		/**
+		 * @brief Returns a new Iterator pointing to the start of the HashTable
+		 *
+		 * @return Iterator pointing to the start of the HashTable
+		 */
 
 		Iterator begin()
 		{
 			return Iterator(cthis()->begin());
 		}
 
+		/**
+		 * @brief Returns a new Iterator pointing to the end of the HashTable
+		 *
+		 * @return An Iterator pointing to the end of the HashTable
+		 */
+
 		Iterator end()
 		{
 			return Iterator(cthis()->end());
 		}
+
+		/**
+ 		* @brief Constant Iterator to the beginning of the collection.
+ 		* This is identical to begin() but is used where the object is
+ 		* constant and allows for interface uniformity with non-constant objects.
+ 		* @return A ConstIterator pointing the beginning of the collection.
+ 		*/
 
 		ConstIterator cbegin() const
 		{
 			return begin();
 		}
 
+		/**
+ 		* @brief Constant Iterator to the end of the collection.
+ 		* This is identical to end() but is used where the object is
+ 		* constant and allows for interface uniformity with non-constant objects.
+ 		* @return A ConstIterator pointing to past-the-end element.
+ 		*/
+
 		ConstIterator cend() const
 		{
 			return end();
 		}
+
+
+		/**
+	 	*@brief Returns an iterator to the element with key equivalent to key.
+	 	*
+	 	* @param key A key value of the element to search for.
+	 	* @return ConstIterator to an element with key equivalent to key.
+	 	* If no such element is found, past-the-end (see end()) iterator is returned.
+	 	*/
+
 		ConstIterator findConst(const Key &key) const
 		{
 			if (const Slot *slot = getSlot(key))
@@ -713,10 +1240,24 @@ namespace hexen::engine::core
 			return end();
 		}
 
+		/**
+		 * @brief Returns an iterator to the element with key equivalent to key.
+		 *
+		 * @param key A key value of the element to search for.
+		 * @return Iterator to an element with key equivalent to key.
+		 * If no such element is found, past-the-end (see end()) iterator is returned.
+		 */
+
 		Iterator find(const Key &key)
 		{
 			return Iterator(cthis()->findConst(key));
 		}
+
+		/**
+		 * @brief Erases the specified elements from the container.
+		 *
+		 * @param it ConstIterator to the element to be removed from the HashTable
+		 */
 
 		void erase(const ConstIterator &it)
 		{
