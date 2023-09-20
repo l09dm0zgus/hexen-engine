@@ -79,7 +79,6 @@ bool hexen::engine::entity::SceneEntity::hasChildrens() const noexcept
 	return !childrens.empty();
 }
 
-
 hexen::engine::core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>> hexen::engine::entity::SceneEntity::getChildrens() const noexcept
 {
 	return childrens;
@@ -204,20 +203,20 @@ bool hexen::engine::entity::SceneEntity::isDescendantExist(const std::string &de
 	return false;
 }
 
-bool hexen::engine::entity::SceneEntity::searchNode(const std::shared_ptr<hexen::engine::entity::SceneEntity> &node, const std::string &searchQuery, core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>> &findedNodes)
+bool hexen::engine::entity::SceneEntity::searchNode(const std::shared_ptr<hexen::engine::entity::SceneEntity> &node, const std::string &searchQuery, core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>> &foundedNodes)
 {
 	auto found = node->getName().find(searchQuery);
 
 	if (found != std::string::npos)
 	{
-		findedNodes.set(node->getUUID(), node);
+		foundedNodes.set(node->getUUID(), node);
 		return true;
 	}
 	else
 	{
 		for (const auto &child : node->childrens)
 		{
-			auto result = SceneEntity::searchNode(child.value, searchQuery, findedNodes);
+			auto result = SceneEntity::searchNode(child.value, searchQuery, foundedNodes);
 			if (result)
 			{
 				return result;
