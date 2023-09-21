@@ -37,12 +37,48 @@ namespace hexen::engine::core
 
 		~GameLoop() override;
 
+		/**
+ 		* @brief Deleted copy constructor.
+ 		*
+ 		* This is to prevent copying of an object of this class.
+ 		*
+ 		* @param GameLoop is a const GameLoop reference.
+ 		*/
+
 		GameLoop(const GameLoop &) = delete;
 
 
+		/**
+ 		* @brief Deleted move constructor.
+ 		*
+ 		* This is to prevent moving of an object of this class.
+ 		*
+ 		* @param GameLoop is a rvalue reference to a GameLoop object.
+ 		*/
+
 		GameLoop(GameLoop &&) = delete;
 
+
+		/**
+ 		* @brief Deleted copy assignment operator.
+ 		*
+ 		* This is to prevent assignment of an object of this class.
+ 		*
+ 		* @param GameLoop is a const GameLoop reference.
+ 		* @return GameLoop reference.
+ 		*/
+
 		GameLoop &operator=(const GameLoop &) = delete;
+
+
+		/**
+ 		* @brief Deleted move assignment operator.
+ 		*
+ 		* This is to prevent move assignment of an object of this class.
+ 		*
+ 		* @param GameLoop is a rvalue reference to a GameLoop object.
+ 		* @return GameLoop reference.
+ 		*/
 
 		GameLoop &operator=(GameLoop &&) = delete;
 
@@ -138,13 +174,58 @@ namespace hexen::engine::core
         * @see framesLimit
         */
 
+		/**
+  		* @var const double deltaTime
+  		* The time difference between each frame/update. It is the inverse of the frame rate limit.
+  		*/
+
 		const double deltaTime = 1 / framesLimit;
+
+		/**
+  		* @var double accumulator
+  		* This variable accumulates the frame time that has not yet been processed/used for game update calls.
+  		*
+  		* This can be used in the context of 'fixed timestep' where we want to have a consistent game
+  		* update frame rate regardless of rendering speed variations, consumption of accumulated time
+  		* in multiple smaller fixed-size increments allows smoother frame rate instead of hiccoughs
+  		* in game speed when the rendering speed drops below set limit.
+  		*
+  		* For example, if our frame rate drops to half of what it should be and accumulator reaches a
+  		* value of 2*msPerUpdate or more, instead of updating game state in a single double speed
+  		* update (which would make in-game characters move in large jerks), we instead do two normal
+  		* speed update calls, which results in same game speed but smoother visual result.
+  		*/
 
 		double accumulator {0.0};
 
+		/**
+  		* @var const double msPerUpdate
+  		* Defines how much time passes in in-game world per each fixed modifier update.
+  		* Using non-whole number value allows game speed independent from frame rate
+  		* (games will run at same speed on faster and slower computers).
+  		*/
+
 		const double msPerUpdate {0.2};
 
+		/**
+  		* @var std::shared_ptr<systems::SystemsManager> systemManager
+  		* A smart pointer to the system manager object.
+  		*
+  		* As this is a shared_ptr, it allows shared ownership of the object meaning
+  		* SystemsManager can be owned by multiple entities and will only be deleted
+  		* when the last one stops referencing it.
+  		*/
+
 		std::shared_ptr<systems::SystemsManager> systemManager;
+
+		/**
+  		* @var std::shared_ptr<Window> window
+  		* A smart pointer to the window object.
+  		*
+  		* Like the systemManager above, as this is a shared_ptr it allows shared ownership
+  		* of the object meaning window can be owned by multiple entities and will only be deleted
+  		* when the last one stops referencing it.
+  		*/
 
 		std::shared_ptr<Window> window;
 	};
