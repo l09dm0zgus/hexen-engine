@@ -8,6 +8,15 @@
 
 namespace hexen::engine::core
 {
+
+	/**
+ 	* @class SceneManager
+ 	* @brief This class manages scenes.
+ 	*
+ 	* Detailed description of SceneManager. This class is responsible
+ 	* for managing different scenes in a game or application.
+ 	*/
+
 	class SceneManager
 	{
 	private:

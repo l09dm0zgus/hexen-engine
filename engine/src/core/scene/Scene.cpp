@@ -107,7 +107,6 @@ void hexen::engine::core::Scene::SceneIterator::traverseTree(const std::shared_p
 	}
 }
 
-
 std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::SceneIterator::operator->() const
 {
 	assert(index < visitedNode.size() && "cannot dereference end iterator");
