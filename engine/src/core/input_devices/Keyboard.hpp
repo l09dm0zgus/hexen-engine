@@ -19,14 +19,50 @@ namespace hexen::engine::systems
 
 namespace hexen::engine::core::input
 {
+	/**
+     * @class Keyboard
+     * @brief Represents the keyboard state and allows querying for key
+     *        press/release events.
+     *
+     * The Keyboard class provides methods to query the current state of various
+     * keyboard keys, such as whether a key is currently pressed or released.
+     */
+
 	class Keyboard
 	{
 	private:
+
+		/**
+ 		* @var const u8* keyboardState
+ 		* @brief Keyboard state variable.
+ 		*
+ 		* This variable holds the state of the keyboard, initialized to nullptr.
+ 		* Typically used to store keyboard input data in real-time applications.
+ 		*/
+
 		const u8 *keyboardState {nullptr};
+
+		/**
+ 		* @var u32 currentKeyScancode
+ 		* @brief Stores the scancode of the currently pressed key.
+ 		*
+ 		* This variable holds the scancode (a unique code representing a specific key on the keyboard)
+ 		* of the currently pressed key. The scancode is typically used in low-level keyboard input handling.
+ 		*/
+
 		u32 currentKeyScancode;
 
 	public:
 		friend class hexen::engine::systems::InputSystem;
+
+		/**
+ 		* @brief Enum class representing keyboard keys and their respective scancode values.
+ 		*
+ 		* This enum class provides constants for a wide variety of standard keyboard keys,
+ 		* following the USB standard. Each key is assigned a unique numeric value.
+ 		* This class also includes several special keys for specific functionalities,
+ 		* like multimedia keys, numpad keys, function keys, etc.
+ 		*/
 
 		enum class Key : core::i32
 		{
@@ -312,13 +348,15 @@ namespace hexen::engine::core::input
 		};
 
 		/**
-        * @class Keyboard
-        * @brief Represents the keyboard state and allows querying for key
-        *        press/release events.
-        *
-        * The Keyboard class provides methods to query the current state of various
-        * keyboard keys, such as whether a key is currently pressed or released.
-        */
+ 		* @brief Default constructor for the Keyboard class in the hexen::engine::core::input namespace.
+ 		*
+ 		* This method initializes the keyboardState member by using the SDL_GetKeyboardState
+ 		* function from the SDL library. The keyboard state is updated every time a key event occurs.
+ 		*
+ 		* The keyboardState is a pointer to an array that is updated by SDL with the state
+ 		* of all keys. The contents of this array are preserved until the next key
+ 		* event occurs, hence not making it nullptr aware is safe.
+ 		*/
 
 		Keyboard();
 

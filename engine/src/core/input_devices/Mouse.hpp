@@ -15,22 +15,93 @@ namespace hexen::engine::systems
 
 namespace hexen::engine::core::input
 {
+	/**
+    * @class Mouse
+    * @brief Represents a mouse input handler
+    *
+    * The Mouse class provides methods to process mouse input events
+    * and handle their corresponding actions.
+    *
+    */
+
 	class Mouse
 	{
 	private:
 		friend class hexen::engine::systems::InputSystem;
+
+		/**
+	 	* @brief Stores the position of the cursor.
+	 	*/
+
 		glm::vec2 position {0.0f};
+
+		/**
+	 	* @brief Stores the current position of the mouse wheel.
+	 	*/
+
 		glm::vec2 wheelPosition {0.0f};
+
+		/**
+	 	* @brief Stores the position of the last mouse button pressed.
+	 	*/
+
 		glm::vec2 lastPressedButtonPosition {0.0f};
+
+		/**
+	 	* @brief Stores the position of the last mouse button released.
+	 	*/
+
 		glm::vec2 lastReleasedButtonPosition {0.0f};
+
+		/**
+	 	* @brief Stores the current active button.
+	 	*/
+
 		core::u8 currentButton = 0;
+
+		/**
+	 	* @brief Indicates whether the mouse is moving on the X-axis.
+	 	*/
+
 		bool isMouseMovingOnX {false};
+
+		/**
+	 	* @brief Indicates whether the mouse is moving on the Y-axis.
+	 	*/
+
 		bool isMouseMovingOnY {false};
+
+		/**
+	 	* @brief Indicates whether the mouse wheel is moving on the X-axis.
+	 	*/
+
 		bool isMouseWheelMovingOnX {false};
+
+		/**
+	 	* @brief Indicates whether the mouse wheel is moving on the Y-axis.
+	 	*/
+
 		bool isMouseWheelMovingOnY {false};
 
 
 	public:
+
+		/**
+ 		* @enum Button
+ 		* @brief A custom enumeration that maps SDL's virtual key representations for mouse buttons
+ 		*
+ 		* @var Button::LEFT
+ 		*   The left mouse button
+ 		* @var Button::RIGHT
+ 		*   The right mouse button
+ 		* @var Button::MIDDLE
+ 		*   The middle mouse button (often the wheel)
+ 		* @var Button::X1
+ 		*   The first extra mouse button
+ 		* @var Button::X2
+ 		*   The second extra mouse button
+ 		*/
+
 		enum class Button : u8
 		{
 			LEFT = SDL_BUTTON_LEFT,
@@ -39,6 +110,20 @@ namespace hexen::engine::core::input
 			X1 = SDL_BUTTON_X1,
 			X2 = SDL_BUTTON_X2
 		};
+
+		/**
+ 		* @enum Axis
+ 		* @brief A custom enumeration that represents different types of axes for input
+ 		*
+ 		* @var Axis::X
+ 		*   The X-axis (horizontal)
+ 		* @var Axis::Y
+ 		*   The Y-axis (vertical)
+ 		* @var Axis::WHEEL_X
+ 		*   The X-axis of the mouse wheel (horizontal scrolling)
+ 		* @var Axis::WHEEL_Y
+ 		*   The Y-axis of the mouse wheel (vertical scrolling)
+ 		*/
 
 		enum class Axis : u8
 		{
@@ -50,14 +135,18 @@ namespace hexen::engine::core::input
 
 
 		/**
-        * @class Mouse
-        * @brief Represents a mouse input handler
-        *
-        * The Mouse class provides methods to process mouse input events
-        * and handle their corresponding actions.
-        *
-        * @return bool True if the is event associated with the mouse otherwise false.
-        */
+ 		* @brief Processes the mouse input event.
+ 		*
+ 		* This method handles mouse button actions (press and release),
+ 		* mouse motion, and mouse wheel events. If any of these events
+ 		* happens, it updates the appropriate state variables and then
+ 		* returns true. If any event related to mouse does not occur,
+ 		* it returns false.
+ 		*
+ 		* @param event The SDL event to process.
+ 		* @return true if any mouse event (button press/release, motion, wheel) occurs.
+ 		* @return false if no mouse event occurs.
+ 		*/
 
 		bool processInput(const SDL_Event &event);
 
