@@ -10,30 +10,34 @@
 
 namespace hexen::engine::graphics::gl
 {
+	/**
+    * @class FrameBufferObject
+    * @brief Represents a frame buffer object for rendering.
+    *
+    * This class provides functionality to create and manage a frame buffer object for rendering.
+    *
+     * @note In order to use this class, the appropriate graphics context must be active.
+    */
+
 	class FrameBufferObject
 	{
 	public:
+
 		/**
-        * @class FrameBufferObject
-        * @brief Represents a frame buffer object for rendering.
-        *
-        * This class provides functionality to create and manage a frame buffer object for rendering.
-        *
-        * @note In order to use this class, the appropriate graphics context must be active.
-        */
+     	*
+     	*  @brief Default constructor for the FrameBufferObject class.
+     	*
+     	* This will generate a frame buffer object in the GPU memory.
+	 	*/
 
 		FrameBufferObject();
 
 		/**
-        * @class FrameBufferObject
-        * @brief This class represents a frame buffer object.
-        *
-        * The FrameBufferObject class provides functionality to create, bind, and manage frame buffer objects.
-        * Frame buffer objects are used for rendering to off-screen targets in OpenGL.
-        *
-        *
-        * @since 1.0.0
-        */
+     	*
+     	*  @brief Destructor for the FrameBufferObject class.
+     	*
+     	*  This will remove the frame buffer object from the GPU memory.
+	 	*/
 
 		~FrameBufferObject();
 

@@ -8,25 +8,37 @@
 #include <glm/glm.hpp>
 namespace hexen::engine::graphics::gl::shader
 {
+	/**
+    * @class ShaderProgram
+    * @brief Represents a shader program that consists of a vertex and fragment shader.
+    *
+    * This class handles the compilation and linking of shaders from their respective file paths.
+    */
+
 	class ShaderProgram : public core::memory::AllocatedObject
 	{
 	public:
 		/**
-        * @class ShaderProgram
-        * @brief Represents a shader program that consists of a vertex and fragment shader.
-        *
-        * This class handles the compilation and linking of shaders from their respective file paths.
-        */
+ 		* @brief Constructor for ShaderProgram class under hexen::engine::graphics::gl::shader namespace.
+ 		* This constructor takes two string parameters that represent the paths to
+ 		* the vertex and fragment shader files, respectively.
+ 		* It performs the task of reading the shader files and compiles and links them.
+ 		*
+ 		* @param vertexShaderPath  A string representing the path to the vertex shader file.
+ 		* @param fragmentShaderPath A string representing the path to the fragment shader file.
+ 		*/
 
 		ShaderProgram(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 
 		/**
-        * @class ShaderProgram
-        * @brief Represents a shader program used in the rendering process.
-        *
-        * This class manages the creation, compilation, and linking of shader programs.
-        * It also handles the destruction and cleanup of shader program resources.
-        */
+ 		* @class ShaderProgram
+ 		* @namespace hexen::engine::graphics::gl::shader
+ 		*
+ 		* @brief A ShaderProgram object represents a OpenGL shader program.
+ 		*
+ 		* Destructor for the ShaderProgram class.
+ 		* This destructor deletes the vertex and fragment shaders.
+ 		*/
 
 		~ShaderProgram() override;
 
@@ -81,44 +93,77 @@ namespace hexen::engine::graphics::gl::shader
 		void setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const;
 
 		/**
-    * Sets a vector4 uniform variable in the shader program.
-    *
-    * @param uniformVariable The name of the uniform variable.
-    * @param vector The vector value to set.
-    *
-    * @note This method assumes that a valid shader program is already linked.
-    *       Make sure to verify that the shader program has been linked before
-    *       using this method.
-    * @note This function is const and can be called on a const ShaderProgram object.
-    * @note This function assumes that the specified uniform variable exists in the shader program.
-    *
-    *
-    */
-
+    	* Sets a vector4 uniform variable in the shader program.
+    	*
+    	* @param uniformVariable The name of the uniform variable.
+    	* @param vector The vector value to set.
+    	*
+    	* @note This method assumes that a valid shader program is already linked.
+    	*       Make sure to verify that the shader program has been linked before
+    	*       using this method.
+    	* @note This function is const and can be called on a const ShaderProgram object.
+    	* @note This function assumes that the specified uniform variable exists in the shader program.
+    	*
+    	*
+    	*/
 
 		void setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const;
 
 		/**
-    * @brief Sets the value of a uniform variable of type vec3 in the shader program.
-    *
-    * This function sets the value of the uniform variable with the given name
-    * to the specified 3D vector. The uniform variable must exist in the shader program.
-    *
-    * @param uniformVariable The name of the uniform variable.
-    * @param vector The 3D vector value to set.
-    *
-    * @note The shader program must be currently active and linked in order to set the uniform variable.
-    */
+    	* @brief Sets the value of a uniform variable of type vec3 in the shader program.
+    	*
+    	* This function sets the value of the uniform variable with the given name
+    	* to the specified 3D vector. The uniform variable must exist in the shader program.
+    	*
+    	* @param uniformVariable The name of the uniform variable.
+    	* @param vector The 3D vector value to set.
+    	*
+    	* @note The shader program must be currently active and linked in order to set the uniform variable.
+    	*/
 
 		void setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const;
 
 	private:
+		/**
+ 		* @brief A ShaderFile object to manage the vertex shader file.
+ 		*/
+
 		hexen::engine::graphics::shader::ShaderFile vertexShaderFile;
+
+		/**
+ 		* @brief A ShaderFile object to manage the fragment shader file.
+ 		*/
+
 		hexen::engine::graphics::shader::ShaderFile fragmentShaderFile;
+
+		/**
+ 		* @brief Unsigned 32 bit integer to hold the vertex shader reference.
+ 		*/
+
 		core::u32 vertexShader {0};
+
+		/**
+ 		* @brief Unsigned 32 bit integer to hold the fragment shader reference.
+  		*/
+
 		core::u32 fragmentShader {0};
+
+		/**
+ 		* @brief Unsigned 32 bit integer to hold the shader program reference.
+ 		*/
+
 		core::u32 shaderProgram {0};
+
+		/**
+ 		* @brief Pointer to a character array containing the loaded fragment shader text.
+ 		*/
+
 		char *fragmentShaderText {nullptr};
+
+		/**
+ 		* @brief Pointer to a character array containing the loaded vertex shader text.
+ 		*/
+
 		char *vertexShaderText {nullptr};
 
 		/**
@@ -167,8 +212,17 @@ namespace hexen::engine::graphics::gl::shader
         * @note This method is noexcept.
         */
 
-
 		void showCompilerLog(core::u32 shader) const noexcept;
+
+		/**
+ 		* @brief Display the linker log
+ 		*
+ 		* This function gets the link status of the shader program.
+ 		* In case of an error, an error log is retrieved and displayed in the console log.
+ 		*
+ 		* @note This function does not throw exceptions.
+ 		*/
+
 		void showLinkerLog() const noexcept;
 	};
 }// namespace hexen::engine::graphics::gl::shader

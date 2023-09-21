@@ -11,26 +11,36 @@
 #include <glm/glm.hpp>
 namespace hexen::engine::graphics::gl
 {
+	/**
+    * @class VertexBufferObject
+    *
+    * @brief The VertexBufferObject class represents a vertex buffer object used in rendering vertex data.
+    *
+    * A vertex buffer object (VBO) is used to efficiently store vertex data in GPU memory. This class provides
+    * functionality to create and manage a VBO.
+    */
+
 	class VertexBufferObject
 	{
 	public:
+
 		/**
-        * @class VertexBufferObject
+        * @brief Constructor for VertexBufferObject.
         *
-        * @brief The VertexBufferObject class represents a vertex buffer object used in rendering vertex data.
-        *
-        * A vertex buffer object (VBO) is used to efficiently store vertex data in GPU memory. This class provides
-        * functionality to create and manage a VBO.
+        * Generates a new buffer object name and stores it in the member variable 'object'.
+        * The buffer is not initialized; it has a name but it does not yet have a type or any data.
         */
 
 		VertexBufferObject();
 
 		/**
-        * @class VertexBufferObject
-        * Represents a vertex buffer object (VBO) used for storing vertex data.
-        * The VertexBufferObject class manages the creation, deletion, and manipulation
-        * of VBOs in a rendering context.
-        */
+ 		* @fn hexen::engine::graphics::gl::VertexBufferObject::~VertexBufferObject()
+		*
+    	* @brief Destructor of VertexBufferObject class.
+ 		*
+ 		* This function deletes the buffer, releasing the memory that was used for this
+ 		* Vertex Buffer Object from the GPU.
+ 		*/
 
 		~VertexBufferObject();
 

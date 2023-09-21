@@ -17,12 +17,10 @@ hexen::engine::graphics::gl::VertexBufferObject::VertexBufferObject()
 	glGenBuffers(1, &object);
 }
 
-
 hexen::engine::graphics::gl::VertexBufferObject::~VertexBufferObject()
 {
 	glDeleteBuffers(1, &object);
 }
-
 
 void hexen::engine::graphics::gl::VertexBufferObject::bind(const RectangleData &rectangleData) const
 {
@@ -36,13 +34,11 @@ void hexen::engine::graphics::gl::VertexBufferObject::unbind()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-
 void hexen::engine::graphics::gl::VertexBufferObject::bind(size_t size, core::vptr data) const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, object);
 	glBufferData(GL_ARRAY_BUFFER, static_cast<long>(size), data, GL_STATIC_DRAW);
 }
-
 
 void hexen::engine::graphics::gl::VertexBufferObject::bind(const std::vector<glm::vec3> &vertices)
 {

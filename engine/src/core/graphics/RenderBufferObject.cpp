@@ -16,7 +16,6 @@ hexen::engine::graphics::gl::RenderBufferObject::RenderBufferObject()
 	glGenRenderbuffers(1, &object);
 }
 
-
 hexen::engine::graphics::gl::RenderBufferObject::~RenderBufferObject()
 {
 	glDeleteRenderbuffers(1, &object);

@@ -18,12 +18,10 @@ hexen::engine::graphics::gl::ElementsBufferObject::ElementsBufferObject()
 	glGenBuffers(1, &object);
 }
 
-
 hexen::engine::graphics::gl::ElementsBufferObject::~ElementsBufferObject()
 {
 	glDeleteBuffers(1, &object);
 }
-
 
 void hexen::engine::graphics::gl::ElementsBufferObject::bind(const hexen::engine::graphics::gl::RectangleData &rectangleData) const
 {

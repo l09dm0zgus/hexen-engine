@@ -8,6 +8,16 @@
 
 namespace hexen::engine::graphics::gl
 {
+
+	/**
+    * @class RenderBufferObject
+    *
+    * @brief The RenderBufferObject class represents a render buffer object used for off-screen rendering.
+    *
+    * This class provides functionalities to create and manage render buffer objects in a rendering pipeline.
+    *
+    */
+
 	class RenderBufferObject
 	{
 	private:
@@ -28,24 +38,18 @@ namespace hexen::engine::graphics::gl
 		[[nodiscard]] core::u32 getID() const noexcept;
 
 		/**
-        * @class RenderBufferObject
-        *
-        * @brief The RenderBufferObject class represents a render buffer object used for off-screen rendering.
-        *
-        * This class provides functionalities to create and manage render buffer objects in a rendering pipeline.
-        *
-        */
-
+ 		* Default Constructor for the RenderBufferObject Class in the HexenEngine Project.
+ 		* Generates a new render buffer object when called.
+ 		*/
 
 		RenderBufferObject();
 
 		/**
-        * @class RenderBufferObject
-        * @brief Class representing a render buffer object.
-        *
-        * This class represents a render buffer object that can be used for off-screen rendering.
-        * It provides functionality to create, bind, and delete the render buffer object.
-        */
+ 		* @brief The destructor for the RenderBufferObject class in the hexen::engine::graphics::gl namespace.
+ 		*
+ 		* This destructor is responsible for deleting the Render Buffer Object created during the object's lifetime.
+ 		* It calls the OpenGL function glDeleteRenderbuffers to delete the rendering buffer.
+ 		*/
 
 		~RenderBufferObject();
 

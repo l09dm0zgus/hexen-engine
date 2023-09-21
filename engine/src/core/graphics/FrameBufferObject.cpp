@@ -15,7 +15,6 @@ hexen::engine::graphics::gl::FrameBufferObject::FrameBufferObject()
 	glGenFramebuffers(1, &object);
 }
 
-
 hexen::engine::graphics::gl::FrameBufferObject::~FrameBufferObject()
 {
 	glDeleteFramebuffers(1, &object);

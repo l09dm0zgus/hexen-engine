@@ -9,33 +9,37 @@
 
 namespace hexen::engine::graphics::gl
 {
+	/**
+    * @class ElementsBufferObject
+    *
+    * @brief Represents a buffer object for storing elements data.
+    *
+    * The ElementsBufferObject class is responsible for managing a buffer object
+    * used for storing elements data, such as vertex indices or primitive indices.
+    *
+    * The buffer object can be used in conjunction with other rendering components
+    * to efficiently render element-based primitives, such as triangles or lines.
+    *
+    * This class provides a constructor that initializes the elements buffer object.
+     */
+
 	class ElementsBufferObject
 	{
 	public:
+
 		/**
-        * @class ElementsBufferObject
-        *
-        * @brief Represents a buffer object for storing elements data.
-        *
-        * The ElementsBufferObject class is responsible for managing a buffer object
-        * used for storing elements data, such as vertex indices or primitive indices.
-        *
-        * The buffer object can be used in conjunction with other rendering components
-        * to efficiently render element-based primitives, such as triangles or lines.
-        *
-        * This class provides a constructor that initializes the elements buffer object.
-        */
+ 		* @brief Default constructor for the ElementsBufferObject class.
+ 		*
+ 		* This constructor generates a new OpenGL Elements Buffer Object and stores its ID.
+ 		*/
 
 		ElementsBufferObject();
 
 		/**
-        * @class ElementsBufferObject
-        * @brief This class represents a buffer object for storing vertex element data in graphics rendering.
-        *
-        * The ElementsBufferObject class is responsible for managing a buffer object that stores vertex
-        * element data used in graphics rendering. It provides functionality to create, bind, and delete
-        * the buffer object, as well as to update the buffer with new data.
-        */
+ 		* @brief Destructor for the ElementsBufferObject class.
+ 		*
+ 		* This destructor deletes the OpenGL Elements Buffer Object associated with this class instance.
+ 		*/
 
 		~ElementsBufferObject();
 

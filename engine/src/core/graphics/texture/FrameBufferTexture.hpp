@@ -9,6 +9,17 @@
 
 namespace hexen::engine::graphics::gl
 {
+	/**
+    * @class FrameBufferTexture
+    * @brief Represents a texture used as a frame buffer object attachment.
+    *
+    * The FrameBufferTexture class is responsible for creating and managing a texture that can be
+    * attached to a frame buffer object (FBO). The texture is used as a rendering destination when
+    * performing off-screen rendering.
+    *
+    * This class provides a constructor to create a FrameBufferTexture object with a specified size.
+    */
+
 	class FrameBufferTexture : public core::memory::AllocatedObject
 	{
 	private:
@@ -16,26 +27,19 @@ namespace hexen::engine::graphics::gl
 
 	public:
 		/**
-        * @class FrameBufferTexture
-        * @brief Represents a texture used as a frame buffer object attachment.
-        *
-        * The FrameBufferTexture class is responsible for creating and managing a texture that can be
-        * attached to a frame buffer object (FBO). The texture is used as a rendering destination when
-        * performing off-screen rendering.
-        *
-        * This class provides a constructor to create a FrameBufferTexture object with a specified size.
-        */
+ 		* @brief Construct a new Frame Buffer Texture object. This is part of the HexenEngine's graphics handling module.
+ 		* @param size The size of the frame buffer texture, a vector of two elements standing for width and height.
+ 		*
+ 		* This constructor initializes a new OpenGL texture and sets up its dimensions according to the provided size.
+ 		*/
 
 		explicit FrameBufferTexture(const glm::vec2 &size);
 
 		/**
-        * @class FrameBufferTexture
-        * @brief Represents a texture attached to a frame buffer object.
-        *
-        * This class is responsible for handling the destruction of frame buffer textures.
-        * It provides a destructor to release any associated resources.
-        */
-
+ 		* @brief Destructor of the FrameBufferTexture class.
+ 		*
+ 		* The destructor is used for cleaning up the resources that the FrameBufferTexture object may have acquired during its lifetime. Specifically, it deletes the OpenGL textures associated with it.
+ 		*/
 
 		~FrameBufferTexture() override;
 
