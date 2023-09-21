@@ -7,57 +7,111 @@
 #include "../Types.hpp"
 #include "MemoryPool.hpp"
 #include <memory>
+
 namespace hexen::engine::core::memory
 {
+	/**
+    * @class AllocatedObject
+    * @brief Represents an allocated memory object.
+    *
+    * AllocatedObject is a base class that is used to represent
+    * objects allocated in memory. It provides constructor and
+    * destructor functions to manage the lifetime of the object.
+    */
+
 	class AllocatedObject
 	{
 	public:
 		/**
-        * @class core::mem::AllocatedObject
-        *
-        * @brief The `AllocatedObject` class provides the `operator delete` function used
-        *        for deallocating memory of objects allocated using `operator new`.
-        *        This function is part of the core memory management module.
-        *
-        * This class defines the `operator delete` which is used to deallocate memory
-        * for objects of classes derived from `AllocatedObject`.
-        *
-        * @note This operator should only be used to deallocate memory for objects allocated
-        *       using `operator new`.
-        *
-        * @remarks
-        * - Memory that was not allocated with `operator new` should not be deallocated
-        *   using this operator.
-        * - This operator should not be used to delete arrays. Use `operator delete[]`
-        *   for arrays allocated with `operator new[]`.
-        * - Overriding this operator for a derived class allows custom deallocation of
-        *   memory for the objects of that class.
-        *
-        * @param address The pointer to the memory block to deallocate.
-        *
-        * @return None. Memory is deallocated implicitly.
-        *
-        * @remark This function does not throw any exceptions and is guaranteed to be noexcept.
-        */
+		* @brief Overloaded delete operator for the AllocaredObject class.
+		* This function logs an error message if it fails to free
+		* the memory pointed to by the given address.
+		* If memory pool exists, it directly calls upon memory pool to free the given address.
+		*
+		* @param address The address of the memory space to be freed.
+		*
+		* @exception noexcept This function is guaranteed not to throw an exception.
+		*/
 
 		void operator delete(vptr address) noexcept;
+
+		/**
+ 		* @brief Overloaded new operator for allocating memory for objects of AllocatedObject.
+ 		*
+ 		* This function is responsible for allocating memory for objects of AllocatedObject class.
+ 		* It is an overloaded version of the new operator that takes the size of the object as a parameter and returns a pointer to the allocated memory.
+ 		*
+ 		* @param size The size of the object to be allocated.
+ 		* @return A pointer to the allocated memory for the object.
+ 		*/
+
 		vptr operator new(u64 size);
 
 		/**
-        * @class AllocatedObject
-        * @brief Represents an allocated memory object.
-        *
-        * AllocatedObject is a base class that is used to represent
-        * objects allocated in memory. It provides constructor and
-        * destructor functions to manage the lifetime of the object.
-        */
+ 		* @class AllocatedObject
+ 		* @namespace hexen::engine::core::memory
+ 		* @brief Default Constructor for the AllocatedObject class.
+ 		*
+ 		* Sets the new_handler function of the C++ Standard Library. The new_handler function
+ 		* is a global function that is called by the new operator when it fails to allocate storage.
+ 		*
+ 		*/
 
 		AllocatedObject();
+
+		/**
+     	* @brief Virtual destructor for the AllocatedObject class.
+     	*
+     	* The destructor is declared as virtual to ensure that the destructors for derived classes are
+     	* called correctly when an object is deleted through a pointer-to-base.
+     	* It is defaulted because it does not have any specific implementation details.
+     	*/
+
 		virtual ~AllocatedObject() = default;
+
+		/**
+ 		* @brief Copy constructor.
+ 		*
+ 		* The copy constructor is defaulted, meaning it will perform a member-wise copy of the source object.
+ 		*
+ 		* @param allocationManager The source AllocatedObject from which to create this object.
+ 		*/
+
 		AllocatedObject(const AllocatedObject &allocationManager) = default;
+
+		/**
+ 		* @brief Move constructor.
+ 		*
+ 		* The move constructor is defaulted, meaning it will 'steal' the resources from the source object,
+ 		* leaving it in a valid but unspecified state.
+ 		*
+ 		* @param allocationManager The source AllocatedObject from which to 'move' resources into this object.
+ 		*/
+
 		AllocatedObject(AllocatedObject &&allocationManager) = default;
 
+		/**
+ 		* @brief Copy assignment operator.
+ 		*
+ 		* The copy assignment operator is defaulted, meaning it will perform member-wise copy assignment
+ 		* from the source object.
+ 		*
+ 		* @param allocationManager The source AllocatedObject from which to copy.
+ 		* @return Returns a reference to the object that the member belongs to.
+ 		*/
+
 		AllocatedObject &operator=(const AllocatedObject &allocationManager) = default;
+
+		/**
+ 		* @brief Move assignment operator.
+ 		*
+ 		* The move assignment operator is defaulted, meaning it will 'steal' the resources from the source object,
+ 		* leaving it in a valid but unspecified state.
+ 		*
+ 		* @param allocationManager The source AllocatedObject from which to 'move' resources.
+ 		* @return Returns a reference to the object that the member belongs to.
+ 		*/
+
 		AllocatedObject &operator=(AllocatedObject &&allocationManager) = default;
 
 

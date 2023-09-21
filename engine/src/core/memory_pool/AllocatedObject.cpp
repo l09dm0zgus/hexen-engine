@@ -15,15 +15,6 @@ namespace hexen::engine::core::memory
 
 
 std::unique_ptr<hexen::engine::core::memory::MemoryPool> hexen::engine::core::memory::AllocatedObject::memoryPool = nullptr;
-/**
- * @brief Overloaded new operator for allocating memory for objects of AllocatedObject.
- *
- * This function is responsible for allocating memory for objects of AllocatedObject class.
- * It is an overloaded version of the new operator that takes the size of the object as a parameter and returns a pointer to the allocated memory.
- *
- * @param size The size of the object to be allocated.
- * @return A pointer to the allocated memory for the object.
- */
 
 hexen::engine::core::vptr hexen::engine::core::memory::AllocatedObject::operator new(u64 size)
 {

@@ -7,18 +7,12 @@
 #include <algorithm>
 #include <malloc.h>
 
-
-/**
- * @class MemoryPool
- * @brief This class represents a memory pool with a specified size.
- */
-
 hexen::engine::core::memory::MemoryPool::MemoryPool(u64 size) : size(size)
 {
 	memory = malloc(size);
 	lastAddress = memory;
 	maxAddress = (vptr) (((u64) memory) + (size));
-	SDL_Log("Allocated memory in pool : %lu bytes.\nMemory address : %p.\n", size, memory);
+	SDL_Log("Allocated memory in pool : %llu bytes.\nMemory address : %p.\n", size, memory);
 }
 
 void hexen::engine::core::memory::MemoryPool::free(vptr address) noexcept
@@ -27,17 +21,16 @@ void hexen::engine::core::memory::MemoryPool::free(vptr address) noexcept
 			{ return allocation.address == address; });
 	if (iterator != allocations.end())
 	{
-		SDL_Log("Freed allocation from address: %p\n.Returned memory to pool : %lu.\n", address, iterator->occupiedBytes);
+		SDL_Log("Freed allocation from address: %p\n.Returned memory to pool : %llu.\n", address, iterator->occupiedBytes);
 		iterator->freeFlag = 1u;
 		iterator->occupiedBytes = 0;
 	}
 }
 
-
 hexen::engine::core::memory::MemoryPool::~MemoryPool()
 {
 	free(memory);
-	SDL_Log("Freed memory from pool  address : %p.Size of freed memory: %lu.\n", memory, size);
+	SDL_Log("Freed memory from pool  address : %p.Size of freed memory: %llu.\n", memory, size);
 }
 
 hexen::engine::core::vptr hexen::engine::core::memory::MemoryPool::allocate(u64 allocationSize)
@@ -92,5 +85,5 @@ hexen::engine::core::vptr hexen::engine::core::memory::MemoryPool::allocate(u64 
 inline void hexen::engine::core::memory::MemoryPool::showLogForAllocation(const MemoryPool::Allocation &allocation)
 {
 	auto freeMemory = (((u64) maxAddress) - (u64) lastAddress);
-	SDL_Log("Allocated memory from address : %p.\nOccupied Bytes: %lu.\nAllocated memory for object: %lu.\nPool size : %lu.\nPool memory begin address : %p.\nAllocation objects : %zu.\nFree memory in pool: %lu.\n", allocation.address, allocation.occupiedBytes, allocation.allocatedBytes, size, memory, allocations.size(), freeMemory);
+	SDL_Log("Allocated memory from address : %p.\nOccupied Bytes: %llu.\nAllocated memory for object: %llu.\nPool size : %llu.\nPool memory begin address : %p.\nAllocation objects : %zu.\nFree memory in pool:%lluu.\n", allocation.address, allocation.occupiedBytes, allocation.allocatedBytes, size, memory, allocations.size(), freeMemory);
 }
