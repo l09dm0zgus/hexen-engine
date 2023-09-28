@@ -13,146 +13,94 @@
 
 namespace hexen::engine::components
 {
+	/**
+    * @class TransformComponent
+    * @brief Class representing a transform component.
+    *
+    * The TransformComponent class stores and manages the transformation
+    * properties of a game object, such as position, rotation, and scale.
+    *
+    * The class provides a default constructor that initializes the transform
+    * properties to their default values. Additional methods can be added to
+    * manipulate and retrieve the transform properties as needed.
+    */
+
 	class TransformComponent : public components::Component
 	{
 	public:
+
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+		 * @brief Generates an empty TransformComponent.
+		*/
 
 		TransformComponent() = default;
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* - Default destructor.
+ 		* @brief Destroys the TransformComponent.
+ 		*/
 
 		~TransformComponent() override = default;
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Explicit constructor that takes a layer as an argument.
+ 		* @param layer Layer of the transform.
+ 		*/
 
 		explicit TransformComponent(float layer);
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Explicit constructor that takes a 2D vector position as an argument.
+ 		* @param newPosition 2D vector new position of the transform.
+ 		*/
 
 		explicit TransformComponent(const glm::vec2 &newPosition);
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Explicit constructor that takes a 4D matrix transform as an argument.
+ 		* @param newTransform 4D matrix new transform.
+ 		*/
 
 		explicit TransformComponent(const glm::mat4 &newTransform);
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Copy constructor.
+ 		* @param transformComponent The TransformComponent to copy from.
+ 		*/
 
 		TransformComponent(const TransformComponent &transformComponent);
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Move constructor.
+ 		* @param transformComponent The TransformComponent to move from.
+ 		*/
 
 		TransformComponent(TransformComponent &&transformComponent) noexcept;
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Constructor that sets the newPosition and newRotation.
+ 		* @param newPosition 2D vector new position of the transform.
+ 		* @param newRotation 2D vector new rotation of the transform.
+ 		*/
 
 		TransformComponent(const glm::vec2 &newPosition, const glm::vec2 &newRotation);
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Constructor that sets the newPosition, newRotation, and newScale.
+ 		* @param newPosition 2D vector new position of the transform.
+ 		* @param newRotation 2D vector new rotation of the transform.
+ 		* @param newScale 2D vector new scale of the transform.
+ 		*/
 
 		TransformComponent(const glm::vec2 &newPosition, const glm::vec2 &newRotation, const glm::vec2 &newScale);
 
 		/**
-        * @class TransformComponent
-        * @brief Class representing a transform component.
-        *
-        * The TransformComponent class stores and manages the transformation
-        * properties of a game object, such as position, rotation, and scale.
-        *
-        * The class provides a default constructor that initializes the transform
-        * properties to their default values. Additional methods can be added to
-        * manipulate and retrieve the transform properties as needed.
-        */
+ 		* @brief Constructor that sets the newPosition, newRotation, newScale, and layer.
+ 		* @param newPosition 2D vector new position of the transform.
+ 		* @param newRotation 2D vector new rotation of the transform.
+ 		* @param newScale 2D vector new scale of the transform.
+ 		* @param layer Layer of the transform.
+ 		*/
 
 		TransformComponent(const glm::vec2 &newPosition, /***/ const glm::vec2 &newRotation, const glm::vec2 &newScale, float layer);
 

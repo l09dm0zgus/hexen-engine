@@ -10,17 +10,30 @@
 #include <glm/glm.hpp>
 namespace hexen::engine::components::graphics
 {
+	/**
+    * @class CameraComponent
+    * @brief Represents a camera component used in a game engine.
+    *
+    * This class encapsulates the properties and behaviors of a camera used for rendering
+    * a viewport in a game engine. It provides methods for setting the viewport dimensions,
+    * field of view, and other camera-related functionalities.
+    */
+
 	class CameraComponent : public Component
 	{
 	public:
+
 		/**
-        * @class comp::CameraComponent
-        * @brief Represents a camera component used in a game engine.
-        *
-        * This class encapsulates the properties and behaviors of a camera used for rendering
-        * a viewport in a game engine. It provides methods for setting the viewport dimensions,
-        * field of view, and other camera-related functionalities.
-        */
+ 		* @constructor CameraComponent::CameraComponent
+ 		* @brief Constructs a new CameraComponent object.
+ 		*
+ 		* @param viewportWidth The width of the viewport.
+ 		* @param viewportHeight The height of the viewport.
+ 		* @param FOV The field of view of the camera.
+ 		*
+ 		* @details The constructor initializes the CameraComponent with the given parameters
+ 		* and updates the projection and view matrices.
+ 		*/
 
 		CameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV);
 
@@ -137,7 +150,7 @@ namespace hexen::engine::components::graphics
  		* @return The yaw value of the camera.
  		*/
 
-		[[nodiscard]]float getYaw() const noexcept;
+		[[nodiscard]] float getYaw() const noexcept;
 
 		/**
  		* @brief Get the pitch angle of the camera.
@@ -151,21 +164,68 @@ namespace hexen::engine::components::graphics
  		*       and does not modify the internal state of the camera component.
  		*/
 
-		[[nodiscard]]float getPitch() const noexcept;
+		[[nodiscard]] float getPitch() const noexcept;
 
 	private:
+		/**
+         * @brief View Matrix.
+         */
+
 		glm::mat4 view {1.0f};
+
+		/**
+         * @brief Projection Matrix.
+         */
+
 		glm::mat4 projection {1.0f};
+
+		/**
+         * @brief Default Up direction in world space.
+         */
+
 		glm::vec3 worldUp {0.0f, 1.0f, 0.0f};
 
+		/**
+         * @brief Field of View Angle.
+         */
+
 		float FOV {90.0f};
+
+		/**
+         * @brief Current Yaw Angle.
+         */
+
 		float currentYawAngle {-45.0};
+
+		/**
+         * @brief Current Pitch Angle.
+         */
+
 		float currentPitchAngle {270.0f};
 
 	protected:
+		/**
+         * @brief Up direction in camera space.
+         */
+
 		glm::vec3 cameraUp {1.0f};
+
+		/**
+         * @brief Right direction in camera space.
+         */
+
 		glm::vec3 cameraRight {1.0f};
+
+		/**
+         * @brief The point that the camera is looking at.
+         */
+
 		glm::vec3 cameraTarget {0.0f, 0.0f, -1.0f};
+
+		/**
+         * @brief Position of the camera in world space.
+         */
+
 		glm::vec3 position {5.0f, 15.0f, 5.0f};
 
 		/**
@@ -178,6 +238,5 @@ namespace hexen::engine::components::graphics
         */
 
 		void updateViewMatrix();
-
 	};
 }// namespace hexen::engine::components::graphics
