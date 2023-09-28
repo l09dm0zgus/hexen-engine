@@ -16,6 +16,15 @@ namespace hexen::editor::gui
 namespace hexen::editor::systems
 {
 	class DebugRenderSystem;
+
+	/**
+    * @class EditorSystemsManager
+    * @brief The EditorSystemsManager class represents a manager for editor systems.
+    *
+    * This class is responsible for managing various systems used in an editor environment.
+    * It provides functionality for creating, updating, and destroying editor systems.
+     */
+
 	class EditorSystemsManager : public hexen::engine::systems::SystemsManager
 	{
 	private:
@@ -32,12 +41,6 @@ namespace hexen::editor::systems
 
 		std::shared_ptr<gui::EditorGUI> editorGui;
 
-		/**
-        * @file DebugRenderSystem.h
-        *
-        * @brief This file contains the declaration of the DebugRenderSystem class, which
-        *        is responsible for rendering debug information in a game or application.
-        */
 
 		std::shared_ptr<DebugRenderSystem> debugRenderSystem;
 
@@ -46,14 +49,14 @@ namespace hexen::editor::systems
 
 	public:
 		/**
-        * @class EditorSystemsManager
-        * @brief The EditorSystemsManager class represents a manager for editor systems.
-        *
-        * This class is responsible for managing various systems used in an editor environment.
-        * It provides functionality for creating, updating, and destroying editor systems.
-        */
+     	* @brief Default constructor that initializes the EditorSystemsManager.
+     	*/
 
 		EditorSystemsManager();
+
+		/**
+     	* @brief Destructor that cleans up the EditorSystemsManager.
+     	*/
 
 		~EditorSystemsManager() override = default;
 
