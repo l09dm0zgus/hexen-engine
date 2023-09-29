@@ -14,43 +14,44 @@
 #include <imgui.h>
 namespace hexen::editor::gui
 {
+	/**
+     * @class EditorGUI
+     * @brief A class for handling the graphical user interface of the editor.
+     *
+     * This class provides functionality for managing the editor's graphical user interface.
+     * It is responsible for creating and managing the main editor window, as well as handling
+     * the OpenGL context for rendering the interface.
+     */
+
 	class EditorGUI : public hexen::engine::gui::IGUI
 	{
 	public:
 		/**
-        * @class EditorGUI
-        * @brief A class for handling the graphical user interface of the editor.
+        * @constructor  EditorGUI()
+        * @brief Default constructor.
         *
-        * This class provides functionality for managing the editor's graphical user interface.
-        * It is responsible for creating and managing the main editor window, as well as handling
-        * the OpenGL context for rendering the interface.
+        * Initializes an instance of EditorGUI.
         */
 
 		explicit EditorGUI();
 
 		/**
-        * @class EditorGUI
-        * @brief The EditorGUI class represents the graphical user interface for the editor.
-        *
-        * The EditorGUI class provides functionalities to create and manage the editor's user interface,
-        * including controls, windows, and menus.
-        */
+         * @brief Creates an EditorGUI with SDL_Window and SDL_GLContext.
+         * @param window Pointer to an SDL_Window structure that is the window to associate with the context.
+         * @param glContext The OpenGL context associated with the window.
+         * Initializes an instance of EditorGUI with specified SDL_Window and SDL_GLContext.
+         */
 
 		explicit EditorGUI(SDL_Window *window, SDL_GLContext glContext);
 
 		/**
-        * @class EditorGUI
-        * @brief The EditorGUI class represents the graphical user interface for the editor.
-        *
-        * This class helps with creating and managing the visual elements in the editor window.
-        * It provides functionality for rendering the UI elements and handling user input.
-        *
-        * @note This class represents the graphical user interface and should be used in conjunction with other classes
-        *       for the overall functionality of the editor.
-        *
-        */
+         * @desreuctor ~EditorGUI()
+         * @brief Destructor.
+         *
+         * Frees up any resources within EditorGUI instance.
+         */
 
-		~EditorGUI();
+		~EditorGUI() override;
 
 		/**
         * @brief Starts the GUI of editor.

@@ -11,6 +11,14 @@
 
 namespace hexen::editor::gui
 {
+	/**
+    * @class FramebufferWindow
+    * @brief Represents a window using a framebuffer for rendering.
+    *
+    * This class extends from the GUIWindow class and provides functionality
+    * for creating and managing a window that uses a framebuffer for rendering.
+    */
+
 	class FramebufferWindow : public GUIWindow
 	{
 	public:

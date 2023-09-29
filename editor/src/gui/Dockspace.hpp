@@ -9,9 +9,40 @@
 namespace hexen::editor::gui
 {
 	class FramebufferWindow;
+
+	/**
+	* @class Dockspace
+ 	* @brief The Dockspace class.
+ 	* A class for managing GUI windows and their docking positions.
+ 	*/
+
 	class Dockspace
 	{
 	public:
+		/**
+ 		* @enum DockingPosition
+ 		* @brief An enumeration class that defines possible docking positions in the interface.
+ 		* @details Position can be up, down, left, right, center or none.
+ 		*
+ 		* @var DockingPosition::UP
+ 		* Docking position is up.
+ 		*
+	 	* @var DockingPosition::DOWN
+ 		* Docking position is down.
+ 		*
+ 		* @var DockingPosition::LEFT
+ 		* Docking position is left.
+ 		*
+ 		* @var DockingPosition::RIGHT
+ 		* Docking position is right.
+ 		*
+ 		* @var DockingPosition::CENTER
+ 		* Docking position is at the center.
+ 		*
+ 		* @var DockingPosition::NONE
+ 		* Docking position is not defined.
+ 		*/
+
 		enum class DockingPosition : hexen::engine::core::u8
 		{
 			UP,

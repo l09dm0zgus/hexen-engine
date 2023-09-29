@@ -1,4 +1,4 @@
-//
+thx//
 // Created by cx9ps3 on 19.06.2023.
 //
 #include "AssetsWindow.hpp"

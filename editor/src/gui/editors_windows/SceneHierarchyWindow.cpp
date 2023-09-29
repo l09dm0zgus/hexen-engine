@@ -29,11 +29,11 @@ void hexen::editor::gui::SceneHierarchyWindow::draw()
 	}
 	else
 	{
-		findedChilds.clear();
-		auto result = hexen::engine::entity::SceneEntity::searchNode(scene->getRootNode(), searchQuery, findedChilds);
+		foundedChilds.clear();
+		auto result = hexen::engine::entity::SceneEntity::searchNode(scene->getRootNode(), searchQuery, foundedChilds);
 		if (result)
 		{
-			drawEntityChilds(std::move(findedChilds));
+			drawEntityChilds(std::move(foundedChilds));
 		}
 	}
 

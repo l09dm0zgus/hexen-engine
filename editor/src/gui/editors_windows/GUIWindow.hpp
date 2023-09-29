@@ -11,6 +11,17 @@
 
 namespace hexen::editor::gui
 {
+	/**
+     * @class GUIWindow
+     * @brief Represents a GUI window.
+     *
+     * This class provides functionality to create and manage a GUI window.
+     * The constructor and destructor are defined with default implementations.
+     *
+     * It is recommended to inherit from this class and extend it with specific functionality.
+     *
+     */
+
 	class GUIWindow : public engine::core::memory::AllocatedObject
 	{
 	public:
@@ -97,26 +108,15 @@ namespace hexen::editor::gui
 		virtual void end() = 0;
 
 		/**
-        * @class GUIWindow
-        * @brief Represents a GUI window.
-        *
-        * This class provides functionality to create and manage a GUI window.
-        * The constructor and destructor are defined with default implementations.
-        *
-        * It is recommended to inherit from this class and extend it with specific functionality.
-        *
-        */
+ 		* @brief Destructor for the GUIWindow class. It is declared as default and overriden from the parent class.
+ 		*/
 
-		virtual ~GUIWindow() = default;
-
+		~GUIWindow() override = default;
 
 		/**
-        * @class GUIWindow
-        * @brief Represents a graphical user interface window.
-        *
-        * A GUIWindow object is used to display a window in a graphical user interface.
-        * It provides methods to set the window's name and perform other related operations.
-        */
+ 		* @brief Explicit constructor for the GUIWindow class.
+ 		* @param name A string containing the name for the GUIWindow object.
+ 		*/
 
 		explicit GUIWindow(std::string name);
 
@@ -135,10 +135,15 @@ namespace hexen::editor::gui
 		GUIWindow(GUIWindow &&guiWindow) = delete;
 
 		/**
-        * @class GUIWindow
-        * @brief Represents a GUI window.
+        * @brief Deleted copy constructor for the GUIWindow class.
         *
-        * This class provides functionalities related to GUI windows.
+        * This copy constructor is deleted to prevent the GUIWindow instances
+        * from being moved or assigned using the move semantic.
+        *
+        * @param guiWindow The rvalue reference to the GUIWindow instance.
+        * @return Deleted operator - cannot be used.
+        *
+        * @see GUIWindow
         */
 
 		GUIWindow(const GUIWindow &guiWindow) = delete;

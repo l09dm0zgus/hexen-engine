@@ -13,21 +13,44 @@
 
 namespace hexen::editor::gui
 {
+
+	/**
+ 	* @class ImGuiMessageBox
+ 	* @brief A message box class for ImGui.
+ 	*
+ 	* This class provides the functionality of a popup message box within the ImGui library.
+ 	*/
+
 	class ImGuiMessageBox
 	{
 	private:
+		/**
+	 	* @struct MessageBoxData
+	 	* @brief A struct to hold data for each message box.
+	 	*
+	 	* This struct holds title, text, and other properties of a message box.
+	 	*/
+
 		struct MessageBoxData
 		{
-			std::string title;
-			std::string text;
-			glm::vec2 size;
-			hexen::engine::core::i32 id;
-			bool isActive = true;
-			bool isOpened = true;
+			std::string title;			 /**< Title of the message box. */
+			std::string text;			 /**< Text content of the message box. */
+			glm::vec2 size;				 /**< Size of the message box. */
+			hexen::engine::core::i32 id; /**< Identifier of the message box. */
+			bool isActive = true;		 /**< Determines if the message box is active. */
+			bool isOpened = true;		 /**< Determines if the message box is opened. */
 		};
+
+		/** Vector to hold all the message box data. */
 		static std::vector<MessageBoxData> messagesBoxesData;
 
 	public:
+		/**
+	 	* @brief Function to draw message boxes.
+	 	*
+	 	* This function iterates over the data of all message boxes and draws the active ones.
+	 	*/
+
 		static HEXEN_INLINE void draw()
 		{
 			for (auto &data : messagesBoxesData)
@@ -56,6 +79,16 @@ namespace hexen::editor::gui
 			}
 		}
 
+		/**
+	 	* @brief Function to add a new message box.
+	 	*
+	 	* This function takes title and text of a message box as parameters and adds it to message box data.
+	 	*
+	 	* @param title Title of the message box.
+	 	* @param text Text content of the message box.
+	 	* @param size Size of the message box. Default size is (230, 75).
+	 	*/
+
 		template<class T>
 		static HEXEN_INLINE void add(T &&title, T &&text, const glm::vec2 &size = glm::vec2(230, 75)) noexcept
 		{
@@ -78,6 +111,21 @@ namespace hexen::editor::gui
 			}
 		}
 	};
+
+	/**
+ 	* @brief Function to draw a buffering bar.
+ 	*
+ 	* This function draws a buffering bar with the given label and value.
+ 	* Background and foreground colors can also be specified.
+ 	*
+ 	* @param label Label of the buffering bar.
+ 	* @param value Value of the buffering bar.
+ 	* @param newSize Size of the buffering bar.
+ 	* @param backgroundColor Background color of the buffering bar.
+ 	* @param foregroundColor Foreground color of the buffering bar.
+ 	* @return boolean value indicating success or failure.
+ 	*/
+
 	bool bufferingBar(const char *label, float value, const ImVec2 &newSize, const ImU32 &backgroundColor, const ImU32 &foregroundColor);
 
 }// namespace hexen::editor::gui
