@@ -13,6 +13,16 @@
 
 namespace hexen::editor::components::graphics
 {
+	/**
+     * @class DebugGridComponent
+     *
+     * @brief The DebugGridComponent class renders a debug grid using the provided vertex and fragment shader paths.
+     *
+     * This component is used to render a debug grid in a 3D scene for debugging purposes. It requires vertex and fragment shader
+     * paths to be provided to properly render the grid. The grid is rendered using a vertex shader for vertex transformation
+     * and a fragment shader for fragment coloring.
+     */
+
 	class DebugGridComponent : public hexen::engine::components::graphics::RenderComponent
 	{
 	private:
@@ -110,14 +120,13 @@ namespace hexen::editor::components::graphics
 
 	public:
 		/**
-        * @class DebugGridComponent
-        *
-        * @brief The DebugGridComponent class renders a debug grid using the provided vertex and fragment shader paths.
-        *
-        * This component is used to render a debug grid in a 3D scene for debugging purposes. It requires vertex and fragment shader
-        * paths to be provided to properly render the grid. The grid is rendered using a vertex shader for vertex transformation
-        * and a fragment shader for fragment coloring.
-        */
+     	* @brief Construct a new DebugGridComponent
+     	*
+     	* This constructor builds a new DebugGridComponent with the provided vertex and fragment shader paths.
+     	*
+     	* @param vertexShaderPath The file path to the vertex shader to be used.
+     	* @param fragmentShaderPath The file path to the fragment shader to be used.
+     	*/
 
 		DebugGridComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 

@@ -7,6 +7,16 @@
 
 namespace hexen::editor::components::graphics
 {
+
+	/**
+     * @class hexen::editor::components::EditorCameraComponent
+     * @brief Represents a camera component used in editor.
+     *
+     * This class encapsulates the properties and behaviors of a camera used for rendering
+     * a viewport in a game engine. It provides methods for setting the viewport dimensions,
+     * field of view, and other camera-related functionalities.
+     */
+
 	class EditorCameraComponent : public engine::components::graphics::CameraComponent
 	{
 	private:
@@ -14,14 +24,14 @@ namespace hexen::editor::components::graphics
 		float deltaTime {0};
 
 	public:
+
 		/**
-        * @class hexen::editor::components::EditorCameraComponent
-        * @brief Represents a camera component used in editor.
-        *
-        * This class encapsulates the properties and behaviors of a camera used for rendering
-        * a viewport in a game engine. It provides methods for setting the viewport dimensions,
-        * field of view, and other camera-related functionalities.
-        */
+ 		* @brief Constructor for EditorCameraComponent
+ 		*
+ 		* @param viewportWidth The width of the viewport in pixels
+ 		* @param viewportHeight The height of the viewport in pixels
+ 		* @param FOV The field of view for the camera in degrees
+ 		*/
 
 		EditorCameraComponent(engine::core::i32 viewportWidth, engine::core::i32 viewportHeight, float FOV);
 
