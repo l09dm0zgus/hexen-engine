@@ -13,7 +13,7 @@ hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : D
 void hexen::editor::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
 	filesToCopy = files;
-	copedFiles = 0;
+	copiedFiles = 0;
 	currentFileToCopy = filesToCopy.cbegin();
 }
 
@@ -33,8 +33,8 @@ void hexen::editor::gui::CopyingFilesWindow::drawContent()
 		const ImU32 background = ImGui::GetColorU32(ImGuiCol_Button);
 
 		std::filesystem::copy(*currentFileToCopy, currentPath);
-		ImGui::ProgressBar(static_cast<float>(copedFiles + 1) / static_cast<float>(filesToCopy.size()), ImVec2(0, 1));
-		copedFiles++;
+		ImGui::ProgressBar(static_cast<float>(copiedFiles + 1) / static_cast<float>(filesToCopy.size()), ImVec2(0, 1));
+		copiedFiles++;
 		currentFileToCopy++;
 	}
 	else

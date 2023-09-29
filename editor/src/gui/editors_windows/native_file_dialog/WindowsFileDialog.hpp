@@ -116,6 +116,15 @@ namespace hexen::editor::gui
 		hexen::engine::core::i32 copyWideCharToExisitingSTDString(const wchar_t *string, std::string &outString);
 
 		/**
+ 		* @brief Converts a wide character string to a standard string.
+ 		*
+ 		* @param string The wide character string that needs to be converted.
+ 		*
+ 		* @return The converted standard string.
+ 		*/
+
+		std::string copyWideCharToSTDString(const wchar_t *string);
+		/**
     	* @brief Copies the std::string to the provided std::vector<wchar_t>.
     	* @param str The std::string to be copied.
     	* @param outString The std::vector<wchar_t> to which the input string is copied.
