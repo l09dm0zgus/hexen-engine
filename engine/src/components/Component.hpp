@@ -6,15 +6,7 @@
 
 #include "../core/memory_pool/AllocatedObject.hpp"
 #include <string>
-#define /**\
-	     * @brief Gets the component's name.\
-	     *\
-	     * @return The current component's name.\
-	     */                       \
-                                   \
-		[[nodiscard]] std::string  \
-		getName() const noexcept { \
-				return name; }
+
 namespace hexen::engine::components
 {
 	/**
@@ -88,6 +80,17 @@ namespace hexen::engine::components
 		void setName(T &&newName) noexcept
 		{
 			name = std::forward<T>(newName);
+		}
+
+		/**
+	     * @brief Gets the component's name.
+	     *
+	     * @return The current component's name.
+	     */
+
+		[[nodiscard]] std::string getName() const noexcept
+		{
+			return name;
 		}
 
 	private:
