@@ -1,6 +1,8 @@
 
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.20)
+project(Hexen)
 
+message(STATUS "Engine Name:" ${ENGINE_NAME})
 target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.hpp
          ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/graphics/RenderComponent.hpp

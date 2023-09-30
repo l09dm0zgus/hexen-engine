@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.6)
 project(Hexen)
 
-set(CMAKE_CXX_STANDARD 17)
 set(EDITOR_NAME HexenEditor CACHE INTERNAL "")
 set(ENGINE_NAME HexenEngine CACHE INTERNAL "")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
+message(STATUS "Building engine...")
 option(BUILD_EDITOR "Build editor" ON)
 option(BUILD_SHARED "Build as shared lib" OFF)
 option(BUILD_STATIC "Build as static lib" ON)
@@ -13,15 +12,19 @@ option(BUILD_FOR_ANDROID "Build client as shared lib for Android" OFF)
 option(ENABLE_PROFILING OFF)
 option(ENABLE_SANITIZERS "Enable sanitizers" ON)
 
+if(${BUILD_FOR_ANDROID})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+else()
+    set(CMAKE_CXX_STANDARD 17)
+endif(${BUILD_FOR_ANDROID})
 
 if(BUILD_STATIC)
     add_library(${ENGINE_NAME} STATIC)
-    add_subdirectory(engine)
 elseif(BUILD_SHARED)
     add_library(${ENGINE_NAME} SHARED)
-    add_subdirectory(engine)
 endif()
 
+add_subdirectory(engine)
 add_subdirectory(client)
 
 
@@ -67,14 +70,15 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/json)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/boost_context)
 
 
-if (BUILD_ANDROID)
+if (${BUILD_FOR_ANDROID})
+    MESSAGE(STATUS "Building for android")
     target_link_libraries(${ENGINE_NAME} PRIVATE  SDL3_image::SDL3_image  SDL3::SDL3 GLESv3 boost_context glm)
 else()
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake)
     set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake/include)
     include_directories(${GLEW_INCLUDE_DIR})
     target_link_libraries(${ENGINE_NAME} PRIVATE SDL3_image::SDL3_image  SDL3::SDL3 libglew_static boost_context glm)
-endif (BUILD_ANDROID)
+endif (${BUILD_FOR_ANDROID})
 
 
 

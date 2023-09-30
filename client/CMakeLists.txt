@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 project(Client)
-
 set(GAME_NAME "Game" CACHE STRING "Game")
 
 if(${BUILD_FOR_ANDROID})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
     add_library(${GAME_NAME})
 else ()
     add_executable(${GAME_NAME})
