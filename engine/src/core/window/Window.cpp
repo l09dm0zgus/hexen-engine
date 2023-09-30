@@ -6,10 +6,11 @@
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <SDL_image.h>
 
 #ifndef __ANDROID__
 	#include <GL/glew.h>
-	#include <SDL_image.h>
+
 	#include <iostream>
 	#include <map>
 	#include <utility>

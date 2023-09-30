@@ -5,9 +5,9 @@
 #ifndef __ANDROID__
 	#include <GL/glew.h>
 	#include <glm/gtc/type_ptr.hpp>
-
 #else
 	#include <GLES3/gl31.h>
+    #include <glm/gtc/type_ptr.hpp>
 #endif
 
 #include "ElementsBufferObject.hpp"
