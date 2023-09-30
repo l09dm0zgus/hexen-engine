@@ -96,7 +96,7 @@ void hexen::engine::graphics::gl::shader::ShaderProgram::setMatrix4Uniform(const
 
 void hexen::engine::graphics::gl::shader::ShaderProgram::setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const
 {
-	glUniform4d(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), vector.x, vector.y, vector.z, vector.w);
+	glUniform4f(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), vector.x, vector.y, vector.z, vector.w);
 }
 
 void hexen::engine::graphics::gl::shader::ShaderProgram::setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const
