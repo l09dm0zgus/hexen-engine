@@ -1,10 +1,12 @@
-.cxx
+client/android/app/.cxx
 .idea
 .gradle
+client/android/app/build
 build
 cmake-build-debug
 cmake-build-debug-wsl
 cmake-build-release
+cmake-build-release-wsl
 editor/.idea
 local.properties
 out

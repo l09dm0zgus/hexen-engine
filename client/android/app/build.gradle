@@ -11,7 +11,7 @@ android {
     compileSdkVersion 31
     defaultConfig {
         if (buildAsApplication) {
-            applicationId "com.purehatredgames.hexenreich"
+            applicationId "com.purehatredgames.hexenengine"
         }
         minSdkVersion 16
         targetSdkVersion 31
@@ -19,9 +19,8 @@ android {
         versionName "1.0"
         externalNativeBuild {
              cmake {
-                 arguments "-DANDROID_APP_PLATFORM=android-16", "-DCMAKE_CXX_FLAGS='-llog'" ,"-DBUILD_ANDROID=ON"
+                 arguments "-DANDROID_APP_PLATFORM=android-16", "-DCMAKE_CXX_FLAGS='-llog'" ,"-DBUILD_FOR_ANDROID=ON", "-DBUILD_SHARED=ON" , "-DBUILD_EDITOR=OFF"
                  abiFilters  'arm64-v8a',  'x86_64'
-            //     abiFilters 'arm64-v8a'
              }
         }
     }
@@ -43,7 +42,7 @@ android {
 
              cmake {
                  version '3.26.3'
-                 path '../engine/CMakeLists.txt'
+                 path '../../CMakeLists.txt'
             }
         }
        

@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 option(BUILD_EDITOR "Build editor" ON)
 option(BUILD_SHARED "Build as shared lib" OFF)
 option(BUILD_STATIC "Build as static lib" ON)
-option(BUILD_ANDROID "Build as Android" OFF)
+option(BUILD_FOR_ANDROID "Build client as shared lib for Android" OFF)
 option(ENABLE_PROFILING OFF)
 option(ENABLE_SANITIZERS "Enable sanitizers" ON)
 
@@ -21,6 +21,9 @@ elseif(BUILD_SHARED)
     add_library(${ENGINE_NAME} SHARED)
     add_subdirectory(engine)
 endif()
+
+add_subdirectory(client)
+
 
 if(ENABLE_SANITIZERS)
     message(STATUS "IS WIN32")

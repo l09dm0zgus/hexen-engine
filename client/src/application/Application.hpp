@@ -3,8 +3,10 @@
 //
 #pragma once
 
-#include "../window/Window.hpp"
-namespace hexen::engine::core
+#include <core/window/Window.hpp>
+#include <core/application/GameLoop.hpp>
+
+namespace hexen::client
 {
 	/**
 	 * @class Application
@@ -91,12 +93,12 @@ namespace hexen::engine::core
 	private:
 
 		/**
-		 * @brief A unique pointer to Window object.
+		 * @brief A shared pointer to Window object.
 		 *
 		 * Represents the window of the application.
 		 */
 
-		std::unique_ptr<Window> window;
+		std::shared_ptr<engine::core::Window> window;
 
 		/**
 		 * @brief An object of Settings.
@@ -104,7 +106,9 @@ namespace hexen::engine::core
 		 * Represents the settings of the application.
 		 */
 
-		Settings settings;
+		engine::core::Settings settings;
+
+		std::unique_ptr<engine::core::GameLoop> gameLoop;
 	};
 
 }// namespace hexen::engine::core

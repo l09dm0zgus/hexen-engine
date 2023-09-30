@@ -7,11 +7,11 @@
 	#define main SDL_main
 #endif
 
-#include "core/application/Application.h"
+#include "application/Application.hpp"
 
 extern "C" __attribute__((visibility("default"))) int main(int argc, char **argv)
 {
-	core::Application application;
+	hexen::client::Application application;
 	application.run();
 	return (0);
 }

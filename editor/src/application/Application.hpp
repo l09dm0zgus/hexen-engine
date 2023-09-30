@@ -4,7 +4,7 @@
 
 #pragma once
 #include "EditorGameLoop.hpp"
-#include "core/window/Window.hpp"
+#include <core/window/Window.hpp>
 
 namespace hexen::editor
 {
