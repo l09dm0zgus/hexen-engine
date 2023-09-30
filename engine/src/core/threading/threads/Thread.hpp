@@ -13,11 +13,14 @@ typedef unsigned long DWORD;
 #elif defined(HEXEN_POSIX_THREADS)
 
 	#if defined(HEXEN_OS_LINUX)
-typedef unsigned long int pthread_t;// NOLINT(modernize-use-using)
+        #if defined(__ANDROID__)
+            typedef hexen::engine::core::i64 pthread_t;
+        #else
+            typedef hexen::engine::core::u64 pthread_t;
+        #endif
 	#elif defined(HEXEN_OS_APPLE)
-struct _opaque_pthread_t;
-typedef struct _opaque_pthread_t *__darwin_pthread_t;// NOLINT(modernize-use-using)
-typedef __darwin_pthread_t pthread_t;				 // NOLINT(modernize-use-using)
+        struct _opaque_pthread_t;
+        typedef struct _opaque_pthread_t *__darwin_pthread_t;
 	#endif
 #endif
 

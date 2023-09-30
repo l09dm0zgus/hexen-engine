@@ -6,7 +6,7 @@
 	#ifndef NDEBUG
 		#define HEXEN_DEBUG 1
 	#else
-		#define FTL_DEBUG 0
+		#define HEXEN_DEBUG 0
 	#endif
 #endif
 
@@ -50,12 +50,15 @@
 
 #ifdef __cpp_lib_hardware_interference_size
 	#include <new>
+    #include <thread>
 #endif
 
 namespace hexen::engine::core::threading
 {
-#ifdef __cpp_lib_hardware_interference_size
-	constexpr static size_t cacheLineSize = std::hardware_destructive_interference_size;
+
+#if defined(__cpp_lib_hardware_interference_size) && !defined(__ANDROID__)
+    #include <new>
+    constexpr static size_t cacheLineSize = std::hardware_destructive_interference_size;
 #else
 	constexpr static size_t cacheLineSize = 64;
 #endif

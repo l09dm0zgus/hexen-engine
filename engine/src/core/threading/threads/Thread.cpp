@@ -126,8 +126,10 @@ namespace hexen::engine::core::threading::thread
 
 	#if defined(HEXEN_OS_LINUX)
 		#include <features.h>
-	#endif
-	#include <pthread.h>
+    #endif
+
+    #include <pthread.h>
+
 	#include <string.h>
 	#include <unistd.h>
 
@@ -206,7 +208,12 @@ namespace hexen::engine::core::threading::thread
 		CPU_ZERO(&cpuSet);
 		CPU_SET(coreAffinity, &cpuSet);
 
-		auto result = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuSet);
+        #if defined(__ANDROID__)
+            auto result = sched_setaffinity(0,sizeof(cpu_set_t), &cpuSet);
+        #else
+            auto result = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuSet);
+        #endif
+
 		if (result != 0)
 		{
 			return false;
