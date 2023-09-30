@@ -170,7 +170,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
 */
 
     public static boolean mIsResumedCalled, mHasFocus;
-    public static final boolean mHasMultiWindow = (Build.VERSION.SDK_INT >= 24);
+    public static final boolean mHasMultiWindow = (Build.VERSION.SDK_INT >= 24  /* Android 7.0 (N) */);
 
     // Cursor types
     // private static final int SDL_SYSTEM_CURSOR_NONE = -1;
@@ -193,7 +193,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
     protected static final int SDL_ORIENTATION_PORTRAIT = 3;
     protected static final int SDL_ORIENTATION_PORTRAIT_FLIPPED = 4;
 
-    protected static int mCurrentOrientation;
+    protected static int mCurrentRotation;
     protected static Locale mCurrentLocale;
 
     // Handle the state of the native layer
@@ -226,9 +226,9 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
 
     protected static SDLGenericMotionListener_API12 getMotionListener() {
         if (mMotionListener == null) {
-            if (Build.VERSION.SDK_INT >= 26) {
+            if (Build.VERSION.SDK_INT >= 26 /* Android 8.0 (O) */) {
                 mMotionListener = new SDLGenericMotionListener_API26();
-            } else if (Build.VERSION.SDK_INT >= 24) {
+            } else if (Build.VERSION.SDK_INT >= 24 /* Android 7.0 (N) */) {
                 mMotionListener = new SDLGenericMotionListener_API24();
             } else {
                 mMotionListener = new SDLGenericMotionListener_API12();
@@ -398,6 +398,24 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
            return;
         }
 
+
+        /* Control activity re-creation */
+        /* Robustness: check that the native code is run for the first time.
+         * (Maybe Activity was reset, but not the native code.) */
+        {
+            int run_count = SDLActivity.nativeCheckSDLThreadCounter(); /* get and increment a native counter */
+            if (run_count != 0) {
+                boolean allow_recreate = SDLActivity.nativeAllowRecreateActivity();
+                if (allow_recreate) {
+                    Log.v(TAG, "activity re-created // run_count: " + run_count);
+                } else {
+                    Log.v(TAG, "activity finished // run_count: " + run_count);
+                    System.exit(0);
+                    return;
+                }
+            }
+        }
+
         // Set up JNI
         SDL.setupJNI();
 
@@ -419,12 +437,12 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         mLayout.addView(mSurface);
 
         // Get our current screen orientation and pass it down.
-        mCurrentOrientation = SDLActivity.getCurrentOrientation();
-        // Only record current orientation
-        SDLActivity.onNativeOrientationChanged(mCurrentOrientation);
+        SDLActivity.nativeSetNaturalOrientation(SDLActivity.getNaturalOrientation());
+        mCurrentRotation = SDLActivity.getCurrentRotation();
+        SDLActivity.onNativeRotationChanged(mCurrentRotation);
 
         try {
-            if (Build.VERSION.SDK_INT < 24) {
+            if (Build.VERSION.SDK_INT < 24 /* Android 7.0 (N) */) {
                 mCurrentLocale = getContext().getResources().getConfiguration().locale;
             } else {
                 mCurrentLocale = getContext().getResources().getConfiguration().getLocales().get(0);
@@ -525,33 +543,47 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         }
     }
 
-    public static int getCurrentOrientation() {
+    public static int getNaturalOrientation() {
         int result = SDL_ORIENTATION_UNKNOWN;
 
         Activity activity = (Activity)getContext();
-        if (activity == null) {
-            return result;
-        }
-        Display display = activity.getWindowManager().getDefaultDisplay();
-
-        switch (display.getRotation()) {
-            case Surface.ROTATION_0:
-                result = SDL_ORIENTATION_PORTRAIT;
-                break;
-
-            case Surface.ROTATION_90:
+        if (activity != null) {
+            Configuration config = activity.getResources().getConfiguration();
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            int rotation = display.getRotation();
+            if (((rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) &&
+                    config.orientation == Configuration.ORIENTATION_LANDSCAPE) ||
+                ((rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) &&
+                    config.orientation == Configuration.ORIENTATION_PORTRAIT)) {
                 result = SDL_ORIENTATION_LANDSCAPE;
-                break;
-
-            case Surface.ROTATION_180:
-                result = SDL_ORIENTATION_PORTRAIT_FLIPPED;
-                break;
-
-            case Surface.ROTATION_270:
-                result = SDL_ORIENTATION_LANDSCAPE_FLIPPED;
-                break;
+            } else {
+                result = SDL_ORIENTATION_PORTRAIT;
+            }
         }
+        return result;
+    }
 
+    public static int getCurrentRotation() {
+        int result = 0;
+
+        Activity activity = (Activity)getContext();
+        if (activity != null) {
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            switch (display.getRotation()) {
+                case Surface.ROTATION_0:
+                    result = 0;
+                    break;
+                case Surface.ROTATION_90:
+                    result = 90;
+                    break;
+                case Surface.ROTATION_180:
+                    result = 180;
+                    break;
+                case Surface.ROTATION_270:
+                    result = 270;
+                    break;
+            }
+        }
         return result;
     }
 
@@ -640,7 +672,11 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
 
             // Wait for "SDLThread" thread to end
             try {
-                SDLActivity.mSDLThread.join();
+                // 500ms timeout, because:
+                // C SDLmain() thread might have started (mSDLThread.start() called)
+                // while the SDL_Init() might not have been called yet,
+                // and so the previous QUIT event will be discarded by SDL_Init() and app is running, not exiting.
+                SDLActivity.mSDLThread.join(500);
             } catch(Exception e) {
                 Log.v(TAG, "Problem stopping SDLThread: " + e);
             }
@@ -806,7 +842,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
                 }
                 break;
             case COMMAND_CHANGE_WINDOW_STYLE:
-                if (Build.VERSION.SDK_INT >= 19) {
+                if (Build.VERSION.SDK_INT >= 19 /* Android 4.4 (KITKAT) */) {
                     if (context instanceof Activity) {
                         Window window = ((Activity) context).getWindow();
                         if (window != null) {
@@ -881,7 +917,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         msg.obj = data;
         boolean result = commandHandler.sendMessage(msg);
 
-        if (Build.VERSION.SDK_INT >= 19) {
+        if (Build.VERSION.SDK_INT >= 19 /* Android 4.4 (KITKAT) */) {
             if (command == COMMAND_CHANGE_WINDOW_STYLE) {
                 // Ensure we don't return until the resize has actually happened,
                 // or 500ms have passed.
@@ -965,12 +1001,14 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
     public static native String nativeGetHint(String name);
     public static native boolean nativeGetHintBoolean(String name, boolean default_value);
     public static native void nativeSetenv(String name, String value);
-    public static native void onNativeOrientationChanged(int orientation);
+    public static native void nativeSetNaturalOrientation(int orientation);
+    public static native void onNativeRotationChanged(int rotation);
     public static native void nativeAddTouch(int touchId, String name);
     public static native void nativePermissionResult(int requestCode, boolean result);
     public static native void onNativeLocaleChanged();
     public static native void onNativeDarkModeChanged(boolean enabled);
     public static native boolean nativeAllowRecreateActivity();
+    public static native int nativeCheckSDLThreadCounter();
 
     /**
      * This method is called by SDL using JNI.
@@ -1135,7 +1173,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         // thus SDK version 27.  If we are in DeX mode and not API 27 or higher, as a result,
         // we should stick to relative mode.
         //
-        if ((Build.VERSION.SDK_INT < 27) && isDeXMode()) {
+        if (Build.VERSION.SDK_INT < 27 /* Android 8.1 (O_MR1) */ && isDeXMode()) {
             return false;
         }
 
@@ -1225,7 +1263,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
      * This method is called by SDL using JNI.
      */
     public static boolean isDeXMode() {
-        if (Build.VERSION.SDK_INT < 24) {
+        if (Build.VERSION.SDK_INT < 24 /* Android 7.0 (N) */) {
             return false;
         }
         try {
@@ -1378,23 +1416,6 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
             }
         }
 
-        if ((source & InputDevice.SOURCE_KEYBOARD) == InputDevice.SOURCE_KEYBOARD) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                if (isTextInputEvent(event)) {
-                    if (ic != null) {
-                        ic.commitText(String.valueOf((char) event.getUnicodeChar()), 1);
-                    } else {
-                        SDLInputConnection.nativeCommitText(String.valueOf((char) event.getUnicodeChar()), 1);
-                    }
-                }
-                onNativeKeyDown(keyCode);
-                return true;
-            } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                onNativeKeyUp(keyCode);
-                return true;
-            }
-        }
-
         if ((source & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
             // on some devices key events are sent for mouse BUTTON_BACK/FORWARD presses
             // they are ignored here because sending them as mouse input to SDL is messy
@@ -1407,6 +1428,21 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
                     return true;
                 }
             }
+        }
+
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (isTextInputEvent(event)) {
+                if (ic != null) {
+                    ic.commitText(String.valueOf((char) event.getUnicodeChar()), 1);
+                } else {
+                    SDLInputConnection.nativeCommitText(String.valueOf((char) event.getUnicodeChar()), 1);
+                }
+            }
+            onNativeKeyDown(keyCode);
+            return true;
+        } else if (event.getAction() == KeyEvent.ACTION_UP) {
+            onNativeKeyUp(keyCode);
+            return true;
         }
 
         return false;
@@ -1655,7 +1691,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
     private final Runnable rehideSystemUi = new Runnable() {
         @Override
         public void run() {
-            if (Build.VERSION.SDK_INT >= 19) {
+            if (Build.VERSION.SDK_INT >= 19 /* Android 4.4 (KITKAT) */) {
                 int flags = View.SYSTEM_UI_FLAG_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
@@ -1708,7 +1744,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         Bitmap bitmap = Bitmap.createBitmap(colors, width, height, Bitmap.Config.ARGB_8888);
         ++mLastCursorID;
 
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= 24 /* Android 7.0 (N) */) {
             try {
                 mCursors.put(mLastCursorID, PointerIcon.create(bitmap, hotSpotX, hotSpotY));
             } catch (Exception e) {
@@ -1724,7 +1760,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
      * This method is called by SDL using JNI.
      */
     public static void destroyCustomCursor(int cursorID) {
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= 24 /* Android 7.0 (N) */) {
             try {
                 mCursors.remove(cursorID);
             } catch (Exception e) {
@@ -1738,7 +1774,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
      */
     public static boolean setCustomCursor(int cursorID) {
 
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= 24 /* Android 7.0 (N) */) {
             try {
                 mSurface.setPointerIcon(mCursors.get(cursorID));
             } catch (Exception e) {
@@ -1793,7 +1829,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
             cursor_type = 1002; //PointerIcon.TYPE_HAND;
             break;
         }
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= 24 /* Android 7.0 (N) */) {
             try {
                 mSurface.setPointerIcon(PointerIcon.getSystemIcon(SDL.getContext(), cursor_type));
             } catch (Exception e) {
@@ -1807,7 +1843,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
      * This method is called by SDL using JNI.
      */
     public static void requestPermission(String permission, int requestCode) {
-        if (Build.VERSION.SDK_INT < 23) {
+        if (Build.VERSION.SDK_INT < 23 /* Android 6.0 (M) */) {
             nativePermissionResult(requestCode, true);
             return;
         }
@@ -1836,7 +1872,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
             i.setData(Uri.parse(url));
 
             int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
-            if (Build.VERSION.SDK_INT >= 21) {
+            if (Build.VERSION.SDK_INT >= 21 /* Android 5.0 (LOLLIPOP) */) {
                 flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
             } else {
                 flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
@@ -2041,7 +2077,7 @@ class SDLInputConnection extends BaseInputConnection {
 
     @Override
     public boolean deleteSurroundingText(int beforeLength, int afterLength) {
-        if (Build.VERSION.SDK_INT <= 29) {
+        if (Build.VERSION.SDK_INT <= 29 /* Android 10.0 (Q) */) {
             // Workaround to capture backspace key. Ref: http://stackoverflow.com/questions>/14560344/android-backspace-in-webview-baseinputconnection
             // and https://bugzilla.libsdl.org/show_bug.cgi?id=2265
             if (beforeLength > 0 && afterLength == 0) {
