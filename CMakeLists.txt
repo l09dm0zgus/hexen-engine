@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 project(Hexen)
 
-set(EDITOR_NAME HexenEditor CACHE INTERNAL "")
 set(ENGINE_NAME HexenEngine CACHE INTERNAL "")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 message(STATUS "Building engine...")
