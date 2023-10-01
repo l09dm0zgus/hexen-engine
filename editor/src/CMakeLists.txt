@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
-project(${EDITOR_NAME})
 set(EDITOR_NAME HexenEditor CACHE INTERNAL "")
+project(${EDITOR_NAME})
 
 add_executable(${EDITOR_NAME})
 
