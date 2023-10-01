@@ -10,7 +10,7 @@ hexen::engine::core::Settings::Settings()
 {
 	if (!std::filesystem::exists(pathToSettings + settingsFileName))
 	{
-		std::filesystem::create_directory(pathToSettings);
+		std::filesystem::create_directory(core::HOME_DIRECTORY / std::filesystem::path(pathToSettings));
 		setRenderAPI("opengl");
 		setOpenGLSettings({4, 6, false});
 		setWindowSettings({glm::vec2(1280, 720), "Hexen Reich", false});

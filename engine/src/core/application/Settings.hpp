@@ -22,7 +22,7 @@ namespace hexen::engine::core
         * @brief Path to the settings.
         */
 
-		const std::string pathToSettings = ".settings/";
+		const std::string pathToSettings = "settings/";
 
 		/**
         * @brief File name of the settings.

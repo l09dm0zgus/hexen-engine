@@ -14,6 +14,7 @@
 #include <iterator>
 #include <memory>
 #include <type_traits>
+#include <filesystem>
 #include <vector>
 // Determine the OS
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
@@ -72,7 +73,14 @@ namespace hexen::engine::core
 
 	using size = size_t;
 
-	const std::string ENGINE_VERSION = std::string("1.0");
+	static const auto ENGINE_VERSION = std::string("1.0");
+
+    #if defined(__ANDROID__)
+        static const auto HOME_DIRECTORY = std::filesystem::path(getenv("EXTERNAL_STORAGE"));
+    #else
+        //home directory for another os is folder with executable,this const used for settings files,i dont want clog users pc with saving engine files in many places.
+        static const auto HOME_DIRECTORY = std::filesystem::current_path();
+    #endif
 
 #define HEXEN_EXPAND(s) s
 #define HEXEN_STR_IMPL(s) #s
