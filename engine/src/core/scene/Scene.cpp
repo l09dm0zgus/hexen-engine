@@ -3,6 +3,9 @@
 //
 
 #include "Scene.hpp"
+#include <algorithm>
+#include <utility>
+
 
 hexen::engine::core::Scene::Scene(const std::string &name) : name(name), size(1024.0f), unitSize(32.0f)
 {
@@ -69,10 +72,11 @@ void hexen::engine::core::Scene::erase(const core::Scene::SceneIterator &sceneIt
 
 void hexen::engine::core::Scene::forEach(std::function<void(std::shared_ptr<entity::SceneEntity> &)> callback)
 {
-	for (auto entity : *this)
-	{
-		callback(entity);
-	}
+	std::for_each(std::execution::par, this->begin(), this->end(), [&callback](const std::shared_ptr<entity::SceneEntity> &entity)
+			{
+				//casting entity to non-constant ,because without 'const' in lambda it doesn't  compile ,idk why :(?on cpp reference says std::for_each doesn't care about const in lambda,so problem somewhere in my code :((((
+				auto nonConstEntity = (std::shared_ptr<entity::SceneEntity>)entity;
+				callback(nonConstEntity); });
 }
 
 std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::core::Scene::getRootNode() const noexcept

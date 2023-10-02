@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../../entity/scene/SceneEntity.h"
+#include <execution>
 #include <functional>
 #include <iterator>
 #include <vector>
@@ -25,7 +26,6 @@ namespace hexen::engine::core
 	class Scene : public memory::AllocatedObject
 	{
 	private:
-
 		/**
  		* @brief Represents the size of an entity.
  		* This vector is a 2-dimensional vector where the x-component represents the
@@ -58,7 +58,6 @@ namespace hexen::engine::core
 		std::shared_ptr<entity::SceneEntity> root {};
 
 	public:
-
 		/**
 		* @class SceneIterator
 		* @brief This class is an iterator for the Scene.
@@ -74,7 +73,6 @@ namespace hexen::engine::core
 		class SceneIterator
 		{
 		protected:
-
 			/**
  			* @brief Holds the index. This value defaults to 0.
  			*/
@@ -108,7 +106,6 @@ namespace hexen::engine::core
 			void traverseTree(const std::shared_ptr<entity::SceneEntity> &node);
 
 		public:
-
 			/**
  			* @brief SceneIterator class constructor used for creating a SceneIterator object.
  			*
@@ -128,15 +125,13 @@ namespace hexen::engine::core
 			using pointer = const value_type *;
 			using reference = const value_type &;
 
-			//create iterator pointing to end()
-
 			/**
- 			* @brief Overload of decrement (--) operator for SceneIterator.
+ 			* @brief Constructor for the SceneIterator class within the Scene namespace of the engine core.
  			*
- 			* This operator is used to decrement the current index position of the SceneIterator. This function
- 			* enables the use of the iterator in a backward manner in the container.
+ 			* This constructor initialises a new SceneIterator and starts traversing the given scene from the root entity.
  			*
- 			* @return Returns a reference to the updated SceneIterator object.
+ 			* @param root The root entity of the scene where traversal begins.
+ 			* @param index The index at which to start the traversal.
  			*/
 
 			explicit SceneIterator(const std::shared_ptr<entity::SceneEntity> &root);
@@ -264,7 +259,6 @@ namespace hexen::engine::core
 		class SceneConstantIterator : public SceneIterator
 		{
 		public:
-
 			/**
  			* @brief Initializes a new instance of the SceneConstantIterator class.
  			*
@@ -273,7 +267,6 @@ namespace hexen::engine::core
  			*/
 
 			explicit SceneConstantIterator(const std::shared_ptr<entity::SceneEntity> &root, u32 index);
-			//create iterator pointing to end()
 
 			/**
  			* @brief Construct a new Scene Constant Iterator:: Scene Constant Iterator object
@@ -492,6 +485,10 @@ namespace hexen::engine::core
  		*
  		* @param callback The function to apply to each SceneEntity. It should accept a std::shared_ptr to
  		* a entity::SceneEntity.
+		*
+		* @warning It uses std::for_each with with parallel execution policies(std::execution::par).
+		* So avoiding data racing and deadlocks use synchronization primitives in function which passed in this method.
+		* Please read https://en.cppreference.com/w/cpp/algorithm/execution_policy_tag_t and https://en.cppreference.com/w/cpp/algorithm/execution_policy_tag
  		*/
 
 		void forEach(std::function<void(std::shared_ptr<entity::SceneEntity> &)> callback);
