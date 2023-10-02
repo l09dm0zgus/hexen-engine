@@ -1003,10 +1003,10 @@ namespace hexen::engine::core
 
 			/**
 		 	* @brief Copy constructor.
-		 	* @param hashTable The ConstIterator to copy from.
+		 	* @param iterator The ConstIterator to copy from.
 		 	*/
 
-			ConstIterator(const ConstIterator &hashTable) = default;
+			ConstIterator(const ConstIterator &iterator) = default;
 
 			/**
 		 	* @brief Overloading the pointer operator.
