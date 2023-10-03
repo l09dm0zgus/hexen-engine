@@ -32,10 +32,11 @@ namespace hexen::engine::components
 		class Iterator
 		{
 		public:
+			using difference_type = std::ptrdiff_t;
 			using value_type = T;									  ///< Type of the value
 			using reference = T&;									  ///< Type of the reference
 			using pointer = T*;
-			using iterator_category = std::random_access_iterator_tag;///< Category of the iterator
+			using iterator_category = std::forward_iterator_tag;///< Category of the iterator
 
 			/**
 			 * @brief Construct the iterator by providing the container
@@ -43,6 +44,8 @@ namespace hexen::engine::components
 			 */
 
 			explicit Iterator(ComponentContainer<T, SIZE> *newContainer) : container(newContainer) {};
+
+			Iterator() = default;
 
 			/**
 			 * @brief Construct the iterator by providing the container and an index

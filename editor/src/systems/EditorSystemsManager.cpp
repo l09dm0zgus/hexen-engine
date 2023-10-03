@@ -45,10 +45,12 @@ void hexen::editor::systems::EditorSystemsManager::render(float alpha)
 	auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
 	if (windowSize != currentSceneWindowSize)
 	{
-		hexen::engine::systems::TaskSystem::addTask(
-				hexen::engine::core::threading::TaskPriority::Normal, +[](glm::vec2 windowSize)
-																	  { hexen::engine::systems::RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x, windowSize.y); },
-				windowSize);
+		hexen::engine::systems::TaskSystem::addTask(hexen::engine::core::threading::TaskPriority::Normal, +[](glm::vec2 windowSize){
+
+																		  using namespace hexen::engine::systems;
+																		  RenderSystem::getMainCamera()->updateProjectionMatrix(windowSize.x, windowSize.y);
+
+																	  },windowSize);
 
 		currentSceneWindowSize = windowSize;
 	}
