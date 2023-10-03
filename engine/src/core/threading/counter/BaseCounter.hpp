@@ -4,6 +4,8 @@
 #include <atomic>
 #include <limits>
 
+#undef max
+
 namespace hexen::engine::core::threading
 {
 

@@ -72,7 +72,7 @@ void hexen::engine::core::Scene::erase(const core::Scene::SceneIterator &sceneIt
 
 void hexen::engine::core::Scene::forEach(std::function<void(std::shared_ptr<entity::SceneEntity> &)> callback)
 {
-	std::for_each(std::execution::par, this->begin(), this->end(), [&callback](const std::shared_ptr<entity::SceneEntity> &entity)
+	std::for_each(std::execution::par_unseq, this->begin(), this->end(), [&callback](const std::shared_ptr<entity::SceneEntity> &entity)
 			{
 				//casting entity to non-constant ,because without 'const' in lambda it doesn't  compile ,idk why :(?on cpp reference says std::for_each doesn't care about const in lambda,so problem somewhere in my code :((((
 				auto nonConstEntity = (std::shared_ptr<entity::SceneEntity>)entity;

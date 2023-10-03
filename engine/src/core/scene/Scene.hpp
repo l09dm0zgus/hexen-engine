@@ -119,6 +119,8 @@ namespace hexen::engine::core
 
 			explicit SceneIterator(const std::shared_ptr<entity::SceneEntity> &root, u32 index);
 
+			SceneIterator() = default;
+
 			using iterator_category = std::bidirectional_iterator_tag;
 			using value_type = Scene;
 			using difference_type = ptrdiff_t;
