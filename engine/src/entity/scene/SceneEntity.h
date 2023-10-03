@@ -58,14 +58,12 @@ namespace hexen::engine::entity
 		void setParent(SceneEntity *newParent);
 
 		/**
- 		* @brief A shared pointer to an object of the TransformComponent class in the components namespace.
- 		*
- 		* This pointer manages the storage of a TransformComponent object, allowing it to be shared among
- 		* multiple objects or functions without worrying about who will delete it. When the last shared_ptr
- 		* that points to the object is destroyed or reset, the TransformComponent object will be deleted automatically.
+ 		* @brief A raw pointer to an object of the TransformComponent class in the components namespace.
  		*/
 
-		std::shared_ptr<components::TransformComponent> transformComponent;
+		components::TransformComponent* transformComponent{nullptr};
+
+		core::i32 handleForTransformComponent{-1};
 
 		/**
  		* @brief Checks if this SceneEntity has any children.

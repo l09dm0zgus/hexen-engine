@@ -8,6 +8,7 @@
 #include "../components/graphics/SpriteComponent.hpp"
 #include "../components/graphics/SpriteInstancedComponent.hpp"
 #include "../components/transform/TransformComponent.hpp"
+#include "../components/ComponentContainer.hpp"
 #include "../core/Types.hpp"
 #include "IRenderSystem.hpp"
 #include <memory>
@@ -25,6 +26,8 @@ namespace hexen::engine::systems
 	 */
 	class RenderSystem : public IRenderSystem
 	{
+	private:
+		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 1000;
 	public:
 		/**
  		* @brief This is the constructor for the RenderSystem class.
@@ -33,56 +36,6 @@ namespace hexen::engine::systems
  		*/
 
 		explicit RenderSystem(core::u32 sizeOfVectors);
-
-		/**
-        * @brief Creates a sprite component.
-        *
-        * This function creates a sprite component using the provided vertex shader and fragment shader paths.
-        * The vertexShaderPath parameter specifies the path to the vertex shader file, and
-        * the fragmentShaderPath parameter specifies the path to the fragment shader file.
-        *
-        * @param vertexShaderPath The path to the vertex shader file.
-        * @param fragmentShaderPath The path to the fragment shader file.
-        * @return A sprite component object.
-        *
-        * @warning The vertexShaderPath and fragmentShaderPath parameters must be valid and accessible paths.
-        *
-        */
-
-
-		static std::shared_ptr<hexen::engine::components::graphics::SpriteComponent> createSpriteComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
-
-		/**
-        * Creates an instanced sprite with the provided vertex and fragment shader paths,
-        * for the given number of instances and instances matrices.
-        *
-        * @param vertexShaderPath The path to the vertex shader source file.
-        * @param fragmentShaderPath The path to the fragment shader source file.
-        * @param numberOfInstances The number of instances to be rendered.
-        * @param instancesMatrices An array of matrices representing the position and orientation
-        *                         of each instance.
-        * @return A handle to the created instanced sprite.
-        *
-        * @note The provided shader paths must be valid.
-        * @note The provided number of instances should be positive.
-        * @note The size of the instancesMatrices array should match the provided number of instances.
-        *       Each element in the array represents the transformation matrix for an instance.
-        *       The matrix should be in the column-major order.
-        */
-
-		static std::shared_ptr<hexen::engine::components::graphics::SpriteInstancedComponent> createSpriteInstancedSprite(const std::string &vertexShaderPath, const std::string &fragmentShaderPath, core::i32 numberOfInstances, glm::mat4 *instancesMatrices);
-
-		/**
-        * @brief Creates a transform component for rendering purposes.
-        *
-        * This function creates and returns a transform component object that can be used in rendering systems.
-        * The transform component stores the position, rotation, and scale of an entity in 3D space.
-        *
-        * @return A pointer to the newly created transform component.
-        */
-
-		static std::shared_ptr<hexen::engine::components::TransformComponent> createTransformComponent();
-
 
 		/**
          * @brief Adds a camera component to the render system.
@@ -105,6 +58,69 @@ namespace hexen::engine::systems
 		static void addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
 		{
 			camerasComponents.emplace_back(core::memory::make_shared<T>(viewportWidth, viewportHeight, FOV));
+		}
+
+		/**
+ 		* @brief Register a new component.
+ 		*
+ 		* This method is to reserve and assign a handle for the required
+ 		* TransformComponent type and return this handle.
+ 		*
+ 		* @tparam T Type of the component.
+ 		* @tparam Args Variadic template for passing additional arguments.
+ 		*
+ 		* @param args Additional arguments for registering the component.
+ 		*
+ 		* @return handle An integer handle referencing the component.
+ 		*                Returns -1 if the component type is not
+ 		*                components::TransformComponent.
+	 	*/
+
+		template<class T, class... Args>
+		static core::i32 registerNewComponent(Args... args)
+		{
+			core::i32 handle{-1};
+
+			if constexpr (std::is_same_v<T,components::TransformComponent>)
+			{
+				handle = transformComponents.reserve();
+				transformComponents[handle] = components::TransformComponent(args...);
+				return handle;
+			}
+			return handle;
+		}
+
+		/**
+ 		* @brief Returns a pointer to a component instance by its handle.
+ 		*
+ 		* This function returns the address of a TransformComponent type using its handle.
+ 		*
+ 		* @tparam T Type of the component.
+ 		*
+ 		* @param handle An integer referencing the desired component.
+ 		*
+ 		* @return Pointer to the component of type T.
+ 		*         Returns nullptr if the component type is not
+ 		*         components::TransformComponent.
+ 		*/
+
+		template<class T>
+		static T* getComponentInstanceByHandle(core::i32 handle)
+		{
+			if constexpr (std::is_same_v<T,components::TransformComponent>)
+			{
+				return &transformComponents[handle];
+			}
+			return nullptr;
+		}
+
+		template<class T>
+		static void releaseComponentByHandle(core::i32 handle)
+		{
+			if constexpr (std::is_same_v<T,components::TransformComponent>)
+			{
+				transformComponents.release(handle);
+			}
 		}
 
 		/**
@@ -159,7 +175,7 @@ namespace hexen::engine::systems
         *
         */
 
-		static std::vector<hexen::engine::components::graphics::SpriteComponent> spritesComponent;
+		//static components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent,COMPONENTS_CONTAINER_SIZE> spritesComponent;
 
 		/**
         * @brief The instancedSpritesComponents variable stores the sprite components
@@ -172,7 +188,7 @@ namespace hexen::engine::systems
         **/
 
 
-		static std::vector<hexen::engine::components::graphics::SpriteInstancedComponent> instancedSpritesComponents;
+		//static components::ComponentContainer<hexen::engine::components::graphics::SpriteInstancedComponent,COMPONENTS_CONTAINER_SIZE> instancedSpritesComponents;
 
 		/**
         * @brief Represents a container for render system transform components.
@@ -187,7 +203,7 @@ namespace hexen::engine::systems
         *
         */
 
-		static std::vector<hexen::engine::components::TransformComponent> transformComponents;
+		static components::ComponentContainer<hexen::engine::components::TransformComponent,COMPONENTS_CONTAINER_SIZE> transformComponents;
 
 		/**
         * @brief The camerasComponents variable is a member of the sys::RenderSystem class.
@@ -245,5 +261,7 @@ namespace hexen::engine::systems
         */
 
 		void updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+
+
 	};
 }// namespace hexen::engine::systems

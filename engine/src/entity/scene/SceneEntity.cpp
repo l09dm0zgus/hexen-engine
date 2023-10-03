@@ -8,11 +8,13 @@
 
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name) : hexen::engine::entity::Entity(), name(std::move(name))
 {
-	transformComponent = core::memory::make_shared<components::TransformComponent>();
+	handleForTransformComponent = systems::RenderSystem::registerNewComponent<components::TransformComponent>();
+	transformComponent = systems::RenderSystem::getComponentInstanceByHandle<components::TransformComponent>(handleForTransformComponent);
 }
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : hexen::engine::entity::Entity(UUID), name(std::move(name))
 {
-	transformComponent = core::memory::make_shared<components::TransformComponent>();
+	handleForTransformComponent = systems::RenderSystem::registerNewComponent<components::TransformComponent>();
+	transformComponent = systems::RenderSystem::getComponentInstanceByHandle<components::TransformComponent>(handleForTransformComponent);
 }
 
 hexen::engine::entity::SceneEntity *hexen::engine::entity::SceneEntity::getParent() const noexcept
