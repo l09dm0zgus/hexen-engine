@@ -7,6 +7,7 @@
 #include "Component.hpp"
 #include <type_traits>
 
+
 namespace hexen::engine::components
 {
 	/**
@@ -22,7 +23,7 @@ namespace hexen::engine::components
 		T components[SIZE];		   ///< Store of the components
 		core::i32 indices[SIZE] {};///< Indices of each component
 		size_t back;			   ///< Number of components in the container
-
+		friend class Iterator;
 	public:
 		/**
         * @brief Iterator class for iterating over the component container
@@ -32,7 +33,8 @@ namespace hexen::engine::components
 		{
 		public:
 			using value_type = T;									  ///< Type of the value
-			using reference = T &;									  ///< Type of the reference
+			using reference = T&;									  ///< Type of the reference
+			using pointer = T*;
 			using iterator_category = std::random_access_iterator_tag;///< Category of the iterator
 
 			/**
@@ -55,19 +57,14 @@ namespace hexen::engine::components
              * @return A reference to the current component
              */
 
-			reference operator*() const
+			reference operator*()
 			{
 				return container->components[i];
 			}
 
-			/**
-             * @brief Arrow operator
-             * @return A pointer to the current component
-             */
-
-			reference operator->() const
+			pointer operator->()
 			{
-				return this->operator*();
+				return &container->components[i];
 			}
 
 			/**
@@ -77,7 +74,7 @@ namespace hexen::engine::components
 
 			Iterator &operator++()
 			{
-				++i;
+				i++;
 				return *this;
 			}
 
@@ -100,7 +97,7 @@ namespace hexen::engine::components
 
 			Iterator &operator--()
 			{
-				--i;
+				i--;
 				return *this;
 			}
 
@@ -231,7 +228,7 @@ namespace hexen::engine::components
          * @return Component with the specified handle
          */
 
-		T operator[](core::i32 handle) const
+		T& operator[](core::i32 handle)
 		{
 			return components[handle];
 		}

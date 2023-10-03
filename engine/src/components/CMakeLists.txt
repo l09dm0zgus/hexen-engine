@@ -14,5 +14,4 @@ target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraC
         ${CMAKE_CURRENT_SOURCE_DIR}/transform/TransformComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/transform/TransformComponent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Component.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ComponentContainer.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ComponentContainer.cpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/ComponentContainer.hpp)
