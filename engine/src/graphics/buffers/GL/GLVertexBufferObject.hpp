@@ -5,53 +5,53 @@
 #pragma once
 
 
-#include "../Types.hpp"
-#include "RectangleData.hpp"
+#include "../../../core/Types.hpp"
+#include "GLRectangleData.hpp"
+#include "glm/glm.hpp"
 #include <cstddef>
-#include <glm/glm.hpp>
 namespace hexen::engine::graphics::gl
 {
 	/**
-    * @class VertexBufferObject
+    * @class GLVertexBufferObject
     *
-    * @brief The VertexBufferObject class represents a vertex buffer object used in rendering vertex data.
+    * @brief The GLVertexBufferObject class represents a vertex buffer object used in rendering vertex data.
     *
     * A vertex buffer object (VBO) is used to efficiently store vertex data in GPU memory. This class provides
     * functionality to create and manage a VBO.
     */
 
-	class VertexBufferObject
+	class GLVertexBufferObject
 	{
 	public:
 
 		/**
-        * @brief Constructor for VertexBufferObject.
+        * @brief Constructor for GLVertexBufferObject.
         *
         * Generates a new buffer object name and stores it in the member variable 'object'.
         * The buffer is not initialized; it has a name but it does not yet have a type or any data.
         */
 
-		VertexBufferObject();
+		GLVertexBufferObject();
 
 		/**
- 		* @fn hexen::engine::graphics::gl::VertexBufferObject::~VertexBufferObject()
+ 		* @fn hexen::engine::graphics::gl::GLVertexBufferObject::GLVertexBufferObjectct()
 		*
-    	* @brief Destructor of VertexBufferObject class.
+    	* @brief Destructor of GLVertexBufferObject class.
  		*
  		* This function deletes the buffer, releasing the memory that was used for this
  		* Vertex Buffer Object from the GPU.
  		*/
 
-		~VertexBufferObject();
+		~GLVertexBufferObject();
 
 		/**
-        * Binds the given RectangleData to the Vertex Buffer Object (VBO).
+        * Binds the given GLRectangleData to the Vertex Buffer Object (VBO).
         *
-        * @param rectangleData The RectangleData to bind.
+        * @param rectangleData The GLRectangleData to bind.
         *
         */
 
-		void bind(const RectangleData &rectangleData) const;
+		void bind(const GLRectangleData &rectangleData) const;
 
 		/**
         * Binds a vertex buffer object (VBO) with the specified size and data.
@@ -88,7 +88,7 @@ namespace hexen::engine::graphics::gl
         * @note It is important to unbind a VBO after you are finished using it,
         *       to avoid potential issues when rendering or modifying other objects.
         *
-        * @see core::rend::VertexBufferObject::bind()
+        * @see core::rend::GLVertexBufferObject::bind()
         */
 
 

@@ -35,7 +35,7 @@ namespace hexen::engine::graphics::gl
 
 		INDICES_ARRAY_SIZE = 6
 	};
-	struct RectangleData
+	struct GLRectangleData
 	{
 		/**
         * @brief The array of vertices for a rectangle.

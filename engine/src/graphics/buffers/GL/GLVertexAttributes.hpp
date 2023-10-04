@@ -4,17 +4,17 @@
 
 #pragma once
 
-#include "../Types.hpp"
+#include "../../../core/Types.hpp"
 #include <cstddef>
 namespace hexen::engine::graphics::gl
 {
 
 	/**
- 	* @class VertexAttributes
+ 	* @class GLVertexAttributes
  	* @brief This class is used for defining and managing an array of generic vertex attributes.
  	*/
 
-	class VertexAttributes
+	class GLVertexAttributes
 	{
 	public:
 

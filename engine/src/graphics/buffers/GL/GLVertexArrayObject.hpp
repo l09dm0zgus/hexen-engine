@@ -4,27 +4,27 @@
 
 #pragma once
 
-#include "../Types.hpp"
+#include "../../../core/Types.hpp"
 namespace hexen::engine::graphics::gl
 {
 	/**
- 	* @class VertexArrayObject
+ 	* @class GLVertexArrayObject
  	* @brief A class representing a Vertex Array Object (VAO).
  	*
  	* This class encapsulates the functionality of a Vertex Array Object, providing methods for its creation, deletion, and use.
  	* The VAO is a high-level abstraction of the Vertex Buffer Object (VBO), simplifying the handling of large sets of complex vertex data.
  	*/
 
-	class VertexArrayObject
+	class GLVertexArrayObject
 	{
 	public:
 
 		/**
- 		* @brief Default constructor for VertexArrayObject.
+ 		* @brief Default constructor for GLVertexArrayObject.
  		* Generates a Vertex Array Object (VAO) and stores the identifier.
  		*/
 
-		VertexArrayObject();
+		GLVertexArrayObject();
 
 		/**
  		* @brief Binds the Vertex Array Object.
@@ -34,11 +34,11 @@ namespace hexen::engine::graphics::gl
 		void bind() const;
 
 		/**
- 		* @brief Destructor for VertexArrayObject.
+ 		* @brief Destructor for GLVertexArrayObject.
  		* Deletes the VAO using its identifier.
  		*/
 
-		~VertexArrayObject();
+		~GLVertexArrayObject();
 
 		/**
 	 	* @brief Unbinds the Vertex Array Object.

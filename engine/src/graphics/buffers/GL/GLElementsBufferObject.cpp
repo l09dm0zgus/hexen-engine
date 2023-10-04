@@ -3,27 +3,27 @@
 //
 
 #ifndef __ANDROID__
-	#include <GL/glew.h>
-	#include <glm/gtc/type_ptr.hpp>
+	#include "GL/glew.h"
+	#include "glm/gtc/type_ptr.hpp"
 #else
 	#include <GLES3/gl31.h>
     #include <glm/gtc/type_ptr.hpp>
 #endif
 
-#include "ElementsBufferObject.hpp"
+#include "GLElementsBufferObject.hpp"
 
 
-hexen::engine::graphics::gl::ElementsBufferObject::ElementsBufferObject()
+hexen::engine::graphics::gl::GLElementsBufferObject::GLElementsBufferObject()
 {
 	glGenBuffers(1, &object);
 }
 
-hexen::engine::graphics::gl::ElementsBufferObject::~ElementsBufferObject()
+hexen::engine::graphics::gl::GLElementsBufferObject::~GLElementsBufferObject()
 {
 	glDeleteBuffers(1, &object);
 }
 
-void hexen::engine::graphics::gl::ElementsBufferObject::bind(const hexen::engine::graphics::gl::RectangleData &rectangleData) const
+void hexen::engine::graphics::gl::GLElementsBufferObject::bind(const hexen::engine::graphics::gl::GLRectangleData &rectangleData) const
 {
 	constexpr auto bufferSize = sizeof(float) * RectangleDataSizes::INDICES_ARRAY_SIZE;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object);
@@ -31,13 +31,13 @@ void hexen::engine::graphics::gl::ElementsBufferObject::bind(const hexen::engine
 }
 
 
-void hexen::engine::graphics::gl::ElementsBufferObject::unbind()
+void hexen::engine::graphics::gl::GLElementsBufferObject::unbind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
-void hexen::engine::graphics::gl::ElementsBufferObject::bind(const std::vector<glm::uvec4> &indices) const
+void hexen::engine::graphics::gl::GLElementsBufferObject::bind(const std::vector<glm::uvec4> &indices) const
 {
 	auto bufferSize = indices.size() * sizeof(glm::uvec4);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object);

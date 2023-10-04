@@ -3,18 +3,18 @@
 //
 #pragma once
 
-#include "../Types.hpp"
-#include "RectangleData.hpp"
-#include <glm/vec4.hpp>
+#include "../../../core/Types.hpp"
+#include "GLRectangleData.hpp"
+#include "glm/vec4.hpp"
 
 namespace hexen::engine::graphics::gl
 {
 	/**
-    * @class ElementsBufferObject
+    * @class GLElementsBufferObject
     *
     * @brief Represents a buffer object for storing elements data.
     *
-    * The ElementsBufferObject class is responsible for managing a buffer object
+    * The GLElementsBufferObject class is responsible for managing a buffer object
     * used for storing elements data, such as vertex indices or primitive indices.
     *
     * The buffer object can be used in conjunction with other rendering components
@@ -23,25 +23,25 @@ namespace hexen::engine::graphics::gl
     * This class provides a constructor that initializes the elements buffer object.
      */
 
-	class ElementsBufferObject
+	class GLElementsBufferObject
 	{
 	public:
 
 		/**
- 		* @brief Default constructor for the ElementsBufferObject class.
+ 		* @brief Default constructor for the GLElementsBufferObject class.
  		*
  		* This constructor generates a new OpenGL Elements Buffer Object and stores its ID.
  		*/
 
-		ElementsBufferObject();
+		GLElementsBufferObject();
 
 		/**
- 		* @brief Destructor for the ElementsBufferObject class.
+ 		* @brief Destructor for the GLElementsBufferObject class.
  		*
  		* This destructor deletes the OpenGL Elements Buffer Object associated with this class instance.
  		*/
 
-		~ElementsBufferObject();
+		~GLElementsBufferObject();
 
 		/**
         * Binds the buffer object with the provided rectangle data.
@@ -52,11 +52,11 @@ namespace hexen::engine::graphics::gl
         *
         * @param rectangleData The rectangle data to bind the buffer object with.
         *
-        * @see RectangleData
+        * @see GLRectangleData
         */
 
 
-		void bind(const RectangleData &rectangleData) const;
+		void bind(const GLRectangleData &rectangleData) const;
 
 		/**
         * @brief Unbinds the elements buffer object.
@@ -67,15 +67,15 @@ namespace hexen::engine::graphics::gl
         *
         * @note This function does not return any value.
         *
-        * @see core::rend::ElementsBufferObject
+        * @see core::rend::GLElementsBufferObject
         */
 
 		void unbind();
 
 		/**
-        * @brief Binds the indices to the ElementsBufferObject.
+        * @brief Binds the indices to the GLElementsBufferObject.
         *
-        * This method binds the provided indices to the ElementsBufferObject.
+        * This method binds the provided indices to the GLElementsBufferObject.
         * The indices are used to specify the vertex connectivity for batch rendering.
         *
         * @param indices The vector of glm::uvec4 indices representing the vertex connectivity.

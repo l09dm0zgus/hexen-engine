@@ -4,33 +4,33 @@
 
 #pragma once
 
-#include "../Types.hpp"
+#include "../../../core/Types.hpp"
 
 namespace hexen::engine::graphics::gl
 {
 
 	/**
-    * @class RenderBufferObject
+    * @class GLRenderBufferObject
     *
-    * @brief The RenderBufferObject class represents a render buffer object used for off-screen rendering.
+    * @brief The GLRenderBufferObject class represents a render buffer object used for off-screen rendering.
     *
     * This class provides functionalities to create and manage render buffer objects in a rendering pipeline.
     *
     */
 
-	class RenderBufferObject
+	class GLRenderBufferObject
 	{
 	private:
 		core::u32 object {0};
 
 	public:
 		/**
-        * @brief Get the ID of the RenderBufferObject.
+        * @brief Get the ID of the GLRenderBufferObject.
         *
-        * This function retrieves the ID of the RenderBufferObject.
-        * The ID uniquely identifies the RenderBufferObject within the rendering system.
+        * This function retrieves the ID of the GLRenderBufferObject.
+        * The ID uniquely identifies the GLRenderBufferObject within the rendering system.
         *
-        * @return The ID of the RenderBufferObject.
+        * @return The ID of the GLRenderBufferObject.
         *
         * @note This method is constant and noexcept.
         */
@@ -38,20 +38,20 @@ namespace hexen::engine::graphics::gl
 		[[nodiscard]] core::u32 getID() const noexcept;
 
 		/**
- 		* Default Constructor for the RenderBufferObject Class in the HexenEngine Project.
+ 		* Default Constructor for the GLRenderBufferObject Class in the HexenEngine Project.
  		* Generates a new render buffer object when called.
  		*/
 
-		RenderBufferObject();
+		GLRenderBufferObject();
 
 		/**
- 		* @brief The destructor for the RenderBufferObject class in the hexen::engine::graphics::gl namespace.
+ 		* @brief The destructor for the GLRenderBufferObject class in the hexen::engine::graphics::gl namespace.
  		*
  		* This destructor is responsible for deleting the Render Buffer Object created during the object's lifetime.
  		* It calls the OpenGL function glDeleteRenderbuffers to delete the rendering buffer.
  		*/
 
-		~RenderBufferObject();
+		~GLRenderBufferObject();
 
 		/**
         * @brief Binds the render buffer object.
@@ -63,9 +63,9 @@ namespace hexen::engine::graphics::gl
 		void bind() const;
 
 		/**
-        * @brief Unbinds the RenderBufferObject.
+        * @brief Unbinds the GLRenderBufferObject.
         *
-        * This function unbinds the currently bound RenderBufferObject.
+        * This function unbinds the currently bound GLRenderBufferObject.
         */
 
 		void unbind();
