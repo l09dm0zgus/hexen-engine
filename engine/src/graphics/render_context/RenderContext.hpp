@@ -20,9 +20,18 @@ namespace hexen::engine::graphics
 		enum class RenderAPI : core::u8
 		{
 			NO_API = 0,
-			OPENGL_API,
-			VULKAN_API,
-			DIRECTX12_API
+
+			#if defined(_ENABLE_OPENGL_SUPPORT)
+				OPENGL_API,
+			#endif
+
+			#if defined(_ENABLE_VULKAN_SUPPORT)
+				VULKAN_API,
+			#endif
+
+			#if defined(_ENABLE_DIRECTX_SUPPORT)
+				DIRECTX12_API,
+			#endif
 		};
 
 		static std::unique_ptr<RenderContext> create(const core::Settings &settings, SDL_Window *window);

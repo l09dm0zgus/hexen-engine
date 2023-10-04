@@ -23,16 +23,16 @@ endif (NOT TARGET ${RENDER_ENGINE_NAME})
 set_target_properties(${RENDER_ENGINE_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 if(ENABLE_VULKAN_SUPPORT)
-    target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC USED_VULKAN)
+    target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC _ENABLE_VULKAN_SUPPORT)
 endif (ENABLE_VULKAN_SUPPORT)
 
 if (ENABLE_OPENGL_SUPPORT)
-    target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC USED_OPENGL)
+    target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC _ENABLE_OPENGL_SUPPORT)
 endif ()
 
 if (WIN32)
     if (ENABLE_DIRECTX12_SUPPORT)
-        target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC USED_DIRECTX)
+        target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC _ENABLE_DIRECTX12_SUPPORT)
     endif (ENABLE_DIRECTX12_SUPPORT)
 endif (WIN32)
 

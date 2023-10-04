@@ -3,16 +3,16 @@ project(Hexen)
 
 message(STATUS "Engine Name:" ${ENGINE_NAME})
 
-target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ElementsBufferObject.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ElementsBufferObject.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Graphics.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/RectangleData.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/VertexArrayObject.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/VertexArrayObject.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/VertexAttributes.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/VertexAttributes.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/VertexBufferObject.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/VertexBufferObject.cpp
+target_sources(${ENGINE_NAME} PRIVATE ../../graphics/buffers/GL/GLElementsBufferObject.hpp
+        ../../graphics/buffers/GL/GLElementsBufferObject.cpp
+        ../../graphics/buffers/GL/Graphics.hpp
+        ../../graphics/buffers/GL/GLRectangleData.hpp
+        ../../graphics/buffers/GL/GLVertexArrayObject.hpp
+        ../../graphics/buffers/GL/GLVertexArrayObject.cpp
+        ../../graphics/buffers/GL/GLVertexAttributes.hpp
+        ../../graphics/buffers/GL/GLVertexAttributes.cpp
+        ../../graphics/buffers/GL/GLVertexBufferObject.hpp
+        ../../graphics/buffers/GL/GLVertexBufferObject.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.hpp
@@ -22,8 +22,8 @@ target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ElementsBuffer
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/Texture.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/FrameBufferTexture.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/FrameBufferTexture.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/FrameBufferObject.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/FrameBufferObject.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/RenderBufferObject.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/RenderBufferObject.cpp
+        ../../graphics/buffers/GL/GLFrameBufferObject.hpp
+        ../../graphics/buffers/GL/GLFrameBufferObject.cpp
+        ../../graphics/buffers/GL/GLRenderBufferObject.hpp
+        ../../graphics/buffers/GL/GLRenderBufferObject.cpp
         )
