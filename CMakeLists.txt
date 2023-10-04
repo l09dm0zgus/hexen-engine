@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.20)
 project(Hexen)
 
 set(ENGINE_NAME HexenEngine CACHE INTERNAL "")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-message(STATUS "Building engine...")
+
 option(BUILD_EDITOR "Build editor" ON)
 option(BUILD_SHARED "Build as shared lib" OFF)
 option(BUILD_STATIC "Build as static lib" ON)
@@ -25,7 +25,6 @@ endif()
 
 add_subdirectory(engine)
 add_subdirectory(client)
-
 
 if(ENABLE_SANITIZERS)
     message(STATUS "IS WIN32")
@@ -71,12 +70,12 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/boost_context)
 
 if (${BUILD_FOR_ANDROID})
     MESSAGE(STATUS "Building for android")
-    target_link_libraries(${ENGINE_NAME} PRIVATE  SDL3_image::SDL3_image  SDL3::SDL3 GLESv3 boost_context glm)
+    target_link_libraries(${ENGINE_NAME} PUBLIC  SDL3_image::SDL3_image  SDL3::SDL3 GLESv3 boost_context glm)
 else()
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake)
     set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glew-cmake/include)
     include_directories(${GLEW_INCLUDE_DIR})
-    target_link_libraries(${ENGINE_NAME} PRIVATE SDL3_image::SDL3_image  SDL3::SDL3 libglew_static boost_context glm)
+    target_link_libraries(${ENGINE_NAME} PUBLIC SDL3_image::SDL3_image  SDL3::SDL3 libglew_static boost_context glm)
 endif (${BUILD_FOR_ANDROID})
 
 
