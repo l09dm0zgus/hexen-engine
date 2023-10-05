@@ -28,6 +28,7 @@ endif (ENABLE_VULKAN_SUPPORT)
 
 if (ENABLE_OPENGL_SUPPORT)
     target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC _ENABLE_OPENGL_SUPPORT)
+    target_link_libraries(${RENDER_ENGINE_NAME} PUBLIC libglew_static)
 endif ()
 
 if (WIN32)
@@ -35,8 +36,6 @@ if (WIN32)
         target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC _ENABLE_DIRECTX12_SUPPORT)
     endif (ENABLE_DIRECTX12_SUPPORT)
 endif (WIN32)
-
-set(CORE_DIRECTORY )
 
 target_include_directories(${RENDER_ENGINE_NAME} PRIVATE ${PARENT_DIR}/core)
 target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${SDL_INCLUDE_DIR})
