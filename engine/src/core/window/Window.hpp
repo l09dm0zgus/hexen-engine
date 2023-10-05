@@ -4,10 +4,12 @@
 
 #pragma once
 
+#include "../../graphics/render_context/RenderContext.hpp"
 #include "../application/Settings.hpp"
 #include "../memory_pool/AllocatedObject.hpp"
 #include <SDL3/SDL.h>
 #include <string>
+
 
 namespace hexen::engine::core
 {
@@ -148,19 +150,6 @@ namespace hexen::engine::core
 
 		[[nodiscard]] SDL_Window *getSDLWindow() const noexcept;
 
-		/**
-        * @brief Retrieves the OpenGL context associated with the window.
-        *
-        * This method returns the OpenGL context that is associated with the window. The OpenGL context
-        * is required for rendering and manipulation of OpenGL resources.
-        *
-        * @return A pointer to the OpenGL context associated with the window.
-        * @note The returned OpenGL context may be nullptr if the context has not been created or if an error occurred.
-        *
-        */
-
-		[[nodiscard]] SDL_GLContext getGLContext() const noexcept;
-
 	private:
 		Settings settings;
 
@@ -188,12 +177,6 @@ namespace hexen::engine::core
 		SDL_Window *window {nullptr};
 
 		/**
-		* @brief  Represents OpenGL context.
-		*/
-
-		SDL_GLContext glContext {nullptr};
-
-		/**
 		* @brief  Holds the height of the window, default is 720.
 		*/
 
@@ -218,18 +201,6 @@ namespace hexen::engine::core
 		bool bIsOpen {true};
 
 		/**
-        * @class hexen::engine::core::Window
-        * @brief The Window class handles all operations related to the application window.
-        *
-        * This class provides methods to create, configure, and manage the application window, including
-        * setting the OpenGL version for rendering. The OpenGL version can be set using the provided OpenGLSettings
-        * object, which contains information such as the major and minor version numbers, as well as other settings
-        * like the depth and stencil buffer sizes.
-        */
-
-		void setOpenGLVersion(const Settings::OpenGLSettings &openGlSettings);
-
-		/**
  		* @brief Sets the icon of the object by path.
  		*
  		* This function is used to set the icon for an object, the icon will be loaded from a path provided.
@@ -239,6 +210,22 @@ namespace hexen::engine::core
 
 		void setIcon(const std::string &pathToIcon);
 
+		/**
+    	* @brief A surface containing the window's icon.
+    	*/
+
 		SDL_Surface *icon {};
+
+		/**
+    	* @brief The rendering context, abstracting rendering specifics.
+    	*/
+
+		std::unique_ptr<graphics::RenderContext> renderContext;
+
+		/**
+    	* @brief Creates the SDL window.
+    	*/
+
+		void createSDLWindow();
 	};
 }// namespace hexen::engine::core
