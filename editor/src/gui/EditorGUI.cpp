@@ -8,13 +8,25 @@
 #include "editors_windows/SceneHierarchyWindow.hpp"
 #include "editors_windows/SceneWindow.hpp"
 #include "editors_windows/Shortcuts.hpp"
+#include <core/window/Window.hpp>
 
-
-hexen::editor::gui::EditorGUI::EditorGUI(SDL_Window *window, SDL_GLContext glContext) : EditorGUI()
+hexen::editor::gui::EditorGUI::EditorGUI(const std::shared_ptr<engine::core::Window> &window) : EditorGUI()
 {
+	currentRenderAPI = RenderContext::getRenderAPI();
 	const char *glslVersion = "#version 130";
-	ImGui_ImplSDL3_InitForOpenGL(window, glContext);
-	ImGui_ImplOpenGL3_Init(glslVersion);
+	switch (currentRenderAPI)
+	{
+		case RenderAPI::NO_API:
+			break;
+		case RenderAPI::OPENGL_API:
+			ImGui_ImplSDL3_InitForOpenGL(window->getSDLWindow(), dynamic_cast<engine::graphics::gl::GLRenderContext*>(window->getRenderContext())->getSDLGLContext());
+			ImGui_ImplOpenGL3_Init(glslVersion);
+			break;
+		case RenderAPI::VULKAN_API:
+			break;
+		case RenderAPI::DIRECTX12_API:
+			break;
+	}
 }
 
 hexen::editor::gui::EditorGUI::EditorGUI()
@@ -44,7 +56,19 @@ hexen::editor::gui::EditorGUI::EditorGUI()
 
 void hexen::editor::gui::EditorGUI::begin()
 {
-	ImGui_ImplOpenGL3_NewFrame();
+	switch (currentRenderAPI)
+	{
+		case RenderAPI::NO_API:
+			break;
+		case RenderAPI::OPENGL_API:
+			ImGui_ImplOpenGL3_NewFrame();
+			break;
+		case RenderAPI::VULKAN_API:
+			break;
+		case RenderAPI::DIRECTX12_API:
+			break;
+	}
+
 	ImGui_ImplSDL3_NewFrame();
 	ImGui::NewFrame();
 	dockspace->begin();
@@ -62,7 +86,19 @@ void hexen::editor::gui::EditorGUI::draw()
 
 hexen::editor::gui::EditorGUI::~EditorGUI()
 {
-	ImGui_ImplOpenGL3_Shutdown();
+	switch (currentRenderAPI)
+	{
+		case RenderAPI::NO_API:
+			break;
+		case RenderAPI::OPENGL_API:
+			ImGui_ImplOpenGL3_Shutdown();
+			break;
+		case RenderAPI::VULKAN_API:
+			break;
+		case RenderAPI::DIRECTX12_API:
+			break;
+	}
+
 	ImGui_ImplSDL3_Shutdown();
 	ImGui::DestroyContext();
 }
@@ -71,18 +107,29 @@ hexen::editor::gui::EditorGUI::~EditorGUI()
 void hexen::editor::gui::EditorGUI::end()
 {
 	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+
+	switch (currentRenderAPI)
 	{
-		auto backupCurrentWindow = SDL_GL_GetCurrentWindow();
-		auto backupCurrentContext = SDL_GL_GetCurrentContext();
-		ImGui::UpdatePlatformWindows();
-		ImGui::RenderPlatformWindowsDefault();
-		SDL_GL_MakeCurrent(backupCurrentWindow, backupCurrentContext);
+		case RenderAPI::NO_API:
+			break;
+		case RenderAPI::OPENGL_API:
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+			{
+				auto backupCurrentWindow = SDL_GL_GetCurrentWindow();
+				auto backupCurrentContext = SDL_GL_GetCurrentContext();
+				ImGui::UpdatePlatformWindows();
+				ImGui::RenderPlatformWindowsDefault();
+				SDL_GL_MakeCurrent(backupCurrentWindow, backupCurrentContext);
+			}
+			break;
+		case RenderAPI::VULKAN_API:
+			break;
+		case RenderAPI::DIRECTX12_API:
+			break;
 	}
 	dockspace->end();
 }
-
 
 void hexen::editor::gui::EditorGUI::processEvent(const SDL_Event &event)
 {

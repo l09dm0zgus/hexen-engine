@@ -121,3 +121,8 @@ void hexen::engine::core::Window::createSDLWindow()
 		exit(-1);
 	}
 }
+
+hexen::engine::graphics::RenderContext *hexen::engine::core::Window::getRenderContext() const noexcept
+{
+	return renderContext.get();
+}

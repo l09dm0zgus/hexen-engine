@@ -150,6 +150,14 @@ namespace hexen::engine::core
 
 		[[nodiscard]] SDL_Window *getSDLWindow() const noexcept;
 
+		/**
+        * @brief Get the RenderContext instance.
+        *
+        * @return The raw pointer to RenderContext.
+        */
+
+		graphics::RenderContext *getRenderContext() const noexcept;
+
 	private:
 		Settings settings;
 

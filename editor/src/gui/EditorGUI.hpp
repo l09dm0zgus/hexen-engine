@@ -7,13 +7,26 @@
 #include "Dockspace.hpp"
 #include "Style.hpp"
 #include <SDL3/SDL.h>
-#include <backends/imgui_impl_opengl3.h>
-#include <backends/imgui_impl_opengl3_loader.h>
+#if defined(_ENABLE_OPENGL_SUPPORT)
+	#include <backends/imgui_impl_opengl3.h>
+	#include <backends/imgui_impl_opengl3_loader.h>
+	#include <graphics/render_context/GL/GLRenderContext.hpp>
+#endif
 #include <backends/imgui_impl_sdl3.h>
+#include <graphics/render_context/RenderContext.hpp>
 #include <gui/IGUI.hpp>
 #include <imgui.h>
+
+namespace hexen::engine::core
+{
+	class Window;
+}
+
 namespace hexen::editor::gui
 {
+	using RenderContext = hexen::engine::graphics::RenderContext;
+	using RenderAPI = RenderContext::RenderAPI;
+
 	/**
      * @class EditorGUI
      * @brief A class for handling the graphical user interface of the editor.
@@ -38,11 +51,10 @@ namespace hexen::editor::gui
 		/**
          * @brief Creates an EditorGUI with SDL_Window and SDL_GLContext.
          * @param window Pointer to an SDL_Window structure that is the window to associate with the context.
-         * @param glContext The OpenGL context associated with the window.
          * Initializes an instance of EditorGUI with specified SDL_Window and SDL_GLContext.
          */
 
-		explicit EditorGUI(SDL_Window *window, SDL_GLContext glContext);
+		explicit EditorGUI(const std::shared_ptr<engine::core::Window> &window);
 
 		/**
          * @desreuctor ~EditorGUI()
@@ -148,5 +160,6 @@ namespace hexen::editor::gui
 		Style style;
 		ImGuiIO *io {nullptr};
 		std::shared_ptr<Dockspace> dockspace;
+		RenderAPI currentRenderAPI;
 	};
 }// namespace hexen::editor::gui

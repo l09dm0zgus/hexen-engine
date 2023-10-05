@@ -4,7 +4,7 @@
 
 #pragma once
 #include "../RenderContext.hpp"
-#include "core/application/Settings.hpp"
+#include <core/application/Settings.hpp>
 
 namespace hexen::engine::graphics::gl
 {
@@ -66,5 +66,16 @@ namespace hexen::engine::graphics::gl
      	*/
 
 		explicit GLRenderContext(const core::Settings &settings);
+
+		/**
+ 		* @fn SDL_GLContext hexen::engine::graphics::gl::GLRenderContext::getSDLGLContext() const noexcept
+ 		* @brief Get the SDL GL Context object.
+ 		*
+ 		* This method is utilized to obtain the SDL OpenGL context associated with the instance.
+ 		*
+ 		* @return SDL_GLContext The current instance's SDL_GLContext object.
+ 		*/
+
+		SDL_GLContext getSDLGLContext() const noexcept;
 	};
 }// namespace hexen::engine::graphics::gl

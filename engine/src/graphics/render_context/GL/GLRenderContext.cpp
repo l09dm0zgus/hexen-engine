@@ -115,3 +115,8 @@ void hexen::engine::graphics::gl::GLRenderContext::initializeGLEW() const
 	}
 #endif
 }
+
+SDL_GLContext hexen::engine::graphics::gl::GLRenderContext::getSDLGLContext() const noexcept
+{
+	return glContext;
+}

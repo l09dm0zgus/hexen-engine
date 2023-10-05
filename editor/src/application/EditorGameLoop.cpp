@@ -19,7 +19,7 @@ hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engin
 
 	systems::EditorSystemsManager::setCurrentSystemManager(systemManager.get());
 
-	editorGui = engine::core::memory::make_shared<gui::EditorGUI>(newWindow->getSDLWindow(), newWindow->getGLContext());
+	editorGui = engine::core::memory::make_shared<gui::EditorGUI>(window);
 }
 
 hexen::editor::EditorGameLoop::~EditorGameLoop()
