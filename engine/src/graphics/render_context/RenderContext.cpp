@@ -14,14 +14,14 @@ std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics:
 	currenApi = static_cast<RenderAPI>(settings.getRenderAPI());
 	switch (currenApi)
 	{
+		case RenderAPI::NO_API:
+			HEXEN_ASSERT(false,"ERROR::Failed to create render context.Render API is not set or this PC does not support graphics! ");
 		case RenderAPI::OPENGL_API:
 			if constexpr(enabledOpengl)
 			{
 				return core::memory::make_unique<gl::GLRenderContext>(settings);
 			}
 
-		case RenderAPI::NO_API:
-			break;
 		case RenderAPI::VULKAN_API:
 			break;
 		case RenderAPI::DIRECTX12_API:
