@@ -9,12 +9,18 @@
 namespace hexen::engine::core
 {
 	class Settings;
+	class Window;
 }
 
 namespace hexen::engine::graphics
 {
 	class RenderContext : public core::memory::AllocatedObject
 	{
+	protected:
+		[[nodiscard]] virtual core::i32 getWindowFlags() const noexcept;
+		virtual void createRenderContextForSDLWindow(SDL_Window *window) = 0;
+
+		friend class Window;
 	public:
 
 		enum class RenderAPI : core::u8
@@ -25,9 +31,10 @@ namespace hexen::engine::graphics
 			DIRECTX12_API,
 		};
 
-		static std::unique_ptr<RenderContext> create(const core::Settings &settings, SDL_Window *window);
+		static std::unique_ptr<RenderContext> create(const core::Settings &settings);
 		static RenderAPI getRenderAPI();
 		virtual ~RenderContext() = default;
+
 
 		#if defined(_ENABLE_OPENGL_SUPPORT)
 			static constexpr  bool enabledOpengl = true;
