@@ -11,7 +11,8 @@ hexen::engine::core::Settings::Settings()
 	if (!std::filesystem::exists(pathToSettings + settingsFileName))
 	{
 		std::filesystem::create_directory(core::HOME_DIRECTORY / std::filesystem::path(pathToSettings));
-		setRenderAPI("opengl");
+
+		setRenderAPI(RenderAPI::OPENGL_API);
 		setOpenGLSettings({4, 6, false});
 		setWindowSettings({glm::vec2(1280, 720), "Hexen Reich", false});
 		setPathToIcon("icon.ico");
@@ -23,14 +24,14 @@ hexen::engine::core::Settings::Settings()
 	}
 }
 
-void hexen::engine::core::Settings::setRenderAPI(const std::string &renderAPI)
+void hexen::engine::core::Settings::setRenderAPI(hexen::engine::core::Settings::RenderAPI renderAPI)
 {
 	std::ofstream settingsFile(pathToSettings + settingsFileName);
 	settingsJson["settings"]["render_api"] = renderAPI;
 	settingsFile << settingsJson.dump(2);
 }
 
-std::string hexen::engine::core::Settings::getRenderAPI() const
+hexen::engine::core::Settings::RenderAPI hexen::engine::core::Settings::getRenderAPI() const
 {
 	return settingsJson["settings"]["render_api"];
 }

@@ -36,6 +36,14 @@ namespace hexen::engine::core
 
 		nlohmann::json settingsJson;
 
+		enum class RenderAPI : core::u8
+		{
+			NO_API = 0,
+			OPENGL_API,
+			VULKAN_API,
+			DIRECTX12_API,
+		};
+
 	public:
 		/**
         * @struct WindowSettings
@@ -69,14 +77,14 @@ namespace hexen::engine::core
         * @return The render API.
         */
 
-		[[nodiscard]] std::string getRenderAPI() const;
+		[[nodiscard]] RenderAPI getRenderAPI() const;
 
 		/**
         * @brief Function to set the Graphics API for rendering.
         * @param renderAPI The render API.
         */
 
-		void setRenderAPI(const std::string &renderAPI);
+		void setRenderAPI(RenderAPI renderAPI);
 
 		/**
         * @brief Function to get the path to icon.
