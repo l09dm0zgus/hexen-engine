@@ -20,23 +20,33 @@ namespace hexen::engine::graphics
 		enum class RenderAPI : core::u8
 		{
 			NO_API = 0,
-
-			#if defined(_ENABLE_OPENGL_SUPPORT)
-				OPENGL_API,
-			#endif
-
-			#if defined(_ENABLE_VULKAN_SUPPORT)
-				VULKAN_API,
-			#endif
-
-			#if defined(_ENABLE_DIRECTX_SUPPORT)
-				DIRECTX12_API,
-			#endif
+			OPENGL_API,
+			VULKAN_API,
+			DIRECTX12_API,
 		};
 
 		static std::unique_ptr<RenderContext> create(const core::Settings &settings, SDL_Window *window);
 		static RenderAPI getRenderAPI();
 		virtual ~RenderContext() = default;
+
+		#if defined(_ENABLE_OPENGL_SUPPORT)
+			static constexpr  bool enabledOpengl = true;
+		#else
+			static constexpr bool enabledOpengl = false;
+		#endif
+
+		#if defined(_ENABLE_VULKAN_SUPPORT)
+			static constexpr bool enabledVulkan = true;
+		#else
+			static  constexpr bool enabledVulkan = false;
+		#endif
+
+		#if defined(_ENABLE_DIRECTX_SUPPORT)
+			static constexpr bool enabledDirectX12 = true;
+		#else
+			static constexpr bool enabledDirectX12 = false;
+		#endif
+
 	private:
 		static RenderAPI currenApi;
 	};
