@@ -4,3 +4,8 @@ target_sources(${RENDER_ENGINE_NAME} PUBLIC
         RenderContext.hpp
         RenderContext.cpp
 )
+
+
+if (ENABLE_OPENGL_SUPPORT)
+    add_subdirectory(GL)
+endif ()
