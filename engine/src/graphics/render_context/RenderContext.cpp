@@ -9,6 +9,9 @@
 	#include "GL/GLRenderContext.hpp"
 #endif
 
+hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::currenApi = hexen::engine::graphics::RenderContext::RenderAPI::NO_API;
+
+
 std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create(const hexen::engine::core::Settings &settings)
 {
 	currenApi = static_cast<RenderAPI>(settings.getRenderAPI());
