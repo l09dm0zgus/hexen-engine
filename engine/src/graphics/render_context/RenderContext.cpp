@@ -3,19 +3,19 @@
 //
 
 #include "RenderContext.hpp"
-#include <application/Settings.hpp>
+#include "core/application/Settings.hpp"
 
 #if defined(_ENABLE_OPENGL_SUPPORT)
 	#include "GL/GLRenderContext.hpp"
 #endif
 
-hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::currenApi = hexen::engine::graphics::RenderContext::RenderAPI::NO_API;
+hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::currentApi = hexen::engine::graphics::RenderContext::RenderAPI::NO_API;
 
 
 std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create(const hexen::engine::core::Settings &settings)
 {
-	currenApi = static_cast<RenderAPI>(settings.getRenderAPI());
-	switch (currenApi)
+	currentApi = static_cast<RenderAPI>(settings.getRenderAPI());
+	switch (currentApi)
 	{
 		case RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create render context.Render API is not set or this PC does not support graphics! ");
@@ -34,7 +34,7 @@ std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics:
 }
 hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::getRenderAPI()
 {
-	return currenApi;
+	return currentApi;
 }
 hexen::engine::core::i32 hexen::engine::graphics::RenderContext::getWindowFlags() const noexcept
 {

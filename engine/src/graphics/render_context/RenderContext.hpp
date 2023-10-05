@@ -3,8 +3,8 @@
 //
 
 #pragma once
+#include "core/memory_pool/AllocatedObject.hpp"
 #include <SDL3/SDL.h>
-#include <memory_pool/AllocatedObject.hpp>
 
 namespace hexen::engine::core
 {
