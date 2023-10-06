@@ -3,18 +3,18 @@
 //
 #pragma once
 
-#include "../../../core/Types.hpp"
-#include "GLRectangleData.hpp"
-#include "glm/vec4.hpp"
+#include <core/Types.hpp>
+#include <glm/vec4.hpp>
+#include "../Buffers.hpp"
 
 namespace hexen::engine::graphics::gl
 {
 	/**
-    * @class GLElementsBufferObject
+    * @class GLElementsBuffer
     *
     * @brief Represents a buffer object for storing elements data.
-    *
-    * The GLElementsBufferObject class is responsible for managing a buffer object
+    * @extends hexen::graphics::ElementsBuffer
+    * The GLElementsBuffer class is responsible for managing a buffer object
     * used for storing elements data, such as vertex indices or primitive indices.
     *
     * The buffer object can be used in conjunction with other rendering components
@@ -23,25 +23,28 @@ namespace hexen::engine::graphics::gl
     * This class provides a constructor that initializes the elements buffer object.
      */
 
-	class GLElementsBufferObject
+	class GLElementsBuffer : public ElementsBuffer
 	{
 	public:
 
 		/**
- 		* @brief Default constructor for the GLElementsBufferObject class.
- 		*
- 		* This constructor generates a new OpenGL Elements Buffer Object and stores its ID.
- 		*/
+    	* Constructor for the GLElementsBuffer class.
+    	* @param indices Integer pointer that represents indices to vertices. Used to avoid data duplication.
+    	* @param size The size of the buffer, in bytes @note correct size is count of indices multiply by sizeof(<indices type>) of indices type.
+    	*
+    	* This function generates a new OpenGL buffer object, binds it to the context as an element array buffer,
+    	* and allocates memory in the GPU for the buffer, filling it with the provided indices data. Then it unbinds the buffer.
+    	*/
 
-		GLElementsBufferObject();
+		GLElementsBuffer(core::u32 *indices, core::u32 size);
 
 		/**
- 		* @brief Destructor for the GLElementsBufferObject class.
+ 		* @brief Destructor for the GLElementsBuffer class.
  		*
  		* This destructor deletes the OpenGL Elements Buffer Object associated with this class instance.
  		*/
 
-		~GLElementsBufferObject();
+		~GLElementsBuffer() override;
 
 		/**
         * Binds the buffer object with the provided rectangle data.
@@ -50,13 +53,10 @@ namespace hexen::engine::graphics::gl
         * allowing subsequent rendering operations to use the vertex and fragment
         * data contained within the buffer object.
         *
-        * @param rectangleData The rectangle data to bind the buffer object with.
-        *
-        * @see GLRectangleData
         */
 
 
-		void bind(const GLRectangleData &rectangleData) const;
+		void bind() const noexcept override;
 
 		/**
         * @brief Unbinds the elements buffer object.
@@ -67,22 +67,11 @@ namespace hexen::engine::graphics::gl
         *
         * @note This function does not return any value.
         *
-        * @see core::rend::GLElementsBufferObject
+        * @see core::rend::GLElementsBuffer
         */
 
-		void unbind();
+		void unbind() const noexcept override;
 
-		/**
-        * @brief Binds the indices to the GLElementsBufferObject.
-        *
-        * This method binds the provided indices to the GLElementsBufferObject.
-        * The indices are used to specify the vertex connectivity for batch rendering.
-        *
-        * @param indices The vector of glm::uvec4 indices representing the vertex connectivity.
-        *
-        */
-
-		void bind(const std::vector<glm::uvec4> &indices) const;
 
 	private:
 		core::u32 object {0};

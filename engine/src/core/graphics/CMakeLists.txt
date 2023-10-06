@@ -3,10 +3,10 @@ project(Hexen)
 
 message(STATUS "Engine Name:" ${ENGINE_NAME})
 
-target_sources(${ENGINE_NAME} PRIVATE ../../graphics/buffers/GL/GLElementsBufferObject.hpp
-        ../../graphics/buffers/GL/GLElementsBufferObject.cpp
+target_sources(${ENGINE_NAME} PRIVATE ../../graphics/buffers/GL/GLElementsBuffer.hpp
+        ../../graphics/buffers/GL/GLElementsBuffer.cpp
         ../../graphics/buffers/GL/Graphics.hpp
-        ../../graphics/buffers/GL/GLRectangleData.hpp
+        ../../graphics/buffers/RectangleVertices.hpp
         ../../graphics/buffers/GL/GLVertexArrayObject.hpp
         ../../graphics/buffers/GL/GLVertexArrayObject.cpp
         ../../graphics/buffers/GL/GLVertexAttributes.hpp
