@@ -61,7 +61,29 @@ namespace hexen::engine::graphics::gl
 
 		void unbind() const noexcept override;
 
+		/**
+ 		* @brief Sets the layout of the buffer.
+ 		*
+ 		* This function overrides a virtual function from a base class.
+ 		*
+ 		* @param layout A constant reference to the layout object which we need to set for our buffer.
+ 		*/
+
+		void setLayout(const BufferLayout& layout) override { bufferLayout = layout; }
+
+		/**
+ 		* \brief Returns the current layout of the buffer.
+ 		*
+ 		* This function is declared as 'nodiscard' which means the compiler will warn us if we ignore the return value.
+ 		* This function is also declared as 'noexcept' which means it doesn't throw any exceptions.
+ 		*
+ 		* @return A constant reference to the current buffer layout.
+ 		*/
+
+		[[nodiscard]]  const BufferLayout& getLayout() const noexcept override { return bufferLayout; };
+
 	private:
 		core::u32 object {0};
+		BufferLayout bufferLayout;
 	};
 }// namespace hexen::engine::graphics::gl

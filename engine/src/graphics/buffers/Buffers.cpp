@@ -72,3 +72,68 @@ std::unique_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::F
 
 	return nullptr;
 }
+hexen::engine::graphics::BufferElement::BufferElement(ShaderDataType newType,const std::string& newName,bool isNormalized = false) : name(newName), type(newType), size(getShaderDataTypeSize(newType)), offset(0),bIsNormalized(isNormalized)
+{
+
+}
+hexen::engine::core::u32 hexen::engine::graphics::BufferElement::getComponentCount() const
+{
+	switch (type)
+	{
+		case ShaderDataType::FLOAT:		return 1;
+		case ShaderDataType::INT:		return 1;
+		case ShaderDataType::VEC2F:		return 2;
+		case ShaderDataType::VEC3F:		return 3;
+		case ShaderDataType::VEC4F:		return 4;
+		case ShaderDataType::VEC2I:		return 2;
+		case ShaderDataType::VEC3I:		return 3;
+		case ShaderDataType::VEC4I:		return 4;
+		case ShaderDataType::MAT2:		return 2 * 2;
+		case ShaderDataType::MAT3:		return 3 * 3;
+		case ShaderDataType::MAT4:		return 4 * 4;
+		case ShaderDataType::BOOL:		return 1;
+		case ShaderDataType::NONE:		return 0;
+	}
+
+	HEXEN_ASSERT(false,"ERROR::Unknown ShaderDataType!");
+	return 0;
+}
+hexen::engine::core::u32 hexen::engine::graphics::getShaderDataTypeSize(hexen::engine::graphics::ShaderDataType type)
+{
+	switch (type)
+	{
+		case ShaderDataType::FLOAT:		return 4;
+		case ShaderDataType::INT:		return 4;
+		case ShaderDataType::VEC2F:		return 4 * 2;
+		case ShaderDataType::VEC3F:		return 4 * 3;
+		case ShaderDataType::VEC4F:		return 4 * 4;
+		case ShaderDataType::VEC2I:		return 4 * 2;
+		case ShaderDataType::VEC3I:		return 4 * 3;
+		case ShaderDataType::VEC4I:		return 4 * 4;
+		case ShaderDataType::MAT2:		return 4 * 2 * 2;
+		case ShaderDataType::MAT3:		return 4 * 3 * 3;
+		case ShaderDataType::MAT4:		return 4 * 4 * 4;
+		case ShaderDataType::BOOL:		return 1;
+		case ShaderDataType::NONE:		return 0;
+	}
+
+	HEXEN_ASSERT(false,"ERROR::Unknown ShaderDataType!");
+	return 0;
+}
+hexen::engine::graphics::BufferLayout::BufferLayout(std::initializer_list<BufferElement> &newElements) : elements(newElements)
+{
+	calculateStridesAndOffsets();
+}
+void hexen::engine::graphics::BufferLayout::calculateStridesAndOffsets()
+{
+	core::u32 offset = 0;
+	stride = 0;
+
+	for(auto &element : elements)
+	{
+		element.offset = offset;
+		offset += element.size;
+		stride += element.size;
+	}
+
+}
