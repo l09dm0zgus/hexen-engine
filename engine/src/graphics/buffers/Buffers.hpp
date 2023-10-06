@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <glm/vec2.hpp>
 #include <core/memory_pool/AllocatedObject.hpp>
 
 namespace hexen::engine::graphics
@@ -85,6 +86,62 @@ namespace hexen::engine::graphics
         */
 
 		virtual void unbind() const noexcept = 0;
+	};
+
+	/**
+ 	* @class FrameBuffer
+ 	* @brief A memory-allocated object that manages a frame buffer.
+ 	* @details Inherits from the AllocatedObject in the core::memory namespace.
+ 	*/
+
+	class FrameBuffer : public core::memory::AllocatedObject
+	{
+	public:
+
+		/**
+     	* @brief Factory function to create a new FrameBuffer instance.
+     	* @param size A glm::vec2 defining the size of the frame buffer.
+     	* @return A std::unique_ptr to the newly created FrameBuffer.
+     	*/
+
+		static std::unique_ptr<FrameBuffer> create(const glm::vec2 &size);
+
+		/**
+     	* @brief Default destructor.
+     	*/
+
+		virtual ~FrameBuffer() = default;
+
+		/**
+     	* @brief Pure virtual function to bind the frame buffer.
+     	*/
+
+		virtual void bind() const noexcept = 0;
+
+		/**
+     	* @brief Pure virtual function to unbind the frame buffer.
+     	*/
+
+		virtual void unbind() const noexcept = 0;
+
+		/**
+     	* @brief Pure virtual function to set the size of the frame buffer.
+     	* @param size A glm::vec2 defining the new size of the frame buffer.
+	    */
+
+		virtual void setSize(const glm::vec2 &size)  const = 0;
+
+		/**
+     	* @brief Pure virtual function to bind the render buffer.
+     	*/
+
+		virtual void bindRenderBuffer() = 0;
+
+		/**
+     	* @brief Pure virtual function to unbind the render buffer.
+     	*/
+
+		virtual void unbindRenderBuffer() = 0;
 	};
 
 }// namespace hexen::engine::graphics

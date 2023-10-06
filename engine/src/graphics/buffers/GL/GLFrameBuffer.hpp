@@ -4,42 +4,44 @@
 
 #pragma once
 
-#include "../../../core/Types.hpp"
-#include "GLRenderBufferObject.hpp"
-#include "glm/vec2.hpp"
+#include "../Buffers.hpp"
+#include "GLRenderBuffer.hpp"
+#include <core/Types.hpp>
+#include <glm/vec2.hpp>
 
 namespace hexen::engine::graphics::gl
 {
 	/**
-    * @class GLFrameBufferObject
+    * @class GLFrameBuffer
     * @brief Represents a frame buffer object for rendering.
-    *
+    * @extends FrameBuffer
     * This class provides functionality to create and manage a frame buffer object for rendering.
     *
      * @note In order to use this class, the appropriate graphics context must be active.
     */
 
-	class GLFrameBufferObject
+	class GLFrameBuffer : public FrameBuffer
 	{
 	public:
+		/**
+ 		* @brief Constructs a GLFrameBuffer object and sets its size.
+ 		*
+ 		* This constructor function creates an OpenGL framebuffer object and initializes its size using the provided parameters.
+ 		* It also binds a Depth-Stencil render buffer to it.
+ 		*
+ 		* @param size A glm::vec2 instance representing the size of the GLFrameBuffer.
+ 		*/
+
+		explicit GLFrameBuffer(const glm::vec2 &size);
 
 		/**
      	*
-     	*  @brief Default constructor for the GLFrameBufferObject class.
-     	*
-     	* This will generate a frame buffer object in the GPU memory.
-	 	*/
-
-		GLFrameBufferObject();
-
-		/**
-     	*
-     	*  @brief Destructor for the GLFrameBufferObject class.
+     	*  @brief Destructor for the GLFrameBuffer class.
      	*
      	*  This will remove the frame buffer object from the GPU memory.
 	 	*/
 
-		~GLFrameBufferObject();
+		~GLFrameBuffer() override;
 
 		/**
         *
@@ -54,36 +56,36 @@ namespace hexen::engine::graphics::gl
         *
         * @par Example Usage:
         * @code
-        * core::rend::GLFrameBufferObject fbo;
+        * core::rend::GLFrameBuffer fbo;
         * fbo.bind();
         * // Perform rendering operations on the bound frame buffer object
         * fbo.unbind();
         * @endcode
         */
 
-		void bind() const;
+		void bind() const noexcept override;
 
 		/**
-        * @brief Unbinds the GLFrameBufferObject.
+        * @brief Unbinds the GLFrameBuffer.
         *
-        * This function unbinds the currently bound GLFrameBufferObject, allowing subsequent rendering
+        * This function unbinds the currently bound GLFrameBuffer, allowing subsequent rendering
         * to be performed to the default framebuffer. It should be called after rendering to a
-        * GLFrameBufferObject is complete.
+        * GLFrameBuffer is complete.
         *
-        * @sa core::rend::GLFrameBufferObject::bind()
+        * @sa core::rend::GLFrameBuffer::bind()
         */
 
-		void unbind();
+		void unbind() const noexcept override;
 
 		/**
         * @brief Set the size of the render buffer storage.
         *
-        * This function sets the size of the GLFrameBufferObject using a glm::vec2 parameter.
+        * This function sets the size of the GLFrameBuffer using a glm::vec2 parameter.
         *
-        * @param size The size of the GLFrameBufferObject as a glm::vec2.
+        * @param size The size of the GLFrameBuffer as a glm::vec2.
         */
 
-		void setSize(const glm::vec2 &size) const;
+		void setSize(const glm::vec2 &size) const override;
 
 
 		/**
@@ -96,7 +98,7 @@ namespace hexen::engine::graphics::gl
         *
         */
 
-		void bindRenderBuffer();
+		void bindRenderBuffer() override;
 
 		/**
         * @brief Unbinds the currently bound render buffer from the frame buffer object.
@@ -106,13 +108,13 @@ namespace hexen::engine::graphics::gl
         *
         * @note This function does not return any values.
         *
-        * @see core::rend::GLFrameBufferObject::bindRenderBuffer()
+        * @see core::rend::GLFrameBuffer::bindRenderBuffer()
         */
 
-		void unbindRenderBuffer();
+		void unbindRenderBuffer() override;
 
 	private:
 		core::u32 object {0};
-		GLRenderBufferObject renderBufferObject;
+		GLRenderBuffer renderBufferObject;
 	};
 }// namespace hexen::engine::graphics::gl
