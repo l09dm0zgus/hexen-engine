@@ -50,4 +50,41 @@ namespace hexen::engine::graphics
 
 		virtual void unbind() const noexcept = 0;
 	};
+
+	/**
+ 	* @brief A VertexBuffer class that provides the methods for managing the vertex buffer behavior.
+ 	* This class is part of the core::memory namespace and inherits from the AllocatedObject class.
+ 	*/
+
+	class VertexBuffer : public core::memory::AllocatedObject
+	{
+	public:
+		/**
+        * @brief Virtual destructor of the VertexBuffer class.
+        */
+
+		virtual ~VertexBuffer() = 0;
+
+		/**
+        * @brief Static method for creating a vertex buffer.
+        * @param vertices A pointer to the array of vertices.
+        * @param size The size of the vertex buffer.
+        * @return A unique pointer to the created VertexBuffer object.
+        */
+
+		static std::unique_ptr<VertexBuffer> create(float *vertices, core::u32 size);
+
+		/**
+        * @brief Pure virtual method that binds the vertex buffer.
+        */
+
+		virtual void bind() const noexcept = 0;
+
+		/**
+        * @brief Pure virtual method that unbinds the vertex buffer.
+        */
+
+		virtual void unbind() const noexcept = 0;
+	};
+
 }// namespace hexen::engine::graphics

@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace hexen::engine::graphics::gl
+namespace hexen::engine::graphics
 {
 	enum RectangleDataSizes
 	{
@@ -35,7 +35,7 @@ namespace hexen::engine::graphics::gl
 
 		INDICES_ARRAY_SIZE = 6
 	};
-	struct GLRectangleData
+	struct RectangleVertices
 	{
 		/**
         * @brief The array of vertices for a rectangle.
@@ -84,7 +84,7 @@ namespace hexen::engine::graphics::gl
         *
         */
 
-		const unsigned int indices[RectangleDataSizes::INDICES_ARRAY_SIZE] =
+		const core::u32 indices[RectangleDataSizes::INDICES_ARRAY_SIZE] =
 				{
 						0, 1, 2,
 						0, 3, 1};

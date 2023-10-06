@@ -11,8 +11,8 @@ target_sources(${ENGINE_NAME} PRIVATE ../../graphics/buffers/GL/GLElementsBuffer
         ../../graphics/buffers/GL/GLVertexArrayObject.cpp
         ../../graphics/buffers/GL/GLVertexAttributes.hpp
         ../../graphics/buffers/GL/GLVertexAttributes.cpp
-        ../../graphics/buffers/GL/GLVertexBufferObject.hpp
-        ../../graphics/buffers/GL/GLVertexBufferObject.cpp
+        ../../graphics/buffers/GL/GLVertexBuffer.hpp
+        ../../graphics/buffers/GL/GLVertexBuffer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.hpp
