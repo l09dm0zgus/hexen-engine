@@ -10,7 +10,7 @@
 	#include "GL/GLFrameBuffer.hpp"
 #endif
 
-std::unique_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics::ElementsBuffer::create(hexen::engine::core::u32 *indices, hexen::engine::core::u32 size)
+std::shared_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics::ElementsBuffer::create(hexen::engine::core::u32 *indices, hexen::engine::core::u32 size)
 {
 	switch (RenderContext::getRenderAPI())
 	{
@@ -20,7 +20,7 @@ std::unique_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics
 		case RenderContext::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
-				return core::memory::make_unique<gl::GLElementsBuffer>(indices, size);
+				return core::memory::make_shared<gl::GLElementsBuffer>(indices, size);
 			}
 			break;
 		case RenderContext::RenderAPI::VULKAN_API:
@@ -30,7 +30,7 @@ std::unique_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics
 	}
 	return nullptr;
 }
-std::unique_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::VertexBuffer::create(float *vertices, hexen::engine::core::u32 size)
+std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::VertexBuffer::create(float *vertices, hexen::engine::core::u32 size)
 {
 	switch (RenderContext::getRenderAPI())
 	{
@@ -40,7 +40,7 @@ std::unique_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::
 		case RenderContext::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
-				return core::memory::make_unique<gl::GLVertexBuffer>(vertices, size);
+				return core::memory::make_shared<gl::GLVertexBuffer>(vertices, size);
 			}
 			break;
 		case RenderContext::RenderAPI::VULKAN_API:
@@ -51,7 +51,7 @@ std::unique_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::
 
 	return nullptr;
 }
-std::unique_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FrameBuffer::create(const glm::vec2 &size)
+std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FrameBuffer::create(const glm::vec2 &size)
 {
 	switch (RenderContext::getRenderAPI())
 	{
@@ -72,7 +72,7 @@ std::unique_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::F
 
 	return nullptr;
 }
-hexen::engine::graphics::BufferElement::BufferElement(ShaderDataType newType,const std::string& newName,bool isNormalized = false) : name(newName), type(newType), size(getShaderDataTypeSize(newType)), offset(0),bIsNormalized(isNormalized)
+hexen::engine::graphics::BufferElement::BufferElement(ShaderDataType newType,const std::string& newName,bool isNormalized) : name(newName), type(newType), size(getShaderDataTypeSize(newType)), offset(0),bIsNormalized(isNormalized)
 {
 
 }

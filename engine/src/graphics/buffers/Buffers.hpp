@@ -231,10 +231,10 @@ namespace hexen::engine::graphics
      	* @param indices Pointer to the list of indices.
      	* @param size The size of the indices array.
      	* @note correct size is count of indices multiply by sizeof(<indices type>) of indices type.
-     	* @return A unique_ptr to the new ElementsBuffer instance.
+     	* @return A shared_ptr to the new ElementsBuffer instance.
      	*/
 
-		static std::unique_ptr<ElementsBuffer> create(core::u32 *indices, core::u32 size);
+		static std::shared_ptr<ElementsBuffer> create(core::u32 *indices, core::u32 size);
 
 		/**
      	* @brief Pure virtual method to bind the elements buffer.
@@ -271,10 +271,10 @@ namespace hexen::engine::graphics
         * @brief Static method for creating a vertex buffer.
         * @param vertices A pointer to the array of vertices.
         * @param size The size of the vertex buffer.
-        * @return A unique pointer to the created VertexBuffer object.
+        * @return A shared pointer to the created VertexBuffer object.
         */
 
-		static std::unique_ptr<VertexBuffer> create(float *vertices, core::u32 size);
+		static std::shared_ptr<VertexBuffer> create(float *vertices, core::u32 size);
 
 		/**
         * @brief Pure virtual method that binds the vertex buffer.
@@ -315,10 +315,10 @@ namespace hexen::engine::graphics
 		/**
      	* @brief Factory function to create a new FrameBuffer instance.
      	* @param size A glm::vec2 defining the size of the frame buffer.
-     	* @return A std::unique_ptr to the newly created FrameBuffer.
+     	* @return A std::shared_ptr to the newly created FrameBuffer.
      	*/
 
-		static std::unique_ptr<FrameBuffer> create(const glm::vec2 &size);
+		static std::shared_ptr<FrameBuffer> create(const glm::vec2 &size);
 
 		/**
      	* @brief Default destructor.
