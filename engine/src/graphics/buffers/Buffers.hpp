@@ -151,7 +151,7 @@ namespace hexen::engine::graphics
      	* @returns An iterator to the start of the elements.
      	*/
 
-		std::vector<BufferElement>::iterator begin() noexcept
+		std::vector<BufferElement>::iterator begin()  noexcept
 		{
 			return elements.begin();
 		}
@@ -171,9 +171,9 @@ namespace hexen::engine::graphics
  		 * @param layout The BufferLayout object that defines the new layout of the vertex buffer.
  		 */
 
-		std::vector<BufferElement>::const_iterator cbegin() noexcept
+		[[nodiscard]] std::vector<BufferElement>::const_iterator begin() const noexcept
 		{
-			return elements.begin();
+			return elements.cbegin();
 		}
 
 		/**
@@ -182,9 +182,9 @@ namespace hexen::engine::graphics
    		* @return A constant iterator to the end of the elements.
    		*/
 
-		std::vector<BufferElement>::const_iterator cend() noexcept
+		std::vector<BufferElement>::const_iterator end() const noexcept
 		{
-			return elements.end();
+			return elements.cend();
 		}
 
 		/**

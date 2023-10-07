@@ -4,6 +4,8 @@ project(Hexen)
 target_sources(${RENDER_ENGINE_NAME} PUBLIC
         Buffers.hpp
         Buffers.cpp
+        VertexArray.cpp
+        VertexArray.hpp
         RectangleVertices.hpp
 )
 

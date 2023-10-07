@@ -51,4 +51,5 @@ bool hexen::editor::gui::bufferingBar(const char *label, float value, const ImVe
 	window->DrawList->AddCircleFilled(ImVec2(pos.x + circleEnd - o1, bb.Min.y + r), r, backgroundColor);
 	window->DrawList->AddCircleFilled(ImVec2(pos.x + circleEnd - o2, bb.Min.y + r), r, backgroundColor);
 	window->DrawList->AddCircleFilled(ImVec2(pos.x + circleEnd - o3, bb.Min.y + r), r, backgroundColor);
+	return true;
 }

@@ -9,4 +9,6 @@ target_sources(${RENDER_ENGINE_NAME} PUBLIC
         GLFrameBuffer.hpp
         GLFrameBuffer.cpp
         GLRenderBuffer.hpp
-        GLRenderBuffer.cpp)
+        GLRenderBuffer.cpp
+        GLVertexArray.hpp
+        GLVertexArray.cpp)

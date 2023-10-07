@@ -3,16 +3,7 @@ project(Hexen)
 
 message(STATUS "Engine Name:" ${ENGINE_NAME})
 
-target_sources(${ENGINE_NAME} PRIVATE ../../graphics/buffers/GL/GLElementsBuffer.hpp
-        ../../graphics/buffers/GL/GLElementsBuffer.cpp
-        ../../graphics/buffers/GL/Graphics.hpp
-        ../../graphics/buffers/RectangleVertices.hpp
-        ../../graphics/buffers/GL/GLVertexArrayObject.hpp
-        ../../graphics/buffers/GL/GLVertexArrayObject.cpp
-        ../../graphics/buffers/GL/GLVertexAttributes.hpp
-        ../../graphics/buffers/GL/GLVertexAttributes.cpp
-        ../../graphics/buffers/GL/GLVertexBuffer.hpp
-        ../../graphics/buffers/GL/GLVertexBuffer.cpp
+target_sources(${ENGINE_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.hpp
@@ -22,8 +13,4 @@ target_sources(${ENGINE_NAME} PRIVATE ../../graphics/buffers/GL/GLElementsBuffer
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/Texture.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/FrameBufferTexture.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/FrameBufferTexture.cpp
-        ../../graphics/buffers/GL/GLFrameBufferObject.hpp
-        ../../graphics/buffers/GL/GLFrameBufferObject.cpp
-        ../../graphics/buffers/GL/GLRenderBufferObject.hpp
-        ../../graphics/buffers/GL/GLRenderBufferObject.cpp
         )
