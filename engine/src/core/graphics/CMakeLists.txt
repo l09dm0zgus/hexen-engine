@@ -9,8 +9,8 @@ target_sources(${ENGINE_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/Shaders.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/texture/Texture.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/texture/Texture.cpp
+        ../../graphics/textures/GL/GLTexture2D.hpp
+        ../../graphics/textures/GL/GLTexture2D.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/FrameBufferTexture.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/texture/FrameBufferTexture.cpp
         )

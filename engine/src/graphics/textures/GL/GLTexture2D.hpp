@@ -5,14 +5,14 @@
 #pragma once
 
 
-#include "../../memory_pool/AllocatedObject.hpp"
-#include <SDL3/SDL.h>
-#include <SDL_image.h>
+#include "SDL3/SDL.h"
+#include "SDL_image.h"
+#include "../Texture.hpp"
 #include <string>
 namespace hexen::engine::graphics::gl
 {
 	/**
- 	* @class Texture
+ 	* @class GLTexture2D
  	* @brief This class represents a texture in the Hexen Engine.
  	*
  	* A texture is an OpenGL object that contains one or more images that all have the same image format.
@@ -22,29 +22,33 @@ namespace hexen::engine::graphics::gl
  	*
  	*/
 
-	class Texture : public core::memory::AllocatedObject
+	class GLTexture2D : public Texture2D
 	{
 	public:
 		/**
-     	* @brief Construct a new Texture object. Responsible for texture creation and initialization.
+     	* @brief Construct a new GLTexture2D object. Responsible for texture creation and initialization.
      	*
      	* @param pathToImage The path to the image file.
-     	* @param wrapMode The wrapping mode for the texture.
-     	* @param filterMode The filter mode for the texture.
+     	* @param filter The filter mode for the texture.
      	*/
 
-		explicit Texture(const std::string &pathToImage, int wrapMode = 0x2901, int filterMode = 0x2600);
+		explicit GLTexture2D(const std::string &pathToImage,TextureFilter filter);
 
 		/**
-     	* @brief It is responsible for binding the texture to a particular texture unit.
-     	*
-     	* @param id
-     	*/
+ 		* @brief Binds a texture to a specified texture unit.
+ 		*
+ 		* This function binds a texture to a texture unit. The texture unit number is given by the parameter.
+ 		* The texture itself is an OpenGL object whose ID is stored in this class's `textureId` member.
+ 		*
+ 		* @note This function is a const function and will not modify the state of the object.
+ 		*
+ 		* @param slot The texture unit to which the texture is to be bound (represented as a core::u32 integer).
+ 		*/
 
-		void bind(core::u32 id) const;
+		void bind(core::u32 slot = 0) const override;
 
 		/**
-    	* @brief Get the Texture's id
+    	* @brief Get the GLTexture2D's id
     	*
     	* @return core::u32 The id of the texture.
     	*/
@@ -52,10 +56,10 @@ namespace hexen::engine::graphics::gl
 		[[nodiscard]] core::u32 getId() const noexcept;
 
 		/**
-     	* @brief Destroy the Texture object and free the memory occupied by the texture.
+     	* @brief Destroy the GLTexture2D object and free the memory occupied by the texture.
      	*/
 
-		~Texture() override;
+		~GLTexture2D() override;
 
 		/**
 		* @brief Copy constructor.
@@ -65,7 +69,7 @@ namespace hexen::engine::graphics::gl
 		*
 		* @param texture The texture to be copied.
 		*/
-		Texture(const Texture &texture) = default;
+		GLTexture2D(const GLTexture2D &texture) = default;
 
 		/**
 		* @brief Move constructor.
@@ -77,7 +81,7 @@ namespace hexen::engine::graphics::gl
 		* @param texture Temporary object to be moved from.
 		*/
 
-		Texture(Texture &&texture) = default;
+		GLTexture2D(GLTexture2D &&texture) = default;
 
 		/**
 		* @brief Copy assignment operator.
@@ -90,7 +94,7 @@ namespace hexen::engine::graphics::gl
 		* @return Reference to this, after the assignment.
 		*/
 
-		Texture &operator=(const Texture &texture) = default;
+		GLTexture2D &operator=(const GLTexture2D &texture) = default;
 
 		/**
 		* @brief Move assignment operator.
@@ -103,19 +107,16 @@ namespace hexen::engine::graphics::gl
 		* @return Reference to this, after the assignment.
 		*/
 
-		Texture &operator=(Texture &&texture) = default;
+		GLTexture2D &operator=(GLTexture2D &&texture) = default;
+
+
+		[[nodiscard]] core::u32 getWidth() const override { return  width; };
+		[[nodiscard]] core::u32 getHeight() const override { return height; };
 
 	private:
-		SDL_Surface *surface {nullptr};
 		core::u32 textureId;
+		core::u32 height;
+		core::u32 width;
 
-		/**
-     	* @brief Set the Texture Parameters [WRAP | MIN_FILTER | MAX_FILTER]
-     	*
-     	* @param wrapMode Specifies the wrap parameters for the texture.
-     	* @param filterMode Specifies the filter parameters for the texture.
-     	*/
-
-		void setTextureParameters(int wrapMode, int filterMode);
 	};
 }// namespace hexen::engine::graphics::gl
