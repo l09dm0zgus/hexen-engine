@@ -3,7 +3,7 @@
 //
 
 #include "RenderContext.hpp"
-#include "core/application/Settings.hpp"
+#include <application/Settings.hpp>
 
 #if defined(_ENABLE_OPENGL_SUPPORT)
 	#include "GL/GLRenderContext.hpp"

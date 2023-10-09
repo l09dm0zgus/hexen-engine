@@ -4,7 +4,7 @@
 
 #pragma once
 #include "../RenderContext.hpp"
-#include <core/application/Settings.hpp>
+#include <application/Settings.hpp>
 
 namespace hexen::engine::graphics::gl
 {

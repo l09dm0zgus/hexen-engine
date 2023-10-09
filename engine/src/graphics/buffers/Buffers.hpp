@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include <core/memory_pool/AllocatedObject.hpp>
+#include <memory_pool/AllocatedObject.hpp>
 #include <glm/vec2.hpp>
 
 namespace hexen::engine::graphics

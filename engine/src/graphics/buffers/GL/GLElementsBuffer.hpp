@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include <core/Types.hpp>
+#include <Types.hpp>
 #include <glm/vec4.hpp>
 #include "../Buffers.hpp"
 

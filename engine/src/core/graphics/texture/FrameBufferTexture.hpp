@@ -27,7 +27,7 @@ namespace hexen::engine::graphics::gl
 
 	public:
 		/**
- 		* @brief Construct a new Frame Buffer Texture object. This is part of the HexenEngine's graphics handling module.
+ 		* @brief Construct a new Frame Buffer GLTexture2D object. This is part of the HexenEngine's graphics handling module.
  		* @param size The size of the frame buffer texture, a vector of two elements standing for width and height.
  		*
  		* This constructor initializes a new OpenGL texture and sets up its dimensions according to the provided size.

@@ -3,6 +3,7 @@ project(Hexen)
 
 set(ENGINE_NAME HexenEngine CACHE INTERNAL "")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(RENDER_ENGINE_NAME RenderingEngine)
 
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -13,6 +14,7 @@ option(BUILD_STATIC "Build as static lib" ON)
 option(BUILD_FOR_ANDROID "Build client as shared lib for Android" OFF)
 option(ENABLE_PROFILING OFF)
 option(ENABLE_SANITIZERS "Enable sanitizers" ON)
+option(ENABLE_SANDBOX "Enable sandbox for testing" ON)
 
 if(${BUILD_FOR_ANDROID})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
@@ -106,4 +108,7 @@ if(BUILD_EDITOR)
 	add_subdirectory(editor)
 endif()
 
-
+if(${ENABLE_SANDBOX})
+    set(GRAPHICS_INCLUDE_DIR engine/graphics)
+    add_subdirectory(sandbox)
+endif (${ENABLE_SANDBOX})

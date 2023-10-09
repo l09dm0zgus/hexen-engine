@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <core/Types.hpp>
+#include <Types.hpp>
 #include "../VertexArray.hpp"
 
 namespace hexen::engine::graphics::gl

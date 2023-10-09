@@ -6,7 +6,7 @@
 
 #include "../Buffers.hpp"
 #include "GLRenderBuffer.hpp"
-#include <core/Types.hpp>
+#include <Types.hpp>
 #include <glm/vec2.hpp>
 
 namespace hexen::engine::graphics::gl
