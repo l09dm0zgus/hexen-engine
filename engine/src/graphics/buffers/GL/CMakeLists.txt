@@ -11,4 +11,6 @@ target_sources(${RENDER_ENGINE_NAME} PUBLIC
         GLRenderBuffer.hpp
         GLRenderBuffer.cpp
         GLVertexArray.hpp
-        GLVertexArray.cpp)
+        GLVertexArray.cpp
+        GlUniformBuffer.hpp
+        GlUniformBuffer.cpp)

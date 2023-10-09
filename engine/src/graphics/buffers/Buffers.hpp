@@ -151,7 +151,7 @@ namespace hexen::engine::graphics
      	* @returns An iterator to the start of the elements.
      	*/
 
-		std::vector<BufferElement>::iterator begin()  noexcept
+		std::vector<BufferElement>::iterator begin() noexcept
 		{
 			return elements.begin();
 		}
@@ -356,6 +356,38 @@ namespace hexen::engine::graphics
      	*/
 
 		virtual void unbindRenderBuffer() = 0;
+	};
+
+	/**
+ 	* @class UniformBuffer
+ 	* @brief This class extends core::memory::AllocatedObject and provides functionality of a Uniform Buffer.
+ 	*
+	* The objects created by this class can be handled as a Uniform Buffer in graphics cases.
+ 	*/
+
+	class UniformBuffer : public core::memory::AllocatedObject
+	{
+	public:
+		/**
+ 		* @brief Destructor for the UniformBuffer class.
+ 		*/
+		virtual ~UniformBuffer() = default;
+
+		/**
+ 		* @brief Pure virtual function to set data in the UniformBuffer.
+ 		* @param[in] data Pointer to the data to set in the buffer.
+ 		* @param[in] size Size of the data to set in the buffer.
+ 		* @param[in] offset Offset position in the buffer where the data needs to be set.
+ 		*/
+		virtual void setData(const core::vptr data, core::u32 size, core::u32 offset = 0) = 0;
+
+		/**
+ 		* @brief Static function to create a UniformBuffer instance.
+ 		* @param[in] size Size of the buffer to create.
+		* @param[in] binding The particular binding point where we attach the uniform buffer.
+ 		* @return A shared pointer to the newly created UniformBuffer instance.
+ 		*/
+		static std::shared_ptr<UniformBuffer> create(core::u32 size, core::u32 binding);
 	};
 
 }// namespace hexen::engine::graphics
