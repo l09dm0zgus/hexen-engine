@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <memory_pool/AllocatedObject.hpp>
 #include <SDL3/SDL.h>
+#include <memory_pool/AllocatedObject.hpp>
 
 namespace hexen::engine::core
 {
@@ -37,14 +37,6 @@ namespace hexen::engine::graphics
 
 		[[nodiscard]] virtual core::i32 getWindowFlags() const noexcept;
 
-		/**
-     	* @brief Create a render context for a SDL_Window.
-     	*
-     	* @param window A pointer to the SDL_Window instance to create the context for.
-     	*/
-
-		virtual void createRenderContextForSDLWindow(SDL_Window *window) = 0;
-
 		friend class hexen::engine::core::Window;
 
 	public:
@@ -67,7 +59,7 @@ namespace hexen::engine::graphics
      	* @param settings A reference to Settings object to be used while creating the render context.
      	*/
 
-		static std::unique_ptr<RenderContext> create(const core::Settings &settings);
+		static std::unique_ptr<RenderContext> create(const core::Settings &settings,const std::shared_ptr<core::Window> &window);
 
 		/**
      	* @brief Get the current render API in use

@@ -45,19 +45,13 @@ namespace hexen::engine::graphics::gl
 		core::Settings::OpenGLSettings openGlSettings;
 
 	protected:
-		/**
-     	* @brief Returns SDL window flags specific for OpenGL rendering context.
-     	* @return Integer value of window flags.
-     	*/
-
-		[[nodiscard]] core::i32 getWindowFlags() const noexcept override;
 
 		/**
      	* @brief Creates actual SDL rendering context for the given window.
      	* @param window A pointer to the SDL_Window structure, which is the window where rendering is done.
      	*/
 
-		void createRenderContextForSDLWindow(SDL_Window *window) override;
+		void createRenderContextForSDLWindow(SDL_Window *window);
 
 	public:
 		/**
@@ -65,7 +59,7 @@ namespace hexen::engine::graphics::gl
      	* @param settings Contains different properties like resolution and full screen mode.
      	*/
 
-		explicit GLRenderContext(const core::Settings &settings);
+		explicit GLRenderContext(const core::Settings &settings,const std::shared_ptr<core::Window> &window);
 
 		/**
  		* @fn SDL_GLContext hexen::engine::graphics::gl::GLRenderContext::getSDLGLContext() const noexcept
@@ -76,6 +70,6 @@ namespace hexen::engine::graphics::gl
  		* @return SDL_GLContext The current instance's SDL_GLContext object.
  		*/
 
-		SDL_GLContext getSDLGLContext() const noexcept;
+		[[nodiscard]] SDL_GLContext getSDLGLContext() const noexcept;
 	};
 }// namespace hexen::engine::graphics::gl

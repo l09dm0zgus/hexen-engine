@@ -2,18 +2,19 @@
 // Created by cx9ps3 on 03.01.23.
 //
 
-#include "ShaderProgram.hpp"
-#include <SDL3/SDL.h>
+#include "GLShaderProgram.hpp"
+#include "SDL3/SDL.h"
 
 #ifndef __ANDROID__
-	#include <GL/glew.h>
+	#include "GL/glew.h"
 #else
 	#include <GLES3/gl31.h>
 #endif
-#include <glm/gtc/type_ptr.hpp>
+#include "glm/gtc/type_ptr.hpp"
 
+#include <vector>
 
-hexen::engine::graphics::gl::shader::ShaderProgram::ShaderProgram(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
+hexen::engine::graphics::gl::GLShaderProgram::GLShaderProgram(std::vector<std::string> &shadersFiles)
 {
 	vertexShaderFile.read(vertexShaderPath);
 	fragmentShaderFile.read(fragmentShaderPath);
@@ -22,7 +23,7 @@ hexen::engine::graphics::gl::shader::ShaderProgram::ShaderProgram(const std::str
 	linkShaders();
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::compileVertexShader()
+void hexen::engine::graphics::gl::GLShaderProgram::compileVertexShader()
 {
 	vertexShaderText = vertexShaderFile.getContent();
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -31,7 +32,7 @@ void hexen::engine::graphics::gl::shader::ShaderProgram::compileVertexShader()
 	showCompilerLog(vertexShader);
 }
 
-inline void hexen::engine::graphics::gl::shader::ShaderProgram::showCompilerLog(core::u32 shader) const noexcept
+inline void hexen::engine::graphics::gl::GLShaderProgram::showCompilerLog(core::u32 shader) const noexcept
 {
 	core::i32 success {0};
 	char infoLog[512];
@@ -43,7 +44,7 @@ inline void hexen::engine::graphics::gl::shader::ShaderProgram::showCompilerLog(
 	}
 }
 
-inline void hexen::engine::graphics::gl::shader::ShaderProgram::compileFragmentShader()
+inline void hexen::engine::graphics::gl::GLShaderProgram::compileFragmentShader()
 {
 	fragmentShaderText = fragmentShaderFile.getContent();
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -52,13 +53,13 @@ inline void hexen::engine::graphics::gl::shader::ShaderProgram::compileFragmentS
 	showCompilerLog(fragmentShader);
 }
 
-hexen::engine::graphics::gl::shader::ShaderProgram::~ShaderProgram()
+hexen::engine::graphics::gl::GLShaderProgram::~GLShaderProgram()
 {
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::linkShaders()
+void hexen::engine::graphics::gl::GLShaderProgram::linkShaders()
 {
 	shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
@@ -67,7 +68,7 @@ void hexen::engine::graphics::gl::shader::ShaderProgram::linkShaders()
 	showLinkerLog();
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::showLinkerLog() const noexcept
+void hexen::engine::graphics::gl::GLShaderProgram::showLinkerLog() const noexcept
 {
 	core::i32 success {0};
 	char infoLog[512];
@@ -79,27 +80,31 @@ void hexen::engine::graphics::gl::shader::ShaderProgram::showLinkerLog() const n
 	}
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::use() const noexcept
+void hexen::engine::graphics::gl::GLShaderProgram::use() const noexcept
 {
 	glUseProgram(shaderProgram);
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::setIntUniform(const std::string &uniformVariable, core::i32 value) const
+void hexen::engine::graphics::gl::GLShaderProgram::setIntUniform(const std::string &uniformVariable, core::i32 value) const
 {
 	glUniform1i(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), value);
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const
+void hexen::engine::graphics::gl::GLShaderProgram::setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const
+void hexen::engine::graphics::gl::GLShaderProgram::setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const
 {
 	glUniform4f(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), vector.x, vector.y, vector.z, vector.w);
 }
 
-void hexen::engine::graphics::gl::shader::ShaderProgram::setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const
+void hexen::engine::graphics::gl::GLShaderProgram::setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const
 {
 	glUniform3f(glGetUniformLocation(shaderProgram, uniformVariable.c_str()), vector.x, vector.y, vector.z);
+}
+void hexen::engine::graphics::gl::GLShaderProgram::shaderPathsToShaderFiles(const std::vector<std::string> &paths)
+{
+
 }

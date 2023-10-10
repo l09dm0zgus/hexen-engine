@@ -3,6 +3,7 @@
 //
 
 #include "RenderContext.hpp"
+
 #include <application/Settings.hpp>
 
 #if defined(_ENABLE_OPENGL_SUPPORT)
@@ -12,7 +13,7 @@
 hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::currentApi = hexen::engine::graphics::RenderContext::RenderAPI::NO_API;
 
 
-std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create(const hexen::engine::core::Settings &settings)
+std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create(const core::Settings &settings,const std::shared_ptr<core::Window> &window)
 {
 	currentApi = static_cast<RenderAPI>(settings.getRenderAPI());
 	switch (currentApi)
@@ -22,7 +23,7 @@ std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics:
 		case RenderAPI::OPENGL_API:
 			if constexpr(enabledOpengl)
 			{
-				return core::memory::make_unique<gl::GLRenderContext>(settings);
+				return core::memory::make_unique<gl::GLRenderContext>(settings,window);
 			}
 
 		case RenderAPI::VULKAN_API:
