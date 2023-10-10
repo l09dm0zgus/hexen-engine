@@ -27,7 +27,9 @@ endif (ENABLE_VULKAN_SUPPORT)
 
 if (ENABLE_OPENGL_SUPPORT)
     target_compile_definitions(${RENDER_ENGINE_NAME} PUBLIC _ENABLE_OPENGL_SUPPORT)
-    target_link_libraries(${RENDER_ENGINE_NAME} PUBLIC libglew_static)
+    target_link_libraries(${RENDER_ENGINE_NAME} PUBLIC boost_context glm SDL3_image::SDL3_image ${CORE_NAME})
+    target_link_libraries(${RENDER_ENGINE_NAME} PRIVATE libglew_static)
+
 endif ()
 
 if (WIN32)
@@ -36,13 +38,13 @@ if (WIN32)
     endif (ENABLE_DIRECTX12_SUPPORT)
 endif (WIN32)
 
-cmake_path(GET  CMAKE_CURRENT_SOURCE_DIR PARENT_PATH PARENT_DIR)
-MESSAGE(STATUS ${PARENT_DIR})
-target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${PARENT_DIR}/core)
+message(WARNING "Core include : "  ${CORE_ENGINE_INCLUDE_DIR})
+target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${CORE_ENGINE_INCLUDE_DIR})
 target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${SDL_INCLUDE_DIR})
 target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${GLM_INCLUDE_DIR})
 target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${SDL_IMAGE_INCLUDE_DIR})
 target_include_directories(${RENDER_ENGINE_NAME} PUBLIC ${JSON_INCLUDE_DIR})
+
 add_subdirectory(render_context)
 add_subdirectory(buffers)
 add_subdirectory(textures)

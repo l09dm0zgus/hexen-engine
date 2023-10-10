@@ -6,5 +6,5 @@ target_sources(${RENDER_ENGINE_NAME} PUBLIC
 )
 
 if (ENABLE_OPENGL_SUPPORT)
-    add_subdirectory(GL)
+    #add_subdirectory(GL)
 endif ()

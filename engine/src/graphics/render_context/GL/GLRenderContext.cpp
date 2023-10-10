@@ -4,6 +4,8 @@
 
 #include "GLRenderContext.hpp"
 #include <application/Settings.hpp>
+#include <window/Window.hpp>
+
 #ifndef __ANDROID__
 	#include <GL/glew.h>
 	#include <iostream>
@@ -63,9 +65,12 @@ void GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severi
 	#include <GLES3/gl31.h>
 #endif
 
-hexen::engine::graphics::gl::GLRenderContext::GLRenderContext(const hexen::engine::core::Settings &settings)
+hexen::engine::graphics::gl::GLRenderContext::GLRenderContext(const core::Settings &settings,const std::shared_ptr<core::Window> &window)
 {
 	setGLHints(settings);
+	createRenderContextForSDLWindow(window->getSDLWindow());
+	initializeGLEW();
+
 }
 void hexen::engine::graphics::gl::GLRenderContext::setGLHints(const hexen::engine::core::Settings &settings)
 {
@@ -83,10 +88,6 @@ void hexen::engine::graphics::gl::GLRenderContext::setGLHints(const hexen::engin
 #endif
 }
 
-hexen::engine::core::i32 hexen::engine::graphics::gl::GLRenderContext::getWindowFlags() const noexcept
-{
-	return SDL_WINDOW_OPENGL;
-}
 void hexen::engine::graphics::gl::GLRenderContext::createRenderContextForSDLWindow(SDL_Window *window)
 {
 	glContext = SDL_GL_CreateContext(window);

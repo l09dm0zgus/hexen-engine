@@ -4,10 +4,10 @@ project(Hexen)
 message(STATUS "Engine Name:" ${ENGINE_NAME})
 
 target_sources(${ENGINE_NAME} PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderFile.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/shaders/ShaderProgram.cpp
+        ../../graphics/shaders/ShaderFile.hpp
+        ../../graphics/shaders/ShaderFile.cpp
+        ../../graphics/shaders/GL/GLShaderProgram.hpp
+        ../../graphics/shaders/GL/GLShaderProgram.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/Shaders.hpp
         ../../graphics/textures/GL/GLTexture2D.hpp
         ../../graphics/textures/GL/GLTexture2D.cpp

@@ -36,6 +36,8 @@ namespace hexen::engine::core
 
 		nlohmann::json settingsJson;
 
+	public:
+
 		enum class RenderAPI : core::u8
 		{
 			NO_API = 0,
@@ -44,7 +46,6 @@ namespace hexen::engine::core
 			DIRECTX12_API,
 		};
 
-	public:
 		/**
         * @struct WindowSettings
         * @brief A structure to store settings related to the window.
@@ -127,5 +128,6 @@ namespace hexen::engine::core
         */
 
 		void setOpenGLSettings(const OpenGLSettings &openGlSettings);
+
 	};
 }// namespace hexen::engine::core

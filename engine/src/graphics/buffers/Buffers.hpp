@@ -265,7 +265,7 @@ namespace hexen::engine::graphics
         * @brief Virtual destructor of the VertexBuffer class.
         */
 
-		virtual ~VertexBuffer() = 0;
+		virtual ~VertexBuffer() = default;
 
 		/**
         * @brief Static method for creating a vertex buffer.
