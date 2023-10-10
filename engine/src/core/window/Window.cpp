@@ -4,9 +4,7 @@
 
 #include "Window.hpp"
 #include <SDL_image.h>
-#include <filesystem>
 #include <fstream>
-#include <nlohmann/json.hpp>
 
 void hexen::engine::core::Window::close()
 {
@@ -50,18 +48,26 @@ hexen::engine::core::Window::Window(const Settings &settings) : settings(setting
 {
 	auto windowSettings = settings.getWindowSettings();
 
-	renderContext = graphics::RenderContext::create(settings);
-
 	title = windowSettings.name;
 	width = static_cast<core::i32>(windowSettings.size.x);
 	height = static_cast<core::i32>(windowSettings.size.y);
 
-	createSDLWindow();
-
-	renderContext->createRenderContextForSDLWindow(window);
-
 	initSDL();
-	setIcon(settings.getPathToIcon());
+	switch (settings.getRenderAPI())
+	{
+		case Settings::RenderAPI::NO_API:
+			rendererSDLFlag = -1;
+			break;
+		case Settings::RenderAPI::OPENGL_API:
+			rendererSDLFlag = SDL_WINDOW_OPENGL;
+			break;
+		case Settings::RenderAPI::VULKAN_API:
+			rendererSDLFlag = SDL_WINDOW_VULKAN;
+			break;
+		case Settings::RenderAPI::DIRECTX12_API:
+			rendererSDLFlag = 0;
+			break;
+	}
 }
 
 void hexen::engine::core::Window::initSDL()
@@ -104,15 +110,16 @@ void hexen::engine::core::Window::createSDLWindow()
 {
 #ifndef __ANDROID__
 
-	window = SDL_CreateWindow(title.c_str(), width, height, renderContext->getWindowFlags() | SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow(title.c_str(), width, height, rendererSDLFlag | SDL_WINDOW_RESIZABLE);
 #else
+
 	if (SDL_GetDesktopDisplayMode(0) == nullptr)
 	{
 		width = displayMode.w;
 		height = displayMode.h;
 		SDL_Log("Display size width : %i , height : %i", width, height);
 	}
-	window = SDL_CreateWindow(title.c_str(), width, height, renderContext->getWindowFlags() | SDL_WINDOW_FULLSCREEN);
+	window = SDL_CreateWindow(title.c_str(), width, height, rendererSDLFlag | SDL_WINDOW_FULLSCREEN);
 #endif
 
 	if (window == nullptr)
@@ -121,8 +128,8 @@ void hexen::engine::core::Window::createSDLWindow()
 		exit(-1);
 	}
 }
-
-hexen::engine::graphics::RenderContext *hexen::engine::core::Window::getRenderContext() const noexcept
+void hexen::engine::core::Window::show()
 {
-	return renderContext.get();
+	createSDLWindow();
+	setIcon(settings.getPathToIcon());
 }

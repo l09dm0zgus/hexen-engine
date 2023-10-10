@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "../../graphics/render_context/RenderContext.hpp"
+#include <SDL3/SDL.h>
 #include "../application/Settings.hpp"
 #include "../memory_pool/AllocatedObject.hpp"
-#include <SDL3/SDL.h>
 #include <string>
+
 
 
 namespace hexen::engine::core
@@ -151,12 +151,11 @@ namespace hexen::engine::core
 		[[nodiscard]] SDL_Window *getSDLWindow() const noexcept;
 
 		/**
-        * @brief Get the RenderContext instance.
+        * @brief Creates SDL window and sets its icon.
         *
-        * @return The raw pointer to RenderContext.
         */
 
-		graphics::RenderContext *getRenderContext() const noexcept;
+		void show();
 
 	private:
 		Settings settings;
@@ -225,15 +224,12 @@ namespace hexen::engine::core
 		SDL_Surface *icon {};
 
 		/**
-    	* @brief The rendering context, abstracting rendering specifics.
-    	*/
-
-		std::unique_ptr<graphics::RenderContext> renderContext;
-
-		/**
     	* @brief Creates the SDL window.
     	*/
 
 		void createSDLWindow();
+
+
+		core::i32 rendererSDLFlag = 0;
 	};
 }// namespace hexen::engine::core
