@@ -57,7 +57,7 @@ void hexen::engine::components::graphics::CameraComponent::updateProjectionMatri
 {
 	//TODO:
 	//Make abstraction to changing viewport
-	glViewport(0, 0, newWindowWidth, newWindowHeight);
+//	glViewport(0, 0, newWindowWidth, newWindowHeight);
 	projection = glm::perspective(glm::radians(FOV), static_cast<float>(newWindowWidth) / static_cast<float>(newWindowHeight), 0.1f, 100.0f);
 }
 

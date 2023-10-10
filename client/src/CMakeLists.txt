@@ -15,11 +15,7 @@ else()
     target_compile_options(${GAME_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-if(${BUILD_FOR_ANDROID})
-    target_link_libraries(${GAME_NAME} nlohmann_json::nlohmann_json SDL3_image::SDL3_image SDL3::SDL3 GLESv3 glm::glm  ${ENGINE_NAME})
-else ()
-    target_link_libraries(${GAME_NAME} nlohmann_json::nlohmann_json SDL3_image::SDL3_image SDL3::SDL3 libglew_static glm::glm  ${ENGINE_NAME})
-endif (${BUILD_FOR_ANDROID})
+target_link_libraries(${GAME_NAME} PRIVATE ${CORE_MODULE_NAME} ${RENDER_MODULE_NAME} ${COMPONENTS_MODULE_NAME} ${SYSTEMS_MODULE_NAME} ${ENTITY_MODULE_NAME} ${GUI_MODULE_NAME})
 
 
 target_include_directories(${GAME_NAME} PRIVATE ${PARENT_DIR}/engine/src)

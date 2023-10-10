@@ -23,7 +23,7 @@ endif (ENABLE_VULKAN_SUPPORT)
 
 if (ENABLE_OPENGL_SUPPORT)
     target_compile_definitions(${RENDER_MODULE_NAME} PUBLIC _ENABLE_OPENGL_SUPPORT)
-    target_link_libraries(${RENDER_MODULE_NAME} PUBLIC boost_context glm SDL3_image::SDL3_image ${CORE_NAME})
+    target_link_libraries(${RENDER_MODULE_NAME} PUBLIC ${CORE_MODULE_NAME} opengl32)
     target_link_libraries(${RENDER_MODULE_NAME} PRIVATE libglew_static)
 
 endif ()

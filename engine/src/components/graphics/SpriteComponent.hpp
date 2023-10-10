@@ -83,4 +83,5 @@ namespace hexen::engine::components::graphics
 
 		void bindTextures();
 	};
+
 }// namespace hexen::engine::components::graphics

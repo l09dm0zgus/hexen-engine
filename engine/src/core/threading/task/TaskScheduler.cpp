@@ -619,9 +619,6 @@ namespace hexen::engine::core::threading
 			}
 		}
 
-	cleanup:
-
-
 		return result;
 	}
 

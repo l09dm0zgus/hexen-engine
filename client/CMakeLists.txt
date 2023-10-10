@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(Client)
+
+
 set(GAME_NAME "Game" CACHE STRING "Game")
 
 if(${BUILD_FOR_ANDROID})
