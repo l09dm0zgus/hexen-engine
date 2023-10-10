@@ -5,7 +5,7 @@
 #pragma once
 
 #include "GUIWindow.hpp"
-#include <core/scene/SceneManager.hpp>
+#include "entity/scene/SceneManager.hpp"
 
 namespace hexen::editor::gui
 {

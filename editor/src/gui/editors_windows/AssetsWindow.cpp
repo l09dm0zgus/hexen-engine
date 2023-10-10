@@ -6,7 +6,7 @@
 #include "../IconsFontAwesome5.hpp"
 #include "MessageBox.hpp"
 #include "Shortcuts.hpp"
-#include "core/graphics/texture/Texture.hpp"
+#include "graphics/textures/GL/GLTexture2D.hpp"
 #include "native_file_dialog/FileDialog.hpp"
 #include <algorithm>
 #include <iostream>

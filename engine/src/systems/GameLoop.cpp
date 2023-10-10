@@ -3,9 +3,9 @@
 //
 
 #include "GameLoop.hpp"
-#include "../../systems/RenderSystem.hpp"
-#include "../../systems/TaskSystem.hpp"
-#include "../window/Window.hpp"
+#include "RenderSystem.hpp"
+#include "TaskSystem.hpp"
+#include "window/Window.hpp"
 #include <chrono>
 
 void hexen::engine::core::GameLoop::start()

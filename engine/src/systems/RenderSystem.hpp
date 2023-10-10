@@ -5,8 +5,8 @@
 #pragma once
 
 #include "../components/camera/CameraComponent.hpp"
-#include "../components/graphics/SpriteComponent.hpp"
-#include "../components/graphics/SpriteInstancedComponent.hpp"
+//#include "../components/graphics/SpriteComponent.hpp"
+//#include "../components/graphics/SpriteInstancedComponent.hpp"
 #include "../components/transform/TransformComponent.hpp"
 #include "../components/ComponentContainer.hpp"
 #include "../core/Types.hpp"
@@ -244,7 +244,7 @@ namespace hexen::engine::systems
         */
 
 
-		void updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+		//void updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
 
 		/**
         * @brief Updates the view and projection matrices for rendering a sprite component.
@@ -260,7 +260,7 @@ namespace hexen::engine::systems
         * @see comp::rend::SpriteComponent
         */
 
-		void updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+		//void updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
 
 
 	};

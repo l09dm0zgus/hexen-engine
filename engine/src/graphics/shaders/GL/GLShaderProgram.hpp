@@ -3,44 +3,35 @@
 //
 #pragma once
 
-#include "../../memory_pool/AllocatedObject.hpp"
-#include "ShaderFile.hpp"
-#include <glm/glm.hpp>
-namespace hexen::engine::graphics::gl::shader
+#include "../ShaderFile.hpp"
+#include "../ShaderProgram.hpp"
+#include <core/Types.hpp>
+
+namespace hexen::engine::graphics::gl
 {
 	/**
-    * @class ShaderProgram
+    * @class GLShaderProgram
     * @brief Represents a shader program that consists of a vertex and fragment shader.
-    *
+    * @extends ShaderProgram
     * This class handles the compilation and linking of shaders from their respective file paths.
     */
 
-	class ShaderProgram : public core::memory::AllocatedObject
+	class GLShaderProgram : public ShaderProgram
 	{
 	public:
-		/**
- 		* @brief Constructor for ShaderProgram class under hexen::engine::graphics::gl::shader namespace.
- 		* This constructor takes two string parameters that represent the paths to
- 		* the vertex and fragment shader files, respectively.
- 		* It performs the task of reading the shader files and compiles and links them.
- 		*
- 		* @param vertexShaderPath  A string representing the path to the vertex shader file.
- 		* @param fragmentShaderPath A string representing the path to the fragment shader file.
- 		*/
-
-		ShaderProgram(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
+		GLShaderProgram(std::vector<std::string> &shadersFiles);
 
 		/**
- 		* @class ShaderProgram
+ 		* @class GLShaderProgram
  		* @namespace hexen::engine::graphics::gl::shader
  		*
- 		* @brief A ShaderProgram object represents a OpenGL shader program.
+ 		* @brief A GLShaderProgram object represents a OpenGL shader program.
  		*
- 		* Destructor for the ShaderProgram class.
+ 		* Destructor for the GLShaderProgram class.
  		* This destructor deletes the vertex and fragment shaders.
  		*/
 
-		~ShaderProgram() override;
+		~GLShaderProgram() override;
 
 		/**
         * @brief Activates the shader program for rendering.
@@ -64,7 +55,7 @@ namespace hexen::engine::graphics::gl::shader
         * @note This method assumes that a valid shader program is already linked.
         *       Make sure to verify that the shader program has been linked before
         *       using this method.
-        * @note This function is const and can be called on a const ShaderProgram object.
+        * @note This function is const and can be called on a const GLShaderProgram object.
         * @note This function assumes that the specified uniform variable exists in the shader program.
         *
         */
@@ -84,7 +75,7 @@ namespace hexen::engine::graphics::gl::shader
         * @note This method assumes that a valid shader program is already linked.
         *       Make sure to verify that the shader program has been linked before
         *       using this method.
-        * @note This function is const and can be called on a const ShaderProgram object.
+        * @note This function is const and can be called on a const GLShaderProgram object.
         * @note This function assumes that the specified uniform variable exists in the shader program.
         *
         */
@@ -101,7 +92,7 @@ namespace hexen::engine::graphics::gl::shader
     	* @note This method assumes that a valid shader program is already linked.
     	*       Make sure to verify that the shader program has been linked before
     	*       using this method.
-    	* @note This function is const and can be called on a const ShaderProgram object.
+    	* @note This function is const and can be called on a const GLShaderProgram object.
     	* @note This function assumes that the specified uniform variable exists in the shader program.
     	*
     	*
@@ -128,13 +119,13 @@ namespace hexen::engine::graphics::gl::shader
  		* @brief A ShaderFile object to manage the vertex shader file.
  		*/
 
-		hexen::engine::graphics::shader::ShaderFile vertexShaderFile;
+		hexen::engine::graphics::ShaderFile vertexShaderFile;
 
 		/**
  		* @brief A ShaderFile object to manage the fragment shader file.
  		*/
 
-		hexen::engine::graphics::shader::ShaderFile fragmentShaderFile;
+		hexen::engine::graphics::ShaderFile fragmentShaderFile;
 
 		/**
  		* @brief Unsigned 32 bit integer to hold the vertex shader reference.
@@ -167,15 +158,15 @@ namespace hexen::engine::graphics::gl::shader
 		char *vertexShaderText {nullptr};
 
 		/**
-        * @brief Compiles the vertex shader of the ShaderProgram.
+        * @brief Compiles the vertex shader of the GLShaderProgram.
         *
-        * This function compiles the vertex shader of the ShaderProgram.
+        * This function compiles the vertex shader of the GLShaderProgram.
         * It retrieves the vertex shader source code from the shader program,
         * compiles it, and verifies if the compilation was successful.
         * If successful, the compiled vertex shader is attached to the shader program.
         * If unsuccessful, an error message is printed to the console.
         *
-        * @note This function assumes that the ShaderProgram has been properly initialized
+        * @note This function assumes that the GLShaderProgram has been properly initialized
         *       and that a valid vertex shader source code has been set.
         *       It does not handle resource management, such as shader cleanup.
         *
@@ -184,12 +175,12 @@ namespace hexen::engine::graphics::gl::shader
 		void compileVertexShader();
 
 		/**
-        * @brief Compiles the fragment shader of the ShaderProgram.
+        * @brief Compiles the fragment shader of the GLShaderProgram.
         *
-        * This function compiles the fragment shader source code associated with the ShaderProgram object.
+        * This function compiles the fragment shader source code associated with the GLShaderProgram object.
         * It retrieves the fragment shader source code from the shader program and compiles it using the
         * appropriate APIs provided by the rendering system. If the compilation succeeds, the compiled
-        * fragment shader is attached to the ShaderProgram object.
+        * fragment shader is attached to the GLShaderProgram object.
         *
         */
 
@@ -198,7 +189,7 @@ namespace hexen::engine::graphics::gl::shader
 		/**
         * @brief Links multiple shaders into a shader program.
         *
-        * This function is a member function of the ShaderProgram class inside the core::rend::shader namespace.
+        * This function is a member function of the GLShaderProgram class inside the core::rend::shader namespace.
         * It is responsible for linking multiple shaders together into a single shader program.
         *
         */
@@ -224,5 +215,11 @@ namespace hexen::engine::graphics::gl::shader
  		*/
 
 		void showLinkerLog() const noexcept;
+
+		void shaderPathsToShaderFiles(const std::vector<std::string> &paths);
+
+		std::unordered_map<ShaderType,ShaderFile> shadersData;
+
+
 	};
 }// namespace hexen::engine::graphics::gl::shader

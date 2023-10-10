@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "../../core/graphics/ElementsBufferObject.hpp"
-#include "../../core/graphics/RectangleData.hpp"
-#include "../../core/graphics/VertexArrayObject.hpp"
-#include "../../core/graphics/VertexAttributes.hpp"
-#include "../../core/graphics/VertexBufferObject.hpp"
-#include "../../core/graphics/shaders/ShaderProgram.hpp"
-#include "../../core/graphics/texture/Texture.hpp"
 #include "RenderComponent.hpp"
+#include "graphics/buffers/GL/GLElementsBuffer.hpp"
+#include "graphics/buffers/GL/GLVertexArray.hpp"
+#include "graphics/buffers/GL/GLVertexAttributes.hpp"
+#include "graphics/buffers/GL/GLVertexBuffer.hpp"
+#include "graphics/buffers/RectangleVertices.hpp"
+#include "graphics/shaders/GL/GLShaderProgram.hpp"
+#include "graphics/textures/GL/GLTexture2D.hpp"
 #include <vector>
 
 namespace hexen::engine::components::graphics
@@ -27,6 +27,9 @@ namespace hexen::engine::components::graphics
 	class SpriteComponent : public RenderComponent
 	{
 	public:
+
+		SpriteComponent() = default;
+
 		/**
      	* @brief Constructs a new SpriteComponent object.
      	* @param vertexShaderPath Path to the vertex shader file.
@@ -56,21 +59,21 @@ namespace hexen::engine::components::graphics
 
 	private:
 		//! A vector for storing the textures of the sprite.
-		std::vector<std::shared_ptr<hexen::engine::graphics::gl::Texture>> textures;
+		std::vector<std::shared_ptr<hexen::engine::graphics::gl::GLTexture2D>> textures;
 		//! Object representing the vertex buffer.
-		hexen::engine::graphics::gl::VertexBufferObject VBO;
+		hexen::engine::graphics::gl::GLVertexBuffer VBO;
 		//! Object containing the rectangle data of the vertices.
-		hexen::engine::graphics::gl::RectangleData vertices;
+		hexen::engine::graphics::gl::RectangleVertices vertices;
 		//! Object representing the elements buffer.
-		hexen::engine::graphics::gl::ElementsBufferObject EBO;
+		hexen::engine::graphics::gl::GLElementsBuffer EBO;
 
 	protected:
 		//! Attributes of the vertex.
-		hexen::engine::graphics::gl::VertexAttributes attributes;
+		hexen::engine::graphics::gl::GLVertexAttributes attributes;
 		//! Object representing the vertex array.
-		hexen::engine::graphics::gl::VertexArrayObject VAO;
+		hexen::engine::graphics::gl::GLVertexArray VAO;
 		//! Shared pointer to a shader program object.
-		std::shared_ptr<hexen::engine::graphics::gl::shader::ShaderProgram> shaderProgram {nullptr};
+		std::shared_ptr<hexen::engine::graphics::gl::shader::GLShaderProgram> shaderProgram {nullptr};
 
 		/**
      	* @brief Binds the textures for the sprite.

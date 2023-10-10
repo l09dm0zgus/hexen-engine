@@ -38,7 +38,7 @@ void hexen::engine::components::graphics::SpriteComponent::bindTextures()
 hexen::engine::components::graphics::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath) : RenderComponent()
 {
 	textures.reserve(5);
-	shaderProgram = core::memory::make_shared<hexen::engine::graphics::gl::shader::ShaderProgram>(vertexShaderPath, fragmentShaderPath);
+	shaderProgram = core::memory::make_shared<hexen::engine::graphics::gl::shader::GLShaderProgram>(vertexShaderPath, fragmentShaderPath);
 	VAO.bind();
 	VBO.bind(vertices);
 	EBO.bind(vertices);

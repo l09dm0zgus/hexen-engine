@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include "../memory_pool/AllocatedObject.hpp"
-#include <glm/vec2.hpp>
+#include "glm/vec2.hpp"
+#include "memory_pool/AllocatedObject.hpp"
 namespace hexen::engine::core
 {
 	/**

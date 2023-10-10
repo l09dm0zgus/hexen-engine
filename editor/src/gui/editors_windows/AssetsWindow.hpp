@@ -7,9 +7,9 @@
 #include "../../project/Project.hpp"
 #include "AssetsIcon.hpp"
 #include "GUIWindow.hpp"
-#include "core/graphics/texture/Texture.hpp"
 #include "dialogs/CopyingFilesWindow.hpp"
 #include "dialogs/DeleteSelectedFilesWindow.hpp"
+#include "graphics/textures/GL/GLTexture2D.hpp"
 
 namespace hexen::editor::gui
 {

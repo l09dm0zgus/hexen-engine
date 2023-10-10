@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../../entity/scene/SceneEntity.h"
+#include "SceneEntity.h"
 #include <execution>
 #include <functional>
 #include <iterator>

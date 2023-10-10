@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include "../../systems/SystemsManager.hpp"
-#include "../memory_pool/AllocatedObject.hpp"
+#include "SystemsManager.hpp"
+#include "memory_pool/AllocatedObject.hpp"
 #include <chrono>
 
 namespace hexen::engine::core

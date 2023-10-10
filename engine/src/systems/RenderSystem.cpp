@@ -23,7 +23,7 @@ hexen::engine::systems::RenderSystem::RenderSystem(core::u32 sizeOfVectors)
 }
 
 
-
+/*
 void hexen::engine::systems::RenderSystem::updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent)
 {
 	auto iter = std::find_if(std::execution::par,transformComponents.begin(), transformComponents.end(), [sprite = spriteComponent](auto &transform)
@@ -40,7 +40,7 @@ void hexen::engine::systems::RenderSystem::updateViewAndProjectionMatrices(hexen
 	spriteComponent->setProjectionMatrix(camerasComponents[mainCameraId]->getProjectionMatrix());
 	spriteComponent->setViewMatrix(camerasComponents[mainCameraId]->getViewMatrix());
 }
-
+*/
 void hexen::engine::systems::RenderSystem::start()
 {
 	/*

@@ -1,22 +1,22 @@
 cmake_minimum_required(VERSION 3.20)
 project(Hexen)
 
-target_sources(${CORE_NAME} PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/threads/Thread.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/threads/Config.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/threads/Thread.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/threads/Fiber.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/threads/Fiber.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/task/Callbacks.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/task/Task.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/counter/BaseCounter.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/counter/BaseCounter.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/counter/AtomicCounter.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/counter/TaskCounter.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/threads/WaitFreeQueue.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/task/TaskScheduler.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/task/TaskScheduler.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Threading.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/task/TaskSchedulerSettings.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/task/TaskSchedulerSettings.cpp
+target_sources(${CORE_MODULE_NAME} PRIVATE
+        threads/Thread.hpp
+        threads/Config.hpp
+        threads/Thread.cpp
+        threads/Fiber.hpp
+        threads/Fiber.cpp
+        task/Callbacks.hpp
+        task/Task.hpp
+        counter/BaseCounter.hpp
+        counter/BaseCounter.cpp
+        counter/AtomicCounter.hpp
+        counter/TaskCounter.hpp
+        threads/WaitFreeQueue.hpp
+        task/TaskScheduler.hpp
+        task/TaskScheduler.cpp
+        Threading.hpp
+        task/TaskSchedulerSettings.hpp
+        task/TaskSchedulerSettings.cpp
         )

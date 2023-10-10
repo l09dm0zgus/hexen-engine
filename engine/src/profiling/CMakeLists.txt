@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 project(Hexen)
 
-message(STATUS "Engine Name:" ${ENGINE_NAME})
+if (NOT TARGET Profiling)
+    add_library(Profiling SHARED)
+endif (NOT TARGET Profiling)
 
 file(GLOB SRC_FILES
         "*.cpp"
@@ -9,6 +11,6 @@ file(GLOB SRC_FILES
         "*.h"
 )
 
-target_sources(${ENGINE_NAME} PRIVATE
+target_sources(Profiling PRIVATE
         ${SRC_FILES}
 )

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "core/graphics/texture/Texture.hpp"
+#include "graphics/textures/GL/GLTexture2D.hpp"
 #include <filesystem>
 #include <glm/glm.hpp>
 #include <imgui.h>
@@ -28,43 +28,43 @@ namespace hexen::editor::gui
      	* @brief Static unique pointer to the texture representing a folder icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> folderIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> folderIcon;
 
 		/**
      	* @brief Static unique pointer to the texture representing a sound file icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> soundFileIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> soundFileIcon;
 
 		/**
      	* @brief Static unique pointer to the texture representing a file icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> fileIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> fileIcon;
 
 		/**
      	* @brief Static unique pointer to the texture representing a scene file icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> sceneFileIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> sceneFileIcon;
 
 		/**
      	* @brief Static unique pointer to the texture representing an animation file icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> animationFileIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> animationFileIcon;
 
 		/**
      	* @brief Static unique pointer to the texture representing a tileset file icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> tilesetFileIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> tilesetFileIcon;
 
 		/**
      	* @brief Static unique pointer to the texture representing an entity file icon.
      	*/
 
-		static std::unique_ptr<hexen::engine::graphics::gl::Texture> entityFileIcon;
+		static std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> entityFileIcon;
 
 		/**
      	* @brief Static pointer to the window in which the assets are displayed.
@@ -78,7 +78,7 @@ namespace hexen::editor::gui
 
 		static hexen::engine::core::HashTable<hexen::engine::core::u32, std::string> engineFileExtensions;
 
-		std::unique_ptr<hexen::engine::graphics::gl::Texture> imageFileIcon;
+		std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> imageFileIcon;
 
 		/**
      	* @brief Path to the texture file for a folder icon.

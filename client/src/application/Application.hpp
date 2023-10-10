@@ -3,8 +3,8 @@
 //
 #pragma once
 
+#include "systems/GameLoop.hpp"
 #include <core/window/Window.hpp>
-#include <core/application/GameLoop.hpp>
 
 namespace hexen::client
 {

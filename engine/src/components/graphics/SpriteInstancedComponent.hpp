@@ -19,6 +19,9 @@ namespace hexen::engine::components::graphics
 	class SpriteInstancedComponent : public SpriteComponent
 	{
 	public:
+
+		SpriteInstancedComponent() = default;
+
 		/**
      	* @brief Constructs a SpriteInstancedComponent.
      	*
@@ -46,7 +49,7 @@ namespace hexen::engine::components::graphics
      	* This buffer is used to store the details of each sprite instance for rendering.
      	*/
 
-		hexen::engine::graphics::gl::VertexBufferObject instancesBuffer;
+		hexen::engine::graphics::gl::GLVertexBuffer instancesBuffer;
 
 		/**
      	* @brief The number of sprite instances.

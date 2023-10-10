@@ -4,12 +4,12 @@
 
 #pragma once
 #include "core/graphics/shaders/Shaders.hpp"
+#include "entity/scene/Grid.hpp"
+#include "graphics/buffers/GL/GLElementsBuffer.hpp"
+#include "graphics/buffers/GL/GLVertexArray.hpp"
+#include "graphics/buffers/GL/GLVertexAttributes.hpp"
+#include "graphics/buffers/GL/GLVertexBuffer.hpp"
 #include <components/graphics/RenderComponent.hpp>
-#include <core/graphics/ElementsBufferObject.hpp>
-#include <core/graphics/VertexArrayObject.hpp>
-#include <core/graphics/VertexAttributes.hpp>
-#include <core/graphics/VertexBufferObject.hpp>
-#include <core/scene/Grid.hpp>
 
 namespace hexen::editor::components::graphics
 {
@@ -45,7 +45,7 @@ namespace hexen::editor::components::graphics
         * Make sure to check for nullptr before using this variable to avoid null pointer access.
         */
 
-		std::shared_ptr<hexen::engine::graphics::gl::shader::ShaderProgram> shaderProgram {nullptr};
+		std::shared_ptr<hexen::engine::graphics::gl::shader::GLShaderProgram> shaderProgram {nullptr};
 
 		/**
         * @brief Represents a Vertex Buffer Object (VBO).
@@ -54,7 +54,7 @@ namespace hexen::editor::components::graphics
         * It is commonly used in computer graphics to efficiently store and render geometric data on the GPU.
         */
 
-		hexen::engine::graphics::gl::VertexBufferObject VBO;
+		hexen::engine::graphics::gl::GLVertexBuffer VBO;
 		/**
         * @brief The vertices variable represents a collection of vertices in a geometric shape.
         *
@@ -101,9 +101,9 @@ namespace hexen::editor::components::graphics
         * with a VAO (Vertex Array Object) and a VBO (Vertex Buffer Object) to render complex shapes.
         */
 
-		hexen::engine::graphics::gl::ElementsBufferObject EBO;
+		hexen::engine::graphics::gl::GLElementsBuffer EBO;
 
-		hexen::engine::graphics::gl::VertexAttributes attributes;
+		hexen::engine::graphics::gl::GLVertexAttributes attributes;
 
 		/**
         * @brief Vertex Array Object
@@ -115,7 +115,7 @@ namespace hexen::editor::components::graphics
         * attributes and is used for efficient rendering of dynamic objects.
         */
 
-		hexen::engine::graphics::gl::VertexArrayObject VAO;
+		hexen::engine::graphics::gl::GLVertexArray VAO;
 		hexen::engine::core::i32 lenght {0};
 
 	public:

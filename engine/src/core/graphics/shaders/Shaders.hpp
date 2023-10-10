@@ -4,5 +4,5 @@
 
 #pragma once
 
-#include "ShaderFile.hpp"
-#include "ShaderProgram.hpp"
+#include "graphics/shaders/GL/GLShaderProgram.hpp"
+#include "graphics/shaders/ShaderFile.hpp"

@@ -6,7 +6,7 @@
 #include "../gui/EditorGUI.hpp"
 #include "../systems/EditorSystemsManager.hpp"
 #include "core/window/Window.hpp"
-#include <core/scene/SceneManager.hpp>
+#include "entity/scene/SceneManager.hpp"
 #include <profiling/Profiling.h>
 #include <systems/TaskSystem.hpp>
 

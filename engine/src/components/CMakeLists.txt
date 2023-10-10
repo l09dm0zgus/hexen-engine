@@ -1,17 +1,28 @@
 
 cmake_minimum_required(VERSION 3.20)
 project(Hexen)
+if(NOT TARGET ${COMPONENTS_MODULE_NAME})
+    add_library(${COMPONENTS_MODULE_NAME} SHARED )
+endif (NOT TARGET ${COMPONENTS_MODULE_NAME})
 
-message(STATUS "Engine Name:" ${ENGINE_NAME})
-target_sources(${ENGINE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/camera/CameraComponent.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphics/RenderComponent.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphics/RenderComponent.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphics/SpriteComponent.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphics/SpriteComponent.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphics/SpriteInstancedComponent.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphics/SpriteInstancedComponent.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/transform/TransformComponent.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/transform/TransformComponent.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Component.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ComponentContainer.hpp)
+target_sources(${COMPONENTS_MODULE_NAME} PRIVATE camera/CameraComponent.hpp camera/CameraComponent.cpp
+        graphics/RenderComponent.hpp
+        graphics/RenderComponent.cpp
+        graphics/SpriteComponent.hpp
+        graphics/SpriteComponent.cpp
+        graphics/SpriteInstancedComponent.hpp
+        graphics/SpriteInstancedComponent.cpp
+        transform/TransformComponent.hpp
+        transform/TransformComponent.cpp
+        Component.hpp
+        ComponentContainer.hpp)
+
+target_include_directories(${COMPONENTS_MODULE_NAME} PRIVATE ${CORE_ENGINE_INCLUDE_DIR})
+target_include_directories(${COMPONENTS_MODULE_NAME} PRIVATE ${RENDER_ENGINE_INCLUDE_DIR})
+target_link_libraries(${COMPONENTS_MODULE_NAME} PRIVATE ${CORE_MODULE_NAME} ${RENDER_MODULE_NAME})
+
+if(MSVC)
+    target_compile_options(${COMPONENTS_MODULE_NAME} PRIVATE /W4)
+else()
+    target_compile_options(${COMPONENTS_MODULE_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()

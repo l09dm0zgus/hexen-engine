@@ -5,8 +5,8 @@
 #pragma once
 
 #include "GUIWindow.hpp"
+#include "graphics/buffers/GL/GLFrameBuffer.hpp"
 #include <core/Types.hpp>
-#include <core/graphics/FrameBufferObject.hpp>
 #include <core/graphics/texture/FrameBufferTexture.hpp>
 
 namespace hexen::editor::gui
@@ -106,7 +106,7 @@ namespace hexen::editor::gui
         */
 
 		void clear();
-		hexen::engine::graphics::gl::FrameBufferObject frameBufferObject;
+		hexen::engine::graphics::gl::GLFrameBuffer frameBufferObject;
 		std::unique_ptr<hexen::engine::graphics::gl::FrameBufferTexture> frameBufferTexture;
 
 	protected:

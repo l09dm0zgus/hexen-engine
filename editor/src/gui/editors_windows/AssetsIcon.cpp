@@ -6,13 +6,13 @@
 #include "AssetsWindow.hpp"
 #include <misc/cpp/imgui_stdlib.h>
 
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::fileIcon;
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::animationFileIcon;
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::entityFileIcon;
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::folderIcon;
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::sceneFileIcon;
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::soundFileIcon;
-std::unique_ptr<hexen::engine::graphics::gl::Texture> hexen::editor::gui::AssetIcon::tilesetFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::fileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::animationFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::entityFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::folderIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::sceneFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::soundFileIcon;
+std::unique_ptr<hexen::engine::graphics::gl::GLTexture2D> hexen::editor::gui::AssetIcon::tilesetFileIcon;
 hexen::editor::gui::AssetsWindow *hexen::editor::gui::AssetIcon::assetsWindow {nullptr};
 hexen::engine::core::HashTable<hexen::engine::core::u32, std::string> hexen::editor::gui::AssetIcon::engineFileExtensions;
 
@@ -29,13 +29,13 @@ hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry 
 	{
 		//use static class members for memory optimization
 
-		folderIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToFolderIcon);
-		soundFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToSoundFileIcon);
-		fileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToFileIcon);
-		sceneFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToSceneFileIcon);
-		animationFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToAnimationFileIcon);
-		tilesetFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToTilesetFileIcon);
-		entityFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(pathToEntityFileIcon);
+		folderIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToFolderIcon);
+		soundFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToSoundFileIcon);
+		fileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToFileIcon);
+		sceneFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToSceneFileIcon);
+		animationFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToAnimationFileIcon);
+		tilesetFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToTilesetFileIcon);
+		entityFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(pathToEntityFileIcon);
 
 		engineFileExtensions.set(sceneFileIcon->getId(), ".hxscene");
 		engineFileExtensions.set(animationFileIcon->getId(), ".hxanim");
@@ -68,7 +68,7 @@ hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry 
 
 			};
 
-			imageFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::Texture>(path.path().string());
+			imageFileIcon = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::GLTexture2D>(path.path().string());
 			textureId = imageFileIcon->getId();
 		}
 		else if (isAudio != soundFileExtensions.cend())

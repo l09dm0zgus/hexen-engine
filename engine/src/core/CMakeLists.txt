@@ -1,21 +1,21 @@
 cmake_minimum_required(VERSION 3.20)
 project(Hexen)
 
-if(NOT TARGET ${CORE_NAME})
+if(NOT TARGET ${CORE_MODULE_NAME})
 
-    add_library(${CORE_NAME} SHARED)
+    add_library(${CORE_MODULE_NAME} SHARED)
 
-endif (NOT TARGET ${CORE_NAME})
-target_include_directories(${CORE_NAME} PUBLIC ${GLM_INCLUDE_DIR})
-target_include_directories(${CORE_NAME} PUBLIC ${SDL_INCLUDE_DIR})
-target_include_directories(${CORE_NAME} PUBLIC ${SDL_IMAGE_INCLUDE_DIR})
-target_include_directories(${CORE_NAME} PUBLIC ${JSON_INCLUDE_DIR})
-target_include_directories(${CORE_NAME} PUBLIC ${CONTEXT_INCLUDE_DIR})
-target_include_directories(${CORE_NAME} PUBLIC ${RENDER_ENGINE_INCLUDE_DIR})
-target_include_directories(${CORE_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+endif (NOT TARGET ${CORE_MODULE_NAME})
 
-message(WARNING "Render include: " ${RENDER_ENGINE_INCLUDE_DIR})
-target_sources(${CORE_NAME} PUBLIC
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${GLM_INCLUDE_DIR})
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${SDL_INCLUDE_DIR})
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${SDL_IMAGE_INCLUDE_DIR})
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${JSON_INCLUDE_DIR})
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${CONTEXT_INCLUDE_DIR})
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${RENDER_ENGINE_INCLUDE_DIR})
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ".")
+
+target_sources(${CORE_MODULE_NAME} PUBLIC
         exceptions/ComponentNotFound.hpp
         exceptions/ComponentNotFound.cpp
         exceptions/MappingNotFound.hpp
@@ -27,14 +27,6 @@ target_sources(${CORE_NAME} PUBLIC
         uuid/uuid.hpp
         window/Window.hpp
         window/Window.cpp
-        #scene/Scene.hpp
-        #scene/Scene.cpp
-        #scene/SceneManager.hpp
-        #scene/SceneManager.cpp
-        #scene/Grid.hpp
-        #scene/Grid.cpp
-        #application/GameLoop.hpp
-        #application/GameLoop.cpp
         Types.hpp
         Serialization.hpp
         application/Settings.hpp
@@ -46,4 +38,10 @@ target_sources(${CORE_NAME} PUBLIC
 add_subdirectory(input_devices)
 add_subdirectory(threading)
 
-target_link_libraries(${CORE_NAME} PUBLIC SDL3_image::SDL3_image SDL3::SDL3 nlohmann_json::nlohmann_json boost_context)
+target_link_libraries(${CORE_MODULE_NAME} PUBLIC SDL3_image::SDL3_image SDL3::SDL3 nlohmann_json::nlohmann_json boost_context)
+
+if(MSVC)
+    target_compile_options(${CORE_MODULE_NAME} PRIVATE /W4)
+else()
+    target_compile_options(${CORE_MODULE_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()

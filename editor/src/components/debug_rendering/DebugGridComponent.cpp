@@ -12,7 +12,7 @@
 
 hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
 {
-	shaderProgram = hexen::engine::core::memory::make_shared<hexen::engine::graphics::gl::shader::ShaderProgram>(vertexShaderPath, fragmentShaderPath);
+	shaderProgram = hexen::engine::core::memory::make_shared<hexen::engine::graphics::gl::shader::GLShaderProgram>(vertexShaderPath, fragmentShaderPath);
 
 	grid = hexen::engine::core::memory::make_unique<hexen::engine::core::Grid>();
 

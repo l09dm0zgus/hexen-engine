@@ -4,8 +4,9 @@
 
 #pragma once
 
+#include "ShaderProgram.hpp"
 #include <string>
-namespace hexen::engine::graphics::shader
+namespace hexen::engine::graphics
 {
 	/**
  	* @class ShaderFile
@@ -22,10 +23,14 @@ namespace hexen::engine::graphics::shader
  	* Some more information/explanation if necessary.
  	*/
 
+
 	class ShaderFile
 	{
 	private:
 		std::string shaderText;
+		ShaderType type;
+
+		void setShaderType(const std::string &path);
 
 	public:
 
@@ -48,6 +53,8 @@ namespace hexen::engine::graphics::shader
         */
 
 		char *getContent();
+
+
 	};
 
 }// namespace hexen::engine::graphics::shader
