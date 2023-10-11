@@ -68,6 +68,9 @@ hexen::engine::core::Window::Window(const Settings &settings) : settings(setting
 			rendererSDLFlag = 0;
 			break;
 	}
+
+	createSDLWindow();
+	setIcon(settings.getPathToIcon());
 }
 
 void hexen::engine::core::Window::initSDL()
@@ -127,9 +130,4 @@ void hexen::engine::core::Window::createSDLWindow()
 		SDL_Log("Window could not be created! SDL Error: %s\n", SDL_GetError());
 		exit(-1);
 	}
-}
-void hexen::engine::core::Window::show()
-{
-	createSDLWindow();
-	setIcon(settings.getPathToIcon());
 }

@@ -150,13 +150,6 @@ namespace hexen::engine::core
 
 		[[nodiscard]] SDL_Window *getSDLWindow() const noexcept;
 
-		/**
-        * @brief Creates SDL window and sets its icon.
-        *
-        */
-
-		void show();
-
 	private:
 		Settings settings;
 

@@ -65,12 +65,9 @@ void GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severi
 	#include <GLES3/gl31.h>
 #endif
 
-hexen::engine::graphics::gl::GLRenderContext::GLRenderContext(const core::Settings &settings,const std::shared_ptr<core::Window> &window)
+hexen::engine::graphics::gl::GLRenderContext::GLRenderContext(const core::Settings &settings)
 {
 	setGLHints(settings);
-	createRenderContextForSDLWindow(window->getSDLWindow());
-	initializeGLEW();
-
 }
 void hexen::engine::graphics::gl::GLRenderContext::setGLHints(const hexen::engine::core::Settings &settings)
 {
@@ -120,4 +117,9 @@ void hexen::engine::graphics::gl::GLRenderContext::initializeGLEW() const
 SDL_GLContext hexen::engine::graphics::gl::GLRenderContext::getSDLGLContext() const noexcept
 {
 	return glContext;
+}
+void hexen::engine::graphics::gl::GLRenderContext::attachWindow(const std::shared_ptr<core::Window> &window)
+{
+	createRenderContextForSDLWindow(window->getSDLWindow());
+	initializeGLEW();
 }

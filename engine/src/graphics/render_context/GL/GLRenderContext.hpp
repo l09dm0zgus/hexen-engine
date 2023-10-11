@@ -59,7 +59,7 @@ namespace hexen::engine::graphics::gl
      	* @param settings Contains different properties like resolution and full screen mode.
      	*/
 
-		explicit GLRenderContext(const core::Settings &settings,const std::shared_ptr<core::Window> &window);
+		explicit GLRenderContext(const core::Settings &settings);
 
 		/**
  		* @fn SDL_GLContext hexen::engine::graphics::gl::GLRenderContext::getSDLGLContext() const noexcept
@@ -71,5 +71,7 @@ namespace hexen::engine::graphics::gl
  		*/
 
 		[[nodiscard]] SDL_GLContext getSDLGLContext() const noexcept;
+
+		void attachWindow(const std::shared_ptr<core::Window> &window) override;
 	};
 }// namespace hexen::engine::graphics::gl

@@ -59,7 +59,7 @@ namespace hexen::engine::graphics
      	* @param settings A reference to Settings object to be used while creating the render context.
      	*/
 
-		static std::unique_ptr<RenderContext> create(const core::Settings &settings,const std::shared_ptr<core::Window> &window);
+		static std::unique_ptr<RenderContext> create(const core::Settings &settings);
 
 		/**
      	* @brief Get the current render API in use
@@ -68,6 +68,8 @@ namespace hexen::engine::graphics
      	*/
 
 		static RenderAPI getRenderAPI();
+
+		virtual void attachWindow(const std::shared_ptr<core::Window> &window) = 0;
 
 		/// @brief Destructor
 		virtual ~RenderContext() = default;
