@@ -31,34 +31,63 @@ void hexen::engine::graphics::ShaderFile::read(const std::string &path)
 	}
 	SDL_RWclose(file);
 
-
-	switch (RenderContext::getRenderAPI())
-	{
-
-		case RenderContext::RenderAPI::NO_API:
-			HEXEN_ASSERT(false,"ERROR:Failed to load shader,Render API not set!");
-			break;
-		case RenderContext::RenderAPI::OPENGL_API:
-
-			break;
-		case RenderContext::RenderAPI::VULKAN_API:
-			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
-			break;
-	}
+	auto stringShaderType = parseShaderType(path);
+	setShaderType(stringShaderType);
 }
 
 char *hexen::engine::graphics::ShaderFile::getContent()
 {
 	return const_cast<char *>(shaderText.c_str());
 }
-void hexen::engine::graphics::ShaderFile::setShaderType(const std::string &path)
-{
-	if(RenderContext::getRenderAPI() == RenderContext::RenderAPI::OPENGL_API)
-	{
-		auto typeToken = "#type";
-		auto tokenPosition = shaderText.find(typeToken);
-		HEXEN_ASSERT(tokenPosition != std::string::npos,"ERROR: Token #type in shader file " + path + " not found! Please specify shader type!");
 
+std::string hexen::engine::graphics::ShaderFile::parseShaderType(const std::string &path)
+{
+	std::string typeToken = "#type";
+	auto tokenPosition = shaderText.find(typeToken);
+	HEXEN_ASSERT(tokenPosition != std::string::npos, "ERROR: Token #type in shader file " + path + " not found! Please specify shader type!");
+	std::string buffer;
+
+	for (auto i = tokenPosition; i < shaderText.size(); i++)
+	{
+		buffer += shaderText[i];
+		if (shaderText[i] == '\n')
+		{
+			break;
+		}
 	}
+
+	tokenPosition = shaderText.find(buffer);
+	shaderText.erase(tokenPosition, buffer.size());
+
+	std::string token = buffer.substr(typeToken.size(), buffer.size());
+
+	token.erase(std::remove(token.begin(), token.end(), ' '), token.end());
+	token.erase(std::remove(token.begin(), token.end(), '\r'), token.end());
+	token.erase(std::remove(token.begin(), token.end(), '\n'), token.end());
+
+	return token;
+}
+void hexen::engine::graphics::ShaderFile::setShaderType(const std::string &shaderType)
+{
+	if (shaderType == "vertex")
+	{
+		type = ShaderType::VERTEX;
+	}
+	else if (shaderType == "fragment" || shaderType == "pixel")
+	{
+		type = ShaderType::FRAGMENT;
+	}
+	else if (shaderType == "geometry")
+	{
+		type = ShaderType::GEOMETRY;
+	}
+	else
+	{
+		type = ShaderType::UNKNOWN;
+		HEXEN_ASSERT(false, "ERROR: " + shaderType + " is unknown shader type!Please specify shader type!");
+	}
+}
+hexen::engine::graphics::ShaderType hexen::engine::graphics::ShaderFile::getType() const noexcept
+{
+	return type;
 }

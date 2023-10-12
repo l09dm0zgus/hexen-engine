@@ -30,7 +30,32 @@ namespace hexen::engine::graphics
 		std::string shaderText;
 		ShaderType type;
 
-		void setShaderType(const std::string &path);
+		/**
+ 		* @brief Parse the shader type from a shader file.
+ 		*
+ 		* This function looks for a `#type` token in the given shader file, follows
+ 		* the token until the end of line and returns the type as a string.
+ 		*
+ 		* @param path Path to the shader file.
+ 		* @return std::string Shader type as read from the file. It could be any of the types specified in the shader file.
+ 		* @throws HEXEN_ASSERT exception if #type token is not found in the shader file.
+ 		*/
+
+		std::string parseShaderType(const std::string &path);
+
+		/**
+ 		* @brief Set shader type based on a provided string.
+ 		*
+ 		* The function sets the shader type to `VERTEX` if the provided string is "vertex",
+ 		* `FRAGMENT` if the string is "fragment" or "pixel", `GEOMETRY` if the string is "geometry",
+ 		* and to `UNKNOWN` otherwise.
+ 		*
+ 		* @param shaderType String representing the shader type.
+ 		* @throws HEXEN_ASSERT exception if unsupported shader type is specified.
+ 		*/
+
+		void setShaderType(const std::string &shaderType);
+
 
 	public:
 
@@ -54,7 +79,15 @@ namespace hexen::engine::graphics
 
 		char *getContent();
 
+		/**
+ 		* @brief Get the currently set shader type.
+ 		*
+ 		* The function is `noexcept`, so it does not throw exceptions.
+ 		*
+ 		* @retun hexen::engine::graphics::ShaderType The shader type currently set in this ShaderFile.
+ 		*/
 
+		ShaderType getType() const noexcept;
 	};
 
 }// namespace hexen::engine::graphics::shader
