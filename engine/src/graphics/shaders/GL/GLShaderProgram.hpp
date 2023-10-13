@@ -5,7 +5,7 @@
 
 #include "../ShaderFile.hpp"
 #include "../ShaderProgram.hpp"
-#include <core/Types.hpp>
+#include <Types.hpp>
 
 namespace hexen::engine::graphics::gl
 {
@@ -19,7 +19,17 @@ namespace hexen::engine::graphics::gl
 	class GLShaderProgram : public ShaderProgram
 	{
 	public:
-		GLShaderProgram(std::vector<std::string> &shadersFiles);
+
+		/**
+		* @brief Constructs a GLShaderProgram object.
+		*
+ 		* This constructor creates GLShaderProgram using the shader files provided in the vector argument.
+ 		* Each shader file is read, compiled, and then linked to the shader program.
+ 		*
+ 		* @param shadersFiles A reference to a std::vector containing string paths to the shader files.
+ 		*/
+
+		explicit GLShaderProgram(std::vector<std::string> &shadersFiles);
 
 		/**
  		* @class GLShaderProgram
@@ -34,165 +44,120 @@ namespace hexen::engine::graphics::gl
 		~GLShaderProgram() override;
 
 		/**
-        * @brief Activates the shader program for rendering.
-        *
-        * This function activates the shader program for rendering. It should be called before rendering any objects
-        * that use this shader program.
-        *
-        * @note This function should be called within a rendering loop, typically before drawing each object.
-        * @note Once a shader program is activated, all subsequent rendering commands will use this program until it is deactivated.
-        * @note This function is noexcept, meaning it will not throw any exceptions.
-        */
+ 		* @brief Binds the shader program for use in the current rendering context.
+ 		*/
 
-		void use() const noexcept;
+		void bind() const override;
 
 		/**
-        * Sets the value of an integer uniform variable in the shader program.
-        *
-        * @param uniformVariable The name of the uniform variable in the shader program.
-        * @param value The integer value to set for the uniform variable.
-        *
-        * @note This method assumes that a valid shader program is already linked.
-        *       Make sure to verify that the shader program has been linked before
-        *       using this method.
-        * @note This function is const and can be called on a const GLShaderProgram object.
-        * @note This function assumes that the specified uniform variable exists in the shader program.
-        *
-        */
+ 		* @brief Unbinds the shader program from the current rendering context.
+ 		*/
 
-
-		void setIntUniform(const std::string &uniformVariable, core::i32 value) const;
+		void unbind() const override;
 
 		/**
-        * @brief Set a mat4 uniform variable in the shader program.
-        *
-        * This function sets the value of a mat4 uniform variable in the shader program.
-        *
-        * @param uniformVariable The name of the uniform variable to set.
-        * @param matrix The mat4 value to set for the uniform variable.
-        *
-        *
-        * @note This method assumes that a valid shader program is already linked.
-        *       Make sure to verify that the shader program has been linked before
-        *       using this method.
-        * @note This function is const and can be called on a const GLShaderProgram object.
-        * @note This function assumes that the specified uniform variable exists in the shader program.
-        *
-        */
+     	* @brief Function that sets a 2D vector uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the vector.
+     	*/
 
-
-		void setMatrix4Uniform(const std::string &uniformVariable, const glm::mat4 &matrix) const;
+		void setVector2f(const std::string& name, const glm::vec2 &value) const override;
 
 		/**
-    	* Sets a vector4 uniform variable in the shader program.
-    	*
-    	* @param uniformVariable The name of the uniform variable.
-    	* @param vector The vector value to set.
-    	*
-    	* @note This method assumes that a valid shader program is already linked.
-    	*       Make sure to verify that the shader program has been linked before
-    	*       using this method.
-    	* @note This function is const and can be called on a const GLShaderProgram object.
-    	* @note This function assumes that the specified uniform variable exists in the shader program.
-    	*
-    	*
-    	*/
+     	* @brief Function that sets a 3D vector uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the vector.
+     	*/
 
-		void setVector4Uniform(const std::string &uniformVariable, const glm::vec4 &vector) const;
+		void setVector3f(const std::string& name, const glm::vec3 &value) const override;
 
 		/**
-    	* @brief Sets the value of a uniform variable of type vec3 in the shader program.
-    	*
-    	* This function sets the value of the uniform variable with the given name
-    	* to the specified 3D vector. The uniform variable must exist in the shader program.
-    	*
-    	* @param uniformVariable The name of the uniform variable.
-    	* @param vector The 3D vector value to set.
-    	*
-    	* @note The shader program must be currently active and linked in order to set the uniform variable.
-    	*/
+     	* @brief Function that sets a 4D vector uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the vector.
+     	*/
 
-		void setVector3Uniform(const std::string &uniformVariable, const glm::vec3 &vector) const;
+		void setVector4f(const std::string& name, const glm::vec4 &value) const override;
+
+		/**
+     	* @brief Function that sets a 2x2 matrix uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the matrix.
+     	*/
+
+		 void setMatrix2(const std::string& name, const glm::mat2 &value) const override;
+
+		/**
+     	* @brief Function that sets a 3x3 matrix uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the matrix.
+     	*/
+
+		void setMatrix3(const std::string& name, const glm::mat3 &value) const override;
+
+		/**
+     	* @brief Function that sets a 4x4 matrix uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the matrix.
+     	*/
+
+		void setMatrix4(const std::string& name, const glm::mat4 &value) const override;
+
+		/**
+     	* @brief Function that sets an integer uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the integer.
+     	*/
+
+		void setInteger(const std::string& name, core::i32 value) const override;
+
+		/**
+     	* @brief Function that sets a float uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param value - The value of the float.
+     	*/
+
+		void setFloat(const std::string& name, float value) const override;
 
 	private:
-		/**
- 		* @brief A ShaderFile object to manage the vertex shader file.
- 		*/
-
-		hexen::engine::graphics::ShaderFile vertexShaderFile;
-
-		/**
- 		* @brief A ShaderFile object to manage the fragment shader file.
- 		*/
-
-		hexen::engine::graphics::ShaderFile fragmentShaderFile;
-
-		/**
- 		* @brief Unsigned 32 bit integer to hold the vertex shader reference.
- 		*/
-
-		core::u32 vertexShader {0};
-
-		/**
- 		* @brief Unsigned 32 bit integer to hold the fragment shader reference.
-  		*/
-
-		core::u32 fragmentShader {0};
-
-		/**
- 		* @brief Unsigned 32 bit integer to hold the shader program reference.
- 		*/
 
 		core::u32 shaderProgram {0};
 
 		/**
- 		* @brief Pointer to a character array containing the loaded fragment shader text.
+ 		* @brief Compiles all shaders in the array of shader data.
+ 		*
+ 		* This function iterates over all shaders in the shadersData array and compiles them using the compileShader function.
  		*/
 
-		char *fragmentShaderText {nullptr};
+		void compileShaders();
 
 		/**
- 		* @brief Pointer to a character array containing the loaded vertex shader text.
+ 		* @brief Compiles a shader from a file.
+ 		*
+ 		* This function compiles the shader provided through the ShaderFile parameter.
+ 		* After the compilation, the shader's ID is stored in the array of shader IDs.
+ 		*
+ 		* @param shaderFile The shader file to compile.
  		*/
 
-		char *vertexShaderText {nullptr};
+		void compileShader(const ShaderFile &shaderFile);
 
 		/**
-        * @brief Compiles the vertex shader of the GLShaderProgram.
-        *
-        * This function compiles the vertex shader of the GLShaderProgram.
-        * It retrieves the vertex shader source code from the shader program,
-        * compiles it, and verifies if the compilation was successful.
-        * If successful, the compiled vertex shader is attached to the shader program.
-        * If unsuccessful, an error message is printed to the console.
-        *
-        * @note This function assumes that the GLShaderProgram has been properly initialized
-        *       and that a valid vertex shader source code has been set.
-        *       It does not handle resource management, such as shader cleanup.
-        *
-        */
-
-		void compileVertexShader();
-
-		/**
-        * @brief Compiles the fragment shader of the GLShaderProgram.
-        *
-        * This function compiles the fragment shader source code associated with the GLShaderProgram object.
-        * It retrieves the fragment shader source code from the shader program and compiles it using the
-        * appropriate APIs provided by the rendering system. If the compilation succeeds, the compiled
-        * fragment shader is attached to the GLShaderProgram object.
-        *
-        */
-
-		void compileFragmentShader();
-
-		/**
-        * @brief Links multiple shaders into a shader program.
-        *
-        * This function is a member function of the GLShaderProgram class inside the core::rend::shader namespace.
-        * It is responsible for linking multiple shaders together into a single shader program.
-        *
-        */
+ 		* @brief This method is used to link GLSL shaders into a program.
+ 		*
+ 		* The method creates a new program, attaches all shaders from shadersIds collection,
+ 		* links all them together into a program and then asks to show the linker log.
+ 		* It updates the shaderProgram member of the GLShaderProgram class.
+ 		*
+ 		* @note This should be called after all shaders have been added to the shadersIds collection.
+ 		*
+ 		* This function uses several OpenGL functions internally:
+ 		*  - glCreateProgram() : Creates an empty program object and returns a non-zero value by which it can be referenced.
+ 		*  - glAttachShader() : Attaches a shader object to a program object.
+ 		*  - glLinkProgram() : Links a program object.
+ 		*
+ 		* @see showLinkerLog()
+ 		*/
 
 		void linkShaders();
 
@@ -218,7 +183,9 @@ namespace hexen::engine::graphics::gl
 
 		void shaderPathsToShaderFiles(const std::vector<std::string> &paths);
 
-		std::unordered_map<ShaderType,ShaderFile> shadersData;
+		std::vector<ShaderFile> shadersData;
+
+		std::vector<core::u32> shadersIds;
 
 
 	};

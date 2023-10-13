@@ -31,16 +31,16 @@ void hexen::engine::graphics::ShaderFile::read(const std::string &path)
 	}
 	SDL_RWclose(file);
 
-	auto stringShaderType = parseShaderType(path);
+	auto stringShaderType = parseShaderType();
 	setShaderType(stringShaderType);
 }
 
-char *hexen::engine::graphics::ShaderFile::getContent()
+char *hexen::engine::graphics::ShaderFile::getContent() const
 {
 	return const_cast<char *>(shaderText.c_str());
 }
 
-std::string hexen::engine::graphics::ShaderFile::parseShaderType(const std::string &path)
+std::string hexen::engine::graphics::ShaderFile::parseShaderType()
 {
 	std::string typeToken = "#type";
 	auto tokenPosition = shaderText.find(typeToken);

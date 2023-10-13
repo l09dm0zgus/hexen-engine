@@ -36,12 +36,11 @@ namespace hexen::engine::graphics
  		* This function looks for a `#type` token in the given shader file, follows
  		* the token until the end of line and returns the type as a string.
  		*
- 		* @param path Path to the shader file.
  		* @return std::string Shader type as read from the file. It could be any of the types specified in the shader file.
  		* @throws HEXEN_ASSERT exception if #type token is not found in the shader file.
  		*/
 
-		std::string parseShaderType(const std::string &path);
+		std::string parseShaderType();
 
 		/**
  		* @brief Set shader type based on a provided string.
@@ -77,7 +76,7 @@ namespace hexen::engine::graphics
         * @return A pointer to the shader text.
         */
 
-		char *getContent();
+		char *getContent() const;
 
 		/**
  		* @brief Get the currently set shader type.

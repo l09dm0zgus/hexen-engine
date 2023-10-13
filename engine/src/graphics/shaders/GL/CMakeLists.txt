@@ -4,7 +4,3 @@ target_sources(${RENDER_MODULE_NAME} PUBLIC
         GLShaderProgram.hpp
         GLShaderProgram.cpp
 )
-
-if (ENABLE_OPENGL_SUPPORT)
-    #add_subdirectory(GL)
-endif ()
