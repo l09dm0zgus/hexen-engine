@@ -19,3 +19,6 @@
 [submodule "editor/submodules/imgui"]
 	path = editor/submodules/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "engine/submodules/parallel-hashmap"]
+	path = engine/submodules/parallel-hashmap
+	url = https://github.com/greg7mdp/parallel-hashmap.git

@@ -50,6 +50,7 @@ if(ENABLE_SANITIZERS)
 endif (ENABLE_SANITIZERS)
 
 set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL_image/include/SDL3_image)
+set(PHMAP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/ parallel-hashmap)
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/glm)
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/SDL/include)
 set(JSON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine/submodules/json/include)
