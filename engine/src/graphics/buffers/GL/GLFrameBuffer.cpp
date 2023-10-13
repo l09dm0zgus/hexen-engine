@@ -10,16 +10,9 @@
 #include "SDL3/SDL.h"
 
 
-hexen::engine::graphics::gl::GLFrameBuffer::GLFrameBuffer(const glm::vec2 &size)
+hexen::engine::graphics::gl::GLFrameBuffer::GLFrameBuffer(const FrameBufferSpecification &specification) : bufferSpecification(specification)
 {
-	glGenFramebuffers(1, &object);
-	glBindFramebuffer(GL_FRAMEBUFFER, object);
-	//setSize is virtual,call virtual function in constructor is very big no-no.
-	renderBufferObject.bind();
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size.x, size.y);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBufferObject.getID());
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	create();
 }
 
 hexen::engine::graphics::gl::GLFrameBuffer::~GLFrameBuffer()
@@ -37,20 +30,44 @@ void hexen::engine::graphics::gl::GLFrameBuffer::unbind() const noexcept
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void hexen::engine::graphics::gl::GLFrameBuffer::setSize(const glm::vec2 &size) const
+void hexen::engine::graphics::gl::GLFrameBuffer::setSize(const glm::vec2 &size)
 {
-	renderBufferObject.bind();
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size.x, size.y);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBufferObject.getID());
+	bufferSpecification.size = size;
+	create();
 }
 
-
-void hexen::engine::graphics::gl::GLFrameBuffer::bindRenderBuffer()
+void hexen::engine::graphics::gl::GLFrameBuffer::create()
 {
-	renderBufferObject.bind();
+	glCreateFramebuffers(1, &object);
+	glBindFramebuffer(GL_FRAMEBUFFER, object);
+
+	glCreateTextures(GL_TEXTURE_2D, 1, &colorAttachment);
+	glBindTexture(GL_TEXTURE_2D, colorAttachment);
+
+	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA32F,bufferSpecification.size.x,bufferSpecification.size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,colorAttachment,0);
+
+
+	glCreateTextures(GL_TEXTURE_2D, 1, &depthAttachment);
+	glBindTexture(GL_TEXTURE_2D,depthAttachment);
+
+	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH24_STENCIL8,bufferSpecification.size.x,bufferSpecification.size.y,0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,depthAttachment,0);
+
+	HEXEN_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE , "ERROR: GL Framebuffer isn't created!");
+
+	glBindFramebuffer(GL_FRAMEBUFFER,0);
 }
 
-void hexen::engine::graphics::gl::GLFrameBuffer::unbindRenderBuffer()
+hexen::engine::core::u32 hexen::engine::graphics::gl::GLFrameBuffer::getColorAttachmentObject() const noexcept
 {
-	renderBufferObject.unbind();
+	return colorAttachment;
+}
+const hexen::engine::graphics::FrameBufferSpecification &hexen::engine::graphics::gl::GLFrameBuffer::getSpecification() const noexcept
+{
+	return bufferSpecification;
 }

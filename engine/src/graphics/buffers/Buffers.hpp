@@ -303,6 +303,41 @@ namespace hexen::engine::graphics
 		[[nodiscard]] virtual const BufferLayout &getLayout() const noexcept = 0;
 	};
 
+
+	/**
+ 	* @struct FrameBufferSpecification
+ 	* @brief A structure to represent frame buffer specifications
+ 	*
+ 	* This structure has four properties: size, samples and swapChainTarget.
+ 	*/
+
+	struct FrameBufferSpecification
+	{
+		/**
+    	* @brief Represents the size of the frame buffer.
+    	*
+    	* The default value is a vector with 1280 by 720 pixels.
+    	*/
+
+		glm::vec2 size{1280,720};
+
+		/**
+    	* @brief Represents the number of samples in the frame buffer.
+    	*
+    	* The default value is 1.
+    	*/
+
+		core::u32 samples = 1;
+
+		/**
+    	* @brief Represents whether this buffer is a swap chain target.
+    	*
+    	* The default value is `false`.
+    	*/
+
+		bool swapChainTarget = false;
+	};;
+
 	/**
  	* @class FrameBuffer
  	* @brief A memory-allocated object that manages a frame buffer.
@@ -318,7 +353,7 @@ namespace hexen::engine::graphics
      	* @return A std::shared_ptr to the newly created FrameBuffer.
      	*/
 
-		static std::shared_ptr<FrameBuffer> create(const glm::vec2 &size);
+		static std::shared_ptr<FrameBuffer> create(const FrameBufferSpecification &specification);
 
 		/**
      	* @brief Default destructor.
@@ -343,19 +378,32 @@ namespace hexen::engine::graphics
      	* @param size A glm::vec2 defining the new size of the frame buffer.
 	    */
 
-		virtual void setSize(const glm::vec2 &size) const = 0;
+		virtual void setSize(const glm::vec2 &size)  = 0;
 
 		/**
-     	* @brief Pure virtual function to bind the render buffer.
-     	*/
+ 		* @brief Gets the buffer specification.
+ 		*
+ 		* @return const hexen::engine::graphics::FrameBufferSpecification& This returns a constant reference to the bufferSpecifications.
+ 		*
+ 		* @exception none No exception is thrown.
+ 		*
+ 		* @note This function is noexcept, meaning it does not throw exceptions.
+ 		*/
 
-		virtual void bindRenderBuffer() = 0;
+		[[nodiscard]] virtual const FrameBufferSpecification &getSpecification() const noexcept = 0;
 
 		/**
-     	* @brief Pure virtual function to unbind the render buffer.
-     	*/
+ 		* @brief Gets the value of color attachment object.
+ 		*
+ 		* @return hexen::engine::core::u32 This returns the color attachment object as a 32-bit unsigned integer.
+ 		*
+ 		* @exception none No exception is thrown.
+ 		*
+ 		* @note This function is noexcept, meaning it does not throw exceptions.
+ 		*/
 
-		virtual void unbindRenderBuffer() = 0;
+		virtual core::u32 getColorAttachmentObject() const noexcept = 0;
+
 	};
 
 	/**

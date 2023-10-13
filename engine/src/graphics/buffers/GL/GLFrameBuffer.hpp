@@ -32,7 +32,7 @@ namespace hexen::engine::graphics::gl
  		* @param size A glm::vec2 instance representing the size of the GLFrameBuffer.
  		*/
 
-		explicit GLFrameBuffer(const glm::vec2 &size);
+		explicit GLFrameBuffer(const FrameBufferSpecification &specification);
 
 		/**
      	*
@@ -85,36 +85,48 @@ namespace hexen::engine::graphics::gl
         * @param size The size of the GLFrameBuffer as a glm::vec2.
         */
 
-		void setSize(const glm::vec2 &size) const override;
-
-
-		/**
-        * @brief Binds a render buffer to the currently active frame buffer object.
-        *
-        * This method binds the specified render buffer to the currently active
-        * frame buffer object. The render buffer must already be allocated and
-        * initialized before being bound to the frame buffer. If any render buffer
-        * was previously bound, it will be unbound before binding the new render buffer.
-        *
-        */
-
-		void bindRenderBuffer() override;
+		void setSize(const glm::vec2 &size)  override;
 
 		/**
-        * @brief Unbinds the currently bound render buffer from the frame buffer object.
-        *
-        * This function unbinds the currently bound render buffer from the frame buffer object.
-        * After unbinding, the render buffer will no longer be associated with the frame buffer object.
-        *
-        * @note This function does not return any values.
-        *
-        * @see core::rend::GLFrameBuffer::bindRenderBuffer()
-        */
+ 		* @brief Gets the buffer specification.
+ 		*
+ 		* @return const hexen::engine::graphics::FrameBufferSpecification& This returns a constant reference to the bufferSpecifications.
+ 		*
+ 		* @exception none No exception is thrown.
+ 		*
+ 		* @note This function is noexcept, meaning it does not throw exceptions.
+ 		*/
 
-		void unbindRenderBuffer() override;
+		[[nodiscard]] const FrameBufferSpecification& getSpecification() const noexcept override;
+
+		/**
+ 		* @brief Gets the value of color attachment object.
+ 		*
+ 		* @return hexen::engine::core::u32 This returns the color attachment object as a 32-bit unsigned integer.
+ 		*
+ 		* @exception none No exception is thrown.
+ 		*
+ 		* @note This function is noexcept, meaning it does not throw exceptions.
+ 		*/
+
+		[[nodiscard]] core::u32 getColorAttachmentObject() const noexcept override;
 
 	private:
+
+		FrameBufferSpecification bufferSpecification;
+
+		/**
+ 		* @brief Constructs the FrameBuffer with GL bindings for color and depth attachments.
+ 		*
+ 		* This function creates a FrameBuffer object with a color attachment and a depth attachment.
+ 		* It also validates the FrameBuffer creation by checking its status.
+ 		*/
+
+		void create();
+
 		core::u32 object {0};
+		core::u32 colorAttachment{0} , depthAttachment{0};
+
 		GLRenderBuffer renderBufferObject;
 	};
 }// namespace hexen::engine::graphics::gl

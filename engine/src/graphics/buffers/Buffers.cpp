@@ -52,7 +52,7 @@ std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::
 
 	return nullptr;
 }
-std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FrameBuffer::create(const glm::vec2 &size)
+std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FrameBuffer::create(const FrameBufferSpecification &specification)
 {
 	switch (RenderContext::getRenderAPI())
 	{
@@ -62,7 +62,7 @@ std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::F
 		case RenderContext::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
-				return core::memory::make_unique<gl::GLFrameBuffer>(size);
+				return core::memory::make_unique<gl::GLFrameBuffer>(specification);
 			}
 			break;
 		case RenderContext::RenderAPI::VULKAN_API:
