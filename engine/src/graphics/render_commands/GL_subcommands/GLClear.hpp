@@ -1,0 +1,28 @@
+//
+// Created by cx9ps3 on 15.10.2023.
+//
+
+#pragma once
+
+#include <glm/glm.hpp>
+
+#ifndef __ANDROID__
+	#include <GL/glew.h>
+	#include <glm/gtc/type_ptr.hpp>
+#else
+	#include <GLES3/gl31.h>
+#endif
+#include "../../render_context/RenderContext.hpp"
+
+
+namespace hexen::engine::graphics
+{
+	static void clear(const glm::vec4 &clearColor)
+	{
+		if constexpr (RenderContext::enabledOpengl)
+		{
+			glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+	}
+}
