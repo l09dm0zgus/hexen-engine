@@ -5,6 +5,8 @@
 
 #include "systems/GameLoop.hpp"
 #include <core/window/Window.hpp>
+#include <graphics/render_context/RenderContext.hpp>
+
 
 namespace hexen::client
 {
@@ -108,7 +110,8 @@ namespace hexen::client
 
 		engine::core::Settings settings;
 
-		std::unique_ptr<engine::core::GameLoop> gameLoop;
+		std::unique_ptr<engine::systems::GameLoop> gameLoop;
+		std::unique_ptr<engine::graphics::RenderContext> renderContext;
 	};
 
 }// namespace hexen::engine::core

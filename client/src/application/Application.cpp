@@ -4,6 +4,7 @@
 
 #include "Application.hpp"
 
+#include <shaders/ShaderFile.hpp>
 
 void hexen::client::Application::run()
 {
@@ -13,6 +14,8 @@ void hexen::client::Application::run()
 
 hexen::client::Application::Application()
 {
+	renderContext = hexen::engine::graphics::RenderContext::create();
 	window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
-	gameLoop = hexen::engine::core::memory::make_unique<engine::core::GameLoop>(window);
+	renderContext->attachWindow(window);
+	gameLoop = hexen::engine::core::memory::make_unique<engine::systems::GameLoop>(window);
 }
