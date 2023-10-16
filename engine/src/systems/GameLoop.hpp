@@ -6,8 +6,9 @@
 #include "SystemsManager.hpp"
 #include "memory_pool/AllocatedObject.hpp"
 #include <chrono>
+#include <render_commands/RenderPipeline.hpp>
 
-namespace hexen::engine::core
+namespace hexen::engine::systems
 {
 	class Window;
 
@@ -19,7 +20,7 @@ namespace hexen::engine::core
     * and rendering processes while taking care of timing and frame rate control.
     */
 
-	class GameLoop : public memory::AllocatedObject
+	class GameLoop : public core::memory::AllocatedObject
 	{
 	public:
 		/**
@@ -27,7 +28,7 @@ namespace hexen::engine::core
          * and setting pointer to current system manager
          */
 
-		explicit GameLoop(const std::shared_ptr<Window> &newWindow);
+		explicit GameLoop(const std::shared_ptr<core::Window> &newWindow);
 
 
 		/**
@@ -227,6 +228,7 @@ namespace hexen::engine::core
   		* when the last one stops referencing it.
   		*/
 
-		std::shared_ptr<Window> window;
+		std::shared_ptr<core::Window> window;
+
 	};
 }// namespace hexen::engine::core

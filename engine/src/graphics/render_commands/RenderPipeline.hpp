@@ -63,7 +63,7 @@ namespace hexen::engine::graphics
      	*/
 
 		template<typename T, typename... Args, std::enable_if_t<std::is_base_of_v<IRenderCommand, T>, bool> = true>
-		static core::u32 executeCommandNow(Args... args)
+		static void executeCommandNow(Args... args)
 		{
 			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
 			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
