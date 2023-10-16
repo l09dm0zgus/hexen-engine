@@ -4,38 +4,36 @@
 
 #include "RenderContext.hpp"
 
-#include <application/Settings.hpp>
-
 #if defined(_ENABLE_OPENGL_SUPPORT)
 	#include "GL/GLRenderContext.hpp"
 #endif
 
-hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::currentApi = hexen::engine::graphics::RenderContext::RenderAPI::NO_API;
+hexen::engine::core::Settings hexen::engine::graphics::RenderContext::settings;
 
-
-std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create(const core::Settings &settings)
+std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create()
 {
-	currentApi = static_cast<RenderAPI>(settings.getRenderAPI());
+	auto currentApi = settings.getRenderAPI();
 	switch (currentApi)
 	{
-		case RenderAPI::NO_API:
+		case core::Settings::RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create render context.Render API is not set or this PC does not support graphics! ");
-		case RenderAPI::OPENGL_API:
+			break;
+		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr(enabledOpengl)
 			{
 				return core::memory::make_unique<gl::GLRenderContext>(settings);
 			}
-
-		case RenderAPI::VULKAN_API:
 			break;
-		case RenderAPI::DIRECTX12_API:
+		case core::Settings::RenderAPI::VULKAN_API:
+			break;
+		case core::Settings::RenderAPI::DIRECTX12_API:
 			break;
 	}
 	return nullptr;
 }
-hexen::engine::graphics::RenderContext::RenderAPI hexen::engine::graphics::RenderContext::getRenderAPI()
+hexen::engine::core::Settings::RenderAPI hexen::engine::graphics::RenderContext::getRenderAPI()
 {
-	return currentApi;
+	return settings.getRenderAPI();
 }
 hexen::engine::core::i32 hexen::engine::graphics::RenderContext::getWindowFlags() const noexcept
 {

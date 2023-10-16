@@ -12,18 +12,18 @@ std::unique_ptr<hexen::engine::graphics::VertexArray> hexen::engine::graphics::V
 {
 	switch (RenderContext::getRenderAPI())
 	{
-		case RenderContext::RenderAPI::NO_API:
+		case core::Settings::RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create Element Buffer.Render API is not set or this PC does not support graphics!");
 			break;
-		case RenderContext::RenderAPI::OPENGL_API:
+		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
 				return core::memory::make_unique<gl::GLVertexArray>();
 			}
 			break;
-		case RenderContext::RenderAPI::VULKAN_API:
+		case core::Settings::RenderAPI::VULKAN_API:
 			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
+		case core::Settings::RenderAPI::DIRECTX12_API:
 			break;
 	}
 	return nullptr;

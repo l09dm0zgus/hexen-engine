@@ -15,18 +15,18 @@ std::shared_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics
 {
 	switch (RenderContext::getRenderAPI())
 	{
-		case RenderContext::RenderAPI::NO_API:
+		case core::Settings::RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create Element Buffer.Render API is not set or this PC does not support graphics!");
 			break;
-		case RenderContext::RenderAPI::OPENGL_API:
+		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
 				return core::memory::make_shared<gl::GLElementsBuffer>(indices, size);
 			}
 			break;
-		case RenderContext::RenderAPI::VULKAN_API:
+		case core::Settings::RenderAPI::VULKAN_API:
 			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
+		case core::Settings::RenderAPI::DIRECTX12_API:
 			break;
 	}
 	return nullptr;
@@ -35,18 +35,18 @@ std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::
 {
 	switch (RenderContext::getRenderAPI())
 	{
-		case RenderContext::RenderAPI::NO_API:
+		case core::Settings::RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create Vertex Buffer.Render API is not set or this PC does not support graphics!");
 			break;
-		case RenderContext::RenderAPI::OPENGL_API:
+		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
 				return core::memory::make_shared<gl::GLVertexBuffer>(vertices, size);
 			}
 			break;
-		case RenderContext::RenderAPI::VULKAN_API:
+		case core::Settings::RenderAPI::VULKAN_API:
 			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
+		case core::Settings::RenderAPI::DIRECTX12_API:
 			break;
 	}
 
@@ -56,18 +56,18 @@ std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::F
 {
 	switch (RenderContext::getRenderAPI())
 	{
-		case RenderContext::RenderAPI::NO_API:
+		case core::Settings::RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create Frame Buffer.Render API is not set or this PC does not support graphics!");
 			break;
-		case RenderContext::RenderAPI::OPENGL_API:
+		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
 				return core::memory::make_unique<gl::GLFrameBuffer>(specification);
 			}
 			break;
-		case RenderContext::RenderAPI::VULKAN_API:
+		case core::Settings::RenderAPI::VULKAN_API:
 			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
+		case core::Settings::RenderAPI::DIRECTX12_API:
 			break;
 	}
 
@@ -142,18 +142,18 @@ std::shared_ptr<hexen::engine::graphics::UniformBuffer> hexen::engine::graphics:
 {
 	switch (RenderContext::getRenderAPI())
 	{
-		case RenderContext::RenderAPI::NO_API:
+		case core::Settings::RenderAPI::NO_API:
 			HEXEN_ASSERT(false,"ERROR::Failed to create Uniform Buffer.Render API is not set or this PC does not support graphics!");
 			break;
-		case RenderContext::RenderAPI::OPENGL_API:
+		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
 				return core::memory::make_shared<gl::GLUniformBuffer>(size,binding);
 			}
 			break;
-		case RenderContext::RenderAPI::VULKAN_API:
+		case core::Settings::RenderAPI::VULKAN_API:
 			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
+		case core::Settings::RenderAPI::DIRECTX12_API:
 			break;
 	}
 	return nullptr;

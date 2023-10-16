@@ -5,6 +5,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <memory_pool/AllocatedObject.hpp>
+#include <application/Settings.hpp>
 
 namespace hexen::engine::core
 {
@@ -59,7 +60,7 @@ namespace hexen::engine::graphics
      	* @param settings A reference to Settings object to be used while creating the render context.
      	*/
 
-		static std::unique_ptr<RenderContext> create(const core::Settings &settings);
+		static std::unique_ptr<RenderContext> create();
 
 		/**
      	* @brief Get the current render API in use
@@ -67,7 +68,7 @@ namespace hexen::engine::graphics
      	* @return A RenderAPI value representing the rendering API being used.
      	*/
 
-		static RenderAPI getRenderAPI();
+		static core::Settings::RenderAPI getRenderAPI();
 
 		virtual void attachWindow(const std::shared_ptr<core::Window> &window) = 0;
 
@@ -93,6 +94,6 @@ namespace hexen::engine::graphics
 #endif
 
 	private:
-		static RenderAPI currentApi;///< @brief The render API currently in use.
+		static core::Settings settings;
 	};
 }// namespace hexen::engine::graphics

@@ -7,11 +7,11 @@
 	#include <glm/gtc/type_ptr.hpp>
 #else
 	#include <GLES3/gl31.h>
-    #include <glm/gtc/type_ptr.hpp>
 #endif
 
 #include "GLElementsBuffer.hpp"
 
+#include <glm/gtc/type_ptr.hpp>
 
 hexen::engine::graphics::gl::GLElementsBuffer::GLElementsBuffer(hexen::engine::core::u32 *indices, hexen::engine::core::u32 size)
 {
