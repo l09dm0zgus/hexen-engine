@@ -1,5 +1,5 @@
 //
-// Created by cx9ps3 on 15.10.2023.
+// Created by cx9ps3 on 16.10.2023.
 //
 
 #pragma once
@@ -16,12 +16,11 @@
 
 namespace hexen::engine::graphics
 {
-	static void clear(const glm::vec4 &clearColor)
+	static void viewport(const glm::ivec4 &viewportParams)
 	{
 		if constexpr (RenderContext::enabledOpengl)
 		{
-			glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glViewport(viewportParams.x, viewportParams.y, viewportParams.z,viewportParams.w);
 		}
 	}
 }

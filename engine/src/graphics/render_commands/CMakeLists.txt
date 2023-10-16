@@ -9,6 +9,8 @@ target_sources(${RENDER_MODULE_NAME} PUBLIC
         RenderPipeline.cpp
         ClearCommand.hpp
         ClearCommand.cpp
+        ViewportCommand.hpp
+        ViewportCommand.cpp
 )
 
 if (ENABLE_OPENGL_SUPPORT)
