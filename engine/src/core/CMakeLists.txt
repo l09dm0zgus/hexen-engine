@@ -14,7 +14,6 @@ target_include_directories(${CORE_MODULE_NAME} PUBLIC ${JSON_INCLUDE_DIR})
 target_include_directories(${CORE_MODULE_NAME} PUBLIC ${CONTEXT_INCLUDE_DIR})
 target_include_directories(${CORE_MODULE_NAME} PUBLIC ${RENDER_ENGINE_INCLUDE_DIR})
 
-target_include_directories(${CORE_MODULE_NAME} PUBLIC ".")
 
 target_sources(${CORE_MODULE_NAME} PUBLIC
         exceptions/ComponentNotFound.hpp

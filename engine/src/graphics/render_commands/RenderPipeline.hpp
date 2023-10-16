@@ -6,7 +6,7 @@
 #include "IRenderCommand.hpp"
 #include <Types.hpp>
 #include <glm/vec2.hpp>
-#include <parallel-hashmap/parallel_hashmap/phmap.h>
+#include <parallel_hashmap/phmap.h>
 
 namespace hexen::engine::graphics
 {
@@ -47,6 +47,9 @@ namespace hexen::engine::graphics
 		template<typename T, typename... Args, std::enable_if_t<std::is_base_of_v<IRenderCommand, T>, bool> = true>
 		static core::u32 addCommandToQueue(Args... args)
 		{
+			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
+			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
+
 			ids++;
 			renderQueue[ids] = core::memory::make_shared<T>(args...);
 			return ids;
@@ -62,8 +65,11 @@ namespace hexen::engine::graphics
 		template<typename T, typename... Args, std::enable_if_t<std::is_base_of_v<IRenderCommand, T>, bool> = true>
 		static core::u32 executeCommandNow(Args... args)
 		{
+			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
+			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
+
 			T command(args...);
-			command->execute();
+			command.execute();
 		}
 
 		/**

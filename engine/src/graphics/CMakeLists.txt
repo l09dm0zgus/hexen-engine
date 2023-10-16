@@ -40,6 +40,7 @@ target_include_directories(${RENDER_MODULE_NAME} PUBLIC ${GLM_INCLUDE_DIR})
 target_include_directories(${RENDER_MODULE_NAME} PUBLIC ${SDL_IMAGE_INCLUDE_DIR})
 target_include_directories(${RENDER_MODULE_NAME} PUBLIC ${JSON_INCLUDE_DIR})
 target_include_directories(${RENDER_MODULE_NAME} PUBLIC ${PHMAP_INCLUDE_DIR})
+
 add_subdirectory(render_context)
 add_subdirectory(buffers)
 add_subdirectory(textures)

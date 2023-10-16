@@ -18,22 +18,22 @@ hexen::engine::graphics::ClearCommand::ClearCommand(const glm::vec4& color) : co
 }
 void hexen::engine::graphics::ClearCommand::execute()
 {
-
+	switch(RenderContext::getRenderAPI())
+	{
+		case core::Settings::RenderAPI::NO_API:
+			break;
+		case core::Settings::RenderAPI::OPENGL_API:
+			clear(color);
+			break;
+		case core::Settings::RenderAPI::VULKAN_API:
+			break;
+		case core::Settings::RenderAPI::DIRECTX12_API:
+			break;
+	}
 }
 void hexen::engine::graphics::ClearCommand::prepare()
 {
-	switch(RenderContext::getRenderAPI())
-	{
-		case RenderContext::RenderAPI::NO_API:
-			break;
-		case RenderContext::RenderAPI::OPENGL_API:
-			clear(color);
-			break;
-		case RenderContext::RenderAPI::VULKAN_API:
-			break;
-		case RenderContext::RenderAPI::DIRECTX12_API:
-			break;
-	}
+
 }
 void hexen::engine::graphics::ClearCommand::finish()
 {
