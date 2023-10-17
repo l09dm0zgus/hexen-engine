@@ -25,7 +25,7 @@ namespace hexen::engine::core
 namespace hexen::editor::gui
 {
 	using RenderContext = hexen::engine::graphics::RenderContext;
-	using RenderAPI = RenderContext::RenderAPI;
+	using RenderAPI = hexen::engine::core::Settings::RenderAPI;
 
 	/**
      * @class EditorGUI
@@ -49,12 +49,18 @@ namespace hexen::editor::gui
 		explicit EditorGUI();
 
 		/**
-         * @brief Creates an EditorGUI with SDL_Window and SDL_GLContext.
-         * @param window Pointer to an SDL_Window structure that is the window to associate with the context.
-         * Initializes an instance of EditorGUI with specified SDL_Window and SDL_GLContext.
-         */
+ 		* @brief Constructs the EditorGUI for the specified window and rendering context.
+ 		*
+ 		* The constructor initializes ImGui library for OpenGL if the current rendering API is OpenGL.
+ 		* Note: The initializations for Vulkan and DirectX12 are not done and have to be implemented.
+ 		*
+ 		* @param window A shared pointer to `engine::core::Window` where the Editor GUI will be laid out.
+ 		* @param renderContext A shared pointer to `engine::graphics::RenderContext` which provides the rendering context for the GUI.
+ 		*
+ 		* @sa hexen::editor::gui::EditorGUI
+ 		*/
 
-		explicit EditorGUI(const std::shared_ptr<engine::core::Window> &window);
+		explicit EditorGUI(const std::shared_ptr<engine::core::Window> &window, const std::shared_ptr<engine::graphics::RenderContext> &renderContext);
 
 		/**
          * @desreuctor ~EditorGUI()

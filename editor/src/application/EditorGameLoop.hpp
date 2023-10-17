@@ -15,6 +15,11 @@ namespace hexen::editor::gui
 	class EditorGUI;
 }
 
+namespace hexen::engine::graphics
+{
+	class RenderContext;
+}
+
 namespace hexen::editor
 {
 	/**
@@ -26,7 +31,7 @@ namespace hexen::editor
     */
 
 
-	class EditorGameLoop : public hexen::engine::core::GameLoop
+	class EditorGameLoop : public hexen::engine::systems::GameLoop
 	{
 	public:
 		/**
@@ -34,7 +39,7 @@ namespace hexen::editor
        * and setting pointer to current system manager
        */
 
-		explicit EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow);
+		explicit EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow, const std::shared_ptr<hexen::engine::graphics::RenderContext> &renderContext);
 
 
 		/**

@@ -10,7 +10,7 @@
 #include "editors_windows/Shortcuts.hpp"
 #include <core/window/Window.hpp>
 
-hexen::editor::gui::EditorGUI::EditorGUI(const std::shared_ptr<engine::core::Window> &window) : EditorGUI()
+hexen::editor::gui::EditorGUI::EditorGUI(const std::shared_ptr<engine::core::Window> &window, const std::shared_ptr<engine::graphics::RenderContext> &renderContext) : EditorGUI()
 {
 	currentRenderAPI = RenderContext::getRenderAPI();
 	const char *glslVersion = "#version 130";
@@ -19,7 +19,7 @@ hexen::editor::gui::EditorGUI::EditorGUI(const std::shared_ptr<engine::core::Win
 		case RenderAPI::NO_API:
 			break;
 		case RenderAPI::OPENGL_API:
-			ImGui_ImplSDL3_InitForOpenGL(window->getSDLWindow(), dynamic_cast<engine::graphics::gl::GLRenderContext*>(window->getRenderContext())->getSDLGLContext());
+			ImGui_ImplSDL3_InitForOpenGL(window->getSDLWindow(), std::dynamic_pointer_cast<engine::graphics::gl::GLRenderContext>(renderContext)->getSDLGLContext());
 			ImGui_ImplOpenGL3_Init(glslVersion);
 			break;
 		case RenderAPI::VULKAN_API:

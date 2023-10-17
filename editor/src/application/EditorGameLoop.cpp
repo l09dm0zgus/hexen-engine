@@ -9,9 +9,10 @@
 #include "entity/scene/SceneManager.hpp"
 #include <profiling/Profiling.h>
 #include <systems/TaskSystem.hpp>
+#include <graphics/render_commands/RenderPipeline.hpp>
+#include <graphics/render_commands/ClearCommand.hpp>
 
-
-hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow) : hexen::engine::core::GameLoop(newWindow)
+hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow, const std::shared_ptr<hexen::engine::graphics::RenderContext> &renderContext) : GameLoop(newWindow)
 {
 	systemManager = hexen::engine::core::memory::make_shared<hexen::editor::systems::EditorSystemsManager>();
 
@@ -19,7 +20,7 @@ hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engin
 
 	systems::EditorSystemsManager::setCurrentSystemManager(systemManager.get());
 
-	editorGui = engine::core::memory::make_shared<gui::EditorGUI>(window);
+	editorGui = engine::core::memory::make_shared<gui::EditorGUI>(window , renderContext);
 }
 
 hexen::editor::EditorGameLoop::~EditorGameLoop()
@@ -69,11 +70,14 @@ void hexen::editor::EditorGameLoop::loop()
 
 			manager->addDebugGrid();
 		}
-		window->clear();
 
+		engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
+		engine::graphics::RenderPipeline::prepareCommands();
 		editorGui->bindFramebuffer();
 		systemManager->render(getAlpha());
+		engine::graphics::RenderPipeline::executeCommands();
 		editorGui->unbindFramebuffer();
+		engine::graphics::RenderPipeline::finishCommands();
 
 
 		editorGui->begin();
