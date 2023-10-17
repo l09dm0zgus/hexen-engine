@@ -10,8 +10,13 @@
 
 hexen::engine::core::Settings hexen::engine::graphics::RenderContext::settings;
 
-std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create()
+std::shared_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create()
 {
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		SDL_Log("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+	}
+
 	auto currentApi = settings.getRenderAPI();
 	switch (currentApi)
 	{
@@ -21,7 +26,7 @@ std::unique_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics:
 		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr(enabledOpengl)
 			{
-				return core::memory::make_unique<gl::GLRenderContext>(settings);
+				return core::memory::make_shared<gl::GLRenderContext>(settings);
 			}
 			break;
 		case core::Settings::RenderAPI::VULKAN_API:

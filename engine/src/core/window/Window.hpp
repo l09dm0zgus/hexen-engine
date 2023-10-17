@@ -154,17 +154,6 @@ namespace hexen::engine::core
 		Settings settings;
 
 		/**
-        * @brief Initializes the SDL library for the Window class.
-        *
-        * This function initializes the Simple DirectMedia Layer (SDL) library
-        * for the Window class, which provides a platform-independent interface
-        * for rendering graphics and handling input events.
-        *
-        */
-
-		void initSDL();
-
-		/**
 		* @brief Holds information about the display mode.
 		*/
 

@@ -60,7 +60,7 @@ namespace hexen::engine::graphics
      	* @param settings A reference to Settings object to be used while creating the render context.
      	*/
 
-		static std::unique_ptr<RenderContext> create();
+		static std::shared_ptr<RenderContext> create();
 
 		/**
      	* @brief Get the current render API in use

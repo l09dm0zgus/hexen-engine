@@ -52,7 +52,6 @@ hexen::engine::core::Window::Window(const Settings &settings) : settings(setting
 	width = static_cast<core::i32>(windowSettings.size.x);
 	height = static_cast<core::i32>(windowSettings.size.y);
 
-	initSDL();
 	switch (settings.getRenderAPI())
 	{
 		case Settings::RenderAPI::NO_API:
@@ -71,14 +70,6 @@ hexen::engine::core::Window::Window(const Settings &settings) : settings(setting
 
 	createSDLWindow();
 	setIcon(settings.getPathToIcon());
-}
-
-void hexen::engine::core::Window::initSDL()
-{
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		SDL_Log("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-	}
 }
 
 hexen::engine::core::i32 hexen::engine::core::Window::pollEvents(SDL_Event *sdlEvent)
@@ -101,7 +92,6 @@ void hexen::engine::core::Window::setIcon(const std::string &pathToIcon)
 void hexen::engine::core::Window::resize()
 {
 	SDL_GetWindowSize(window, &width, &height);
-	//glViewport(0, 0, width, height);
 }
 
 glm::vec2 hexen::engine::core::Window::getSize()
