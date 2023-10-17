@@ -53,7 +53,7 @@ namespace hexen::engine::graphics::gl
     	* @return core::u32 The id of the texture.
     	*/
 
-		[[nodiscard]] core::u32 getId() const noexcept;
+		[[nodiscard]] core::u32 getId() const override;
 
 		/**
      	* @brief Destroy the GLTexture2D object and free the memory occupied by the texture.

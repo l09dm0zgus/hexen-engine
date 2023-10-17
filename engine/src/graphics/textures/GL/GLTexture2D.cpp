@@ -66,7 +66,7 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::string &pathToI
 	SDL_DestroySurface(surface);
 }
 
-hexen::engine::core::u32 hexen::engine::graphics::gl::GLTexture2D::getId() const noexcept
+hexen::engine::core::u32 hexen::engine::graphics::gl::GLTexture2D::getId() const
 {
 	return textureId;
 }

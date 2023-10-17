@@ -62,6 +62,8 @@ namespace hexen::engine::graphics
      	*/
 
 		virtual void bind(core::u32 slot = 0) const = 0;
+
+		[[nodiscard]] virtual core::u32 getId() const = 0;
 	};
 
 	/**
