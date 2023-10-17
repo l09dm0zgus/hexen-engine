@@ -5,27 +5,20 @@
 #include "FramebufferWindow.hpp"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "render_commands/ClearCommand.hpp"
 #include <GL/glew.h>
+#include <graphics/render_commands/FramebufferCommand.hpp>
+#include <graphics/render_commands/RenderPipeline.hpp>
 #include <iostream>
 
 
 hexen::editor::gui::FramebufferWindow::FramebufferWindow(const std::string &name) : GUIWindow(name)
 {
-	frameBufferObject.bind();
-	frameBufferTexture = hexen::engine::core::memory::make_unique<hexen::engine::graphics::gl::FrameBufferTexture>(glm::vec2(size.x, size.y));
-	frameBufferObject.bindRenderBuffer();
-	frameBufferObject.setSize(size);
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-	{
-		std::cout << "S_ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
-	}
-
-	frameBufferObject.unbind();
-	frameBufferObject.unbindRenderBuffer();
-	frameBufferTexture->unbind();
+	engine::graphics::FrameBufferSpecification specification;
+	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::FramebufferCommand>(specification);
+	auto framebufferCommand = engine::graphics::RenderPipeline::getCommand(id);
+	framebuffer = std::dynamic_pointer_cast<engine::graphics::FramebufferCommand>(framebufferCommand)->getPointerToFrameBuffer();
 }
-
 
 void hexen::editor::gui::FramebufferWindow::draw()
 {
@@ -38,14 +31,13 @@ void hexen::editor::gui::FramebufferWindow::draw()
 
 		if (windowSize.x != size.x || windowSize.y != size.y)
 		{
-			frameBufferObject.setSize(size);
-			frameBufferTexture->resize(size);
+			framebuffer->setSize(size);
 		}
 
 		size.x = windowSize.x;
 		size.y = windowSize.y;
 
-		auto textureId = frameBufferTexture->getID();
+		auto textureId = framebuffer->getColorAttachmentObject();
 
 		ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImGui::GetContentRegionAvail(), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::EndChild();
@@ -56,8 +48,7 @@ void hexen::editor::gui::FramebufferWindow::draw()
 
 void hexen::editor::gui::FramebufferWindow::clear()
 {
-	glClearColor(0.39f, 0.58f, 0.93f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
 }
 
 
@@ -78,7 +69,6 @@ void hexen::editor::gui::FramebufferWindow::render()
 
 void hexen::editor::gui::FramebufferWindow::bindFramebuffer()
 {
-	frameBufferObject.bind();
 	render();
 	glEnable(GL_DEPTH_TEST);
 }
@@ -88,5 +78,4 @@ void hexen::editor::gui::FramebufferWindow::unbindFramebuffer()
 {
 
 	glDisable(GL_DEPTH_TEST);
-	frameBufferObject.unbind();
 }

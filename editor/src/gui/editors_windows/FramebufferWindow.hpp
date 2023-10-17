@@ -9,6 +9,11 @@
 #include <core/Types.hpp>
 #include <core/graphics/texture/FrameBufferTexture.hpp>
 
+namespace hexen::engine::graphics
+{
+	class FrameBuffer;
+}
+
 namespace hexen::editor::gui
 {
 	/**
@@ -78,7 +83,7 @@ namespace hexen::editor::gui
         * It ensures that subsequent rendering operations are performed on the default framebuffer
         * provided by the underlying graphics library.
         *
-        * \note The behavior of this function is dependent on the underlying graphics library being used.
+        * @note The behavior of this function is dependent on the underlying graphics library being used.
         *
         * @sa edit::gui::FramebufferWindow::bindFramebuffer()
         */
@@ -106,8 +111,6 @@ namespace hexen::editor::gui
         */
 
 		void clear();
-		hexen::engine::graphics::gl::GLFrameBuffer frameBufferObject;
-		std::unique_ptr<hexen::engine::graphics::gl::FrameBufferTexture> frameBufferTexture;
 
 	protected:
 		/**
@@ -119,5 +122,7 @@ namespace hexen::editor::gui
         */
 
 		virtual void render();
+
+		std::shared_ptr<engine::graphics::FrameBuffer> framebuffer;
 	};
 }// namespace hexen::editor::gui
