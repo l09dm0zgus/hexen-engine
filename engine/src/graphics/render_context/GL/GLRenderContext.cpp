@@ -68,6 +68,7 @@ void GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severi
 hexen::engine::graphics::gl::GLRenderContext::GLRenderContext(const core::Settings &settings)
 {
 	setGLHints(settings);
+	openGlSettings = settings.getOpenGLSettings();
 }
 void hexen::engine::graphics::gl::GLRenderContext::setGLHints(const hexen::engine::core::Settings &settings)
 {
