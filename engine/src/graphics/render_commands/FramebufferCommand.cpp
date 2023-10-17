@@ -27,3 +27,7 @@ hexen::engine::core::u32 hexen::engine::graphics::FramebufferCommand::getColorAt
 {
 	return frameBuffer->getColorAttachmentObject();
 }
+std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FramebufferCommand::getPointerToFrameBuffer() const
+{
+	return frameBuffer;
+}
