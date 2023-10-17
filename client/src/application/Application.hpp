@@ -111,7 +111,7 @@ namespace hexen::client
 		engine::core::Settings settings;
 
 		std::unique_ptr<engine::systems::GameLoop> gameLoop;
-		std::unique_ptr<engine::graphics::RenderContext> renderContext;
+		std::shared_ptr<engine::graphics::RenderContext> renderContext;
 	};
 
 }// namespace hexen::engine::core

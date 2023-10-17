@@ -3,12 +3,14 @@
 //
 
 #include "Application.hpp"
-
+#include <graphics/render_context/RenderContext.hpp>
 
 hexen::editor::Application::Application()
 {
+	renderContext = hexen::engine::graphics::RenderContext::create();
 	window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
-	mainGameLoop = hexen::engine::core::memory::make_unique<EditorGameLoop>(window);
+	renderContext->attachWindow(window);
+	mainGameLoop = hexen::engine::core::memory::make_unique<EditorGameLoop>(window,renderContext);
 }
 
 void hexen::editor::Application::run()

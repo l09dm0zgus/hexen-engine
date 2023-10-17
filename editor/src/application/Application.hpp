@@ -54,6 +54,7 @@ namespace hexen::editor
 	 	*/
 
 		hexen::engine::core::Settings settings;
+		std::shared_ptr<engine::graphics::RenderContext> renderContext;
 	};
 	;
 
