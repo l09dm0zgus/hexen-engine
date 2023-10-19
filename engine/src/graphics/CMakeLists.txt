@@ -46,6 +46,7 @@ add_subdirectory(buffers)
 add_subdirectory(textures)
 add_subdirectory(shaders)
 add_subdirectory(render_commands)
+add_subdirectory(draw_calls)
 
 if(MSVC)
     target_compile_options(${RENDER_MODULE_NAME} PRIVATE /W4)
