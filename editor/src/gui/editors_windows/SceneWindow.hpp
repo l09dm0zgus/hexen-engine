@@ -39,7 +39,7 @@ namespace hexen::editor::gui
      	* from its parent class within the context of a SceneWindow.
      	*/
 
-		void render() override;
+		void renderFramebufferContent() override;
 	};
 
 }// namespace hexen::editor::gui

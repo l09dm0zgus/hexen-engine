@@ -141,21 +141,11 @@ std::shared_ptr<hexen::editor::gui::Dockspace> hexen::editor::gui::EditorGUI::ge
 	return dockspace;
 }
 
-
-void hexen::editor::gui::EditorGUI::bindFramebuffer()
+void hexen::editor::gui::EditorGUI::renderFrameBufferWindowsContents()
 {
-	auto window = dockspace->getSceneWindow();
-	if (window != nullptr)
+	auto frameBufferWindows = dockspace->getListOfFramebufferWindows();
+	for (auto& frameBufferWindow : frameBufferWindows)
 	{
-		window->bindFramebuffer();
-	}
-}
-
-void hexen::editor::gui::EditorGUI::unbindFramebuffer()
-{
-	auto window = dockspace->getSceneWindow();
-	if (window != nullptr)
-	{
-		window->unbindFramebuffer();
+		frameBufferWindow->renderFramebufferContent();
 	}
 }

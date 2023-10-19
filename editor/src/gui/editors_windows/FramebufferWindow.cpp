@@ -45,37 +45,16 @@ void hexen::editor::gui::FramebufferWindow::draw()
 	ImGui::End();
 }
 
-
-void hexen::editor::gui::FramebufferWindow::clear()
-{
-	engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
-}
-
-
 void hexen::editor::gui::FramebufferWindow::end()
 {
 }
-
 
 void hexen::editor::gui::FramebufferWindow::begin()
 {
 }
 
-void hexen::editor::gui::FramebufferWindow::render()
+void hexen::editor::gui::FramebufferWindow::renderFramebufferContent()
 {
-	clear();
+	engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
 }
 
-
-void hexen::editor::gui::FramebufferWindow::bindFramebuffer()
-{
-	render();
-	glEnable(GL_DEPTH_TEST);
-}
-
-
-void hexen::editor::gui::FramebufferWindow::unbindFramebuffer()
-{
-
-	glDisable(GL_DEPTH_TEST);
-}

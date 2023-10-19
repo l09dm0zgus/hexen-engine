@@ -128,6 +128,19 @@ namespace hexen::editor::gui
 
 		std::shared_ptr<FramebufferWindow> getSceneWindow();
 
+		/**
+ 		* @brief Gets a list of framebuffer windows.
+ 		*
+ 		* This function traverses the list of windows and dynamically casts each window
+ 		* to the type of `FramebufferWindow`. If the dynamic cast is successful, meaning
+ 		* that the window is an instance of `FramebufferWindow`, it adds the window to a
+ 		* new list. The function finally returns this new list of framebuffer windows.
+ 		*
+ 		* @return A list of shared pointers to framebuffer windows.
+ 		*/
+
+		std::vector<std::shared_ptr<FramebufferWindow>> getListOfFramebufferWindows();
+
 	private:
 		/**
         * @brief Indicates whether the window is currently attached or not.

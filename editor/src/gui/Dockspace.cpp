@@ -109,3 +109,17 @@ std::shared_ptr<hexen::editor::gui::FramebufferWindow> hexen::editor::gui::Docks
 	auto sceneWindow = getWindow("Scene");
 	return std::dynamic_pointer_cast<FramebufferWindow>(sceneWindow);
 }
+
+std::vector<std::shared_ptr<hexen::editor::gui::FramebufferWindow>> hexen::editor::gui::Dockspace::getListOfFramebufferWindows()
+{
+	std::vector<std::shared_ptr<FramebufferWindow>> frameBufferWindows;
+	for(auto &window : windows)
+	{
+		auto framebufferWindow = std::dynamic_pointer_cast<FramebufferWindow>(window);
+		if(framebufferWindow != nullptr)
+		{
+			frameBufferWindows.push_back(framebufferWindow);
+		}
+	}
+	return frameBufferWindows;
+}

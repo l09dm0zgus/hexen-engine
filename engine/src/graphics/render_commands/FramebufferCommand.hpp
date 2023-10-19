@@ -54,6 +54,13 @@ namespace hexen::engine::graphics
 
 		[[nodiscard]] core::u32 getColorAttachment() const noexcept;
 
+		/**
+ 		* @brief Returns a shared pointer to the FrameBuffer object
+ 		*
+ 		* @return std::shared_ptr<hexen::engine::graphics::FrameBuffer>
+ 		* Pointer to the FrameBuffer object.
+ 		*/
+
 		[[nodiscard]] std::shared_ptr<FrameBuffer> getPointerToFrameBuffer() const;
 	private:
 		/**

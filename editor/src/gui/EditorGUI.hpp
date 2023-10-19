@@ -136,31 +136,14 @@ namespace hexen::editor::gui
 		std::shared_ptr<Dockspace> getDockspace();
 
 		/**
-        * Binds the framebuffer for rendering in the Editor GUI.
-        *
-        * This function is responsible for binding the framebuffer before rendering
-        * any GUI elements in the EditorGUI class.
-        *
-        * @note Make sure to call this function before rendering to the framebuffer.
-        *
-        * @see unbindFramebuffer()
-        */
+ 		* @brief Renders the content of each framebuffer window.
+ 		*
+ 		* This function gets a list of all framebuffer windows from the dockspace
+ 		* and calls the render function defined in the FrameBufferWindows class.
+ 		*
+ 		*/
 
-		void bindFramebuffer();
-
-		/**
-        * @brief Unbinds the currently bound framebuffer in the EditorGUI.
-        *
-        * This function unbinds the currently bound framebuffer in the EditorGUI. After calling this function,
-        * the default framebuffer (usually the window) will be active again for rendering.
-        *
-        * Note that this function assumes that a framebuffer is already bound. If no framebuffer is currently bound,
-        * calling this function will have no effect.
-        *
-        * @see bindFramebuffer()
-        */
-
-		void unbindFramebuffer();
+		void renderFrameBufferWindowsContents();
 
 	private:
 		Style style;

@@ -28,7 +28,6 @@ namespace hexen::editor::gui
 	{
 	public:
 		/**
-        * @class FramebufferWindow
         * @brief Represents a window using a framebuffer for rendering.
         *
         * This class extends from the GUIWindow class and provides functionality
@@ -56,73 +55,24 @@ namespace hexen::editor::gui
 		void draw() override;
 
 		/**
-        * @class FramebufferWindow
         * @brief Handles the rendering and display of a framebuffer window.
         */
 
 		void end() override;
 
 		/**
-        * Binds the framebuffer associated with the GUI window.
-        *
-        * This function is responsible for binding the framebuffer associated with the
-        * GUI window. It ensures that all subsequent rendering operations will be performed
-        * on this specific framebuffer.
-        *
-        * @see FramebufferWindow
-        */
+ 		* @brief Renders the framebuffer content for the Hexen Editor GUI.
+ 		*
+ 		* This method clears the rendering pipeline with a specific color (represented as a glm vector).
+ 		* The color used is a specific shade of blue (R:0.39, G:0.58, B:0.93, A:1.0).
+ 		*
+ 		* This is done by passing an instance of engine::graphics::ClearCommand and the
+ 		* color vector to the RenderPipeline's executeCommandNow method.
+		*/
 
-
-		void bindFramebuffer();
-
-		/**
-        *
-        * @brief Unbinds the currently bound framebuffer for this FramebufferWindow.
-        *
-        * This function unbinds the currently bound framebuffer for this FramebufferWindow instance.
-        * It ensures that subsequent rendering operations are performed on the default framebuffer
-        * provided by the underlying graphics library.
-        *
-        * @note The behavior of this function is dependent on the underlying graphics library being used.
-        *
-        * @sa edit::gui::FramebufferWindow::bindFramebuffer()
-        */
-
-
-		void unbindFramebuffer();
-
-	private:
-		/**
-        * Clears the contents of the framebuffer window.
-        *
-        * This function clears the contents of the framebuffer window by filling it with
-        * a specific color or by resetting it completely.
-        *
-        * The behavior of the function is determined by the implementation of the framebuffer
-        * window class.
-        *
-        * Example usage:
-        * @code{.cpp}
-        * FramebufferWindow framebufferWindow;
-        * framebufferWindow.clear();
-        * @endcode
-        *
-        * @see FramebufferWindow
-        */
-
-		void clear();
+		virtual void renderFramebufferContent();
 
 	protected:
-		/**
-        * @class FramebufferWindow
-        * @brief This class handles the rendering of the framebuffer window.
-        *
-        * This class provides a method to render the contents of the framebuffer window.
-        * It is a member of the "edit::gui" namespace.
-        */
-
-		virtual void render();
-
 		std::shared_ptr<engine::graphics::FrameBuffer> framebuffer;
 	};
 }// namespace hexen::editor::gui

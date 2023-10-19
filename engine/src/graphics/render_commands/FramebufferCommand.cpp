@@ -12,21 +12,26 @@ hexen::engine::graphics::FramebufferCommand::FramebufferCommand(const hexen::eng
 	enableFinish = true;
 	enablePrepare = true;
 }
+
 void hexen::engine::graphics::FramebufferCommand::prepare()
 {
 	frameBuffer->bind();
 }
+
 void hexen::engine::graphics::FramebufferCommand::finish()
 {
 	frameBuffer->unbind();
 }
+
 void hexen::engine::graphics::FramebufferCommand::execute()
 {
 }
+
 hexen::engine::core::u32 hexen::engine::graphics::FramebufferCommand::getColorAttachment() const noexcept
 {
 	return frameBuffer->getColorAttachmentObject();
 }
+
 std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FramebufferCommand::getPointerToFrameBuffer() const
 {
 	return frameBuffer;
