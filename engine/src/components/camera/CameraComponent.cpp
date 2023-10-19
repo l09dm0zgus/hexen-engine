@@ -12,6 +12,9 @@
 	#include <GLES3/gl31.h>
 #endif
 #include "../../systems/InputHelper.hpp"
+#include <render_commands/RenderPipeline.hpp>
+#include <render_commands/ViewportCommand.hpp>
+
 
 void hexen::engine::components::graphics::CameraComponent::updateViewMatrix()
 {
@@ -55,9 +58,7 @@ void hexen::engine::components::graphics::CameraComponent::update(float deltaTim
 
 void hexen::engine::components::graphics::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
 {
-	//TODO:
-	//Make abstraction to changing viewport
-//	glViewport(0, 0, newWindowWidth, newWindowHeight);
+	engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ViewportCommand>(glm::ivec4(0, 0, newWindowWidth, newWindowHeight));
 	projection = glm::perspective(glm::radians(FOV), static_cast<float>(newWindowWidth) / static_cast<float>(newWindowHeight), 0.1f, 100.0f);
 }
 
