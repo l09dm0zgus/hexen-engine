@@ -23,7 +23,7 @@ void hexen::engine::graphics::ClearCommand::execute()
 		case core::Settings::RenderAPI::NO_API:
 			break;
 		case core::Settings::RenderAPI::OPENGL_API:
-			clear(color);
+			gl::clear(color);
 			break;
 		case core::Settings::RenderAPI::VULKAN_API:
 			break;

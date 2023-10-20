@@ -14,9 +14,9 @@
 #include "../../render_context/RenderContext.hpp"
 
 
-namespace hexen::engine::graphics
+namespace hexen::engine::graphics::gl
 {
-	static void clear(const glm::vec4 &clearColor)
+	HEXEN_INLINE static void clear(const glm::vec4 &clearColor)
 	{
 		if constexpr (RenderContext::enabledOpengl)
 		{

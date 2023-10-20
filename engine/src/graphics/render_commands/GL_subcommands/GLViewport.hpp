@@ -14,9 +14,9 @@
 #include "../../render_context/RenderContext.hpp"
 
 
-namespace hexen::engine::graphics
+namespace hexen::engine::graphics::gl
 {
-	static void viewport(const glm::ivec4 &viewportParams)
+	HEXEN_INLINE static void viewport(const glm::ivec4 &viewportParams)
 	{
 		if constexpr (RenderContext::enabledOpengl)
 		{

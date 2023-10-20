@@ -23,7 +23,7 @@ void hexen::engine::graphics::ViewportCommand::execute()
 		case core::Settings::RenderAPI::NO_API:
 			break;
 		case core::Settings::RenderAPI::OPENGL_API:
-			viewport(parameters);
+			gl::viewport(parameters);
 			break;
 		case core::Settings::RenderAPI::VULKAN_API:
 			break;
