@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <draw_calls/DrawCalls.hpp>
 
-hexen::editor::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData)
+hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData)
 {
 	vertexArray = engine::graphics::VertexArray::create();
 	elementsBuffer = engine::graphics::ElementsBuffer::create(renderGridData.indices,renderGridData.indicesSize);
@@ -20,22 +20,22 @@ hexen::editor::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& 
 	countOfLines = renderGridData.countOfLines;
 }
 
-void hexen::editor::graphics::DrawGridCommand::prepare()
+void hexen::editor::components::graphics::DrawGridCommand::prepare()
 {
 	vertexArray->bind();
 }
 
-void hexen::editor::graphics::DrawGridCommand::execute()
+void hexen::editor::components::graphics::DrawGridCommand::execute()
 {
 	engine::graphics::drawLines(countOfLines);
 }
 
-void hexen::editor::graphics::DrawGridCommand::finish()
+void hexen::editor::components::graphics::DrawGridCommand::finish()
 {
 	vertexArray->unbind();
 }
 
-hexen::editor::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector)
+hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector)
 {
 	vertices = const_cast<float*>(glm::value_ptr(verticesVector[0]));
 	indices = const_cast<engine::core::u32*>(glm::value_ptr(indicesVector[0]));

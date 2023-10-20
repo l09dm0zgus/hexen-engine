@@ -8,7 +8,7 @@
 #include <graphics/buffers/VertexArray.hpp>
 #include <graphics/render_commands/IRenderCommand.hpp>
 
-namespace hexen::editor::graphics
+namespace hexen::editor::components::graphics
 {
 	/**
  	* @struct RenderGridData

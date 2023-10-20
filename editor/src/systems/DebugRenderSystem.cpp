@@ -29,12 +29,15 @@ void hexen::editor::systems::DebugRenderSystem::render(float alpha)
 void hexen::editor::systems::DebugRenderSystem::addDebugGrid()
 {
 	ADD_FUNCTION_TO_PROFILING
+
 	if (debugGridComponent == nullptr)
 	{
-		debugGridComponent = hexen::engine::core::memory::make_shared<hexen::editor::components::graphics::DebugGridComponent>("shaders/BaseVertexShader.glsl", "shaders/DebugLineFragmentShader.glsl");
+		std::vector<std::string> pathsToShaders = {"shaders/BaseVertexShader.glsl" ,"shaders/DebugLineFragmentShader.glsl"};
+		debugGridComponent = hexen::engine::core::memory::make_shared<hexen::editor::components::graphics::DebugGridComponent>(pathsToShaders);
 		debugGridTransform = hexen::engine::core::memory::make_shared<hexen::engine::components::TransformComponent>(glm::vec2(0.0f));
 		debugGridTransform->updateTransformMatrix();
 	}
+
 }
 
 void hexen::editor::systems::DebugRenderSystem::updateModelMatrix(hexen::engine::components::graphics::RenderComponent *renderComponent)
@@ -46,6 +49,7 @@ void hexen::editor::systems::DebugRenderSystem::updateModelMatrix(hexen::engine:
 void hexen::editor::systems::DebugRenderSystem::updateViewAndProjectionMatrices(hexen::engine::components::graphics::RenderComponent *renderComponent)
 {
 	ADD_FUNCTION_TO_PROFILING
+
 	auto camera = hexen::engine::systems::RenderSystem::getMainCamera();
 	HEXEN_ASSERT(camera != nullptr, "Main camera is nullptr!\n");
 

@@ -6,8 +6,8 @@ if(NOT TARGET ${COMPONENTS_MODULE_NAME})
 endif (NOT TARGET ${COMPONENTS_MODULE_NAME})
 
 target_sources(${COMPONENTS_MODULE_NAME} PRIVATE camera/CameraComponent.hpp camera/CameraComponent.cpp
-        #graphics/RenderComponent.hpp
-        #graphics/RenderComponent.cpp
+        graphics/RenderComponent.hpp
+        graphics/RenderComponent.cpp
         #graphics/SpriteComponent.hpp
         #graphics/SpriteComponent.cpp
         #graphics/SpriteInstancedComponent.hpp
