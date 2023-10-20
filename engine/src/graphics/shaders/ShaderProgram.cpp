@@ -9,7 +9,7 @@
 #endif
 
 
-std::shared_ptr<hexen::engine::graphics::ShaderProgram> hexen::engine::graphics::ShaderProgram::create(std::vector<std::string> &pathsToShaders)
+std::shared_ptr<hexen::engine::graphics::ShaderProgram> hexen::engine::graphics::ShaderProgram::create(const std::vector<std::string> &pathsToShaders)
 {
 	switch (RenderContext::getRenderAPI())
 	{

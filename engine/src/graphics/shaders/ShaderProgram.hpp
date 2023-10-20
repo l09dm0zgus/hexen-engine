@@ -113,7 +113,7 @@ namespace hexen::engine::graphics
      	* @return A shared pointer to a ShaderProgram instance.
      	*/
 
-		static std::shared_ptr<ShaderProgram> create(std::vector<std::string> &pathsToShaders);
+		static std::shared_ptr<ShaderProgram> create(const std::vector<std::string> &pathsToShaders);
 	};
 }
 

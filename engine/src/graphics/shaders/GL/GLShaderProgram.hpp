@@ -29,7 +29,7 @@ namespace hexen::engine::graphics::gl
  		* @param shadersFiles A reference to a std::vector containing string paths to the shader files.
  		*/
 
-		explicit GLShaderProgram(std::vector<std::string> &shadersFiles);
+		explicit GLShaderProgram(const std::vector<std::string> &shadersFiles);
 
 		/**
  		* @class GLShaderProgram

@@ -37,17 +37,17 @@ namespace hexen::engine::graphics::gl
 }
 
 
-hexen::engine::graphics::gl::GLShaderProgram::GLShaderProgram(std::vector<std::string> &shadersFiles)
+hexen::engine::graphics::gl::GLShaderProgram::GLShaderProgram(const std::vector<std::string> &shadersFiles)
 {
 	for(const auto& pathToShader : shadersFiles)
 	{
 		ShaderFile shaderFile;
 		shaderFile.read(pathToShader);
 		shadersData.push_back(shaderFile);
-
-		compileShaders();
-		linkShaders();
 	}
+
+	compileShaders();
+	linkShaders();
 }
 
 HEXEN_INLINE void hexen::engine::graphics::gl::GLShaderProgram::showCompilerLog(core::u32 shader) const noexcept
