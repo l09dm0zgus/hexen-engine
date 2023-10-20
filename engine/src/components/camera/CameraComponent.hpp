@@ -52,6 +52,7 @@ namespace hexen::engine::components::graphics
 		template<class T>
 		void setPosition(T &&newPosition) noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			position = std::forward<T>(newPosition);
 			updateViewMatrix();
 		}

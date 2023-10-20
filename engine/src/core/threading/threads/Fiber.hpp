@@ -44,6 +44,7 @@ namespace hexen::engine::core::threading
 
 		Fiber(Fiber &&other) noexcept : Fiber()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			swap(*this, other);
 		}
 
@@ -54,6 +55,7 @@ namespace hexen::engine::core::threading
 
 		Fiber &operator=(Fiber &&other) noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			swap(*this, other);
 
 			return *this;
@@ -79,6 +81,7 @@ namespace hexen::engine::core::threading
 
 		void switchToFiber(Fiber *const fiber)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			boost_context::jump_fcontext(&context, fiber->context, fiber->arg);
 		}
 
@@ -90,6 +93,7 @@ namespace hexen::engine::core::threading
 
 		void reset(fiberStartRoutine const startRoutine, vptr const arg)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			context = boost_context::make_fcontext(static_cast<char *>(stack) + stackSize, stackSize, startRoutine);
 			this->arg = arg;
 		}

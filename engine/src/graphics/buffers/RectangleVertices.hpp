@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "Types.hpp"
 namespace hexen::engine::graphics
 {
 	enum RectangleDataSizes

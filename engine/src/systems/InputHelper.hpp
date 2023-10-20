@@ -46,6 +46,7 @@ namespace hexen::engine::input
 		template<class T>
 		static void bindAction(const std::string &name,T *object,void (T::*method)() , bool enableForMultiplePLayers = false)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto function = std::bind(method,object);
 			getInputSystem()->bindAction(name,function);
 		}
@@ -67,6 +68,7 @@ namespace hexen::engine::input
 		template<class T>
 		static void bindAxis(const std::string &name,T *object,void (T::*method)(float) , bool enableForMultiplePLayers = false)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto function = std::bind(method, object,std::placeholders::_1);
 			getInputSystem()->bindAxis(name,function);
 		}

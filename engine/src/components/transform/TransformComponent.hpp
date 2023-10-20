@@ -294,6 +294,7 @@ namespace hexen::engine::components
 		template<class T>
 		void updateTransformMatrix(T &&parentTransform)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			updateTransformMatrix();
 			transformMatrix = transformMatrix * std::forward<T>(parentTransform);
 		}

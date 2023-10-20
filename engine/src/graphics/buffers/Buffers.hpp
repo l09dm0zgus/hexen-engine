@@ -5,6 +5,7 @@
 #pragma once
 #include <memory_pool/AllocatedObject.hpp>
 #include <glm/vec2.hpp>
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics
 {
@@ -130,6 +131,7 @@ namespace hexen::engine::graphics
 
 		[[nodiscard]] HEXEN_INLINE std::vector<BufferElement> &getElements()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return elements;
 		}
 
@@ -153,6 +155,7 @@ namespace hexen::engine::graphics
 
 		std::vector<BufferElement>::iterator begin() noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return elements.begin();
 		}
 
@@ -163,6 +166,7 @@ namespace hexen::engine::graphics
 
 		std::vector<BufferElement>::iterator end() noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return elements.end();
 		}
 
@@ -173,6 +177,7 @@ namespace hexen::engine::graphics
 
 		[[nodiscard]] std::vector<BufferElement>::const_iterator begin() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return elements.cbegin();
 		}
 
@@ -184,6 +189,7 @@ namespace hexen::engine::graphics
 
 		std::vector<BufferElement>::const_iterator end() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return elements.cend();
 		}
 
@@ -195,6 +201,7 @@ namespace hexen::engine::graphics
 
 		[[nodiscard]] core::u32 getStride() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return stride;
 		}
 

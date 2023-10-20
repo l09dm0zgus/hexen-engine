@@ -9,6 +9,7 @@ std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> hexen::engine:
 
 hexen::engine::core::input::Gamepad::Gamepad(hexen::engine::core::i32 index)
 {
+	HEXEN_ADD_TO_PROFILE();
 	controller = SDL_OpenGamepad(index);
 	if (controller == nullptr)
 	{
@@ -24,6 +25,7 @@ hexen::engine::core::input::Gamepad::Gamepad(hexen::engine::core::i32 index)
 
 bool hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
 {
+	HEXEN_ADD_TO_PROFILE();
 	leftAxisY = 0;
 	leftAxisX = 0;
 	rightAxisX = 0;
@@ -68,42 +70,50 @@ bool hexen::engine::core::input::Gamepad::processInput(const SDL_Event &event)
 
 bool hexen::engine::core::input::Gamepad::isButtonPressed(hexen::engine::core::input::Gamepad::Button button) const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return static_cast<u32>(button) == pressedButton;
 }
 
 
 bool hexen::engine::core::input::Gamepad::isButtonReleased(hexen::engine::core::input::Gamepad::Button button) const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return static_cast<u32>(button) == releasedButton;
 }
 
 std::string hexen::engine::core::input::Gamepad::getName() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return name;
 }
 
 float hexen::engine::core::input::Gamepad::getLeftThumbstickX() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return leftAxisX;
 }
 
 float hexen::engine::core::input::Gamepad::getRightThumbstickX() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return rightAxisX;
 }
 
 float hexen::engine::core::input::Gamepad::getLeftThumbstickY() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return leftAxisY;
 }
 
 float hexen::engine::core::input::Gamepad::getRightThumbstickY() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return rightAxisY;
 }
 
 std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> hexen::engine::core::input::Gamepad::getAllAvailableGamepads()
 {
+	HEXEN_ADD_TO_PROFILE();
 	i32 numbersOfGamepads;
 	auto joysticksIDs = SDL_GetGamepads(&numbersOfGamepads);
 	std::cout << "Number of Gamepads : " << numbersOfGamepads << std::endl;
@@ -119,21 +129,25 @@ std::vector<std::shared_ptr<hexen::engine::core::input::Gamepad>> hexen::engine:
 
 hexen::engine::core::input::Gamepad::~Gamepad()
 {
+	HEXEN_ADD_TO_PROFILE();
 	SDL_CloseGamepad(controller);
 }
 
 SDL_JoystickID hexen::engine::core::input::Gamepad::getID() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return gamepadID;
 }
 
 void hexen::engine::core::input::Gamepad::addNewGamepad(SDL_JoystickID gamepadID)
 {
+	HEXEN_ADD_TO_PROFILE();
 	gamepads.emplace_back(std::make_unique<Gamepad>(gamepadID));
 }
 
 void hexen::engine::core::input::Gamepad::removeNewGamepad(SDL_JoystickID gamepadID)
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto it = std::find_if(gamepads.begin(), gamepads.end(), [gamepadID = gamepadID](const std::shared_ptr<Gamepad> &gamepad)
 			{ return gamepadID == gamepad->getID(); });
 

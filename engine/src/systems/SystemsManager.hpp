@@ -5,6 +5,7 @@
 #include "../core/memory_pool/AllocatedObject.hpp"
 #include "IGamePlaySystem.hpp"
 #include "IRenderSystem.hpp"
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::core
 {
@@ -140,6 +141,7 @@ namespace hexen::engine::systems
 		template<class T, typename... Args>
 		HEXEN_INLINE static void addGamePlaySystem(Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (currentSystemManager != nullptr)
 			{
 				currentSystemManager->gameplaySystems.emplace_back(core::memory::make_unique<T>(args...));
@@ -162,6 +164,7 @@ namespace hexen::engine::systems
 		template<class T, typename... Args>
 		HEXEN_INLINE static void addRenderSystem(Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (currentSystemManager != nullptr)
 			{
 				currentSystemManager->renderSystems.emplace_back(core::memory::make_unique<T>(args...));
@@ -177,12 +180,13 @@ namespace hexen::engine::systems
          */
 
 		HEXEN_INLINE static void setCurrentSystemManager(SystemsManager *systemManager)
-		{
+		{	HEXEN_ADD_TO_PROFILE();
 			currentSystemManager = systemManager;
 		}
 
 		HEXEN_INLINE static SystemsManager *getCurrentSystemManager()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return currentSystemManager;
 		}
 

@@ -13,6 +13,7 @@
 
 std::shared_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics::ElementsBuffer::create(hexen::engine::core::u32 *indices, hexen::engine::core::u32 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:
@@ -34,6 +35,7 @@ std::shared_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics
 
 std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::VertexBuffer::create(float *vertices, hexen::engine::core::u32 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:
@@ -56,6 +58,7 @@ std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::
 
 std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::VertexBuffer::create(hexen::engine::core::u32 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:
@@ -78,6 +81,7 @@ std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::
 
 std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::FrameBuffer::create(const FrameBufferSpecification &specification)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:
@@ -100,10 +104,12 @@ std::shared_ptr<hexen::engine::graphics::FrameBuffer> hexen::engine::graphics::F
 
 hexen::engine::graphics::BufferElement::BufferElement(ShaderDataType newType, const std::string &newName, bool isNormalized) : name(newName), type(newType), size(getShaderDataTypeSize(newType)), offset(0), bIsNormalized(isNormalized)
 {
+	HEXEN_ADD_TO_PROFILE();
 }
 
 hexen::engine::core::u32 hexen::engine::graphics::BufferElement::getComponentCount() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (type)
 	{
 		case ShaderDataType::FLOAT:
@@ -140,6 +146,7 @@ hexen::engine::core::u32 hexen::engine::graphics::BufferElement::getComponentCou
 
 hexen::engine::core::u32 hexen::engine::graphics::getShaderDataTypeSize(hexen::engine::graphics::ShaderDataType type)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (type)
 	{
 		case ShaderDataType::FLOAT:
@@ -176,6 +183,7 @@ hexen::engine::core::u32 hexen::engine::graphics::getShaderDataTypeSize(hexen::e
 
 void hexen::engine::graphics::BufferLayout::calculateStridesAndOffsets()
 {
+	HEXEN_ADD_TO_PROFILE();
 	core::u32 offset = 0;
 	stride = 0;
 
@@ -189,11 +197,13 @@ void hexen::engine::graphics::BufferLayout::calculateStridesAndOffsets()
 
 hexen::engine::graphics::BufferLayout::BufferLayout(const std::initializer_list<BufferElement> &newElements) : elements(newElements)
 {
+	HEXEN_ADD_TO_PROFILE();
 	calculateStridesAndOffsets();
 }
 
 std::shared_ptr<hexen::engine::graphics::UniformBuffer> hexen::engine::graphics::UniformBuffer::create(hexen::engine::core::u32 size, hexen::engine::core::u32 binding)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:

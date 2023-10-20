@@ -8,11 +8,13 @@
 
 void hexen::engine::core::Window::close()
 {
+	HEXEN_ADD_TO_PROFILE();
 	bIsOpen = false;
 }
 
 void hexen::engine::core::Window::swapBuffers()
 {
+	HEXEN_ADD_TO_PROFILE();
 	SDL_GL_SwapWindow(window);
 }
 
@@ -26,6 +28,7 @@ void hexen::engine::core::Window::clear()
 
 hexen::engine::core::Window::~Window()
 {
+	HEXEN_ADD_TO_PROFILE();
 	SDL_Log("Main Window has been destroyed.\n");
 	SDL_DestroySurface(icon);
 	SDL_DestroyWindow(window);
@@ -36,16 +39,20 @@ hexen::engine::core::Window::~Window()
 
 SDL_DisplayMode hexen::engine::core::Window::getDisplayMode() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return displayMode;
 }
 
 SDL_Window *hexen::engine::core::Window::getSDLWindow() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return window;
 }
 
 hexen::engine::core::Window::Window(const Settings &settings) : settings(settings)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	auto windowSettings = settings.getWindowSettings();
 
 	title = windowSettings.name;
@@ -74,33 +81,42 @@ hexen::engine::core::Window::Window(const Settings &settings) : settings(setting
 
 hexen::engine::core::i32 hexen::engine::core::Window::pollEvents(SDL_Event *sdlEvent)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	return SDL_PollEvent(sdlEvent);
 }
 
 bool hexen::engine::core::Window::isOpen() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	return bIsOpen;
 }
 
 void hexen::engine::core::Window::setIcon(const std::string &pathToIcon)
 {
+	HEXEN_ADD_TO_PROFILE();
 	icon = IMG_Load(pathToIcon.c_str());
-
 	SDL_SetWindowIcon(window, icon);
 }
 
 void hexen::engine::core::Window::resize()
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	SDL_GetWindowSize(window, &width, &height);
 }
 
 glm::vec2 hexen::engine::core::Window::getSize()
 {
+	HEXEN_ADD_TO_PROFILE();
 	SDL_GetWindowSize(window, &width, &height);
 	return {width, height};
 }
 void hexen::engine::core::Window::createSDLWindow()
 {
+	HEXEN_ADD_TO_PROFILE();
+
 #ifndef __ANDROID__
 
 	window = SDL_CreateWindow(title.c_str(), width, height, rendererSDLFlag | SDL_WINDOW_RESIZABLE);

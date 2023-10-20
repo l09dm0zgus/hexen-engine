@@ -40,6 +40,7 @@
 #else
 	#define HEXEN_INLINE inline
 #endif
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::core
 {
@@ -132,6 +133,7 @@ namespace hexen::engine::core
 
 	HEXEN_INLINE core::u32 crc32(const core::u8 *data, core::u32 lenght, core::u32 previousCRC = 0)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		core::u32 crc = ~previousCRC;
 		while (lenght-- != 0)
 		{
@@ -155,6 +157,7 @@ namespace hexen::engine::core
 
 	HEXEN_INLINE core::u32 hashString(const std::string &s)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		core::u32 hash {0};
 		for (core::u32 i {0}; i < HASHING_ROUNDS; i++)
 		{
@@ -184,6 +187,7 @@ namespace hexen::engine::core
 
 		explicit BaseDelegate(Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			parameters = std::make_tuple(args...);
 		}
 
@@ -241,6 +245,7 @@ namespace hexen::engine::core
 		template<typename std::size_t... I>
 		void process(std::index_sequence<I...> indexSequence)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			(callableObject->*callableMethod)(std::get<I>(this->parameters)...);
 		}
 
@@ -255,6 +260,7 @@ namespace hexen::engine::core
 
 		explicit MethodDelegate(T *object, Ret (T::*method)(Args...), Args... args) : BaseDelegate<Args...>(args...)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			callableMethod = method;
 			callableObject = object;
 		}
@@ -265,6 +271,7 @@ namespace hexen::engine::core
 
 		void execute() override
 		{
+			HEXEN_ADD_TO_PROFILE();
 			process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
 		}
 
@@ -275,6 +282,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] std::size_t getId() const override
 		{
+			HEXEN_ADD_TO_PROFILE();
 			std::any object = callableMethod;
 			return object.type().hash_code();
 		}
@@ -305,6 +313,7 @@ namespace hexen::engine::core
 
 		explicit FunctionDelegate(Ret (*function)(Args...), Args... args) : BaseDelegate<Args...>(args...)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			callableFunction = function;
 		}
 
@@ -314,6 +323,7 @@ namespace hexen::engine::core
 
 		void execute() override
 		{
+			HEXEN_ADD_TO_PROFILE();
 			std::apply(callableFunction, this->parameters);
 		}
 
@@ -326,6 +336,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] std::size_t getId() const override
 		{
+			HEXEN_ADD_TO_PROFILE();
 			std::any object = callableFunction;
 			return object.type().hash_code();
 		}
@@ -355,6 +366,7 @@ namespace hexen::engine::core
 		template<typename std::size_t... I>
 		void process(std::index_sequence<I...> indexSequence)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			functor->operator()(std::get<I>(this->parameters)...);
 		}
 
@@ -368,6 +380,7 @@ namespace hexen::engine::core
 
 		explicit FunctorDelegate(T *newFunctor, Args... args) : BaseDelegate<Args...>(args...)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			functor = newFunctor;
 		}
 
@@ -377,6 +390,7 @@ namespace hexen::engine::core
 
 		void execute() override
 		{
+			HEXEN_ADD_TO_PROFILE();
 			process(std::make_index_sequence<std::tuple_size<decltype(this->parameters)>::value>());
 		}
 
@@ -389,6 +403,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] std::size_t getId() const override
 		{
+			HEXEN_ADD_TO_PROFILE();
 			std::any object = functor;
 			return object.type().hash_code();
 		}
@@ -405,6 +420,17 @@ namespace hexen::engine::core
  	* @tparam Hash The type of the function object that hashes the Key.
  	* @tparam Equal The type of the function object that compares two keys for equality.
  	*/
+
+	//
+	//
+	// Created by Arpad Goretity (H2CO3)
+	// on 02/06/2015
+	//
+	// Licensed under the 2-clause BSD License
+	// some modifications by cx9p3
+	// taken from https://github.com/H2CO3/hash_table/blob/master/hash_table.hh
+	//
+
 
 	template<typename Key, typename Value, typename Hash = std::hash<Key>, typename Equal = std::equal_to<Key>>
 	class HashTable
@@ -473,6 +499,7 @@ namespace hexen::engine::core
 
 			Slot(Slot &&slot) noexcept : keyValue(std::move(slot.keyValue)), isUsed(slot.isUsed)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				slot.isUsed = false;
 			}
 
@@ -485,6 +512,7 @@ namespace hexen::engine::core
 
 			friend void swap(Slot &lhs, Slot &rhs) noexcept
 			{
+				HEXEN_ADD_TO_PROFILE();
 				using std::swap;
 				swap(lhs.keyValue, rhs.keyValue);
 				swap(lhs.isUsed, rhs.isUsed);
@@ -499,6 +527,8 @@ namespace hexen::engine::core
 
 			Slot &operator=(Slot slot)
 			{
+				HEXEN_ADD_TO_PROFILE();
+
 				if (&slot == this)
 				{
 					return *this;
@@ -518,6 +548,8 @@ namespace hexen::engine::core
 			template<class T>
 			bool equals(T &&key) const
 			{
+				HEXEN_ADD_TO_PROFILE();
+
 				assert(isUsed);
 				return Equal {}(keyValue.key, std::forward<T>(key));
 			}
@@ -544,6 +576,7 @@ namespace hexen::engine::core
 		template<class T>
 		u32 keyIndex(T &&key) const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return Hash {}(std::forward<T>(key)) & mask();
 		}
 
@@ -555,6 +588,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] u32 mask() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			HEXEN_ASSERT(slots.size() && !(slots.size() & (slots.size() - 1)), "table size must be a power of two");
 			return slots.size() - 1;
 		}
@@ -566,6 +600,8 @@ namespace hexen::engine::core
 
 		[[nodiscard]] bool isShouldRehash() const
 		{
+			HEXEN_ADD_TO_PROFILE();
+
 			// keep load factor below 0.75
 			// this ratio is chosen carefully so that it can be optimized well:
 			// it is equivalent with ((size << 1) + size) >> 2.
@@ -581,6 +617,8 @@ namespace hexen::engine::core
 		template<class T>
 		const Slot *getSlot(T &&key) const
 		{
+			HEXEN_ADD_TO_PROFILE();
+
 			if (slots.empty())
 			{
 				return nullptr;
@@ -618,6 +656,8 @@ namespace hexen::engine::core
 		template<class T>
 		Slot *getSlot(T &&key)
 		{
+			HEXEN_ADD_TO_PROFILE();
+
 			return const_cast<Slot *>(cthis()->getSlot(std::forward<T>(key)));
 		}
 
@@ -632,6 +672,8 @@ namespace hexen::engine::core
 		template<class T, class V>
 		KeyValue *insertNonexistentNoRehash(T &&key, V &&value)
 		{
+			HEXEN_ADD_TO_PROFILE();
+
 			assert(isShouldRehash() == false);
 			assert(size() < slots.size());
 			assert(cthis()->getSlot(std::forward<T>(key)) == nullptr);
@@ -667,6 +709,8 @@ namespace hexen::engine::core
 
 		void rehash()
 		{
+			HEXEN_ADD_TO_PROFILE();
+
 			const u32 newSize = slots.empty() ? 8 : slots.size() * 2;
 
 			auto oldSlots = std::move(slots);
@@ -706,6 +750,7 @@ namespace hexen::engine::core
 
 		explicit HashTable(u32 capacity) noexcept : HashTable()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			// Make sure the real capacity is a power of two >= 8.
 			// We should also keep in mind that the number of elements
 			// is at most 3/4 of the number of slots!
@@ -735,6 +780,7 @@ namespace hexen::engine::core
 
 		HashTable(HashTable &&hashTable) noexcept : slots {std::move(hashTable.slots)}, count {hashTable.count}, maxHashOffset {hashTable.maxHashOffset}
 		{
+			HEXEN_ADD_TO_PROFILE();
 			hashTable.clear();
 		}
 
@@ -746,6 +792,8 @@ namespace hexen::engine::core
 
 		HashTable(std::initializer_list<KeyValue> elements) : HashTable(elements.size())
 		{
+			HEXEN_ADD_TO_PROFILE();
+
 			for (auto &element : elements)
 			{
 				set(element.key, element.value);
@@ -760,6 +808,7 @@ namespace hexen::engine::core
 
 		friend void swap(HashTable &lhs, HashTable &rhs) noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			using std::swap;
 			swap(lhs.slots, rhs.slots);
 			swap(lhs.count, rhs.count);
@@ -774,6 +823,7 @@ namespace hexen::engine::core
 
 		HashTable &operator=(HashTable hashTable)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (&hashTable == this)
 			{
 				return *this;
@@ -789,6 +839,7 @@ namespace hexen::engine::core
 
 		void clear() noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			slots.clear();
 			count = 0;
 			maxHashOffset = 0;
@@ -802,6 +853,7 @@ namespace hexen::engine::core
 
 		const Value *get(const Key &key) const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (const Slot *slot = getSlot(key))
 			{
 				return &slot->keyValue.value;
@@ -818,6 +870,7 @@ namespace hexen::engine::core
 
 		Value *get(const Key &key)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (Slot *slot = getSlot(key))
 			{
 				return &slot->keyValue.value;
@@ -835,6 +888,7 @@ namespace hexen::engine::core
 
 		Value *set(const Key &key, Value value)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			// if the key is already in the table, just replace it and move on
 			if (Value *candidate = get(key))
 			{
@@ -862,6 +916,7 @@ namespace hexen::engine::core
 
 		Value *set(Key &&key, Value value)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			// if the key is already in the table, just replace it and move on
 			if (Value *candidate = get(key))
 			{
@@ -887,6 +942,7 @@ namespace hexen::engine::core
 
 		void remove(const Key &key)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (Slot *slot = getSlot(key))
 			{
 				*slot = {};
@@ -902,6 +958,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] u32 size() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return count;
 		}
 
@@ -912,6 +969,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] bool empty() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return size() == 0;
 		};
 
@@ -922,6 +980,7 @@ namespace hexen::engine::core
 
 		[[nodiscard]] double loadFactor() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return double(size() / slots.size());
 		}
 
@@ -933,6 +992,7 @@ namespace hexen::engine::core
 
 		Value &operator[](const Key &key)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (Value *value = get(key))
 			{
 				return *value;
@@ -948,6 +1008,7 @@ namespace hexen::engine::core
 
 		Value &operator[](Key &&key)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (Value *value = get(key))
 			{
 				return *value;
@@ -963,6 +1024,7 @@ namespace hexen::engine::core
 
 		const Value &operator[](const Key &key) const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (const Value *value = get(key))
 			{
 				return *value;
@@ -1014,6 +1076,7 @@ namespace hexen::engine::core
 
 			const KeyValue *operator->() const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				HEXEN_ASSERT(slotIndex < owner->slots.size(), "cannot dereference end iterator");
 				return &owner->slots[slotIndex].keyValue;
 			}
@@ -1024,6 +1087,7 @@ namespace hexen::engine::core
 
 			const KeyValue &operator*() const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return *operator->();
 			}
 
@@ -1034,6 +1098,7 @@ namespace hexen::engine::core
 
 			ConstIterator &operator++()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				HEXEN_ASSERT(slotIndex < owner->slots.size(), "cannot increment end iterator");
 				do
 				{
@@ -1049,6 +1114,7 @@ namespace hexen::engine::core
 
 			ConstIterator operator++(core::i32)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				auto previous(*this);
 				++*this;
 				return previous;
@@ -1060,6 +1126,7 @@ namespace hexen::engine::core
 
 			bool operator==(const ConstIterator &constIterator) const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				HEXEN_ASSERT(owner == constIterator.owner, "different iterators owners!");
 				return owner == constIterator.owner && slotIndex == constIterator.slotIndex;
 			}
@@ -1070,6 +1137,7 @@ namespace hexen::engine::core
 
 			bool operator!=(const ConstIterator &constIterator) const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return !operator==(constIterator);
 			}
 		};
@@ -1115,6 +1183,7 @@ namespace hexen::engine::core
 
 			KeyValue &operator*() const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return *operator->();
 			}
 
@@ -1125,6 +1194,7 @@ namespace hexen::engine::core
 
 			KeyValue *operator->() const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return const_cast<KeyValue *>(static_cast<const ConstIterator *>(this)->operator->());
 			}
 
@@ -1135,6 +1205,7 @@ namespace hexen::engine::core
 
 			Iterator &operator++()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				HEXEN_ASSERT(this->slotIndex < this->owner->slots.size(), "cannot increment end iterator");
 				do
 				{
@@ -1151,6 +1222,7 @@ namespace hexen::engine::core
 
 			Iterator operator++(core::i32)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				auto previous(*this);
 				++*this;
 				return previous;
@@ -1165,6 +1237,7 @@ namespace hexen::engine::core
 
 		ConstIterator begin() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto iterator = ConstIterator(this, 0);
 			while (iterator.slotIndex < slots.size() && !slots[iterator.slotIndex].isUsed)
 			{
@@ -1181,6 +1254,7 @@ namespace hexen::engine::core
 
 		ConstIterator end() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return ConstIterator(this, slots.size());
 		}
 
@@ -1192,6 +1266,7 @@ namespace hexen::engine::core
 
 		Iterator begin()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return Iterator(cthis()->begin());
 		}
 
@@ -1203,6 +1278,7 @@ namespace hexen::engine::core
 
 		Iterator end()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return Iterator(cthis()->end());
 		}
 
@@ -1215,6 +1291,7 @@ namespace hexen::engine::core
 
 		ConstIterator cbegin() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return begin();
 		}
 
@@ -1227,6 +1304,7 @@ namespace hexen::engine::core
 
 		ConstIterator cend() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return end();
 		}
 
@@ -1241,6 +1319,7 @@ namespace hexen::engine::core
 
 		ConstIterator findConst(const Key &key) const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (const Slot *slot = getSlot(key))
 			{
 				return ConstIterator(this, slot - slots.data());
@@ -1258,6 +1337,7 @@ namespace hexen::engine::core
 
 		Iterator find(const Key &key)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return Iterator(cthis()->findConst(key));
 		}
 
@@ -1269,6 +1349,7 @@ namespace hexen::engine::core
 
 		void erase(const ConstIterator &it)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			HEXEN_ASSERT(it.owner == this, "cannot erase an element of another instance");
 			remove(it->key);
 		}

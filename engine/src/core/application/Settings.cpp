@@ -8,6 +8,7 @@
 
 hexen::engine::core::Settings::Settings()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (!std::filesystem::exists(pathToSettings + settingsFileName))
 	{
 		std::filesystem::create_directory(core::HOME_DIRECTORY / std::filesystem::path(pathToSettings));
@@ -26,6 +27,7 @@ hexen::engine::core::Settings::Settings()
 
 void hexen::engine::core::Settings::setRenderAPI(hexen::engine::core::Settings::RenderAPI renderAPI)
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::ofstream settingsFile(pathToSettings + settingsFileName);
 	settingsJson["settings"]["render_api"] = renderAPI;
 	settingsFile << settingsJson.dump(2);
@@ -33,11 +35,13 @@ void hexen::engine::core::Settings::setRenderAPI(hexen::engine::core::Settings::
 
 hexen::engine::core::Settings::RenderAPI hexen::engine::core::Settings::getRenderAPI() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return settingsJson["settings"]["render_api"];
 }
 
 void hexen::engine::core::Settings::setWindowSettings(const hexen::engine::core::Settings::WindowSettings &windowSettings)
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::ofstream settingsFile(pathToSettings + settingsFileName);
 
 	settingsJson["settings"]["window"]["height"] = windowSettings.size.y;
@@ -50,6 +54,7 @@ void hexen::engine::core::Settings::setWindowSettings(const hexen::engine::core:
 
 hexen::engine::core::Settings::WindowSettings hexen::engine::core::Settings::getWindowSettings() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	WindowSettings windowSettings {};
 
 	windowSettings.size.y = settingsJson["settings"]["window"]["height"];
@@ -62,6 +67,7 @@ hexen::engine::core::Settings::WindowSettings hexen::engine::core::Settings::get
 
 void hexen::engine::core::Settings::setOpenGLSettings(const core::Settings::OpenGLSettings &openGlSettings)
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::ofstream settingsFile(pathToSettings + settingsFileName);
 
 	settingsJson["settings"]["opengl"]["major"] = openGlSettings.majorVersion;
@@ -73,6 +79,7 @@ void hexen::engine::core::Settings::setOpenGLSettings(const core::Settings::Open
 
 hexen::engine::core::Settings::OpenGLSettings hexen::engine::core::Settings::getOpenGLSettings() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	OpenGLSettings openGlSettings {};
 
 
@@ -85,6 +92,7 @@ hexen::engine::core::Settings::OpenGLSettings hexen::engine::core::Settings::get
 
 void hexen::engine::core::Settings::setPathToIcon(const std::string &pathToIcon)
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::ofstream settingsFile(pathToSettings + settingsFileName);
 
 	settingsJson["settings"]["path_to_icon"] = pathToIcon;
@@ -94,5 +102,6 @@ void hexen::engine::core::Settings::setPathToIcon(const std::string &pathToIcon)
 
 std::string hexen::engine::core::Settings::getPathToIcon() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return settingsJson["settings"]["path_to_icon"];
 }

@@ -12,6 +12,7 @@
 
 void hexen::engine::systems::GameLoop::start()
 {
+	HEXEN_ADD_TO_PROFILE();
 	systems::SystemsManager::addRenderSystem<systems::RenderSystem>(100);
 	systemManager->start();
 
@@ -19,6 +20,7 @@ void hexen::engine::systems::GameLoop::start()
 
 void hexen::engine::systems::GameLoop::loop()
 {
+	HEXEN_ADD_TO_PROFILE();
 	initializeClock();
 
 	while (window->isOpen())
@@ -42,18 +44,21 @@ void hexen::engine::systems::GameLoop::loop()
 		graphics::RenderPipeline::finishCommands();
 		window->swapBuffers();
 		systems::TaskSystem::waitForCounter();
+		HEXEN_END_PROFILE_FRAME();
 	}
 }
 
 
 void hexen::engine::systems::GameLoop::initializeClock()
 {
+	HEXEN_ADD_TO_PROFILE();
 	framesStart = std::chrono::steady_clock::now();
 }
 
 
 void hexen::engine::systems::GameLoop::setFrameStart()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto currentTime = std::chrono::steady_clock::now();
 
 	accumulator += (currentTime - framesStart).count();
@@ -64,6 +69,7 @@ void hexen::engine::systems::GameLoop::setFrameStart()
 
 void hexen::engine::systems::GameLoop::setAccumulator()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (accumulator > msPerUpdate)
 	{
 		accumulator = msPerUpdate;
@@ -72,11 +78,13 @@ void hexen::engine::systems::GameLoop::setAccumulator()
 
 double hexen::engine::systems::GameLoop::getAlpha()
 {
+	HEXEN_ADD_TO_PROFILE();
 	return accumulator / deltaTime;
 }
 
 hexen::engine::systems::GameLoop::GameLoop(const std::shared_ptr<core::Window> &newWindow)
 {
+	HEXEN_ADD_TO_PROFILE();
 	//initialize thread and fiber pool
 	systems::TaskSystem::initialize();
 
@@ -92,5 +100,6 @@ hexen::engine::systems::GameLoop::GameLoop(const std::shared_ptr<core::Window> &
 
 hexen::engine::systems::GameLoop::~GameLoop()
 {
+	HEXEN_ADD_TO_PROFILE();
 	systems::SystemsManager::setCurrentSystemManager(nullptr);
 }

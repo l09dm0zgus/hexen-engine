@@ -56,6 +56,7 @@ namespace hexen::engine::components
 		template<class T>
 		void setOwnerUUID(T &&newOwnerUUID) noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			ownerUUID = std::forward<T>(newOwnerUUID);
 		}
 
@@ -67,6 +68,7 @@ namespace hexen::engine::components
 
 		[[nodiscard]] std::string getOwnerUUID() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return ownerUUID;
 		}
 
@@ -79,6 +81,7 @@ namespace hexen::engine::components
 		template<class T>
 		void setName(T &&newName) noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			name = std::forward<T>(newName);
 		}
 
@@ -90,6 +93,7 @@ namespace hexen::engine::components
 
 		[[nodiscard]] std::string getName() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return name;
 		}
 

@@ -47,6 +47,7 @@ namespace hexen::engine::core::threading
 
 		u32 load(std::memory_order const memoryOrder = std::memory_order_seq_cst)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			auto result = value.load(memoryOrder);
@@ -63,6 +64,7 @@ namespace hexen::engine::core::threading
 
 		void store(u32 const x, std::memory_order const memoryOrder = std::memory_order_seq_cst)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			value.store(x, memoryOrder);
@@ -80,6 +82,7 @@ namespace hexen::engine::core::threading
 
 		u32 fetchAdd(u32 const x, std::memory_order const memoryOrder = std::memory_order_seq_cst)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			const auto previous = value.fetch_add(x, memoryOrder);
@@ -98,6 +101,7 @@ namespace hexen::engine::core::threading
 
 		u32 fetchSub(u32 const x, std::memory_order const memoryOrder = std::memory_order_seq_cst)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			const auto previous = value.fetch_sub(x, memoryOrder);
@@ -117,6 +121,7 @@ namespace hexen::engine::core::threading
 
 		bool compareExchange(u32 expectedValue, u32 const newValue, std::memory_order const memoryOrder = std::memory_order_seq_cst)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			auto const success = value.compare_exchange_strong(expectedValue, newValue, memoryOrder);
@@ -199,6 +204,7 @@ namespace hexen::engine::core::threading
 
 		bool clear(std::memory_order const memoryOrder = std::memory_order_seq_cst)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			const auto success = value.exchange(0U, memoryOrder) == 1;

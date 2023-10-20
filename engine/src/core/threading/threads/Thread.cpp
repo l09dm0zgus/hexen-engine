@@ -22,6 +22,7 @@ namespace hexen::engine::core::threading::thread
 
 	static void setThreadName(HANDLE handle, const char *threadName)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		const int bufferLenght = 128;
 		WCHAR bufWide[bufferLenght];
 
@@ -53,6 +54,7 @@ namespace hexen::engine::core::threading::thread
 
 	bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		returnThread->Handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned) stackSize, startRoutine, arg, 0u, nullptr));
 		setThreadName(returnThread->Handle, name);
 		returnThread->Id = ::GetThreadId(returnThread->Handle);
@@ -62,6 +64,7 @@ namespace hexen::engine::core::threading::thread
 
 	bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		returnThread->Handle = reinterpret_cast<HANDLE>(_beginthreadex(nullptr, (unsigned) stackSize, startRoutine, arg, CREATE_SUSPENDED, nullptr));
 		setThreadName(returnThread->Handle, name);
 		returnThread->Id = ::GetThreadId(returnThread->Handle);
@@ -80,11 +83,13 @@ namespace hexen::engine::core::threading::thread
 
 	void endCurrentThread()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		_endthreadex(0);
 	}
 
 	bool joinThread(ThreadType threads)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto result = ::WaitForSingleObject(threads.Handle, INFINITE);
 		if (result == WAIT_OBJECT_0)
 		{
@@ -101,22 +106,26 @@ namespace hexen::engine::core::threading::thread
 
 	ThreadType getCurrentThread()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		return {::GetCurrentThread(), ::GetCurrentThreadId()};
 	}
 
 	bool setCurrentThreadAffinity(size_t coreAffinity)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto result = ::SetThreadAffinityMask(::GetCurrentThread(), 1ULL << coreAffinity);
 		return result != 0;
 	}
 
 	void sleepThread(int msDuration)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		::Sleep(msDuration);
 	}
 
 	void yieldThread()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		::SwitchToThread();
 	}
 
@@ -137,6 +146,7 @@ namespace hexen::engine::core::threading::thread
 {
 	bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, ThreadType *returnThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		(void) name;
 
 		pthread_attr_t threadAttr;
@@ -155,6 +165,7 @@ namespace hexen::engine::core::threading::thread
 
 	bool createThread(size_t stackSize, ThreadStartRoutine startRoutine, void *arg, const char *name, size_t coreAffinity, ThreadType *returnThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		(void) name;
 
 		pthread_attr_t threadAttr;
@@ -163,9 +174,7 @@ namespace hexen::engine::core::threading::thread
 		// Set stack size
 		pthread_attr_setstacksize(&threadAttr, stackSize);
 
-		// TODO: OSX, MinGW, and musl Thread Affinity
-		//       musl can set the affinity after the threads has been started (using pthread_setaffinity_np() )
-		//       To set the affinity at threads creation, glibc created the pthread_attr_setaffinity_np() extension
+
 	#if defined(HEXEN_OS_LINUX) && defined(__GLIBC__)
 		// Set core affinity
 		cpu_set_t cpuSet;
@@ -186,23 +195,26 @@ namespace hexen::engine::core::threading::thread
 
 	void endCurrentThread()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		pthread_exit(nullptr);
 	}
 
 	bool joinThread(ThreadType threads)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto result = pthread_join(threads, nullptr);
 		return result == 0;
 	}
 
 	ThreadType getCurrentThread()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		return pthread_self();
 	}
 
 	bool setCurrentThreadAffinity(size_t coreAffinity)
 	{
-		// TODO: OSX and MinGW Thread Affinity
+		HEXEN_ADD_TO_PROFILE();
 	#if defined(HEXEN_OS_LINUX)
 		cpu_set_t cpuSet;
 		CPU_ZERO(&cpuSet);
@@ -227,11 +239,13 @@ namespace hexen::engine::core::threading::thread
 
 	void sleepThread(int msDuration)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		usleep(static_cast<unsigned>(msDuration) * 1000);
 	}
 
 	void yieldThread()
 	{
+		HEXEN_ADD_TO_PROFILE();
 	#if defined(HEXEN_OS_LINUX)
 		sched_yield();
 	#endif
@@ -249,6 +263,7 @@ namespace hexen::engine::core::threading::thread
 
 	hexen::engine::core::u32 getNumberOfHardwareThreads()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		return std::thread::hardware_concurrency();
 	}
 

@@ -6,6 +6,8 @@
 
 bool hexen::engine::core::input::Keyboard::processInput(const SDL_Event &event)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	SDL_PumpEvents();
 
 	auto isKeyboardEvent = event.type == SDL_EVENT_KEY_UP || event.type == SDL_EVENT_KEY_DOWN;
@@ -20,11 +22,13 @@ bool hexen::engine::core::input::Keyboard::processInput(const SDL_Event &event)
 
 hexen::engine::core::input::Keyboard::Keyboard()
 {
+	HEXEN_ADD_TO_PROFILE();
 	keyboardState = SDL_GetKeyboardState(nullptr);
 }
 
 bool hexen::engine::core::input::Keyboard::isKeyPressed(hexen::engine::core::input::Keyboard::Key key)
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (keyboardState != nullptr)
 	{
 		return keyboardState[static_cast<u32>(key)];

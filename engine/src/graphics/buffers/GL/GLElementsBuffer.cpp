@@ -15,6 +15,7 @@
 
 hexen::engine::graphics::gl::GLElementsBuffer::GLElementsBuffer(hexen::engine::core::u32 *indices, hexen::engine::core::u32 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	glGenBuffers(1, &object);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
@@ -22,16 +23,19 @@ hexen::engine::graphics::gl::GLElementsBuffer::GLElementsBuffer(hexen::engine::c
 
 hexen::engine::graphics::gl::GLElementsBuffer::~GLElementsBuffer()
 {
+	HEXEN_ADD_TO_PROFILE();
 	glDeleteBuffers(1, &object);
 }
 
 void hexen::engine::graphics::gl::GLElementsBuffer::bind() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object);
 }
 
 void hexen::engine::graphics::gl::GLElementsBuffer::unbind() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 

@@ -5,30 +5,36 @@
 #include "SceneEntity.h"
 #include "../../systems/RenderSystem.hpp"
 #include <algorithm>
+#include "../profiling/Profiling.hpp"
 
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name) : hexen::engine::entity::Entity(), name(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 	handleForTransformComponent = systems::RenderSystem::registerNewComponent<components::TransformComponent>();
 	transformComponent = systems::RenderSystem::getComponentInstanceByHandle<components::TransformComponent>(handleForTransformComponent);
 }
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name, const std::string &UUID) : hexen::engine::entity::Entity(UUID), name(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 	handleForTransformComponent = systems::RenderSystem::registerNewComponent<components::TransformComponent>();
 	transformComponent = systems::RenderSystem::getComponentInstanceByHandle<components::TransformComponent>(handleForTransformComponent);
 }
 
 hexen::engine::entity::SceneEntity *hexen::engine::entity::SceneEntity::getParent() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return parent;
 }
 
 void hexen::engine::entity::SceneEntity::setParent(hexen::engine::entity::SceneEntity *newParent)
 {
+	HEXEN_ADD_TO_PROFILE();
 	parent = newParent;
 }
 
 void hexen::engine::entity::SceneEntity::forceUpdateTransformMatrix()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (parent != nullptr)
 	{
 		transformComponent->updateTransformMatrix(parent->transformComponent->getTransformMatrix());
@@ -41,6 +47,7 @@ void hexen::engine::entity::SceneEntity::forceUpdateTransformMatrix()
 
 void hexen::engine::entity::SceneEntity::updateTransformMatrix()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (transformComponent->isDirty())
 	{
 		forceUpdateTransformMatrix();
@@ -55,6 +62,7 @@ void hexen::engine::entity::SceneEntity::updateTransformMatrix()
 
 void hexen::engine::entity::SceneEntity::removeChild(const std::string &name)
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (hasChildrens())
 	{
 		auto it = find(name);
@@ -68,26 +76,31 @@ void hexen::engine::entity::SceneEntity::removeChild(const std::string &name)
 
 std::string hexen::engine::entity::SceneEntity::getName() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return name;
 }
 
 void hexen::engine::entity::SceneEntity::removeChildByUUID(const std::string &UUID)
 {
+	HEXEN_ADD_TO_PROFILE();
 	childrens.remove(UUID);
 }
 
 bool hexen::engine::entity::SceneEntity::hasChildrens() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return !childrens.empty();
 }
 
 hexen::engine::core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>> hexen::engine::entity::SceneEntity::getChildrens() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return childrens;
 }
 
 std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::entity::SceneEntity::getChild(const std::string &name) const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto it = find(name);
 
 	if (it == childrens.cend())
@@ -100,6 +113,8 @@ std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::entity::Scene
 
 std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::entity::SceneEntity::getChildByUUID(const std::string &UUID) const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	auto child = childrens.get(UUID);
 	if (child != nullptr)
 	{
@@ -113,6 +128,7 @@ std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::entity::Scene
 
 hexen::engine::core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>>::ConstIterator hexen::engine::entity::SceneEntity::find(const std::string &name) const
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto it = std::find_if(childrens.cbegin(), childrens.cend(), [&name](const auto &keyValue)
 			{ return name == keyValue.value->getName(); });
 	return it;
@@ -120,6 +136,8 @@ hexen::engine::core::HashTable<std::string, std::shared_ptr<hexen::engine::entit
 
 void hexen::engine::entity::SceneEntity::changeParent(std::shared_ptr<SceneEntity> &newParent)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	if (newParent != nullptr && newParent.get() != parent && newParent.get() != this)
 	{
 		if (parent != nullptr)
@@ -142,11 +160,14 @@ void hexen::engine::entity::SceneEntity::changeParent(std::shared_ptr<SceneEntit
 
 void hexen::engine::entity::SceneEntity::addChildByPointer(const std::shared_ptr<SceneEntity> &newChild)
 {
+	HEXEN_ADD_TO_PROFILE();
 	childrens.set(newChild->getUUID(), newChild);
 }
 
 bool hexen::engine::entity::SceneEntity::isNodeExist(const std::shared_ptr<hexen::engine::entity::SceneEntity> &node, const std::string &UUID)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	if (node->getUUID() == UUID)
 	{
 		return true;
@@ -166,6 +187,8 @@ bool hexen::engine::entity::SceneEntity::isNodeExist(const std::shared_ptr<hexen
 
 std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::entity::SceneEntity::getNode(const std::shared_ptr<hexen::engine::entity::SceneEntity> &node, const std::string &UUID)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	if (node->getUUID() == UUID)
 	{
 		return node;
@@ -186,6 +209,8 @@ std::shared_ptr<hexen::engine::entity::SceneEntity> hexen::engine::entity::Scene
 
 bool hexen::engine::entity::SceneEntity::isDescendantExist(const std::string &descendantUUID)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	auto it = childrens.find(descendantUUID);
 	if (it != childrens.end())
 	{
@@ -207,6 +232,8 @@ bool hexen::engine::entity::SceneEntity::isDescendantExist(const std::string &de
 
 bool hexen::engine::entity::SceneEntity::searchNode(const std::shared_ptr<hexen::engine::entity::SceneEntity> &node, const std::string &searchQuery, core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>> &foundedNodes)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	auto found = node->getName().find(searchQuery);
 
 	if (found != std::string::npos)

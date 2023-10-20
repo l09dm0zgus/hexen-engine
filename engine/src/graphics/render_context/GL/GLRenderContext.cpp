@@ -67,6 +67,7 @@ void GLDebugMessageCallback(GLenum Source, GLenum Type, GLuint Id, GLenum Severi
 
 hexen::engine::graphics::gl::GLRenderContext::GLRenderContext(const core::Settings &settings)
 {
+	HEXEN_ADD_TO_PROFILE();
 	setGLHints(settings);
 	openGlSettings = settings.getOpenGLSettings();
 }
@@ -88,6 +89,7 @@ void hexen::engine::graphics::gl::GLRenderContext::setGLHints(const hexen::engin
 
 void hexen::engine::graphics::gl::GLRenderContext::createRenderContextForSDLWindow(SDL_Window *window)
 {
+	HEXEN_ADD_TO_PROFILE();
 	glContext = SDL_GL_CreateContext(window);
 	if (glContext == nullptr)
 	{
@@ -96,6 +98,8 @@ void hexen::engine::graphics::gl::GLRenderContext::createRenderContextForSDLWind
 }
 void hexen::engine::graphics::gl::GLRenderContext::initializeGLEW() const
 {
+
+	HEXEN_ADD_TO_PROFILE();
 
 #ifndef __ANDROID__
 	glewExperimental = GL_TRUE;
@@ -117,10 +121,12 @@ void hexen::engine::graphics::gl::GLRenderContext::initializeGLEW() const
 
 SDL_GLContext hexen::engine::graphics::gl::GLRenderContext::getSDLGLContext() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return glContext;
 }
 void hexen::engine::graphics::gl::GLRenderContext::attachWindow(const std::shared_ptr<core::Window> &window)
 {
+	HEXEN_ADD_TO_PROFILE();
 	createRenderContextForSDLWindow(window->getSDLWindow());
 	initializeGLEW();
 }

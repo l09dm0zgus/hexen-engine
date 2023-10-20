@@ -8,11 +8,13 @@
 #else
 	#include <GLES3/gl31.h>
 #endif
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics::gl
 {
 	GLint textureFilterToGLTextureFilter(TextureFilter textureFilter)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		switch (textureFilter)
 		{
 			case TextureFilter::LINEAR:
@@ -26,16 +28,19 @@ namespace hexen::engine::graphics::gl
 
 hexen::engine::graphics::gl::GLTexture2D::~GLTexture2D()
 {
+	HEXEN_ADD_TO_PROFILE();
 	glDeleteTextures(1, &textureId);
 }
 
 void hexen::engine::graphics::gl::GLTexture2D::bind(core::u32 slot) const
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindTextureUnit(slot,textureId);
 }
 
 hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::string &pathToImage,TextureFilter filter)
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto surface = IMG_Load(pathToImage.c_str());
 
 	if (surface == nullptr)
@@ -68,5 +73,6 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::string &pathToI
 
 hexen::engine::core::u32 hexen::engine::graphics::gl::GLTexture2D::getId() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return textureId;
 }

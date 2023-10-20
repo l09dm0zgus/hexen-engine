@@ -5,6 +5,7 @@
 #pragma once
 #include "../RenderContext.hpp"
 #include <application/Settings.hpp>
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics::gl
 {

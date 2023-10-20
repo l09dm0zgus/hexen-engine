@@ -7,10 +7,11 @@
 #if defined(_ENABLE_OPENGL_SUPPORT)
 	#include "GL/GLTexture2D.hpp"
 #endif
+#include "../profiling/Profiling.hpp"
 
 std::shared_ptr<hexen::engine::graphics::Texture2D> hexen::engine::graphics::Texture2D::create(const std::string &path,TextureFilter filter)
 {
-
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:

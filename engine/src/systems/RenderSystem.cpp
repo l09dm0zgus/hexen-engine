@@ -26,6 +26,7 @@ hexen::engine::systems::RenderSystem::RenderSystem(core::u32 sizeOfVectors)
 /*
 void hexen::engine::systems::RenderSystem::updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent)
 {
+ HEXEN_ADD_TO_PROFILE();
 	auto iter = std::find_if(std::execution::par,transformComponents.begin(), transformComponents.end(), [sprite = spriteComponent](auto &transform)
 			{ return transform.isDirty() && transform.getOwnerUUID() == sprite->getOwnerUUID(); });
 	if (iter != transformComponents.end())
@@ -37,12 +38,15 @@ void hexen::engine::systems::RenderSystem::updateSpriteModelMatrix(hexen::engine
 
 void hexen::engine::systems::RenderSystem::updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent)
 {
+ HEXEN_ADD_TO_PROFILE();
+
 	spriteComponent->setProjectionMatrix(camerasComponents[mainCameraId]->getProjectionMatrix());
 	spriteComponent->setViewMatrix(camerasComponents[mainCameraId]->getViewMatrix());
 }
 */
 void hexen::engine::systems::RenderSystem::start()
 {
+	HEXEN_ADD_TO_PROFILE();
 	/*
 	for (auto &sprite : spritesComponent)
 	{
@@ -61,6 +65,8 @@ void hexen::engine::systems::RenderSystem::start()
 
 void hexen::engine::systems::RenderSystem::render(float alpha)
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	/*
 	for (auto &sprite : spritesComponent)
 	{
@@ -79,6 +85,7 @@ void hexen::engine::systems::RenderSystem::render(float alpha)
 
 std::shared_ptr<hexen::engine::components::graphics::CameraComponent> hexen::engine::systems::RenderSystem::getMainCamera()
 {
+	HEXEN_ADD_TO_PROFILE();
 	HEXEN_ASSERT(mainCameraId < camerasComponents.size(), "Failed to get camera.Wrong main camera id!\n");
 	if (!camerasComponents.empty())
 	{

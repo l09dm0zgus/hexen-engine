@@ -12,32 +12,39 @@
 
 hexen::engine::graphics::gl::GLFrameBuffer::GLFrameBuffer(const FrameBufferSpecification &specification) : bufferSpecification(specification)
 {
+	HEXEN_ADD_TO_PROFILE();
 	create();
 }
 
 hexen::engine::graphics::gl::GLFrameBuffer::~GLFrameBuffer()
 {
+	HEXEN_ADD_TO_PROFILE();
 	glDeleteFramebuffers(1, &object);
 }
 
 void hexen::engine::graphics::gl::GLFrameBuffer::bind() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindFramebuffer(GL_FRAMEBUFFER, object);
 }
 
 void hexen::engine::graphics::gl::GLFrameBuffer::unbind() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void hexen::engine::graphics::gl::GLFrameBuffer::setSize(const glm::vec2 &size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	bufferSpecification.size = size;
 	create();
 }
 
 void hexen::engine::graphics::gl::GLFrameBuffer::create()
 {
+	HEXEN_ADD_TO_PROFILE();
+
 	glCreateFramebuffers(1, &object);
 	glBindFramebuffer(GL_FRAMEBUFFER, object);
 
@@ -65,9 +72,11 @@ void hexen::engine::graphics::gl::GLFrameBuffer::create()
 
 hexen::engine::core::u32 hexen::engine::graphics::gl::GLFrameBuffer::getColorAttachmentObject() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return colorAttachment;
 }
 const hexen::engine::graphics::FrameBufferSpecification &hexen::engine::graphics::gl::GLFrameBuffer::getSpecification() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return bufferSpecification;
 }

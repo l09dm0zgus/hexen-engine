@@ -4,24 +4,29 @@
 
 #include "Grid.hpp"
 #include "SceneManager.hpp"
+#include "../profiling/Profiling.hpp"
 
 glm::vec2 hexen::engine::core::Grid::getSize() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return size;
 }
 
 float hexen::engine::core::Grid::getNumberOfCells() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return numberOfCells;
 }
 
 glm::vec2 hexen::engine::core::Grid::getUnitSize() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return unitSize;
 }
 
 hexen::engine::core::Grid::Grid()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto currentScene = SceneManager::getCurrentScene();
 	if (currentScene != nullptr)
 	{
@@ -48,6 +53,7 @@ hexen::engine::core::Grid::Grid()
 
 hexen::engine::core::Grid::~Grid()
 {
+	HEXEN_ADD_TO_PROFILE();
 	for (u32 i = 0; i < size.y; i++)
 	{
 		delete[] cells[i];
@@ -58,6 +64,7 @@ hexen::engine::core::Grid::~Grid()
 
 std::shared_ptr<hexen::engine::core::Grid::Cell> hexen::engine::core::Grid::checkIfPointInCell(const glm::vec2 &point)
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto previousCell = cells[0][0];
 	u32 i = 0;
 	bool found = false;

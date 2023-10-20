@@ -8,6 +8,7 @@ namespace hexen::engine::core::threading
 {
 	BaseCounter::BaseCounter(TaskScheduler *const taskScheduler, u32 initialValue, u32 fiberSlots) : taskScheduler(taskScheduler), value(initialValue), lock(0), freeSlots(freeSlotsStorage), freeSlotsStorage(), waitingFibers(waitingFibersStorage), fiberSlots(fiberSlots)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		// Small Vector Optimization
 		if (fiberSlots > NUMBER_OF_WAITING_FIBER_SLOTS)
 		{
@@ -30,6 +31,7 @@ namespace hexen::engine::core::threading
 
 	BaseCounter::~BaseCounter()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		// We can't destroy the counter until all other threads have left the member functions
 		while (lock.load(std::memory_order_relaxed) > 0)
 		{
@@ -49,6 +51,7 @@ namespace hexen::engine::core::threading
 
 	bool BaseCounter::addFiberToWaitingList(vptr fiberBundle, u32 targetValue, u32 const pinnedThreadIndex)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		for (u32 i = 0; i < fiberSlots; ++i)
 		{
 			bool expected = true;
@@ -104,6 +107,7 @@ namespace hexen::engine::core::threading
 
 	void BaseCounter::checkWaitingFibers(u32 const value)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		for (u32 i = 0; i < fiberSlots; ++i)
 		{
 			// Check if the slot is full

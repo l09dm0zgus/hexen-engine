@@ -31,12 +31,6 @@ namespace hexen::engine::graphics
 	class RenderContext : public core::memory::AllocatedObject
 	{
 	protected:
-		/**
-	     * @brief Get flags related to the window.
-     	* @return An integer representing the window flags for the global settings.
-     	*/
-
-		[[nodiscard]] virtual core::i32 getWindowFlags() const noexcept;
 
 		friend class hexen::engine::core::Window;
 

@@ -8,14 +8,17 @@ phmap::parallel_flat_hash_map<hexen::engine::core::u32,std::shared_ptr<hexen::en
 
 std::shared_ptr<hexen::engine::graphics::IRenderCommand> hexen::engine::graphics::RenderPipeline::getCommand(hexen::engine::core::u32 commandID)
 {
+	HEXEN_ADD_TO_PROFILE();
 	return renderQueue[commandID];
 }
 void hexen::engine::graphics::RenderPipeline::removeCommandFromQueue(hexen::engine::core::u32 commandId)
 {
+	HEXEN_ADD_TO_PROFILE();
 	renderQueue.erase(commandId);
 }
 void hexen::engine::graphics::RenderPipeline::executeCommands()
 {
+	HEXEN_ADD_TO_PROFILE();
 	for(const auto &command : renderQueue)
 	{
 		if(command.second->enableExecute)
@@ -26,6 +29,7 @@ void hexen::engine::graphics::RenderPipeline::executeCommands()
 }
 void hexen::engine::graphics::RenderPipeline::prepareCommands()
 {
+	HEXEN_ADD_TO_PROFILE();
 	for(const auto &command : renderQueue)
 	{
 		if(command.second->enablePrepare)
@@ -36,6 +40,7 @@ void hexen::engine::graphics::RenderPipeline::prepareCommands()
 }
 void hexen::engine::graphics::RenderPipeline::finishCommands()
 {
+	HEXEN_ADD_TO_PROFILE();
 	for(const auto &command : renderQueue)
 	{
 		if(command.second->enableFinish)

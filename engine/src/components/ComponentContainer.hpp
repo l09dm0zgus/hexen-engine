@@ -62,11 +62,13 @@ namespace hexen::engine::components
 
 			reference operator*()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return container->components[i];
 			}
 
 			pointer operator->()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return &container->components[i];
 			}
 
@@ -77,6 +79,7 @@ namespace hexen::engine::components
 
 			Iterator &operator++()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				i++;
 				return *this;
 			}
@@ -88,6 +91,7 @@ namespace hexen::engine::components
 
 			Iterator operator++(int)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				Iterator temp = *this;
 				++i;
 				return temp;
@@ -100,6 +104,7 @@ namespace hexen::engine::components
 
 			Iterator &operator--()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				i--;
 				return *this;
 			}
@@ -111,6 +116,7 @@ namespace hexen::engine::components
 
 			Iterator operator--(int)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				Iterator temp = *this;
 				--i;
 				return temp;
@@ -125,6 +131,7 @@ namespace hexen::engine::components
 
 			friend bool operator==(const Iterator &lhs, const Iterator &rhs)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return lhs.container == rhs.container && lhs.i == rhs.i;
 			}
 
@@ -137,6 +144,7 @@ namespace hexen::engine::components
 
 			friend bool operator!=(const Iterator &lhs, const Iterator &rhs)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return !(lhs == rhs);
 			}
 
@@ -151,6 +159,7 @@ namespace hexen::engine::components
 
 		ComponentContainer() : back(0)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			for (size_t i = 0; i < SIZE; i++)
 			{
 				indices[i] = static_cast<core::i32>(i);
@@ -164,6 +173,7 @@ namespace hexen::engine::components
 
 		core::i32 reserve()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return indices[back++];
 		}
 
@@ -174,6 +184,7 @@ namespace hexen::engine::components
 
 		void release(core::i32 handle)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			for (size_t i = 0; i < back; i++)
 			{
 				if (indices[i] == handle)
@@ -192,6 +203,7 @@ namespace hexen::engine::components
 
 		Iterator begin()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return Iterator(this, 0);
 		}
 
@@ -202,6 +214,7 @@ namespace hexen::engine::components
 
 		Iterator end()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return Iterator(this, back);
 		}
 
@@ -212,6 +225,7 @@ namespace hexen::engine::components
 
 		[[nodiscard]] core::i32 size() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return back;
 		}
 
@@ -222,6 +236,7 @@ namespace hexen::engine::components
 
 		[[nodiscard]] bool empty() const noexcept
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return size() == 0;
 		}
 
@@ -233,6 +248,7 @@ namespace hexen::engine::components
 
 		T& operator[](core::i32 handle)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			return components[handle];
 		}
 	};

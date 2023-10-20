@@ -3,7 +3,7 @@
 //
 
 #include "DebugRenderSystem.hpp"
-#include <profiling/Profiling.h>
+#include "profiling/Profiling.hpp"
 #include <systems/RenderSystem.hpp>
 #include <systems/TaskSystem.hpp>
 
@@ -17,7 +17,7 @@ void hexen::editor::systems::DebugRenderSystem::start()
 }
 void hexen::editor::systems::DebugRenderSystem::render(float alpha)
 {
-	ADD_FUNCTION_TO_PROFILING
+	HEXEN_ADD_TO_PROFILE()
 	if (debugGridComponent != nullptr)
 	{
 		hexen::engine::systems::TaskSystem::addTask<DebugRenderSystem, void, hexen::engine::components::graphics::RenderComponent *>(hexen::engine::core::threading::TaskPriority::Normal, this, &DebugRenderSystem::updateModelMatrix, debugGridComponent.get());
@@ -28,7 +28,7 @@ void hexen::editor::systems::DebugRenderSystem::render(float alpha)
 }
 void hexen::editor::systems::DebugRenderSystem::addDebugGrid()
 {
-	ADD_FUNCTION_TO_PROFILING
+	HEXEN_ADD_TO_PROFILE()
 
 	if (debugGridComponent == nullptr)
 	{
@@ -42,13 +42,13 @@ void hexen::editor::systems::DebugRenderSystem::addDebugGrid()
 
 void hexen::editor::systems::DebugRenderSystem::updateModelMatrix(hexen::engine::components::graphics::RenderComponent *renderComponent)
 {
-	ADD_FUNCTION_TO_PROFILING
+	HEXEN_ADD_TO_PROFILE()
 	renderComponent->setTransformMatrix(debugGridTransform->getTransformMatrix());
 }
 
 void hexen::editor::systems::DebugRenderSystem::updateViewAndProjectionMatrices(hexen::engine::components::graphics::RenderComponent *renderComponent)
 {
-	ADD_FUNCTION_TO_PROFILING
+	HEXEN_ADD_TO_PROFILE()
 
 	auto camera = hexen::engine::systems::RenderSystem::getMainCamera();
 	HEXEN_ASSERT(camera != nullptr, "Main camera is nullptr!\n");

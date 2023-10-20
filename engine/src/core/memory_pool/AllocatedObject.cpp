@@ -18,6 +18,7 @@ std::unique_ptr<hexen::engine::core::memory::MemoryPool> hexen::engine::core::me
 
 hexen::engine::core::vptr hexen::engine::core::memory::AllocatedObject::operator new(u64 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (memoryPool == nullptr)
 	{
 		memoryPool = std::make_unique<MemoryPool>(POOL_SIZE);
@@ -47,6 +48,7 @@ hexen::engine::core::vptr hexen::engine::core::memory::AllocatedObject::operator
 
 void hexen::engine::core::memory::AllocatedObject::operator delete(core::vptr address) noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (address == nullptr)
 	{
 		SDL_Log("Failed to freed memory!\n");

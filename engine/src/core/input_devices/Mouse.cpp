@@ -7,6 +7,7 @@
 
 bool hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto isMouseEvent = false;
 	isMouseWheelMovingOnX = false;
 	isMouseWheelMovingOnY = false;
@@ -41,30 +42,36 @@ bool hexen::engine::core::input::Mouse::processInput(const SDL_Event &event)
 
 glm::vec2 hexen::engine::core::input::Mouse::getPosition() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return position;
 }
 
 glm::vec2 hexen::engine::core::input::Mouse::getLastPressedButtonPosition() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return lastPressedButtonPosition;
 }
 
 glm::vec2 hexen::engine::core::input::Mouse::getLastReleasedButtonPosition() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return lastReleasedButtonPosition;
 }
 
 bool hexen::engine::core::input::Mouse::isButtonPressed(hexen::engine::core::input::Mouse::Button button) const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return static_cast<core::u8>(button) == currentButton;
 }
 
 bool hexen::engine::core::input::Mouse::isButtonReleased(hexen::engine::core::input::Mouse::Button button) const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return static_cast<core::u8>(button) == currentButton;
 }
 
 glm::vec2 hexen::engine::core::input::Mouse::getWheelPosition() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return wheelPosition;
 }

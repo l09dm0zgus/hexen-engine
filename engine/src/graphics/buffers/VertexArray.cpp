@@ -7,9 +7,11 @@
 	#include "GL/GLVertexArray.hpp"
 #endif
 #include "../render_context/RenderContext.hpp"
+#include "../profiling/Profiling.hpp"
 
 std::unique_ptr<hexen::engine::graphics::VertexArray> hexen::engine::graphics::VertexArray::create()
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:

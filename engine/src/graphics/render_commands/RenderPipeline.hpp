@@ -7,6 +7,7 @@
 #include <Types.hpp>
 #include <glm/vec2.hpp>
 #include <parallel_hashmap/phmap.h>
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics
 {
@@ -47,6 +48,7 @@ namespace hexen::engine::graphics
 		template<typename T, typename... Args, std::enable_if_t<std::is_base_of_v<IRenderCommand, T>, bool> = true>
 		static core::u32 addCommandToQueue(Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
 			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
 
@@ -65,6 +67,7 @@ namespace hexen::engine::graphics
 		template<typename T, typename... Args, std::enable_if_t<std::is_base_of_v<IRenderCommand, T>, bool> = true>
 		static void executeCommandNow(Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
 			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
 

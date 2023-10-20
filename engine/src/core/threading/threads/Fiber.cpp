@@ -26,6 +26,8 @@ namespace hexen::engine::core::threading
 
 	Fiber::Fiber(size_t stackSize, fiberStartRoutine startRoutine, void *arg) : arg(arg)
 	{
+		HEXEN_ADD_TO_PROFILE();
+
 #if defined(HEXEN_FIBER_STACK_GUARD_PAGES)
 		systemPageSize = SystemPageSize();
 #else
@@ -45,6 +47,7 @@ namespace hexen::engine::core::threading
 
 	Fiber::~Fiber()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		if (stack != nullptr)
 		{
 			if (systemPageSize != 0)
@@ -59,6 +62,7 @@ namespace hexen::engine::core::threading
 
 	void Fiber::swap(Fiber &first, Fiber &second) noexcept
 	{
+		HEXEN_ADD_TO_PROFILE();
 		std::swap(first.stack, second.stack);
 		std::swap(first.systemPageSize, second.systemPageSize);
 		std::swap(first.stackSize, second.stackSize);
@@ -70,6 +74,7 @@ namespace hexen::engine::core::threading
 	#if defined(HEXEN_OS_LINUX) || defined(HEXEN_OS_MAC) || defined(HEXEN_OS_iOS)
 	void memoryGuard(vptr memory, size_t bytes)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto result = mprotect(memory, bytes, PROT_NONE);
 		HEXEN_ASSERT(!result, "mprotect");
 		#if defined(NDEBUG)
@@ -80,6 +85,7 @@ namespace hexen::engine::core::threading
 
 	void memoryGuardRelease(vptr memory, size_t bytes)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto const result = mprotect(memory, bytes, PROT_READ | PROT_WRITE);
 		HEXEN_ASSERT(!result, "mprotect");
 		#if defined(NDEBUG)
@@ -90,11 +96,13 @@ namespace hexen::engine::core::threading
 
 	size_t systemPageSize()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		return static_cast<size_t>(getpagesize());
 	}
 
 	void *alignedAlloc(size_t size, size_t alignment)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		vptr returnPtr = nullptr;
 		auto const result = posix_memalign(&returnPtr, alignment, size);
 		HEXEN_ASSERT(!result, "posix_memalign");
@@ -108,6 +116,7 @@ namespace hexen::engine::core::threading
 
 	void alignedFree(vptr block)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		free(block);
 	}
 	#elif defined(HEXEN_OS_WINDOWS)
@@ -115,6 +124,7 @@ namespace hexen::engine::core::threading
 
 	void memoryGuard(vptr memory, size_t bytes)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		DWORD ignored;
 
 		auto const result = VirtualProtect(memory, bytes, PAGE_NOACCESS, &ignored);
@@ -123,6 +133,7 @@ namespace hexen::engine::core::threading
 
 	void memoryGuardRelease(vptr memory, size_t bytes)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		DWORD ignored;
 
 		auto const result = VirtualProtect(memory, bytes, PAGE_READWRITE, &ignored);
@@ -131,6 +142,7 @@ namespace hexen::engine::core::threading
 
 	size_t systemPageSize()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		SYSTEM_INFO sysInfo;
 		GetSystemInfo(&sysInfo);
 		return sysInfo.dwPageSize;
@@ -138,11 +150,13 @@ namespace hexen::engine::core::threading
 
 	void *alignedAlloc(size_t size, size_t alignment)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		return _aligned_malloc(size, alignment);
 	}
 
 	void alignedFree(vptr block)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		_aligned_free(block);
 	}
 	#else
@@ -169,17 +183,20 @@ namespace hexen::engine::core::threading
 
 	void *alignedAlloc(size_t size, size_t /*alignment*/)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		return malloc(size);
 	}
 
 	void alignedFree(vptr block)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		free(block);
 	}
 #endif
 
 	size_t roundUp(size_t numberToRound, size_t multiple)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		if (multiple == 0)
 		{
 			return numberToRound;

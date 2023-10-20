@@ -3,21 +3,25 @@
 //
 
 #include "TaskSystem.hpp"
+#include "../profiling/Profiling.hpp"
 
 hexen::engine::core::threading::TaskScheduler hexen::engine::systems::TaskSystem::scheduler;
 hexen::engine::core::threading::TaskCounter hexen::engine::systems::TaskSystem::counter(&scheduler);
 
 void hexen::engine::systems::TaskSystem::waitForCounter(core::i32 value)
 {
+	HEXEN_ADD_TO_PROFILE();
 	scheduler.waitForCounter(&counter, value);
 }
 
 void hexen::engine::systems::TaskSystem::initialize()
 {
+	HEXEN_ADD_TO_PROFILE();
 	scheduler.initialize();
 }
 
 void hexen::engine::systems::TaskSystem::addTasks(core::threading::TaskPriority priority, const std::array<core::threading::Task, 400> &tasks)
 {
+	HEXEN_ADD_TO_PROFILE();
 	scheduler.addTasks(tasks, priority, &counter);
 }

@@ -61,6 +61,7 @@ namespace hexen::engine::core::threading
 
 		void add(core::u32 const x)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			value.fetch_add(x, std::memory_order_seq_cst);
 		}
 
@@ -72,6 +73,7 @@ namespace hexen::engine::core::threading
 
 		void decrement()
 		{
+			HEXEN_ADD_TO_PROFILE();
 			lock.fetch_add(1U, std::memory_order_seq_cst);
 
 			const auto previous = value.fetch_sub(1U, std::memory_order_seq_cst);

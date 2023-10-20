@@ -7,6 +7,7 @@
 #include "../core/input_devices/Mouse.hpp"
 #include "../core/memory_pool/AllocatedObject.hpp"
 #include "../gui/IGUI.hpp"
+#include "../profiling/Profiling.hpp"
 #include <functional>
 #include <nlohmann/json.hpp>
 namespace hexen::engine::core
@@ -62,6 +63,7 @@ namespace hexen::engine::systems
 
 			void operator()()
 			{
+				HEXEN_ADD_TO_PROFILE();
 				callback();
 			}
 		};

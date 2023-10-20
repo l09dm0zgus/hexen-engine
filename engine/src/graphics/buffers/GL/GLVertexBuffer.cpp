@@ -13,6 +13,7 @@
 
 hexen::engine::graphics::gl::GLVertexBuffer::GLVertexBuffer(float *vertices, core::u32 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	glGenBuffers(1, &object);
 	glBindBuffer(GL_ARRAY_BUFFER, object);
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
@@ -20,21 +21,25 @@ hexen::engine::graphics::gl::GLVertexBuffer::GLVertexBuffer(float *vertices, cor
 
 hexen::engine::graphics::gl::GLVertexBuffer::~GLVertexBuffer()
 {
+	HEXEN_ADD_TO_PROFILE();
 	glDeleteBuffers(1, &object);
 }
 
 void hexen::engine::graphics::gl::GLVertexBuffer::bind() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindBuffer(GL_ARRAY_BUFFER, object);
 }
 
 void hexen::engine::graphics::gl::GLVertexBuffer::unbind() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 hexen::engine::graphics::gl::GLVertexBuffer::GLVertexBuffer(hexen::engine::core::u32 size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	glGenBuffers(1, &object);
 	glBindBuffer(GL_ARRAY_BUFFER, object);
 	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);

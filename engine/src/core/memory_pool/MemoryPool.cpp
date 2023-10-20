@@ -9,6 +9,7 @@
 
 hexen::engine::core::memory::MemoryPool::MemoryPool(u64 size) : size(size)
 {
+	HEXEN_ADD_TO_PROFILE();
 	memory = malloc(size);
 	lastAddress = memory;
 	maxAddress = (vptr) (((u64) memory) + (size));
@@ -17,6 +18,7 @@ hexen::engine::core::memory::MemoryPool::MemoryPool(u64 size) : size(size)
 
 void hexen::engine::core::memory::MemoryPool::free(vptr address) noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto iterator = std::find_if(allocations.begin(), allocations.end(), [address = address](const auto &allocation)
 			{ return allocation.address == address; });
 	if (iterator != allocations.end())
@@ -29,12 +31,14 @@ void hexen::engine::core::memory::MemoryPool::free(vptr address) noexcept
 
 hexen::engine::core::memory::MemoryPool::~MemoryPool()
 {
+	HEXEN_ADD_TO_PROFILE()
 	free(memory);
 	SDL_Log("Freed memory from pool  address : %p.Size of freed memory: %llu.\n", memory, size);
 }
 
 hexen::engine::core::vptr hexen::engine::core::memory::MemoryPool::allocate(u64 allocationSize)
 {
+	HEXEN_ADD_TO_PROFILE();
 	for (auto &allocation : allocations)
 	{
 		if (allocation.freeFlag == 1u && allocation.allocatedBytes >= size)
@@ -84,6 +88,7 @@ hexen::engine::core::vptr hexen::engine::core::memory::MemoryPool::allocate(u64 
 
 inline void hexen::engine::core::memory::MemoryPool::showLogForAllocation(const MemoryPool::Allocation &allocation)
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto freeMemory = (((u64) maxAddress) - (u64) lastAddress);
 	SDL_Log("Allocated memory from address : %p.\nOccupied Bytes: %llu.\nAllocated memory for object: %llu.\nPool size : %llu.\nPool memory begin address : %p.\nAllocation objects : %zu.\nFree memory in pool:%lluu.\n", allocation.address, allocation.occupiedBytes, allocation.allocatedBytes, size, memory, allocations.size(), freeMemory);
 }

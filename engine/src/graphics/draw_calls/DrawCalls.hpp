@@ -8,6 +8,7 @@
 	#include "GL_draw_calls/GLDrawCalls.hpp"
 #endif
 #include "render_context/RenderContext.hpp"
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics
 {
@@ -27,6 +28,7 @@ namespace hexen::engine::graphics
 
 	static HEXEN_INLINE void drawLines(core::u32 countOfLines)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		switch(RenderContext::getRenderAPI())
 		{
 			case core::Settings::RenderAPI::NO_API:

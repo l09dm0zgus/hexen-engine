@@ -7,10 +7,10 @@
 #include "../systems/EditorSystemsManager.hpp"
 #include "core/window/Window.hpp"
 #include "entity/scene/SceneManager.hpp"
-#include <profiling/Profiling.h>
-#include <systems/TaskSystem.hpp>
-#include <graphics/render_commands/RenderPipeline.hpp>
+#include "profiling/Profiling.hpp"
 #include <graphics/render_commands/ClearCommand.hpp>
+#include <graphics/render_commands/RenderPipeline.hpp>
+#include <systems/TaskSystem.hpp>
 
 hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow, const std::shared_ptr<hexen::engine::graphics::RenderContext> &renderContext) : GameLoop(newWindow)
 {
@@ -31,7 +31,7 @@ hexen::editor::EditorGameLoop::~EditorGameLoop()
 
 void hexen::editor::EditorGameLoop::start()
 {
-	ADD_FUNCTION_TO_PROFILING
+	HEXEN_ADD_TO_PROFILE()
 	auto manager = std::dynamic_pointer_cast<systems::EditorSystemsManager>(systemManager);
 
 	HEXEN_ASSERT(manager != nullptr, "Failed cast to EditorSystemsManager!");
@@ -44,7 +44,7 @@ void hexen::editor::EditorGameLoop::start()
 
 void hexen::editor::EditorGameLoop::loop()
 {
-	ADD_FUNCTION_TO_PROFILING
+	HEXEN_ADD_TO_PROFILE()
 	initializeClock();
 
 	while (window->isOpen())
@@ -84,6 +84,6 @@ void hexen::editor::EditorGameLoop::loop()
 
 		window->swapBuffers();
 		engine::systems::TaskSystem::waitForCounter();
-		END_FRAME
+		HEXEN_END_PROFILE_FRAME()
 	}
 }

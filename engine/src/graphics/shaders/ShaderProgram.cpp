@@ -6,11 +6,13 @@
 #include "../render_context/RenderContext.hpp"
 #if defined(_ENABLE_OPENGL_SUPPORT)
 	#include "GL/GLShaderProgram.hpp"
-#endif
 
+#endif
+#include "../profiling/Profiling.hpp"
 
 std::shared_ptr<hexen::engine::graphics::ShaderProgram> hexen::engine::graphics::ShaderProgram::create(const std::vector<std::string> &pathsToShaders)
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:

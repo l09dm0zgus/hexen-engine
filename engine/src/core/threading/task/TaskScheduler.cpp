@@ -32,6 +32,7 @@ namespace hexen::engine::core::threading
 
 	HEXEN_THREAD_FUNC_RETURN_TYPE TaskScheduler::threadStartFunction(vptr const arg)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto *const threadArgs = reinterpret_cast<ThreadStartArgs *>(arg);
 		auto *taskScheduler = threadArgs->scheduler;
 		auto const index = threadArgs->threadIndex;
@@ -85,6 +86,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::fiberStartFunction(vptr arg)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto *taskScheduler = reinterpret_cast<TaskScheduler *>(arg);
 
 		if (taskScheduler->callbacks.onFiberAttached != nullptr)
@@ -261,6 +263,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::threadEndFunction(vptr arg)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto *taskScheduler = reinterpret_cast<TaskScheduler *>(arg);
 
 		// Wait for all other threads to quit
@@ -290,6 +293,7 @@ namespace hexen::engine::core::threading
 
 	int TaskScheduler::initialize(TaskSchedulerInitOptions options)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		settings = memory::make_unique<TaskSchedulerSettings>();
 
 		options.fiberPoolSize = settings->getFiberPoolSize();
@@ -403,6 +407,7 @@ namespace hexen::engine::core::threading
 
 	TaskScheduler::~TaskScheduler()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		// Create the quit fibers
 		quitFibers = new Fiber[numberOfThreads];
 		for (u32 i = 0; i < numberOfThreads; ++i)
@@ -451,6 +456,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::addTask(const Task &task, TaskPriority priority, TaskCounter *counter)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		HEXEN_ASSERT(task.delegate != nullptr, "Task given to TaskScheduler:addTask has a nullptr Function");
 
 		if (counter != nullptr)
@@ -478,6 +484,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::addTasks(const std::array<Task, 400> &tasks, TaskPriority priority, TaskCounter *counter)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		if (counter != nullptr)
 		{
 			counter->add(tasks.size());
@@ -516,6 +523,7 @@ namespace hexen::engine::core::threading
 
 	HEXEN_NOINLINE u32 TaskScheduler::getCurrentThreadIndex() const
 	{
+		HEXEN_ADD_TO_PROFILE();
 		DWORD const threadId = ::GetCurrentThreadId();
 		for (unsigned i = 0; i < numberOfThreads; ++i)
 		{
@@ -546,14 +554,15 @@ namespace hexen::engine::core::threading
 
 #endif
 
-	unsigned TaskScheduler::getCurrentFiberIndex() const
+	u32 TaskScheduler::getCurrentFiberIndex() const
 	{
 		auto &tls = threadLocalStorage[getCurrentThreadIndex()];
 		return tls.currentFiberIndex;
 	}
 
-	inline bool TaskScheduler::taskIsReadyToExecute(TaskBundle *bundle) const
+	HEXEN_INLINE bool TaskScheduler::taskIsReadyToExecute(TaskBundle *bundle) const
 	{
+		HEXEN_ADD_TO_PROFILE();
 		// "Real" tasks are always ready to execute
 		if (bundle->taskToExecute != &ReadyFiberDummyTask)
 		{
@@ -567,6 +576,7 @@ namespace hexen::engine::core::threading
 
 	bool TaskScheduler::getNextHighPriorityTask(TaskBundle *nextTask, std::vector<TaskBundle> *taskBuffer)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto const currentThreadIndex = getCurrentThreadIndex();
 		auto &tls = threadLocalStorage[currentThreadIndex];
 
@@ -624,6 +634,7 @@ namespace hexen::engine::core::threading
 
 	bool TaskScheduler::getNextNormalPriorityTask(TaskBundle *nextTask)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		auto const currentThreadIndex = getCurrentThreadIndex();
 		auto &tls = threadLocalStorage[currentThreadIndex];
 
@@ -653,8 +664,9 @@ namespace hexen::engine::core::threading
 		return false;
 	}
 
-	unsigned TaskScheduler::getNextFreeFiberIndex() const
+	u32 TaskScheduler::getNextFreeFiberIndex() const
 	{
+		HEXEN_ADD_TO_PROFILE();
 		for (unsigned j = 0;; ++j)
 		{
 			for (unsigned i = 0; i < fiberPoolSize; ++i)
@@ -686,6 +698,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::cleanUpOldFiber()
 	{
+		HEXEN_ADD_TO_PROFILE();
 		// Clean up from the last Fiber to run on this threads
 		//
 		// Explanation:
@@ -754,6 +767,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::addReadyFiber(unsigned pinnedThreadIndex, ReadyFiberBundle *bundle)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		if (pinnedThreadIndex == noThreadPinning)
 		{
 			auto *tls = &threadLocalStorage[getCurrentThreadIndex()];
@@ -806,21 +820,25 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::waitForCounter(TaskCounter *counter, bool pinToCurrentThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		waitForCounterInternal(counter, 0, pinToCurrentThread);
 	}
 
 	void TaskScheduler::waitForCounter(AtomicFlag *counter, bool pinToCurrentThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		waitForCounterInternal(counter, 0, pinToCurrentThread);
 	}
 
 	void TaskScheduler::waitForCounter(FullAtomicCounter *counter, u32 value, bool pinToCurrentThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		waitForCounterInternal(counter, value, pinToCurrentThread);
 	}
 
 	void TaskScheduler::waitForCounterInternal(BaseCounter *counter, u32 value, bool pinToCurrentThread)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		// Fast out
 		if (counter->value.load(std::memory_order_relaxed) == value)
 		{
@@ -886,6 +904,7 @@ namespace hexen::engine::core::threading
 
 	void TaskScheduler::cleanup(TaskScheduler::ThreadLocalStorage &tls, std::vector<TaskBundle> *taskBuffer)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		if (!taskBuffer->empty())
 		{
 			// Re-push all the tasks we found that we're ready to execute

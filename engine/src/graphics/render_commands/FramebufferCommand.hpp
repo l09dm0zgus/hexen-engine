@@ -6,6 +6,8 @@
 
 #include "../buffers/Buffers.hpp"
 #include "IRenderCommand.hpp"
+#include "../profiling/Profiling.hpp"
+
 namespace hexen::engine::graphics
 {
 	/**

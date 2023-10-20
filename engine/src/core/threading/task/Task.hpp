@@ -56,6 +56,7 @@ namespace hexen::engine::core::threading
 		template<class T, typename Ret, typename... Args>
 		bool bind(T *object, Ret (T::*method)(Args...), Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto methodDelegate = std::shared_ptr<core::MethodDelegate<T, Ret, Args...>>(new core::MethodDelegate(object, method, args...));
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(methodDelegate);
 
@@ -87,6 +88,7 @@ namespace hexen::engine::core::threading
 		template<typename Ret, typename... Args>
 		bool bind(Ret (*callableFunction)(Args...), Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto functionDelegate = std::shared_ptr<core::FunctionDelegate<Ret, Args...>>(new core::FunctionDelegate(callableFunction, args...));
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functionDelegate);
 
@@ -112,6 +114,7 @@ namespace hexen::engine::core::threading
 		template<class T, typename Ret, typename... Args>
 		HEXEN_INLINE bool operator==(Ret (T::*callableMethod)(Args...))
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
@@ -137,6 +140,7 @@ namespace hexen::engine::core::threading
 		template<class T, typename Ret, typename... Args>
 		HEXEN_INLINE bool operator!=(Ret (T::*callableMethod)(Args...))
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
@@ -159,6 +163,7 @@ namespace hexen::engine::core::threading
 		template<typename Ret, typename... Args>
 		HEXEN_INLINE bool operator==(Ret (*callableFunction)(Args...))
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
@@ -185,6 +190,7 @@ namespace hexen::engine::core::threading
 		template<typename Ret, typename... Args>
 		HEXEN_INLINE bool operator!=(Ret (*callableFunction)(Args...))
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
@@ -211,6 +217,7 @@ namespace hexen::engine::core::threading
 		template<typename T, typename... Args>
 		bool bind(T *object, Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto functorDelegate = std::shared_ptr<core::FunctorDelegate<T, Args...>>(new core::FunctorDelegate(object, args...));
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functorDelegate);
 
@@ -239,6 +246,7 @@ namespace hexen::engine::core::threading
 		template<typename T, typename... Args>
 		HEXEN_INLINE bool operator==(T *functor)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
@@ -265,6 +273,7 @@ namespace hexen::engine::core::threading
 		template<typename T, typename... Args>
 		HEXEN_INLINE bool operator!=(T *functor)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
@@ -287,6 +296,7 @@ namespace hexen::engine::core::threading
 
 		void execute() const
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate != nullptr)
 			{
 				delegate->execute();

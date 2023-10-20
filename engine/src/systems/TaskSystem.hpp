@@ -4,6 +4,7 @@
 
 #pragma once
 #include "../core/threading/Threading.hpp"
+#include "../profiling/Profiling.hpp"
 #include <memory>
 
 namespace hexen::engine::systems
@@ -146,6 +147,7 @@ namespace hexen::engine::systems
 	template<class T, typename... Args>
 	void TaskSystem::addTask(core::threading::TaskPriority priority, T *newFunctor(Args...), Args... args)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
 		task.bind(newFunctor, args...);
 		scheduler.addTask(task, priority, &counter);
@@ -154,6 +156,7 @@ namespace hexen::engine::systems
 	template<typename Ret, typename... Args>
 	void TaskSystem::addTask(core::threading::TaskPriority priority, Ret (*function)(Args...), Args... args)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
 		task.bind(function, args...);
 		scheduler.addTask(task, priority, &counter);
@@ -163,6 +166,7 @@ namespace hexen::engine::systems
 	template<class T, typename Ret, typename... Args>
 	void TaskSystem::addTask(core::threading::TaskPriority priority, T *object, Ret (T::*method)(Args...), Args... args)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
 		task.bind(object, method, args...);
 		scheduler.addTask(task, priority, &counter);

@@ -145,6 +145,7 @@ namespace hexen::engine::entity
 		template<class T>
 		void rename(T &&newName)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			name = std::forward<T>(newName);
 		}
 
@@ -207,6 +208,7 @@ namespace hexen::engine::entity
 		template<class T, class... Ts>
 		void addChild(Ts &&...params)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			childrens.set(generateUUIDV4(), core::memory::make_shared<T>(params...));
 		}
 
@@ -223,6 +225,7 @@ namespace hexen::engine::entity
 		template<class T>
 		void addChild(T &&entityName)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			std::string childUUID = generateUUIDV4();
 			auto child = core::memory::make_shared<SceneEntity>(entityName, childUUID);
 			childrens.set(childUUID, child);

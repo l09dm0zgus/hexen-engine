@@ -57,6 +57,7 @@ namespace hexen::engine::systems
 		template<typename T, std::enable_if_t<std::is_base_of_v<hexen::engine::components::graphics::CameraComponent, T>, bool> = true>
 		static void addCameraComponent(core::i32 viewportWidth, core::i32 viewportHeight, float FOV)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			camerasComponents.emplace_back(core::memory::make_shared<T>(viewportWidth, viewportHeight, FOV));
 		}
 
@@ -79,6 +80,7 @@ namespace hexen::engine::systems
 		template<class T, class... Args>
 		static core::i32 registerNewComponent(Args... args)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			core::i32 handle{-1};
 
 			if constexpr (std::is_same_v<T,components::TransformComponent>)
@@ -107,6 +109,7 @@ namespace hexen::engine::systems
 		template<class T>
 		static T* getComponentInstanceByHandle(core::i32 handle)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if constexpr (std::is_same_v<T,components::TransformComponent>)
 			{
 				return &transformComponents[handle];
@@ -117,6 +120,7 @@ namespace hexen::engine::systems
 		template<class T>
 		static void releaseComponentByHandle(core::i32 handle)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			if constexpr (std::is_same_v<T,components::TransformComponent>)
 			{
 				transformComponents.release(handle);

@@ -5,9 +5,11 @@
 #include "ShaderFile.hpp"
 #include "../render_context/RenderContext.hpp"
 #include "SDL3/SDL.h"
+#include "../profiling/Profiling.hpp"
 
 void hexen::engine::graphics::ShaderFile::read(const std::string &path)
 {
+	HEXEN_ADD_TO_PROFILE();
 	SDL_RWops *file = SDL_RWFromFile(path.c_str(), "r");
 	if (file != nullptr)
 	{
@@ -37,11 +39,13 @@ void hexen::engine::graphics::ShaderFile::read(const std::string &path)
 
 char *hexen::engine::graphics::ShaderFile::getContent() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return const_cast<char *>(shaderText.c_str());
 }
 
 std::string hexen::engine::graphics::ShaderFile::parseShaderType()
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::string typeToken = "#type";
 	auto tokenPosition = shaderText.find(typeToken);
 	HEXEN_ASSERT(tokenPosition != std::string::npos, "ERROR: Token #type in shader file " + path + " not found! Please specify shader type!");
@@ -69,6 +73,7 @@ std::string hexen::engine::graphics::ShaderFile::parseShaderType()
 }
 void hexen::engine::graphics::ShaderFile::setShaderType(const std::string &shaderType)
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (shaderType == "vertex")
 	{
 		type = ShaderType::VERTEX;
@@ -89,5 +94,6 @@ void hexen::engine::graphics::ShaderFile::setShaderType(const std::string &shade
 }
 hexen::engine::graphics::ShaderType hexen::engine::graphics::ShaderFile::getType() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return type;
 }

@@ -98,6 +98,7 @@ namespace hexen::engine::core::threading
 
 			explicit CircularArray(size_t const n) : items(n)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				HEXEN_ASSERT(!(n == 0) && !(n & (n - 1)), "n must be a power of 2");
 			}
 
@@ -113,6 +114,7 @@ namespace hexen::engine::core::threading
 
 			[[nodiscard]] size_t size() const
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return items.size();
 			}
 
@@ -124,6 +126,7 @@ namespace hexen::engine::core::threading
 
 			T get(size_t const index)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				return items[index & (size() - 1)];
 			}
 
@@ -135,6 +138,7 @@ namespace hexen::engine::core::threading
 
 			void put(size_t const index, T x)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				items[index & (size() - 1)] = x;
 			}
 
@@ -152,6 +156,7 @@ namespace hexen::engine::core::threading
 
 			CircularArray *grow(size_t const top, size_t const bottom)
 			{
+				HEXEN_ADD_TO_PROFILE();
 				auto *const newArray = new CircularArray(size() * 2);
 				newArray->previous.reset(this);
 				for (size_t i = top; i != bottom; i++)
@@ -178,6 +183,7 @@ namespace hexen::engine::core::threading
 
 		void push(T value)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto b = bottom.load(std::memory_order_relaxed);
 			auto t = top.load(std::memory_order_acquire);
 			auto *a = this->array.load(std::memory_order_relaxed);
@@ -206,6 +212,7 @@ namespace hexen::engine::core::threading
 
 		bool pop(T *value)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto b = bottom.load(std::memory_order_relaxed) - 1;
 			auto *const a = array.load(std::memory_order_relaxed);
 			bottom.store(b, std::memory_order_relaxed);
@@ -254,6 +261,7 @@ namespace hexen::engine::core::threading
 
 		bool steal(T *const value)
 		{
+			HEXEN_ADD_TO_PROFILE();
 			auto t = top.load(std::memory_order_acquire);
 
 			std::atomic_thread_fence(std::memory_order_seq_cst);

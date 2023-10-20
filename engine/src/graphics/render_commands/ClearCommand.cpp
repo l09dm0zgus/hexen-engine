@@ -9,8 +9,11 @@
 	#include "GL_subcommands/GLClear.hpp"
 #endif
 
+#include "../profiling/Profiling.hpp"
+
 hexen::engine::graphics::ClearCommand::ClearCommand(const glm::vec4& color) : color(color)
 {
+	HEXEN_ADD_TO_PROFILE();
 	// used for optimization , see IRenderCommand and RenderPipeline class for details.
 	enableExecute = false;
 	enableFinish = false;
@@ -18,6 +21,7 @@ hexen::engine::graphics::ClearCommand::ClearCommand(const glm::vec4& color) : co
 }
 void hexen::engine::graphics::ClearCommand::execute()
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch(RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:

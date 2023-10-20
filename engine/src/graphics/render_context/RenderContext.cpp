@@ -12,6 +12,7 @@ hexen::engine::core::Settings hexen::engine::graphics::RenderContext::settings;
 
 std::shared_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics::RenderContext::create()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		SDL_Log("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
@@ -38,9 +39,7 @@ std::shared_ptr<hexen::engine::graphics::RenderContext> hexen::engine::graphics:
 }
 hexen::engine::core::Settings::RenderAPI hexen::engine::graphics::RenderContext::getRenderAPI()
 {
+	HEXEN_ADD_TO_PROFILE();
 	return settings.getRenderAPI();
 }
-hexen::engine::core::i32 hexen::engine::graphics::RenderContext::getWindowFlags() const noexcept
-{
-	return 0;
-}
+

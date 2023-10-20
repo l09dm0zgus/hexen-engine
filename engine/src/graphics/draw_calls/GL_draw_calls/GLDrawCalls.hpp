@@ -10,11 +10,13 @@
 #else
 	#include <GLES3/gl31.h>
 #endif
+#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics::gl
 {
 	static HEXEN_INLINE void drawLines(core::u32 countOfLines)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		glDrawElements(GL_LINES, countOfLines , GL_UNSIGNED_INT, nullptr);
 	}
 }

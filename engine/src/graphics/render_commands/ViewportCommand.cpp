@@ -18,6 +18,7 @@ hexen::engine::graphics::ViewportCommand::ViewportCommand(const glm::ivec4 &para
 
 void hexen::engine::graphics::ViewportCommand::execute()
 {
+	HEXEN_ADD_TO_PROFILE();
 	switch(RenderContext::getRenderAPI())
 	{
 		case core::Settings::RenderAPI::NO_API:

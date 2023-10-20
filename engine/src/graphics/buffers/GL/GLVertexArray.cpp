@@ -12,6 +12,7 @@ namespace hexen::engine::graphics
 {
 	GLenum shaderDataTypeToGLBaseType(ShaderDataType type)
 	{
+		HEXEN_ADD_TO_PROFILE();
 		switch (type)
 		{
 			case ShaderDataType::NONE:
@@ -51,25 +52,30 @@ namespace hexen::engine::graphics
 
 hexen::engine::graphics::gl::GLVertexArray::GLVertexArray()
 {
+	HEXEN_ADD_TO_PROFILE();
 	glGenVertexArrays(1, &object);
 }
 
 void hexen::engine::graphics::gl::GLVertexArray::bind() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindVertexArray(object);
 }
 
 hexen::engine::graphics::gl::GLVertexArray::~GLVertexArray()
 {
+	HEXEN_ADD_TO_PROFILE();
 	glDeleteVertexArrays(1, &object);
 }
 
 void hexen::engine::graphics::gl::GLVertexArray::unbind() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindVertexArray(0);
 }
 void hexen::engine::graphics::gl::GLVertexArray::addVertexBuffer(const std::shared_ptr<hexen::engine::graphics::VertexBuffer> &vertexBuffer)
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindVertexArray(object);
 	vertexBuffer->bind();
 	core::u32 index{0};
@@ -86,6 +92,7 @@ void hexen::engine::graphics::gl::GLVertexArray::addVertexBuffer(const std::shar
 }
 void hexen::engine::graphics::gl::GLVertexArray::setElementBuffer(const std::shared_ptr<ElementsBuffer> &newElementsBuffers)
 {
+	HEXEN_ADD_TO_PROFILE();
 	glBindVertexArray(object);
 	newElementsBuffers->bind();
 	elementsBuffer = newElementsBuffers;
