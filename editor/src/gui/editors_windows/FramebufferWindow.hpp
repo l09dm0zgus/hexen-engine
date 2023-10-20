@@ -5,9 +5,7 @@
 #pragma once
 
 #include "GUIWindow.hpp"
-#include "graphics/buffers/GL/GLFrameBuffer.hpp"
 #include <core/Types.hpp>
-#include <core/graphics/texture/FrameBufferTexture.hpp>
 
 namespace hexen::engine::graphics
 {

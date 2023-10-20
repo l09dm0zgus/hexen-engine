@@ -71,7 +71,6 @@ void hexen::editor::EditorGameLoop::loop()
 			manager->addDebugGrid();
 		}
 
-		engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
 		engine::graphics::RenderPipeline::prepareCommands();
 		editorGui->renderFrameBufferWindowsContents();
 		systemManager->render(getAlpha());
