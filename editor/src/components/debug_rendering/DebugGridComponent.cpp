@@ -3,16 +3,16 @@
 //
 
 #include "DebugGridComponent.hpp"
+#include <graphics/render_commands/RenderPipeline.hpp>
+#include "DrawGridCommand.hpp"
 
-#ifndef __ANDROID__
-	#include <GL/glew.h>
-#else
-	#include <GLES3/gl31.h>
-#endif
-
-hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
+hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::vector<std::string> &pathsToShaders)
 {
-	shaderProgram = hexen::engine::core::memory::make_shared<hexen::engine::graphics::gl::shader::GLShaderProgram>(vertexShaderPath, fragmentShaderPath);
+	std::vector<glm::vec3> vertices;
+
+	std::vector<glm::uvec4> indices;
+
+	shaderProgram = engine::graphics::ShaderProgram::create(pathsToShaders);
 
 	grid = hexen::engine::core::memory::make_unique<hexen::engine::core::Grid>();
 
@@ -43,33 +43,16 @@ hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(cons
 		}
 	}
 
-	VAO.bind();
-	VBO.bind(vertices);
-	EBO.bind(indices);
-	attributes.add(3, 3, 0);
-	VBO.unbind();
-	VAO.unbind();
-	EBO.unbind();
-
-	lenght = indices.size() * 4;
+	renderHandle = engine::graphics::RenderPipeline::addCommandToQueue<DrawGridCommand>(RenderGridData(vertices, indices));
 }
 
 void hexen::editor::components::graphics::DebugGridComponent::draw() noexcept
 {
-	glEnable(GL_DEPTH_TEST);
 
-	shaderProgram->use();
-	shaderProgram->setMatrix4Uniform("model", getTransformMatrix());
-	shaderProgram->setMatrix4Uniform("projection", getProjectionMatrix());
-	shaderProgram->setMatrix4Uniform("view", getViewMatrix());
-	shaderProgram->setVector3Uniform("color", color);
+	shaderProgram->bind();
+	shaderProgram->setMatrix4("model", getTransformMatrix());
+	shaderProgram->setMatrix4("projection", getProjectionMatrix());
+	shaderProgram->setMatrix4("view", getViewMatrix());
+	shaderProgram->setVector3f("color", color);
 
-
-	VAO.bind();
-
-	glDrawElements(GL_LINES, lenght, GL_UNSIGNED_INT, nullptr);
-
-	VAO.unbind();
-
-	glDisable(GL_DEPTH_TEST);
 }
