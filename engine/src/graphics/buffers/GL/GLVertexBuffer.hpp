@@ -36,6 +36,22 @@ namespace hexen::engine::graphics::gl
 		GLVertexBuffer(float *vertices, core::u32 size);
 
 		/**
+ 		* @brief Construct a new GLVertexBuffer object
+ 		* @details Creates a new vertex buffer object (VBO) in the GPU memory and establishes it as the current buffer
+ 		*                  for future OpenGL function that operate on VBOs. The buffer data is not initialized during the creation.
+ 		*
+ 		* @param size The size in bytes of the VBO's new data store.
+ 		*
+ 		* @note The GL_DYNAMIC_DRAW flag is used, it is a hint that the data store contents will be modified repeatedly
+ 		*       and used many times while drawing.
+ 		*
+ 		* @warning The provided size must not be negative or an integer overflow may occur.
+		*
+ 		*/
+
+		explicit GLVertexBuffer(core::u32 size);
+
+		/**
 		*
     	* @brief Destructor of GLVertexBuffer class.
  		*

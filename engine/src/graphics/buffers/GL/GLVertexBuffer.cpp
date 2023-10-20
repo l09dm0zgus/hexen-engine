@@ -16,7 +16,6 @@ hexen::engine::graphics::gl::GLVertexBuffer::GLVertexBuffer(float *vertices, cor
 	glGenBuffers(1, &object);
 	glBindBuffer(GL_ARRAY_BUFFER, object);
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 hexen::engine::graphics::gl::GLVertexBuffer::~GLVertexBuffer()
@@ -34,4 +33,9 @@ void hexen::engine::graphics::gl::GLVertexBuffer::unbind() const noexcept
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-
+hexen::engine::graphics::gl::GLVertexBuffer::GLVertexBuffer(hexen::engine::core::u32 size)
+{
+	glGenBuffers(1, &object);
+	glBindBuffer(GL_ARRAY_BUFFER, object);
+	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+}
