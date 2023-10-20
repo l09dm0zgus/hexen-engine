@@ -138,7 +138,7 @@ namespace hexen::engine::graphics
      	* @param newElements - An initializer list of BufferElements.
      	*/
 
-		BufferLayout(std::initializer_list<BufferElement> &newElements);
+		BufferLayout(const std::initializer_list<BufferElement> &newElements);
 
 		/**
      	* @brief Default constructor
@@ -275,6 +275,21 @@ namespace hexen::engine::graphics
         */
 
 		static std::shared_ptr<VertexBuffer> create(float *vertices, core::u32 size);
+
+		/**
+ 		* @brief This function is used to create a vertex buffer of a specified size.
+ 		*
+ 		* This function relies on the render API specified in the settings. It asserts that a
+ 		* render API is set and the PC supports graphics. Currently, it only supports open GL,
+ 		* other render APIs such as Vulkan and DirectX12 are under development.
+ 		*
+ 		* @param size An unsigned 32-bit integer representing the size of the vertex buffer.
+ 		* @return A shared pointer to the created vertex buffer. If the creation fails or is not supported,
+ 		*         it returns nullptr.
+ 		*
+ 		*/
+
+		static  std::shared_ptr<VertexBuffer> create(core::u32 size);
 
 		/**
         * @brief Pure virtual method that binds the vertex buffer.
