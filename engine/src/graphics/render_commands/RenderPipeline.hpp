@@ -3,11 +3,12 @@
 //
 
 #pragma once
+#include "../profiling/Profiling.hpp"
 #include "IRenderCommand.hpp"
+#include "buffers/VertexArray.hpp"
 #include <Types.hpp>
 #include <glm/vec2.hpp>
 #include <parallel_hashmap/phmap.h>
-#include "../profiling/Profiling.hpp"
 
 namespace hexen::engine::graphics
 {

@@ -11,6 +11,8 @@ target_sources(${RENDER_MODULE_NAME} PUBLIC
         ClearCommand.cpp
         ViewportCommand.hpp
         ViewportCommand.cpp
+        Draw2DQuadsCommand.hpp
+        Draw2DQuadsCommand.cpp
 )
 
 if (ENABLE_OPENGL_SUPPORT)
