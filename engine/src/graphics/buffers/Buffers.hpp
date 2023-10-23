@@ -323,6 +323,12 @@ namespace hexen::engine::graphics
  		 */
 
 		[[nodiscard]] virtual const BufferLayout &getLayout() const noexcept = 0;
+
+		/**
+        * @brief Pure virtual method that sets data in the vertex buffer.
+        */
+
+		virtual void setData(const core::vptr data , core::u32 size) = 0;
 	};
 
 

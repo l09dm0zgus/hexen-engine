@@ -98,6 +98,18 @@ namespace hexen::engine::graphics::gl
 
 		[[nodiscard]]  const BufferLayout& getLayout() const noexcept override { return bufferLayout; };
 
+		/**
+ 		* @brief This function sets data to the GLVertexBuffer in the GL of the graphics engine.
+ 		*
+ 		* @param data This is a pointer to the data to be set in the GLVertexBuffer.
+ 		* @param size This is the size of the data to be set.
+ 		*
+ 		* The function first binds the buffer to the `GL_ARRAY_BUFFER` target.
+ 		* Then, it creates and initializes a buffer object's data store.
+		*/
+
+		void setData(const core::vptr data, core::u32 size) override;
+
 	private:
 		core::u32 object {0};
 		BufferLayout bufferLayout;

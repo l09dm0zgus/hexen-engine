@@ -44,3 +44,10 @@ hexen::engine::graphics::gl::GLVertexBuffer::GLVertexBuffer(hexen::engine::core:
 	glBindBuffer(GL_ARRAY_BUFFER, object);
 	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 }
+
+void hexen::engine::graphics::gl::GLVertexBuffer::setData(hexen::engine::core::vptr const data, hexen::engine::core::u32 size)
+{
+	HEXEN_ADD_TO_PROFILE();
+	glBindBuffer(GL_ARRAY_BUFFER,object);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+}
