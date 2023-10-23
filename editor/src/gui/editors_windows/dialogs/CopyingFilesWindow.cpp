@@ -7,11 +7,12 @@
 
 hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : DialogWindow(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 }
-
 
 void hexen::editor::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
+	HEXEN_ADD_TO_PROFILE();
 	filesToCopy = files;
 	copiedFiles = 0;
 	currentFileToCopy = filesToCopy.cbegin();
@@ -19,11 +20,13 @@ void hexen::editor::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<st
 
 void hexen::editor::gui::CopyingFilesWindow::setCurrentPath(const std::filesystem::path &currentPath)
 {
+	HEXEN_ADD_TO_PROFILE();
 	this->currentPath = currentPath;
 }
 
 void hexen::editor::gui::CopyingFilesWindow::drawContent()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (currentFileToCopy != filesToCopy.cend())
 	{
 

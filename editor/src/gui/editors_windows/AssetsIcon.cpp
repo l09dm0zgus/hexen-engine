@@ -18,7 +18,7 @@ hexen::engine::core::HashTable<hexen::engine::core::u32, std::string> hexen::edi
 
 hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
 {
-
+	HEXEN_ADD_TO_PROFILE()
 	name = path.path().filename();
 	pathToFile = path.path().string();
 	fileName = name.string();
@@ -100,11 +100,13 @@ hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry 
 
 void hexen::editor::gui::AssetIcon::setSize(const glm::vec2 &newSize)
 {
+	HEXEN_ADD_TO_PROFILE()
 	size = newSize;
 }
 
 void hexen::editor::gui::AssetIcon::draw()
 {
+	HEXEN_ADD_TO_PROFILE()
 	isCtrlPressed = ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
 	ImGui::PushStyleColor(ImGuiCol_Button, color);
 	isClicked = ImGui::ImageButton(name.string().c_str(), reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
@@ -126,6 +128,7 @@ void hexen::editor::gui::AssetIcon::draw()
 
 void hexen::editor::gui::AssetIcon::createDragAndDropSource()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::BeginDragDropSource())
 	{
 		ImGui::SetDragDropPayload(PAYLOAD_NAME.c_str(), pathToFile.c_str(), (pathToFile.size() + 1) * sizeof(char));
@@ -135,6 +138,7 @@ void hexen::editor::gui::AssetIcon::createDragAndDropSource()
 
 void hexen::editor::gui::AssetIcon::createDragAndDropTarget()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::BeginDragDropTarget())
 	{
 		if (auto payload = ImGui::AcceptDragDropPayload(PAYLOAD_NAME.c_str()))
@@ -153,6 +157,7 @@ void hexen::editor::gui::AssetIcon::createDragAndDropTarget()
 
 void hexen::editor::gui::AssetIcon::showFilename()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (!isEditingName)
 	{
 		auto text = name.string().c_str();
@@ -178,6 +183,7 @@ void hexen::editor::gui::AssetIcon::showFilename()
 
 void hexen::editor::gui::AssetIcon::selectingFiles()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (isCtrlPressed && isClicked)
 	{
 		color = ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered];
@@ -199,11 +205,13 @@ void hexen::editor::gui::AssetIcon::selectingFiles()
 
 std::string hexen::editor::gui::AssetIcon::getPath() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return pathToFile;
 }
 
 void hexen::editor::gui::AssetIcon::setAssetWindowHoveredIcon()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenBlockedByPopup))
 	{
 		assetsWindow->currentHoveredIcon = this;
@@ -212,5 +220,6 @@ void hexen::editor::gui::AssetIcon::setAssetWindowHoveredIcon()
 
 void hexen::editor::gui::AssetIcon::renameFile()
 {
+	HEXEN_ADD_TO_PROFILE();
 	isEditingName = true;
 }

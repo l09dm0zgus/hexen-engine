@@ -15,6 +15,7 @@
 
 void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::shared_ptr<hexen::editor::gui::EditorGUI> &newEditorGUI)
 {
+	HEXEN_ADD_TO_PROFILE();
 	editorGui = newEditorGUI;
 	inputSystem->addGUI(newEditorGUI);
 }

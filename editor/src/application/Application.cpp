@@ -7,6 +7,7 @@
 
 hexen::editor::Application::Application()
 {
+	HEXEN_ADD_TO_PROFILE()
 	renderContext = hexen::engine::graphics::RenderContext::create();
 	window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
 	renderContext->attachWindow(window);
@@ -15,6 +16,7 @@ hexen::editor::Application::Application()
 
 void hexen::editor::Application::run()
 {
+	HEXEN_ADD_TO_PROFILE()
 	mainGameLoop->start();
 	mainGameLoop->loop();
 }

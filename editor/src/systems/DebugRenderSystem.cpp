@@ -15,6 +15,7 @@ hexen::editor::systems::DebugRenderSystem::DebugRenderSystem(hexen::engine::core
 void hexen::editor::systems::DebugRenderSystem::start()
 {
 }
+
 void hexen::editor::systems::DebugRenderSystem::render(float alpha)
 {
 	HEXEN_ADD_TO_PROFILE()
@@ -59,6 +60,7 @@ void hexen::editor::systems::DebugRenderSystem::updateViewAndProjectionMatrices(
 
 void hexen::editor::systems::DebugRenderSystem::updateCameras(float deltaTime)
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto camera = hexen::engine::systems::RenderSystem::getMainCamera();
 	HEXEN_ASSERT(camera != nullptr, "Main camera is nullptr!\n");
 

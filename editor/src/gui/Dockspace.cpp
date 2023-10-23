@@ -11,6 +11,7 @@
 
 void hexen::editor::gui::Dockspace::draw()
 {
+	HEXEN_ADD_TO_PROFILE()
 	id = ImGui::DockSpaceOverViewport();
 	if (isAttachedWindow)
 	{
@@ -26,6 +27,7 @@ void hexen::editor::gui::Dockspace::draw()
 
 void hexen::editor::gui::Dockspace::begin()
 {
+	HEXEN_ADD_TO_PROFILE()
 	for (auto &window : windows)
 	{
 		window->begin();
@@ -34,6 +36,7 @@ void hexen::editor::gui::Dockspace::begin()
 
 void hexen::editor::gui::Dockspace::end()
 {
+	HEXEN_ADD_TO_PROFILE()
 	for (auto &window : windows)
 	{
 		window->end();
@@ -42,7 +45,7 @@ void hexen::editor::gui::Dockspace::end()
 
 void hexen::editor::gui::Dockspace::setWindowsInDockspace()
 {
-
+	HEXEN_ADD_TO_PROFILE()
 	ImGuiViewport *viewport = ImGui::GetMainViewport();
 
 	ImGui::DockBuilderRemoveNode(id);// clear any previous layout
@@ -82,6 +85,7 @@ void hexen::editor::gui::Dockspace::setWindowsInDockspace()
 
 void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow, const DockingPosition &dockingPosition)
 {
+	HEXEN_ADD_TO_PROFILE()
 	windows.push_back(guiWindow);
 	dockingPositions.set(guiWindow->getName(), dockingPosition);
 	isAttachedWindow = true;
@@ -89,6 +93,7 @@ void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiW
 
 std::shared_ptr<hexen::editor::gui::GUIWindow> hexen::editor::gui::Dockspace::getWindow(const std::string &name)
 {
+	HEXEN_ADD_TO_PROFILE()
 	auto it = std::find_if(windows.begin(), windows.end(), [name = name](const auto &window)
 			{ return window->getName() == name; });
 
@@ -106,12 +111,14 @@ std::shared_ptr<hexen::editor::gui::GUIWindow> hexen::editor::gui::Dockspace::ge
 
 std::shared_ptr<hexen::editor::gui::FramebufferWindow> hexen::editor::gui::Dockspace::getSceneWindow()
 {
+	HEXEN_ADD_TO_PROFILE()
 	auto sceneWindow = getWindow("Scene");
 	return std::dynamic_pointer_cast<FramebufferWindow>(sceneWindow);
 }
 
 std::vector<std::shared_ptr<hexen::editor::gui::FramebufferWindow>> hexen::editor::gui::Dockspace::getListOfFramebufferWindows()
 {
+	HEXEN_ADD_TO_PROFILE()
 	std::vector<std::shared_ptr<FramebufferWindow>> frameBufferWindows;
 	for(auto &window : windows)
 	{

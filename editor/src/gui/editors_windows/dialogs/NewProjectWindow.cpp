@@ -11,22 +11,26 @@
 
 hexen::editor::gui::NewProjectWindow::NewProjectWindow(std::string name) : DialogWindow(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 	clearStrings();
 }
 
 std::string hexen::editor::gui::NewProjectWindow::getProjectPath()
 {
+	HEXEN_ADD_TO_PROFILE();
 	return projectPath;
 }
 
 void hexen::editor::gui::NewProjectWindow::clearStrings()
 {
+	HEXEN_ADD_TO_PROFILE();
 	memset(projectName, '\0', PROJECT_NAME_SIZE);
 	memset(pathToProject, '\0', PATH_TO_PROJECT_SIZE);
 }
 
 void hexen::editor::gui::NewProjectWindow::drawContent()
 {
+	HEXEN_ADD_TO_PROFILE();
 	ImGui::Text("Project name:");
 	ImGui::SameLine();
 	ImGui::InputText("##Project name", projectName, PROJECT_NAME_SIZE);

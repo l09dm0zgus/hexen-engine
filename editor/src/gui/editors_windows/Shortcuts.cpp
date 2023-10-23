@@ -9,12 +9,13 @@ std::map<hexen::editor::gui::Shortcuts::Keys, std::function<void()>> hexen::edit
 
 void hexen::editor::gui::Shortcuts::addShortcut(const Keys &keys, const std::function<void()> &callback)
 {
+	HEXEN_ADD_TO_PROFILE()
 	shortcuts[keys] = callback;
 }
 
 void hexen::editor::gui::Shortcuts::processInput()
 {
-
+	HEXEN_ADD_TO_PROFILE()
 	for (const auto &shortcut : shortcuts)
 	{
 		bool isPressed = true;

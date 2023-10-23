@@ -6,10 +6,12 @@
 
 hexen::editor::gui::DialogWindow::DialogWindow(std::string name) : GUIWindow(name)
 {
+	HEXEN_ADD_TO_PROFILE();
 }
 
 hexen::editor::gui::DialogWindow::Action hexen::editor::gui::DialogWindow::getLastAction()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto result = action;
 	action = Action::NONE;
 	return result;
@@ -17,24 +19,29 @@ hexen::editor::gui::DialogWindow::Action hexen::editor::gui::DialogWindow::getLa
 
 void hexen::editor::gui::DialogWindow::setAction(hexen::editor::gui::DialogWindow::Action newAction)
 {
+	HEXEN_ADD_TO_PROFILE();
 	action = newAction;
 }
 
 void hexen::editor::gui::DialogWindow::setOpen(bool newIsOpen)
 {
+	HEXEN_ADD_TO_PROFILE();
 	isOpen = newIsOpen;
 }
 
 void hexen::editor::gui::DialogWindow::begin()
 {
+	HEXEN_ADD_TO_PROFILE();
 }
 
 void hexen::editor::gui::DialogWindow::end()
 {
+	HEXEN_ADD_TO_PROFILE();
 }
 
 void hexen::editor::gui::DialogWindow::draw()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (isOpen)
 	{
 		setSize(glm::vec2(615, 110));

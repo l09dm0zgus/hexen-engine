@@ -12,6 +12,7 @@
 
 hexen::editor::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 	newProjectWindow = engine::core::memory::make_unique<NewProjectWindow>("New Project");
 
 	saveAsFileCallback = []()
@@ -68,22 +69,26 @@ hexen::editor::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
 
 void hexen::editor::gui::FileMenu::begin()
 {
+	HEXEN_ADD_TO_PROFILE();
 	newProjectWindow->begin();
 }
 
 void hexen::editor::gui::FileMenu::draw()
 {
+	HEXEN_ADD_TO_PROFILE();
 	showMainMenu();
 	newProjectWindow->draw();
 }
 
 void hexen::editor::gui::FileMenu::end()
 {
+	HEXEN_ADD_TO_PROFILE();
 	newProjectWindow->end();
 }
 
 void hexen::editor::gui::FileMenu::showMainMenu()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (ImGui::BeginMainMenuBar())
 	{
 		show();
@@ -93,6 +98,7 @@ void hexen::editor::gui::FileMenu::showMainMenu()
 
 void hexen::editor::gui::FileMenu::show()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto callback = [this]()
 	{
 		showNewScene();
@@ -113,18 +119,19 @@ void hexen::editor::gui::FileMenu::show()
 
 void hexen::editor::gui::FileMenu::showNewScene()
 {
-
+	HEXEN_ADD_TO_PROFILE();
 	showMenuItem(ICON_FA_MAP " New Scene", "CTRL+N", newSceneCallback);
 }
 
 void hexen::editor::gui::FileMenu::showOpenScene()
 {
-
+	HEXEN_ADD_TO_PROFILE();
 	showMenuItem(ICON_FA_FILE_IMPORT " Open Scene", "CTRL+O", openSceneCallback);
 }
 
 void hexen::editor::gui::FileMenu::showOpenRecentScene()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto callback = [this]() {
 
 	};
@@ -133,17 +140,19 @@ void hexen::editor::gui::FileMenu::showOpenRecentScene()
 
 void hexen::editor::gui::FileMenu::showSave()
 {
-
+	HEXEN_ADD_TO_PROFILE();
 	showMenuItem(ICON_FA_SAVE " Save", "CTRL+S", saveFileCallback);
 }
 
 void hexen::editor::gui::FileMenu::showSaveAs()
 {
+	HEXEN_ADD_TO_PROFILE();
 	showMenuItem(ICON_FA_FOLDER_OPEN " Save As...", "CTRL+SHIFT+S", saveAsFileCallback);
 }
 
 void hexen::editor::gui::FileMenu::showNewProject()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto callback = [this]()
 	{
 		newProjectWindow->setOpen(true);
@@ -153,6 +162,7 @@ void hexen::editor::gui::FileMenu::showNewProject()
 
 void hexen::editor::gui::FileMenu::showOpenProject()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto callback = [this]()
 	{
 		FileDialog fileDialog;
@@ -177,6 +187,7 @@ void hexen::editor::gui::FileMenu::showOpenProject()
 
 void hexen::editor::gui::FileMenu::showSaveProject()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto callback = [this]()
 	{
 		if (Project::getCurrentProject() != nullptr)
@@ -189,6 +200,7 @@ void hexen::editor::gui::FileMenu::showSaveProject()
 
 void hexen::editor::gui::FileMenu::showExit()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto callback = [this]()
 	{
 		exit(0);

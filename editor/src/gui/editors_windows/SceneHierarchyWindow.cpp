@@ -9,6 +9,7 @@
 hexen::editor::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name) : GUIWindow(std::move(name))
 {
 	setSize(glm::vec2(400, 300));
+	HEXEN_ADD_TO_PROFILE()
 	//temporary, in future scene loading will be called in SceneFileWindow/menu bar , etc
 	hexen::engine::core::SceneManager::loadScene("Main.hxscene");
 
@@ -17,10 +18,12 @@ hexen::editor::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name)
 
 void hexen::editor::gui::SceneHierarchyWindow::begin()
 {
+	HEXEN_ADD_TO_PROFILE()
 }
 
 void hexen::editor::gui::SceneHierarchyWindow::draw()
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui::Begin(getName().c_str(), &isOpen, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
 	drawSearchBar();
 	if (searchQuery.empty())
@@ -45,10 +48,12 @@ void hexen::editor::gui::SceneHierarchyWindow::draw()
 
 void hexen::editor::gui::SceneHierarchyWindow::end()
 {
+	HEXEN_ADD_TO_PROFILE()
 }
 
 void hexen::editor::gui::SceneHierarchyWindow::drawEntityChilds(hexen::engine::core::HashTable<std::string, std::shared_ptr<hexen::engine::entity::SceneEntity>> &&childs)
 {
+	HEXEN_ADD_TO_PROFILE()
 
 	for (auto &child : childs)
 	{
@@ -107,6 +112,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawEntityChilds(hexen::engine::c
 
 void hexen::editor::gui::SceneHierarchyWindow::startDragAndDropSource(const std::shared_ptr<hexen::engine::entity::SceneEntity> &sceneEntity)
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::BeginDragDropSource())
 	{
 		ImGui::SetDragDropPayload(PAYLOAD_NAME.c_str(), sceneEntity.get(), sizeof(*sceneEntity));
@@ -116,6 +122,7 @@ void hexen::editor::gui::SceneHierarchyWindow::startDragAndDropSource(const std:
 
 void hexen::editor::gui::SceneHierarchyWindow::startDragAndDropTarget(std::shared_ptr<hexen::engine::entity::SceneEntity> &&sceneEntity)
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::BeginDragDropTarget())
 	{
 		if (auto payload = ImGui::AcceptDragDropPayload(PAYLOAD_NAME.c_str()))
@@ -135,11 +142,13 @@ void hexen::editor::gui::SceneHierarchyWindow::startDragAndDropTarget(std::share
 
 void hexen::editor::gui::SceneHierarchyWindow::drawSearchBar()
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui::InputText(ICON_FA_SEARCH "", &searchQuery, ImGuiInputTextFlags_EnterReturnsTrue);
 }
 
 void hexen::editor::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<hexen::engine::entity::SceneEntity> &entity)
 {
+	HEXEN_ADD_TO_PROFILE()
 	hexen::engine::core::i32 flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 	ImGui::PushID(entity->getUUID().c_str());
@@ -162,6 +171,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<
 
 void hexen::editor::gui::SceneHierarchyWindow::drawContextMenu()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::BeginPopupContextWindow())
 	{
 		if (isItemHovered)
@@ -183,6 +193,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawContextMenu()
 
 void hexen::editor::gui::SceneHierarchyWindow::drawAddSceneEntity()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE " Add Scene Entity..."))
 	{
 		scene->spawnEntity<hexen::engine::entity::SceneEntity>("Scene Entity");
@@ -191,6 +202,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawAddSceneEntity()
 
 void hexen::editor::gui::SceneHierarchyWindow::drawAddChild()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE " Add Child..."))
 	{
 		if (hoveredNode != nullptr)
@@ -202,6 +214,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawAddChild()
 
 void hexen::editor::gui::SceneHierarchyWindow::drawDelete()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_TRASH " Delete"))
 	{
 		if (hoveredNode != nullptr)
@@ -218,6 +231,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawDelete()
 
 void hexen::editor::gui::SceneHierarchyWindow::checkHoveredItem()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup))
 	{
 		isItemHovered = true;

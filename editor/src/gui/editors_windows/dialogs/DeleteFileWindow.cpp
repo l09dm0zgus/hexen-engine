@@ -8,9 +8,12 @@
 
 hexen::editor::gui::DeleteFileWindow::DeleteFileWindow(std::string name) : DialogWindow(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 }
+
 void hexen::editor::gui::DeleteFileWindow::setPath(const std::string &pathToFile)
 {
+	HEXEN_ADD_TO_PROFILE();
 	path = pathToFile;
 
 	deleteCallback = [this]()
@@ -21,6 +24,7 @@ void hexen::editor::gui::DeleteFileWindow::setPath(const std::string &pathToFile
 
 void hexen::editor::gui::DeleteFileWindow::drawContent()
 {
+	HEXEN_ADD_TO_PROFILE();
 	ImGui::Text(text.c_str(), path.c_str());
 	ImGui::SameLine();
 

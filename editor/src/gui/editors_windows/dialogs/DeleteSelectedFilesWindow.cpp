@@ -6,11 +6,13 @@
 
 hexen::editor::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string name) : DeleteFileWindow(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 	text = "Delete this selected files?";
 }
 
 void hexen::editor::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::filesystem::path> &selectedFiles)
 {
+	HEXEN_ADD_TO_PROFILE();
 	paths = selectedFiles;
 	deleteCallback = [this]()
 	{
@@ -23,5 +25,6 @@ void hexen::editor::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<s
 
 void hexen::editor::gui::DeleteSelectedFilesWindow::drawContent()
 {
+	HEXEN_ADD_TO_PROFILE();
 	DeleteFileWindow::drawContent();
 }

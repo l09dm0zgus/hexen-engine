@@ -8,6 +8,7 @@
 
 hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::vector<std::string> &pathsToShaders)
 {
+	HEXEN_ADD_TO_PROFILE()
 	std::vector<glm::vec3> vertices;
 
 	std::vector<glm::uvec4> indices;
@@ -48,7 +49,7 @@ hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(cons
 
 void hexen::editor::components::graphics::DebugGridComponent::draw() noexcept
 {
-
+	HEXEN_ADD_TO_PROFILE()
 	shaderProgram->bind();
 	shaderProgram->setMatrix4("model", getTransformMatrix());
 	shaderProgram->setMatrix4("projection", getProjectionMatrix());

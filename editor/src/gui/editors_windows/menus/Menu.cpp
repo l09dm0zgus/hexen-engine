@@ -6,10 +6,12 @@
 
 hexen::editor::gui::Menu::Menu(std::string name) : GUIWindow(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE();
 }
 
 void hexen::editor::gui::Menu::showMenu(const std::string &name, const std::function<void()> &callback)
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (ImGui::BeginMenu(name.c_str()))
 	{
 		callback();
@@ -19,6 +21,7 @@ void hexen::editor::gui::Menu::showMenu(const std::string &name, const std::func
 
 void hexen::editor::gui::Menu::showMenuItem(const std::string &name, const std::string &shortcutText, const std::function<void()> &callback)
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (ImGui::MenuItem(name.c_str(), shortcutText.c_str()))
 	{
 		callback();

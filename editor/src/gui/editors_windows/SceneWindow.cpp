@@ -7,9 +7,11 @@
 
 hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : FramebufferWindow(name)
 {
+	HEXEN_ADD_TO_PROFILE()
 }
 
 void hexen::editor::gui::SceneWindow::renderFramebufferContent()
 {
+	HEXEN_ADD_TO_PROFILE()
 	FramebufferWindow::renderFramebufferContent();
 }

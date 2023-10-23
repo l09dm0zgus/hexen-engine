@@ -12,6 +12,7 @@
 
 hexen::editor::gui::EditorGUI::EditorGUI(const std::shared_ptr<engine::core::Window> &window, const std::shared_ptr<engine::graphics::RenderContext> &renderContext) : EditorGUI()
 {
+	HEXEN_ADD_TO_PROFILE()
 	currentRenderAPI = RenderContext::getRenderAPI();
 	const char *glslVersion = "#version 130";
 	switch (currentRenderAPI)
@@ -31,6 +32,7 @@ hexen::editor::gui::EditorGUI::EditorGUI(const std::shared_ptr<engine::core::Win
 
 hexen::editor::gui::EditorGUI::EditorGUI()
 {
+	HEXEN_ADD_TO_PROFILE()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	io = &ImGui::GetIO();
@@ -56,6 +58,7 @@ hexen::editor::gui::EditorGUI::EditorGUI()
 
 void hexen::editor::gui::EditorGUI::begin()
 {
+	HEXEN_ADD_TO_PROFILE()
 	switch (currentRenderAPI)
 	{
 		case RenderAPI::NO_API:
@@ -76,6 +79,7 @@ void hexen::editor::gui::EditorGUI::begin()
 
 void hexen::editor::gui::EditorGUI::draw()
 {
+	HEXEN_ADD_TO_PROFILE()
 	bool isActive = true;
 	//ImGui::ShowDemoWindow(&isActive);
 	dockspace->draw();
@@ -86,6 +90,7 @@ void hexen::editor::gui::EditorGUI::draw()
 
 hexen::editor::gui::EditorGUI::~EditorGUI()
 {
+	HEXEN_ADD_TO_PROFILE()
 	switch (currentRenderAPI)
 	{
 		case RenderAPI::NO_API:
@@ -106,6 +111,7 @@ hexen::editor::gui::EditorGUI::~EditorGUI()
 
 void hexen::editor::gui::EditorGUI::end()
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui::Render();
 
 	switch (currentRenderAPI)
@@ -133,16 +139,19 @@ void hexen::editor::gui::EditorGUI::end()
 
 void hexen::editor::gui::EditorGUI::processEvent(const SDL_Event &event)
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui_ImplSDL3_ProcessEvent(&event);
 }
 
 std::shared_ptr<hexen::editor::gui::Dockspace> hexen::editor::gui::EditorGUI::getDockspace()
 {
+	HEXEN_ADD_TO_PROFILE()
 	return dockspace;
 }
 
 void hexen::editor::gui::EditorGUI::renderFrameBufferWindowsContents()
 {
+	HEXEN_ADD_TO_PROFILE()
 	auto frameBufferWindows = dockspace->getListOfFramebufferWindows();
 	for (auto& frameBufferWindow : frameBufferWindows)
 	{

@@ -53,6 +53,7 @@ namespace hexen::editor::gui
 
 		static HEXEN_INLINE void draw()
 		{
+			HEXEN_ADD_TO_PROFILE()
 			for (auto &data : messagesBoxesData)
 			{
 				if (data.isActive)
@@ -92,6 +93,7 @@ namespace hexen::editor::gui
 		template<class T>
 		static HEXEN_INLINE void add(T &&title, T &&text, const glm::vec2 &size = glm::vec2(230, 75)) noexcept
 		{
+			HEXEN_ADD_TO_PROFILE()
 			auto id = engine::core::hashString(text + title);
 			auto it = std::find_if(messagesBoxesData.begin(), messagesBoxesData.end(), [id = id](const auto &data)
 					{ return id == data.id; });

@@ -14,6 +14,7 @@
 
 hexen::editor::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std::move(name))
 {
+	HEXEN_ADD_TO_PROFILE()
 	setSize(glm::vec2(1280, 400));
 
 	deleteFileWindow = hexen::engine::core::memory::make_unique<DeleteFileWindow>("Delete");
@@ -37,6 +38,7 @@ hexen::editor::gui::AssetsWindow::AssetsWindow(std::string name) : GUIWindow(std
 
 void hexen::editor::gui::AssetsWindow::begin()
 {
+	HEXEN_ADD_TO_PROFILE()
 	deleteFileWindow->begin();
 	deleteSelectedFilesWindow->begin();
 	copyingFilesWindow->begin();
@@ -44,6 +46,7 @@ void hexen::editor::gui::AssetsWindow::begin()
 
 void hexen::editor::gui::AssetsWindow::draw()
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui::Begin(getName().c_str(), &isOpen, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_HorizontalScrollbar);
 
 	if (Project::getCurrentProject() != nullptr)
@@ -100,6 +103,7 @@ void hexen::editor::gui::AssetsWindow::draw()
 
 void hexen::editor::gui::AssetsWindow::end()
 {
+	HEXEN_ADD_TO_PROFILE()
 	deleteFileWindow->end();
 	deleteSelectedFilesWindow->end();
 	copyingFilesWindow->end();
@@ -107,6 +111,7 @@ void hexen::editor::gui::AssetsWindow::end()
 
 void hexen::editor::gui::AssetsWindow::drawNode(hexen::engine::core::i32 i)
 {
+	HEXEN_ADD_TO_PROFILE()
 	auto nodeName = directoryList[i] + " " + ICON_FA_FOLDER;
 
 	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 50.0f);
@@ -140,6 +145,7 @@ void hexen::editor::gui::AssetsWindow::drawNode(hexen::engine::core::i32 i)
 
 void hexen::editor::gui::AssetsWindow::pushButtonStyle()
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 1.0f, 1.0f, 0.1f));
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1.0f, 1.0f, 1.0f, 0.1f));
@@ -147,11 +153,13 @@ void hexen::editor::gui::AssetsWindow::pushButtonStyle()
 
 void hexen::editor::gui::AssetsWindow::popButtonStyle()
 {
+	HEXEN_ADD_TO_PROFILE()
 	ImGui::PopStyleColor(3);
 }
 
 void hexen::editor::gui::AssetsWindow::showFilesInDirectory()
 {
+	HEXEN_ADD_TO_PROFILE()
 	pushButtonStyle();
 	for (auto &icon : icons)
 	{
@@ -163,6 +171,7 @@ void hexen::editor::gui::AssetsWindow::showFilesInDirectory()
 
 void hexen::editor::gui::AssetsWindow::refresh()
 {
+	HEXEN_ADD_TO_PROFILE()
 	icons.clear();
 	if (!currentPath.empty())
 	{
@@ -175,6 +184,7 @@ void hexen::editor::gui::AssetsWindow::refresh()
 
 void hexen::editor::gui::AssetsWindow::resizeIcons()
 {
+	HEXEN_ADD_TO_PROFILE()
 	for (auto &icon : icons)
 	{
 		icon.setSize(iconsSize);
@@ -183,6 +193,7 @@ void hexen::editor::gui::AssetsWindow::resizeIcons()
 
 void hexen::editor::gui::AssetsWindow::drawMenu()
 {
+	HEXEN_ADD_TO_PROFILE()
 	isShowedContextMenu = ImGui::BeginPopupContextWindow();
 	if (isShowedContextMenu)
 	{
@@ -204,6 +215,7 @@ void hexen::editor::gui::AssetsWindow::drawMenu()
 
 void hexen::editor::gui::AssetsWindow::drawImportNewAssets()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE_IMPORT " Import New Assets..."))
 	{
 		FileDialog fileDialog;
@@ -234,6 +246,7 @@ void hexen::editor::gui::AssetsWindow::drawImportNewAssets()
 
 void hexen::editor::gui::AssetsWindow::drawDelete()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (currentHoveredIcon != nullptr && selectedFiles.empty())
 	{
 		if (ImGui::MenuItem(ICON_FA_TRASH " Delete"))
@@ -258,7 +271,7 @@ void hexen::editor::gui::AssetsWindow::drawDelete()
 
 void hexen::editor::gui::AssetsWindow::drawRename()
 {
-
+	HEXEN_ADD_TO_PROFILE()
 	if (currentHoveredIcon != nullptr)
 	{
 		if (ImGui::MenuItem(ICON_FA_PENCIL_ALT " Rename"))
@@ -274,6 +287,7 @@ void hexen::editor::gui::AssetsWindow::drawRename()
 
 void hexen::editor::gui::AssetsWindow::getActionsFromDialogs()
 {
+	HEXEN_ADD_TO_PROFILE()
 	dialogWindowActions.clear();
 	dialogWindowActions.push_back(deleteFileWindow->getLastAction());
 	dialogWindowActions.push_back(deleteSelectedFilesWindow->getLastAction());
@@ -290,6 +304,7 @@ void hexen::editor::gui::AssetsWindow::getActionsFromDialogs()
 
 void hexen::editor::gui::AssetsWindow::drawCreateEntity()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE_ALT " Create Entity..."))
 	{
 	}
@@ -297,6 +312,7 @@ void hexen::editor::gui::AssetsWindow::drawCreateEntity()
 
 void hexen::editor::gui::AssetsWindow::drawCreateTileset()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE_IMAGE " Create Tileset..."))
 	{
 	}
@@ -304,6 +320,7 @@ void hexen::editor::gui::AssetsWindow::drawCreateTileset()
 
 void hexen::editor::gui::AssetsWindow::drawCreateAnimation()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE_VIDEO " Create Animation..."))
 	{
 	}
@@ -311,6 +328,7 @@ void hexen::editor::gui::AssetsWindow::drawCreateAnimation()
 
 void hexen::editor::gui::AssetsWindow::drawCreateScene()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_MAP " Create Scene..."))
 	{
 	}
@@ -318,6 +336,7 @@ void hexen::editor::gui::AssetsWindow::drawCreateScene()
 
 void hexen::editor::gui::AssetsWindow::drawRefresh()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem("Refresh", "CTRL+R"))
 	{
 		refreshCallback();
@@ -326,6 +345,7 @@ void hexen::editor::gui::AssetsWindow::drawRefresh()
 
 void hexen::editor::gui::AssetsWindow::drawNewFolder()
 {
+	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FOLDER " New Folder"))
 	{
 		std::filesystem::create_directory(currentPath / "New Folder");

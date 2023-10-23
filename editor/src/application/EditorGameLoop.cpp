@@ -14,6 +14,7 @@
 
 hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow, const std::shared_ptr<hexen::engine::graphics::RenderContext> &renderContext) : GameLoop(newWindow)
 {
+	HEXEN_ADD_TO_PROFILE()
 	systemManager = hexen::engine::core::memory::make_shared<hexen::editor::systems::EditorSystemsManager>();
 
 	HEXEN_ASSERT(systemManager != nullptr, "System manager is nullptr!");
@@ -25,6 +26,7 @@ hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engin
 
 hexen::editor::EditorGameLoop::~EditorGameLoop()
 {
+	HEXEN_ADD_TO_PROFILE()
 	systems::EditorSystemsManager::setCurrentSystemManager(nullptr);
 }
 
