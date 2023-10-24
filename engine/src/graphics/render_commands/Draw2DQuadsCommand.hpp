@@ -6,41 +6,127 @@
 #include "IRenderCommand.hpp"
 #include <glm/glm.hpp>
 
+namespace hexen::engine::components
+{
+	class TransformComponent;
+}
 namespace hexen::engine::graphics
 {
 	class ShaderProgram;
 	class VertexArray;
 	class VertexBuffer;
+	class Texture2D;
+
+	/**
+ 	* @struct QuadVertex
+ 	* @brief This struct represents a quad vertex with position, texture coordinates, and texture index.
+ 	*/
 
 	struct QuadVertex
 	{
-		glm::vec3 position;
-		glm::vec2 textureCoordinates;
+		glm::vec3 position;			 ///< Position of the quad vertex.
+		glm::vec2 textureCoordinates;///< Texture coordinates of the quad vertex.
+		float textureIndex;			 ///< Texture index of the quad vertex.
 	};
+
+	/**
+ 	* @class Draw2DQuadsCommand
+ 	* @brief This class processes batch render commands for 2D quads.
+ 	* @extends IRenderCommand
+ 	*/
 
 	class Draw2DQuadsCommand : public IRenderCommand
 	{
 	private:
-		const core::u32 maxQuads = 10000;
-		const core::u32 maxVertices = maxQuads * 4;
-		const core::u32 maxIndices = maxQuads * 6;
+		const core::u32 maxQuads = 10000;				///< Maximum number of quads allowed.
+		const core::u32 maxVertices = maxQuads * 4;		///< Maximum number of vertices (maxQuads multiplied by 4 as each quad has 4 vertices).
+		const core::u32 maxIndices = maxQuads * 6;		///< Maximum number of indices (maxQuads multiplied by 6 as each rectangle formed by a quad has 6 indices).
+		static constexpr core::u32 maxTextureSlots = 32;///< Maximum number of texture slots.
 
-		std::shared_ptr<VertexBuffer> vertexBuffer;
-		std::shared_ptr<VertexArray> vertexArray;
-		std::shared_ptr<ShaderProgram> shaderProgram;
-		QuadVertex  *quadsVertexBase = nullptr;
-		QuadVertex *quadsVertexPointer = nullptr;
+		core::u32 indexCount {0};	   ///< Current count of indices.
+		core::u32 textureSlotIndex = 0;///< Current index in the texture slot.
 
+		std::shared_ptr<VertexBuffer> vertexBuffer;							 ///< Shared pointer to the vertex buffer.
+		std::shared_ptr<VertexArray> vertexArray;							 ///< Shared pointer to the vertex array.
+		std::shared_ptr<ShaderProgram> shaderProgram;						 ///< Shared pointer to the shader program.
+		std::array<std::shared_ptr<Texture2D>, maxTextureSlots> textureSlots;///< Array of shared pointers to 2D textures.
+
+		QuadVertex *quadsVertexBase = nullptr;	 ///< Base pointer for quad vertices.
+		QuadVertex *quadsVertexPointer = nullptr;///< Current pointer to the quad vertex.
+
+		glm::mat4 projection;			 ///< Matrix for projection transformations.
+		glm::mat4 view;					 ///< Matrix for view transformations.
+		glm::vec4 quadVertexPositions[4];///< Positions of four vertices of a quad.
+
+		/**
+ 		* @brief Initializes buffers and associates them with the vertex array.
+ 		*/
 
 		void initializeBuffers();
+
+		/**
+ 		* @brief Starts a new batch of quads.
+ 		*/
+
+		void startBatch();
+
+		/**
+ 		* @brief Initiates a new batch of quads after the current batch has been drawn.
+ 		*/
+
+		void nextBatch();
+
+		/**
+ 		* @brief Draws a batch of quads.
+ 		*/
+
+		void drawBatch();
+
 	public:
+		/**
+ 		* @brief Deletes quadsVertexBase.
+ 		*/
+
 		~Draw2DQuadsCommand() override;
+
+		/**
+ 		* @brief Constructs a Draw2DQuadsCommand and initializes buffers.
+ 		* @param pathsToShaders The string of paths to the shaders.
+ 		*/
+
 		Draw2DQuadsCommand(const std::initializer_list<std::string> &pathsToShaders);
+
+		/**
+ 		* @brief Constructs a Draw2DQuadsCommand and initializes buffers.
+ 		* @param pathsToShaders The vector of paths to the shaders.
+ 		*/
+
 		explicit Draw2DQuadsCommand(const std::vector<std::string> &pathsToShaders);
+
+		/**
+ 		* @brief Adds a quad to the batch being processed. If the maximum number of indices has been reached, a new batch is started.
+ 		* @param texture Shared pointer to the texture of the quad
+ 		* @param transform Transforms to apply to the quad
+ 		*/
+
+		void addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &&transform);
+
+		/**
+ 		* @brief Prepares for the draw command by binding the shader program and setting matrices.
+ 		*/
+
 		void prepare() override;
+
+		/**
+ 		* @brief Executes the drawing of a batch of quads.
+ 		*/
+
 		void execute() override;
+
+		/**
+ 		* @brief Placeholder for future draw command completion tasks.
+ 		*/
+
 		void finish() override;
 	};
-}
-
-
+}// namespace hexen::engine::graphics
