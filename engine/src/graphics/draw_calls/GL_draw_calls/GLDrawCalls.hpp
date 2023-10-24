@@ -19,4 +19,10 @@ namespace hexen::engine::graphics::gl
 		HEXEN_ADD_TO_PROFILE();
 		glDrawElements(GL_LINES, countOfLines , GL_UNSIGNED_INT, nullptr);
 	}
+
+	static HEXEN_INLINE void drawTriangles(core::u32 countOfTriangles)
+	{
+		HEXEN_ADD_TO_PROFILE();
+		glDrawElements(GL_TRIANGLES,countOfTriangles,GL_UNSIGNED_INT, nullptr);
+	}
 }

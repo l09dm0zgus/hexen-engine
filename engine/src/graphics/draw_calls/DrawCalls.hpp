@@ -45,4 +45,38 @@ namespace hexen::engine::graphics
 				break;
 		}
 	}
+
+	/**
+ 	* @brief Function for rendering triangles.
+ 	*
+ 	* This function enables the drawing of triangles depending on the rendering API
+ 	* currently in use. It covers No API, OpenGL API, Vulkan API, and DirectX12 API.
+ 	*
+ 	* @param countOfTriangles Specifies the number of triangles to be rendered.
+ 	*
+ 	* @note This function switches according to the render API being used. It's noted that only
+ 	* OpenGL rendering is currently implemented, others have placeholders (i.e., VULKAN_API, DIRECTX12_API).
+ 	*
+ 	* @note The function adds to the profile via HEXEN_ADD_TO_PROFILE() for performance monitoring.
+ 	*/
+
+	static HEXEN_INLINE void drawTriangles(core::u32 countOfTriangles)
+	{
+		HEXEN_ADD_TO_PROFILE();
+		switch(RenderContext::getRenderAPI())
+		{
+			case core::Settings::RenderAPI::NO_API:
+				break;
+			case core::Settings::RenderAPI::OPENGL_API:
+				if constexpr (RenderContext::enabledOpengl)
+				{
+					gl::drawTriangles(countOfTriangles);
+				}
+				break;
+			case core::Settings::RenderAPI::VULKAN_API:
+				break;
+			case core::Settings::RenderAPI::DIRECTX12_API:
+				break;
+		}
+	}
 }
