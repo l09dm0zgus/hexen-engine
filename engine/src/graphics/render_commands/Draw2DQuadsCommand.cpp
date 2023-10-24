@@ -92,7 +92,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::finish()
 {
 }
 
-void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &&transform)
+void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<Texture2D> &texture, glm::mat4 &&transform)
 {
 	HEXEN_ADD_TO_PROFILE();
 	constexpr size_t quadVertexCount = 4;
@@ -162,4 +162,10 @@ void hexen::engine::graphics::Draw2DQuadsCommand::nextBatch()
 	HEXEN_ADD_TO_PROFILE();
 	drawBatch();
 	startBatch();
+}
+
+void hexen::engine::graphics::Draw2DQuadsCommand::updateViewAndProjectionMatrices(glm::mat4 &&view, glm::mat4 &&projection)
+{
+	this->view = view;
+	this->projection = projection;
 }

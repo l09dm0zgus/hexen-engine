@@ -110,7 +110,7 @@ namespace hexen::engine::graphics
  		* @param transform Transforms to apply to the quad
  		*/
 
-		void addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &&transform);
+		void addQuad(const std::shared_ptr<Texture2D> &texture, glm::mat4 &&transform);
 
 		/**
  		* @brief Prepares for the draw command by binding the shader program and setting matrices.
@@ -129,5 +129,18 @@ namespace hexen::engine::graphics
  		*/
 
 		void finish() override;
+
+		/**
+ 		* @brief Update the view and projection matrices for the Draw2DQuadsCommand
+ 		*
+ 		* This function allows you to set the current view and projection matrices in the Draw2DQuadsCommand. The method uses an r-value reference for performance
+ 		* reasons since copying large matrices can be expensive.
+ 		*
+ 		* @param view An r-value reference to the new view matrix.
+ 		* @param projection An r-value reference to the new projection matrix.
+ 		*
+ 		*/
+
+		void updateViewAndProjectionMatrices(glm::mat4 &&view, glm::mat4 &&projection);
 	};
 }// namespace hexen::engine::graphics
