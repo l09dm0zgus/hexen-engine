@@ -40,6 +40,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::initializeBuffers()
 	vertexArray->addVertexBuffer(vertexBuffer);
 
 	quadsVertexBase = new QuadVertex[maxVertices];
+	quadsVertexPointer = quadsVertexBase;
 
 	auto indices = new core::u32[maxIndices];
 
