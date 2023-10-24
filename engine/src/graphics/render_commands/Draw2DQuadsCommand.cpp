@@ -6,8 +6,8 @@
 #include "../buffers/Buffers.hpp"
 #include "../buffers/VertexArray.hpp"
 #include "../shaders/ShaderProgram.hpp"
-#include "../textures/Texture.hpp"
 #include "draw_calls/DrawCalls.hpp"
+#include "../textures/Texture.hpp"
 
 hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::initializer_list<std::string> &pathsToShaders)
 {

@@ -5,6 +5,8 @@
 #pragma once
 #include "IRenderCommand.hpp"
 #include <glm/glm.hpp>
+#include <array>
+
 
 namespace hexen::engine::components
 {
@@ -16,7 +18,6 @@ namespace hexen::engine::graphics
 	class VertexArray;
 	class VertexBuffer;
 	class Texture2D;
-
 	/**
  	* @struct QuadVertex
  	* @brief This struct represents a quad vertex with position, texture coordinates, and texture index.
