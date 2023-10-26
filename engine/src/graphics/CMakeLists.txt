@@ -11,7 +11,7 @@ endif (WIN32)
 
 if(NOT TARGET ${RENDER_MODULE_NAME})
 
-    add_library(${RENDER_MODULE_NAME} SHARED)
+    add_library(${RENDER_MODULE_NAME} STATIC)
 
 endif (NOT TARGET ${RENDER_MODULE_NAME})
 
@@ -24,7 +24,7 @@ endif (ENABLE_VULKAN_SUPPORT)
 if (ENABLE_OPENGL_SUPPORT)
     target_compile_definitions(${RENDER_MODULE_NAME} PUBLIC _ENABLE_OPENGL_SUPPORT)
     target_link_libraries(${RENDER_MODULE_NAME} PUBLIC ${CORE_MODULE_NAME} opengl32)
-    target_link_libraries(${RENDER_MODULE_NAME} PRIVATE libglew_static)
+    target_link_libraries(${RENDER_MODULE_NAME} PUBLIC libglew_static)
 
 endif ()
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(Hexen)
 
 if (NOT TARGET Profiling)
-    add_library(Profiling SHARED)
+    add_library(Profiling STATIC)
 endif (NOT TARGET Profiling)
 
 file(GLOB SRC_FILES

@@ -3,7 +3,7 @@ project(Hexen)
 
 if(NOT TARGET ${CORE_MODULE_NAME})
 
-    add_library(${CORE_MODULE_NAME} SHARED)
+    add_library(${CORE_MODULE_NAME} STATIC)
 
 endif (NOT TARGET ${CORE_MODULE_NAME})
 
