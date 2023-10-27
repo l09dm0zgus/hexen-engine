@@ -27,7 +27,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::initializeBuffers()
 {
 	// used for optimization , see IRenderCommand and RenderPipeline class for details.
 	enableExecute = true;
-	enableFinish = false;
+	enableFinish = true;
 	enablePrepare = true;
 
 	HEXEN_ADD_TO_PROFILE();
@@ -58,12 +58,22 @@ void hexen::engine::graphics::Draw2DQuadsCommand::initializeBuffers()
 		offset += 4;
 	}
 
+	core::i32 samples[maxTextureSlots];
+
+	for (core::i32  i = 0; i < maxTextureSlots; i++)
+	{
+		samples[i] = i;
+	}
+
+	shaderProgram->bind();
+	shaderProgram->setIntegerArray("textures" , samples, maxTextureSlots);
+
 	auto elementsBuffer = ElementsBuffer::create(indices, maxIndices);
 	vertexArray->setElementBuffer(elementsBuffer);
 
-	quadVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
+	quadVertexPositions[0] = {0.5f, 0.5f, 0.0f, 1.0f};
 	quadVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
-	quadVertexPositions[2] = {0.5f, 0.5f, 0.0f, 1.0f};
+	quadVertexPositions[2] = {-0.5f, -0.5f, 0.0f, 1.0f};
 	quadVertexPositions[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
 
 	delete[] indices;
@@ -78,26 +88,28 @@ hexen::engine::graphics::Draw2DQuadsCommand::~Draw2DQuadsCommand()
 void hexen::engine::graphics::Draw2DQuadsCommand::prepare()
 {
 	HEXEN_ADD_TO_PROFILE();
-	shaderProgram->bind();
-	shaderProgram->setMatrix4("view", view);
-	shaderProgram->setMatrix4("projection", projection);
+	std::cout << "Step 1: Binding shader\n";
+	vertexArray->bind();
 	startBatch();
 }
 void hexen::engine::graphics::Draw2DQuadsCommand::execute()
 {
-	HEXEN_ADD_TO_PROFILE();
 	drawBatch();
 }
 
 void hexen::engine::graphics::Draw2DQuadsCommand::finish()
 {
+	HEXEN_ADD_TO_PROFILE();
+
+	vertexArray->unbind();
 }
 
-void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<Texture2D> &texture, glm::mat4 &&transform)
+void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &transform)
 {
 	HEXEN_ADD_TO_PROFILE();
+	std::cout << "Step 3: Add quads.\n";
 	constexpr size_t quadVertexCount = 4;
-	constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
+	constexpr glm::vec2 textureCoords[] = {{1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f}};
 
 	if (indexCount >= maxIndices)
 	{
@@ -105,7 +117,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<
 	}
 
 	float textureIndex = 0.0f;
-	for (core::u32 i = 1; i < textureSlotIndex; i++)
+	for (core::u32 i = 0; i < textureSlotIndex; i++)
 	{
 		if (textureSlots[i]->getId() == texture->getId())
 		{
@@ -140,6 +152,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<
 void hexen::engine::graphics::Draw2DQuadsCommand::startBatch()
 {
 	HEXEN_ADD_TO_PROFILE();
+	std::cout << "Step 2: Start Batch\n";
 	textureSlotIndex = 0;
 	indexCount = 0;
 	quadsVertexPointer = quadsVertexBase;
@@ -147,15 +160,22 @@ void hexen::engine::graphics::Draw2DQuadsCommand::startBatch()
 void hexen::engine::graphics::Draw2DQuadsCommand::drawBatch()
 {
 	HEXEN_ADD_TO_PROFILE();
-	core::u32 dataSize = quadsVertexPointer - quadsVertexBase;
+	std::cout << "Step 4: Draw batch\n";
+	auto dataSize = (core::u32)((core::u8*)quadsVertexPointer - (core::u8*)quadsVertexBase);
 	vertexBuffer->setData(quadsVertexBase, dataSize);
+
+	shaderProgram->bind();
+	shaderProgram->setMatrix4("view", view);
+	shaderProgram->setMatrix4("projection", projection);
 
 	for (core::u32 i = 0; i < textureSlotIndex; i++)
 	{
+		std::cout << "Bind texture slot: " << i << std::endl;
 		textureSlots[i]->bind(i);
 	}
 
 	drawTriangles(indexCount);
+
 }
 
 void hexen::engine::graphics::Draw2DQuadsCommand::nextBatch()

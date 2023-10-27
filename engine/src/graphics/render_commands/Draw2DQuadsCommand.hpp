@@ -110,7 +110,7 @@ namespace hexen::engine::graphics
  		* @param transform Transforms to apply to the quad
  		*/
 
-		void addQuad(const std::shared_ptr<Texture2D> &texture, glm::mat4 &&transform);
+		void addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &transform);
 
 		/**
  		* @brief Prepares for the draw command by binding the shader program and setting matrices.
