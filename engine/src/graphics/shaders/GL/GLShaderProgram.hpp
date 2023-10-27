@@ -119,6 +119,16 @@ namespace hexen::engine::graphics::gl
 
 		void setFloat(const std::string& name, float value) const override;
 
+		/**
+     	* @brief Function that sets a integer array uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param values - The array.
+     	* @param count - count of the array elements.
+     	*/
+
+		void setIntegerArray(const std::string& name, core::i32* values, core::u32 count) const override;
+
+
 	private:
 
 		core::u32 shaderProgram {0};
@@ -180,8 +190,6 @@ namespace hexen::engine::graphics::gl
  		*/
 
 		void showLinkerLog() const noexcept;
-
-		void shaderPathsToShaderFiles(const std::vector<std::string> &paths);
 
 		std::vector<ShaderFile> shadersData;
 

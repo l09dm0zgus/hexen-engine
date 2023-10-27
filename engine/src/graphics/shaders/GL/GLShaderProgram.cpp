@@ -177,3 +177,10 @@ void hexen::engine::graphics::gl::GLShaderProgram::setFloat(const std::string &n
 	HEXEN_ADD_TO_PROFILE();
 	glUniform1f(glGetUniformLocation(shaderProgram, name.c_str()), value);
 }
+
+void hexen::engine::graphics::gl::GLShaderProgram::setIntegerArray(const std::string &name, hexen::engine::core::i32 *values, hexen::engine::core::u32 count) const
+{
+	HEXEN_ADD_TO_PROFILE();
+	glUniform1iv(glGetUniformLocation(shaderProgram, name.c_str()), values, count);
+
+}

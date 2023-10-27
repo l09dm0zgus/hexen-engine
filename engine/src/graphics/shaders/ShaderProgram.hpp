@@ -108,6 +108,15 @@ namespace hexen::engine::graphics
 		virtual void setFloat(const std::string& name, float value) const = 0;
 
 		/**
+     	* @brief Function that sets a integer array uniform in the shader program.
+     	* @param name - The name of the uniform.
+     	* @param values - The array.
+     	* @param count - count of the array elements.
+     	*/
+
+		virtual void setIntegerArray(const std::string& name, core::i32* values, core::u32 count) const = 0;
+
+		/**
      	* @brief Factory method for creating a ShaderProgram instance.
      	* @param pathsToShaders - A vector of paths to the shader files.
      	* @return A shared pointer to a ShaderProgram instance.
