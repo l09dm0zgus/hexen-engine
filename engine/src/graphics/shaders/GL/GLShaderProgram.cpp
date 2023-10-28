@@ -182,5 +182,4 @@ void hexen::engine::graphics::gl::GLShaderProgram::setIntegerArray(const std::st
 {
 	HEXEN_ADD_TO_PROFILE();
 	glUniform1iv(glGetUniformLocation(shaderProgram, name.c_str()), count, values);
-
 }

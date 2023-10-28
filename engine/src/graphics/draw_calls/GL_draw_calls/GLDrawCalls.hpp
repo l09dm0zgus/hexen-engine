@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include <core/Types.hpp>
+#include <Types.hpp>
 
 #ifndef __ANDROID__
 	#include <GL/glew.h>

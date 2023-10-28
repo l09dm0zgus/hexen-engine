@@ -6,8 +6,10 @@
 #include "../buffers/Buffers.hpp"
 #include "../buffers/VertexArray.hpp"
 #include "../shaders/ShaderProgram.hpp"
-#include "draw_calls/DrawCalls.hpp"
 #include "../textures/Texture.hpp"
+#include "draw_calls/DrawCalls.hpp"
+#include <algorithm>
+#include <execution>
 
 hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::initializer_list<std::string> &pathsToShaders)
 {
@@ -27,12 +29,14 @@ void hexen::engine::graphics::Draw2DQuadsCommand::initializeBuffers()
 {
 	// used for optimization , see IRenderCommand and RenderPipeline class for details.
 	enableExecute = true;
-	enableFinish = true;
+	enableFinish = false;
 	enablePrepare = true;
 
 	HEXEN_ADD_TO_PROFILE();
+	textureArray = TextureArray::create(maxTextureSize,TextureFilter::NEAREST);
 	vertexArray = VertexArray::create();
 	vertexBuffer = VertexBuffer::create(maxVertices * sizeof(QuadVertex));
+
 	vertexBuffer->setLayout({{ShaderDataType::VEC3F, "aPosition"},
 			{ShaderDataType::VEC2F, "aTextureCoordinates"},
 			{ShaderDataType::FLOAT, "aTextureIndex"}});
@@ -58,15 +62,8 @@ void hexen::engine::graphics::Draw2DQuadsCommand::initializeBuffers()
 		offset += 4;
 	}
 
-	core::i32 samples[maxTextureSlots];
-
-	for (core::i32  i = 0; i < maxTextureSlots; i++)
-	{
-		samples[i] = i;
-	}
-
 	shaderProgram->bind();
-	shaderProgram->setIntegerArray("textures" , samples, maxTextureSlots);
+	shaderProgram->setInteger("textures", static_cast<core::i32>(TextureArray::getCountOfTextureUnits()));
 
 	auto elementsBuffer = ElementsBuffer::create(indices, maxIndices);
 	vertexArray->setElementBuffer(elementsBuffer);
@@ -88,71 +85,29 @@ hexen::engine::graphics::Draw2DQuadsCommand::~Draw2DQuadsCommand()
 void hexen::engine::graphics::Draw2DQuadsCommand::prepare()
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::cout << "Step 1: Binding shader\n";
-	vertexArray->bind();
 	startBatch();
 }
 void hexen::engine::graphics::Draw2DQuadsCommand::execute()
 {
+	HEXEN_ADD_TO_PROFILE();
+	setDataToVertexBuffer();
 	drawBatch();
 }
 
 void hexen::engine::graphics::Draw2DQuadsCommand::finish()
 {
 	HEXEN_ADD_TO_PROFILE();
-
-	vertexArray->unbind();
 }
 
-void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &transform)
+void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::string &texture, const glm::mat4 &transform)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::cout << "Step 3: Add quads.\n";
-	constexpr size_t quadVertexCount = 4;
-	constexpr glm::vec2 textureCoords[] = {{1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f}};
-
-	if (indexCount >= maxIndices)
-	{
-		nextBatch();
-	}
-
-	float textureIndex = 0.0f;
-	for (core::u32 i = 0; i < textureSlotIndex; i++)
-	{
-		if (textureSlots[i]->getId() == texture->getId())
-		{
-			textureIndex = (float) i;
-			break;
-		}
-	}
-
-	if (textureIndex == 0.0f)
-	{
-		if (textureSlotIndex >= maxTextureSlots)
-		{
-			nextBatch();
-		}
-
-		textureIndex = (float) textureSlotIndex;
-		textureSlots[textureSlotIndex] = texture;
-		textureSlotIndex++;
-	}
-
-	for (size_t i = 0; i < quadVertexCount; i++)
-	{
-		quadsVertexPointer->position = transform * quadVertexPositions[i];
-		quadsVertexPointer->textureCoordinates = textureCoords[i];
-		quadsVertexPointer->textureIndex = textureIndex;
-		quadsVertexPointer++;
-	}
-
-	indexCount += 6;
+	quadsData.emplace_back(texture, transform);
 }
 
 void hexen::engine::graphics::Draw2DQuadsCommand::startBatch()
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::cout << "Step 2: Start Batch\n";
 	textureSlotIndex = 0;
 	indexCount = 0;
 	quadsVertexPointer = quadsVertexBase;
@@ -160,22 +115,19 @@ void hexen::engine::graphics::Draw2DQuadsCommand::startBatch()
 void hexen::engine::graphics::Draw2DQuadsCommand::drawBatch()
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::cout << "Step 4: Draw batch\n";
-	auto dataSize = (core::u32)((core::u8*)quadsVertexPointer - (core::u8*)quadsVertexBase);
-	vertexBuffer->setData(quadsVertexBase, dataSize);
-
 	shaderProgram->bind();
 	shaderProgram->setMatrix4("view", view);
 	shaderProgram->setMatrix4("projection", projection);
+	shaderProgram->setInteger("textures", static_cast<core::i32>(TextureArray::getCountOfTextureUnits()));
 
-	for (core::u32 i = 0; i < textureSlotIndex; i++)
+	for(core::u32 i = 0; i < textureSlots.size(); i++)
 	{
-		std::cout << "Bind texture slot: " << i << std::endl;
-		textureSlots[i]->bind(i);
+		textureArray->bind(i);
 	}
 
+	vertexArray->bind();
 	drawTriangles(indexCount);
-
+	vertexArray->unbind();
 }
 
 void hexen::engine::graphics::Draw2DQuadsCommand::nextBatch()
@@ -187,6 +139,46 @@ void hexen::engine::graphics::Draw2DQuadsCommand::nextBatch()
 
 void hexen::engine::graphics::Draw2DQuadsCommand::updateViewAndProjectionMatrices(glm::mat4 &&view, glm::mat4 &&projection)
 {
+	HEXEN_ADD_TO_PROFILE();
 	this->view = view;
 	this->projection = projection;
+}
+
+void hexen::engine::graphics::Draw2DQuadsCommand::setDataToVertexBuffer()
+{
+	HEXEN_ADD_TO_PROFILE();
+	std::for_each(quadsData.cbegin(), quadsData.cend(), [this](const auto &quadData)
+			{ this->addQuadDataToVertexBuffer(quadData); });
+	quadsData.clear();
+	auto dataSize = (core::u32)((core::u8 *) quadsVertexPointer - (core::u8 *) quadsVertexBase);
+	vertexBuffer->setData(quadsVertexBase, dataSize);
+}
+
+void hexen::engine::graphics::Draw2DQuadsCommand::addQuadDataToVertexBuffer(const hexen::engine::graphics::Draw2DQuadsCommand::QuadData &quadData)
+{
+	HEXEN_ADD_TO_PROFILE();
+	constexpr size_t quadVertexCount = 4;
+	constexpr glm::vec2 textureCoords[] = {{1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f}};
+
+	if (indexCount >= maxIndices)
+	{
+		nextBatch();
+	}
+
+	if(textureSlots.find(quadData.first) == textureSlots.cend())
+	{
+		textureArray->addTextureToArray(quadData.first);
+		textureSlots[quadData.first] = textureSlotIndex;
+		textureSlotIndex++;
+	}
+
+	for (size_t i = 0; i < quadVertexCount; i++)
+	{
+		quadsVertexPointer->position = quadData.second * quadVertexPositions[i];
+		quadsVertexPointer->textureCoordinates = textureCoords[i];
+		quadsVertexPointer->textureIndex = textureSlots[quadData.first];
+		quadsVertexPointer++;
+	}
+
+	indexCount += 6;
 }

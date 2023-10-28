@@ -5,8 +5,8 @@
 #pragma once
 #include "IRenderCommand.hpp"
 #include <glm/glm.hpp>
-#include <array>
-
+#include <utility>
+#include <vector>
 
 namespace hexen::engine::components
 {
@@ -17,7 +17,7 @@ namespace hexen::engine::graphics
 	class ShaderProgram;
 	class VertexArray;
 	class VertexBuffer;
-	class Texture2D;
+	class TextureArray;
 	/**
  	* @struct QuadVertex
  	* @brief This struct represents a quad vertex with position, texture coordinates, and texture index.
@@ -45,12 +45,14 @@ namespace hexen::engine::graphics
 		static constexpr core::u32 maxTextureSlots = 32;///< Maximum number of texture slots.
 
 		core::u32 indexCount {0};	   ///< Current count of indices.
-		core::u32 textureSlotIndex = 0;///< Current index in the texture slot.
+		float textureSlotIndex = 0;///< Current index in the texture slot.
 
 		std::shared_ptr<VertexBuffer> vertexBuffer;							 ///< Shared pointer to the vertex buffer.
 		std::shared_ptr<VertexArray> vertexArray;							 ///< Shared pointer to the vertex array.
 		std::shared_ptr<ShaderProgram> shaderProgram;						 ///< Shared pointer to the shader program.
-		std::array<std::shared_ptr<Texture2D>, maxTextureSlots> textureSlots;///< Array of shared pointers to 2D textures.
+		std::shared_ptr<TextureArray> textureArray;
+		glm::vec2 maxTextureSize{16};
+		std::unordered_map<std::string, float> textureSlots;
 
 		QuadVertex *quadsVertexBase = nullptr;	 ///< Base pointer for quad vertices.
 		QuadVertex *quadsVertexPointer = nullptr;///< Current pointer to the quad vertex.
@@ -83,6 +85,14 @@ namespace hexen::engine::graphics
 
 		void drawBatch();
 
+		using QuadData = std::pair<std::string, glm::mat4>;
+
+		std::vector<QuadData> quadsData;
+
+		void setDataToVertexBuffer();
+
+		void addQuadDataToVertexBuffer(const QuadData &quadData);
+
 	public:
 		/**
  		* @brief Deletes quadsVertexBase.
@@ -109,8 +119,8 @@ namespace hexen::engine::graphics
  		* @param texture Shared pointer to the texture of the quad
  		* @param transform Transforms to apply to the quad
  		*/
-
-		void addQuad(const std::shared_ptr<Texture2D> &texture, const glm::mat4 &transform);
+ 		//TODO: change string to Texture asset
+		void addQuad(const std::string &pathToTexture, const glm::mat4 &transform);
 
 		/**
  		* @brief Prepares for the draw command by binding the shader program and setting matrices.
