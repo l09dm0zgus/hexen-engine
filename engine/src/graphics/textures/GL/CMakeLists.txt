@@ -3,4 +3,6 @@ project(Hexen)
 
 target_sources(${RENDER_MODULE_NAME} PUBLIC
         GLTexture2D.hpp
-        GLTexture2D.cpp)
+        GLTexture2D.cpp
+        GLTextureArray.hpp
+        GLTextureArray.cpp)
