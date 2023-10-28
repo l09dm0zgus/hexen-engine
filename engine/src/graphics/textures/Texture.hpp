@@ -128,5 +128,24 @@ namespace hexen::engine::graphics
          */
 
 		static std::shared_ptr<TextureArray> create(const glm::vec2 &size, TextureFilter filter);
+
+		/**
+ 		* @brief A function of the TextureArray class inside the hexen::engine::graphics namespace.
+ 		*
+ 		* This function is used to increment the count of texture units.
+ 		*/
+
+		static core::u32 getCountOfTextureUnits();
+	protected:
+
+		/**
+ 		* @brief A function of the TextureArray class inside the hexen::engine::graphics namespace.
+ 		*
+ 		* This function is used to increment the count of texture units.
+ 		*/
+
+		static void increaseCountOfTextureUnits();
+	private:
+		static core::u32 countOfTextureUnits;
 	};
 }// namespace hexen::engine::graphics

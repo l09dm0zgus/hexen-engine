@@ -54,5 +54,16 @@ std::shared_ptr<hexen::engine::graphics::TextureArray> hexen::engine::graphics::
 	}
 
 	return nullptr;
-	;
+}
+
+hexen::engine::core::u32 hexen::engine::graphics::TextureArray::countOfTextureUnits = 0;
+
+hexen::engine::core::u32 hexen::engine::graphics::TextureArray::getCountOfTextureUnits()
+{
+	return countOfTextureUnits;
+}
+
+void hexen::engine::graphics::TextureArray::increaseCountOfTextureUnits()
+{
+	countOfTextureUnits++;
 }

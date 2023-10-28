@@ -15,7 +15,7 @@ hexen::engine::graphics::gl::GLTextureArray::GLTextureArray(TextureFilter textur
 {
 	HEXEN_ADD_TO_PROFILE();
 	glGenTextures(1, &textureID);
-	glActiveTexture(GL_TEXTURE0 + textureSlotIndex);
+	glActiveTexture(GL_TEXTURE0 + getCountOfTextureUnits());
 	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, imageSize.x, imageSize.y, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
@@ -23,6 +23,8 @@ hexen::engine::graphics::gl::GLTextureArray::GLTextureArray(TextureFilter textur
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, textureFilterToGLTextureFilter(textureFilter));
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, textureFilterToGLTextureFilter(textureFilter));
+
+	increaseCountOfTextureUnits();
 }
 //TODO: Load texture from image assets
 void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::string &path)
@@ -68,6 +70,7 @@ hexen::engine::core::u32 hexen::engine::graphics::gl::GLTextureArray::getHeight(
 void hexen::engine::graphics::gl::GLTextureArray::bind(hexen::engine::core::u32 slot) const
 {
 	HEXEN_ADD_TO_PROFILE();
+	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 }
 
