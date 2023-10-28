@@ -5,6 +5,29 @@
 #include "GLTexture2D.hpp"
 #include "../profiling/Profiling.hpp"
 
+#ifndef __ANDROID__
+	#include "GL/glew.h"
+#else
+	#include <GLES3/gl31.h>
+#endif
+
+namespace hexen::engine::graphics::gl
+{
+	int textureFilterToGLTextureFilter(TextureFilter textureFilter)
+	{
+		{
+			HEXEN_ADD_TO_PROFILE();
+			switch (textureFilter)
+			{
+				case TextureFilter::LINEAR:
+					return GL_LINEAR;
+				case TextureFilter::NEAREST:
+					return GL_NEAREST;
+			}
+			return GL_NEAREST;
+		}
+	}
+}
 hexen::engine::graphics::gl::GLTexture2D::~GLTexture2D()
 {
 	HEXEN_ADD_TO_PROFILE();

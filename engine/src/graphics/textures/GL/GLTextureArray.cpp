@@ -5,6 +5,12 @@
 #include "../profiling/Profiling.hpp"
 #include "GLTexture2D.hpp"
 
+#ifndef __ANDROID__
+	#include "GL/glew.h"
+#else
+	#include <GLES3/gl31.h>
+#endif
+
 hexen::engine::graphics::gl::GLTextureArray::GLTextureArray(TextureFilter textureFilter, const glm::vec2 &size) : imageSize(size)
 {
 	HEXEN_ADD_TO_PROFILE();
