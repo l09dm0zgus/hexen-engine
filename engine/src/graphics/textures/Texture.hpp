@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <glm/vec2.hpp>
 #include <memory_pool/AllocatedObject.hpp>
 
 namespace hexen::engine::graphics
@@ -13,8 +14,8 @@ namespace hexen::engine::graphics
 
 	enum class TextureFilter
 	{
-		NEAREST = 0,   /**< Nearest filter.*/
-		LINEAR,    /**< Linear filter. */
+		NEAREST = 0, /**< Nearest filter.*/
+		LINEAR,		 /**< Linear filter. */
 	};
 
 	/**
@@ -26,7 +27,6 @@ namespace hexen::engine::graphics
 	class Texture : public core::memory::AllocatedObject
 	{
 	public:
-
 		/**
      	* @brief Virtual destructor.
      	*/
@@ -75,7 +75,6 @@ namespace hexen::engine::graphics
 	class Texture2D : public Texture
 	{
 	public:
-
 		/**
      	* @brief Create a Texture2D object.
      	*
@@ -85,6 +84,49 @@ namespace hexen::engine::graphics
      	* @return A shared pointer to the created Texture2D object.
      	*/
 
-		static std::shared_ptr<Texture2D> create(const std::string& path,TextureFilter filter);
+		//TODO: adding texture by image asset
+		static std::shared_ptr<Texture2D> create(const std::string &path, TextureFilter filter);
+	};
+
+	/**
+ 	*  @class TextureArray
+ 	*
+ 	*  @brief A class for handling 2D texture arrays.
+ 	*
+ 	*  This class is derived from the abstract Texture class and
+ 	*  provides the interface for creating and managing a 2D texture array.
+ 	*
+ 	*  @sa Texture
+ 	*
+ 	*/
+
+	class TextureArray : public Texture
+	{
+	public:
+		/**
+         * @brief Default virtual destructor.
+         */
+
+		virtual ~TextureArray() = default;
+		//TODO: adding texture by image asset
+
+		/**
+         * @brief Abstract method to add a new texture to the texture array.
+         *
+         * @param[in] path The path to the texture file to add to the texture array.
+         */
+
+		virtual void addTextureToArray(const std::string &path) = 0;
+
+		/**
+         * @brief Static factory method to create a new TextureArray instance.
+         *
+         * @param[in] size The size (width and height) of the textures in the array.
+         * @param[in] filter The filter to use when sampling the textures.
+         *
+         * @return Shared pointer to the newly created TextureArray instance.
+         */
+
+		static std::shared_ptr<TextureArray> create(const glm::vec2 &size, TextureFilter filter);
 	};
 }// namespace hexen::engine::graphics
