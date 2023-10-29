@@ -17,8 +17,7 @@ hexen::editor::gui::FramebufferWindow::FramebufferWindow(const std::string &name
 	HEXEN_ADD_TO_PROFILE()
 	engine::graphics::FrameBufferSpecification specification;
 	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::FramebufferCommand>(specification);
-	auto framebufferCommand = engine::graphics::RenderPipeline::getCommand(id);
-	framebuffer = std::dynamic_pointer_cast<engine::graphics::FramebufferCommand>(framebufferCommand)->getPointerToFrameBuffer();
+	framebuffer = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::FramebufferCommand>(id)->getPointerToFrameBuffer();
 }
 
 void hexen::editor::gui::FramebufferWindow::draw()
