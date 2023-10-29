@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <draw_calls/DrawCalls.hpp>
 
-hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData)
+hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData) : color(renderGridData.color)
 {
 	HEXEN_ADD_TO_PROFILE()
 	vertexArray = engine::graphics::VertexArray::create();
@@ -19,6 +19,8 @@ hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const Rend
 	vertexArray->setElementBuffer(elementsBuffer);
 
 	countOfLines = renderGridData.countOfLines;
+
+	shaderProgram = engine::graphics::ShaderProgram::create(renderGridData.pathsToShaders);
 }
 
 void hexen::editor::components::graphics::DrawGridCommand::prepare()
@@ -30,6 +32,11 @@ void hexen::editor::components::graphics::DrawGridCommand::prepare()
 void hexen::editor::components::graphics::DrawGridCommand::execute()
 {
 	HEXEN_ADD_TO_PROFILE()
+	shaderProgram->bind();
+	shaderProgram->setMatrix4("model", transform);
+	shaderProgram->setMatrix4("projection",projection);
+	shaderProgram->setMatrix4("view", view);
+	shaderProgram->setVector3f("color", color);
 	engine::graphics::drawLines(countOfLines);
 }
 
@@ -39,7 +46,7 @@ void hexen::editor::components::graphics::DrawGridCommand::finish()
 	vertexArray->unbind();
 }
 
-hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector)
+hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::string>& pathsToShaders, const glm::vec3& color) : pathsToShaders(pathsToShaders), color(color)
 {
 	HEXEN_ADD_TO_PROFILE()
 	vertices = const_cast<float*>(glm::value_ptr(verticesVector[0]));
@@ -49,4 +56,5 @@ hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::v
 	indicesSize = indicesVector.size() * sizeof(glm::uvec4);
 
 	countOfLines = indicesVector.size() * 4;
+
 }

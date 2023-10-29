@@ -3,13 +3,16 @@
 //
 
 #pragma once
-#include <glm/vec4.hpp>
+#include <shaders/ShaderProgram.hpp>
 #include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #include <graphics/buffers/VertexArray.hpp>
 #include <graphics/render_commands/IRenderCommand.hpp>
 
 namespace hexen::editor::components::graphics
 {
+	class DebugGridComponent;
+
 	/**
  	* @struct RenderGridData
  	* @brief The RenderGridData structure is used for storing rendering data.
@@ -28,13 +31,15 @@ namespace hexen::editor::components::graphics
      	* @param indicesVector Vector of indices data.
      	*/
 
-		RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector);
+		RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::string>& pathsToShaders, const glm::vec3& color);
 
 		float *vertices; ///< Pointer to the vertices data.
 		hexen::engine::core::u32 verticesSize; ///< Size of the vertices data.
 		hexen::engine::core::u32 *indices; ///< Pointer to the indices data.
 		hexen::engine::core::u32 indicesSize; ///< Size of the indices data.
 		engine::core::u32 countOfLines; ///< The count of lines to be rendered.
+		std::vector<std::string> pathsToShaders; ///< Vector of paths to shader programs.
+		glm::vec3 color; ///< Vector of RGB values for grid color.
 	};;
 
 	/**
@@ -47,10 +52,18 @@ namespace hexen::editor::components::graphics
 	class DrawGridCommand : public engine::graphics::IRenderCommand
 	{
 	private:
-		std::shared_ptr<engine::graphics::VertexBuffer> vertexBuffer;
-		std::unique_ptr<engine::graphics::VertexArray> vertexArray;
-		std::shared_ptr<engine::graphics::ElementsBuffer> elementsBuffer;
-		hexen::engine::core::u32 countOfLines;
+		std::shared_ptr<engine::graphics::VertexBuffer> vertexBuffer; ///< Shared pointer to a VertexBuffer.
+		std::unique_ptr<engine::graphics::VertexArray> vertexArray; ///< Unique pointer to a VertexArray.
+		std::shared_ptr<engine::graphics::ElementsBuffer> elementsBuffer; ///< Shared Pointer to a ElementsBuffer.
+		std::shared_ptr<hexen::engine::graphics::ShaderProgram> shaderProgram {nullptr}; ///< Shared Pointer to a ShaderProgram; initially nullptr.
+		hexen::engine::core::u32 countOfLines; ///< Number of lines to draw.
+
+		glm::vec3 color;
+		glm::mat4 view{1};
+		glm::mat4 projection{1};
+		glm::mat4 transform{1};
+
+		friend class DebugGridComponent;
 	public:
 
 		/**
