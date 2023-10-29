@@ -30,24 +30,6 @@ namespace hexen::engine::components
 		~Component() override = default;
 
 		/**
-	     * @brief Abstract method for starting the component.
-	     *
-	     * This method must be implemented in any derived classes.
-	     */
-
-		virtual void start() = 0;
-
-		/**
-	     * @brief Abstract method for updating the component.
-	     *
-	     * @param deltaTime The time between the start of the last frame and the start of the current frame.
-	     *
-	     * This method must be implemented in any derived classes.
-	     */
-
-		virtual void update(float deltaTime) = 0;
-
-		/**
 	     * @brief Sets the Owner's UUID.
 	     *
 	     * @param newOwnerUUID The new UUID to be set.

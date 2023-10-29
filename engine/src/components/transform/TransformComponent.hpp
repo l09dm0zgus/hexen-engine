@@ -328,55 +328,6 @@ namespace hexen::engine::components
 
 		[[nodiscard]] bool isDirty() const noexcept;
 
-
-		/**
-        * @brief Executes the start function.
-        *
-        * This function implements the start() function of the overridden class.
-        * It performs the necessary tasks to start the operation of the program.
-        *
-        * @details
-        * The start() function is responsible for initializing the program and starting its operation.
-        * It should be overridden by derived classes to perform any additional setup or initialization
-        * required for the specific implementation. The derived class should call the base class's
-        * start() function before performing its own setup logic.
-        *
-        * @remarks
-        * This function should be called after all necessary objects and resources have been
-        * initialized and configured in the program's main entry point.
-        *
-        * @note
-        * This function is an abstract function and must be overridden in derived classes.
-        *
-        *
-        */
-
-		void start() override;
-
-		/**
-        * @brief Updates the object based on the deltaTime.
-        *
-        * This function is called to update the object's state based on the elapsed time since the last update.
-        * The deltaTime parameter represents the time difference between the last frame and the current frame.
-        *
-        * @param deltaTime The time difference between the last frame and the current frame.
-        *
-        * @details
-        * The update(float deltaTime) function is an override of the base class function and is called from the game loop to
-        * update the object's state based on the elapsed time.
-        *
-        * The deltaTime parameter is a floating-point value representing the time difference between the last frame and the
-        * current frame in seconds. It is provided to calculate the time-based changes in the object's state.
-        *
-        * @note
-        * - The deltaTime parameter should always be positive.
-        * - The implementation of this function should vary depending on the specific requirements of the object being updated.
-        * - Subclasses can override this function to provide custom behavior.
-        * - The implementation should consider the deltaTime value to update the object's internal state accordingly.
-        */
-
-		void update(float deltaTime) override;
-
 	private:
 		/**
         * @brief Moves the transform component into this object.

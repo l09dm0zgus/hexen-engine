@@ -103,14 +103,6 @@ hexen::engine::components::TransformComponent::TransformComponent(const glm::vec
 	this->layer = layer;
 }
 
-void hexen::engine::components::TransformComponent::start()
-{
-}
-
-void hexen::engine::components::TransformComponent::update(float deltaTime)
-{
-}
-
 hexen::engine::components::TransformComponent::TransformComponent(const hexen::engine::components::TransformComponent &transformComponent) : Component(transformComponent)
 {
 	HEXEN_ADD_TO_PROFILE();
