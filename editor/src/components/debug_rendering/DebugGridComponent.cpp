@@ -6,16 +6,14 @@
 #include <graphics/render_commands/RenderPipeline.hpp>
 #include "DrawGridCommand.hpp"
 
-hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::vector<std::string> &pathsToShaders)
+hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize)
 {
 	HEXEN_ADD_TO_PROFILE()
 	std::vector<glm::vec3> vertices;
 
 	std::vector<glm::uvec4> indices;
 
-	shaderProgram = engine::graphics::ShaderProgram::create(pathsToShaders);
-
-	grid = hexen::engine::core::memory::make_unique<hexen::engine::core::Grid>();
+	grid = hexen::engine::core::memory::make_unique<hexen::engine::core::Grid>(size,unitSize);
 
 	if (grid != nullptr)
 	{
@@ -44,16 +42,21 @@ hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(cons
 		}
 	}
 
-	renderHandle = engine::graphics::RenderPipeline::addCommandToQueue<DrawGridCommand>(RenderGridData(vertices, indices));
+	//TODO: Change to shader assets
+	auto renderHandle = engine::graphics::RenderPipeline::addCommandToQueue<DrawGridCommand>(RenderGridData(vertices, indices,pathsToShaders, newColor));
+	drawGridCommand = engine::graphics::RenderPipeline::getCommandByType<DrawGridCommand>(renderHandle);
+
 }
 
-void hexen::editor::components::graphics::DebugGridComponent::draw() noexcept
+void hexen::editor::components::graphics::DebugGridComponent::setViewAndProjectionMatrices(const glm::mat4 &view, const glm::mat4 &projection)
 {
-	HEXEN_ADD_TO_PROFILE()
-	shaderProgram->bind();
-	shaderProgram->setMatrix4("model", getTransformMatrix());
-	shaderProgram->setMatrix4("projection", getProjectionMatrix());
-	shaderProgram->setMatrix4("view", getViewMatrix());
-	shaderProgram->setVector3f("color", color);
+	HEXEN_ADD_TO_PROFILE();
+	drawGridCommand->view = view;
+	drawGridCommand->projection = projection;
+}
 
+void hexen::editor::components::graphics::DebugGridComponent::setTransformMatrix(const glm::mat4 &transform)
+{
+	HEXEN_ADD_TO_PROFILE();
+	drawGridCommand->transform = transform;
 }
