@@ -23,6 +23,8 @@ namespace hexen::engine::components::graphics
 	{
 	public:
 
+		CameraComponent() = default;
+
 		/**
  		* @constructor CameraComponent::CameraComponent
  		* @brief Constructs a new CameraComponent object.
@@ -97,28 +99,6 @@ namespace hexen::engine::components::graphics
 
 		[[nodiscard]] glm::mat4 getProjectionMatrix();
 
-		/**
-        * @brief Starts the camera component.
-        *
-        * This function starts the camera component by initializing the necessary resources and setting up the camera.
-        * It assumes that the necessary dependencies have been resolved before calling this function.
-        *
-        */
-
-		void start() override;
-
-		/**
-        * @brief Updates the CameraComponent based on the elapsed time.
-        *
-        * This function updates the CameraComponent based on the elapsed time.
-        * It adjusts the camera's position, orientation, or any other relevant properties.
-        *
-        * @param deltaTime The elapsed time since the last update, in seconds.
-        *
-        */
-
-
-		void update(float deltaTime) override;
 
 		/**
         * Sets the setYaw angle of the camera component.
@@ -166,6 +146,8 @@ namespace hexen::engine::components::graphics
  		*/
 
 		[[nodiscard]] float getPitch() const noexcept;
+
+		float deltaTime{0};
 
 	private:
 		/**

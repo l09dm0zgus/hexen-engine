@@ -51,16 +51,6 @@ glm::mat4 hexen::engine::components::graphics::CameraComponent::getProjectionMat
 	return projection;
 }
 
-void hexen::engine::components::graphics::CameraComponent::start()
-{
-	HEXEN_ADD_TO_PROFILE();
-}
-
-void hexen::engine::components::graphics::CameraComponent::update(float deltaTime)
-{
-	HEXEN_ADD_TO_PROFILE();
-}
-
 void hexen::engine::components::graphics::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
 {
 	HEXEN_ADD_TO_PROFILE();

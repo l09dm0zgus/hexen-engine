@@ -21,7 +21,6 @@ namespace hexen::editor::components::graphics
 	{
 	private:
 		float velocity {100.f};
-		float deltaTime {0};
 
 	public:
 
@@ -67,27 +66,5 @@ namespace hexen::editor::components::graphics
 
 		void zoom(float value);
 
-		/**
-        * @brief Starts the camera component.
-        *
-        * This function starts the camera component by initializing the necessary resources and setting up the camera.
-        * It assumes that the necessary dependencies have been resolved before calling this function.
-        *
-        */
-
-		void start() override;
-
-		/**
-        * @brief Updates the CameraComponent based on the elapsed time.
-        *
-        * This function updates the CameraComponent based on the elapsed time.
-        * It adjusts the camera's position, orientation, or any other relevant properties.
-        *
-        * @param newDeltaTime The elapsed time since the last update, in seconds.
-        *
-        */
-
-
-		void update(float newDeltaTime) override;
 	};
 }// namespace hexen::editor::components::graphics

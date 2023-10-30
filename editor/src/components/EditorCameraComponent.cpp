@@ -24,17 +24,7 @@ void hexen::editor::components::graphics::EditorCameraComponent::zoom(float valu
 	position += cameraTarget * (value * deltaTime * velocity);
 	updateViewMatrix();
 }
-void hexen::editor::components::graphics::EditorCameraComponent::start()
-{
-	HEXEN_ADD_TO_PROFILE()
-	CameraComponent::start();
-}
-void hexen::editor::components::graphics::EditorCameraComponent::update(float newDeltaTime)
-{
-	HEXEN_ADD_TO_PROFILE()
-	CameraComponent::update(newDeltaTime);
-	deltaTime = newDeltaTime;
-}
+
 hexen::editor::components::graphics::EditorCameraComponent::EditorCameraComponent(hexen::engine::core::i32 viewportWidth, engine::core::i32 viewportHeight, float FOV) : CameraComponent(viewportWidth, viewportHeight, FOV)
 {
 	HEXEN_ADD_TO_PROFILE()

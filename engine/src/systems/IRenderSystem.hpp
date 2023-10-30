@@ -89,13 +89,6 @@ namespace hexen::engine::systems
 		IRenderSystem &operator=(const IRenderSystem &) = delete;
 
 		/**
-         * @brief Initialize the render components.
-         *
-         */
-
-		virtual void start() = 0;
-
-		/**
          * @brief Virtual function for rendering.
          *
          * This function is designed to be inherited by concrete rendering classes.
@@ -107,6 +100,7 @@ namespace hexen::engine::systems
          *
          * @param alpha The floating point value used for interpolation.
          */
+
 		virtual void render(float alpha) = 0;
 	};
 }// namespace hexen::engine::systems
