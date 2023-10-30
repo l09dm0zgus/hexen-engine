@@ -61,6 +61,16 @@ namespace hexen::editor::systems
 				camerasComponents[handle] = engine::components::graphics::CameraComponent(args...);
 				return handle;
 			}
+			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
+			{
+				handle = debugGridComponentsContainer.reserve();
+				debugGridComponentsContainer[handle] = components::graphics::GridComponent(args...);
+				return handle;
+			}
+			else
+			{
+				static_assert(false, "Cannot register this component.Component container with T does not exist!");
+			}
 			return handle;
 		}
 
@@ -90,6 +100,14 @@ namespace hexen::editor::systems
 			{
 				return &camerasComponents[handle];
 			}
+			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
+			{
+				return &debugGridComponentsContainer[handle];
+			}
+			else
+			{
+				static_assert(false, "Cannot get component with T type.Component container with T does not exist!");
+			}
 			return nullptr;
 		}
 
@@ -116,6 +134,14 @@ namespace hexen::editor::systems
 			else if constexpr (std::is_same_v<T, engine::components::graphics::CameraComponent>)
 			{
 				camerasComponents.release(handle);
+			}
+			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
+			{
+				debugGridComponentsContainer.release(handle);
+			}
+			else
+			{
+				static_assert(false, "Cannot release component with T type.Component container with T does not exist!");
 			}
 		}
 
