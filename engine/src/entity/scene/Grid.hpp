@@ -93,10 +93,23 @@ namespace hexen::engine::core
 		~Grid() override;
 
 		/**
- 		* @brief Default constructor for Grid class.
+ 		* @brief Construct a new Grid object.
+ 		* Initialize size and unitSize from input parameters.
+ 		* cells array is initialized as 2D array with the number of cells equals to the area of the grid.
+ 		* Each cell in the grid is then set to have size unitSize and position based on its indices in the grid.
+ 		*
+ 		* @param size       The size of the grid. The number of cells along x and y directions.
+ 		* @param unitSize   The size of each individual cell in the grid.
+ 		*
+ 		* @pre size and unitSize vectors must have positive values.
+ 		*
+ 		* @note No exception handling or error checking is done within this method. Make sure to pass valid values.
+	 	*
+ 		* @note The Grid destructor must deallocate the dynamically allocated cells array.
+ 		*
  		*/
 
-		Grid();
+		explicit Grid(const glm::vec2 &size, const glm::vec2 &unitSize);
 
 		/**
         * @brief Get the size of the grid unit.

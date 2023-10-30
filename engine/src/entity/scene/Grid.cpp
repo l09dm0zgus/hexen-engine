@@ -24,29 +24,24 @@ glm::vec2 hexen::engine::core::Grid::getUnitSize() const noexcept
 	return unitSize;
 }
 
-hexen::engine::core::Grid::Grid()
+hexen::engine::core::Grid::Grid(const glm::vec2 &size, const glm::vec2 &unitSize) : size(size), unitSize(unitSize)
 {
 	HEXEN_ADD_TO_PROFILE();
-	auto currentScene = SceneManager::getCurrentScene();
-	if (currentScene != nullptr)
+
+	numberOfCells = size.x * size.y;
+
+	cells = new Cell *[static_cast<u32>(size.y)];
+
+	for (u32 i = 0; i < size.y; i++)
 	{
-		size = currentScene->getSize();
-		unitSize = currentScene->getUnitSize();
-		numberOfCells = size.x * size.y;
+		cells[i] = new Cell[static_cast<u32>(size.x)];
+	}
 
-		cells = new Cell *[static_cast<u32>(size.y)];
-
-		for (u32 i = 0; i < size.y; i++)
+	for (u32 i = 0; i < size.y; i++)
+	{
+		for (u32 j = 0; j < size.x; j++)
 		{
-			cells[i] = new Cell[static_cast<u32>(size.x)];
-		}
-
-		for (u32 i = 0; i < size.y; i++)
-		{
-			for (u32 j = 0; j < size.x; j++)
-			{
-				cells[i][j] = Cell(j * unitSize.x, i * unitSize.y, unitSize.x, unitSize.y);
-			}
+			cells[i][j] = Cell(j * unitSize.x, i * unitSize.y, unitSize.x, unitSize.y);
 		}
 	}
 }
