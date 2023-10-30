@@ -39,8 +39,8 @@ void hexen::engine::systems::RenderSystem::render(float alpha)
 	for (auto &sprite : spriteComponents)
 	{
 		TaskSystem::addTask(core::threading::TaskPriority::High, this, &RenderSystem::addSpriteToRender, &sprite);
-		TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices);
 	}
+	TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices);
 }
 
 std::shared_ptr<hexen::engine::components::graphics::CameraComponent> hexen::engine::systems::RenderSystem::getMainCamera()

@@ -100,6 +100,10 @@ namespace hexen::engine::systems
 				spriteComponents[handle] = components::graphics::SpriteComponent(args...);
 				return handle;
 			}
+			else
+			{
+				static_assert(false, "Cannot register this component.Component container with T does not exist!");
+			}
 			return handle;
 		}
 
@@ -129,6 +133,11 @@ namespace hexen::engine::systems
 			{
 				return &spriteComponents[handle];
 			}
+			else
+			{
+				static_assert(false, "Cannot get component with T type.Component container with T does not exist!");
+			}
+
 			return nullptr;
 		}
 
@@ -155,6 +164,10 @@ namespace hexen::engine::systems
 			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
 			{
 				spriteComponents.release(handle);
+			}
+			else
+			{
+				static_assert(false, "Cannot release component with T type.Component container with T does not exist!");
 			}
 		}
 
@@ -188,7 +201,7 @@ namespace hexen::engine::systems
 
 	private:
 		/**
-        * @brief Represents the spritesComponent of the RenderSystem in the sys namespace.
+        * @brief Represents the spritesComponent of the RenderSystem.
         *
         * The spritesComponent is responsible for managing the sprites of the RenderSystem.
         * It provides methods to add, remove, and update the sprites in the system.
