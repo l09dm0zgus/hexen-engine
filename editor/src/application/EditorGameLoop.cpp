@@ -64,15 +64,6 @@ void hexen::editor::EditorGameLoop::loop()
 			accumulator -= deltaTime;
 		}
 
-		if (engine::core::SceneManager::getCurrentScene() != nullptr)
-		{
-			auto manager = std::dynamic_pointer_cast<systems::EditorSystemsManager>(systemManager);
-
-			HEXEN_ASSERT(manager != nullptr, "Failed cast pointer to EditorSystemsManager");
-
-			manager->addDebugGrid();
-		}
-
 		engine::graphics::RenderPipeline::prepareCommands();
 		editorGui->renderFrameBufferWindowsContents();
 		systemManager->render(getAlpha());
