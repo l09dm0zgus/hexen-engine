@@ -20,11 +20,6 @@ void hexen::engine::systems::SystemsManager::processInput(const std::shared_ptr<
 void hexen::engine::systems::SystemsManager::start()
 {
 	HEXEN_ADD_TO_PROFILE();
-	for (auto &system : renderSystems)
-	{
-		TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IRenderSystem::start);
-	}
-
 	for (auto &system : gameplaySystems)
 	{
 		TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IGamePlaySystem::start);
