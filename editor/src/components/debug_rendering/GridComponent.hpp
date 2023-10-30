@@ -32,7 +32,7 @@ namespace hexen::editor::components::graphics
      	* The Grid class represents a rectangular grid composed of cells.
  	    */
 
-		std::unique_ptr<hexen::engine::core::Grid> grid;
+		std::shared_ptr<hexen::engine::core::Grid> grid;
 		std::shared_ptr<DrawGridCommand> drawGridCommand;
 
 	public:

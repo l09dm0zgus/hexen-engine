@@ -13,7 +13,7 @@ hexen::editor::components::graphics::GridComponent::GridComponent(const std::vec
 
 	std::vector<glm::uvec4> indices;
 
-	grid = hexen::engine::core::memory::make_unique<hexen::engine::core::Grid>(size,unitSize);
+	grid = hexen::engine::core::memory::make_shared<hexen::engine::core::Grid>(size,unitSize);
 
 	if (grid != nullptr)
 	{
