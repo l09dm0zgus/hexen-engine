@@ -6,12 +6,12 @@
 #include "TaskSystem.hpp"
 #include <algorithm>
 #include <execution>
+#include <render_commands/Draw2DQuadsCommand.hpp>
+#include <render_commands/RenderPipeline.hpp>
 
-//hexen::engine::components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent,hexen::engine::systems::RenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::engine::systems::RenderSystem::spritesComponent;
+hexen::engine::components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent, hexen::engine::systems::RenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::engine::systems::RenderSystem::spriteComponents;
 
-//hexen::engine::components::ComponentContainer<hexen::engine::components::graphics::SpriteInstancedComponent,hexen::engine::systems::RenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::engine::systems::RenderSystem::instancedSpritesComponents;
-
-hexen::engine::components::ComponentContainer<hexen::engine::components::TransformComponent,hexen::engine::systems::RenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::engine::systems::RenderSystem::transformComponents;
+hexen::engine::components::ComponentContainer<hexen::engine::components::TransformComponent, hexen::engine::systems::RenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::engine::systems::RenderSystem::transformComponents;
 
 std::vector<std::shared_ptr<hexen::engine::components::graphics::CameraComponent>> hexen::engine::systems::RenderSystem::camerasComponents;
 
@@ -19,69 +19,29 @@ hexen::engine::core::i32 hexen::engine::systems::RenderSystem::mainCameraId {0};
 
 hexen::engine::systems::RenderSystem::RenderSystem(core::u32 sizeOfVectors)
 {
-	camerasComponents.reserve(sizeOfVectors);
-}
-
-
-/*
-void hexen::engine::systems::RenderSystem::updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent)
-{
- HEXEN_ADD_TO_PROFILE();
-	auto iter = std::find_if(std::execution::par,transformComponents.begin(), transformComponents.end(), [sprite = spriteComponent](auto &transform)
-			{ return transform.isDirty() && transform.getOwnerUUID() == sprite->getOwnerUUID(); });
-	if (iter != transformComponents.end())
-	{
-		spriteComponent->setTransformMatrix(iter->getTransformMatrix());
-	}
-}
-
-
-void hexen::engine::systems::RenderSystem::updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent)
-{
- HEXEN_ADD_TO_PROFILE();
-
-	spriteComponent->setProjectionMatrix(camerasComponents[mainCameraId]->getProjectionMatrix());
-	spriteComponent->setViewMatrix(camerasComponents[mainCameraId]->getViewMatrix());
-}
-*/
-void hexen::engine::systems::RenderSystem::start()
-{
 	HEXEN_ADD_TO_PROFILE();
-	/*
-	for (auto &sprite : spritesComponent)
-	{
-		TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateSpriteModelMatrix, &sprite);
-		TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices, &sprite);
-		TaskSystem::addTask<hexen::engine::components::graphics::RenderComponent>(core::threading::TaskPriority::Normal, &sprite, &hexen::engine::components::graphics::SpriteComponent::start);
-	}
-	for (auto &spriteInstanced : instancedSpritesComponents)
-	{
-		TaskSystem::addTask<RenderSystem, void, hexen::engine::components::graphics::SpriteComponent *>(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices, &spriteInstanced);
-		TaskSystem::addTask<hexen::engine::components::graphics::RenderComponent>(core::threading::TaskPriority::Normal, &spriteInstanced, &hexen::engine::components::graphics::SpriteInstancedComponent::start);
-	}
-	 */
-}
+	camerasComponents.reserve(sizeOfVectors);
 
+	//TODO: Change to shader assets
+	std::vector<std::string> shaders = {"shaders/BaseQuadVertex.glsl", "shaders/BaseQuadFragment.glsl"};
+	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::Draw2DQuadsCommand>(shaders);
+	draw2DQuadsCommand = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::Draw2DQuadsCommand>(id);
+}
 
 void hexen::engine::systems::RenderSystem::render(float alpha)
 {
 	HEXEN_ADD_TO_PROFILE();
+	for (auto &transform : transformComponents)
+	{
+		transform.updateTransformMatrix();
+	}
 
-	/*
-	for (auto &sprite : spritesComponent)
+	for (auto &sprite : spriteComponents)
 	{
-		TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateSpriteModelMatrix, &sprite);
-		TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices, &sprite);
-		TaskSystem::addTask<hexen::engine::components::graphics::RenderComponent>(core::threading::TaskPriority::Normal, &sprite, &hexen::engine::components::graphics::SpriteComponent::update, alpha);
+		TaskSystem::addTask(core::threading::TaskPriority::High, this, &RenderSystem::addSpriteToRender, &sprite);
+		TaskSystem::addTask(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices);
 	}
-	for (auto &spriteInstanced : instancedSpritesComponents)
-	{
-		TaskSystem::addTask<RenderSystem, void, hexen::engine::components::graphics::SpriteComponent *>(core::threading::TaskPriority::Normal, this, &RenderSystem::updateViewAndProjectionMatrices, &spriteInstanced);
-		TaskSystem::addTask<hexen::engine::components::graphics::RenderComponent>(core::threading::TaskPriority::Normal, &spriteInstanced, &hexen::engine::components::graphics::SpriteInstancedComponent::update, alpha);
-	}
-	 */
 }
-
 
 std::shared_ptr<hexen::engine::components::graphics::CameraComponent> hexen::engine::systems::RenderSystem::getMainCamera()
 {
@@ -93,4 +53,22 @@ std::shared_ptr<hexen::engine::components::graphics::CameraComponent> hexen::eng
 	}
 
 	return nullptr;
+}
+
+void hexen::engine::systems::RenderSystem::addSpriteToRender(components::graphics::SpriteComponent *spriteComponent)
+{
+	HEXEN_ADD_TO_PROFILE();
+	auto iter = std::find_if(std::execution::par, transformComponents.begin(), transformComponents.end(), [sprite = spriteComponent](auto &transform)
+			{ return transform.getOwnerUUID() == sprite->getOwnerUUID(); });
+
+	if (iter != transformComponents.end())
+	{
+		draw2DQuadsCommand->addQuad(spriteComponent->getTexture(), iter->getTransformMatrix());
+	}
+}
+
+void hexen::engine::systems::RenderSystem::updateViewAndProjectionMatrices()
+{
+	HEXEN_ADD_TO_PROFILE();
+	draw2DQuadsCommand->updateViewAndProjectionMatrices(camerasComponents[mainCameraId]->getViewMatrix(), camerasComponents[mainCameraId]->getProjectionMatrix());
 }

@@ -4,15 +4,19 @@
 
 #pragma once
 
-#include "../components/camera/CameraComponent.hpp"
-//#include "../components/graphics/SpriteComponent.hpp"
-//#include "../components/graphics/SpriteInstancedComponent.hpp"
-#include "../components/transform/TransformComponent.hpp"
 #include "../components/ComponentContainer.hpp"
+#include "../components/camera/CameraComponent.hpp"
+#include "../components/graphics/SpriteComponent.hpp"
+#include "../components/transform/TransformComponent.hpp"
 #include "../core/Types.hpp"
 #include "IRenderSystem.hpp"
 #include <memory>
 #include <vector>
+
+namespace hexen::engine::graphics
+{
+	class Draw2DQuadsCommand;
+}
 
 namespace hexen::engine::systems
 {
@@ -27,7 +31,8 @@ namespace hexen::engine::systems
 	class RenderSystem : public IRenderSystem
 	{
 	private:
-		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 1000;
+		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 10000;
+
 	public:
 		/**
  		* @brief This is the constructor for the RenderSystem class.
@@ -81,12 +86,18 @@ namespace hexen::engine::systems
 		static core::i32 registerNewComponent(Args... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			core::i32 handle{-1};
+			core::i32 handle {-1};
 
-			if constexpr (std::is_same_v<T,components::TransformComponent>)
+			if constexpr (std::is_same_v<T, components::TransformComponent>)
 			{
 				handle = transformComponents.reserve();
 				transformComponents[handle] = components::TransformComponent(args...);
+				return handle;
+			}
+			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
+			{
+				handle = spriteComponents.reserve();
+				spriteComponents[handle] = components::graphics::SpriteComponent(args...);
 				return handle;
 			}
 			return handle;
@@ -107,23 +118,43 @@ namespace hexen::engine::systems
  		*/
 
 		template<class T>
-		static T* getComponentInstanceByHandle(core::i32 handle)
+		static T *getComponentInstanceByHandle(core::i32 handle)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			if constexpr (std::is_same_v<T,components::TransformComponent>)
+			if constexpr (std::is_same_v<T, components::TransformComponent>)
 			{
 				return &transformComponents[handle];
 			}
+			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
+			{
+				return &spriteComponents[handle];
+			}
 			return nullptr;
 		}
+
+		/**
+ 		* @brief A template method to release a component by its handle.
+ 		*
+ 		* This method does some book-keeping and releases a component from its respective container.
+ 		* It supports types `TransformComponent` and `SpriteComponent`.
+ 		*
+ 		* @param handle The handle id of the component to be released.
+ 		*
+ 		* Template parameter:
+ 		* @tparam T The type of the component to be released.
+ 		*/
 
 		template<class T>
 		static void releaseComponentByHandle(core::i32 handle)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			if constexpr (std::is_same_v<T,components::TransformComponent>)
+			if constexpr (std::is_same_v<T, components::TransformComponent>)
 			{
 				transformComponents.release(handle);
+			}
+			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
+			{
+				spriteComponents.release(handle);
 			}
 		}
 
@@ -141,21 +172,6 @@ namespace hexen::engine::systems
         */
 
 		static std::shared_ptr<hexen::engine::components::graphics::CameraComponent> getMainCamera();
-
-		/**
-        * @brief Starts the rendering system
-        *
-        * This function initializes the rendering system and prepares it for rendering
-        * operations. It should be called before any rendering is done.
-        *
-        * @par Example:
-        * @code
-        * sys::RenderSystem renderer;
-        * renderer.start();
-        * @endcode
-        */
-
-		void start() override;
 
 		/**
         * @brief Render the scene with the given alpha value.
@@ -179,20 +195,7 @@ namespace hexen::engine::systems
         *
         */
 
-		//static components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent,COMPONENTS_CONTAINER_SIZE> spritesComponent;
-
-		/**
-        * @brief The instancedSpritesComponents variable stores the sprite components
-        *        used for instanced rendering in the RenderSystem.
-        *
-        * This variable is accessed by the RenderSystem class to perform instanced
-        * rendering of sprites. It should be populated with sprite components of
-        * entities that require instanced rendering.
-        *
-        **/
-
-
-		//static components::ComponentContainer<hexen::engine::components::graphics::SpriteInstancedComponent,COMPONENTS_CONTAINER_SIZE> instancedSpritesComponents;
+		static components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent, COMPONENTS_CONTAINER_SIZE> spriteComponents;
 
 		/**
         * @brief Represents a container for render system transform components.
@@ -207,7 +210,7 @@ namespace hexen::engine::systems
         *
         */
 
-		static components::ComponentContainer<hexen::engine::components::TransformComponent,COMPONENTS_CONTAINER_SIZE> transformComponents;
+		static components::ComponentContainer<hexen::engine::components::TransformComponent, COMPONENTS_CONTAINER_SIZE> transformComponents;
 
 		/**
         * @brief The camerasComponents variable is a member of the sys::RenderSystem class.
@@ -215,7 +218,6 @@ namespace hexen::engine::systems
         * This variable holds the camera components used by the render system. It is an
         * internal storage for managing render-related components.
         *
-        * @see sys::RenderSystem
         * @see CameraComponent
         */
 
@@ -233,39 +235,39 @@ namespace hexen::engine::systems
         * proper understanding of the Render System's functionality may lead to undesirable results or unexpected
         * behavior in the rendering process.
         *
-        * @see sys::RenderSystem
         */
 
 		static core::i32 mainCameraId;
 
 		/**
-        * @brief Updates the model matrix of the sprite component.
-        *
-        * This function calculates and updates the model matrix of the specified sprite component.
-        * The model matrix is used to transform the sprite component's vertices from object-space to world-space.
-        *
-        * @param spriteComponent A pointer to the sprite component to update.
-        */
+ 		* @brief This method is used to add a SpriteComponent to the RenderSystem for rendering.
+ 		*
+ 		* @details The method searches through the transformComponents, trying to find a transform whose owner UUID
+ 		* matches the SpriteComponent's. If a match is found, it gets the 2D-quads command to add a new quad
+ 		* for this SpriteComponent using its texture and the corresponding TransformComponent's transformation matrix.
+ 		*
+ 		* @param spriteComponent Pointer to the SpriteComponent to add to the RenderSystem.
+ 		*
+ 		* The execution of this method is profiled using HEXEN_ADD_TO_PROFILE macro, allowing performance monitoring.
+ 		*
+ 		* @note The search of transformComponents is done in parallel using C++17's parallel algorithms for efficiency.
+ 		*/
 
-
-		//void updateSpriteModelMatrix(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+		void addSpriteToRender(components::graphics::SpriteComponent *spriteComponent);
 
 		/**
-        * @brief Updates the view and projection matrices for rendering a sprite component.
-        *
-        * This function is used to update the view and projection matrices required for rendering
-        * a sprite component on the screen. It takes a pointer to a sprite component as its parameter
-        * and calculates the appropriate matrices based on the sprite's position, rotation, and scale.
-        * The updated matrices can then be used in the rendering process.
-        *
-        * @param spriteComponent A pointer to the sprite component whose view and projection matrices
-        *                        are to be updated.
-        *
-        * @see comp::rend::SpriteComponent
-        */
+     	* @brief A function to update the view and projection matrices for the RenderSystem's main camera.
+     	*
+     	* This function calculates new matrices based on the current state of the main camera.
+     	*
+     	* @note It calls the `updateViewAndProjectionMatrices()` function from `draw2DQuadsCommand` object with two arguments:
+     	* a call to `getViewMatrix()` and a call to `getProjectionMatrix()` for our `camerasComponents[mainCameraId]`.
+     	*
+     	* It's a member function, does not return anything and does not take any parameters.
+     	*/
 
-		//void updateViewAndProjectionMatrices(hexen::engine::components::graphics::SpriteComponent *spriteComponent);
+		void updateViewAndProjectionMatrices();
 
-
+		std::shared_ptr<engine::graphics::Draw2DQuadsCommand> draw2DQuadsCommand;
 	};
 }// namespace hexen::engine::systems
