@@ -15,7 +15,7 @@ namespace hexen::editor::gui
 
 namespace hexen::editor::systems
 {
-	class DebugRenderSystem;
+	class EditorRenderSystem;
 
 	/**
     * @class EditorSystemsManager
@@ -42,7 +42,7 @@ namespace hexen::editor::systems
 		std::shared_ptr<gui::EditorGUI> editorGui;
 
 
-		std::shared_ptr<DebugRenderSystem> debugRenderSystem;
+		std::shared_ptr<EditorRenderSystem> debugRenderSystem;
 
 		glm::vec2 currentSceneWindowSize {0.0f};
 
@@ -127,16 +127,5 @@ namespace hexen::editor::systems
 
 		void render(float alpha) override;
 
-		/**
-        * @brief Add debug grid overlays to the current scene
-        *
-        * This function adds debug grid overlays to the current scene for debugging purposes.
-        * The grid helps visualize the layout and alignment of various objects in the scene.
-        *
-        * @note This function does not return anything.
-        *
-        */
-
-		void addDebugGrid();
 	};
 }// namespace hexen::editor::systems
