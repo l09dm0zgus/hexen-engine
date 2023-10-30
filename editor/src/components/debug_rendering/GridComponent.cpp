@@ -2,11 +2,11 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#include "DebugGridComponent.hpp"
-#include <graphics/render_commands/RenderPipeline.hpp>
 #include "DrawGridCommand.hpp"
+#include "GridComponent.hpp"
+#include <graphics/render_commands/RenderPipeline.hpp>
 
-hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize)
+hexen::editor::components::graphics::GridComponent::GridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize)
 {
 	HEXEN_ADD_TO_PROFILE()
 	std::vector<glm::vec3> vertices;
@@ -48,14 +48,14 @@ hexen::editor::components::graphics::DebugGridComponent::DebugGridComponent(cons
 
 }
 
-void hexen::editor::components::graphics::DebugGridComponent::setViewAndProjectionMatrices(const glm::mat4 &view, const glm::mat4 &projection)
+void hexen::editor::components::graphics::GridComponent::setViewAndProjectionMatrices(const glm::mat4 &view, const glm::mat4 &projection)
 {
 	HEXEN_ADD_TO_PROFILE();
 	drawGridCommand->view = view;
 	drawGridCommand->projection = projection;
 }
 
-void hexen::editor::components::graphics::DebugGridComponent::setTransformMatrix(const glm::mat4 &transform)
+void hexen::editor::components::graphics::GridComponent::setTransformMatrix(const glm::mat4 &transform)
 {
 	HEXEN_ADD_TO_PROFILE();
 	drawGridCommand->transform = transform;

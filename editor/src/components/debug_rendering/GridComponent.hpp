@@ -11,9 +11,9 @@
 namespace hexen::editor::components::graphics
 {
 	/**
- 	* @class DebugGridComponent
+ 	* @class GridComponent
  	*
- 	* @brief The DebugGridComponent class renders a debug grid using the provided vertex and fragment shader paths.
+ 	* @brief The GridComponent class renders a debug grid using the provided vertex and fragment shader paths.
  	*
  	* This component is used to render a debug grid in a 3D scene for debugging purposes. It requires vertex and fragment shader
  	* paths to be provided to properly render the grid. The grid is rendered using a vertex shader for vertex transformation
@@ -21,7 +21,7 @@ namespace hexen::editor::components::graphics
  	* @extends Component
  	*/
 
-	class DebugGridComponent : public hexen::engine::components::Component
+	class GridComponent : public hexen::engine::components::Component
 	{
 	private:
 		glm::vec3 color {1.0f,0.0f, 0.0f};
@@ -36,14 +36,13 @@ namespace hexen::editor::components::graphics
 		std::shared_ptr<DrawGridCommand> drawGridCommand;
 
 	public:
-
-		DebugGridComponent() = default;
-		~DebugGridComponent() override = default;
+		GridComponent() = default;
+		~GridComponent() override = default;
 
 		/**
-     	* @brief Primary constructor of DebugGridComponent.
+     	* @brief Primary constructor of GridComponent.
      	*
-     	* This function sets up a DebugGridComponent with the specified color, size and unit size. It also receives paths to shaders
+     	* This function sets up a GridComponent with the specified color, size and unit size. It also receives paths to shaders
      	* which will be used to render the grid.
      	*
      	* @param pathsToShaders A list of file paths to the shaders.
@@ -52,7 +51,7 @@ namespace hexen::editor::components::graphics
      	* @param unitSize The size of a single unit (cell) in the grid.
      	*/
 
-		explicit DebugGridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize);
+		explicit GridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize);
 
 		/**
      	* @brief Sets the color of an grid.
