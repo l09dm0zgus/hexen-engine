@@ -40,6 +40,8 @@ namespace hexen::editor::gui
      	*/
 
 		void renderFramebufferContent() override;
+
+		std::string UUID;
 	};
 
 }// namespace hexen::editor::gui
