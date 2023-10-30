@@ -9,9 +9,11 @@
 hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData) : color(renderGridData.color)
 {
 	HEXEN_ADD_TO_PROFILE()
+
 	vertexArray = engine::graphics::VertexArray::create();
 	elementsBuffer = engine::graphics::ElementsBuffer::create(renderGridData.indices,renderGridData.indicesSize);
 	vertexBuffer = engine::graphics::VertexBuffer::create(renderGridData.vertices, renderGridData.verticesSize);
+
 	vertexBuffer->setLayout({
 			{ engine::graphics::ShaderDataType::VEC3F , "aPos" }
 	});
@@ -26,7 +28,6 @@ hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const Rend
 void hexen::editor::components::graphics::DrawGridCommand::prepare()
 {
 	HEXEN_ADD_TO_PROFILE()
-	vertexArray->bind();
 }
 
 void hexen::editor::components::graphics::DrawGridCommand::execute()
@@ -37,13 +38,15 @@ void hexen::editor::components::graphics::DrawGridCommand::execute()
 	shaderProgram->setMatrix4("projection",projection);
 	shaderProgram->setMatrix4("view", view);
 	shaderProgram->setVector3f("color", color);
+
+	vertexArray->bind();
 	engine::graphics::drawLines(countOfLines);
+	vertexArray->unbind();
 }
 
 void hexen::editor::components::graphics::DrawGridCommand::finish()
 {
 	HEXEN_ADD_TO_PROFILE()
-	vertexArray->unbind();
 }
 
 hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::string>& pathsToShaders, const glm::vec3& color) : pathsToShaders(pathsToShaders), color(color)

@@ -11,7 +11,7 @@
 
 namespace hexen::editor::components::graphics
 {
-	class DebugGridComponent;
+	class GridComponent;
 
 	/**
  	* @struct RenderGridData
@@ -63,7 +63,7 @@ namespace hexen::editor::components::graphics
 		glm::mat4 projection{1};
 		glm::mat4 transform{1};
 
-		friend class DebugGridComponent;
+		friend class GridComponent;
 	public:
 
 		/**
