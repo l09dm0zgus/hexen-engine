@@ -51,11 +51,15 @@ target_sources(${CORE_MODULE_NAME} PUBLIC
         Types.hpp
         Serialization.hpp
         application/Settings.hpp
-        application/Settings.cpp)
+        application/Settings.cpp
+        assets/IAsset.hpp
+        assets/AssetsStorage.hpp
+        assets/AssetsStorage.cpp)
+
 
 
 #add_subdirectory(threading)
-
+target_include_directories(${CORE_MODULE_NAME} PUBLIC ${PHMAP_INCLUDE_DIR})
 target_link_libraries(${CORE_MODULE_NAME} PUBLIC SDL3_image::SDL3_image SDL3::SDL3 nlohmann_json::nlohmann_json boost_context)
 
 if(MSVC)
