@@ -4,6 +4,7 @@
 
 #include "Application.hpp"
 #include <graphics/render_context/RenderContext.hpp>
+#include <core/assets/AssetsStorage.hpp>
 
 hexen::editor::Application::Application()
 {
@@ -12,6 +13,7 @@ hexen::editor::Application::Application()
 	window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
 	renderContext->attachWindow(window);
 	mainGameLoop = hexen::engine::core::memory::make_unique<EditorGameLoop>(window,renderContext);
+	engine::core::assets::AssetsStorage::addAssetsStorage(settings.getApplicationName(), std::filesystem::current_path());
 }
 
 void hexen::editor::Application::run()

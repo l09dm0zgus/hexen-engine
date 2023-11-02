@@ -5,7 +5,7 @@
 #include "AssetsStorage.hpp"
 
 #include <utility>
-phmap::parallel_flat_hash_map<std::string , std::shared_ptr<hexen::engine::core::assets::AssetsStorage>> hexen::engine::core::assets::AssetsStorage::assetsStoragesInstances;
+phmap::parallel_flat_hash_map<std::string, std::shared_ptr<hexen::engine::core::assets::AssetsStorage>> hexen::engine::core::assets::AssetsStorage::assetsStoragesInstances;
 
 void hexen::engine::core::assets::AssetsStorage::setAssetsRootDirectory(const std::filesystem::path &newPath)
 {
@@ -14,14 +14,13 @@ void hexen::engine::core::assets::AssetsStorage::setAssetsRootDirectory(const st
 
 std::shared_ptr<hexen::engine::core::assets::AssetsStorage> hexen::engine::core::assets::AssetsStorage::getAssetsStorageByName(const std::string &storageName)
 {
-	auto  it = assetsStoragesInstances.find(storageName);
+	auto it = assetsStoragesInstances.find(storageName);
 	HEXEN_ASSERT(it != assetsStoragesInstances.end(), "ERROR:Assets storage with name: " + storageName + " does not exist!")
 	return it->second;
 }
 
-hexen::engine::core::assets::AssetsStorage::AssetsStorage(std::filesystem::path &&rootDirectory): assetsRootDirectory(std::move(rootDirectory))
+hexen::engine::core::assets::AssetsStorage::AssetsStorage(std::filesystem::path &&rootDirectory) : assetsRootDirectory(std::move(rootDirectory))
 {
-
 }
 
 hexen::engine::core::assets::AssetsStorage::AssetsStorage(const std::filesystem::path &rootDirectory) : assetsRootDirectory(rootDirectory)

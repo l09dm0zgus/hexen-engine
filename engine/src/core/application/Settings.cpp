@@ -13,9 +13,10 @@ hexen::engine::core::Settings::Settings()
 	{
 		std::filesystem::create_directory(core::HOME_DIRECTORY / std::filesystem::path(pathToSettings));
 
+		setApplicationName("hexen-editor");
 		setRenderAPI(RenderAPI::OPENGL_API);
 		setOpenGLSettings({4, 6, false});
-		setWindowSettings({glm::vec2(1280, 720), "Hexen Reich", false});
+		setWindowSettings({glm::vec2(1280, 720), "Hexen Engine", false});
 		setPathToIcon("icon.ico");
 	}
 	else
@@ -104,4 +105,14 @@ std::string hexen::engine::core::Settings::getPathToIcon() const
 {
 	HEXEN_ADD_TO_PROFILE();
 	return settingsJson["settings"]["path_to_icon"];
+}
+
+void hexen::engine::core::Settings::setApplicationName(const std::string &applicationName)
+{
+	settingsJson["settings"]["application_name"] = applicationName;
+}
+
+std::string hexen::engine::core::Settings::getApplicationName() const
+{
+	return settingsJson["settings"]["application_name"];
 }

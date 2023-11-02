@@ -18,7 +18,6 @@ namespace hexen::engine::core::assets
 	class AssetsStorage
 	{
 	public:
-
 		explicit AssetsStorage(std::filesystem::path &&rootDirectory);
 		explicit AssetsStorage(const std::filesystem::path &rootDirectory);
 
@@ -88,10 +87,9 @@ namespace hexen::engine::core::assets
  		* @note Throws an assertion error if the storageName does not correspond to an existing assets storage instance.
  		*/
 
-		static void addAssetsStorage(const std::string& storageName,const  std::filesystem::path& rootDirectory);
+		static void addAssetsStorage(const std::string &storageName, const std::filesystem::path &rootDirectory);
 
 	private:
-
 		/**
          * @brief A hash map to store currently loaded assets.
          *
@@ -109,6 +107,5 @@ namespace hexen::engine::core::assets
 		std::filesystem::path assetsRootDirectory;
 
 		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<AssetsStorage>> assetsStoragesInstances;
-
 	};
 }// namespace hexen::engine::core::assets

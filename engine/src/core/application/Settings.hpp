@@ -129,5 +129,23 @@ namespace hexen::engine::core
 
 		void setOpenGLSettings(const OpenGLSettings &openGlSettings);
 
+		/**
+ 		* @brief Set the Application Name object in the settings.
+ 		* Modifies the "application_name" value in the settingsJson.
+ 		*
+ 		* @param applicationName The name of the application.
+ 		*/
+
+		void setApplicationName(const std::string &applicationName);
+
+		/**
+ 		* @brief Get the Application Name object from the settings.
+ 		* Returns the "application_name" value in the settingsJson.
+ 		*
+ 		* @return std::string The name of the application.
+ 		*/
+
+		[[nodiscard]] std::string getApplicationName() const;
+
 	};
 }// namespace hexen::engine::core
