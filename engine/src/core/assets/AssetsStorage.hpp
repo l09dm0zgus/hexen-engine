@@ -19,13 +19,16 @@ namespace hexen::engine::core::assets
 	{
 	public:
 
+		explicit AssetsStorage(std::filesystem::path &&rootDirectory);
+		explicit AssetsStorage(const std::filesystem::path &rootDirectory);
+
 		/**
          * @brief Sets the root directory for all assets.
          * @param newPath The `std::filesystem::path` to the new root directory.
          *
          * This should be used to update the root directory path at runtime, if necessary.
          */
-		static void setAssetsRootDirectory(const std::filesystem::path &newPath);
+		void setAssetsRootDirectory(const std::filesystem::path &newPath);
 
 		/**
          * @brief Loads the asset of the specified type.
@@ -57,6 +60,36 @@ namespace hexen::engine::core::assets
 			}
 		}
 
+		/**
+ 		* @brief Fetches the assets storage instance associated with the given name.
+ 		*
+ 		* This function tries to find an existing assets storage instance related to the given name. If the given
+ 		* assets storage name does not exist, the function asserts and prints an error message.
+ 		*
+ 		* @param storageName Name of the assets storage you want to get.
+ 		* @return std::shared_ptr to the assets storage instance. If the storage does not exist the program should terminate.
+ 		*
+ 		* @throws HESEN_ASSERT error if storageName is not found among assetsStoragesInstances.
+ 		*/
+
+		static std::shared_ptr<AssetsStorage> getAssetsStorageByName(const std::string &storageName);
+
+		/**
+ 		* @brief This function is used to fetch a specific assets storage instance by its name.
+ 		*
+ 		* @param storageName The name of the assets storage.
+ 		*
+ 		* @return A shared_ptr to the found assets storage. If the storage with the provided name does not exist, an assertion error is thrown.
+ 		*
+ 		* @pre The input argument should be the name of an existing assets storage.
+ 		*
+ 		* @post If the storage with the provided name exists, a shared_ptr to it will be returned.
+ 		*
+ 		* @note Throws an assertion error if the storageName does not correspond to an existing assets storage instance.
+ 		*/
+
+		static void addAssetsStorage(const std::string& storageName,const  std::filesystem::path& rootDirectory);
+
 	private:
 
 		/**
@@ -65,7 +98,7 @@ namespace hexen::engine::core::assets
          * The key is the asset file path and the value is a shared pointer to the asset.
          */
 
-		static phmap::parallel_flat_hash_map<std::filesystem::path, std::shared_ptr<IAsset>> loadedAssets;
+		phmap::parallel_flat_hash_map<std::filesystem::path, std::shared_ptr<IAsset>> loadedAssets;
 
 		/**
          * @brief The root directory path for all assets.
@@ -73,6 +106,9 @@ namespace hexen::engine::core::assets
          * This is required for loading new assets.
          */
 
-		static std::filesystem::path assetsRootDirectory;
+		std::filesystem::path assetsRootDirectory;
+
+		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<AssetsStorage>> assetsStoragesInstances;
+
 	};
 }// namespace hexen::engine::core::assets
