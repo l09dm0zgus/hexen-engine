@@ -60,6 +60,45 @@ namespace hexen::engine::core::assets
 		}
 
 		/**
+ 		* @brief  A template function that creates an asset of type `T` which is inherited from `IAsset` interface.
+ 		* The function first checks if an asset with the same path already exists, if so, it saves the existing asset;
+ 		* if not, it creates a new asset, saves it, and stores it in the `loadedAssets` map.
+ 		*
+ 		* @tparam T                         The type of the asset to be created. Must be inherited from `IAsset` interface.
+ 		* @param  pathToAsset               The path where the asset will be saved.
+ 		* @param  pathToRawFile             The raw file path where the asset data is to be read from.
+ 		*
+ 		* @pre     The type T must be inherited from `IAsset` interface.
+ 		*
+ 		* @return A shared pointer to the newly created or existing asset of type `T`.
+ 		*         In case of re-saving an existing asset, `nullptr` is returned.
+ 		*
+ 		* @exception Throws static_assert fail if the type `T` is not inherited from `IAsset` interface.
+ 		*
+ 		* @note   This function is thread safe.
+ 		*/
+
+		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
+		std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile)
+		{
+			HEXEN_ADD_TO_PROFILE();
+			static_assert(std::is_base_of_v<IAsset, T>, "T must be  inherit from interface IAsset!");
+			auto iter = loadedAssets.find(pathToAsset);
+			if (iter != loadedAssets.end())
+			{
+				auto asset = std::dynamic_pointer_cast<T>(iter->second);
+				asset->save(assetsRootDirectory / pathToAsset, pathToRawFile);
+			}
+			else
+			{
+				auto newAsset = memory::make_shared<T>();
+				newAsset->save(assetsRootDirectory / pathToAsset, pathToRawFile);
+				loadedAssets[pathToAsset] = newAsset;
+				return newAsset;
+			}
+		}
+
+		/**
  		* @brief Fetches the assets storage instance associated with the given name.
  		*
  		* This function tries to find an existing assets storage instance related to the given name. If the given
