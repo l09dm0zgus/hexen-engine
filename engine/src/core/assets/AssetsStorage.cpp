@@ -31,3 +31,8 @@ void hexen::engine::core::assets::AssetsStorage::addAssetsStorage(const std::str
 {
 	assetsStoragesInstances[storageName] = memory::make_shared<AssetsStorage>(rootDirectory);
 }
+
+void hexen::engine::core::assets::AssetsStorage::addDefaultStorage(const std::filesystem::path &rootDirectory)
+{
+	addAssetsStorage("default-storage", rootDirectory);
+}

@@ -113,20 +113,29 @@ namespace hexen::engine::core::assets
 		static std::shared_ptr<AssetsStorage> getAssetsStorageByName(const std::string &storageName);
 
 		/**
- 		* @brief This function is used to fetch a specific assets storage instance by its name.
+ 		* @brief This function adds a new assets storage to the storage instances.
  		*
- 		* @param storageName The name of the assets storage.
+ 		* @param storageName The name of the new storage to be added.
+ 		* @param rootDirectory The root directory of the new storage assets.
  		*
- 		* @return A shared_ptr to the found assets storage. If the storage with the provided name does not exist, an assertion error is thrown.
- 		*
- 		* @pre The input argument should be the name of an existing assets storage.
- 		*
- 		* @post If the storage with the provided name exists, a shared_ptr to it will be returned.
- 		*
- 		* @note Throws an assertion error if the storageName does not correspond to an existing assets storage instance.
+ 		* The function constructs a new AssetsStorage object from the received root directory
+ 		* and adds it to the assetsStoragesInstances map with the provided name as a key.
  		*/
 
 		static void addAssetsStorage(const std::string &storageName, const std::filesystem::path &rootDirectory);
+
+		/**
+ 		* @brief This method is used to add a default assets storage having specified root directory.
+ 		*
+		* @param rootDirectory The filesystem path of the directory to register as the "default-storage".
+		*
+ 		* This functions wraps and simplifies the usage of addAssetsStorage
+ 		* by providing "default-storage" as the storage name, and the root,
+ 		* as the location of assets.
+ 		*
+ 		*/
+
+		static void addDefaultStorage(const std::filesystem::path &rootDirectory);
 
 	private:
 		/**
@@ -147,4 +156,48 @@ namespace hexen::engine::core::assets
 
 		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<AssetsStorage>> assetsStoragesInstances;
 	};
+
+	/**
+ 	* @class AssetsHelper
+ 	* @brief A helper class for loading and creating assets
+ 	*
+ 	* This class contains two utility static member functions for loading and creating assets.
+ 	* The loading and creation operations are conducted via the specified asset storage, defaulting to "default-storage".
+ 	*/
+
+	class AssetsHelper
+	{
+	public:
+
+		/**
+		* @warning If not storageName not set, asset loaded from default storage.
+     	* @brief  Loads an asset of the specified type from a given path.
+     	* @tparam T The type of asset to load. Must be a type that is derived from IAsset
+     	* @param  pathToAsset The filesystem path to the asset to load
+     	* @param  storageName The name of the asset storage to use for loading, defaults to "default-storage"
+     	* @return A shared_ptr to the loaded asset of  type T
+     	*/
+
+		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
+		static std::shared_ptr<T> loadAsset(const std::filesystem::path &pathToAsset, const std::string& storageName = "default-storage")
+		{
+			return AssetsStorage::getAssetsStorageByName(storageName)->loadAsset<T>(pathToAsset);
+		}
+
+		/**
+		* @warning If not storageName not set, asset created in default storage.
+     	* @brief  Creates an asset of the specified type from a given path to raw file.
+     	* @tparam T The type of asset to create. Must be a type that is derived from IAsset
+     	* @param  pathToAsset The filesystem path to the asset to be created
+     	* @param  pathToRawFile The filesystem path to the raw file from which the asset will be created
+     	* @param  storageName The name of the asset storage to use for creation, defaults to "default-storage".
+     	* @return A shared_ptr to the created asset of type T
+     	*/
+
+		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
+		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile, const std::string& storageName = "default-storage")
+		{
+			return AssetsStorage::getAssetsStorageByName(storageName)->createAsset<T>(pathToAsset, pathToRawFile);
+		}
+	};;
 }// namespace hexen::engine::core::assets
