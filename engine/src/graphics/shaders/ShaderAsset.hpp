@@ -6,29 +6,30 @@
 
 #include "ShaderProgram.hpp"
 #include <string>
+#include <assets/AssetsStorage.hpp>
+#include <nlohmann/json.hpp>
+
 namespace hexen::engine::graphics
 {
 	/**
- 	* @class ShaderFile
+ 	* @class ShaderAsset
  	* @brief This class represents a shader file in the HexenEngine project.
  	*
- 	* The ShaderFile class encapsulates the information and functionality
+ 	* The ShaderAsset class encapsulates the information and functionality
  	* related to a shader file. This includes handling of shader file I/O and
  	* its properties. More detailed description of the class would go here,
  	* explaining its role in the larger project context.
  	*
- 	* Example usage:
- 	* ShaderFile shaderFile("path/to/shader");
  	*
- 	* Some more information/explanation if necessary.
+ 	* @extends IAsset
  	*/
 
 
-	class ShaderFile
+	class ShaderAsset : public core::assets::IAsset
 	{
 	private:
 		std::string shaderText;
-		ShaderType type;
+		hexen::engine::graphics::ShaderType type;
 
 		/**
  		* @brief Parse the shader type from a shader file.
@@ -55,38 +56,51 @@ namespace hexen::engine::graphics
 
 		void setShaderType(const std::string &shaderType);
 
+		nlohmann::json assetDataFile;
 
 	public:
 
 		/**
-        * @brief Reads from a shader file and parses it.
-        * @details This method reads from a shader file. If the file fails to open, an error
-        * message is logged, if there is a failure during reading, an error message is logged.
-        *
-        * @param path The path of the shader file to be read.
-        */
+     	* @brief Gets the name of the shader asset.
+     	* @return String representing the name of the shader asset.
+     	*/
 
-		void read(const std::string &path);
+		[[nodiscard]] std::string getName() const override;
 
 		/**
-        * @brief Provides the content of the shader file as a string.
-        * @details This method provides the content of the shader file as a string. If the file
-        * has not been read before calling this method, it will likely return an empty string.
-        *
-        * @return A pointer to the shader text.
-        */
+     	* @brief Gets the raw shader data.
+     	* @return std::vector storing bytes of the raw shader data.
+     	*/
 
-		char *getContent() const;
+		[[nodiscard]] std::vector<core::u8> getRawData() const override;
+
+		/**
+     	* @brief Load shader asset from the given path.
+     	* @param pathToAsset Path to the shader asset file.
+     	* @sideeffect May modify 'assetDataFile', and other member variables.
+     	*/
+
+		void load(const std::filesystem::path &pathToAsset) override;
+
+
+		/**
+     	* @brief Saves shader data in the asset file.
+     	* @param pathToAsset The path to save the asset file.
+     	* @param pathToRawShader The path to the raw shader file.
+     	* @sideeffect May modify 'shaderText', assetDataFile, and other member variables.
+     	*/
+
+		void save(const std::filesystem::path &pathToAsset,const std::filesystem::path &pathToRawShader) override;
 
 		/**
  		* @brief Get the currently set shader type.
  		*
  		* The function is `noexcept`, so it does not throw exceptions.
  		*
- 		* @retun hexen::engine::graphics::ShaderType The shader type currently set in this ShaderFile.
+ 		* @retun hexen::engine::graphics::ShaderType The shader type currently set in this ShaderAsset.
  		*/
 
-		ShaderType getType() const noexcept;
+		[[nodiscard]] hexen::engine::graphics::ShaderType getType() const noexcept;
 	};
 
 }// namespace hexen::engine::graphics::shader
