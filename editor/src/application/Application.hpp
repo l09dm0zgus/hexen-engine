@@ -6,6 +6,11 @@
 #include "EditorGameLoop.hpp"
 #include <core/window/Window.hpp>
 
+namespace hexen::engine::core::assets
+{
+	class AssetsStorage;
+}
+
 namespace hexen::editor
 {
 	/**
@@ -36,6 +41,8 @@ namespace hexen::editor
 
 		void run();
 
+		static std::shared_ptr<hexen::engine::core::assets::AssetsStorage> getEditorAssetsStorage();
+
 	private:
 		/**
 	 	* @brief A shared pointer holding a reference to the window.
@@ -55,6 +62,17 @@ namespace hexen::editor
 
 		hexen::engine::core::Settings settings;
 		std::shared_ptr<engine::graphics::RenderContext> renderContext;
+
+		/**
+ 		* @brief Gets a pointer to the Editor Asset Storage.
+ 		*
+ 		* This function returns a shared pointer to an AssetStorage object
+ 		* that is associated with the name specified.
+ 		*
+ 		* @return A shared_ptr to an AssetStorage object.
+ 		*/
+
+		static std::string name;
 	};
 
 }// namespace hexen::editor
