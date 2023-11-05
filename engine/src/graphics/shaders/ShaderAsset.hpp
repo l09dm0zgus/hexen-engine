@@ -3,11 +3,10 @@
 //
 
 #pragma once
-
-#include "ShaderProgram.hpp"
 #include <string>
 #include <assets/AssetsStorage.hpp>
 #include <nlohmann/json.hpp>
+#include "ShaderProgram.hpp"
 
 namespace hexen::engine::graphics
 {
@@ -101,6 +100,18 @@ namespace hexen::engine::graphics
  		*/
 
 		[[nodiscard]] hexen::engine::graphics::ShaderType getType() const noexcept;
+
+		/**
+ 		* @brief Retrieves shader text.
+ 		*
+ 		* This method in the class hexen::engine::graphics::ShaderAsset, returns
+ 		* the shader text as a raw pointer.
+ 		* @note This function is declared as noexcept, meaning that it doesn't throw exceptions.
+ 		*
+ 		* @return Const char pointer to the stored shader text.
+ 		*/
+
+		[[nodiscard]] const char* getShaderText() const noexcept;
 	};
 
 }// namespace hexen::engine::graphics::shader
