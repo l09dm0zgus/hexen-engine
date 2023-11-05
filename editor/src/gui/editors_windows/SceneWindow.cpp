@@ -7,6 +7,7 @@
 #include "../../systems/EditorRenderSystem.hpp"
 #include <entity/scene/SceneManager.hpp>
 #include <systems/RenderSystem.hpp>
+#include <graphics/shaders/ShaderAsset.hpp>
 
 hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : FramebufferWindow(name)
 {
@@ -14,16 +15,24 @@ hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : Framebuf
 	auto scene = engine::core::SceneManager::getCurrentScene();
 	engine::core::u32 componentHandle{0};
 	UUID = generateUUIDV4();
-	std::vector<std::string> pathsToShaders = {"shaders/BaseVertexShader.glsl", "shaders/DebugLineFragmentShader.glsl"};
+
+	std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets;
+
+	auto vertexShaderAsset = engine::core::assets::AssetsHelper::createAsset<engine::graphics::ShaderAsset>("shaders/GridVertexShader.hasset", "shaders/GridVertexShader.glsl");
+	auto fragmentShaderAsset = engine::core::assets::AssetsHelper::createAsset<engine::graphics::ShaderAsset>("shaders/GridFragmentShader.hasset", "shaders/GridFragmentShader.glsl");
+
+	shaderAssets.push_back(vertexShaderAsset);
+	shaderAssets.push_back(fragmentShaderAsset);
+
 	auto  color = glm::vec3(1.0, 0.0f, 0.0f);
 
 	if (scene != nullptr)
 	{
-		componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(pathsToShaders, color, scene->getSize(), scene->getUnitSize());
+		componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(shaderAssets, color, scene->getSize(), scene->getUnitSize());
 	}
 	else
 	{
-		componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(pathsToShaders, color, glm::vec2(1024), glm::vec2(32));
+		componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(shaderAssets, color, glm::vec2(1024), glm::vec2(32));
 	}
 
 	hexen::engine::systems::RenderSystem::addCameraComponent<components::graphics::EditorCameraComponent>(getSize().x, getSize().y, 90.0f);

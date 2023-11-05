@@ -15,6 +15,7 @@ namespace hexen::engine::components
 namespace hexen::engine::graphics
 {
 	class ShaderProgram;
+	class ShaderAsset;
 	class VertexArray;
 	class VertexBuffer;
 	class TextureArray;
@@ -102,17 +103,17 @@ namespace hexen::engine::graphics
 
 		/**
  		* @brief Constructs a Draw2DQuadsCommand and initializes buffers.
- 		* @param pathsToShaders The string of paths to the shaders.
+ 		* @param shadersAssets initializer list with shader assets file.
  		*/
 
-		Draw2DQuadsCommand(const std::initializer_list<std::string> &pathsToShaders);
+		Draw2DQuadsCommand(const std::initializer_list<std::shared_ptr<ShaderAsset>> &shadersAssets);
 
 		/**
  		* @brief Constructs a Draw2DQuadsCommand and initializes buffers.
- 		* @param pathsToShaders The vector of paths to the shaders.
+ 		* @param pathsToShaders The vector of shader assets file.
  		*/
 
-		explicit Draw2DQuadsCommand(const std::vector<std::string> &pathsToShaders);
+		explicit Draw2DQuadsCommand(const std::vector<std::shared_ptr<ShaderAsset>> &shadersAssets);
 
 		/**
  		* @brief Adds a quad to the batch being processed. If the maximum number of indices has been reached, a new batch is started.

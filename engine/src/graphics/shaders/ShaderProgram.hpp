@@ -3,11 +3,12 @@
 //
 
 #pragma once
-#include <memory_pool/AllocatedObject.hpp>
 #include <glm/glm.hpp>
+#include <memory_pool/AllocatedObject.hpp>
 
 namespace hexen::engine::graphics
 {
+	class ShaderAsset;
 	enum class ShaderType : core::u8
 	{
 		UNKNOWN = 0,
@@ -118,11 +119,11 @@ namespace hexen::engine::graphics
 
 		/**
      	* @brief Factory method for creating a ShaderProgram instance.
-     	* @param pathsToShaders - A vector of paths to the shader files.
+     	* @param shaderAssets - A vector of shaders assets files.
      	* @return A shared pointer to a ShaderProgram instance.
      	*/
 
-		static std::shared_ptr<ShaderProgram> create(const std::vector<std::string> &pathsToShaders);
+		static std::shared_ptr<ShaderProgram> create(const std::vector<std::shared_ptr<ShaderAsset>> &shaderAssets);
 	};
 }
 

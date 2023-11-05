@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../ShaderFile.hpp"
+#include "../ShaderAsset.hpp"
 #include "../ShaderProgram.hpp"
 #include <Types.hpp>
 
@@ -26,10 +26,10 @@ namespace hexen::engine::graphics::gl
  		* This constructor creates GLShaderProgram using the shader files provided in the vector argument.
  		* Each shader file is read, compiled, and then linked to the shader program.
  		*
- 		* @param shadersFiles A reference to a std::vector containing string paths to the shader files.
+ 		* @param shaderAssets A reference to a std::vector containing shaders assets file.
  		*/
 
-		explicit GLShaderProgram(const std::vector<std::string> &shadersFiles);
+		explicit GLShaderProgram(const std::vector<std::shared_ptr<ShaderAsset>> &shaderAssets);
 
 		/**
  		* @class GLShaderProgram
@@ -144,13 +144,13 @@ namespace hexen::engine::graphics::gl
 		/**
  		* @brief Compiles a shader from a file.
  		*
- 		* This function compiles the shader provided through the ShaderFile parameter.
+ 		* This function compiles the shader provided through the ShaderAsset parameter.
  		* After the compilation, the shader's ID is stored in the array of shader IDs.
  		*
  		* @param shaderFile The shader file to compile.
  		*/
 
-		void compileShader(const ShaderFile &shaderFile);
+		void compileShader(const std::shared_ptr<ShaderAsset> &shaderFile);
 
 		/**
  		* @brief This method is used to link GLSL shaders into a program.
@@ -191,7 +191,7 @@ namespace hexen::engine::graphics::gl
 
 		void showLinkerLog() const noexcept;
 
-		std::vector<ShaderFile> shadersData;
+		std::vector<std::shared_ptr<ShaderAsset>> shadersData;
 
 		std::vector<core::u32> shadersIds;
 

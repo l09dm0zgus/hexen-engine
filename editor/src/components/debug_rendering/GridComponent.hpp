@@ -45,13 +45,13 @@ namespace hexen::editor::components::graphics
      	* This function sets up a GridComponent with the specified color, size and unit size. It also receives paths to shaders
      	* which will be used to render the grid.
      	*
-     	* @param pathsToShaders A list of file paths to the shaders.
+     	* @param shaderAssets A list of  shaders assets files.
      	* @param newColor The color of the grid.
      	* @param size The size of the grid.
      	* @param unitSize The size of a single unit (cell) in the grid.
      	*/
 
-		explicit GridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize);
+		explicit GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize);
 
 		/**
      	* @brief Sets the color of an grid.

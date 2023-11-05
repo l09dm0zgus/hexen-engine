@@ -6,7 +6,7 @@
 #include "GridComponent.hpp"
 #include <graphics/render_commands/RenderPipeline.hpp>
 
-hexen::editor::components::graphics::GridComponent::GridComponent(const std::vector<std::string> &pathsToShaders, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize)
+hexen::editor::components::graphics::GridComponent::GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize)
 {
 	HEXEN_ADD_TO_PROFILE()
 	std::vector<glm::vec3> vertices;
@@ -43,7 +43,7 @@ hexen::editor::components::graphics::GridComponent::GridComponent(const std::vec
 	}
 
 	//TODO: Change to shader assets
-	auto renderHandle = engine::graphics::RenderPipeline::addCommandToQueue<DrawGridCommand>(RenderGridData(vertices, indices,pathsToShaders, newColor));
+	auto renderHandle = engine::graphics::RenderPipeline::addCommandToQueue<DrawGridCommand>(RenderGridData(vertices, indices, shaderAssets, newColor));
 	drawGridCommand = engine::graphics::RenderPipeline::getCommandByType<DrawGridCommand>(renderHandle);
 
 }

@@ -8,6 +8,8 @@
 #include <execution>
 #include <render_commands/Draw2DQuadsCommand.hpp>
 #include <render_commands/RenderPipeline.hpp>
+#include <assets/AssetsStorage.hpp>
+#include <shaders/ShaderAsset.hpp>
 
 hexen::engine::components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent, hexen::engine::systems::RenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::engine::systems::RenderSystem::spriteComponents;
 
@@ -22,8 +24,14 @@ hexen::engine::systems::RenderSystem::RenderSystem(core::u32 sizeOfVectors)
 	HEXEN_ADD_TO_PROFILE();
 	camerasComponents.reserve(sizeOfVectors);
 
-	//TODO: Change to shader assets
-	std::vector<std::string> shaders = {"shaders/BaseQuadVertex.glsl", "shaders/BaseQuadFragment.glsl"};
+	std::vector<std::shared_ptr<graphics::ShaderAsset>> shaders;
+
+	auto vertexShaderAsset = core::assets::AssetsHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadVertexShader.hasset","shaders/BaseQuadVertex.glsl");
+	shaders.push_back(vertexShaderAsset);
+
+	auto fragmentShaderAsset = core::assets::AssetsHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadFragmentShader.hasset", "shaders/BaseQuadFragment.glsl");
+	shaders.push_back(fragmentShaderAsset);
+
 	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::Draw2DQuadsCommand>(shaders);
 	draw2DQuadsCommand = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::Draw2DQuadsCommand>(id);
 }

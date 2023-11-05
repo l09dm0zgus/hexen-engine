@@ -38,16 +38,9 @@ namespace hexen::engine::graphics::gl
 }
 
 
-hexen::engine::graphics::gl::GLShaderProgram::GLShaderProgram(const std::vector<std::string> &shadersFiles)
+hexen::engine::graphics::gl::GLShaderProgram::GLShaderProgram(const std::vector<std::shared_ptr<ShaderAsset>> &shaderAssets) : shadersData(shaderAssets)
 {
 	HEXEN_ADD_TO_PROFILE();
-	for(const auto& pathToShader : shadersFiles)
-	{
-		ShaderFile shaderFile;
-		shaderFile.read(pathToShader);
-		shadersData.push_back(shaderFile);
-	}
-
 	compileShaders();
 	linkShaders();
 }
@@ -105,11 +98,11 @@ void hexen::engine::graphics::gl::GLShaderProgram::bind() const
 	glUseProgram(shaderProgram);
 }
 
-void hexen::engine::graphics::gl::GLShaderProgram::compileShader(const hexen::engine::graphics::ShaderFile &shaderFile)
+void hexen::engine::graphics::gl::GLShaderProgram::compileShader(const std::shared_ptr<ShaderAsset> &shaderFile)
 {
 	HEXEN_ADD_TO_PROFILE();
-	auto shaderText = shaderFile.getContent();
-	auto shaderId = glCreateShader(shaderTypeToGLShaderType(shaderFile.getType()));
+	auto shaderText = shaderFile->getShaderText();
+	auto shaderId = glCreateShader(shaderTypeToGLShaderType(shaderFile->getType()));
 	glShaderSource(shaderId, 1, &shaderText, nullptr);
 	glCompileShader(shaderId);
 	showCompilerLog(shaderId);

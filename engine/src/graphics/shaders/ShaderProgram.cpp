@@ -3,6 +3,8 @@
 //
 
 #include "ShaderProgram.hpp"
+#include "ShaderAsset.hpp"
+
 #include "../render_context/RenderContext.hpp"
 #if defined(_ENABLE_OPENGL_SUPPORT)
 	#include "GL/GLShaderProgram.hpp"
@@ -10,7 +12,7 @@
 #endif
 #include "../profiling/Profiling.hpp"
 
-std::shared_ptr<hexen::engine::graphics::ShaderProgram> hexen::engine::graphics::ShaderProgram::create(const std::vector<std::string> &pathsToShaders)
+std::shared_ptr<hexen::engine::graphics::ShaderProgram> hexen::engine::graphics::ShaderProgram::create(const std::vector<std::shared_ptr<ShaderAsset>> &shaderAssets)
 {
 	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
@@ -21,7 +23,7 @@ std::shared_ptr<hexen::engine::graphics::ShaderProgram> hexen::engine::graphics:
 		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
-				return core::memory::make_shared<gl::GLShaderProgram>(pathsToShaders);
+				return core::memory::make_shared<gl::GLShaderProgram>(shaderAssets);
 			}
 			break;
 		case core::Settings::RenderAPI::VULKAN_API:

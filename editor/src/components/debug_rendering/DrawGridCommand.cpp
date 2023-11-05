@@ -22,7 +22,7 @@ hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const Rend
 
 	countOfLines = renderGridData.countOfLines;
 
-	shaderProgram = engine::graphics::ShaderProgram::create(renderGridData.pathsToShaders);
+	shaderProgram = engine::graphics::ShaderProgram::create(renderGridData.shaderAssets);
 }
 
 void hexen::editor::components::graphics::DrawGridCommand::prepare()
@@ -49,7 +49,7 @@ void hexen::editor::components::graphics::DrawGridCommand::finish()
 	HEXEN_ADD_TO_PROFILE()
 }
 
-hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::string>& pathsToShaders, const glm::vec3& color) : pathsToShaders(pathsToShaders), color(color)
+hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color) : shaderAssets(shaderAssets), color(color)
 {
 	HEXEN_ADD_TO_PROFILE()
 	vertices = const_cast<float*>(glm::value_ptr(verticesVector[0]));

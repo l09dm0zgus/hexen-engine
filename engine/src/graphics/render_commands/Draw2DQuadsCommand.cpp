@@ -11,17 +11,17 @@
 #include <algorithm>
 #include <execution>
 
-hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::initializer_list<std::string> &pathsToShaders)
+hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::initializer_list<std::shared_ptr<ShaderAsset>> &shadersAssets)
 {
 	HEXEN_ADD_TO_PROFILE();
-	shaderProgram = ShaderProgram::create(pathsToShaders);
+	shaderProgram = ShaderProgram::create(shadersAssets);
 	initializeBuffers();
 }
 
-hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::vector<std::string> &pathsToShaders)
+hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::vector<std::shared_ptr<ShaderAsset>> &shadersAssets)
 {
 	HEXEN_ADD_TO_PROFILE();
-	shaderProgram = ShaderProgram::create(pathsToShaders);
+	shaderProgram = ShaderProgram::create(shadersAssets);
 	initializeBuffers();
 }
 

@@ -57,6 +57,7 @@ namespace hexen::engine::core::assets
 				loadedAssets[pathToAsset] = newAsset;
 				return newAsset;
 			}
+			return nullptr;
 		}
 
 		/**
@@ -96,6 +97,7 @@ namespace hexen::engine::core::assets
 				loadedAssets[pathToAsset] = newAsset;
 				return newAsset;
 			}
+			return nullptr;
 		}
 
 		/**

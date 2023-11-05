@@ -25,20 +25,38 @@ namespace hexen::editor::components::graphics
 	{
 
 		/**
-     	* @brief Constructor that initializes vertices and indices from given vectors.
-     	*
-     	* @param verticesVector Vector of vertices data.
-     	* @param indicesVector Vector of indices data.
-     	*/
+ 		* @brief Construct a new Render Grid Data object.
+ 		*
+ 		* This constructor initializes the members of the RenderGridData object, including shader assets, color, vertices, indices,
+ 		* vertices size, indices size and count of lines. It uses the provided vectors of vertices, indices and shader assets and
+ 		* the glm::vec3 color. It also adds the constructor to the HEXEN profile.
+ 		*
+ 		* @param verticesVector The vector of vertices of type glm::vec3. The memory address of the first element is assigned to the
+ 		* vertices pointer after removing its constantness.
+ 		* @param indicesVector The vector of indices of type glm::uvec4. The memory address of the first element is assigned to the
+ 		* indices pointer after removing its constantness.
+ 		* @param shaderAssets Vector of shared pointers to ShaderAsset objects from the engine::graphics namespace.
+ 		* @param color The glm::vec3 color to be used in rendering.
+ 		*
+ 		* @note The memory addresses of the vertices and indices vectors' first elements are obtained using glm::value_ptr() and then
+ 		* casted to non-const using const_cast<> because glm::value_ptr() returns a const pointer.
+ 		*
+ 		* Member 'verticesSize' stores the total size in bytes of all vertex data (size of the vertices vector multiplied by the size
+ 		* of glm::vec3).
+ 		* Member 'indicesSize' stores the total size in bytes of all index data (size of the indices vector multiplied by the size
+ 		* of glm::uvec4).
+ 		*
+ 		* Member 'countOfLines' stores the total number of lines, which is the size of the indices vector multiplied by 4.
+	 	*/
 
-		RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::string>& pathsToShaders, const glm::vec3& color);
+		RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color);
 
 		float *vertices; ///< Pointer to the vertices data.
 		hexen::engine::core::u32 verticesSize; ///< Size of the vertices data.
 		hexen::engine::core::u32 *indices; ///< Pointer to the indices data.
 		hexen::engine::core::u32 indicesSize; ///< Size of the indices data.
 		engine::core::u32 countOfLines; ///< The count of lines to be rendered.
-		std::vector<std::string> pathsToShaders; ///< Vector of paths to shader programs.
+		std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets; ///< Vector of shaders assets.
 		glm::vec3 color; ///< Vector of RGB values for grid color.
 	};;
 
