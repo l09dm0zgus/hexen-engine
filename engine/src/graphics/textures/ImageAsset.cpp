@@ -42,9 +42,11 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 
 	//HEXEN_ASSERT(internalFormat & dataFormat, "Format not supported!");
 
-	auto height = surface->h;
-	auto width = surface->w;
+	height = surface->h;
+	width = surface->w;
+	pitch = surface->pitch;
 
+	assetDataFile["image_asset"]["pitch"] = pitch;
 	assetDataFile["image_asset"]["size"]["width"] = width;
 	assetDataFile["image_asset"]["size"]["height"] = height;
 	assetDataFile["image_asset"]["name"] = pathToRawFile.filename();
@@ -94,10 +96,37 @@ void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &path
 	auto imagePixels = assetDataFile["image_asset"]["raw_data"];
 
 	rawImageData.assign(imagePixels.cbegin(), imagePixels.cend());
+
+	height = getHeight();
+	width = getWidth();
+
+	pitch = assetDataFile["image_asset"]["pitch"];
 }
 
 hexen::engine::graphics::ImageAsset::ImageFormat hexen::engine::graphics::ImageAsset::getFormat() const
 {
 	HEXEN_ADD_TO_PROFILE();
 	return static_cast<ImageFormat>(assetDataFile["image_asset"]["format"]);
+}
+
+void hexen::engine::graphics::ImageAsset::flip()
+{
+	char* temp = new char[pitch]; // intermediate buffer
+	char* pixels = (char*) rawImageData.data();
+
+	for(int i = 0; i < height / 2; ++i)
+	{
+		// get pointers to the two rows to swap
+		char* row1 = pixels + i * pitch;
+		char* row2 = pixels + (height - i - 1) * pitch;
+
+		// swap rows
+		memcpy(temp, row1, pitch);
+		memcpy(row1, row2, pitch);
+		memcpy(row2, temp, pitch);
+	}
+
+	rawImageData.assign(pixels, pixels + rawImageData.size());
+	delete[] temp;
+
 }

@@ -25,6 +25,10 @@ namespace hexen::engine::graphics
 		/** @brief Raw image data as vector of unsigned chars */
 		std::vector<core::u8> rawImageData;
 
+		core::i32 height;
+		core::i32 width;
+		core::i32 pitch;
+
 	public:
 		/**
     	* @enum ImageFormat
@@ -107,5 +111,15 @@ namespace hexen::engine::graphics
     	*/
 
 		core::i32 getWidth() const;
+
+		/**
+ 		* @brief Flips the image asset vertically.
+ 		*
+ 		* This function flips the image on a central horizontal axis through the use of a temporary
+ 		* buffer. It operates in-place on the pixel data of the image asset.
+ 		*
+ 		*/
+
+		void flip();
 	};
 }// namespace hexen::engine::graphics
