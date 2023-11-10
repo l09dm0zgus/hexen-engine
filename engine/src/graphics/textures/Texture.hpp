@@ -8,6 +8,7 @@
 
 namespace hexen::engine::graphics
 {
+	class ImageAsset;
 	/**
  	* @brief Enum representing texture filters.
  	*/
@@ -78,14 +79,13 @@ namespace hexen::engine::graphics
 		/**
      	* @brief Create a Texture2D object.
      	*
-     	* @param path The path to the texture file.
+     	* @param imageAsset The asset of image asset file.
      	* @param filter The filter to use on the texture.
      	*
      	* @return A shared pointer to the created Texture2D object.
      	*/
 
-		//TODO: adding texture by image asset
-		static std::shared_ptr<Texture2D> create(const std::string &path, TextureFilter filter);
+		static std::shared_ptr<Texture2D> create(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter);
 	};
 
 	/**
@@ -108,15 +108,14 @@ namespace hexen::engine::graphics
          */
 
 		virtual ~TextureArray() = default;
-		//TODO: adding texture by image asset
 
 		/**
          * @brief Abstract method to add a new texture to the texture array.
          *
-         * @param[in] path The path to the texture file to add to the texture array.
+         * @param[in] imageAsset The path to the image asset file to add to the texture array.
          */
 
-		virtual void addTextureToArray(const std::string &path) = 0;
+		virtual void addTextureToArray(const std::shared_ptr<ImageAsset> &path) = 0;
 
 		/**
          * @brief Static factory method to create a new TextureArray instance.

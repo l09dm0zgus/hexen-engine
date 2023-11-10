@@ -47,9 +47,9 @@ namespace hexen::engine::graphics::gl
 
 		/**
          * @brief Function to add a texture to the texture array.
-         * @param path The path to the image file to be added to the texture array.
+         * @param imageAsset The asset of the image file to be added to the texture array.
          */
-		void addTextureToArray(const std::string &path) override;
+		void addTextureToArray(const std::shared_ptr<ImageAsset> &imageAsset) override;
 
 		/**
          * @brief Get the width of the texture.

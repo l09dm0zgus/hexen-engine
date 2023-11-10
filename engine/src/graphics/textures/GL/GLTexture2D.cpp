@@ -27,6 +27,43 @@ namespace hexen::engine::graphics::gl
 			return GL_NEAREST;
 		}
 	}
+
+	std::pair<int,int> imageFormatToGLTextureFormat(ImageAsset::ImageFormat imageFormat)
+	{
+		std::pair<int,int> result;
+		switch (imageFormat)
+		{
+			case ImageAsset::ImageFormat::RGB8:
+				result.first = GL_RGB8;
+				result.second = GL_RGB;
+				break;
+			case ImageAsset::ImageFormat::RGBA8:
+				result.first = GL_RGBA8;
+				result.second = GL_RGBA;
+				break;
+			case ImageAsset::ImageFormat::RGB16:
+				result.first = GL_RGB16;
+				result.second = GL_RGB;
+				break;
+			case ImageAsset::ImageFormat::RGBA16:
+				result.first = GL_RGBA16;
+				result.second = GL_RGBA;
+				break;
+			case ImageAsset::ImageFormat::RGB32:
+				result.first = GL_RGB32F;
+				result.second = GL_RGB;
+				break;
+			case ImageAsset::ImageFormat::RGBA32:
+				result.first = GL_RGBA32F;
+				result.second = GL_RGBA;
+				break;
+			default:
+				result.first = GL_RGB8;
+				result.second = GL_RGB;
+				break;
+		}
+		return result;
+	}
 }
 hexen::engine::graphics::gl::GLTexture2D::~GLTexture2D()
 {
@@ -40,37 +77,25 @@ void hexen::engine::graphics::gl::GLTexture2D::bind(core::u32 slot) const
 	glBindTextureUnit(slot,textureId);
 }
 
-hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::string &pathToImage,TextureFilter filter)
+hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter)
 {
 	HEXEN_ADD_TO_PROFILE();
-	auto surface = IMG_Load(pathToImage.c_str());
 
-	if (surface == nullptr)
-	{
-		SDL_Log("Error : Failed to load %s image.", pathToImage.c_str());
-	}
+	auto formats = imageFormatToGLTextureFormat(imageAsset->getFormat());
 
-	auto internalFormat = GL_RGB8, dataFormat = GL_RGB;
+	width = imageAsset->getWidth();
+	height = imageAsset->getHeight();
 
-	if (surface->format->Amask)
-	{
-		internalFormat = GL_RGBA8;
-		dataFormat = GL_RGBA;
-	}
-
-	HEXEN_ASSERT(internalFormat & dataFormat ,"Format not supported!");
-
-	height = surface->h;
-	width = surface->w;
+	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 
 	glCreateTextures(GL_TEXTURE_2D,1, &textureId);
-	glTextureStorage2D(textureId,1,internalFormat,width,height);
+	glTextureStorage2D(textureId,1,formats.first,width,height);
 
 	glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, textureFilterToGLTextureFilter(filter));
 	glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, textureFilterToGLTextureFilter(filter));
 
-	glTextureSubImage2D(textureId,0,0,0,width,height,dataFormat,GL_UNSIGNED_BYTE,surface->pixels);
-	SDL_DestroySurface(surface);
+	glTextureSubImage2D(textureId,0,0,0,width,height,formats.second,GL_UNSIGNED_BYTE, imageAsset->getRawData());
+
 }
 
 hexen::engine::core::u32 hexen::engine::graphics::gl::GLTexture2D::getId() const

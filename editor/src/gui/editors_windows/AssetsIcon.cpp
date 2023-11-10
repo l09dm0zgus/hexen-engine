@@ -5,6 +5,10 @@
 #include "AssetsIcon.hpp"
 #include "AssetsWindow.hpp"
 #include <misc/cpp/imgui_stdlib.h>
+#include <core/assets/AssetsStorage.hpp>
+#include <graphics/textures/ImageAsset.hpp>
+
+using assets = hexen::engine::core::assets::AssetsHelper;
 
 std::shared_ptr<hexen::engine::graphics::Texture2D> hexen::editor::gui::AssetIcon::fileIcon;
 std::shared_ptr<hexen::engine::graphics::Texture2D> hexen::editor::gui::AssetIcon::animationFileIcon;
@@ -19,6 +23,7 @@ hexen::engine::core::HashTable<hexen::engine::core::u32, std::string> hexen::edi
 hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow)
 {
 	HEXEN_ADD_TO_PROFILE()
+
 	name = path.path().filename();
 	pathToFile = path.path().string();
 	fileName = name.string();
@@ -29,13 +34,13 @@ hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry 
 	{
 		//use static class members for memory optimization
 
-		folderIcon = engine::graphics::Texture2D::create(pathToFolderIcon , engine::graphics::TextureFilter::LINEAR);
-		soundFileIcon = engine::graphics::Texture2D::create(pathToSoundFileIcon , engine::graphics::TextureFilter::LINEAR);
-		fileIcon = engine::graphics::Texture2D::create(pathToFileIcon , engine::graphics::TextureFilter::LINEAR);
-		sceneFileIcon = engine::graphics::Texture2D::create(pathToSceneFileIcon , engine::graphics::TextureFilter::LINEAR);
-		animationFileIcon = engine::graphics::Texture2D::create(pathToAnimationFileIcon , engine::graphics::TextureFilter::LINEAR);
-		tilesetFileIcon = engine::graphics::Texture2D::create(pathToTilesetFileIcon , engine::graphics::TextureFilter::LINEAR);
-		entityFileIcon = engine::graphics::Texture2D::create(pathToEntityFileIcon , engine::graphics::TextureFilter::LINEAR);
+		folderIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/FolderIcon.hasset", pathToFolderIcon) , engine::graphics::TextureFilter::LINEAR);
+		soundFileIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/SoundIcon.hasset", pathToSoundFileIcon) , engine::graphics::TextureFilter::LINEAR);
+		fileIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/FileIcon.hasset", pathToFileIcon) , engine::graphics::TextureFilter::LINEAR);
+		sceneFileIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/SceneFileIcon.hasset", pathToSceneFileIcon) , engine::graphics::TextureFilter::LINEAR);
+		animationFileIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/AnimationFileIcon.hasset", pathToAnimationFileIcon) , engine::graphics::TextureFilter::LINEAR);
+		tilesetFileIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/TileFileIcon.hasset", pathToTilesetFileIcon) , engine::graphics::TextureFilter::LINEAR);
+		entityFileIcon = engine::graphics::Texture2D::create(assets::createAsset<engine::graphics::ImageAsset>("EditorIcons/EntityFileIcon.hasset",pathToEntityFileIcon) , engine::graphics::TextureFilter::LINEAR);
 
 		engineFileExtensions.set(sceneFileIcon->getId(), ".hxscene");
 		engineFileExtensions.set(animationFileIcon->getId(), ".hxanim");
@@ -68,8 +73,8 @@ hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::directory_entry 
 
 			};
 
-			imageFileIcon = engine::graphics::Texture2D::create(path.path().string() , engine::graphics::TextureFilter::LINEAR);
-			textureId = imageFileIcon->getId();
+			//imageFileIcon = engine::graphics::Texture2D::create(path.path().string() , engine::graphics::TextureFilter::LINEAR);
+			//textureId = imageFileIcon->getId();
 		}
 		else if (isAudio != soundFileExtensions.cend())
 		{

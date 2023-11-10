@@ -9,12 +9,12 @@
 #include "SDL_image.h"
 #include "../Texture.hpp"
 #include <string>
-
+#include "../ImageAsset.hpp"
 
 namespace hexen::engine::graphics::gl
 {
-	int textureFilterToGLTextureFilter(TextureFilter textureFilter);
-
+	 int textureFilterToGLTextureFilter(TextureFilter textureFilter);
+	 std::pair<int,int> imageFormatToGLTextureFormat(ImageAsset::ImageFormat imageFormat);
 
 	/**
  	* @class GLTexture2D
@@ -33,11 +33,11 @@ namespace hexen::engine::graphics::gl
 		/**
      	* @brief Construct a new GLTexture2D object. Responsible for texture creation and initialization.
      	*
-     	* @param pathToImage The path to the image file.
+     	* @param imageAsset pointer to image asset.
      	* @param filter The filter mode for the texture.
      	*/
 
-		explicit GLTexture2D(const std::string &pathToImage,TextureFilter filter);
+		explicit GLTexture2D(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter);
 
 		/**
  		* @brief Binds a texture to a specified texture unit.

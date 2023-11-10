@@ -19,6 +19,7 @@ namespace hexen::engine::graphics
 	class VertexArray;
 	class VertexBuffer;
 	class TextureArray;
+	class ImageAsset;
 	/**
  	* @struct QuadVertex
  	* @brief This struct represents a quad vertex with position, texture coordinates, and texture index.
@@ -86,7 +87,7 @@ namespace hexen::engine::graphics
 
 		void drawBatch();
 
-		using QuadData = std::pair<std::string, glm::mat4>;
+		using QuadData = std::pair<std::shared_ptr<ImageAsset>, glm::mat4>;
 
 		std::vector<QuadData> quadsData;
 
@@ -117,11 +118,11 @@ namespace hexen::engine::graphics
 
 		/**
  		* @brief Adds a quad to the batch being processed. If the maximum number of indices has been reached, a new batch is started.
- 		* @param texture Shared pointer to the texture of the quad
+ 		* @param imageAsset Shared pointer to the image asset.
  		* @param transform Transforms to apply to the quad
  		*/
- 		//TODO: change string to Texture asset
-		void addQuad(const std::string &pathToTexture, const glm::mat4 &transform);
+
+		void addQuad(const std::shared_ptr<ImageAsset> &imageAsset, const glm::mat4 &transform);
 
 		/**
  		* @brief Prepares for the draw command by binding the shader program and setting matrices.

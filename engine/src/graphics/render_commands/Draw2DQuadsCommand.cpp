@@ -10,6 +10,7 @@
 #include "draw_calls/DrawCalls.hpp"
 #include <algorithm>
 #include <execution>
+#include "../textures/ImageAsset.hpp"
 
 hexen::engine::graphics::Draw2DQuadsCommand::Draw2DQuadsCommand(const std::initializer_list<std::shared_ptr<ShaderAsset>> &shadersAssets)
 {
@@ -68,10 +69,10 @@ void hexen::engine::graphics::Draw2DQuadsCommand::initializeBuffers()
 	auto elementsBuffer = ElementsBuffer::create(indices, maxIndices);
 	vertexArray->setElementBuffer(elementsBuffer);
 
-	quadVertexPositions[0] = {0.5f, 0.5f, 0.0f, 1.0f};
-	quadVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
-	quadVertexPositions[2] = {-0.5f, -0.5f, 0.0f, 1.0f};
-	quadVertexPositions[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
+	quadVertexPositions[0] = {0.5F, 0.5F, 0.0F, 1.0F};
+	quadVertexPositions[1] = {0.5F, -0.5F, 0.0F, 1.0F};
+	quadVertexPositions[2] = {-0.5F, -0.5F, 0.0F, 1.0F};
+	quadVertexPositions[3] = {-0.5F, 0.5F, 0.0F, 1.0F};
 
 	delete[] indices;
 }
@@ -99,10 +100,10 @@ void hexen::engine::graphics::Draw2DQuadsCommand::finish()
 	HEXEN_ADD_TO_PROFILE();
 }
 
-void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::string &texture, const glm::mat4 &transform)
+void hexen::engine::graphics::Draw2DQuadsCommand::addQuad(const std::shared_ptr<ImageAsset> &imageAsset, const glm::mat4 &transform)
 {
 	HEXEN_ADD_TO_PROFILE();
-	quadsData.emplace_back(texture, transform);
+	quadsData.emplace_back(imageAsset, transform);
 }
 
 void hexen::engine::graphics::Draw2DQuadsCommand::startBatch()
@@ -165,10 +166,10 @@ void hexen::engine::graphics::Draw2DQuadsCommand::addQuadDataToVertexBuffer(cons
 		nextBatch();
 	}
 
-	if(textureSlots.find(quadData.first) == textureSlots.cend())
+	if(textureSlots.find(quadData.first->getName()) == textureSlots.cend())
 	{
 		textureArray->addTextureToArray(quadData.first);
-		textureSlots[quadData.first] = textureSlotIndex;
+		textureSlots[quadData.first->getName()] = textureSlotIndex;
 		textureSlotIndex++;
 	}
 
@@ -176,7 +177,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::addQuadDataToVertexBuffer(cons
 	{
 		quadsVertexPointer->position = quadData.second * quadVertexPositions[i];
 		quadsVertexPointer->textureCoordinates = textureCoords[i];
-		quadsVertexPointer->textureIndex = textureSlots[quadData.first];
+		quadsVertexPointer->textureIndex = textureSlots[quadData.first->getName()];
 		quadsVertexPointer++;
 	}
 

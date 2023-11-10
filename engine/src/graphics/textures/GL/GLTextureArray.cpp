@@ -26,31 +26,18 @@ hexen::engine::graphics::gl::GLTextureArray::GLTextureArray(TextureFilter textur
 
 	increaseCountOfTextureUnits();
 }
-//TODO: Load texture from image assets
-void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::string &path)
+
+void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::shared_ptr<ImageAsset> &imageAsset)
 {
 	HEXEN_ADD_TO_PROFILE();
-	auto surface = IMG_Load(path.c_str());
+	auto formats = imageFormatToGLTextureFormat(imageAsset->getFormat());
 
-	if (surface == nullptr)
-	{
-		SDL_Log("Error : Failed to load %s image.", path.c_str());
-	}
+	auto width = imageAsset->getWidth();
+	auto height = imageAsset->getHeight();
 
-	auto internalFormat = GL_RGB8, dataFormat = GL_RGB;
+	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 
-	if (surface->format->Amask)
-	{
-		internalFormat = GL_RGBA8;
-		dataFormat = GL_RGBA;
-	}
-
-	HEXEN_ASSERT(internalFormat & dataFormat, "Format not supported!");
-
-	auto height = surface->h;
-	auto width = surface->w;
-
-	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, imageIndex, width, height, 1, dataFormat, GL_UNSIGNED_BYTE, surface->pixels);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, imageIndex, width, height, 1, formats.second, GL_UNSIGNED_BYTE, imageAsset->getRawData());
 	glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 	imageIndex++;
 }
