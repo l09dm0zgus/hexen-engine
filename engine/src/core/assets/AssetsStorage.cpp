@@ -36,3 +36,8 @@ void hexen::engine::core::assets::AssetsStorage::addDefaultStorage(const std::fi
 {
 	addAssetsStorage("default-storage", rootDirectory);
 }
+
+bool hexen::engine::core::assets::AssetsStorage::isAssetFileExist(const std::filesystem::path &pathToAsset) const
+{
+	return std::filesystem::exists(assetsRootDirectory / pathToAsset);
+}
