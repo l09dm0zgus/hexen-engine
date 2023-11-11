@@ -85,6 +85,7 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<Imag
 
 	width = imageAsset->getWidth();
 	height = imageAsset->getHeight();
+	imageAsset->flip();
 
 	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 

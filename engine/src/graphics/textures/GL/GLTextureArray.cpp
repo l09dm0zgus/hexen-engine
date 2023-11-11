@@ -34,7 +34,7 @@ void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::s
 
 	auto width = imageAsset->getWidth();
 	auto height = imageAsset->getHeight();
-
+	imageAsset->flip();
 	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 
 	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, imageIndex, width, height, 1, formats.second, GL_UNSIGNED_BYTE, imageAsset->getRawData());
