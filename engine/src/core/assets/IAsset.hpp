@@ -39,10 +39,10 @@ namespace hexen::engine::core::assets
 
 		/**
     	* @brief Pure virtual method to get the raw data of the Asset.
-    	* @return The raw data of the Asset as a std::vector of core::u8.
+    	* @return The raw data of the asset file.
     	*/
 
-		[[nodiscard]] virtual std::vector<core::u8> getRawData() const = 0;
+		[[nodiscard]] virtual core::vptr getRawData() const = 0;
 
 		/**
     	* @brief Pure virtual method to load the Asset from a given file path.

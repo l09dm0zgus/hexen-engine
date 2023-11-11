@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <SDL_surface.h>
 #include <assets/IAsset.hpp>
 #include <nlohmann/json.hpp>
 
@@ -29,6 +30,9 @@ namespace hexen::engine::graphics
 		core::i32 width;
 		core::i32 pitch;
 
+		core::vptr pixels;
+
+		SDL_Surface* surface = nullptr;
 	public:
 		/**
     	* @enum ImageFormat
@@ -44,6 +48,8 @@ namespace hexen::engine::graphics
 			RGB32, ///< 32-bit RGB format
 			RGBA32,///< 32-bit RGBA format
 		};
+
+		~ImageAsset() override;
 
 		/**
     	* @brief Get the format of the image.
@@ -61,10 +67,10 @@ namespace hexen::engine::graphics
 
 		/**
     	* @brief Get the raw data of the Asset.
-    	* @return The raw data of the Asset as a std::vector of core::u8.
+    	* @return The pixels from image.
     	*/
 
-		[[nodiscard]] std::vector<core::u8> getRawData() const override;
+		[[nodiscard]] core::vptr getRawData() const override;
 
 		/**
          * @brief Loads an image asset from the specified filesystem path.
@@ -121,5 +127,6 @@ namespace hexen::engine::graphics
  		*/
 
 		void flip();
+
 	};
 }// namespace hexen::engine::graphics

@@ -35,6 +35,7 @@ std::string hexen::engine::graphics::ShaderAsset::parseShaderType()
 
 	return token;
 }
+
 void hexen::engine::graphics::ShaderAsset::setShaderType(const std::string &shaderType)
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -87,6 +88,7 @@ void hexen::engine::graphics::ShaderAsset::save(const std::filesystem::path &pat
 
 void hexen::engine::graphics::ShaderAsset::load(const std::filesystem::path &pathToAsset)
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::ifstream inFile(pathToAsset, std::ios::binary);
 	std::stringstream ss;
 	ss << inFile.rdbuf();
@@ -98,17 +100,18 @@ void hexen::engine::graphics::ShaderAsset::load(const std::filesystem::path &pat
 
 std::string hexen::engine::graphics::ShaderAsset::getName() const
 {
+	HEXEN_ADD_TO_PROFILE();
 	return assetDataFile["shader_asset"]["name"];
 }
 
-std::vector<hexen::engine::core::u8> hexen::engine::graphics::ShaderAsset::getRawData() const
+hexen::engine::core::vptr hexen::engine::graphics::ShaderAsset::getRawData() const
 {
-	std::vector<core::u8> shaderData;
-	std::copy(shaderText.begin(), shaderText.end(), std::back_inserter(shaderData));
-	return shaderData;
+	HEXEN_ADD_TO_PROFILE();
+	return (void *)shaderText.data();
 }
 
 const char *hexen::engine::graphics::ShaderAsset::getShaderText() const noexcept
 {
+	HEXEN_ADD_TO_PROFILE();
 	return shaderText.c_str();
 }

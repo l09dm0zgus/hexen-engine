@@ -9,15 +9,14 @@
 void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile)
 {
 	HEXEN_ADD_TO_PROFILE();
-
-	auto *surface = IMG_Load(pathToRawFile.string().c_str());
+	surface = IMG_Load(pathToRawFile.string().c_str());
 
 	if (surface == nullptr)
 	{
 		SDL_Log("Error : Failed to load %s image.", pathToRawFile.string().c_str());
 	}
 
-	auto format = surface->format;
+	auto *format = surface->format;
 
 	constexpr core::u8 eightBitsPerPixel = 8;
 	constexpr core::u8 sixteenBitsPerPixel = 16;
@@ -35,37 +34,34 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 			assetDataFile["image_asset"]["format"] = format->Amask ? ImageFormat::RGBA32 : ImageFormat::RGB32;
 			break;
 		default:
-			assetDataFile["image_asset"]["format"] = ImageFormat::RGB8;
+			assetDataFile["image_asset"]["format"] = format->Amask ? ImageFormat::RGBA8 : ImageFormat::RGB8;
 			break;
 	}
-
-
-	//HEXEN_ASSERT(internalFormat & dataFormat, "Format not supported!");
 
 	height = surface->h;
 	width = surface->w;
 	pitch = surface->pitch;
+	pixels = surface->pixels;
+
+	std::vector<core::u8> const pixelsBuffer(static_cast<char*>(pixels), static_cast<char*>(pixels) + pitch * height);
 
 	assetDataFile["image_asset"]["pitch"] = pitch;
 	assetDataFile["image_asset"]["size"]["width"] = width;
 	assetDataFile["image_asset"]["size"]["height"] = height;
 	assetDataFile["image_asset"]["name"] = pathToRawFile.filename();
-
-	const auto *imagePixels = static_cast<char *>(surface->pixels);
-	assetDataFile["image_asset"]["raw_data"] = imagePixels;
-
-	rawImageData.assign(imagePixels, imagePixels + strlen(imagePixels));
+	assetDataFile["image_asset"]["raw_data"] = pixelsBuffer;
 
 	auto binaryJsonData = nlohmann::json::to_bson(assetDataFile);
-
 	std::ofstream outFile(pathToAsset, std::ios::binary);
+
 	outFile.write((char *) binaryJsonData.data(), binaryJsonData.size() * sizeof(core::u8));
+
 }
 
-std::vector<hexen::engine::core::u8> hexen::engine::graphics::ImageAsset::getRawData() const
+hexen::engine::core::vptr hexen::engine::graphics::ImageAsset::getRawData() const
 {
 	HEXEN_ADD_TO_PROFILE();
-	return rawImageData;
+	return pixels;
 }
 
 hexen::engine::core::i32 hexen::engine::graphics::ImageAsset::getHeight() const
@@ -93,9 +89,9 @@ void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &path
 	ss << inFile.rdbuf();
 
 	assetDataFile = nlohmann::json::from_bson(ss);
-	auto imagePixels = assetDataFile["image_asset"]["raw_data"];
 
-	rawImageData.assign(imagePixels.cbegin(), imagePixels.cend());
+	std::vector<core::u8> imagePixels = assetDataFile["image_asset"]["raw_data"];
+	std::memcpy(pixels, imagePixels.data(), imagePixels.size());
 
 	height = getHeight();
 	width = getWidth();
@@ -111,14 +107,15 @@ hexen::engine::graphics::ImageAsset::ImageFormat hexen::engine::graphics::ImageA
 
 void hexen::engine::graphics::ImageAsset::flip()
 {
+	HEXEN_ADD_TO_PROFILE();
 	char* temp = new char[pitch]; // intermediate buffer
-	char* pixels = (char*) rawImageData.data();
+	char* pixelsBuffer = (char*) pixels;
 
 	for(int i = 0; i < height / 2; ++i)
 	{
 		// get pointers to the two rows to swap
-		char* row1 = pixels + i * pitch;
-		char* row2 = pixels + (height - i - 1) * pitch;
+		char* row1 = pixelsBuffer + i * pitch;
+		char* row2 = pixelsBuffer + (height - i - 1) * pitch;
 
 		// swap rows
 		memcpy(temp, row1, pitch);
@@ -126,7 +123,16 @@ void hexen::engine::graphics::ImageAsset::flip()
 		memcpy(row2, temp, pitch);
 	}
 
-	rawImageData.assign(pixels, pixels + rawImageData.size());
+	pixels = pixelsBuffer;
+
 	delete[] temp;
 
+}
+
+hexen::engine::graphics::ImageAsset::~ImageAsset()
+{
+	if(surface != nullptr)
+	{
+		SDL_DestroySurface(surface);
+	}
 }

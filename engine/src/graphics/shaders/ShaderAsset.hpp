@@ -71,7 +71,7 @@ namespace hexen::engine::graphics
      	* @return std::vector storing bytes of the raw shader data.
      	*/
 
-		[[nodiscard]] std::vector<core::u8> getRawData() const override;
+		[[nodiscard]] core::vptr getRawData() const override;
 
 		/**
      	* @brief Load shader asset from the given path.
