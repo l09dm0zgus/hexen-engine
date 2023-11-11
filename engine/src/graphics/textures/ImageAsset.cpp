@@ -9,7 +9,7 @@
 void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile)
 {
 	HEXEN_ADD_TO_PROFILE();
-	surface = IMG_Load(pathToRawFile.string().c_str());
+	auto surface = IMG_Load(pathToRawFile.string().c_str());
 
 	if (surface == nullptr)
 	{
@@ -41,15 +41,16 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 	height = surface->h;
 	width = surface->w;
 	pitch = surface->pitch;
-	pixels = surface->pixels;
 
-	std::vector<core::u8> const pixelsBuffer(static_cast<char*>(pixels), static_cast<char*>(pixels) + pitch * height);
+	const auto  size = pitch * height;
+	imagePixels.resize(size);
+	imagePixels.assign(static_cast<char*>(surface->pixels), static_cast<char*>(surface->pixels) + size);
 
 	assetDataFile["image_asset"]["pitch"] = pitch;
 	assetDataFile["image_asset"]["size"]["width"] = width;
 	assetDataFile["image_asset"]["size"]["height"] = height;
 	assetDataFile["image_asset"]["name"] = pathToRawFile.filename();
-	assetDataFile["image_asset"]["raw_data"] = pixelsBuffer;
+	assetDataFile["image_asset"]["raw_data"] = imagePixels;
 
 	auto binaryJsonData = nlohmann::json::to_bson(assetDataFile);
 	std::ofstream outFile(pathToAsset, std::ios::binary);
@@ -58,10 +59,10 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 
 }
 
-hexen::engine::core::vptr hexen::engine::graphics::ImageAsset::getRawData() const
+hexen::engine::core::vptr hexen::engine::graphics::ImageAsset::getRawData()
 {
 	HEXEN_ADD_TO_PROFILE();
-	return pixels;
+	return static_cast<core::vptr>(imagePixels.data());;
 }
 
 hexen::engine::core::i32 hexen::engine::graphics::ImageAsset::getHeight() const
@@ -90,8 +91,9 @@ void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &path
 
 	assetDataFile = nlohmann::json::from_bson(ss);
 
-	std::vector<core::u8> imagePixels = assetDataFile["image_asset"]["raw_data"];
-	std::memcpy(pixels, imagePixels.data(), imagePixels.size());
+	//WTF? Need to create additional buffer, because with imagePixels it doesn't want to compile.
+	std::vector<core::u8> buffer = assetDataFile["image_asset"]["raw_data"];
+	std::copy(buffer.begin(), buffer.end(),std::back_inserter(imagePixels));
 
 	height = getHeight();
 	width = getWidth();
@@ -108,14 +110,14 @@ hexen::engine::graphics::ImageAsset::ImageFormat hexen::engine::graphics::ImageA
 void hexen::engine::graphics::ImageAsset::flip()
 {
 	HEXEN_ADD_TO_PROFILE();
-	char* temp = new char[pitch]; // intermediate buffer
-	char* pixelsBuffer = (char*) pixels;
+	auto *temp = new core::u8[pitch]; // intermediate buffer
+	auto *pixels = imagePixels.data();
 
 	for(int i = 0; i < height / 2; ++i)
 	{
 		// get pointers to the two rows to swap
-		char* row1 = pixelsBuffer + i * pitch;
-		char* row2 = pixelsBuffer + (height - i - 1) * pitch;
+		auto *row1 = pixels + i * pitch;
+		auto *row2 = pixels + (height - i - 1) * pitch;
 
 		// swap rows
 		memcpy(temp, row1, pitch);
@@ -123,16 +125,12 @@ void hexen::engine::graphics::ImageAsset::flip()
 		memcpy(row2, temp, pitch);
 	}
 
-	pixels = pixelsBuffer;
+	const auto size = pitch * height;
+
+	imagePixels.resize(size);
+	imagePixels.assign(pixels, pixels + size);
 
 	delete[] temp;
 
 }
 
-hexen::engine::graphics::ImageAsset::~ImageAsset()
-{
-	if(surface != nullptr)
-	{
-		SDL_DestroySurface(surface);
-	}
-}

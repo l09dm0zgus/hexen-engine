@@ -42,7 +42,7 @@ namespace hexen::engine::core::assets
     	* @return The raw data of the asset file.
     	*/
 
-		[[nodiscard]] virtual core::vptr getRawData() const = 0;
+		[[nodiscard]] virtual  core::vptr getRawData()  = 0;
 
 		/**
     	* @brief Pure virtual method to load the Asset from a given file path.

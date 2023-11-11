@@ -30,9 +30,8 @@ namespace hexen::engine::graphics
 		core::i32 width;
 		core::i32 pitch;
 
-		core::vptr pixels;
+		std::vector<core::u8> imagePixels;
 
-		SDL_Surface* surface = nullptr;
 	public:
 		/**
     	* @enum ImageFormat
@@ -49,7 +48,7 @@ namespace hexen::engine::graphics
 			RGBA32,///< 32-bit RGBA format
 		};
 
-		~ImageAsset() override;
+		~ImageAsset() override = default;
 
 		/**
     	* @brief Get the format of the image.
@@ -70,7 +69,7 @@ namespace hexen::engine::graphics
     	* @return The pixels from image.
     	*/
 
-		[[nodiscard]] core::vptr getRawData() const override;
+		[[nodiscard]] core::vptr getRawData() override;
 
 		/**
          * @brief Loads an image asset from the specified filesystem path.

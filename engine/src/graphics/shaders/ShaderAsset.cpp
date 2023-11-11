@@ -104,7 +104,7 @@ std::string hexen::engine::graphics::ShaderAsset::getName() const
 	return assetDataFile["shader_asset"]["name"];
 }
 
-hexen::engine::core::vptr hexen::engine::graphics::ShaderAsset::getRawData() const
+hexen::engine::core::vptr hexen::engine::graphics::ShaderAsset::getRawData()
 {
 	HEXEN_ADD_TO_PROFILE();
 	return (void *)shaderText.data();
