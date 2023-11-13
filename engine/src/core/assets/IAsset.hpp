@@ -22,6 +22,15 @@ namespace hexen::engine::core::assets
 
 	class IAsset : public memory::AllocatedObject
 	{
+
+	protected:
+		static std::filesystem::path addExtension(const std::filesystem::path &pathToAsset , const std::string_view &assetFileExtension)
+		{
+			auto newPathWithExtension = pathToAsset;
+			newPathWithExtension.replace_extension(assetFileExtension);
+			return newPathWithExtension;
+		}
+
 	public:
 
 		/**

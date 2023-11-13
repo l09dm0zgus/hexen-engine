@@ -67,7 +67,9 @@ hexen::engine::graphics::ShaderType hexen::engine::graphics::ShaderAsset::getTyp
 void hexen::engine::graphics::ShaderAsset::save(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawShader)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::ofstream outFile(pathToAsset, std::ios::binary);
+	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
+
+	std::ofstream outFile(pathWithExtension, std::ios::binary);
 	std::ifstream rawShaderFile(pathToRawShader);
 
 	std::stringstream ss;
@@ -89,7 +91,10 @@ void hexen::engine::graphics::ShaderAsset::save(const std::filesystem::path &pat
 void hexen::engine::graphics::ShaderAsset::load(const std::filesystem::path &pathToAsset)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::ifstream inFile(pathToAsset, std::ios::binary);
+	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
+	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension + " not found!");
+
+	std::ifstream inFile(pathWithExtension, std::ios::binary);
 	std::stringstream ss;
 	ss << inFile.rdbuf();
 

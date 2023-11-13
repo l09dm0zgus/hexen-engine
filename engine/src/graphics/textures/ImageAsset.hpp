@@ -31,6 +31,7 @@ namespace hexen::engine::graphics
 		core::i32 pitch;
 
 		std::vector<core::u8> imagePixels;
+		static constexpr std::string_view assetFileExtension = "hximage";
 
 	public:
 		/**
@@ -126,6 +127,17 @@ namespace hexen::engine::graphics
  		*/
 
 		void flip();
+
+		/**
+ 		* @brief Get the Image asset's file extension
+ 		*
+ 		* This function is part of the Hexen engine's graphics module.
+ 		* It provides an interface to access the extension of an image file asset.
+ 		*
+ 		* @return std::string_view represents the file extension of the image asset.
+ 		*/
+
+		static std::string_view getExtension();
 
 	};
 }// namespace hexen::engine::graphics

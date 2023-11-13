@@ -9,6 +9,7 @@
 void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile)
 {
 	HEXEN_ADD_TO_PROFILE();
+	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
 	auto surface = IMG_Load(pathToRawFile.string().c_str());
 
 	if (surface == nullptr)
@@ -53,7 +54,7 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 	assetDataFile["image_asset"]["raw_data"] = imagePixels;
 
 	auto binaryJsonData = nlohmann::json::to_bson(assetDataFile);
-	std::ofstream outFile(pathToAsset, std::ios::binary);
+	std::ofstream outFile(pathWithExtension, std::ios::binary);
 
 	outFile.write((char *) binaryJsonData.data(), binaryJsonData.size() * sizeof(core::u8));
 
@@ -85,7 +86,10 @@ std::string hexen::engine::graphics::ImageAsset::getName() const
 void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &pathToAsset)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::ifstream const inFile(pathToAsset, std::ios::binary);
+	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
+	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension + " not found!");
+
+	std::ifstream const inFile(pathWithExtension, std::ios::binary);
 	std::stringstream ss;
 	ss << inFile.rdbuf();
 
@@ -134,3 +138,7 @@ void hexen::engine::graphics::ImageAsset::flip()
 
 }
 
+std::string_view hexen::engine::graphics::ImageAsset::getExtension()
+{
+	return assetFileExtension;
+}

@@ -56,6 +56,7 @@ namespace hexen::engine::graphics
 		void setShaderType(const std::string &shaderType);
 
 		nlohmann::json assetDataFile;
+		static constexpr std::string_view assetFileExtension = "hxshader";
 
 	public:
 
