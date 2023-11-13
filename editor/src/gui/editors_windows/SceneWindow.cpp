@@ -18,8 +18,8 @@ hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : Framebuf
 
 	std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets;
 
-	auto vertexShaderAsset = engine::core::assets::AssetsHelper::createAsset<engine::graphics::ShaderAsset>("shaders/GridVertexShader.hasset", "shaders/GridVertexShader.glsl");
-	auto fragmentShaderAsset = engine::core::assets::AssetsHelper::createAsset<engine::graphics::ShaderAsset>("shaders/GridFragmentShader.hasset", "shaders/GridFragmentShader.glsl");
+	auto vertexShaderAsset = engine::core::assets::AssetsHelper::createAsset<engine::graphics::ShaderAsset>("shaders/GridVertexShader", "shaders/GridVertexShader.glsl");
+	auto fragmentShaderAsset = engine::core::assets::AssetsHelper::createAsset<engine::graphics::ShaderAsset>("shaders/GridFragmentShader", "shaders/GridFragmentShader.glsl");
 
 	shaderAssets.push_back(vertexShaderAsset);
 	shaderAssets.push_back(fragmentShaderAsset);
