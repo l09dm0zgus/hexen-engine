@@ -12,7 +12,7 @@ std::string hexen::engine::graphics::ShaderAsset::parseShaderType()
 	HEXEN_ADD_TO_PROFILE();
 	std::string typeToken = "#type";
 	auto tokenPosition = shaderText.find(typeToken);
-	HEXEN_ASSERT(tokenPosition != std::string::npos, "ERROR: Token #type in shader file " + path + " not found! Please specify shader type!");
+	HEXEN_ASSERT(tokenPosition != std::string::npos, "ERROR: Token #type in shader file : \n" + shaderText + " \n not found! Please specify shader type!");
 	std::string buffer;
 
 	for (auto i = tokenPosition; i < shaderText.size(); i++)
@@ -92,7 +92,7 @@ void hexen::engine::graphics::ShaderAsset::load(const std::filesystem::path &pat
 {
 	HEXEN_ADD_TO_PROFILE();
 	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
-	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension + " not found!");
+	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension.string() + " not found!");
 
 	std::ifstream inFile(pathWithExtension, std::ios::binary);
 	std::stringstream ss;
