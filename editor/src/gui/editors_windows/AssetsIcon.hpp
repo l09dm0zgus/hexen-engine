@@ -4,14 +4,52 @@
 
 #pragma once
 
-#include <graphics/textures/Texture.hpp>
 #include <filesystem>
 #include <glm/glm.hpp>
+#include <graphics/textures/Texture.hpp>
 #include <imgui.h>
 
 namespace hexen::editor::gui
 {
 	class AssetsWindow;
+
+	/**
+ 	* @class AssetIconCallbacks
+ 	* @brief This class provides ability to associate callbacks with asset icons.
+ 	* These callbacks will be invoked when some operation is performed on the asset icon.
+ 	*
+ 	* @details It inherits from the AllocatedObject class in the engine::core::memory namespace.
+ 	*/
+
+	class AssetIconCallbacks : public engine::core::memory::AllocatedObject
+	{
+	private:
+		/**
+     	* @brief Map to store callbacks associated with specific extensions of assets.
+     	* Keys are string representing asset extensions and values are callbacks.
+     	*/
+
+		std::unordered_map<std::string, std::function<void(const std::filesystem::path &)>> callbacks;
+
+	public:
+		/**
+     	* @brief Adds a new callback associated with the given asset extension.
+     	*
+     	* @param assetExtension The extension of the asset.
+     	* @param callback The callback to be associated with the asset extension.
+     	*/
+
+		void addCallback(const std::string &assetExtension, const std::function<void(const std::filesystem::path &)> &callback);
+
+		/**
+     	* @brief Gets the callback associated with the given asset extension.
+	    *
+     	* @param assetExtension The extension of the asset.
+     	* @return The callback associated with the asset extension.
+     	*/
+
+		std::function<void(const std::filesystem::path &)> &getCallback(const std::string &assetExtension);
+	};
 
 	/**
  	* @class AssetIcon
@@ -21,111 +59,14 @@ namespace hexen::editor::gui
  	*
  	*/
 
-	///TODO : Refactor this ugly shit.
-
 	class AssetIcon
 	{
 	private:
-		/**
-     	* @brief Static unique pointer to the texture representing a folder icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> folderIcon;
-
-		/**
-     	* @brief Static unique pointer to the texture representing a sound file icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> soundFileIcon;
-
-		/**
-     	* @brief Static unique pointer to the texture representing a file icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> fileIcon;
-
-		/**
-     	* @brief Static unique pointer to the texture representing a scene file icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> sceneFileIcon;
-
-		/**
-     	* @brief Static unique pointer to the texture representing an animation file icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> animationFileIcon;
-
-		/**
-     	* @brief Static unique pointer to the texture representing a tileset file icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> tilesetFileIcon;
-
-		/**
-     	* @brief Static unique pointer to the texture representing an entity file icon.
-     	*/
-
-		static std::shared_ptr<hexen::engine::graphics::Texture2D> entityFileIcon;
-
 		/**
      	* @brief Static pointer to the window in which the assets are displayed.
      	*/
 
 		static AssetsWindow *assetsWindow;
-
-		/**
-     	* @brief Static hashtable linking file extensions to the engine file types.
-     	*/
-
-		static hexen::engine::core::HashTable<hexen::engine::core::u32, std::string> engineFileExtensions;
-
-		std::shared_ptr<hexen::engine::graphics::Texture2D> imageFileIcon;
-
-		/**
-     	* @brief Path to the texture file for a folder icon.
-     	*/
-
-		std::string pathToFolderIcon = "icons/folder.png";
-
-		/**
-     	* @brief Path to the texture file for a sound file icon.
-     	*/
-
-		std::string pathToSoundFileIcon = "icons/music.png";
-
-		/**
-     	* @brief Path to the texture file for a generic file icon.
-     	*/
-
-		std::string pathToFileIcon = "icons/file.png";
-
-		/**
-     	* @brief Path to the texture file for a scene file icon.
-    	*/
-
-		std::string pathToSceneFileIcon = "icons/scene.png";
-
-		/**
-     	* @brief Path to the texture file for an animation file icon.
-     	*/
-
-		std::string pathToAnimationFileIcon = "icons/animation.png";
-
-		/**
-     	* @brief Path to the texture file for a tileset file icon.
-     	*/
-
-		std::string pathToTilesetFileIcon = "icons/tileset.png";
-
-		/**
-     	* @brief Path to the texture file for an entity file icon.
-     	*/
-
-		std::string pathToEntityFileIcon = "icons/entity.png";
-
-		std::vector<std::string> imageFileExtensions {".png", ".jpeg", ".bmp", ".tga", ".jpg", ".gif"};
-		std::vector<std::string> soundFileExtensions {".wav", ".ogg", ".mp3", ".flac"};
 
 		/**
      	* @brief Name of the asset file.
@@ -154,7 +95,8 @@ namespace hexen::editor::gui
 		/**
       	* @brief Callback function to handle certain events.
       	*/
-		std::function<void(const std::string &)> callback;
+
+		std::function<void(const std::filesystem::path &)> callback;
 
 		/**
       	* @brief Flag to check if control key is pressed.
@@ -196,7 +138,7 @@ namespace hexen::editor::gui
       	* @brief Payload name used for drag and drop handling.
       	*/
 
-		const std::string PAYLOAD_NAME = "ASSET_WINDOW_ITEM";
+		static constexpr std::string_view PAYLOAD_NAME = "ASSET_WINDOW_ITEM";
 
 		/**
      	* @brief Creates a source for drag and drop operations of the asset.
@@ -229,14 +171,21 @@ namespace hexen::editor::gui
 		void setAssetWindowHoveredIcon();
 
 	public:
-		/**
-     	* @brief Construct a new Asset Icon object.
-     	*
-    	* @param path The path to the directory of the asset.
-     	* @param newAssetsWindow The window in which to display the asset.
-     	*/
 
-		explicit AssetIcon(const std::filesystem::directory_entry &path, AssetsWindow *newAssetsWindow);
+		/**
+ 		* @brief Constructor for the AssetIcon class inside the hexen::editor::gui namespace.
+ 		*
+ 		* Creates an `AssetIcon` object which may represent an image or other type of resource within the game editor GUI. The 'AssetIcon' class serves as a wrapper for an asset's path, as well as other associated properties.
+ 		*
+ 		* @param pathToAsset The path to the asset file. This is essentially the location of the asset file in the system which could be an image, sound, etc.
+ 		* @param newCallback Function that takes a `std::filesystem::path` as a parameter and returns void. This callback is intended to handle specific actions related to the given asset.
+ 		* @param newAssetsWindow Pointer to `hexen::editor::gui::AssetsWindow` object, representing the window where this asset icon will appear.
+ 		* @param textureId ID of the texture that corresponds to this asset in the engine. It helps in mapping the asset to its corresponding texture in the rendering engine.
+ 		*
+ 		* @see hexen::editor::gui::AssetsWindow
+ 		*/
+
+		explicit AssetIcon(const std::filesystem::path &pathToAsset, const std::function<void(const std::filesystem::path &)> &newCallback, AssetsWindow *newAssetsWindow, engine::core::u32 textureId);
 
 		/**
      	* @brief Set the size of the icon.
