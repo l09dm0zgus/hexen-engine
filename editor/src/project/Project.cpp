@@ -5,6 +5,7 @@
 #include <core/Types.hpp>
 #include <filesystem>
 #include <fstream>
+#include <core/assets/AssetsStorage.hpp>
 
 std::unique_ptr<hexen::editor::Project> hexen::editor::Project::currentProject;
 
@@ -15,26 +16,26 @@ hexen::editor::Project *hexen::editor::Project::getCurrentProject() noexcept
 	return currentProject.get();
 }
 
-hexen::editor::Project::Project(const std::string &path, const std::string &name) : path(path), name(name)
+hexen::editor::Project::Project(const std::filesystem::path &path, const std::string &name) : path(path.string()), name(name)
 {
 	HEXEN_ADD_TO_PROFILE();
-	pathToProjectFile.append(path);
-	pathToProjectFile.append(hexen::engine::core::PATH_SLASH);
-	pathToProjectFile.append(name);
-	pathToProjectFile.append(hexen::engine::core::PATH_SLASH);
-	pathToProjectFile.append(name);
-	pathToProjectFile.append(".hxproj");
+	pathToProjectFile = path / name / name;
+	pathToProjectFile.replace_extension(".hxproj");
+	auto projectRoot = pathToProjectFile.parent_path();
 
 	if (std::filesystem::exists(pathToProjectFile))
 	{
 		parseJSON();
+		engine::core::assets::AssetsStorage::getDefaultAssetsStorage()->setAssetsRootDirectory(projectRoot);
 	}
 	else
 	{
 
-		std::filesystem::create_directory(path + "/" + name);
-		std::filesystem::create_directory(path + "/" + name + "/Scenes");
-		std::filesystem::create_directory(path + "/" + name + "/Assets");
+		std::filesystem::create_directory(projectRoot);
+		std::filesystem::create_directory(projectRoot / "Scenes");
+		std::filesystem::create_directory(projectRoot / "Assets");
+		engine::core::assets::AssetsStorage::getDefaultAssetsStorage()->setAssetsRootDirectory(projectRoot, true);
+
 		setVersion("1.0");
 		setName(name);
 		addScene("Main");
@@ -112,12 +113,14 @@ void hexen::editor::Project::save()
 	file << fileProject.dump(2);
 }
 
-hexen::editor::Project::Project(const std::string &pathToProject) : pathToProjectFile(pathToProject)
+hexen::editor::Project::Project(const std::filesystem::path &pathToProject) : pathToProjectFile(pathToProject)
 {
 	HEXEN_ADD_TO_PROFILE();
 	parseJSON();
 	setName();
 	setPath();
+
+	engine::core::assets::AssetsStorage::getDefaultAssetsStorage()->setAssetsRootDirectory(pathToProjectFile.parent_path());
 }
 
 void hexen::editor::Project::parseJSON()
@@ -148,11 +151,11 @@ void hexen::editor::Project::setCurrentProject(const std::string &pathToProject)
 void hexen::editor::Project::setPath()
 {
 	HEXEN_ADD_TO_PROFILE();
-	path = std::filesystem::path(pathToProjectFile).parent_path().string();
+	path = pathToProjectFile.parent_path().string();
 }
 
 void hexen::editor::Project::setName()
 {
 	HEXEN_ADD_TO_PROFILE();
-	name = std::filesystem::path(pathToProjectFile).stem().string();
+	name = pathToProjectFile.stem().string();
 }

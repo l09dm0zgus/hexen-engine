@@ -10,6 +10,11 @@
 #include <string>
 #include <vector>
 
+namespace hexen::engine::core::assets
+{
+	class AssetsStorage;
+}
+
 namespace hexen::editor
 {
 	/**
@@ -23,7 +28,7 @@ namespace hexen::editor
 	private:
 		std::string path;							   ///< The path of the project.
 		std::string name;							   ///< The name of the project.
-		std::string pathToProjectFile;				   ///< The path to the project file.
+		std::filesystem::path pathToProjectFile;				   ///< The path to the project file.
 		static std::unique_ptr<Project> currentProject;///< The currently active project.
 		nlohmann::json fileProject;					   ///< JSON representation of the project.
 		hexen::engine::core::u32 numberOfScenes {0};   ///< The number of scenes in the project.
@@ -51,13 +56,13 @@ namespace hexen::editor
      	*  @brief A constructor that creates a project with the given path and name.
      	*/
 
-		explicit Project(const std::string &path, const std::string &name);
+		explicit Project(const std::filesystem::path &path, const std::string &name);
 
 		/**
      	*  @brief A constructor that creates a project with the given path.
      	*/
 
-		explicit Project(const std::string &pathToProject);
+		explicit Project(const std::filesystem::path &pathToProject);
 
 		/**
      	*  @brief Sets the current project to be the project with the given path and name.
@@ -77,6 +82,7 @@ namespace hexen::editor
      	*/
 
 		static Project *getCurrentProject() noexcept;
+
 
 		/**
      	*  @brief Sets the version of the current project.

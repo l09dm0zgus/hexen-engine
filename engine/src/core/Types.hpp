@@ -90,8 +90,8 @@ namespace hexen::engine::core
 	#define HEXEN_ASSERT(expression, message)                                                                   \
 		if (!(expression))                                                                                      \
 		{                                                                                                       \
-			std::fputs("Assertion Failure: " HEXEN_STR(expression) ". Expr: " HEXEN_STR(message) "\n", stderr); \
-			std::fputs("Source File: " __FILE__ ":" HEXEN_STR(__LINE__) "\n", stderr);                          \
+			std::cerr << "Assertion Failure: " << HEXEN_STR(expression) << ". Expr: " << message << "\n"; \
+			std::cerr << "Source File: " <<  __FILE__ << ":" << HEXEN_STR(__LINE__) << "\n";                          \
 			std::abort();                                                                                       \
 		}
 

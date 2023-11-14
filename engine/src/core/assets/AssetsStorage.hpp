@@ -92,7 +92,7 @@ namespace hexen::engine::core::assets
 		{
 			HEXEN_ADD_TO_PROFILE();
 			static_assert(std::is_base_of_v<IAsset, T>, "T must be  inherit from interface IAsset!");
-			HEXEN_ASSERT(std::filesystem::exists(pathToRawFile),"File with path: " + pathToRawFile + " does not exist!");
+			HEXEN_ASSERT(std::filesystem::exists(pathToRawFile),"File with path: " + pathToRawFile.string() + " does not exist!");
 
 			auto iter = loadedAssets.find(pathToAsset);
 			if (iter != loadedAssets.end())

@@ -10,6 +10,8 @@ hexen::editor::Application::Application()
 {
 	HEXEN_ADD_TO_PROFILE()
 	engine::core::assets::AssetsStorage::addDefaultStorage(std::filesystem::current_path() / "EngineData");
+	engine::core::assets::AssetsStorage::addAssetsStorage(settings.getApplicationName(), std::filesystem::current_path() / "EditorData");
+
 	renderContext = hexen::engine::graphics::RenderContext::create();
 	window = hexen::engine::core::memory::make_shared<hexen::engine::core::Window>(settings);
 	renderContext->attachWindow(window);
@@ -23,3 +25,8 @@ void hexen::editor::Application::run()
 	mainGameLoop->loop();
 }
 
+std::string hexen::editor::Application::getName()
+{
+	engine::core::Settings const settings;
+	return settings.getApplicationName();
+}

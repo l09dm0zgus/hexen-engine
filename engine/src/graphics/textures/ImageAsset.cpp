@@ -86,8 +86,9 @@ std::string hexen::engine::graphics::ImageAsset::getName() const
 void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &pathToAsset)
 {
 	HEXEN_ADD_TO_PROFILE();
+	std::cout << pathToAsset << "\n";
 	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
-	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension + " not found!");
+	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension.string() + " not found!");
 
 	std::ifstream const inFile(pathWithExtension, std::ios::binary);
 	std::stringstream ss;

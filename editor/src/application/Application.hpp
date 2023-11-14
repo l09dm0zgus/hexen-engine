@@ -41,6 +41,18 @@ namespace hexen::editor
 
 		void run();
 
+		/**
+ 		* @brief Fetches the name of the application from the application settings.
+ 		*
+ 		* This function creates a constant instance of `engine::core::Settings`
+ 		* using the default constructor and fetches the application's name from it.
+ 		*
+ 		* @return Returns the name of the application as std::string.
+ 		*
+ 		*/
+
+		static std::string getName();
+
 	private:
 		/**
 	 	* @brief A shared pointer holding a reference to the window.
