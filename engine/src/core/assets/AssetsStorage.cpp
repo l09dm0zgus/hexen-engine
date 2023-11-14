@@ -6,11 +6,7 @@
 
 #include <utility>
 phmap::parallel_flat_hash_map<std::string, std::shared_ptr<hexen::engine::core::assets::AssetsStorage>> hexen::engine::core::assets::AssetsStorage::assetsStoragesInstances;
-
-void hexen::engine::core::assets::AssetsStorage::setAssetsRootDirectory(const std::filesystem::path &newPath)
-{
-	assetsRootDirectory = newPath;
-}
+const std::string hexen::engine::core::assets::AssetsStorage::defaultStorageName = "default-storage";
 
 std::shared_ptr<hexen::engine::core::assets::AssetsStorage> hexen::engine::core::assets::AssetsStorage::getAssetsStorageByName(const std::string &storageName)
 {
@@ -34,10 +30,31 @@ void hexen::engine::core::assets::AssetsStorage::addAssetsStorage(const std::str
 
 void hexen::engine::core::assets::AssetsStorage::addDefaultStorage(const std::filesystem::path &rootDirectory)
 {
-	addAssetsStorage("default-storage", rootDirectory);
+	addAssetsStorage(defaultStorageName, rootDirectory);
 }
 
 bool hexen::engine::core::assets::AssetsStorage::isAssetFileExist(const std::filesystem::path &pathToAsset) const
 {
 	return std::filesystem::exists(assetsRootDirectory / pathToAsset);
+}
+
+void hexen::engine::core::assets::AssetsStorage::setAssetsRootDirectory(const std::filesystem::path &newPath, bool moveContentToNewRoot)
+{
+	if(moveContentToNewRoot)
+	{
+		try
+		{
+			std::filesystem::copy(assetsRootDirectory, newPath, std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive);
+		}
+		catch (std::exception& e)
+		{
+			std::cout << e.what();
+		}
+	}
+	assetsRootDirectory = newPath;
+}
+
+std::shared_ptr<hexen::engine::core::assets::AssetsStorage> hexen::engine::core::assets::AssetsStorage::getDefaultAssetsStorage()
+{
+	return getAssetsStorageByName(defaultStorageName);
 }

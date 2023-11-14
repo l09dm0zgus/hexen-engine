@@ -22,12 +22,20 @@ namespace hexen::engine::core::assets
 		explicit AssetsStorage(const std::filesystem::path &rootDirectory);
 
 		/**
-         * @brief Sets the root directory for all assets.
-         * @param newPath The `std::filesystem::path` to the new root directory.
-         *
-         * This should be used to update the root directory path at runtime, if necessary.
-         */
-		void setAssetsRootDirectory(const std::filesystem::path &newPath);
+ 		* @brief Sets the root directory for assets and optionally moves existing assets to the new location
+ 		*
+ 		* This function changes the root directory of the assets. If moveContentToNewRoot is set to `true`,
+ 		* it also attempts to move the current asset files from the old directory to the new one.
+ 		* If an error occurs during the file transfer, it is caught and the exception message is printed to standard output.
+ 		* At the end of the operation, regardless of whether the files were moved or not, the provided newPath becomes the new assets root directory.
+ 		*
+ 		* @param newPath A std::filesystem::path object representing the new root directory for the assets
+ 		* @param moveContentToNewRoot A boolean value, if set to `true` it attempts to move the current assets to newPath
+ 		*
+ 		* @throws std::exception If an error occurs during file transfer
+ 		*/
+
+		void setAssetsRootDirectory(const std::filesystem::path &newPath, bool moveContentToNewRoot = false);
 
 		/**
          * @brief Loads the asset of the specified type.
@@ -129,6 +137,17 @@ namespace hexen::engine::core::assets
 		static void addAssetsStorage(const std::string &storageName, const std::filesystem::path &rootDirectory);
 
 		/**
+ 		* @brief Gets the default asset storage.
+ 		*
+ 		* This function returns a shared pointer to the default AssetsStorage instance.
+ 		* The default asset storage is determined by using the defaultStorageName.
+ 		*
+ 		* @return A std::shared_ptr to the default AssetsStorage object.
+ 		*/
+
+		static std::shared_ptr<AssetsStorage> getDefaultAssetsStorage();
+
+		/**
  		* @brief This method is used to add a default assets storage having specified root directory.
  		*
 		* @param rootDirectory The filesystem path of the directory to register as the "default-storage".
@@ -171,17 +190,18 @@ namespace hexen::engine::core::assets
 
 		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<AssetsStorage>> assetsStoragesInstances;
 
+		static const std::string defaultStorageName;
 	};
 
 	/**
- 	* @class AssetsHelper
+ 	* @class AssetHelper
  	* @brief A helper class for loading and creating assets
  	*
  	* This class contains two utility static member functions for loading and creating assets.
  	* The loading and creation operations are conducted via the specified asset storage, defaulting to "default-storage".
  	*/
 
-	class AssetsHelper
+	class AssetHelper
 	{
 	public:
 
