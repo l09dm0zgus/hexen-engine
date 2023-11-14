@@ -11,7 +11,7 @@
 #include "../profiling/Profiling.hpp"
 #include "ImageAsset.hpp"
 
-std::shared_ptr<hexen::engine::graphics::Texture2D> hexen::engine::graphics::Texture2D::create(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter)
+std::shared_ptr<hexen::engine::graphics::Texture2D> hexen::engine::graphics::Texture2D::create(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter, bool flipImage)
 {
 	HEXEN_ADD_TO_PROFILE();
 	switch (RenderContext::getRenderAPI())
@@ -22,7 +22,7 @@ std::shared_ptr<hexen::engine::graphics::Texture2D> hexen::engine::graphics::Tex
 		case core::Settings::RenderAPI::OPENGL_API:
 			if constexpr (RenderContext::enabledOpengl)
 			{
-				return core::memory::make_shared<gl::GLTexture2D>(imageAsset, filter);
+				return core::memory::make_shared<gl::GLTexture2D>(imageAsset, filter, flipImage);
 			}
 			break;
 		case core::Settings::RenderAPI::VULKAN_API:

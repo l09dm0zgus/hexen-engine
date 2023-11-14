@@ -77,7 +77,7 @@ void hexen::engine::graphics::gl::GLTexture2D::bind(core::u32 slot) const
 	glBindTextureUnit(slot,textureId);
 }
 
-hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter)
+hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter, bool flipImage)
 {
 	HEXEN_ADD_TO_PROFILE();
 
@@ -85,7 +85,11 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<Imag
 
 	width = imageAsset->getWidth();
 	height = imageAsset->getHeight();
-	imageAsset->flip();
+
+	if(flipImage)
+	{
+		imageAsset->flip();
+	}
 
 	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 

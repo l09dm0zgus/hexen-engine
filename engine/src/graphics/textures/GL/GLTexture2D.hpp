@@ -35,9 +35,10 @@ namespace hexen::engine::graphics::gl
      	*
      	* @param imageAsset pointer to image asset.
      	* @param filter The filter mode for the texture.
+     	* @param flipImage Default parameter - false,set true for flip image
      	*/
 
-		explicit GLTexture2D(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter);
+		explicit GLTexture2D(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter, bool flipImage = false);
 
 		/**
  		* @brief Binds a texture to a specified texture unit.

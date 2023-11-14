@@ -31,7 +31,7 @@ namespace hexen::engine::graphics
 		core::i32 pitch;
 
 		std::vector<core::u8> imagePixels;
-		static constexpr std::string_view assetFileExtension = "hximage";
+		static constexpr std::string_view assetFileExtension = ".hximage";
 
 	public:
 		/**

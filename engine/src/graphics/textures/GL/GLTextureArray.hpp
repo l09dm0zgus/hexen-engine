@@ -48,8 +48,9 @@ namespace hexen::engine::graphics::gl
 		/**
          * @brief Function to add a texture to the texture array.
          * @param imageAsset The asset of the image file to be added to the texture array.
+         * @param flipImage Default parameter - false,set true for flip image
          */
-		void addTextureToArray(const std::shared_ptr<ImageAsset> &imageAsset) override;
+		void addTextureToArray(const std::shared_ptr<ImageAsset> &imageAsset, bool flipImage = false) override;
 
 		/**
          * @brief Get the width of the texture.

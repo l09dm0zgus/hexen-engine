@@ -81,11 +81,11 @@ namespace hexen::engine::graphics
      	*
      	* @param imageAsset The asset of image asset file.
      	* @param filter The filter to use on the texture.
-     	*
+     	* @param flipImage Default parameter - false,set true for flip image
      	* @return A shared pointer to the created Texture2D object.
      	*/
 
-		static std::shared_ptr<Texture2D> create(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter);
+		static std::shared_ptr<Texture2D> create(const std::shared_ptr<ImageAsset> &imageAsset, TextureFilter filter, bool flipImage = false);
 	};
 
 	/**
@@ -113,9 +113,10 @@ namespace hexen::engine::graphics
          * @brief Abstract method to add a new texture to the texture array.
          *
          * @param[in] imageAsset The path to the image asset file to add to the texture array.
+         * @param[in] flipImage Default parameter - false,set true for flip image.
          */
 
-		virtual void addTextureToArray(const std::shared_ptr<ImageAsset> &path) = 0;
+		virtual void addTextureToArray(const std::shared_ptr<ImageAsset> &path, bool flipImage = false) = 0;
 
 		/**
          * @brief Static factory method to create a new TextureArray instance.

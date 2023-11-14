@@ -27,14 +27,19 @@ hexen::engine::graphics::gl::GLTextureArray::GLTextureArray(TextureFilter textur
 	increaseCountOfTextureUnits();
 }
 
-void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::shared_ptr<ImageAsset> &imageAsset)
+void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::shared_ptr<ImageAsset> &imageAsset, bool flipImage)
 {
 	HEXEN_ADD_TO_PROFILE();
 	auto formats = imageFormatToGLTextureFormat(imageAsset->getFormat());
 
 	auto width = imageAsset->getWidth();
 	auto height = imageAsset->getHeight();
-	imageAsset->flip();
+
+	if(flipImage)
+	{
+		imageAsset->flip();
+	}
+
 	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 
 	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, imageIndex, width, height, 1, formats.second, GL_UNSIGNED_BYTE, imageAsset->getRawData());
