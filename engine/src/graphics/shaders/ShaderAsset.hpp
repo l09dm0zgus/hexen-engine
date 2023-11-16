@@ -113,6 +113,16 @@ namespace hexen::engine::graphics
  		*/
 
 		[[nodiscard]] const char* getShaderText() const noexcept;
+
+		/**
+ 		* @brief Retrieve the file extension of a ShaderAsset.
+ 		*
+ 		* This method provides a way to identify the type of the ShaderAsset by returning its file extension.
+ 		*
+ 		* @return std::string_view that represents the file extension of the ShaderAsset.
+ 		*/
+
+		static std::string_view getExtension();
 	};
 
 }// namespace hexen::engine::graphics::shader

@@ -18,7 +18,7 @@ namespace hexen::engine::graphics
 	};
 
 	/**
-	 * @class ShaderProgram
+	* @class ShaderProgram
  	* @brief This class is an abstract representation for a shader program.
  	*/
 

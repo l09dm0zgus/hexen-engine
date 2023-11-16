@@ -120,3 +120,8 @@ const char *hexen::engine::graphics::ShaderAsset::getShaderText() const noexcept
 	HEXEN_ADD_TO_PROFILE();
 	return shaderText.c_str();
 }
+
+std::string_view hexen::engine::graphics::ShaderAsset::getExtension()
+{
+	return assetFileExtension;
+}
