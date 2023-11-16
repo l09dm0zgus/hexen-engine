@@ -237,7 +237,9 @@ namespace hexen::engine::core::assets
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
 		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile, const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
 		{
-			if(AssetsStorage::getAssetsStorageByName(storageName)->isAssetFileExist(pathToAsset) && !isRewriteAssetIfExist)
+			auto pathAssetWithExtension = pathToAsset;
+			pathAssetWithExtension.replace_extension(T::getExtension());
+			if(AssetsStorage::getAssetsStorageByName(storageName)->isAssetFileExist(pathAssetWithExtension) && !isRewriteAssetIfExist)
 			{
 				return loadAsset<T>(pathToAsset, storageName);
 			}
