@@ -60,7 +60,7 @@ target_sources(${CORE_MODULE_NAME} PUBLIC
 
 #add_subdirectory(threading)
 target_include_directories(${CORE_MODULE_NAME} PUBLIC ${PHMAP_INCLUDE_DIR})
-target_link_libraries(${CORE_MODULE_NAME} PUBLIC SDL3_image::SDL3_image SDL3::SDL3 nlohmann_json::nlohmann_json boost_context)
+target_link_libraries(${CORE_MODULE_NAME} PUBLIC SDL3::SDL3 nlohmann_json::nlohmann_json boost_context)
 
 if(MSVC)
     target_compile_options(${CORE_MODULE_NAME} PRIVATE /W4)
