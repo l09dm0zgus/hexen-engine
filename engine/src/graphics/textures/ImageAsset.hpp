@@ -23,13 +23,10 @@ namespace hexen::engine::graphics
 		/** @brief JSON file for storing asset data */
 		nlohmann::json assetDataFile;
 
-		/** @brief Raw image data as vector of unsigned chars */
-		std::vector<core::u8> rawImageData;
 
-		core::i32 height;
-		core::i32 width;
-		core::i32 pitch;
-
+		core::i32 height{0};
+		core::i32 width{0};
+		core::i32 channels{0};
 		std::vector<core::u8> imagePixels;
 		static constexpr std::string_view assetFileExtension = ".hximage";
 
@@ -41,12 +38,9 @@ namespace hexen::engine::graphics
 
 		enum class ImageFormat : core::u8
 		{
-			RGB8,  ///< 8-bit RGB format
-			RGBA8, ///< 8-bit RGBA format
-			RGB16, ///< 16-bit RGB format
-			RGBA16,///< 16-bit RGBA format
-			RGB32, ///< 32-bit RGB format
-			RGBA32,///< 32-bit RGBA format
+			RED = 1,
+			RGB = 3,
+			RGBA = 4
 		};
 
 		~ImageAsset() override = default;

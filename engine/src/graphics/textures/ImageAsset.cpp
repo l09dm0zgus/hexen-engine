@@ -3,51 +3,20 @@
 //
 
 #include "ImageAsset.hpp"
-#include <SDL_image.h>
 #include <fstream>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "STBImage.h"
 
 void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile)
 {
 	HEXEN_ADD_TO_PROFILE();
 	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
-	auto surface = IMG_Load(pathToRawFile.string().c_str());
+	auto pixels = stbi_load(pathToRawFile.string().c_str(),&width, &height, &channels, STBI_rgb_alpha);
+	imagePixels.clear();
+	std::copy(pixels, pixels + (width * STBI_rgb_alpha) * height, std::back_inserter(imagePixels));
 
-	if (surface == nullptr)
-	{
-		SDL_Log("Error : Failed to load %s image.", pathToRawFile.string().c_str());
-	}
-
-	auto *format = surface->format;
-
-	constexpr core::u8 eightBitsPerPixel = 8;
-	constexpr core::u8 sixteenBitsPerPixel = 16;
-	constexpr core::u8 thirtyTwoBitsPerPixel = 32;
-
-	switch (format->BitsPerPixel)
-	{
-		case eightBitsPerPixel:
-			assetDataFile["image_asset"]["format"] = format->Amask ? ImageFormat::RGBA8 : ImageFormat::RGB8;
-			break;
-		case sixteenBitsPerPixel:
-			assetDataFile["image_asset"]["format"] = format->Amask ? ImageFormat::RGBA16 : ImageFormat::RGB16;
-			break;
-		case thirtyTwoBitsPerPixel:
-			assetDataFile["image_asset"]["format"] = format->Amask ? ImageFormat::RGBA32 : ImageFormat::RGB32;
-			break;
-		default:
-			assetDataFile["image_asset"]["format"] = format->Amask ? ImageFormat::RGBA8 : ImageFormat::RGB8;
-			break;
-	}
-
-	height = surface->h;
-	width = surface->w;
-	pitch = surface->pitch;
-
-	const auto  size = pitch * height;
-	imagePixels.resize(size);
-	imagePixels.assign(static_cast<char*>(surface->pixels), static_cast<char*>(surface->pixels) + size);
-
-	assetDataFile["image_asset"]["pitch"] = pitch;
+	assetDataFile["image_asset"]["format"] = static_cast<ImageFormat>(channels);
 	assetDataFile["image_asset"]["size"]["width"] = width;
 	assetDataFile["image_asset"]["size"]["height"] = height;
 	assetDataFile["image_asset"]["name"] = pathToRawFile.filename();
@@ -57,7 +26,6 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 	std::ofstream outFile(pathWithExtension, std::ios::binary);
 
 	outFile.write((char *) binaryJsonData.data(), binaryJsonData.size() * sizeof(core::u8));
-
 }
 
 hexen::engine::core::vptr hexen::engine::graphics::ImageAsset::getRawData()
@@ -86,7 +54,6 @@ std::string hexen::engine::graphics::ImageAsset::getName() const
 void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &pathToAsset)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::cout << pathToAsset << "\n";
 	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
 	HEXEN_ASSERT(std::filesystem::exists(pathWithExtension), "ERROR: Asset: " + pathWithExtension.string() + " not found!");
 
@@ -96,14 +63,13 @@ void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &path
 
 	assetDataFile = nlohmann::json::from_bson(ss);
 
+	imagePixels.clear();
 	//WTF? Need to create additional buffer, because with imagePixels it doesn't want to compile.
 	std::vector<core::u8> buffer = assetDataFile["image_asset"]["raw_data"];
 	std::copy(buffer.begin(), buffer.end(),std::back_inserter(imagePixels));
 
 	height = getHeight();
 	width = getWidth();
-
-	pitch = assetDataFile["image_asset"]["pitch"];
 }
 
 hexen::engine::graphics::ImageAsset::ImageFormat hexen::engine::graphics::ImageAsset::getFormat() const
@@ -115,6 +81,7 @@ hexen::engine::graphics::ImageAsset::ImageFormat hexen::engine::graphics::ImageA
 void hexen::engine::graphics::ImageAsset::flip()
 {
 	HEXEN_ADD_TO_PROFILE();
+	core::u32 pitch = STBI_rgb_alpha * width;
 	auto *temp = new core::u8[pitch]; // intermediate buffer
 	auto *pixels = imagePixels.data();
 
@@ -130,10 +97,8 @@ void hexen::engine::graphics::ImageAsset::flip()
 		memcpy(row2, temp, pitch);
 	}
 
-	const auto size = pitch * height;
-
-	imagePixels.resize(size);
-	imagePixels.assign(pixels, pixels + size);
+	imagePixels.resize(pitch * height);
+	imagePixels.assign(pixels, pixels + pitch);
 
 	delete[] temp;
 

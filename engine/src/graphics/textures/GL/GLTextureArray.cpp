@@ -15,15 +15,14 @@ hexen::engine::graphics::gl::GLTextureArray::GLTextureArray(TextureFilter textur
 {
 	HEXEN_ADD_TO_PROFILE();
 	glGenTextures(1, &textureID);
-	glActiveTexture(GL_TEXTURE0 + getCountOfTextureUnits());
 	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+	glActiveTexture(GL_TEXTURE0 + getCountOfTextureUnits());
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, imageSize.x, imageSize.y, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, textureFilterToGLTextureFilter(textureFilter));
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, textureFilterToGLTextureFilter(textureFilter));
-
 	increaseCountOfTextureUnits();
 }
 
@@ -42,7 +41,7 @@ void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::s
 
 	HEXEN_ASSERT(formats.first & formats.second ,"Format not supported!");
 
-	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, imageIndex, width, height, 1, formats.second, GL_UNSIGNED_BYTE, imageAsset->getRawData());
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, imageIndex, width, height, 1, GL_RGBA, GL_UNSIGNED_BYTE, imageAsset->getRawData());
 	glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 	imageIndex++;
 }

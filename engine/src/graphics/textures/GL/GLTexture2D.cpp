@@ -33,33 +33,21 @@ namespace hexen::engine::graphics::gl
 		std::pair<int,int> result;
 		switch (imageFormat)
 		{
-			case ImageAsset::ImageFormat::RGB8:
+			case ImageAsset::ImageFormat::RED:
+				result.first = GL_RED;
+				result.second = GL_RED;
+				break;
+			case ImageAsset::ImageFormat::RGB:
 				result.first = GL_RGB8;
 				result.second = GL_RGB;
 				break;
-			case ImageAsset::ImageFormat::RGBA8:
+			case ImageAsset::ImageFormat::RGBA:
 				result.first = GL_RGBA8;
 				result.second = GL_RGBA;
 				break;
-			case ImageAsset::ImageFormat::RGB16:
-				result.first = GL_RGB16;
-				result.second = GL_RGB;
-				break;
-			case ImageAsset::ImageFormat::RGBA16:
-				result.first = GL_RGBA16;
-				result.second = GL_RGBA;
-				break;
-			case ImageAsset::ImageFormat::RGB32:
-				result.first = GL_RGB32F;
-				result.second = GL_RGB;
-				break;
-			case ImageAsset::ImageFormat::RGBA32:
-				result.first = GL_RGBA32F;
-				result.second = GL_RGBA;
-				break;
 			default:
-				result.first = GL_RGB8;
-				result.second = GL_RGB;
+				result.first = GL_RGBA8;
+				result.second = GL_RGBA;
 				break;
 		}
 		return result;
@@ -96,6 +84,8 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<Imag
 	glCreateTextures(GL_TEXTURE_2D,1, &textureId);
 	glTextureStorage2D(textureId,1,formats.first,width,height);
 
+	glTextureParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTextureParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, textureFilterToGLTextureFilter(filter));
 	glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, textureFilterToGLTextureFilter(filter));
 

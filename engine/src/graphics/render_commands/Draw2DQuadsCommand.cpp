@@ -168,7 +168,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::addQuadDataToVertexBuffer(cons
 
 	if(textureSlots.find(quadData.first->getName()) == textureSlots.cend())
 	{
-		textureArray->addTextureToArray(quadData.first);
+		textureArray->addTextureToArray(quadData.first, true);
 		textureSlots[quadData.first->getName()] = textureSlotIndex;
 		textureSlotIndex++;
 	}

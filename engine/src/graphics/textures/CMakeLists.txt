@@ -4,6 +4,7 @@ project(RenderingEngine)
 target_sources(${RENDER_MODULE_NAME} PUBLIC
         Texture.hpp
         Texture.cpp
+        STBImage.h
         ImageAsset.hpp
         ImageAsset.cpp
 )
