@@ -3,48 +3,19 @@
 //
 
 #include "SpriteComponent.hpp"
-#ifndef __ANDROID__
-	#include <GL/glew.h>
-#else
-	#include <GLES3/gl31.h>
-#endif
+#include <textures/ImageAsset.hpp>
 
-void hexen::engine::components::graphics::SpriteComponent::draw() noexcept
+hexen::engine::components::graphics::SpriteComponent::SpriteComponent(const std::shared_ptr<engine::graphics::ImageAsset> &imageAsset)
 {
-	shaderProgram->setMatrix4Uniform("model", getTransformMatrix());
-	shaderProgram->setMatrix4Uniform("projection", getProjectionMatrix());
-	shaderProgram->setMatrix4Uniform("view", getViewMatrix());
-	shaderProgram->use();
-	bindTextures();
-	VAO.bind();
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+	setTexture(imageAsset);
 }
 
-void hexen::engine::components::graphics::SpriteComponent::addTexture(const std::string &pathToImage)
+void hexen::engine::components::graphics::SpriteComponent::setTexture(const std::shared_ptr<engine::graphics::ImageAsset> &imageAsset)
 {
-	shaderProgram->use();
-	shaderProgram->setIntUniform("textures[" + std::to_string(textures.size()) + "]", static_cast<core::i32>(textures.size()));
-	textures.push_back(core::memory::make_shared<hexen::engine::graphics::gl::Texture>(pathToImage));
+	mainTexture = imageAsset;
 }
 
-void hexen::engine::components::graphics::SpriteComponent::bindTextures()
+std::shared_ptr<hexen::engine::graphics::ImageAsset>hexen::engine::components::graphics::SpriteComponent::getTexture()
 {
-	for (int i = 0; i < textures.size(); i++)
-	{
-		textures[0]->bind(i);
-	}
-}
-
-hexen::engine::components::graphics::SpriteComponent::SpriteComponent(const std::string &vertexShaderPath, const std::string &fragmentShaderPath) : RenderComponent()
-{
-	textures.reserve(5);
-	shaderProgram = core::memory::make_shared<hexen::engine::graphics::gl::shader::GLShaderProgram>(vertexShaderPath, fragmentShaderPath);
-	VAO.bind();
-	VBO.bind(vertices);
-	EBO.bind(vertices);
-	attributes.add(3, 5, 0);
-	attributes.add(2, 5, 3);
-	VBO.unbind();
-	VAO.unbind();
-	EBO.unbind();
+	return mainTexture;
 }
