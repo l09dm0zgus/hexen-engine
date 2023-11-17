@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 25.05.2023.
 //
 #include "EditorGUI.hpp"
-#include "editors_windows/AssetsWindow.hpp"
+#include "editors_windows/ContentDrawer.hpp"
 #include "editors_windows/MainMenuBar.hpp"
 #include "editors_windows/MessageBox.hpp"
 #include "editors_windows/SceneHierarchyWindow.hpp"
@@ -51,7 +51,7 @@ hexen::editor::gui::EditorGUI::EditorGUI()
 
 	dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneWindow>("Scene"), Dockspace::DockingPosition::CENTER);
 	dockspace->attachWindow(hexen::engine::core::memory::make_shared<MainMenuBar>("Menu Bar"), Dockspace::DockingPosition::NONE);
-	dockspace->attachWindow(hexen::engine::core::memory::make_shared<AssetsWindow>("Assets"), Dockspace::DockingPosition::DOWN);
+	dockspace->attachWindow(hexen::engine::core::memory::make_shared<ContentDrawer>("Assets"), Dockspace::DockingPosition::DOWN);
 	dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneHierarchyWindow>("Scene Hierarchy"), Dockspace::DockingPosition::LEFT);
 }
 

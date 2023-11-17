@@ -11,7 +11,7 @@
 
 namespace hexen::editor::gui
 {
-	class AssetsWindow;
+	class ContentDrawer;
 
 	/**
  	* @class AssetIconCallbacks
@@ -66,7 +66,7 @@ namespace hexen::editor::gui
      	* @brief Static pointer to the window in which the assets are displayed.
      	*/
 
-		static AssetsWindow *assetsWindow;
+		static ContentDrawer *assetsWindow;
 
 		/**
      	* @brief Name of the asset file.
@@ -179,13 +179,13 @@ namespace hexen::editor::gui
  		*
  		* @param pathToAsset The path to the asset file. This is essentially the location of the asset file in the system which could be an image, sound, etc.
  		* @param newCallback Function that takes a `std::filesystem::path` as a parameter and returns void. This callback is intended to handle specific actions related to the given asset.
- 		* @param newAssetsWindow Pointer to `hexen::editor::gui::AssetsWindow` object, representing the window where this asset icon will appear.
+ 		* @param newAssetsWindow Pointer to `hexen::editor::gui::ContentDrawer` object, representing the window where this asset icon will appear.
  		* @param textureId ID of the texture that corresponds to this asset in the engine. It helps in mapping the asset to its corresponding texture in the rendering engine.
  		*
- 		* @see hexen::editor::gui::AssetsWindow
+ 		* @see hexen::editor::gui::ContentDrawer
  		*/
 
-		explicit AssetIcon(const std::filesystem::path &pathToAsset, const std::function<void(const std::filesystem::path &)> &newCallback, AssetsWindow *newAssetsWindow, engine::core::u32 textureId);
+		explicit AssetIcon(const std::filesystem::path &pathToAsset, const std::function<void(const std::filesystem::path &)> &newCallback, ContentDrawer *newAssetsWindow, engine::core::u32 textureId);
 
 		/**
      	* @brief Set the size of the icon.

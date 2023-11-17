@@ -3,12 +3,12 @@
 //
 
 #include "AssetsIcon.hpp"
-#include "AssetsWindow.hpp"
+#include "ContentDrawer.hpp"
 #include <misc/cpp/imgui_stdlib.h>
 
-hexen::editor::gui::AssetsWindow *hexen::editor::gui::AssetIcon::assetsWindow {nullptr};
+hexen::editor::gui::ContentDrawer *hexen::editor::gui::AssetIcon::assetsWindow {nullptr};
 
-hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::path &pathToAsset, const std::function<void(const std::filesystem::path &)> &newCallback, hexen::editor::gui::AssetsWindow *newAssetsWindow, hexen::engine::core::u32 textureId) : textureId(textureId) , callback(newCallback)
+hexen::editor::gui::AssetIcon::AssetIcon(const std::filesystem::path &pathToAsset, const std::function<void(const std::filesystem::path &)> &newCallback, hexen::editor::gui::ContentDrawer *newAssetsWindow, hexen::engine::core::u32 textureId) : textureId(textureId) , callback(newCallback)
 {
 	HEXEN_ADD_TO_PROFILE();
 	name = pathToAsset.filename();
