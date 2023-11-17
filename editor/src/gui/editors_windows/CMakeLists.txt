@@ -14,8 +14,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         dialogs/NewProjectWindow.cpp
         MessageBox.hpp
         MessageBox.cpp
-        AssetsWindow.hpp
-        AssetsWindow.cpp
+        ContentDrawer.hpp
+        ContentDrawer.cpp
         AssetsIcon.hpp
         AssetsIcon.cpp
         SceneHierarchyWindow.hpp
