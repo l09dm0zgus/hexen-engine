@@ -71,16 +71,6 @@ namespace hexen::engine::core
 		void close();
 
 		/**
-        * @brief Clears the contents of the Window.
-        *
-        * This function clears the contents of the Window by setting the background color
-        * to the specified clear color.
-        *
-        */
-
-		void clear();
-
-		/**
         * @brief Resizes the window to the specified dimensions.
         *
         * This function resizes the window to the given width and height, in pixels.

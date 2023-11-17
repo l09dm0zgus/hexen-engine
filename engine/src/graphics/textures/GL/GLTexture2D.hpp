@@ -6,7 +6,6 @@
 
 
 #include "SDL3/SDL.h"
-#include "SDL_image.h"
 #include "../Texture.hpp"
 #include <string>
 #include "../ImageAsset.hpp"

@@ -3,8 +3,9 @@
 //
 
 #include "Window.hpp"
-#include <SDL_image.h>
 #include <fstream>
+#include <../graphics/textures/STBImage.h>
+#include <SDL_surface.h>
 
 void hexen::engine::core::Window::close()
 {
@@ -16,14 +17,6 @@ void hexen::engine::core::Window::swapBuffers()
 {
 	HEXEN_ADD_TO_PROFILE();
 	SDL_GL_SwapWindow(window);
-}
-
-void hexen::engine::core::Window::clear()
-{
-	// Set background color as cornflower blue
-	//glClearColor(0.39f, 0.58f, 0.93f, 1.f);
-	// Clear color buffer
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 hexen::engine::core::Window::~Window()
@@ -96,14 +89,35 @@ bool hexen::engine::core::Window::isOpen() const noexcept
 void hexen::engine::core::Window::setIcon(const std::string &pathToIcon)
 {
 	HEXEN_ADD_TO_PROFILE();
-	icon = IMG_Load(pathToIcon.c_str());
+	core::i32 width, height, bytesPerPixel;
+	void* data = stbi_load(pathToIcon.c_str(), &width, &height, &bytesPerPixel, 0);
+
+	// Calculate pitch
+	int pitch;
+	pitch = width * bytesPerPixel;
+	pitch = (pitch + 3) & ~3;
+
+	// Setup relevance bitmask
+	core::i32 Rmask, Gmask, Bmask, Amask;
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+	Rmask = 0x000000FF;
+	Gmask = 0x0000FF00;
+	Bmask = 0x00FF0000;
+	Amask = (bytesPerPixel == 4) ? 0xFF000000 : 0;
+#else
+	int s = (bytesPerPixel == 4) ? 0 : 8;
+	Rmask = 0xFF000000 >> s;
+	Gmask = 0x00FF0000 >> s;
+	Bmask = 0x0000FF00 >> s;
+	Amask = 0x000000FF >> s;
+#endif
+	icon = SDL_CreateSurfaceFrom(data,width,height, pitch, SDL_GetPixelFormatEnumForMasks(bytesPerPixel * 8 ,Rmask, Gmask,Bmask, Amask));
 	SDL_SetWindowIcon(window, icon);
 }
 
 void hexen::engine::core::Window::resize()
 {
 	HEXEN_ADD_TO_PROFILE();
-
 	SDL_GetWindowSize(window, &width, &height);
 }
 
