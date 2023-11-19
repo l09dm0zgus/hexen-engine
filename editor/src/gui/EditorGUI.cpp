@@ -49,10 +49,10 @@ hexen::editor::gui::EditorGUI::EditorGUI()
 	//ImGui::StyleColorsLight();
 	style.loadThemeFromFile("editor_theme.json");
 
-	dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneWindow>("Scene"), Dockspace::DockingPosition::CENTER);
-	dockspace->attachWindow(hexen::engine::core::memory::make_shared<MainMenuBar>("Menu Bar"), Dockspace::DockingPosition::NONE);
-	dockspace->attachWindow(hexen::engine::core::memory::make_shared<ContentDrawer>("Assets"), Dockspace::DockingPosition::DOWN);
-	dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneHierarchyWindow>("Scene Hierarchy"), Dockspace::DockingPosition::LEFT);
+	dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneWindow>("Scene", dockspace), Dockspace::DockingPosition::CENTER);
+	dockspace->attachWindow(hexen::engine::core::memory::make_shared<MainMenuBar>("Menu Bar", dockspace), Dockspace::DockingPosition::NONE);
+	dockspace->attachWindow(hexen::engine::core::memory::make_shared<ContentDrawer>("Assets", dockspace), Dockspace::DockingPosition::DOWN);
+	dockspace->attachWindow(hexen::engine::core::memory::make_shared<SceneHierarchyWindow>("Scene Hierarchy",dockspace), Dockspace::DockingPosition::LEFT);
 }
 
 

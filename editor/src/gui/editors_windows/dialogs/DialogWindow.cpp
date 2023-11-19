@@ -4,11 +4,6 @@
 
 #include "DialogWindow.hpp"
 
-hexen::editor::gui::DialogWindow::DialogWindow(std::string name) : GUIWindow(name)
-{
-	HEXEN_ADD_TO_PROFILE();
-}
-
 hexen::editor::gui::DialogWindow::Action hexen::editor::gui::DialogWindow::getLastAction()
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -53,4 +48,14 @@ void hexen::editor::gui::DialogWindow::draw()
 		drawContent();
 		ImGui::EndPopup();
 	}
+}
+
+hexen::editor::gui::DialogWindow::DialogWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+}
+
+hexen::editor::gui::DialogWindow::DialogWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
 }

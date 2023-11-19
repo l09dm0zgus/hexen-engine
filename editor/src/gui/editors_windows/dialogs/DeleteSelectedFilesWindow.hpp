@@ -30,12 +30,26 @@ namespace hexen::editor::gui
 		void drawContent() override;
 
 	public:
-		/**
-     	* @brief Constructs a DeleteSelectedFilesWindow object.
-     	* @param name The name of the window.
-     	*/
 
-		explicit DeleteSelectedFilesWindow(std::string name);
+		/**
+ 		* @brief Constructor using const reference for DeleteSelectedFilesWindow.
+ 		*        This constructor is used when you have a variable that you dont need to change the value of.
+ 		*
+ 		* @param name const reference to a string, this string will be used to name the window.
+ 		* @param parentDockspace const reference to a weak_ptr pointing to Dockspace. This specifies the Dockspace the window is a child of.
+ 		*/
+
+		DeleteSelectedFilesWindow(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Constructor using rvalue reference for DeleteSelectedFilesWindow.
+ 		*        This constructor is used when you have a temporary object (rvalue) and want to avoid copying it.
+ 		*
+ 		* @param name rvalue reference to a string, this string will be used to name the window.
+ 		* @param parentDockspace const reference to a weak_ptr pointing to Dockspace. This specifies the Dockspace the window is a child of.
+ 		*/
+
+		DeleteSelectedFilesWindow(std::string&& name, const std::weak_ptr<Dockspace>& parentDockspace);
 
 		/**
      	* @brief Sets paths of the files which are to be deleted.

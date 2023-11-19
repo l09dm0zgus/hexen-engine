@@ -115,12 +115,12 @@ namespace hexen::editor::gui
 
 		std::function<void()> openSceneCallback;
 
+		void initialize();
 	public:
-		/**
-         * @brief Constructor that takes the menu name.
-         * @param name The name of the menu.
-         */
-		explicit FileMenu(std::string name);
+
+		FileMenu(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		FileMenu(std::string&& name, const std::weak_ptr<Dockspace>& parentDockspace);
 
 		/**
          * @brief Begin displaying menu.

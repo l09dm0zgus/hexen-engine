@@ -10,7 +10,13 @@
 #include <graphics/shaders/ShaderAsset.hpp>
 #include "../../application/Application.hpp"
 
-hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : FramebufferWindow(name)
+void hexen::editor::gui::SceneWindow::renderFramebufferContent()
+{
+	HEXEN_ADD_TO_PROFILE()
+	FramebufferWindow::renderFramebufferContent();
+}
+
+void hexen::editor::gui::SceneWindow::initialize()
 {
 	HEXEN_ADD_TO_PROFILE()
 	auto scene = engine::core::SceneManager::getCurrentScene();
@@ -49,8 +55,14 @@ hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name) : Framebuf
 	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(componentHandle)->setOwnerUUID(UUID);
 }
 
-void hexen::editor::gui::SceneWindow::renderFramebufferContent()
+hexen::editor::gui::SceneWindow::SceneWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : FramebufferWindow(name, parentDockspace)
 {
-	HEXEN_ADD_TO_PROFILE()
-	FramebufferWindow::renderFramebufferContent();
+	HEXEN_ADD_TO_PROFILE();
+	initialize();
+}
+
+hexen::editor::gui::SceneWindow::SceneWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : FramebufferWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	initialize();
 }

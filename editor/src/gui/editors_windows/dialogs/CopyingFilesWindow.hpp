@@ -45,13 +45,28 @@ namespace hexen::editor::gui
 
 
 	public:
-		/**
-     	* @brief Construct a new Copying Files Window object
-     	*
-     	* @param name Name of the window
-     	*/
 
-		explicit CopyingFilesWindow(std::string name);
+		/**
+ 		* @brief Constructs a new instance of CopyingFilesWindow.
+ 		*
+ 		* @details This constructor moves the input string into the instance name and links this window to a parent Dockspace.
+ 		*
+ 		* @param name Unique identifier for this window. The name string is moved into the instance.
+ 		* @param parentDockspace A weak reference to a parent Dockspace, to embed this window.
+ 		*/
+
+		CopyingFilesWindow(std::string &&name,const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Constructs a new instance of CopyingFilesWindow.
+ 		*
+ 		* @details This constructor copies the input string into the instance name and links this window to a parent Dockspace.
+ 		*
+ 		* @param name Unique identifier for this window. The name string is directly passed to the instance.
+ 		* @param parentDockspace A weak reference to a parent Dockspace, to embed this window.
+ 		*/
+
+		CopyingFilesWindow(const std::string &name,const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/**
      	* @brief Set the files to be copied

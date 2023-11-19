@@ -19,13 +19,22 @@ namespace hexen::editor::gui
 	class Menu : public GUIWindow
 	{
 	public:
-		/**
-		 * @brief Construct a new Menu object.
-		 *
-		 * @param name The name of the menu.
-		 */
 
-		explicit Menu(std::string name);
+		/**
+ 		* @brief Constructs a Menu object with the given name and associated Dockspace object.
+ 		* @param name A constant string reference representing the name of the Menu object.
+ 		* @param parentDockspace A weak pointer to the associated Dockspace object.
+ 		*/
+
+		Menu(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Constructs a Menu object by moving the given name and linking it with the Dockspace object.
+ 		* @param name An rvalue string reference that will be moved to provide the name of the Menu object, avoiding copying.
+ 		* @param parentDockspace A weak pointer to the associated Dockspace object.
+ 		*/
+
+		Menu(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace);
 
 	protected:
 		/**

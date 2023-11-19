@@ -59,13 +59,29 @@ namespace hexen::editor::gui
 		std::string getProjectPath();
 
 		/**
-	 	* @brief Class constructor
-	 	*
-	 	* Initialises a new project window with a given name.
-	 	*
-	 	* @param name The name of the window
-	 	*/
+ 		* @brief Constructor that takes a name and parent dockspace by reference.
+ 		*
+ 		* Constructs a new `NewProjectWindow` object with the given name and parent dockspace.
+ 		* The function also invokes macros to profile performance and clear strings.
+ 		*
+ 		* @param name The name of the new project window.
+ 		* @param parentDockspace The parent dockspace of the new project window.
+ 		*/
 
-		explicit NewProjectWindow(std::string name);
+		NewProjectWindow(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Constructor that takes a name and parent dockspace by move semantics.
+ 		*
+ 		* Constructs a new `NewProjectWindow` object by moving the given name and with the given parent dockspace.
+ 		* After moving the specified name, it becomes unusable in the caller context.
+	 	* The function also invokes macros to prof
+		* ile performance and clear strings.
+ 		*
+ 		* @param name The string to be moved to form the name of the new project window.
+ 		* @param parentDockspace The parent dockspace of the new project window.
+ 		*/
+
+		NewProjectWindow(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace);
 	};
 }// namespace hexen::editor::gui

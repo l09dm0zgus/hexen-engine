@@ -6,11 +6,6 @@
 #include <filesystem>
 #include <iostream>
 
-hexen::editor::gui::DeleteFileWindow::DeleteFileWindow(std::string name) : DialogWindow(std::move(name))
-{
-	HEXEN_ADD_TO_PROFILE();
-}
-
 void hexen::editor::gui::DeleteFileWindow::setPath(const std::string &pathToFile)
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -44,4 +39,14 @@ void hexen::editor::gui::DeleteFileWindow::drawContent()
 		setAction(Action::PRESSED_CANCEL);
 		ImGui::CloseCurrentPopup();
 	}
+}
+
+hexen::editor::gui::DeleteFileWindow::DeleteFileWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : DialogWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+}
+
+hexen::editor::gui::DeleteFileWindow::DeleteFileWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : DialogWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
 }

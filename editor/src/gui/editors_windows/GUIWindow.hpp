@@ -11,6 +11,7 @@
 
 namespace hexen::editor::gui
 {
+	class Dockspace;
 	/**
      * @class GUIWindow
      * @brief Represents a GUI window.
@@ -114,11 +115,26 @@ namespace hexen::editor::gui
 		~GUIWindow() override = default;
 
 		/**
- 		* @brief Explicit constructor for the GUIWindow class.
- 		* @param name A string containing the name for the GUIWindow object.
+ 		* @brief Construct a new GUIWindow object with move semantics for the name field.
+ 		*
+ 		* @param name Name of the GUI window. This will be moved into the member variable 'name'.
+ 		* @param parentDockspace Weak pointer to the parent dockspace object.
+ 		*
+ 		* After construction, the HEXEN_ADD_TO_PROFILE() macro is called and the window size is set.
  		*/
 
-		explicit GUIWindow(std::string name);
+		explicit GUIWindow(std::string &&name,const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Construct a new GUIWindow object with copy semantics for the name field.
+ 		*
+ 		* @param name Name of the GUI window which will be copied into the member variable 'name'.
+ 		* @param parentDockspace Weak pointer to the parent dockspace object.
+ 		*
+ 		* After construction, the HEXEN_ADD_TO_PROFILE() macro is called and the window size is set.
+ 		*/
+
+		explicit GUIWindow(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/**
         * @brief Deleted move constructor for the GUIWindow class.
@@ -182,6 +198,7 @@ namespace hexen::editor::gui
         */
 
 		glm::vec2 size {200, 200};
+		std::weak_ptr<Dockspace> parentDockspace;
 
 	private:
 		void setWindowSize();
@@ -197,5 +214,7 @@ namespace hexen::editor::gui
         */
 
 		std::string name;
+
+
 	};
 }// namespace hexen::editor::gui

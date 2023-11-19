@@ -44,11 +44,26 @@ namespace hexen::editor::gui
 
 	public:
 		/**
-    	* @brief Construct a DeleteFileWindow object with a given name
-    	* @param name The name of the object
-    	*/
+		* @memberof hexen::editor::gui::DeleteFileWindow
+ 		*
+ 		* @brief Constructor taking a name and a weak pointer to a dockspace.
+ 		*
+ 		* @param name The name of the file window.
+ 		* @param parentDockspace A weak pointer to the parent dockspace.
+ 		*/
 
-		explicit DeleteFileWindow(std::string name);
+		DeleteFileWindow(const std::string& name,const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+		* @memberof hexen::editor::gui::DeleteFileWindow
+ 		*
+ 		* @brief Move constructor taking a name and a weak pointer to a dockspace.
+ 		*
+ 		* @param name The name of the file window (rvalue reference).
+ 		* @param parentDockspace A weak pointer to the parent dockspace.
+ 		*/
+
+		DeleteFileWindow(std::string&& name,const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/**
     	* @brief Set the file's path that needs to be deleted

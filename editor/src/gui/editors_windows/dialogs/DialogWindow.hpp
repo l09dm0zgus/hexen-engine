@@ -29,12 +29,21 @@ namespace hexen::editor::gui
 			FAILED		   ///< Represents a failed action.
 		};
 
-		/**
-     	* @brief Construct a new Dialog Window object with a specific name.
-     	* @param name The name of the new Dialog Window object.
-     	*/
+		/** @brief DialogWindow constructor
+ 		*
+ 		*  @param name Name of dialog window
+ 		*  @param parentDockspace Parent Dockspace
+ 		*/
 
-		explicit DialogWindow(std::string name);
+		DialogWindow(const std::string& name, const std::weak_ptr<Dockspace>& parentDockspace);
+
+		/** @brief DialogWindow constructor
+ 		*
+ 		*  @param name Name of dialog window
+ 		*  @param parentDockspace Parent Dockspace
+ 		*/
+
+		DialogWindow(std::string&& name, const std::weak_ptr<Dockspace>& parentDockspace);
 
 		/**
      	* @brief Get the last action taken in the dialog window.

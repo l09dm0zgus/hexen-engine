@@ -4,12 +4,6 @@
 
 #include "DeleteSelectedFilesWindow.hpp"
 
-hexen::editor::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string name) : DeleteFileWindow(std::move(name))
-{
-	HEXEN_ADD_TO_PROFILE();
-	text = "Delete this selected files?";
-}
-
 void hexen::editor::gui::DeleteSelectedFilesWindow::setPaths(const std::vector<std::filesystem::path> &selectedFiles)
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -27,4 +21,16 @@ void hexen::editor::gui::DeleteSelectedFilesWindow::drawContent()
 {
 	HEXEN_ADD_TO_PROFILE();
 	DeleteFileWindow::drawContent();
+}
+
+hexen::editor::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : DeleteFileWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	text = "Delete this selected files?";
+}
+
+hexen::editor::gui::DeleteSelectedFilesWindow::DeleteSelectedFilesWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : DeleteFileWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	text = "Delete this selected files?";
 }

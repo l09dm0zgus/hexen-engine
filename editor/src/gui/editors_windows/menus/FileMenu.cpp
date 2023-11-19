@@ -10,63 +10,6 @@
 #include "../native_file_dialog/FileDialog.hpp"
 #include <imgui.h>
 
-hexen::editor::gui::FileMenu::FileMenu(std::string name) : Menu(std::move(name))
-{
-	HEXEN_ADD_TO_PROFILE();
-	newProjectWindow = engine::core::memory::make_unique<NewProjectWindow>("New Project");
-
-	saveAsFileCallback = []()
-	{
-		FileDialog fileDialog;
-		INativeFileDialog::FileFilter filter;
-		std::string pathToProject;
-
-		std::pair<std::string, std::string> allFiles, sceneFile;
-
-		allFiles.first = "All files";
-		allFiles.second = "all";
-
-		sceneFile.first = "Scene";
-		sceneFile.second = "hxscene;";
-
-		filter.push_back(allFiles);
-		filter.push_back(sceneFile);
-
-		std::string path;
-		if (fileDialog.saveDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
-		{
-			ImGuiMessageBox::add(std::string("Error!"), std::string("Failed to saving file"));
-		}
-	};
-
-	saveFileCallback = []() {
-
-	};
-
-	newSceneCallback = []() {
-
-	};
-
-	openSceneCallback = []()
-	{
-		FileDialog fileDialog;
-		INativeFileDialog::FileFilter filter;
-		std::string pathToProject;
-		filter.push_back({{"Scenes"}, {"hxscene;"}});
-		std::string path;
-		if (fileDialog.openDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
-		{
-			ImGuiMessageBox::add(std::string("Error!"), std::string("Failed to select scene file!"));
-		}
-	};
-
-
-	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_S}, saveFileCallback);
-	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_O}, openSceneCallback);
-	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_N}, newSceneCallback);
-	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_LeftShift, ImGuiKey_S}, saveAsFileCallback);
-}
-
 void hexen::editor::gui::FileMenu::begin()
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -167,7 +110,7 @@ void hexen::editor::gui::FileMenu::showOpenProject()
 	{
 		FileDialog fileDialog;
 		INativeFileDialog::FileFilter filter;
-		std::string pathToProject;
+		std::string const pathToProject;
 		filter.push_back({{"Project"}, {"hxproj;"}});
 		std::string path;
 
@@ -206,4 +149,74 @@ void hexen::editor::gui::FileMenu::showExit()
 		exit(0);
 	};
 	showMenuItem(ICON_FA_WINDOW_CLOSE " Exit", "", callback);
+}
+
+void hexen::editor::gui::FileMenu::initialize()
+{
+	HEXEN_ADD_TO_PROFILE();
+	saveAsFileCallback = []()
+	{
+		FileDialog fileDialog;
+		INativeFileDialog::FileFilter filter;
+		std::string const pathToProject;
+
+		std::pair<std::string, std::string> allFiles;
+		std::pair<std::string, std::string> sceneFile;
+
+		allFiles.first = "All files";
+		allFiles.second = "all";
+
+		sceneFile.first = "Scene";
+		sceneFile.second = "hxscene;";
+
+		filter.push_back(allFiles);
+		filter.push_back(sceneFile);
+
+		std::string path;
+		if (fileDialog.saveDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
+		{
+			ImGuiMessageBox::add(std::string("Error!"), std::string("Failed to saving file"));
+		}
+	};
+
+	saveFileCallback = []() {
+
+	};
+
+	newSceneCallback = []() {
+
+	};
+
+	openSceneCallback = []()
+	{
+		FileDialog fileDialog;
+		INativeFileDialog::FileFilter filter;
+		std::string const pathToProject;
+		filter.push_back({{"Scenes"}, {"hxscene;"}});
+		std::string path;
+		if (fileDialog.openDialog(filter, pathToProject, path) == INativeFileDialog::Status::STATUS_ERROR)
+		{
+			ImGuiMessageBox::add(std::string("Error!"), std::string("Failed to select scene file!"));
+		}
+	};
+
+
+	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_S}, saveFileCallback);
+	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_O}, openSceneCallback);
+	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_N}, newSceneCallback);
+	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_LeftShift, ImGuiKey_S}, saveAsFileCallback);
+}
+
+hexen::editor::gui::FileMenu::FileMenu(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : Menu(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	newProjectWindow = engine::core::memory::make_unique<NewProjectWindow>("New Project", parentDockspace);
+	initialize();
+}
+
+hexen::editor::gui::FileMenu::FileMenu(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : Menu(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	newProjectWindow = engine::core::memory::make_unique<NewProjectWindow>("New Project", parentDockspace);
+	initialize();
 }

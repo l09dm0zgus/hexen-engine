@@ -6,16 +6,6 @@
 #include "../IconsFontAwesome5.hpp"
 #include <misc/cpp/imgui_stdlib.h>
 
-hexen::editor::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string name) : GUIWindow(std::move(name))
-{
-	setSize(glm::vec2(400, 300));
-	HEXEN_ADD_TO_PROFILE()
-	//temporary, in future scene loading will be called in SceneFileWindow/menu bar , etc
-	hexen::engine::core::SceneManager::loadScene("Main.hxscene");
-
-	scene = hexen::engine::core::SceneManager::getCurrentScene();
-}
-
 void hexen::editor::gui::SceneHierarchyWindow::begin()
 {
 	HEXEN_ADD_TO_PROFILE()
@@ -236,4 +226,25 @@ void hexen::editor::gui::SceneHierarchyWindow::checkHoveredItem()
 	{
 		isItemHovered = true;
 	}
+}
+
+hexen::editor::gui::SceneHierarchyWindow::SceneHierarchyWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	initialize();
+}
+
+hexen::editor::gui::SceneHierarchyWindow::SceneHierarchyWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	initialize();
+}
+
+void hexen::editor::gui::SceneHierarchyWindow::initialize()
+{
+	HEXEN_ADD_TO_PROFILE();
+	setSize(glm::vec2(400, 300));
+	//temporary, in future scene loading will be called in SceneFileWindow/menu bar , etc
+	hexen::engine::core::SceneManager::loadScene("Main.hxscene");
+	scene = hexen::engine::core::SceneManager::getCurrentScene();
 }

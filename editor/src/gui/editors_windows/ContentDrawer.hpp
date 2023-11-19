@@ -152,7 +152,7 @@ namespace hexen::editor::gui
 		/** @brief Reloads the state of the assets window. */
 		void refresh();
 
-		/** @brief Retrieves actions from dialog windows. */
+		/** @brief Retrieves actions from dialog dockedWindows. */
 		void getActionsFromDialogs();
 
 		/** @brief Icons for representing assets visually. */
@@ -195,7 +195,7 @@ namespace hexen::editor::gui
 		/** @brief Window for copying files. */
 		std::unique_ptr<CopyingFilesWindow> copyingFilesWindow;
 
-		/** @brief Actions from dialog windows. */
+		/** @brief Actions from dialog dockedWindows. */
 		std::vector<DialogWindow::Action> dialogWindowActions;
 
 		/** @brief Current hovered icon for asset manipulation. */
@@ -254,11 +254,43 @@ namespace hexen::editor::gui
 
 		engine::core::u32 getIconTextureID(const std::string &extension, const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToIcon);
 
+		/**
+ 		* @brief Initialize method for the ContentDrawer class.
+ 		*
+ 		* This method performs the following tasks:
+ 		*   1. Set the size of the ContentDrawer to 1280x400 units.
+ 		*   2. Create objects for dealing with asset icons, file deletions, selected file deletions, and file copying.
+ 		*   3. Define a callback for deleting selected files.
+ 		*   4. Define a refresh callback that refreshes the content.
+ 		*   5. Add a global shortcut for refreshing the content.
+ 		*
+ 		* @note It's invoked by HEXEN_ADD_TO_PROFILE() macro.
+ 		*/
+
+		void initialize();
+
 	public:
-		/** @brief Constructor.
-		 * @param name The name of the window.
-		 */
-		explicit ContentDrawer(std::string name);
+		/**
+ 		* @brief This is the constructor for the ContentDrawer class that takes rvalue reference of name.
+ 		* The constructor initializes the GUIWindow with given name and parentDockspace.
+ 		* After initialization, it makes a call to the initialize function of the class.
+ 		*
+ 		* @param name Rvalue reference to the name of the ContentDrawer
+ 		* @param parentDockspace The weak_ptr to the Dockspace that is the parent for this ContentDrawer
+ 		*/
+
+		explicit ContentDrawer(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief This is the constructor for the ContentDrawer class that takes const reference of name.
+ 		* The constructor initializes the GUIWindow with given name and parentDockspace.
+ 		* After initialization, it makes a call to the initialize function of the class.
+ 		*
+ 		* @param name Const reference to the name of the ContentDrawer
+ 		* @param parentDockspace The weak_ptr to the Dockspace that is the parent for this ContentDrawer
+ 		*/
+
+		explicit ContentDrawer(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/** @brief Begins drawing of the window. Overrides the function in GUIWindow. */
 		void begin() override;

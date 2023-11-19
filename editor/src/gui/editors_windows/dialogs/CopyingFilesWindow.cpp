@@ -5,11 +5,6 @@
 #include "CopyingFilesWindow.hpp"
 #include "../MessageBox.hpp"
 
-hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(std::string name) : DialogWindow(std::move(name))
-{
-	HEXEN_ADD_TO_PROFILE();
-}
-
 void hexen::editor::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -50,4 +45,14 @@ void hexen::editor::gui::CopyingFilesWindow::drawContent()
 		setAction(Action::PRESSED_CANCEL);
 		ImGui::CloseCurrentPopup();
 	}
+}
+
+hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : DialogWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+}
+
+hexen::editor::gui::CopyingFilesWindow::CopyingFilesWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : DialogWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
 }

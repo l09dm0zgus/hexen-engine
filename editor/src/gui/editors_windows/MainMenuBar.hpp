@@ -31,13 +31,22 @@ namespace hexen::editor::gui
 
 	public:
 		/**
-     	* @brief MainMenuBar constructor used to create a new MainMenuBar object.
-     	*
-     	* This constructor creates a new MainMenuBar object with a specified name.
-     	* @param name A string representing the name of the main menu bar.
-     	*/
+ 		* @brief  Constructor for the MainMenuBar class.
+ 		*
+ 		* @param name String representing the name for the MainMenuBar instance.
+ 		* @param parentDockspace weak pointer to the parent Dockspace of the MenuBar.
+ 		*/
 
-		explicit MainMenuBar(std::string name);
+		MainMenuBar(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief  Constructor for the MainMenuBar class.
+ 		*
+ 		* @param name String (moved in this case) representing the name for the MainMenuBar instance.
+ 		* @param parentDockspace weak pointer to the parent Dockspace of the MenuBar.
+ 		*/
+
+		MainMenuBar(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/**
      	* @brief A function that marks the beginning of the main menu bar.

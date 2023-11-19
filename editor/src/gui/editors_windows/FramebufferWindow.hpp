@@ -26,13 +26,28 @@ namespace hexen::editor::gui
 	{
 	public:
 		/**
-        * @brief Represents a window using a framebuffer for rendering.
-        *
-        * This class extends from the GUIWindow class and provides functionality
-        * for creating and managing a window that uses a framebuffer for rendering.
-        */
+ 		* @brief Constructs a new FramebufferWindow object.
+ 		*
+ 		* This constructor takes a constant string reference as the name of the window, and a weak pointer to
+ 		* the parent Dockspace of this window. It adds the window to a profiler then initializes it.
+ 		*
+ 		* @param name A constant reference to a string representing the name of the window.
+ 		* @param parentDockspace A weak pointer referring to the parent Dockspace of this window.
+ 		*/
 
-		explicit FramebufferWindow(const std::string &name);
+		explicit FramebufferWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Constructs a new FramebufferWindow object.
+ 		*
+ 		* This constructor takes a rvalue string as the name of the window, and a weak pointer to
+ 		* the parent Dockspace of this window. It adds the window to a profiler then initializes it.
+ 		*
+ 		* @param name A rvalue string representing the name of the window.
+ 		* @param parentDockspace A weak pointer referring to the parent Dockspace of this window.
+ 		*/
+
+		explicit FramebufferWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/**
         * @class edit::gui::FramebufferWindow
@@ -72,5 +87,17 @@ namespace hexen::editor::gui
 
 	protected:
 		std::shared_ptr<engine::graphics::FrameBuffer> framebuffer;
+	private:
+
+		/**
+ 		* @brief This function initializes the FramebufferWindow by creating a new FrameBufferCommand and storing a pointer to the created FrameBuffer.
+ 		* Specifically, it implements the following steps:
+ 		* 1. Calls HEXEN_ADD_TO_PROFILE()
+ 		* 2. Defines a FrameBufferSpecification structure.
+ 		* 3. Adds a new FramebufferCommand to the RenderPipeline queue using the previously defined specification, and stores the returned ID.
+ 		* 4. Sets the framebuffer attribute of the class to the FrameBuffer referenced by the FramebufferCommand from the previous step.
+ 		*/
+
+		void initialize();
 	};
 }// namespace hexen::editor::gui

@@ -1,9 +1,9 @@
 //
 // Created by cx9ps3 on 19.06.2023.
 //
+#include "ContentDrawer.hpp"
 #include "../../application/Application.hpp"
 #include "../IconsFontAwesome5.hpp"
-#include "ContentDrawer.hpp"
 #include "MessageBox.hpp"
 #include "Shortcuts.hpp"
 #include "native_file_dialog/FileDialog.hpp"
@@ -15,29 +15,16 @@
 using textures = hexen::engine::graphics::Texture2D;
 using assets = hexen::engine::core::assets::AssetHelper;
 
-hexen::editor::gui::ContentDrawer::ContentDrawer(std::string name) : GUIWindow(std::move(name))
+hexen::editor::gui::ContentDrawer::ContentDrawer(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(std::move(name), parentDockspace)
 {
-	HEXEN_ADD_TO_PROFILE()
-	setSize(glm::vec2(1280, 400));
+	HEXEN_ADD_TO_PROFILE();
+	initialize();
+}
 
-	iconCallbacks = engine::core::memory::make_shared<AssetIconCallbacks>();
-	deleteFileWindow = hexen::engine::core::memory::make_unique<DeleteFileWindow>("Delete");
-	deleteSelectedFilesWindow = hexen::engine::core::memory::make_unique<DeleteSelectedFilesWindow>("Delete selected");
-	copyingFilesWindow = hexen::engine::core::memory::make_unique<CopyingFilesWindow>("Copying");
-
-	deleteSelectedFilesCallback = [this]()
-	{
-		deleteSelectedFilesWindow->setPaths(selectedFiles);
-		deleteSelectedFilesWindow->setOpen(true);
-		refresh();
-	};
-
-	refreshCallback = [this]()
-	{
-		refresh();
-	};
-
-	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_R}, refreshCallback);
+hexen::editor::gui::ContentDrawer::ContentDrawer(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	initialize();
 }
 
 void hexen::editor::gui::ContentDrawer::begin()
@@ -420,6 +407,7 @@ void hexen::editor::gui::ContentDrawer::drawNewFolder()
 
 hexen::engine::core::u32 hexen::editor::gui::ContentDrawer::getIconTextureID(const std::string &extension, const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToIcon)
 {
+	HEXEN_ADD_TO_PROFILE();
 	engine::core::u32 textureID {0};
 	auto it = iconsTexture.find(extension);
 
@@ -438,12 +426,38 @@ hexen::engine::core::u32 hexen::editor::gui::ContentDrawer::getIconTextureID(con
 
 void hexen::editor::gui::ContentDrawer::addNewIcon(const std::string &extension, std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &)> &iconCallback)
 {
+	HEXEN_ADD_TO_PROFILE();
 	assetExtensions.addNewAssetExtension(extension, pathToIcon);
 	iconCallbacks->addCallback(extension, iconCallback);
 }
 
+void hexen::editor::gui::ContentDrawer::initialize()
+{
+	HEXEN_ADD_TO_PROFILE();
+	setSize(glm::vec2(1280, 400));
+	iconCallbacks = engine::core::memory::make_shared<AssetIconCallbacks>();
+	deleteFileWindow = hexen::engine::core::memory::make_unique<DeleteFileWindow>("Delete", parentDockspace);
+	deleteSelectedFilesWindow = hexen::engine::core::memory::make_unique<DeleteSelectedFilesWindow>("Delete selected", parentDockspace);
+	copyingFilesWindow = hexen::engine::core::memory::make_unique<CopyingFilesWindow>("Copying", parentDockspace);
+
+	deleteSelectedFilesCallback = [this]()
+	{
+		deleteSelectedFilesWindow->setPaths(selectedFiles);
+		deleteSelectedFilesWindow->setOpen(true);
+		refresh();
+	};
+
+	refreshCallback = [this]()
+	{
+		refresh();
+	};
+
+	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_R}, refreshCallback);
+}
+
 hexen::editor::gui::AssetExtensions::AssetExtensions()
 {
+	HEXEN_ADD_TO_PROFILE();
 	if (std::filesystem::exists(pathToFileWithExtensions))
 	{
 		std::ifstream file(pathToFileWithExtensions);
@@ -455,6 +469,7 @@ hexen::editor::gui::AssetExtensions::AssetExtensions()
 
 hexen::editor::gui::FileExtensions hexen::editor::gui::AssetExtensions::getAssetExtensions()
 {
+	HEXEN_ADD_TO_PROFILE();
 	for (engine::core::u32 i = 0; i < extensionsCount; i++)
 	{
 		auto extension = assetExtensionsFile["extensions"][i]["file_extension"];
@@ -465,6 +480,7 @@ hexen::editor::gui::FileExtensions hexen::editor::gui::AssetExtensions::getAsset
 
 void hexen::editor::gui::AssetExtensions::addNewAssetExtension(const std::string &fileExtension, const std::filesystem::path &pathToIcon)
 {
+	HEXEN_ADD_TO_PROFILE();
 	assetExtensionsFile["extensions"][extensionsCount]["file_extension"] = fileExtension;
 	assetExtensionsFile["extensions"][extensionsCount]["path_to_icon"] = pathToIcon;
 	assetExtensionsFile["extensions_array_count"] = extensionsCount++;
@@ -472,16 +488,19 @@ void hexen::editor::gui::AssetExtensions::addNewAssetExtension(const std::string
 
 bool hexen::editor::gui::AssetExtensions::isExtensionExist(const std::string &fileExtension)
 {
+	HEXEN_ADD_TO_PROFILE();
 	return fileExtensions.find(fileExtension) != fileExtensions.end();
 }
 
 std::filesystem::path hexen::editor::gui::AssetExtensions::getPathToIcon(const std::string &fileExtension)
 {
+	HEXEN_ADD_TO_PROFILE();
 	return fileExtensions[fileExtension];
 }
 
 hexen::editor::gui::AssetExtensions::~AssetExtensions()
 {
+	HEXEN_ADD_TO_PROFILE();
 	std::ofstream file(pathToFileWithExtensions);
 	file << assetExtensionsFile;
 }

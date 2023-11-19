@@ -7,12 +7,6 @@
 #include "menus/FileMenu.hpp"
 #include <utility>
 
-hexen::editor::gui::MainMenuBar::MainMenuBar(std::string name) : GUIWindow(std::move(name))
-{
-	HEXEN_ADD_TO_PROFILE()
-	menus.push_back(hexen::engine::core::memory::make_shared<FileMenu>("File"));
-}
-
 void hexen::editor::gui::MainMenuBar::begin()
 {
 	HEXEN_ADD_TO_PROFILE()
@@ -38,4 +32,16 @@ void hexen::editor::gui::MainMenuBar::end()
 	{
 		menu->end();
 	}
+}
+
+hexen::editor::gui::MainMenuBar::MainMenuBar(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE()
+	menus.push_back(hexen::engine::core::memory::make_shared<FileMenu>("File", parentDockspace));
+}
+
+hexen::editor::gui::MainMenuBar::MainMenuBar(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE()
+	menus.push_back(hexen::engine::core::memory::make_shared<FileMenu>("File", parentDockspace));
 }

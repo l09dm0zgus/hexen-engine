@@ -120,13 +120,40 @@ namespace hexen::editor::gui
 		 */
 		bool isItemHovered {false};
 
-	public:
 		/**
-     	* @brief Constructor for creating a SceneHierarchyWindow object.
-     	* @param name A string representing the name of the window.
-     	*/
+ 		* @brief Initialize the SceneHierarchyWindow.
+ 		*
+ 		* This function sets the size of SceneHierarchyWindow, loads
+ 		* the scene using SceneManager and sets the current scene.
+ 		*/
 
-		explicit SceneHierarchyWindow(std::string name);
+		void initialize();
+
+	public:
+
+		/**
+ 		* @brief Constructor of SceneHierarchyWindow class using move semantics.
+ 		* @param name Name of the Scene Hierarchy Window.
+ 		* @param parentDockspace A reference to the Dockspace of the Window.
+ 		*
+ 		* This function initializes an instance of the SceneHierarchyWindow class,
+ 		* moves the parameter 'name' to the class member and sets a weak_ptr to
+ 		* the parent Dockspace.
+ 		*/
+
+		SceneHierarchyWindow(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace);
+
+		/**
+ 		* @brief Constructor of SceneHierarchyWindow class.
+ 		* @param name Name of the Scene Hierarchy Window.
+ 		* @param parentDockspace A reference to the Dockspace of the Window.
+ 		*
+ 		* This function initializes an instance of the SceneHierarchyWindow class,
+ 		* copies the parameter 'name' to the class member and sets a weak_ptr to
+ 		* the parent Dockspace.
+ 		*/
+
+		SceneHierarchyWindow(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
 
 		/**
 		 * @brief Method to initialize the window.

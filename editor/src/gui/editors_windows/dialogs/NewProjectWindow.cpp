@@ -9,12 +9,6 @@
 #include "imgui.h"
 #include <memory.h>
 
-hexen::editor::gui::NewProjectWindow::NewProjectWindow(std::string name) : DialogWindow(std::move(name))
-{
-	HEXEN_ADD_TO_PROFILE();
-	clearStrings();
-}
-
 std::string hexen::editor::gui::NewProjectWindow::getProjectPath()
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -82,4 +76,16 @@ void hexen::editor::gui::NewProjectWindow::drawContent()
 		setAction(Action::PRESSED_CANCEL);
 		ImGui::CloseCurrentPopup();
 	}
+}
+
+hexen::editor::gui::NewProjectWindow::NewProjectWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : DialogWindow(name, parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	clearStrings();
+}
+
+hexen::editor::gui::NewProjectWindow::NewProjectWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : DialogWindow(std::move(name), parentDockspace)
+{
+	HEXEN_ADD_TO_PROFILE();
+	clearStrings();
 }
