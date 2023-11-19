@@ -49,7 +49,6 @@ target_sources(${CORE_MODULE_NAME} PUBLIC
         window/Window.hpp
         window/Window.cpp
         Types.hpp
-        Serialization.hpp
         application/Settings.hpp
         application/Settings.cpp
         assets/IAsset.hpp
