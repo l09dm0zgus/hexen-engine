@@ -1,3 +1,4 @@
+#type fragment
 #version 460
 out vec4 FragColor;
 uniform vec3 color;
