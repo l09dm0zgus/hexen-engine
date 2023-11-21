@@ -110,11 +110,8 @@ namespace hexen::engine::graphics
 
 			if(cacheCommand)
 			{
-				auto command = core::memory::make_shared<T>(args...);
-
-				std::stringstream ss;
-				ss << (core::vptr )command.get();
-				auto iter = cachedRenderCommands.find(ss.str());
+				const auto *typeName = typeid(T).name();
+				auto iter = cachedRenderCommands.find(typeName);
 
 				if(iter != cachedRenderCommands.end())
 				{
@@ -122,8 +119,9 @@ namespace hexen::engine::graphics
 				}
 				else
 				{
+					auto command = core::memory::make_shared<T>(args...);
 					command->execute();
-					cachedRenderCommands[ss.str()] = command;
+					cachedRenderCommands[typeName] = command;
 				}
 
 				cacheCommand = false;
