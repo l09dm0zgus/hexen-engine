@@ -64,12 +64,8 @@ void hexen::editor::EditorGameLoop::loop()
 			accumulator -= deltaTime;
 		}
 
-		engine::graphics::RenderPipeline::prepareCommands();
 		editorGui->renderFrameBufferWindowsContents();
 		systemManager->render(getAlpha());
-		engine::graphics::RenderPipeline::executeCommands();
-		engine::graphics::RenderPipeline::finishCommands();
-
 
 		editorGui->begin();
 		editorGui->draw();

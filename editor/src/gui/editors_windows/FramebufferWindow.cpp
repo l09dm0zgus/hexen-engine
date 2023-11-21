@@ -50,15 +50,11 @@ void hexen::editor::gui::FramebufferWindow::begin()
 void hexen::editor::gui::FramebufferWindow::renderFramebufferContent()
 {
 	HEXEN_ADD_TO_PROFILE()
-	engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
 }
 
 void hexen::editor::gui::FramebufferWindow::initialize()
 {
 	HEXEN_ADD_TO_PROFILE()
-	engine::graphics::FrameBufferSpecification const specification;
-	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::FramebufferCommand>(specification);
-	framebuffer = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::FramebufferCommand>(id)->getPointerToFrameBuffer();
 }
 
 hexen::editor::gui::FramebufferWindow::FramebufferWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(name, parentDockspace)

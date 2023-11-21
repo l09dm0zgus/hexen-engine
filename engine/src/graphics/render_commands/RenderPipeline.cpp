@@ -3,10 +3,8 @@
 //
 
 #include "RenderPipeline.hpp"
-hexen::engine::core::u32 hexen::engine::graphics::RenderPipeline::ids = 0;
-phmap::parallel_flat_hash_map<hexen::engine::core::u32,std::shared_ptr<hexen::engine::graphics::IRenderCommand>> hexen::engine::graphics::RenderPipeline::renderQueue;
-phmap::parallel_flat_hash_map<std::string, std::shared_ptr<hexen::engine::graphics::IRenderCommand>> hexen::engine::graphics::RenderPipeline::cachedRenderCommands;
-bool hexen::engine::graphics::RenderPipeline::cacheCommand = false;
+phmap::parallel_flat_hash_map<hexen::engine::graphics::RenderPipelineID, std::shared_ptr<hexen::engine::graphics::RenderPipeline>> hexen::engine::graphics::RenderPipeline::renderPipelines;
+hexen::engine::core::u8 hexen::engine::graphics::RenderPipeline::countOfRenderPipelines = 0;
 
 std::shared_ptr<hexen::engine::graphics::IRenderCommand> hexen::engine::graphics::RenderPipeline::getCommand(hexen::engine::core::u32 commandID)
 {
@@ -21,9 +19,9 @@ void hexen::engine::graphics::RenderPipeline::removeCommandFromQueue(hexen::engi
 void hexen::engine::graphics::RenderPipeline::executeCommands()
 {
 	HEXEN_ADD_TO_PROFILE();
-	for(const auto &command : renderQueue)
+	for (const auto &command : renderQueue)
 	{
-		if(command.second->enableExecute)
+		if (command.second->enableExecute)
 		{
 			command.second->execute();
 		}
@@ -32,9 +30,9 @@ void hexen::engine::graphics::RenderPipeline::executeCommands()
 void hexen::engine::graphics::RenderPipeline::prepareCommands()
 {
 	HEXEN_ADD_TO_PROFILE();
-	for(const auto &command : renderQueue)
+	for (const auto &command : renderQueue)
 	{
-		if(command.second->enablePrepare)
+		if (command.second->enablePrepare)
 		{
 			command.second->prepare();
 		}
@@ -43,9 +41,9 @@ void hexen::engine::graphics::RenderPipeline::prepareCommands()
 void hexen::engine::graphics::RenderPipeline::finishCommands()
 {
 	HEXEN_ADD_TO_PROFILE();
-	for(const auto &command : renderQueue)
+	for (const auto &command : renderQueue)
 	{
-		if(command.second->enableFinish)
+		if (command.second->enableFinish)
 		{
 			command.second->finish();
 		}
@@ -55,4 +53,42 @@ void hexen::engine::graphics::RenderPipeline::finishCommands()
 void hexen::engine::graphics::RenderPipeline::cacheNextRenderCommand()
 {
 	cacheCommand = true;
+}
+
+std::shared_ptr<hexen::engine::graphics::RenderPipeline> hexen::engine::graphics::RenderPipeline::create()
+{
+	auto id = static_cast<RenderPipelineID>(countOfRenderPipelines);
+	auto renderPipeline = core::memory::make_shared<RenderPipeline>(id);
+	renderPipelines[id] = renderPipeline;
+	countOfRenderPipelines++;
+	return renderPipeline;
+}
+
+void hexen::engine::graphics::RenderPipeline::cacheNextRenderCommand(hexen::engine::graphics::RenderPipelineID renderPipelineId)
+{
+	getRenderPipelineByID(renderPipelineId)->cacheNextRenderCommand();
+}
+
+std::shared_ptr<hexen::engine::graphics::RenderPipeline> hexen::engine::graphics::RenderPipeline::getRenderPipelineByID(hexen::engine::graphics::RenderPipelineID id)
+{
+	return renderPipelines[id];
+}
+
+std::shared_ptr<hexen::engine::graphics::IRenderCommand> hexen::engine::graphics::RenderPipeline::getCommand(hexen::engine::graphics::RenderPipelineID renderPipelineId, hexen::engine::core::u32 commandID)
+{
+	return getRenderPipelineByID(renderPipelineId)->getCommand(commandID);
+}
+
+void hexen::engine::graphics::RenderPipeline::removeCommandFromQueue(hexen::engine::graphics::RenderPipelineID renderPipelineId, hexen::engine::core::u32 commandId)
+{
+	getRenderPipelineByID(renderPipelineId)->removeCommandFromQueue(commandId);
+}
+
+hexen::engine::graphics::RenderPipeline::RenderPipeline(hexen::engine::graphics::RenderPipelineID id) : id(id)
+{
+}
+
+hexen::engine::graphics::RenderPipelineID hexen::engine::graphics::RenderPipeline::getID() const noexcept
+{
+	return id;
 }

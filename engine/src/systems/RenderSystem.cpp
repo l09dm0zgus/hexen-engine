@@ -32,8 +32,8 @@ hexen::engine::systems::RenderSystem::RenderSystem(core::u32 sizeOfVectors)
 	auto fragmentShaderAsset = core::assets::AssetHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadFragmentShader", "shaders/BaseQuadFragment.glsl");
 	shaders.push_back(fragmentShaderAsset);
 
-	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::Draw2DQuadsCommand>(shaders);
-	draw2DQuadsCommand = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::Draw2DQuadsCommand>(id);
+	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::Draw2DQuadsCommand>(hexen::engine::graphics::RenderPipelineID::MAIN_PIPELINE, shaders);
+	draw2DQuadsCommand = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::Draw2DQuadsCommand>(hexen::engine::graphics::RenderPipelineID::MAIN_PIPELINE, id);
 }
 
 void hexen::engine::systems::RenderSystem::render(float alpha)

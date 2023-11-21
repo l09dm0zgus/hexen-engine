@@ -5,8 +5,10 @@
 #pragma once
 #include <entity/scene/Grid.hpp>
 #include <graphics/shaders/ShaderProgram.hpp>
-#include "DrawGridCommand.hpp"
 #include <components/Component.hpp>
+#include <graphics/render_commands/RenderPipeline.hpp>
+#include "DrawGridCommand.hpp"
+
 
 namespace hexen::editor::components::graphics
 {
@@ -36,6 +38,7 @@ namespace hexen::editor::components::graphics
 		std::shared_ptr<DrawGridCommand> drawGridCommand;
 
 	public:
+
 		GridComponent() = default;
 		~GridComponent() override = default;
 
@@ -51,7 +54,7 @@ namespace hexen::editor::components::graphics
      	* @param unitSize The size of a single unit (cell) in the grid.
      	*/
 
-		explicit GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize);
+		explicit GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize, hexen::engine::graphics::RenderPipelineID renderPipelineId  = hexen::engine::graphics::RenderPipelineID::MAIN_PIPELINE);
 
 		/**
      	* @brief Sets the color of an grid.
@@ -88,6 +91,10 @@ namespace hexen::editor::components::graphics
      	*/
 
 		void setTransformMatrix(const glm::mat4 &transform);
+
+		static std::vector<glm::vec3> createGridVertices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
+
+		static std::vector<glm::uvec4> createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
 
 	};
 }// namespace hexen::editor::components::graphics

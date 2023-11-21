@@ -5,6 +5,11 @@
 
 #include "FramebufferWindow.hpp"
 
+namespace hexen::engine::graphics
+{
+	class RenderPipeline;
+}
+
 namespace hexen::editor::gui
 {
 	/**
@@ -68,6 +73,8 @@ namespace hexen::editor::gui
  		*/
 
 		void initialize();
+
+		std::shared_ptr<engine::graphics::RenderPipeline> mainRenderPipeline;
 	};
 
 }// namespace hexen::editor::gui
