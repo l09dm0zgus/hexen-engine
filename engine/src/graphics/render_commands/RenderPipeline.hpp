@@ -39,6 +39,16 @@ namespace hexen::engine::graphics
 		RenderPipeline &operator=(RenderPipeline &&) = delete;
 
 		/**
+		 * @brief Used with executeCommandNow method for reduce object creation,
+		 * When set true command will be cached in to hash map and when will called executeCommandNow
+		 * with same command , instead of creating new command object, will be executed cached command.
+		 *
+		 * @note Set true need before every calling executeCommandNow where need cache command.
+		 */
+
+		static void cacheNextRenderCommand();
+
+		/**
      	* @brief Adds a command to the render queue.
      	* @tparam T Type of the command. It must be derived from IRenderCommand.
      	* @tparam Args Variadic template for argument list
@@ -84,6 +94,8 @@ namespace hexen::engine::graphics
 
 		/**
      	* @brief Creates and immediately executes a render command.
+     	* @note Call @fn cacheNextRenderCommand() before this method for cache command.
+     	* @see cacheNextRenderCommand()
      	* @tparam T Type of the command. It must be derived from IRenderCommand.
      	* @tparam Args Variadic template for argument list
      	* @param args Arguments to forward to the command's constructor
@@ -96,8 +108,32 @@ namespace hexen::engine::graphics
 			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
 			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
 
-			T command(args...);
-			command.execute();
+			if(cacheCommand)
+			{
+				auto command = core::memory::make_shared<T>(args...);
+
+				std::stringstream ss;
+				ss << (core::vptr )command.get();
+				auto iter = cachedRenderCommands.find(ss.str());
+
+				if(iter != cachedRenderCommands.end())
+				{
+					iter->second->execute();
+				}
+				else
+				{
+					command->execute();
+					cachedRenderCommands[ss.str()] = command;
+				}
+
+				cacheCommand = false;
+			}
+			else
+			{
+				T command(args...);
+				command.execute();
+			}
+
 		}
 
 		/**
@@ -130,6 +166,11 @@ namespace hexen::engine::graphics
 
 		/// ID for render commands
 		static core::u32 ids;
+
+		///Cached commands
+		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<IRenderCommand>> cachedRenderCommands;
+
+		static bool cacheCommand;
 	};
 
 }// namespace hexen::engine::graphics

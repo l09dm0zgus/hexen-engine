@@ -5,6 +5,8 @@
 #include "RenderPipeline.hpp"
 hexen::engine::core::u32 hexen::engine::graphics::RenderPipeline::ids = 0;
 phmap::parallel_flat_hash_map<hexen::engine::core::u32,std::shared_ptr<hexen::engine::graphics::IRenderCommand>> hexen::engine::graphics::RenderPipeline::renderQueue;
+phmap::parallel_flat_hash_map<std::string, std::shared_ptr<hexen::engine::graphics::IRenderCommand>> hexen::engine::graphics::RenderPipeline::cachedRenderCommands;
+bool hexen::engine::graphics::RenderPipeline::cacheCommand = false;
 
 std::shared_ptr<hexen::engine::graphics::IRenderCommand> hexen::engine::graphics::RenderPipeline::getCommand(hexen::engine::core::u32 commandID)
 {
@@ -48,4 +50,9 @@ void hexen::engine::graphics::RenderPipeline::finishCommands()
 			command.second->finish();
 		}
 	}
+}
+
+void hexen::engine::graphics::RenderPipeline::cacheNextRenderCommand()
+{
+	cacheCommand = true;
 }
