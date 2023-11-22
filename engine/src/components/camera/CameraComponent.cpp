@@ -54,7 +54,6 @@ glm::mat4 hexen::engine::components::graphics::CameraComponent::getProjectionMat
 void hexen::engine::components::graphics::CameraComponent::updateProjectionMatrix(core::u32 newWindowWidth, core::u32 newWindowHeight)
 {
 	HEXEN_ADD_TO_PROFILE();
-	engine::graphics::RenderPipeline::executeCommandNow<engine::graphics::ViewportCommand>(engine::graphics::RenderPipelineID::MAIN_PIPELINE, glm::ivec4(0, 0, newWindowWidth, newWindowHeight));
 	projection = glm::perspective(glm::radians(FOV), static_cast<float>(newWindowWidth) / static_cast<float>(newWindowHeight), 0.1f, 100.0f);
 }
 

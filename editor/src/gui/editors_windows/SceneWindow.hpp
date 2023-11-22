@@ -5,11 +5,6 @@
 
 #include "FramebufferWindow.hpp"
 
-namespace hexen::engine::graphics
-{
-	class RenderPipeline;
-}
-
 namespace hexen::editor::gui
 {
 	/**
@@ -50,6 +45,30 @@ namespace hexen::editor::gui
 
 		explicit SceneWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace);
 
+		/**
+        * @class edit::gui::FramebufferWindow
+        * @brief The FramebufferWindow class represents a GUI window for rendering and editing.
+        */
+
+		void begin() override;
+
+		/**
+        * @brief Renders the GUI framebuffer window.
+        *
+        * This function is responsible for rendering the graphical user interface
+        * (GUI) framebuffer window.
+        *
+        * @note This function does not return any value.
+        */
+
+		void draw() override;
+
+		/**
+        * @brief Handles the rendering and display of a framebuffer window.
+        */
+
+		void end() override;
+
 	private:
 		/**
      	* @brief A rendering function specific to SceneWindow that is override from FramebufferWindow.
@@ -74,7 +93,7 @@ namespace hexen::editor::gui
 
 		void initialize();
 
-		std::shared_ptr<engine::graphics::RenderPipeline> mainRenderPipeline;
+
 	};
 
 }// namespace hexen::editor::gui

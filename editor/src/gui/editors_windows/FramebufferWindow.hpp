@@ -10,6 +10,7 @@
 namespace hexen::engine::graphics
 {
 	class FrameBuffer;
+	class RenderPipeline;
 }
 
 namespace hexen::editor::gui
@@ -49,53 +50,35 @@ namespace hexen::editor::gui
 
 		explicit FramebufferWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace);
 
-		/**
-        * @class edit::gui::FramebufferWindow
-        * @brief The FramebufferWindow class represents a GUI window for rendering and editing.
-        */
-
-		void begin() override;
-
-		/**
-        * @brief Renders the GUI framebuffer window.
-        *
-        * This function is responsible for rendering the graphical user interface
-        * (GUI) framebuffer window.
-        *
-        * @note This function does not return any value.
-        */
-
-		void draw() override;
-
-		/**
-        * @brief Handles the rendering and display of a framebuffer window.
-        */
-
-		void end() override;
-
-		/**
- 		* @brief Renders the framebuffer content for the Hexen Editor GUI.
- 		*
- 		* This method clears the rendering pipeline with a specific color (represented as a glm vector).
- 		* The color used is a specific shade of blue (R:0.39, G:0.58, B:0.93, A:1.0).
- 		*
- 		* This is done by passing an instance of engine::graphics::ClearCommand and the
- 		* color vector to the RenderPipeline's executeCommandNow method.
-		*/
-
-		virtual void renderFramebufferContent();
+		virtual void renderFramebufferContent() = 0;
 
 	protected:
 		std::shared_ptr<engine::graphics::FrameBuffer> framebuffer;
+		std::shared_ptr<engine::graphics::RenderPipeline> renderPipeline;
+
+		/**
+ 		* @brief Adds content from the frame buffer to the GUI window
+ 		*
+ 		* This method adds the content of the frame buffer to the GUI window if the size of the window
+ 		* is more than 5x5. It adjusts the size of the frame buffer and the window as per the available content region.
+ 		* It then gets the color attachment object of the frame buffer as a texture, and adds it to the window
+ 		* draw list, effectively displaying the frame buffer content within the window.
+ 		*
+		 * @note The method is part of the FramebufferWindow class in the hexen::editor::gui namespace.
+ 		*/
+
+		void addFramebufferContentToWindow();
+
 	private:
 
 		/**
  		* @brief This function initializes the FramebufferWindow by creating a new FrameBufferCommand and storing a pointer to the created FrameBuffer.
  		* Specifically, it implements the following steps:
  		* 1. Calls HEXEN_ADD_TO_PROFILE()
- 		* 2. Defines a FrameBufferSpecification structure.
- 		* 3. Adds a new FramebufferCommand to the RenderPipeline queue using the previously defined specification, and stores the returned ID.
- 		* 4. Sets the framebuffer attribute of the class to the FrameBuffer referenced by the FramebufferCommand from the previous step.
+		* 2. Create render pipeline.
+ 		* 3. Defines a FrameBufferSpecification structure.
+ 		* 4. Adds a new FramebufferCommand to the RenderPipeline queue using the previously defined specification, and stores the returned ID.
+ 		* 5. Sets the framebuffer attribute of the class to the FrameBuffer referenced by the FramebufferCommand from the previous step.
  		*/
 
 		void initialize();

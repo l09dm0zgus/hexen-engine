@@ -57,7 +57,7 @@ namespace hexen::editor::gui
 		void setSize(T &&newSize)
 		{
 			size = std::forward<T>(newSize);
-			setWindowSize();
+			ImGui::SetNextWindowSize(ImVec2(size.x, size.y));
 		}
 
 		/**
@@ -201,7 +201,6 @@ namespace hexen::editor::gui
 		std::weak_ptr<Dockspace> parentDockspace;
 
 	private:
-		void setWindowSize();
 
 		/**
         * @brief The name variable stores the name value.

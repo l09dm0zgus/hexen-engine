@@ -38,10 +38,8 @@ void hexen::engine::systems::GameLoop::loop()
 			accumulator -= deltaTime;
 		}
 
-		graphics::RenderPipeline::prepareCommands();
-		graphics::RenderPipeline::executeCommandNow<graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
+
 		systemManager->render(getAlpha());
-		graphics::RenderPipeline::finishCommands();
 		window->swapBuffers();
 		systems::TaskSystem::waitForCounter();
 		HEXEN_END_PROFILE_FRAME();

@@ -6,31 +6,27 @@
 #include "../../application/Application.hpp"
 #include "../../components/EditorCameraComponent.hpp"
 #include "../../systems/EditorRenderSystem.hpp"
-#include <render_commands/FramebufferCommand.hpp>
+#include "render_commands/ViewportCommand.hpp"
 #include <entity/scene/SceneManager.hpp>
 #include <graphics/shaders/ShaderAsset.hpp>
 #include <render_commands/ClearCommand.hpp>
+#include <render_commands/FramebufferCommand.hpp>
 #include <systems/RenderSystem.hpp>
 
 void hexen::editor::gui::SceneWindow::renderFramebufferContent()
 {
 	HEXEN_ADD_TO_PROFILE()
-
-	mainRenderPipeline->prepareCommands();
-	mainRenderPipeline->executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
-	mainRenderPipeline->executeCommands();
-	mainRenderPipeline->finishCommands();
+	renderPipeline->executeCommandNow<engine::graphics::ViewportCommand>(glm::vec4(0,0,getSize().x,getSize().y));
+	renderPipeline->prepareCommands();
+	renderPipeline->executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
+	renderPipeline->executeCommands();
+	renderPipeline->finishCommands();
 
 }
 
 void hexen::editor::gui::SceneWindow::initialize()
 {
-	HEXEN_ADD_TO_PROFILE()
-
-	mainRenderPipeline = hexen::engine::graphics::RenderPipeline::create();
-	engine::graphics::FrameBufferSpecification const specification;
-	auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::FramebufferCommand>(mainRenderPipeline->getID(), specification);
-	framebuffer = engine::graphics::RenderPipeline::getCommandByType<engine::graphics::FramebufferCommand>(mainRenderPipeline->getID(), id)->getPointerToFrameBuffer();
+	HEXEN_ADD_TO_PROFILE();
 
 	auto scene = engine::core::SceneManager::getCurrentScene();
 	engine::core::u32 componentHandle{0};
@@ -78,4 +74,24 @@ hexen::editor::gui::SceneWindow::SceneWindow(std::string &&name, const std::weak
 {
 	HEXEN_ADD_TO_PROFILE();
 	initialize();
+}
+
+void hexen::editor::gui::SceneWindow::begin()
+{
+	HEXEN_ADD_TO_PROFILE();
+}
+
+void hexen::editor::gui::SceneWindow::draw()
+{
+	HEXEN_ADD_TO_PROFILE();
+	ImGui::Begin(getName().c_str());
+	{
+		addFramebufferContentToWindow();
+	}
+	ImGui::End();
+}
+
+void hexen::editor::gui::SceneWindow::end()
+{
+	HEXEN_ADD_TO_PROFILE();
 }

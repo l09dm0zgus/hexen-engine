@@ -64,11 +64,13 @@ void hexen::editor::EditorGameLoop::loop()
 			accumulator -= deltaTime;
 		}
 
-		editorGui->renderFrameBufferWindowsContents();
-		systemManager->render(getAlpha());
+		engine::graphics::ClearCommand command(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
+		command.execute();
 
 		editorGui->begin();
 		editorGui->draw();
+		editorGui->renderFrameBufferWindowsContents();
+		systemManager->render(getAlpha());
 		editorGui->end();
 
 		window->swapBuffers();

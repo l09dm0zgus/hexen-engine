@@ -20,6 +20,8 @@ hexen::engine::graphics::gl::GLFrameBuffer::~GLFrameBuffer()
 {
 	HEXEN_ADD_TO_PROFILE();
 	glDeleteFramebuffers(1, &object);
+	glDeleteTextures(1,&colorAttachment);
+	glDeleteTextures(1, &depthAttachment);
 }
 
 void hexen::engine::graphics::gl::GLFrameBuffer::bind() const noexcept
@@ -37,6 +39,10 @@ void hexen::engine::graphics::gl::GLFrameBuffer::unbind() const noexcept
 void hexen::engine::graphics::gl::GLFrameBuffer::setSize(const glm::vec2 &size)
 {
 	HEXEN_ADD_TO_PROFILE();
+	glDeleteFramebuffers(1, &object);
+	glDeleteTextures(1,&colorAttachment);
+	glDeleteTextures(1, &depthAttachment);
+
 	bufferSpecification.size = size;
 	create();
 }
@@ -50,7 +56,6 @@ void hexen::engine::graphics::gl::GLFrameBuffer::create()
 
 	glCreateTextures(GL_TEXTURE_2D, 1, &colorAttachment);
 	glBindTexture(GL_TEXTURE_2D, colorAttachment);
-
 	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA32F,bufferSpecification.size.x,bufferSpecification.size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
