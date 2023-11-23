@@ -10,13 +10,11 @@ hexen::editor::components::graphics::DrawCheckerboardQuad::DrawCheckerboardQuad(
 	HEXEN_ADD_TO_PROFILE();
 	std::cout << "ShaderAssets: " << shaderAssets[0]->getName() << " ," << shaderAssets[1]->getName() << "\n";
 	vertexArray = engine::graphics::VertexArray::create();
-	elementsBuffer = engine::graphics::ElementsBuffer::create(quadIndices.data(),indicesArraySize * sizeof(engine::core::u32));
+	elementsBuffer = engine::graphics::ElementsBuffer::create(quadIndices.data(), indicesArraySize * sizeof(engine::core::u32));
 	vertexBuffer = engine::graphics::VertexBuffer::create(quadVertices.data(), vertexArraySize * sizeof(float));
 
-	vertexBuffer->setLayout({
-			{ engine::graphics::ShaderDataType::VEC3F , "aPos" },
-			{ engine::graphics::ShaderDataType::VEC2F , "aTextureCoordinates"}
-	});
+	vertexBuffer->setLayout({{engine::graphics::ShaderDataType::VEC3F, "aPos"},
+			{engine::graphics::ShaderDataType::VEC2F, "aTextureCoordinates"}});
 
 	vertexArray->addVertexBuffer(vertexBuffer);
 	vertexArray->setElementBuffer(elementsBuffer);
@@ -33,9 +31,9 @@ void hexen::editor::components::graphics::DrawCheckerboardQuad::execute()
 {
 	HEXEN_ADD_TO_PROFILE();
 	shaderProgram->bind();
-	shaderProgram->setVector2f("windowSize",windowSize);
-	shaderProgram->setVector2f("cellCount",cellCount);
-	shaderProgram->setVector4f("firstColor",firstColor);
+	shaderProgram->setVector2f("windowSize", windowSize);
+	shaderProgram->setVector2f("cellCount", cellCount);
+	shaderProgram->setVector4f("firstColor", firstColor);
 	shaderProgram->setVector4f("secondColor", secondColor);
 
 	vertexArray->bind();
