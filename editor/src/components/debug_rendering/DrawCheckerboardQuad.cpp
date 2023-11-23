@@ -4,13 +4,14 @@
 
 #include "DrawCheckerboardQuad.hpp"
 #include <draw_calls/DrawCalls.hpp>
-
-hexen::editor::components::graphics::DrawCheckerboardQuad::DrawCheckerboardQuad(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, hexen::engine::core::i32 size) : size(size)
+#include <graphics/shaders/ShaderAsset.hpp>
+hexen::editor::components::graphics::DrawCheckerboardQuad::DrawCheckerboardQuad(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec2 &size) : windowSize(size), cellCount(size.x / 10, size.y / 10)
 {
 	HEXEN_ADD_TO_PROFILE();
+	std::cout << "ShaderAssets: " << shaderAssets[0]->getName() << " ," << shaderAssets[1]->getName() << "\n";
 	vertexArray = engine::graphics::VertexArray::create();
-	elementsBuffer = engine::graphics::ElementsBuffer::create(quadIndices.data(),indicesArraySize);
-	vertexBuffer = engine::graphics::VertexBuffer::create(quadVertices.data(), vertexArraySize);
+	elementsBuffer = engine::graphics::ElementsBuffer::create(quadIndices.data(),indicesArraySize * sizeof(engine::core::u32));
+	vertexBuffer = engine::graphics::VertexBuffer::create(quadVertices.data(), vertexArraySize * sizeof(float));
 
 	vertexBuffer->setLayout({
 			{ engine::graphics::ShaderDataType::VEC3F , "aPos" },
@@ -32,7 +33,10 @@ void hexen::editor::components::graphics::DrawCheckerboardQuad::execute()
 {
 	HEXEN_ADD_TO_PROFILE();
 	shaderProgram->bind();
-	shaderProgram->setFloat("size", size);
+	shaderProgram->setVector2f("windowSize",windowSize);
+	shaderProgram->setVector2f("cellCount",cellCount);
+	shaderProgram->setVector4f("firstColor",firstColor);
+	shaderProgram->setVector4f("secondColor", secondColor);
 
 	vertexArray->bind();
 	engine::graphics::drawTriangles(indicesArraySize);
@@ -42,4 +46,17 @@ void hexen::editor::components::graphics::DrawCheckerboardQuad::execute()
 void hexen::editor::components::graphics::DrawCheckerboardQuad::finish()
 {
 	HEXEN_ADD_TO_PROFILE();
+}
+
+void hexen::editor::components::graphics::DrawCheckerboardQuad::setWindowSize(const glm::vec2 &newWindowSize)
+{
+	HEXEN_ADD_TO_PROFILE();
+	windowSize = newWindowSize;
+	cellCount = {newWindowSize.x / 10, newWindowSize.y / 10};
+}
+
+void hexen::editor::components::graphics::DrawCheckerboardQuad::setColors(const glm::vec4 &newFirstColor, const glm::vec4 &newSecondColor)
+{
+	firstColor = newFirstColor;
+	secondColor = newSecondColor;
 }
