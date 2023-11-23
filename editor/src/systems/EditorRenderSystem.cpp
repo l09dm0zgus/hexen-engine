@@ -9,6 +9,7 @@
 #include <systems/TaskSystem.hpp>
 
 hexen::engine::components::ComponentContainer<hexen::editor::components::graphics::GridComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::debugGridComponentsContainer;
+hexen::engine::components::ComponentContainer<hexen::editor::components::graphics::CheckerboardQuadComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::checkerboardQuadsComponents;
 hexen::engine::components::ComponentContainer<hexen::engine::components::TransformComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::transformComponents;
 hexen::engine::components::ComponentContainer<hexen::engine::components::graphics::CameraComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::camerasComponents;
 

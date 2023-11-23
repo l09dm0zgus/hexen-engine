@@ -10,6 +10,7 @@
 #include <components/transform/TransformComponent.hpp>
 #include <core/Types.hpp>
 #include <systems/IRenderSystem.hpp>
+#include "../components/debug_rendering/CheckerboardQuadComponent.hpp"
 
 namespace hexen::editor::systems
 {
@@ -67,6 +68,12 @@ namespace hexen::editor::systems
 				debugGridComponentsContainer[handle] = components::graphics::GridComponent(args...);
 				return handle;
 			}
+			else if constexpr (std::is_same_v<T, components::graphics::CheckerboardQuadComponent>)
+			{
+				handle = checkerboardQuadsComponents.reserve();
+				checkerboardQuadsComponents[handle] = components::graphics::CheckerboardQuadComponent(args...);
+				return handle;
+			}
 			else
 			{
 				static_assert(false, "Cannot register this component.Component container with T does not exist!");
@@ -104,6 +111,10 @@ namespace hexen::editor::systems
 			{
 				return &debugGridComponentsContainer[handle];
 			}
+			else if constexpr (std::is_same_v<T, components::graphics::CheckerboardQuadComponent>)
+			{
+				return &checkerboardQuadsComponents[handle];
+			}
 			else
 			{
 				static_assert(false, "Cannot get component with T type.Component container with T does not exist!");
@@ -138,6 +149,10 @@ namespace hexen::editor::systems
 			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
 			{
 				debugGridComponentsContainer.release(handle);
+			}
+			else if constexpr (std::is_same_v<T, components::graphics::CheckerboardQuadComponent>)
+			{
+				checkerboardQuadsComponents.release(handle);
 			}
 			else
 			{
@@ -179,7 +194,7 @@ namespace hexen::editor::systems
 		void setDeltaTimeForCameras(float deltaTime);
 
 	private:
-		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 100;
+		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 10;
 
 		/**
  		* @brief Stores grid components in the render system.
@@ -211,6 +226,8 @@ namespace hexen::editor::systems
  		*/
 
 		static engine::components::ComponentContainer<engine::components::graphics::CameraComponent, COMPONENTS_CONTAINER_SIZE> camerasComponents;
+
+		static engine::components::ComponentContainer<editor::components::graphics::CheckerboardQuadComponent, COMPONENTS_CONTAINER_SIZE> checkerboardQuadsComponents;
 
 		/**
  		* @brief Updates the grid matrices
