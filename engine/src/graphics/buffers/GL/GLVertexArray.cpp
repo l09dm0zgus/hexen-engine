@@ -54,6 +54,7 @@ hexen::engine::graphics::gl::GLVertexArray::GLVertexArray()
 {
 	HEXEN_ADD_TO_PROFILE();
 	glGenVertexArrays(1, &object);
+	glBindVertexArray(object);
 }
 
 void hexen::engine::graphics::gl::GLVertexArray::bind() const
