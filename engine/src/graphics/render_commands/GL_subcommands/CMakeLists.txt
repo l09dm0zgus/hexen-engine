@@ -3,4 +3,5 @@ project(Hexen)
 
 target_sources(${RENDER_MODULE_NAME} PUBLIC
         GLClear.hpp
-        GLViewport.hpp)
+        GLViewport.hpp
+        GLEnableBlending.hpp)
