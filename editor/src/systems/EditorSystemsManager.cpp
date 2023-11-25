@@ -5,6 +5,7 @@
 #include "EditorSystemsManager.hpp"
 #include "../components/EditorCameraComponent.hpp"
 #include "../gui/EditorGUI.hpp"
+#include "../gui/editors_windows/FramebufferWindow.hpp"
 #include "EditorRenderSystem.hpp"
 #include "core/window/Window.hpp"
 #include "profiling/Profiling.hpp"
@@ -51,6 +52,10 @@ void hexen::editor::systems::EditorSystemsManager::render(float alpha)
 
 		currentSceneWindowSize = windowSize;
 	}
+	auto framebufferWindows = editorGui->getDockspace()->getListOfFramebufferWindows();
+	std::for_each(framebufferWindows.begin(), framebufferWindows.end(),[this](const std::shared_ptr<gui::FramebufferWindow> &framebufferWindow){
+				this->debugRenderSystem->updateCameraMatricesByWindowUUID(framebufferWindow->getSize(),framebufferWindow->getUUID());
+	});
 
 	debugRenderSystem->render(alpha);
 }

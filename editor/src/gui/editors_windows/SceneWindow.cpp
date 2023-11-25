@@ -30,7 +30,6 @@ void hexen::editor::gui::SceneWindow::initialize()
 
 	auto scene = engine::core::SceneManager::getCurrentScene();
 	engine::core::u32 componentHandle{0};
-	UUID = generateUUIDV4();
 
 	std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets;
 

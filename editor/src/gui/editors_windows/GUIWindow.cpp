@@ -3,6 +3,7 @@
 //
 
 #include "GUIWindow.hpp"
+#include <uuid/uuid.hpp>
 
 #include <utility>
 
@@ -20,10 +21,12 @@ glm::vec2 hexen::editor::gui::GUIWindow::getSize() const noexcept
 
 hexen::editor::gui::GUIWindow::GUIWindow(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : parentDockspace(parentDockspace), name(std::move(name))
 {
-	HEXEN_ADD_TO_PROFILE()
+	HEXEN_ADD_TO_PROFILE();
+	UUID = generateUUIDV4();
 }
 
 hexen::editor::gui::GUIWindow::GUIWindow(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace) : parentDockspace(parentDockspace), name(name)
 {
-	HEXEN_ADD_TO_PROFILE()
+	HEXEN_ADD_TO_PROFILE();
+	UUID = generateUUIDV4();
 }

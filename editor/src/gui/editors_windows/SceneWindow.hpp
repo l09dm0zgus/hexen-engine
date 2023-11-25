@@ -80,8 +80,6 @@ namespace hexen::editor::gui
 
 		void renderFramebufferContent() override;
 
-		std::string UUID;
-
 		/**
  		* @brief Initializes the Scene Window.
  		*

@@ -66,3 +66,15 @@ void hexen::editor::systems::EditorRenderSystem::setDeltaTimeForCameras(float de
 		camera.deltaTime = deltaTime;
 	}
 }
+
+void hexen::editor::systems::EditorRenderSystem::updateCameraMatricesByWindowUUID(const glm::vec2 &windowSize,const std::string& windowUUID)
+{
+	auto iter = std::find_if(camerasComponents.begin(), camerasComponents.end(), [&windowUUID](const engine::components::graphics::CameraComponent &cameraComponent){
+			return cameraComponent.getOwnerUUID() == windowUUID;
+	});
+
+	if(iter != camerasComponents.end())
+	{
+			iter->updateProjectionMatrix(windowSize.x, windowSize.y);
+	}
+}

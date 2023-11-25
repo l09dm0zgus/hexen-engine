@@ -57,7 +57,6 @@ namespace hexen::editor::gui
 		void setSize(T &&newSize)
 		{
 			size = std::forward<T>(newSize);
-			ImGui::SetNextWindowSize(ImVec2(size.x, size.y));
 		}
 
 		/**
@@ -189,6 +188,7 @@ namespace hexen::editor::gui
 
 		GUIWindow &operator=(const GUIWindow &guiWindow) = delete;
 
+		std::string getUUID() const { return UUID;}
 	protected:
 		/**
         * @brief Represents the size of an editor window.
@@ -199,6 +199,8 @@ namespace hexen::editor::gui
 
 		glm::vec2 size {200, 200};
 		std::weak_ptr<Dockspace> parentDockspace;
+
+		std::string UUID;
 
 	private:
 

@@ -28,6 +28,7 @@ namespace hexen::editor::systems
 	class EditorRenderSystem : public hexen::engine::systems::IRenderSystem
 	{
 	public:
+
 		/**
  		* @brief Register a new component.
  		*
@@ -193,6 +194,18 @@ namespace hexen::editor::systems
 
 		void setDeltaTimeForCameras(float deltaTime);
 
+		/**
+ 		* @brief This function updates the projection matrix of the camera component that matches the given window UUID.
+ 		*
+ 		* The function first tries to find a camera component in the `camerasComponents` collection where the owner's UUID matches the given window UUID.
+ 		* If such camera component is found, its projection matrix is updated based on the given window size.
+ 		*
+ 		* @param windowSize The size of the window. Defined by the x and y coordinates.
+ 		* @param windowUUID The UUID of the window. The function updates the camera component that has this UUID.
+ 		*/
+
+		static void updateCameraMatricesByWindowUUID(const glm::vec2 &windowSize,const std::string& windowUUID);
+
 	private:
 		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 10;
 
@@ -227,6 +240,14 @@ namespace hexen::editor::systems
 
 		static engine::components::ComponentContainer<engine::components::graphics::CameraComponent, COMPONENTS_CONTAINER_SIZE> camerasComponents;
 
+		/**
+ 		* @brief Stores checkerboards components in the render system.
+ 		*
+ 		* Static container for CheckerboardQuadComponent instances used in the EditorRenderSystem.
+ 		* These components provide essential information about the
+ 		* checkerboard pattern in background used in the editor rendering system.
+ 		*/
+
 		static engine::components::ComponentContainer<editor::components::graphics::CheckerboardQuadComponent, COMPONENTS_CONTAINER_SIZE> checkerboardQuadsComponents;
 
 		/**
@@ -241,5 +262,6 @@ namespace hexen::editor::systems
  		*/
 
 		void updateGridMatrices(components::graphics::GridComponent *debugGridComponent);
+
 	};
 }// namespace hexen::editor::systems
