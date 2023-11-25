@@ -4,10 +4,17 @@
 
 #include "EditorCameraComponent.hpp"
 #include <systems/InputHelper.hpp>
-void hexen::editor::components::graphics::EditorCameraComponent::moveForward(float value)
+void hexen::editor::components::graphics::EditorCameraComponent::moveUp(float value)
 {
 	HEXEN_ADD_TO_PROFILE()
-	position += (value * deltaTime * velocity) * cameraUp;
+	if (cameraProjection == engine::components::graphics::CameraProjection::PERSPECTIVE)
+	{
+		position += (value * deltaTime * velocity) * cameraUp;
+	}
+	else
+	{
+		position += (value * deltaTime * velocity) * -cameraUp;
+	}
 	updateViewMatrix();
 }
 
@@ -21,7 +28,16 @@ void hexen::editor::components::graphics::EditorCameraComponent::moveRight(float
 void hexen::editor::components::graphics::EditorCameraComponent::zoom(float value)
 {
 	HEXEN_ADD_TO_PROFILE()
-	position += cameraTarget * (value * deltaTime * velocity);
+	if (cameraProjection == engine::components::graphics::CameraProjection::PERSPECTIVE)
+	{
+		position += cameraTarget * (value * deltaTime * velocity);
+	}
+	else
+	{
+		orthoZoom += (value * deltaTime * (1.0f / velocity));
+		updateProjectionMatrix();
+	}
+
 	updateViewMatrix();
 }
 
@@ -35,9 +51,9 @@ hexen::editor::components::graphics::EditorCameraComponent::EditorCameraComponen
 	engine::input::InputHelper::addNewAxisMapping("Zoom", 1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::Q));
 	engine::input::InputHelper::addNewAxisMapping("Zoom", -1.0f, static_cast<engine::core::u32>(engine::core::input::Keyboard::Key::E));
 
-	engine::input::InputHelper::bindAxis("MoveForward", this,&EditorCameraComponent::moveForward);
+	engine::input::InputHelper::bindAxis("MoveForward", this, &EditorCameraComponent::moveUp);
 
-	engine::input::InputHelper::bindAxis("MoveRight", this,&EditorCameraComponent::moveRight);
+	engine::input::InputHelper::bindAxis("MoveRight", this, &EditorCameraComponent::moveRight);
 
-	engine::input::InputHelper::bindAxis("Zoom", this,&EditorCameraComponent::zoom);
+	engine::input::InputHelper::bindAxis("Zoom", this, &EditorCameraComponent::zoom);
 }

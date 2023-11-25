@@ -11,6 +11,16 @@
 namespace hexen::engine::components::graphics
 {
 	/**
+	* @enum CameraProjection
+	* @brief Defines the types of camera projection.
+	*/
+
+	enum class CameraProjection
+	{
+		PERSPECTIVE = 0,
+		ORTHOGONAL,
+	};
+	/**
     * @class CameraComponent
     * @brief Represents a camera component used in a game engine.
     *
@@ -22,7 +32,6 @@ namespace hexen::engine::components::graphics
 	class CameraComponent : public Component
 	{
 	public:
-
 		CameraComponent() = default;
 
 		/**
@@ -147,9 +156,45 @@ namespace hexen::engine::components::graphics
 
 		[[nodiscard]] float getPitch() const noexcept;
 
-		float deltaTime{0};
+		/**
+        * Changes the roll angle of the camera.
+        *
+        * This function allows you to change the pitch angle of the camera.
+        *
+        * @param rollAngle The new roll angle to set, in degrees.
+        */
+
+		void setRoll(float rollAngle);
+
+		/**
+ 		* @brief Get the roll angle of the camera.
+ 		*
+ 		* This function returns the roll angle of the camera component. The roll angle
+ 		* represents the rotation of the camera around its local z-axis.
+ 		*
+ 		* @return The roll angle of the camera in degrees.
+ 		*
+	 	* @note This function is const and noexcept, meaning it does not throw any exceptions
+ 		*       and does not modify the internal state of the camera component.
+ 		*/
+
+		[[nodiscard]] float getRoll() const noexcept;
+
+		void setProjection(CameraProjection newProjection);
+
+		/**
+		* @brief Delta time between frames/rendering.
+		*/
+
+		float deltaTime {0};
 
 	private:
+		/**
+		* @brief The fixed angle between the horizontal plane and the line from the eye of the observer to the object being viewed.
+		*/
+
+		static constexpr float ISOMETRIC_ANGLE = 35.264f;
+
 		/**
          * @brief View Matrix.
          */
@@ -178,15 +223,28 @@ namespace hexen::engine::components::graphics
          * @brief Current Yaw Angle.
          */
 
-		float currentYawAngle {-45.0};
+		float currentYawAngle {-90};
 
 		/**
          * @brief Current Pitch Angle.
          */
 
-		float currentPitchAngle {270.0f};
+		float currentPitchAngle {0};
+
+		/**
+		* @brief Changed roll angle of the camera
+		*/
+
+		float currentRollAngle {ISOMETRIC_ANGLE};
 
 	protected:
+		/**
+		* @brief Updates the projection matrix.
+		* Call glm::perspective or glm::ortho if setted CameraProjection to PERSPECTIVE/ORTHOGONAL
+		*/
+
+		void updateProjectionMatrix();
+
 		/**
          * @brief Up direction in camera space.
          */
@@ -221,5 +279,29 @@ namespace hexen::engine::components::graphics
         */
 
 		void updateViewMatrix();
+
+		/**
+		* @brief Current projection type for the camera.
+		*/
+
+		CameraProjection cameraProjection {CameraProjection::PERSPECTIVE};
+
+		/**
+		* @brief Current zoom factor for the orthographic projection.
+		*/
+
+		float orthoZoom = 1.0f / 10.0f;
+
+		/**
+		* @brief Currently set window height for the viewport.
+		*/
+
+		core::u32 windowHeight {0};
+
+		/**
+		* @brief Currently set window width for the viewport.
+		*/
+
+		core::u32 windowWidth {0};
 	};
 }// namespace hexen::engine::components::graphics

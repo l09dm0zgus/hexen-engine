@@ -35,12 +35,12 @@ namespace hexen::editor::components::graphics
 		EditorCameraComponent(engine::core::i32 viewportWidth, engine::core::i32 viewportHeight, float FOV);
 
 		/**
-        * Moves the camera component forward by the specified value.
+        * Moves the camera component up by the specified value.
         *
         * @param value The distance to move the camera forward.
         */
 
-		void moveForward(float value);
+		void moveUp(float value);
 
 		/**
         * Moves the camera component to the right by the specified value.
