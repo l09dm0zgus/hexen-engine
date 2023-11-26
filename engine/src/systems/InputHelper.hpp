@@ -7,6 +7,7 @@
 #include "InputSystem.hpp"
 #include <functional>
 #include <memory>
+#include <parallel_hashmap/phmap.h>
 
 namespace hexen::engine::input
 {
@@ -21,6 +22,20 @@ namespace hexen::engine::input
 	class InputHelper
 	{
 	public:
+
+		/**
+ 		* @brief Creates an input system and associates it with the specified owner.
+ 		* @param ownerUUID A string representing the UUID of the owner.
+ 		*/
+
+		static void createInputSystem(const std::string& ownerUUID);
+
+		/**
+ 		* @brief Processes input for all input systems.
+ 		* @param window A shared pointer to the window from which input data are collected.
+ 		*/
+
+		static void processInput(const std::shared_ptr<core::Window> &window);
 
 		/**
  		* Templated function `bindAction` for binding an action specified by `name` to a member function `method` of an instance of class T `object`.
@@ -274,8 +289,29 @@ namespace hexen::engine::input
 
 		[[nodiscard]] static glm::vec2 getMouseLastReleasedButtonPosition() noexcept;
 
+		/**
+ 		* @brief Enables input for the specified window.
+ 		* @param ownerUUID The UUID of the window owner.
+ 		*/
+
+		static void enableInputForWindow(const std::string &ownerUUID) noexcept;
+
+		/**
+ 		* @brief Disables input for the current window.
+ 		*/
+
+		static void disableInputForCurrentWindow() noexcept;
+
+		/**
+ 		* @brief Adds a graphical user interface (GUI) to all input systems.
+ 		* @param gui A shared pointer to the GUI to add.
+ 		*/
+
+		static void addGUI(const std::shared_ptr<gui::IGUI>  &gui);
 
 	private:
 		static std::shared_ptr<systems::InputSystem> getInputSystem();
+		static std::string currentOwnerOfInput;
+		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<systems::InputSystem>> inputSystems;
 	};
 }// namespace hexen::engine::input

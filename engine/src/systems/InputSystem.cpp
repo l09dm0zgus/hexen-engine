@@ -23,9 +23,12 @@ void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<cor
 			gui->processEvent(event);
 		}
 
-		processKeyboardInput(event);
-		processGamepadsInput(event);
-		processMouseInput(event);
+		if(isEnabledInput)
+		{
+			processKeyboardInput(event);
+			processGamepadsInput(event);
+			processMouseInput(event);
+		}
 
 		if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED || keyboard->isKeyPressed(core::input::Keyboard::Key::ESCAPE))
 		{

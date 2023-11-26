@@ -28,13 +28,6 @@ namespace hexen::engine::systems
 
 	class SystemsManager : public hexen::engine::core::memory::AllocatedObject
 	{
-	protected:
-		/**
-     	* @brief Input system that is shared across the game
-     	*/
-
-		std::shared_ptr<hexen::engine::systems::InputSystem> inputSystem;
-
 	private:
 		/**
         * @brief Represents the current system manager.
@@ -202,12 +195,5 @@ namespace hexen::engine::systems
 
 		~SystemsManager() override = default;
 
-		/**
-     	* @brief Getter function for the input system
-     	*
-     	* @return Returns a shared pointer to the input system
-     	*/
-
-		[[nodiscard]] std::shared_ptr<InputSystem> getInputSystem() const noexcept;
 	};
 }// namespace hexen::engine::systems

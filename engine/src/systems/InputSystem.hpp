@@ -475,6 +475,8 @@ namespace hexen::engine::systems
         */
 
 		AxisMappingCallback findAxisMappingCallback(core::u32 playerId, const std::string &name);
+
+		bool isEnabledInput = true;
 	};
 
 }// namespace hexen::engine::systems

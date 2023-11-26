@@ -92,6 +92,7 @@ namespace hexen::editor::gui
 		void initialize();
 
 
+		ImGuiWindowFlags flags = ImGuiWindowFlags_None;
 	};
 
 }// namespace hexen::editor::gui

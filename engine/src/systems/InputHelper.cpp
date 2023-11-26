@@ -5,6 +5,8 @@
 #include "InputHelper.hpp"
 #include "SystemsManager.hpp"
 
+std::string  hexen::engine::input::InputHelper::currentOwnerOfInput;
+phmap::parallel_flat_hash_map<std::string, std::shared_ptr<hexen::engine::systems::InputSystem>> hexen::engine::input::InputHelper::inputSystems;
 
 void hexen::engine::input::InputHelper::bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers)
 {
@@ -15,13 +17,8 @@ void hexen::engine::input::InputHelper::bindAction(const std::string &name, cons
 std::shared_ptr<hexen::engine::systems::InputSystem> hexen::engine::input::InputHelper::getInputSystem()
 {
 	HEXEN_ADD_TO_PROFILE();
-	auto manager = systems::SystemsManager::getCurrentSystemManager();
-	HEXEN_ASSERT(manager != nullptr, "SystemsManager is nullptr");
-
-	auto inputSystem = manager->getInputSystem();
-	HEXEN_ASSERT(inputSystem != nullptr, "InputSystem is nullptr");
-
-	return inputSystem;
+	HEXEN_ASSERT(!currentOwnerOfInput.empty(), "Current owner not set!Please call createInputSystem() or enableInput()!");
+	return inputSystems[currentOwnerOfInput];
 }
 
 void hexen::engine::input::InputHelper::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers)
@@ -119,4 +116,38 @@ glm::vec2 hexen::engine::input::InputHelper::getMouseLastReleasedButtonPosition(
 {
 	HEXEN_ADD_TO_PROFILE();
 	return getInputSystem()->mouse->getLastReleasedButtonPosition();
+}
+
+void hexen::engine::input::InputHelper::disableInputForCurrentWindow() noexcept
+{
+	HEXEN_ADD_TO_PROFILE();
+	getInputSystem()->isEnabledInput = false;
+}
+
+void hexen::engine::input::InputHelper::createInputSystem(const std::string &ownerUUID)
+{
+	currentOwnerOfInput = ownerUUID;
+	inputSystems[ownerUUID] = core::memory::make_shared<systems::InputSystem>();
+}
+
+void hexen::engine::input::InputHelper::processInput(const std::shared_ptr<core::Window> &window)
+{
+	for(auto [UUID, inputSystem] : inputSystems)
+	{
+		inputSystem->processInput(window);
+	}
+}
+
+void hexen::engine::input::InputHelper::enableInputForWindow(const std::string &ownerUUID) noexcept
+{
+	currentOwnerOfInput = ownerUUID;
+	getInputSystem()->isEnabledInput = true;
+}
+
+void hexen::engine::input::InputHelper::addGUI(const std::shared_ptr<gui::IGUI> &gui)
+{
+	for(auto [UUID, inputSystem] : inputSystems)
+	{
+		inputSystem->addGUI(gui);
+	}
 }

@@ -12,6 +12,7 @@
 #include <render_commands/ClearCommand.hpp>
 #include <render_commands/FramebufferCommand.hpp>
 #include <systems/RenderSystem.hpp>
+#include <systems/InputHelper.hpp>
 
 void hexen::editor::gui::SceneWindow::renderFramebufferContent()
 {
@@ -27,7 +28,7 @@ void hexen::editor::gui::SceneWindow::renderFramebufferContent()
 void hexen::editor::gui::SceneWindow::initialize()
 {
 	HEXEN_ADD_TO_PROFILE();
-
+	engine::input::InputHelper::createInputSystem(UUID);
 	auto scene = engine::core::SceneManager::getCurrentScene();
 	engine::core::u32 componentHandle{0};
 
@@ -85,6 +86,14 @@ void hexen::editor::gui::SceneWindow::draw()
 	HEXEN_ADD_TO_PROFILE();
 	ImGui::Begin(getName().c_str());
 	{
+		if(ImGui::IsWindowFocused())
+		{
+			engine::input::InputHelper::enableInputForWindow(UUID);
+		}
+		else
+		{
+			engine::input::InputHelper::disableInputForCurrentWindow();
+		}
 		addFramebufferContentToWindow();
 	}
 	ImGui::End();

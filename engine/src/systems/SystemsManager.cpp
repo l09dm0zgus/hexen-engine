@@ -3,6 +3,7 @@
 //
 
 #include "SystemsManager.hpp"
+#include "InputHelper.hpp"
 #include "../core/window/Window.hpp"
 #include "InputSystem.hpp"
 #include "TaskSystem.hpp"
@@ -14,7 +15,7 @@ hexen::engine::systems::SystemsManager *hexen::engine::systems::SystemsManager::
 void hexen::engine::systems::SystemsManager::processInput(const std::shared_ptr<core::Window> &window)
 {
 	HEXEN_ADD_TO_PROFILE();
-	inputSystem->processInput(window);
+	input::InputHelper::processInput(window);
 }
 
 void hexen::engine::systems::SystemsManager::start()
@@ -47,11 +48,5 @@ void hexen::engine::systems::SystemsManager::update(float deltaTime)
 hexen::engine::systems::SystemsManager::SystemsManager()
 {
 	HEXEN_ADD_TO_PROFILE();
-	inputSystem = hexen::engine::core::memory::make_unique<hexen::engine::systems::InputSystem>();
 }
 
-std::shared_ptr<hexen::engine::systems::InputSystem> hexen::engine::systems::SystemsManager::getInputSystem() const noexcept
-{
-	HEXEN_ADD_TO_PROFILE();
-	return inputSystem;
-}
