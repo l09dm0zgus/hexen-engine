@@ -6,7 +6,7 @@
 
 #include "../components/debug_rendering/GridComponent.hpp"
 #include <components/ComponentContainer.hpp>
-#include <components/camera/CameraComponent.hpp>
+#include "../components/EditorCameraComponent.hpp"
 #include <components/transform/TransformComponent.hpp>
 #include <core/Types.hpp>
 #include <systems/IRenderSystem.hpp>
@@ -57,10 +57,10 @@ namespace hexen::editor::systems
 				transformComponents[handle] = engine::components::TransformComponent(args...);
 				return handle;
 			}
-			else if constexpr (std::is_same_v<T, engine::components::graphics::CameraComponent>)
+			else if constexpr (std::is_same_v<T, components::graphics::EditorCameraComponent>)
 			{
 				handle = camerasComponents.reserve();
-				camerasComponents[handle] = engine::components::graphics::CameraComponent(args...);
+				camerasComponents[handle] = components::graphics::EditorCameraComponent(args...);
 				return handle;
 			}
 			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
@@ -104,7 +104,7 @@ namespace hexen::editor::systems
 			{
 				return &transformComponents[handle];
 			}
-			else if constexpr (std::is_same_v<T, engine::components::graphics::CameraComponent>)
+			else if constexpr (std::is_same_v<T, components::graphics::EditorCameraComponent>)
 			{
 				return &camerasComponents[handle];
 			}
@@ -143,7 +143,7 @@ namespace hexen::editor::systems
 			{
 				transformComponents.release(handle);
 			}
-			else if constexpr (std::is_same_v<T, engine::components::graphics::CameraComponent>)
+			else if constexpr (std::is_same_v<T, components::graphics::EditorCameraComponent>)
 			{
 				camerasComponents.release(handle);
 			}
@@ -238,7 +238,7 @@ namespace hexen::editor::systems
  		* cameras used in the editor rendering system.
  		*/
 
-		static engine::components::ComponentContainer<engine::components::graphics::CameraComponent, COMPONENTS_CONTAINER_SIZE> camerasComponents;
+		static engine::components::ComponentContainer<components::graphics::EditorCameraComponent, COMPONENTS_CONTAINER_SIZE> camerasComponents;
 
 		/**
  		* @brief Stores checkerboards components in the render system.
@@ -262,6 +262,22 @@ namespace hexen::editor::systems
  		*/
 
 		void updateGridMatrices(components::graphics::GridComponent *debugGridComponent);
+
+		/**
+ 		* @brief Updates CheckerboardQuadComponent's view, projection, and transform matrices.
+ 		*
+ 		* This function sequentially performs a parallel find_if operation on camerasComponents and transformComponents containers.
+ 		* The objective is to find, for the provided CheckerboardQuadComponent, the corresponding CameraComponent and TransformComponent.
+ 		* When it finds the corresponding CameraComponent, it sets the view and projection matrices in the CheckerboardQuadComponent from the CameraComponent.
+ 		* Similarly, when it finds the corresponding TransformComponent, it sets the transform matrix in the CheckerboardQuadComponent from the TransformComponent.
+ 		*
+ 		* @param checkerboardQuadComponent Pointer to CheckerboardQuadComponent to update.
+ 		*
+ 		* @note The function uses HEXEN_ADD_TO_PROFILE() for profiling.
+ 		* @note The function runs in parallel using std::execution::par policy in the find_if operation for increased performance.
+ 		*/
+
+		void updateCheckerboardQuadsMatrices(components::graphics::CheckerboardQuadComponent* checkerboardQuadComponent);
 
 	};
 }// namespace hexen::editor::systems

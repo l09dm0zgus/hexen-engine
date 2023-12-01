@@ -11,6 +11,7 @@
 
 namespace hexen::editor::components::graphics
 {
+	class CheckerboardQuadComponent;
 	/**
  	* @class DrawCheckerboardQuad
  	* @brief Class responsible for drawing a checkerboard quad.
@@ -49,6 +50,12 @@ namespace hexen::editor::components::graphics
 		glm::vec4 secondColor {0.5f, 0.5f, 0.5f, 1.0f};
 		glm::vec2 cellCount;
 		glm::vec2 windowSize;
+
+		glm::mat4 view{1};
+		glm::mat4 projection{1};
+		glm::mat4 transform{1};
+
+		friend class CheckerboardQuadComponent;
 
 	public:
 		/**

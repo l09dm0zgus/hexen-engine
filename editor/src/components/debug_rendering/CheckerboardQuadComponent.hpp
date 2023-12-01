@@ -54,5 +54,26 @@ namespace hexen::editor::components::graphics
      	*/
 
 		void setColors(const glm::vec4 &firstColor, const glm::vec4 &secondColor);
+
+		/**
+     	* @brief Sets the view and projection matrices.
+     	*
+     	* This function sets the value of the view and projection matrices which will be used by the shaders for rendering the grid.
+     	*
+     	* @param view The view matrix.
+     	* @param projection The projection matrix.
+     	*/
+
+		void setViewAndProjectionMatrices(const glm::mat4 &view, const glm::mat4 &projection);
+
+		/**
+     	* @brief Sets the transform matrix.
+     	*
+     	* This function sets the transform matrix which will be used by the shaders to transform the vertices of the grid.
+     	*
+     	* @param transform The transform matrix.
+     	*/
+
+		void setTransformMatrix(const glm::mat4 &transform);
 	};
 }// namespace hexen::editor::components::graphics

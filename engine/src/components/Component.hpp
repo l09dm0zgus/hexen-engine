@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "../core/memory_pool/AllocatedObject.hpp"
+#include <memory_pool/AllocatedObject.hpp>
 #include <string>
+#include <uuid/uuid.hpp>
 
 namespace hexen::engine::components
 {
@@ -23,6 +24,13 @@ namespace hexen::engine::components
 	class Component : public core::memory::AllocatedObject
 	{
 	public:
+		/**
+		 * @brief Default constructor which generate and set UUID.
+		 */
+		Component()
+		{
+			UUID = generateUUIDV4();
+		}
 		/**
 	     * @brief Destructor that overrides the destructor from the base class.
 	     */
@@ -79,6 +87,17 @@ namespace hexen::engine::components
 			return name;
 		}
 
+		/**
+	     * @brief Gets the component's UUID.
+	     *
+	     * @return The current component's UUID.
+	     */
+
+		[[nodiscard]] std::string getUUID() const noexcept
+		{
+			return UUID;
+		}
+
 	private:
 		/**
 	     * @brief UUID of the owner of the component.
@@ -91,5 +110,7 @@ namespace hexen::engine::components
 	     */
 
 		std::string name;
+
+		std::string UUID;
 	};
 }// namespace hexen::engine::components

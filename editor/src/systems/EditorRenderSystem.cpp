@@ -11,7 +11,7 @@
 hexen::engine::components::ComponentContainer<hexen::editor::components::graphics::GridComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::debugGridComponentsContainer;
 hexen::engine::components::ComponentContainer<hexen::editor::components::graphics::CheckerboardQuadComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::checkerboardQuadsComponents;
 hexen::engine::components::ComponentContainer<hexen::engine::components::TransformComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::transformComponents;
-hexen::engine::components::ComponentContainer<hexen::engine::components::graphics::CameraComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::camerasComponents;
+hexen::engine::components::ComponentContainer<hexen::editor::components::graphics::EditorCameraComponent, hexen::editor::systems::EditorRenderSystem::COMPONENTS_CONTAINER_SIZE> hexen::editor::systems::EditorRenderSystem::camerasComponents;
 
 void hexen::editor::systems::EditorRenderSystem::render(float alpha)
 {
@@ -25,6 +25,11 @@ void hexen::editor::systems::EditorRenderSystem::render(float alpha)
 	for (auto &grid : debugGridComponentsContainer)
 	{
 		hexen::engine::systems::TaskSystem::addTask(hexen::engine::core::threading::TaskPriority::Normal, this, &EditorRenderSystem::updateGridMatrices, &grid);
+	}
+
+	for (auto &checkerboardQuadsComponent : checkerboardQuadsComponents)
+	{
+		hexen::engine::systems::TaskSystem::addTask(hexen::engine::core::threading::TaskPriority::Normal, this, &EditorRenderSystem::updateCheckerboardQuadsMatrices, &checkerboardQuadsComponent);
 	}
 }
 
@@ -46,10 +51,13 @@ void hexen::editor::systems::EditorRenderSystem::updateGridMatrices(components::
 	auto transformIter = std::find_if(std::execution::par, transformComponents.begin(), transformComponents.end(), [&debugGridComponent](const engine::components::TransformComponent &transformComponent)
 			{ return debugGridComponent->getOwnerUUID() == transformComponent.getOwnerUUID(); });
 
-	if (cameraIter != camerasComponents.end() && transformIter != transformComponents.end())
+	if (cameraIter != camerasComponents.end())
+	{
+		debugGridComponent->setViewAndProjectionMatrices(cameraIter->getViewMatrix(), cameraIter->getProjectionMatrix());
+	}
+	if (transformIter != transformComponents.end())
 	{
 		debugGridComponent->setTransformMatrix(transformIter->getTransformMatrix());
-		debugGridComponent->setViewAndProjectionMatrices(cameraIter->getViewMatrix(), cameraIter->getProjectionMatrix());
 	}
 }
 
@@ -67,14 +75,34 @@ void hexen::editor::systems::EditorRenderSystem::setDeltaTimeForCameras(float de
 	}
 }
 
-void hexen::editor::systems::EditorRenderSystem::updateCameraMatricesByWindowUUID(const glm::vec2 &windowSize,const std::string& windowUUID)
+void hexen::editor::systems::EditorRenderSystem::updateCameraMatricesByWindowUUID(const glm::vec2 &windowSize, const std::string &windowUUID)
 {
-	auto iter = std::find_if(camerasComponents.begin(), camerasComponents.end(), [&windowUUID](const engine::components::graphics::CameraComponent &cameraComponent){
-			return cameraComponent.getOwnerUUID() == windowUUID;
-	});
+	HEXEN_ADD_TO_PROFILE();
+	auto iter = std::find_if(camerasComponents.begin(), camerasComponents.end(), [&windowUUID](const engine::components::graphics::CameraComponent &cameraComponent)
+			{ return cameraComponent.getOwnerUUID() == windowUUID; });
 
-	if(iter != camerasComponents.end())
+	if (iter != camerasComponents.end())
 	{
-			iter->updateProjectionMatrix(windowSize.x, windowSize.y);
+		iter->updateProjectionMatrix(windowSize.x, windowSize.y);
+	}
+}
+
+void hexen::editor::systems::EditorRenderSystem::updateCheckerboardQuadsMatrices(hexen::editor::components::graphics::CheckerboardQuadComponent *checkerboardQuadComponent)
+{
+	HEXEN_ADD_TO_PROFILE();
+	auto cameraIter = std::find_if(std::execution::par, camerasComponents.begin(), camerasComponents.end(), [&checkerboardQuadComponent](const engine::components::graphics::CameraComponent &cameraComponent)
+			{ return cameraComponent.getOwnerUUID() == checkerboardQuadComponent->getOwnerUUID(); });
+
+	auto transformIter = std::find_if(std::execution::par, transformComponents.begin(), transformComponents.end(), [&checkerboardQuadComponent](const engine::components::TransformComponent &transformComponent)
+			{ return checkerboardQuadComponent->getUUID() == transformComponent.getOwnerUUID(); });
+
+	if (cameraIter != camerasComponents.end())
+	{
+		checkerboardQuadComponent->setViewAndProjectionMatrices(cameraIter->getViewMatrix(), cameraIter->getProjectionMatrix());
+	}
+
+	if(transformIter != transformComponents.end())
+	{
+		checkerboardQuadComponent->setTransformMatrix(transformIter->getTransformMatrix());
 	}
 }

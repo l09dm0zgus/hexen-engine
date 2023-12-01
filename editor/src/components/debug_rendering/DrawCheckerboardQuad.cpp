@@ -3,12 +3,13 @@
 //
 
 #include "DrawCheckerboardQuad.hpp"
+#include <glm/ext/matrix_transform.hpp>
 #include <draw_calls/DrawCalls.hpp>
 #include <graphics/shaders/ShaderAsset.hpp>
 hexen::editor::components::graphics::DrawCheckerboardQuad::DrawCheckerboardQuad(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec2 &size) : windowSize(size), cellCount(size.x / 10, size.y / 10)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::cout << "ShaderAssets: " << shaderAssets[0]->getName() << " ," << shaderAssets[1]->getName() << "\n";
+
 	vertexArray = engine::graphics::VertexArray::create();
 	elementsBuffer = engine::graphics::ElementsBuffer::create(quadIndices.data(), indicesArraySize * sizeof(engine::core::u32));
 	vertexBuffer = engine::graphics::VertexBuffer::create(quadVertices.data(), vertexArraySize * sizeof(float));
@@ -20,6 +21,7 @@ hexen::editor::components::graphics::DrawCheckerboardQuad::DrawCheckerboardQuad(
 	vertexArray->setElementBuffer(elementsBuffer);
 
 	shaderProgram = engine::graphics::ShaderProgram::create(shaderAssets);
+
 }
 
 void hexen::editor::components::graphics::DrawCheckerboardQuad::prepare()
@@ -35,6 +37,10 @@ void hexen::editor::components::graphics::DrawCheckerboardQuad::execute()
 	shaderProgram->setVector2f("cellCount", cellCount);
 	shaderProgram->setVector4f("firstColor", firstColor);
 	shaderProgram->setVector4f("secondColor", secondColor);
+
+	shaderProgram->setMatrix4("model", transform);
+	shaderProgram->setMatrix4("projection",projection);
+	shaderProgram->setMatrix4("view", view);
 
 	vertexArray->bind();
 	engine::graphics::drawTriangles(indicesArraySize);

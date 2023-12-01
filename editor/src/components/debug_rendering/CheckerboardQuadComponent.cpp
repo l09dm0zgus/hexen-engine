@@ -21,3 +21,14 @@ void hexen::editor::components::graphics::CheckerboardQuadComponent::setColors(c
 {
 	drawCheckerboard->setColors(firstColor, secondColor);
 }
+
+void hexen::editor::components::graphics::CheckerboardQuadComponent::setViewAndProjectionMatrices(const glm::mat4 &view, const glm::mat4 &projection)
+{
+	drawCheckerboard->projection = projection;
+	drawCheckerboard->view = view;
+}
+
+void hexen::editor::components::graphics::CheckerboardQuadComponent::setTransformMatrix(const glm::mat4 &transform)
+{
+	drawCheckerboard->transform = transform;
+}
