@@ -14,10 +14,21 @@
 
 namespace hexen::engine::graphics::gl
 {
-	static HEXEN_INLINE void drawLines(core::u32 countOfLines)
+	static HEXEN_INLINE void drawLines(core::u32 countOfLines, float lineWidth = 1.0f)
 	{
 		HEXEN_ADD_TO_PROFILE();
+		if(lineWidth < 1.0f || lineWidth > 1.0f)
+		{
+			glEnable(GL_LINE_WIDTH);
+			glLineWidth(lineWidth);
+		}
+
 		glDrawElements(GL_LINES, countOfLines , GL_UNSIGNED_INT, nullptr);
+		if(lineWidth < 1.0f || lineWidth > 1.0f)
+		{
+			glDisable(GL_LINE_WIDTH);
+		}
+
 	}
 
 	static HEXEN_INLINE void drawTriangles(core::u32 countOfTriangles)
