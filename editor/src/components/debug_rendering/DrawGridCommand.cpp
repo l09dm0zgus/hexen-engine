@@ -9,19 +9,7 @@
 hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData) : color(renderGridData.color)
 {
 	HEXEN_ADD_TO_PROFILE()
-
-	vertexArray = engine::graphics::VertexArray::create();
-	elementsBuffer = engine::graphics::ElementsBuffer::create(renderGridData.indices,renderGridData.indicesSize);
-	vertexBuffer = engine::graphics::VertexBuffer::create(renderGridData.vertices, renderGridData.verticesSize);
-
-	vertexBuffer->setLayout({
-			{ engine::graphics::ShaderDataType::VEC3F , "aPos" }
-	});
-	vertexArray->addVertexBuffer(vertexBuffer);
-	vertexArray->setElementBuffer(elementsBuffer);
-
-	countOfLines = renderGridData.countOfLines;
-
+	resize(renderGridData);
 	shaderProgram = engine::graphics::ShaderProgram::create(renderGridData.shaderAssets);
 }
 
@@ -33,6 +21,7 @@ void hexen::editor::components::graphics::DrawGridCommand::prepare()
 void hexen::editor::components::graphics::DrawGridCommand::execute()
 {
 	HEXEN_ADD_TO_PROFILE()
+
 	shaderProgram->bind();
 	shaderProgram->setMatrix4("model", transform);
 	shaderProgram->setMatrix4("projection",projection);
@@ -40,13 +29,30 @@ void hexen::editor::components::graphics::DrawGridCommand::execute()
 	shaderProgram->setVector3f("color", color);
 
 	vertexArray->bind();
-	engine::graphics::drawLines(countOfLines);
+	engine::graphics::drawLines(countOfLines, lineWidth);
 	vertexArray->unbind();
+
 }
 
 void hexen::editor::components::graphics::DrawGridCommand::finish()
 {
 	HEXEN_ADD_TO_PROFILE()
+}
+
+void hexen::editor::components::graphics::DrawGridCommand::resize(const hexen::editor::components::graphics::RenderGridData &renderGridData)
+{
+	vertexArray = engine::graphics::VertexArray::create();
+
+	elementsBuffer = engine::graphics::ElementsBuffer::create(renderGridData.indices,renderGridData.indicesSize);
+	vertexBuffer = engine::graphics::VertexBuffer::create(renderGridData.vertices, renderGridData.verticesSize);
+
+	vertexBuffer->setLayout({
+			{ engine::graphics::ShaderDataType::VEC3F , "aPos" }
+	});
+	vertexArray->addVertexBuffer(vertexBuffer);
+	vertexArray->setElementBuffer(elementsBuffer);
+
+	countOfLines = renderGridData.countOfLines;
 }
 
 hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color) : shaderAssets(shaderAssets), color(color)

@@ -6,7 +6,7 @@
 #include "GridComponent.hpp"
 #include <graphics/render_commands/RenderPipeline.hpp>
 
-hexen::editor::components::graphics::GridComponent::GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize, hexen::engine::graphics::RenderPipelineID renderPipelineId)
+hexen::editor::components::graphics::GridComponent::GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize, hexen::engine::graphics::RenderPipelineID renderPipelineId) : shaderAssets(shaderAssets)
 {
 	HEXEN_ADD_TO_PROFILE();
 	grid = hexen::engine::core::memory::make_shared<hexen::engine::core::Grid>(size,unitSize);
@@ -18,7 +18,6 @@ hexen::editor::components::graphics::GridComponent::GridComponent(const std::vec
 
 		auto renderHandle = engine::graphics::RenderPipeline::addCommandToQueue<DrawGridCommand>(renderPipelineId, RenderGridData(vertices, indices, shaderAssets, newColor));
 		drawGridCommand = engine::graphics::RenderPipeline::getCommandByType<DrawGridCommand>(renderPipelineId, renderHandle);
-
 	}
 }
 
@@ -37,16 +36,16 @@ void hexen::editor::components::graphics::GridComponent::setTransformMatrix(cons
 
 std::vector<glm::vec3> hexen::editor::components::graphics::GridComponent::createGridVertices(const std::shared_ptr<hexen::engine::core::Grid> &grid)
 {
-	HEXEN_ADD_TO_PROFILE()
+	HEXEN_ADD_TO_PROFILE();
 	std::vector<glm::vec3> vertices;
 
 	for (hexen::engine::core::i32 j = 0; j <= grid->getSize().x; ++j)
 	{
 		for (hexen::engine::core::i32 i = 0; i <= grid->getSize().y; ++i)
 		{
-			auto x = (float) i - grid->getUnitSize().y / grid->getNumberOfCells();
-			auto y = 0;
-			auto z = (float) j - grid->getUnitSize().x / grid->getNumberOfCells();
+			auto x = (float) i - grid->getUnitSize().x / grid->getNumberOfCells();
+			auto y =  (float) j - grid->getUnitSize().y / grid->getNumberOfCells();;
+			auto z = 0;
 			vertices.emplace_back(x, y, z);
 		}
 	}
@@ -72,4 +71,28 @@ std::vector<glm::uvec4> hexen::editor::components::graphics::GridComponent::crea
 	}
 
 	return indices;
+}
+
+void hexen::editor::components::graphics::GridComponent::setSize(const glm::vec2 &newSize)
+{
+	HEXEN_ADD_TO_PROFILE();
+	grid->resize(newSize);
+	auto vertices = createGridVertices(grid);
+	auto indices = createGridIndices(grid);
+	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
+}
+
+void hexen::editor::components::graphics::GridComponent::setUnitSize(const glm::vec2 &newUnitSize)
+{
+	HEXEN_ADD_TO_PROFILE();
+	grid->setUnitSize(newUnitSize);
+	auto vertices = createGridVertices(grid);
+	auto indices = createGridIndices(grid);
+	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
+}
+
+void hexen::editor::components::graphics::GridComponent::setLineWidth(float lineWidth)
+{
+	HEXEN_ADD_TO_PROFILE();
+	drawGridCommand->lineWidth = lineWidth;
 }

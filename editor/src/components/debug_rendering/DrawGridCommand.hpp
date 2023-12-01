@@ -80,8 +80,10 @@ namespace hexen::editor::components::graphics
 		glm::mat4 view{1};
 		glm::mat4 projection{1};
 		glm::mat4 transform{1};
+		float lineWidth = 1.0f;
 
 		friend class GridComponent;
+		void resize(const RenderGridData& renderGridData);
 	public:
 
 		/**

@@ -36,7 +36,7 @@ namespace hexen::editor::components::graphics
 
 		std::shared_ptr<hexen::engine::core::Grid> grid;
 		std::shared_ptr<DrawGridCommand> drawGridCommand;
-
+		std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets;
 	public:
 
 		GridComponent() = default;
@@ -92,9 +92,49 @@ namespace hexen::editor::components::graphics
 
 		void setTransformMatrix(const glm::mat4 &transform);
 
+		/**
+ 		* @brief Sets new size for the grid and resizes the draw command.
+ 		*
+ 		* @param [in] newSize A 2D vector representing new size for the grid.
+ 		*/
+
+		void setSize(const glm::vec2& newSize);
+
+		/**
+ 		* @brief Sets new unit size for the grid and resizes the draw command.
+ 		*
+ 		* @param [in] newUnitSize A 2D vector representing new unit size for the grid.
+ 		*/
+
+		void setUnitSize(const glm::vec2& newUnitSize);
+
+		/**
+ 		* @brief Sets new line width for the draw command.
+ 		*
+ 		* @param [in] lineWidth New line width for the grid.
+ 		*/
+
+		void setLineWidth(float  lineWidth);
+
+		/**
+  		* @brief Generates coordinates for vertices of the grid.
+ 		*
+ 		* @param [in] grid Shared pointer to the Grid object.
+ 		* @return A vector of 3D vectors representing grid vertices.
+ 		*/
+
 		static std::vector<glm::vec3> createGridVertices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
 
+		/**
+ 		* @brief Generates indices for a grid.
+ 		*
+ 		* @param [in] grid Shared pointer to the Grid object.
+ 		* @return A vector of 4D unsigned vectors representing grid indices.
+ 		*/
+
 		static std::vector<glm::uvec4> createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
+
+
 
 	};
 }// namespace hexen::editor::components::graphics
