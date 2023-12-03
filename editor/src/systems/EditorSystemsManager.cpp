@@ -18,7 +18,7 @@ void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::share
 {
 	HEXEN_ADD_TO_PROFILE();
 	editorGui = newEditorGUI;
-	engine::input::InputHelper::addGUI(newEditorGUI);
+	getInputSystem()->addGUI(newEditorGUI);
 }
 
 void hexen::editor::systems::EditorSystemsManager::processInput(const std::shared_ptr<hexen::engine::core::Window> &window)
