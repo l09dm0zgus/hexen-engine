@@ -5,9 +5,6 @@
 #include "InputHelper.hpp"
 #include "SystemsManager.hpp"
 
-std::string  hexen::engine::input::InputHelper::currentOwnerOfInput;
-phmap::parallel_flat_hash_map<std::string, std::shared_ptr<hexen::engine::systems::InputSystem>> hexen::engine::input::InputHelper::inputSystems;
-
 void hexen::engine::input::InputHelper::bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers)
 {
 	HEXEN_ADD_TO_PROFILE();
@@ -17,8 +14,13 @@ void hexen::engine::input::InputHelper::bindAction(const std::string &name, cons
 std::shared_ptr<hexen::engine::systems::InputSystem> hexen::engine::input::InputHelper::getInputSystem()
 {
 	HEXEN_ADD_TO_PROFILE();
-	HEXEN_ASSERT(!currentOwnerOfInput.empty(), "Current owner not set!Please call createInputSystem() or enableInput()!");
-	return inputSystems[currentOwnerOfInput];
+	auto manager = systems::SystemsManager::getCurrentSystemManager();
+	HEXEN_ASSERT(manager != nullptr, "SystemsManager is nullptr");
+
+	auto inputSystem = manager->getInputSystem();
+	HEXEN_ASSERT(inputSystem != nullptr, "InputSystem is nullptr");
+
+	return inputSystem;
 }
 
 void hexen::engine::input::InputHelper::bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers)
@@ -118,36 +120,20 @@ glm::vec2 hexen::engine::input::InputHelper::getMouseLastReleasedButtonPosition(
 	return getInputSystem()->mouse->getLastReleasedButtonPosition();
 }
 
-void hexen::engine::input::InputHelper::disableInputForCurrentWindow() noexcept
+void hexen::engine::input::InputHelper::enableInputForPlayer(hexen::engine::core::u32 playerID)
 {
 	HEXEN_ADD_TO_PROFILE();
-	getInputSystem()->isEnabledInput = false;
+	getInputSystem()->enableInputByPlayerID(playerID, true);
 }
 
-void hexen::engine::input::InputHelper::createInputSystem(const std::string &ownerUUID)
+void hexen::engine::input::InputHelper::disableInputForPlayer(hexen::engine::core::u32 playerID)
 {
-	currentOwnerOfInput = ownerUUID;
-	inputSystems[ownerUUID] = core::memory::make_shared<systems::InputSystem>();
+	HEXEN_ADD_TO_PROFILE();
+	getInputSystem()->enableInputByPlayerID(playerID, false);
 }
 
-void hexen::engine::input::InputHelper::processInput(const std::shared_ptr<core::Window> &window)
+std::shared_ptr<hexen::engine::systems::InputSystem> hexen::engine::input::InputHelper::createInputSystem()
 {
-	for(auto [UUID, inputSystem] : inputSystems)
-	{
-		inputSystem->processInput(window);
-	}
-}
-
-void hexen::engine::input::InputHelper::enableInputForWindow(const std::string &ownerUUID) noexcept
-{
-	currentOwnerOfInput = ownerUUID;
-	getInputSystem()->isEnabledInput = true;
-}
-
-void hexen::engine::input::InputHelper::addGUI(const std::shared_ptr<gui::IGUI> &gui)
-{
-	for(auto [UUID, inputSystem] : inputSystems)
-	{
-		inputSystem->addGUI(gui);
-	}
+	HEXEN_ADD_TO_PROFILE();
+	return core::memory::make_shared<systems::InputSystem>();
 }

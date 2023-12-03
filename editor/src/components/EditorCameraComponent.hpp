@@ -22,8 +22,16 @@ namespace hexen::editor::components::graphics
 	private:
 		float velocity {100.f};
 
+		static engine::core::u32 countOfInstances;
+		std::string UUID;
 	public:
 
+		~EditorCameraComponent()
+		{
+			std::cout << "Destroyed Object : " << getOwnerUUID() << "\n";
+		}
+
+		EditorCameraComponent() = default;
 		/**
  		* @brief Constructor for EditorCameraComponent
  		*
@@ -65,6 +73,31 @@ namespace hexen::editor::components::graphics
         */
 
 		void zoom(float value);
+		/**
+ 		* @brief Enable the input for the camera in the editor.
+		*
+ 		* This method links the input handler to the editor camera instance.
+ 		*/
+
+		void enableInput();
+
+		/**
+ 		* @brief Disable the input for the camera in the editor.
+ 		*
+ 		* This method unlinks the camera from the input handler, disabling any camera movements.
+ 		*/
+
+		void disableInput();
+
+		/**
+ 		* @brief Setup the input mappings for the editor camera.
+ 		*
+ 		* This method maps the keys to the specific camera directions.
+ 		* The keys W and S are used for the forward movement, D and A for the right hand movement,
+ 		* and Q and E for the zooming functionality.
+ 		*/
+
+		void setInputMappings();
 
 	};
 }// namespace hexen::editor::components::graphics

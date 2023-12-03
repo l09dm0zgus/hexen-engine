@@ -25,17 +25,10 @@ namespace hexen::engine::input
 
 		/**
  		* @brief Creates an input system and associates it with the specified owner.
- 		* @param ownerUUID A string representing the UUID of the owner.
  		*/
 
-		static void createInputSystem(const std::string& ownerUUID);
+		static std::shared_ptr<systems::InputSystem> createInputSystem();
 
-		/**
- 		* @brief Processes input for all input systems.
- 		* @param window A shared pointer to the window from which input data are collected.
- 		*/
-
-		static void processInput(const std::shared_ptr<core::Window> &window);
 
 		/**
  		* Templated function `bindAction` for binding an action specified by `name` to a member function `method` of an instance of class T `object`.
@@ -59,11 +52,11 @@ namespace hexen::engine::input
  		*/
 
 		template<class T>
-		static void bindAction(const std::string &name,T *object,void (T::*method)() , bool enableForMultiplePLayers = false)
+		static void bindAction(const std::string &name,T *object,void (T::*method)() , bool enableForMultiplePLayers = false, core::u32 playerId = 0)
 		{
 			HEXEN_ADD_TO_PROFILE();
 			auto function = std::bind(method,object);
-			getInputSystem()->bindAction(name,function);
+			getInputSystem()->bindAction(name,function, enableForMultiplePLayers, playerId);
 		}
 
 		/**
@@ -81,11 +74,11 @@ namespace hexen::engine::input
  		*/
 
 		template<class T>
-		static void bindAxis(const std::string &name,T *object,void (T::*method)(float) , bool enableForMultiplePLayers = false)
+		static void bindAxis(const std::string &name,T *object,void (T::*method)(float) , bool enableForMultiplePLayers = false, core::u32 playerId = 0)
 		{
 			HEXEN_ADD_TO_PROFILE();
 			auto function = std::bind(method, object,std::placeholders::_1);
-			getInputSystem()->bindAxis(name,function);
+			getInputSystem()->bindAxis(name,function, enableForMultiplePLayers, playerId);
 		}
 
 		/**
@@ -290,28 +283,38 @@ namespace hexen::engine::input
 		[[nodiscard]] static glm::vec2 getMouseLastReleasedButtonPosition() noexcept;
 
 		/**
- 		* @brief Enables input for the specified window.
- 		* @param ownerUUID The UUID of the window owner.
+ 		* @brief Enable the input for a player identified by their playerID.
+ 		*
+ 		* This function, a member of the InputHelper class, enables input for a player
+ 		* on the hexen engine. It uses the getInputSystem function to allow inputs
+ 		* via a player's ID.
+ 		*
+ 		* @param[in] playerID The ID of the player for whom input is to be enabled.
+ 		*
+ 		* @note The function also calls the HEXEN_ADD_TO_PROFILE macro.
+ 		*
+ 		* @see disableInputForPlayer()
  		*/
 
-		static void enableInputForWindow(const std::string &ownerUUID) noexcept;
+		static void enableInputForPlayer(core::u32 playerID);
 
 		/**
- 		* @brief Disables input for the current window.
+ 		* @brief Disable the input for a player identified by their playerID.
+ 		*
+ 		* This function, a member of the InputHelper class, disables input for a player
+ 		* on the hexen engine. It uses the getInputSystem function to prevent inputs
+ 		* via a player's ID.
+ 		*
+ 		* @param[in] playerID The ID of the player for whom input is to be disabled.
+ 		*
+ 		* @note The function also calls the HEXEN_ADD_TO_PROFILE macro.
+ 		*
+ 		* @see enableInputForPlayer()
  		*/
 
-		static void disableInputForCurrentWindow() noexcept;
-
-		/**
- 		* @brief Adds a graphical user interface (GUI) to all input systems.
- 		* @param gui A shared pointer to the GUI to add.
- 		*/
-
-		static void addGUI(const std::shared_ptr<gui::IGUI>  &gui);
+		static void disableInputForPlayer(core::u32 playerID);
 
 	private:
 		static std::shared_ptr<systems::InputSystem> getInputSystem();
-		static std::string currentOwnerOfInput;
-		static phmap::parallel_flat_hash_map<std::string, std::shared_ptr<systems::InputSystem>> inputSystems;
 	};
 }// namespace hexen::engine::input

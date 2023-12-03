@@ -76,6 +76,7 @@ namespace hexen::engine::systems
         */
 
 		std::vector<std::unique_ptr<IGamePlaySystem>> gameplaySystems;
+		std::shared_ptr<InputSystem> inputSystem;
 
 	public:
 		/**
@@ -182,6 +183,8 @@ namespace hexen::engine::systems
 			HEXEN_ADD_TO_PROFILE();
 			return currentSystemManager;
 		}
+
+		std::shared_ptr<InputSystem> getInputSystem();
 
 		/**
      	* @brief Constructor for SystemsManager class.

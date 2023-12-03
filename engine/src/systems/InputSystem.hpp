@@ -196,6 +196,7 @@ namespace hexen::engine::systems
 			core::u32 sdlKey;
 			std::string name;
 			core::u8 playerId {};
+			bool isEnableInput = true;
 		};
 
 		struct AxisMapping
@@ -206,6 +207,7 @@ namespace hexen::engine::systems
 			float value;
 			std::string name;
 			core::u8 playerId {};
+			bool isEnableInput = true;
 		};
 
 		/**
@@ -292,7 +294,7 @@ namespace hexen::engine::systems
         * the fireCallback() function will be executed. The action is not enabled for multiple players.
         */
 
-		void bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers = false);
+		void bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers = false, core::u32 playerId = 0);
 
 		/**
         * Binds an axis with a callback function.
@@ -307,7 +309,7 @@ namespace hexen::engine::systems
         *                                 axis will be bound separately for each player.
         */
 
-		void bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers = false);
+		void bindAxis(const std::string &name, const std::function<void(float)> &axisCallback, bool enableForMultiplePLayers = false, core::u32 playerId = 0);
 
 		/**
         * @class InputSystem
@@ -347,6 +349,19 @@ namespace hexen::engine::systems
         */
 
 		void addGUI(const std::shared_ptr<gui::IGUI> &gui);
+
+		/**
+ 		*  @brief Enables or disables the input for a specific player.
+ 		*
+ 		*  @param playerID The unique identifier of the player.
+ 		*  @param isEnable If set to true, the input will be enabled. If false, the input will be disabled.
+ 		*
+ 		*  This function works on two data structures - axisMappings and actionMappings.
+ 		*  It uses the std::for_each algorithm to iterate over each mapping, and if the playerID matches the current mapping's playerID,
+ 		*  it enables or disables input according to the isEnable parameter.
+ 		*/
+
+		void enableInputByPlayerID(core::u32 playerID, bool isEnable);
 
 	private:
 		/**
@@ -422,7 +437,7 @@ namespace hexen::engine::systems
         * This class provides functionality for finding action mappings by ID.
         */
 
-		bool findActionMappingById(core::u32 id, ActionMapping &actionMapping);
+		bool findActionMappingsById(core::u32 id, std::vector<ActionMapping> &foundMappings);
 
 		/**
         * @brief Find the axis mapping by ID.
@@ -434,7 +449,7 @@ namespace hexen::engine::systems
         */
 
 
-		bool findAxisMappingById(core::u32 id, AxisMapping &axisMapping);
+		bool findAxisMappingsById(core::u32 id, std::vector<AxisMapping> &foundMappings);
 
 		/**
         * @class InputSystem
@@ -476,7 +491,6 @@ namespace hexen::engine::systems
 
 		AxisMappingCallback findAxisMappingCallback(core::u32 playerId, const std::string &name);
 
-		bool isEnabledInput = true;
 	};
 
 }// namespace hexen::engine::systems
