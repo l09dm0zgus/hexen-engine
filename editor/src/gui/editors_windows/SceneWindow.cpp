@@ -28,7 +28,6 @@ void hexen::editor::gui::SceneWindow::renderFramebufferContent()
 void hexen::editor::gui::SceneWindow::initialize()
 {
 	HEXEN_ADD_TO_PROFILE();
-	engine::input::InputHelper::createInputSystem(UUID);
 	auto scene = engine::core::SceneManager::getCurrentScene();
 	engine::core::u32 componentHandle{0};
 
@@ -53,11 +52,14 @@ void hexen::editor::gui::SceneWindow::initialize()
 
 	hexen::engine::systems::RenderSystem::addCameraComponent<components::graphics::EditorCameraComponent>(getSize().x, getSize().y, 90.0f);
 
-	auto camera = engine::systems::RenderSystem::getMainCamera();
-	if(camera != nullptr)
+	mainEditorCamera  = std::dynamic_pointer_cast<components::graphics::EditorCameraComponent>(engine::systems::RenderSystem::getMainCamera());
+
+	if(mainEditorCamera != nullptr)
 	{
-		camera->setOwnerUUID(UUID);
+		mainEditorCamera->setInputMappings();
+		mainEditorCamera->setOwnerUUID(UUID);
 	}
+
 	systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::GridComponent>(componentHandle)->setOwnerUUID(UUID);
 
 	componentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec2(0, 0));
@@ -88,12 +90,13 @@ void hexen::editor::gui::SceneWindow::draw()
 	{
 		if(ImGui::IsWindowFocused())
 		{
-			engine::input::InputHelper::enableInputForWindow(UUID);
+			mainEditorCamera->enableInput();
 		}
 		else
 		{
-			engine::input::InputHelper::disableInputForCurrentWindow();
+			mainEditorCamera->disableInput();
 		}
+
 		addFramebufferContentToWindow();
 	}
 	ImGui::End();

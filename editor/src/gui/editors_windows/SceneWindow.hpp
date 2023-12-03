@@ -3,6 +3,7 @@
 //
 #pragma once
 
+#include "../../components/EditorCameraComponent.hpp"
 #include "FramebufferWindow.hpp"
 
 namespace hexen::editor::gui
@@ -91,8 +92,7 @@ namespace hexen::editor::gui
 
 		void initialize();
 
-
-		ImGuiWindowFlags flags = ImGuiWindowFlags_None;
+		std::shared_ptr<components::graphics::EditorCameraComponent> mainEditorCamera;
 	};
 
 }// namespace hexen::editor::gui
