@@ -77,12 +77,8 @@ namespace hexen::engine::core
 
 		glm::vec2 size {};
 
-		/**
-		*   @brief A pointer to a pointer, that can hold the address of another pointer to an object of type Cell.
-		*   It is initialized to null by default.
-		*/
+		std::vector<std::vector<Cell>> cells;
 
-		Cell **cells {nullptr};
 
 	public:
 
@@ -90,7 +86,7 @@ namespace hexen::engine::core
  		* @brief Default destructor for Grid class. This destructor is overridden.
  		*/
 
-		~Grid() override;
+		~Grid() override = default;
 
 		/**
  		* @brief Construct a new Grid object.
@@ -160,5 +156,28 @@ namespace hexen::engine::core
 
 
 		std::shared_ptr<Cell> checkIfPointInCell(const glm::vec2 &point);
+
+		/**
+ 		* @brief Resizes the grid to a new size.
+ 		*
+ 		* This method resizes the grid by clearing the existing cells and replacing them with new ones.
+ 		* Each cell is placed in the grid based on the position calculated using indices and unit size.
+ 		* Finally, it updates the total number of cells in the grid.
+ 		*
+ 		* @param newSize A vector representing the new size of the grid in x and y dimensions.
+ 		*/
+
+		void resize(const glm::vec2 &newSize);
+
+		/**
+ 		* @brief Sets the unit size of each cell in the grid.
+ 		*
+ 		* This method sets a new unit size for cells in the grid and replaces all existing cells
+ 		* with new cells at the appropriate positions calculated using the indices and new unit size.
+ 		*
+ 		* @param newUnitSize A vector representing the new unit size of cells in x and y dimensions.
+ 		*/
+
+		void setUnitSize(const glm::vec2 &newUnitSize);
 	};
 }// namespace hexen::engine::core

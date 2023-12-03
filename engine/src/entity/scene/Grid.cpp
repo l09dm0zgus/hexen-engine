@@ -27,35 +27,9 @@ glm::vec2 hexen::engine::core::Grid::getUnitSize() const noexcept
 hexen::engine::core::Grid::Grid(const glm::vec2 &size, const glm::vec2 &unitSize) : size(size), unitSize(unitSize)
 {
 	HEXEN_ADD_TO_PROFILE();
+	resize(size);
 
-	numberOfCells = size.x * size.y;
-
-	cells = new Cell *[static_cast<u32>(size.y)];
-
-	for (u32 i = 0; i < size.y; i++)
-	{
-		cells[i] = new Cell[static_cast<u32>(size.x)];
-	}
-
-	for (u32 i = 0; i < size.y; i++)
-	{
-		for (u32 j = 0; j < size.x; j++)
-		{
-			cells[i][j] = Cell(j * unitSize.x, i * unitSize.y, unitSize.x, unitSize.y);
-		}
-	}
 }
-
-hexen::engine::core::Grid::~Grid()
-{
-	HEXEN_ADD_TO_PROFILE();
-	for (u32 i = 0; i < size.y; i++)
-	{
-		delete[] cells[i];
-	}
-	delete[] cells;
-}
-
 
 std::shared_ptr<hexen::engine::core::Grid::Cell> hexen::engine::core::Grid::checkIfPointInCell(const glm::vec2 &point)
 {
@@ -90,4 +64,39 @@ std::shared_ptr<hexen::engine::core::Grid::Cell> hexen::engine::core::Grid::chec
 	}
 
 	return nullptr;
+}
+
+void hexen::engine::core::Grid::resize(const glm::vec2 &newSize)
+{
+	HEXEN_ADD_TO_PROFILE();
+	cells.clear();
+	cells.resize(newSize.x);
+	for(auto& vec : cells)
+	{
+		vec.resize(newSize.y);
+	}
+
+	for (u32 i = 0; i < size.y; i++)
+	{
+		for (u32 j = 0; j < size.x; j++)
+		{
+			cells[i][j] = Cell(j * unitSize.x, i * unitSize.y, unitSize.x, unitSize.y);
+		}
+	}
+	size = newSize;
+	numberOfCells = size.x * size.y;
+}
+
+void hexen::engine::core::Grid::setUnitSize(const glm::vec2 &newUnitSize)
+{
+	HEXEN_ADD_TO_PROFILE();
+	unitSize = newUnitSize;
+
+	for (u32 i = 0; i < size.y; i++)
+	{
+		for (u32 j = 0; j < size.x; j++)
+		{
+			cells[i][j] = Cell(j * unitSize.x, i * unitSize.y, unitSize.x, unitSize.y);
+		}
+	}
 }
