@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <array>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <graphics/buffers/VertexArray.hpp>
