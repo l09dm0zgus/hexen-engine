@@ -102,7 +102,7 @@ namespace hexen::engine::systems
 			}
 			else
 			{
-				static_assert(false, "Cannot register this component.Component container with T does not exist!");
+				static_assert(!sizeof(T*), "Cannot register this component.Component container with T does not exist!");
 			}
 			return handle;
 		}
@@ -135,7 +135,7 @@ namespace hexen::engine::systems
 			}
 			else
 			{
-				static_assert(false, "Cannot get component with T type.Component container with T does not exist!");
+				static_assert(!sizeof(T*), "Cannot get component with T type.Component container with T does not exist!");
 			}
 
 			return nullptr;
@@ -167,7 +167,7 @@ namespace hexen::engine::systems
 			}
 			else
 			{
-				static_assert(false, "Cannot release component with T type.Component container with T does not exist!");
+				static_assert(!sizeof(T*), "Cannot release component with T type.Component container with T does not exist!");
 			}
 		}
 

@@ -23,7 +23,12 @@ endif (ENABLE_VULKAN_SUPPORT)
 
 if (ENABLE_OPENGL_SUPPORT)
     target_compile_definitions(${RENDER_MODULE_NAME} PUBLIC _ENABLE_OPENGL_SUPPORT)
-    target_link_libraries(${RENDER_MODULE_NAME} PUBLIC ${CORE_MODULE_NAME} opengl32)
+
+    if (WIN32)
+        target_link_libraries(${RENDER_MODULE_NAME} PUBLIC opengl32)
+    endif ()
+
+    target_link_libraries(${RENDER_MODULE_NAME} PUBLIC ${CORE_MODULE_NAME})
     target_link_libraries(${RENDER_MODULE_NAME} PUBLIC libglew_static)
 
 endif ()
