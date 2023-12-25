@@ -2,9 +2,9 @@
 // Created by cx9ps3 on 29.07.2023.
 //
 #pragma once
-
-#include "glm/vec2.hpp"
-#include "memory_pool/AllocatedObject.hpp"
+#include <map>
+#include <glm/vec2.hpp>
+#include <memory_pool/AllocatedObject.hpp>
 namespace hexen::engine::core
 {
 	/**
@@ -24,7 +24,7 @@ namespace hexen::engine::core
  		* @details This class is derived from the memory::AllocatedObject class.
  		*/
 
-		struct Cell : public memory::AllocatedObject
+		struct Cell
 		{
 			/**
 	 		* @brief Default constructor, initializes position and size to 0.
@@ -77,8 +77,7 @@ namespace hexen::engine::core
 
 		glm::vec2 size {};
 
-		std::vector<std::vector<Cell>> cells;
-
+		std::map<std::pair<u32,u32> ,Cell> cells;
 
 	public:
 
