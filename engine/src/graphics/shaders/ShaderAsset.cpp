@@ -6,6 +6,7 @@
 #include "../render_context/RenderContext.hpp"
 #include "ShaderAsset.hpp"
 #include <fstream>
+#include <sstream>
 
 std::string hexen::engine::graphics::ShaderAsset::parseShaderType()
 {

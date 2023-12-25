@@ -4,6 +4,8 @@
 
 #include "ImageAsset.hpp"
 #include <fstream>
+#include <sstream>
+
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "STBImage.h"

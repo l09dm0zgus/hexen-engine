@@ -159,7 +159,7 @@ void hexen::engine::graphics::Draw2DQuadsCommand::addQuadDataToVertexBuffer(cons
 {
 	HEXEN_ADD_TO_PROFILE();
 	constexpr size_t quadVertexCount = 4;
-	constexpr glm::vec2 textureCoords[] = {{1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f}};
+	static const glm::vec2 textureCoords[] = {{1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f}};
 
 	if (indexCount >= maxIndices)
 	{
