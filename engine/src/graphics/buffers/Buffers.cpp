@@ -33,6 +33,28 @@ std::shared_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics
 	return nullptr;
 }
 
+std::shared_ptr<hexen::engine::graphics::ElementsBuffer> hexen::engine::graphics::ElementsBuffer::create(core::u32 size)
+{
+	HEXEN_ADD_TO_PROFILE();
+	switch (RenderContext::getRenderAPI())
+	{
+		case core::Settings::RenderAPI::NO_API:
+			HEXEN_ASSERT(false, "ERROR::Failed to create Element Buffer.Render API is not set or this PC does not support graphics!");
+		break;
+		case core::Settings::RenderAPI::OPENGL_API:
+			if constexpr (RenderContext::enabledOpengl)
+			{
+				return core::memory::make_shared<gl::GLElementsBuffer>(size);
+			}
+		break;
+		case core::Settings::RenderAPI::VULKAN_API:
+			break;
+		case core::Settings::RenderAPI::DIRECTX12_API:
+			break;
+	}
+	return nullptr;
+}
+
 std::shared_ptr<hexen::engine::graphics::VertexBuffer> hexen::engine::graphics::VertexBuffer::create(float *vertices, hexen::engine::core::u32 size)
 {
 	HEXEN_ADD_TO_PROFILE();

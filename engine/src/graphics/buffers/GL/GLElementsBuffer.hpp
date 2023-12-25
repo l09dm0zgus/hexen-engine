@@ -39,6 +39,16 @@ namespace hexen::engine::graphics::gl
 		GLElementsBuffer(core::u32 *indices, core::u32 size);
 
 		/**
+		* Constructor for the GLElementsBuffer class.
+		* @param size The size of the buffer, in bytes @note correct size is count of indices multiply by sizeof(<indices type>) of indices type.
+		*
+		* This function generates a new OpenGL buffer object, binds it to the context as an element array buffer,
+		* and allocates memory in the GPU for the buffer.
+		*/
+
+		GLElementsBuffer(core::u32 size);
+
+		/**
  		* @brief Destructor for the GLElementsBuffer class.
  		*
  		* This destructor deletes the OpenGL Elements Buffer Object associated with this class instance.
@@ -72,6 +82,17 @@ namespace hexen::engine::graphics::gl
 
 		void unbind() const noexcept override;
 
+		/**
+		 * @brief This function sets data to the elements buffer.
+		 *
+		 * @param data This is a pointer to the data to be set.
+		 * @param size This is the size of the data to be set.
+		 *
+		 * The function first binds the buffer to the `GL_ELEMENT_ARRAY_BUFFER` target.
+		 * Then, it creates and initializes a buffer object's data store.
+		*/
+
+		void setData(const core::vptr data , core::u32 size) override;
 
 	private:
 		core::u32 object {0};

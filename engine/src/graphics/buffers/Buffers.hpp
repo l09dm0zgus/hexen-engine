@@ -244,6 +244,16 @@ namespace hexen::engine::graphics
 		static std::shared_ptr<ElementsBuffer> create(core::u32 *indices, core::u32 size);
 
 		/**
+		 * @brief Static method to create a new instance of ElementsBuffer with dynamic drawning.
+		 *
+		 * @param size The size of the indices array.
+		 * @note correct size is count of indices multiply by sizeof(<indices type>) of indices type.
+		 * @return A shared_ptr to the new ElementsBuffer instance.
+		 */
+
+		static std::shared_ptr<ElementsBuffer> create(core::u32 size);
+
+		/**
      	* @brief Pure virtual method to bind the elements buffer.
      	*
      	* Details of this method will be determined by the derived class.
@@ -258,6 +268,12 @@ namespace hexen::engine::graphics
      	*/
 
 		virtual void unbind() const noexcept = 0;
+
+		/**
+		* @brief Pure virtual method that sets data in the elements buffer.
+		*/
+
+		virtual void setData(const core::vptr data , core::u32 size) = 0;
 	};
 
 	/**
