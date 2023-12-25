@@ -84,6 +84,9 @@ namespace hexen::editor::components::graphics
 
 		friend class GridComponent;
 		void resize(const RenderGridData& renderGridData);
+
+		static constexpr engine::core::u32 MAX_GRID_VERTICES = 16000000;
+		static constexpr engine::core::u32 MAX_GRID_INDICES = 16000000;
 	public:
 
 		/**

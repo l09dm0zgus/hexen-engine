@@ -9,8 +9,20 @@
 hexen::editor::components::graphics::DrawGridCommand::DrawGridCommand(const RenderGridData& renderGridData) : color(renderGridData.color)
 {
 	HEXEN_ADD_TO_PROFILE()
+	vertexArray = engine::graphics::VertexArray::create();
+
+	elementsBuffer = engine::graphics::ElementsBuffer::create(MAX_GRID_VERTICES * sizeof(glm::vec3));
+	vertexBuffer = engine::graphics::VertexBuffer::create(MAX_GRID_INDICES * sizeof(glm::uvec4));
+
+	vertexBuffer->setLayout({
+			{ engine::graphics::ShaderDataType::VEC3F , "aPos" }
+	});
+	vertexArray->addVertexBuffer(vertexBuffer);
+	vertexArray->setElementBuffer(elementsBuffer);
+
 	resize(renderGridData);
 	shaderProgram = engine::graphics::ShaderProgram::create(renderGridData.shaderAssets);
+
 }
 
 void hexen::editor::components::graphics::DrawGridCommand::prepare()
@@ -41,17 +53,8 @@ void hexen::editor::components::graphics::DrawGridCommand::finish()
 
 void hexen::editor::components::graphics::DrawGridCommand::resize(const hexen::editor::components::graphics::RenderGridData &renderGridData)
 {
-	vertexArray = engine::graphics::VertexArray::create();
-
-	elementsBuffer = engine::graphics::ElementsBuffer::create(renderGridData.indices,renderGridData.indicesSize);
-	vertexBuffer = engine::graphics::VertexBuffer::create(renderGridData.vertices, renderGridData.verticesSize);
-
-	vertexBuffer->setLayout({
-			{ engine::graphics::ShaderDataType::VEC3F , "aPos" }
-	});
-	vertexArray->addVertexBuffer(vertexBuffer);
-	vertexArray->setElementBuffer(elementsBuffer);
-
+	elementsBuffer->setData(renderGridData.indices, renderGridData.indicesSize);
+	vertexBuffer->setData(renderGridData.vertices, renderGridData.verticesSize);
 	countOfLines = renderGridData.countOfLines;
 }
 
