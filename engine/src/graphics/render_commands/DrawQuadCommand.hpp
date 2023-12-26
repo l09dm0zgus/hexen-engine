@@ -102,5 +102,10 @@ namespace hexen::engine::graphics
 		{
 			transform = std::forward<T>(newTransform);
 		}
+		/**
+		 * Recreate texture with new image.
+		 * @param textureImage - image asset.
+		 */
+		void changeTexture(const std::shared_ptr<ImageAsset> &textureImage);
 	};
 }// namespace hexen::engine::graphics

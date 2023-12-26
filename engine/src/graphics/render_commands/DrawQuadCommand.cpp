@@ -49,3 +49,8 @@ void hexen::engine::graphics::DrawQuadCommand::finish()
 {
 	HEXEN_ADD_TO_PROFILE();
 }
+
+void hexen::engine::graphics::DrawQuadCommand::changeTexture(const std::shared_ptr<ImageAsset> &textureImage)
+{
+	mainTexture = Texture2D::create(textureImage, TextureFilter::NEAREST);
+}
