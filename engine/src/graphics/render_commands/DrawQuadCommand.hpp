@@ -57,6 +57,9 @@ namespace hexen::engine::graphics
 		 */
 		explicit DrawQuadCommand(const std::vector<std::shared_ptr<ShaderAsset>> &shaderAssets, const std::shared_ptr<ImageAsset> &textureImage);
 
+		///Default destructor
+		~DrawQuadCommand() override = default;
+
 		/**
      	* @brief Execute the drawing a quad.
      	*/
@@ -102,10 +105,12 @@ namespace hexen::engine::graphics
 		{
 			transform = std::forward<T>(newTransform);
 		}
+
 		/**
 		 * Recreate texture with new image.
 		 * @param textureImage - image asset.
 		 */
+
 		void changeTexture(const std::shared_ptr<ImageAsset> &textureImage);
 	};
 }// namespace hexen::engine::graphics
