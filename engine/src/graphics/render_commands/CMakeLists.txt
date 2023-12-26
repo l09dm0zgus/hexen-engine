@@ -13,6 +13,8 @@ target_sources(${RENDER_MODULE_NAME} PUBLIC
         ViewportCommand.cpp
         Draw2DQuadsCommand.hpp
         Draw2DQuadsCommand.cpp
+        DrawQuadCommand.hpp
+        DrawQuadCommand.cpp
         EnableBlendingCommand.hpp
         EnableBlendingCommand.cpp
 )
