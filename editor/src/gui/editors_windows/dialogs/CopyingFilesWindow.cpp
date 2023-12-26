@@ -4,6 +4,10 @@
 
 #include "CopyingFilesWindow.hpp"
 #include "../MessageBox.hpp"
+#include <assets/AssetsStorage.hpp>
+#include <graphics/textures/ImageAsset.hpp>
+#include "../../../application/Application.hpp"
+#include "../../../project/Project.hpp"
 
 void hexen::editor::gui::CopyingFilesWindow::setFilesToCopy(const std::vector<std::filesystem::path> &files)
 {
@@ -30,7 +34,25 @@ void hexen::editor::gui::CopyingFilesWindow::drawContent()
 		const ImU32 color = ImGui::GetColorU32(ImGuiCol_ButtonHovered);
 		const ImU32 background = ImGui::GetColorU32(ImGuiCol_Button);
 
-		std::filesystem::copy(*currentFileToCopy, currentPath);
+		auto path = *currentFileToCopy;
+
+		auto it = std::find(imagesExtensions.cbegin(), imagesExtensions.cend(), path.extension());
+		if(it != imagesExtensions.cend())
+		{
+			engine::core::assets::AssetHelper::createAsset<engine::graphics::ImageAsset>(std::filesystem::relative(currentPath, Project::getCurrentProject()->getPath()) / path.filename(),path);
+		}
+		else
+		{
+			try
+			{
+				std::filesystem::copy(path, currentPath / path.filename(), std::filesystem::copy_options::overwrite_existing);
+			}
+			catch(const std::exception &exception)
+			{
+				std::cout << "ERROR: " << exception.what() << "\n";
+			}
+		}
+
 		ImGui::ProgressBar(static_cast<float>(copiedFiles + 1) / static_cast<float>(filesToCopy.size()), ImVec2(0, 1));
 		copiedFiles++;
 		currentFileToCopy++;

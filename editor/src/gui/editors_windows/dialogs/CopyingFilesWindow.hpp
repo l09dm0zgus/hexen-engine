@@ -43,6 +43,7 @@ namespace hexen::editor::gui
 
 		void drawContent() override;
 
+		const std::vector<std::string> imagesExtensions{".gif", ".jpg" , ".jpeg" , ".png" , ".bmp", ".tga", ".psd", ".pic"};
 
 	public:
 
