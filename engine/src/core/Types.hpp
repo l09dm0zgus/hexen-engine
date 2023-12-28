@@ -9,12 +9,12 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <filesystem>
 #include <functional>
 #include <iostream>
 #include <iterator>
 #include <memory>
 #include <type_traits>
-#include <filesystem>
 #include <vector>
 // Determine the OS
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
@@ -76,23 +76,23 @@ namespace hexen::engine::core
 
 	static const auto ENGINE_VERSION = std::string("1.0");
 
-    #if defined(__ANDROID__)
-        static const auto HOME_DIRECTORY = std::filesystem::path(getenv("EXTERNAL_STORAGE"));
-    #else
-        //home directory for another os is folder with executable,this const used for settings files,i dont want clog users pc with saving engine files in many places.
-        static const auto HOME_DIRECTORY = std::filesystem::current_path();
-    #endif
+#if defined(__ANDROID__)
+	static const auto HOME_DIRECTORY = std::filesystem::path(getenv("EXTERNAL_STORAGE"));
+#else
+	//home directory for another os is folder with executable,this const used for settings files,i dont want clog users pc with saving engine files in many places.
+	static const auto HOME_DIRECTORY = std::filesystem::current_path();
+#endif
 
 #define HEXEN_EXPAND(s) s
 #define HEXEN_STR_IMPL(s) #s
 #define HEXEN_STR(s) HEXEN_EXPAND(HEXEN_STR_IMPL(s))
 #ifndef NDEBUG
-	#define HEXEN_ASSERT(expression, message)                                                                   \
-		if (!(expression))                                                                                      \
-		{                                                                                                       \
+	#define HEXEN_ASSERT(expression, message)                                                             \
+		if (!(expression))                                                                                \
+		{                                                                                                 \
 			std::cerr << "Assertion Failure: " << HEXEN_STR(expression) << ". Expr: " << message << "\n"; \
-			std::cerr << "Source File: " <<  __FILE__ << ":" << HEXEN_STR(__LINE__) << "\n";                          \
-			std::abort();                                                                                       \
+			std::cerr << "Source File: " << __FILE__ << ":" << HEXEN_STR(__LINE__) << "\n";               \
+			std::abort();                                                                                 \
 		}
 
 
@@ -179,7 +179,6 @@ namespace hexen::engine::core
 		std::tuple<Args...> parameters;
 
 	public:
-
 		/**
      	* @brief BaseDelegate constructor
      	* @param args The arguments for the delegate.
@@ -223,7 +222,6 @@ namespace hexen::engine::core
 	class MethodDelegate : public BaseDelegate<Args...>
 	{
 	private:
-
 		/**
      	* @brief Instance of the method this delegate represents.
      	*/
@@ -250,7 +248,6 @@ namespace hexen::engine::core
 		}
 
 	public:
-
 		/**
      	* @brief MethodDelegate constructor
      	* @param object The object that method is associated with.
@@ -304,7 +301,6 @@ namespace hexen::engine::core
 		Ret (*callableFunction)(Args...);
 
 	public:
-
 		/**
      	* @brief Constructor taking a callable function and its arguments to initialize this delegate.
      	* @param function The function this delegate should hold.
@@ -343,6 +339,66 @@ namespace hexen::engine::core
 	};
 
 	/**
+ 	* @class FunctionalDelegate
+ 	* @brief Encapsulates a callable function and its associated arguments, allowing for delayed or repeated execution.
+ 	*
+ 	* This class provides a mechanism for storing a function with its arguments and executing it at a later time.
+ 	* It inherits from BaseDelegate, which offers base functionality for managing arguments.
+ 	*
+ 	* @tparam Args... The types of the arguments to be stored and passed to the function.
+ 	*/
+
+	template<typename... Args>
+	class FunctionalDelegate : BaseDelegate<Args...>
+	{
+	private:
+
+		/**
+     	* brief The stored function object.
+     	*/
+		std::function<void(Args...)> function;
+
+	public:
+
+		/**
+     	* @brief Constructs a FunctionalDelegate with the given function and arguments.
+     	*
+     	* @param newFunction The callable function to store.
+     	* @param args The arguments to pass to the function when executed.
+     	*/
+
+		explicit FunctionalDelegate(std::function<void(Args...)> &&newFunction, Args... args) : BaseDelegate<Args...>(args...), function(std::forward<std::function<void(Args...)>>(newFunction))
+		{
+			HEXEN_ADD_TO_PROFILE();
+		}
+
+		/**
+     	* @brief Executes the stored function with the provided arguments.
+     	*/
+
+		void execute() override
+		{
+			HEXEN_ADD_TO_PROFILE();
+			std::apply(function, this->parameters);
+		}
+
+		/**
+     	* @brief Computes a unique hash code for the stored function.
+     	*
+     	* @note The returned ID might not be stable across different executions or platforms.
+     	*
+     	* @return The hash code as a size_t value.
+     	*/
+
+		[[nodiscard]] std::size_t getId() const override
+		{
+			HEXEN_ADD_TO_PROFILE();
+			std::any object = function;
+			return object.type().hash_code();
+		}
+	};
+
+	/**
  	* @class FunctorDelegate
  	* @tparam T The type of the functor to be stored in the delegate.
  	* @tparam Args The types of the arguments the functor takes.
@@ -371,7 +427,6 @@ namespace hexen::engine::core
 		}
 
 	public:
-
 		/**
      	* @brief Constructor taking a functor and its arguments to initialize this delegate.
      	* @param newFunctor The functor this delegate should hold.
@@ -556,8 +611,8 @@ namespace hexen::engine::core
 		};
 
 		std::vector<Slot> slots;
-		u32 count{};
-		u32 maxHashOffset{};
+		u32 count {};
+		u32 maxHashOffset {};
 
 
 		/**
@@ -1153,7 +1208,6 @@ namespace hexen::engine::core
 		{
 
 		private:
-
 			/**
      		* @brief Declare HashTable class as friend to grant it access to the Iterator's private and protected members.
      		*/
@@ -1168,7 +1222,6 @@ namespace hexen::engine::core
 			explicit Iterator(const ConstIterator &constIterator) : ConstIterator(constIterator) {}
 
 		public:
-
 			/**
      		* @brief Copy constructor that initializes Iterator from another Iterator.
      		* @param iterator The Iterator instance to copy from.
