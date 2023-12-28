@@ -57,15 +57,10 @@ namespace hexen::engine::core::threading
 		bool bind(T *object, Ret (T::*method)(Args...), Args... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			auto methodDelegate = std::shared_ptr<core::MethodDelegate<T, Ret, Args...>>(new core::MethodDelegate(object, method, args...));
+			auto methodDelegate = core::memory::make_shared<core::MethodDelegate<T, Ret, Args...>>(object, method, args...);
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(methodDelegate);
 
-			if (delegate == nullptr)
-			{
-				return false;
-			}
-
-			return true;
+			return delegate != nullptr;
 		}
 
 		/**
@@ -89,16 +84,77 @@ namespace hexen::engine::core::threading
 		bool bind(Ret (*callableFunction)(Args...), Args... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			auto functionDelegate = std::shared_ptr<core::FunctionDelegate<Ret, Args...>>(new core::FunctionDelegate(callableFunction, args...));
+			auto functionDelegate = core::memory::make_shared<core::FunctionDelegate<Ret, Args...>>(callableFunction, args...);
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functionDelegate);
 
+			return delegate != nullptr;
+		}
+
+		/**
+ 		* @brief Binds a callable function and its arguments to this object.
+ 		*
+ 		* @tparam Args... The types of the arguments to be stored and passed to the function.
+ 		* @param function The callable function to bind.
+ 		* @param args The arguments to pass to the function when executed.
+ 		* @return True if the binding was successful, false otherwise.
+ 		*/
+
+		template<typename... Args>
+		bool bind(std::function<void(Args...)> &&function, Args... args)
+		{
+			HEXEN_ADD_TO_PROFILE();
+			auto functionalDelegate = core::memory::make_shared<core::FunctionalDelegate<Args...>>(std::forward<void(Args...)>(function), std::forward<Args...>(args...));
+			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functionalDelegate);
+
+			return delegate != nullptr;
+		}
+
+		/**
+ 		* @brief Compares this object with a given function for equality.
+ 		*
+ 		* This comparison is based on the unique hash code of the bound functions.
+ 		*
+ 		* @tparam Args... The types of the arguments accepted by the function.
+ 		* @param function The function to compare with.
+ 		* @return True if the bound functions are considered equal, false otherwise.
+ 		*/
+
+		template<typename... Args>
+		HEXEN_INLINE bool operator==(std::function<void(Args...)> &&function)
+		{
+			HEXEN_ADD_TO_PROFILE();
 			if (delegate == nullptr)
 			{
 				return false;
 			}
 
-			return true;
+			std::any object = std::forward<std::function<void(Args...)>>(function);
+			return delegate->getId() == object.type().hash_code();
 		}
+
+		/**
+ 		* @brief Compares this object with a given function for inequality.
+ 		*
+ 		* This comparison is based on the unique hash code of the bound functions.
+ 		*
+ 		* @tparam Args... The types of the arguments accepted by the function.
+ 		* @param function The function to compare with.
+ 		* @return True if the bound functions are not equal, false otherwise.
+ 		*/
+
+		template<typename... Args>
+		HEXEN_INLINE bool operator!=(std::function<void(Args...)> &&function)
+		{
+			HEXEN_ADD_TO_PROFILE();
+			if (delegate == nullptr)
+			{
+				return false;
+			}
+
+			std::any object = std::forward<std::function<void(Args...)>>(function);
+			return delegate->getId() != object.type().hash_code();
+		}
+
 
 		/**
  		* @brief This second function template overloads the equality operator to compare
