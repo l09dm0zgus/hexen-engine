@@ -82,6 +82,6 @@ namespace hexen::engine::core::threading
         * @brief The path to the settings file.
         */
 
-		std::string pathToSettingsFile = ".settings/tasks_settings.hxs";
+		std::string pathToSettingsFile = "settings/tasks_settings.hxs";
 	};
 }// namespace hexen::engine::core::threading
