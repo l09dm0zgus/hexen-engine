@@ -23,7 +23,7 @@ hexen::engine::graphics::DrawQuadCommand::DrawQuadCommand(const std::vector<std:
 	vertexArray->setElementBuffer(elementsBuffer);
 
 	shaderProgram = ShaderProgram::create(shaderAssets);
-	mainTexture = Texture2D::create(textureImage, TextureFilter::NEAREST);
+	mainTexture = Texture2D::create(textureImage, TextureFilter::NEAREST, true);
 }
 
 void hexen::engine::graphics::DrawQuadCommand::execute()
@@ -52,5 +52,5 @@ void hexen::engine::graphics::DrawQuadCommand::finish()
 
 void hexen::engine::graphics::DrawQuadCommand::changeTexture(const std::shared_ptr<ImageAsset> &textureImage)
 {
-	mainTexture = Texture2D::create(textureImage, TextureFilter::NEAREST);
+	mainTexture = Texture2D::create(textureImage, TextureFilter::NEAREST, true);
 }
