@@ -3,19 +3,21 @@
 //
 
 #include "TilesetEditor.hpp"
+#include "../../project/Project.hpp"
 #include "../../application/Application.hpp"
 #include "../../components/EditorCameraComponent.hpp"
 #include "../../components/debug_rendering/DrawCheckerboardQuad.hpp"
 #include "../../systems/EditorRenderSystem.hpp"
-#include "systems/InputHelper.hpp"
-#include <graphics/buffers/Buffers.hpp>
+#include "native_file_dialog/FileDialog.hpp"
+#include <systems/InputHelper.hpp>
 #include <graphics/shaders/ShaderAsset.hpp>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
 #include <render_commands/ClearCommand.hpp>
 #include <render_commands/EnableBlendingCommand.hpp>
-#include <render_commands/FramebufferCommand.hpp>
 #include <render_commands/ViewportCommand.hpp>
+#include <assets/AssetsStorage.hpp>
+#include <textures/ImageAsset.hpp>
 
 using render = hexen::engine::graphics::RenderPipeline;
 
@@ -127,6 +129,16 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			ImGui::SameLine();
 			if(ImGui::Button("Load..."))
 			{
+				FileDialog fileDialog;
+				INativeFileDialog::FileFilter fileFilter;
+				fileFilter.emplace_back("Image Asset", hexen::engine::graphics::ImageAsset::getExtension());
+				auto result = fileDialog.openDialog(fileFilter,Project::getCurrentProject()->getPath(),pathToImage);
+				if(result == INativeFileDialog::Status::STATUS_OK)
+				{
+					auto imageAsset = engine::core::assets::AssetHelper::loadAsset<engine::graphics::ImageAsset>(pathToImage,Application::getName());
+					changeTilesetImage(imageAsset);
+					//gridComponent->setSize(glm::vec2(imageAsset->getWidth() / 32, imageAsset->getHeight() / 32));
+				}
 
 			}
 
@@ -157,12 +169,12 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 
 			if(ImGui::InputInt(": width", &tileWidth,1))
 			{
-				//engine::input::InputHelper::disableInput();
+				gridComponent->setUnitSize(glm::vec2(tileWidth, tileHeight));
 			}
 
 			if(ImGui::InputInt(": height", &tileHeight,1))
 			{
-				//engine::input::InputHelper::disableInput();
+				gridComponent->setUnitSize(glm::vec2(tileWidth, tileHeight));
 			}
 
 			ImGui::Text("Tiles count: ");
@@ -180,12 +192,29 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 
 			if(ImGui::InputInt(": x count", &tilesetRowsCount,1))
 			{
-				//engine::input::InputHelper::disableInput();
+				gridComponent->setSize(glm::vec2(tilesetRowsCount, tilesetColumnsCount));
 			}
 
 			if(ImGui::InputInt(": y count", &tilesetColumnsCount,1))
 			{
-				//engine::input::InputHelper::disableInput();
+				gridComponent->setSize(glm::vec2(tilesetRowsCount, tilesetColumnsCount));
+			}
+
+			ImGui::Text("Grid scale: ");
+			if(ImGui::SliderFloat(": slider",&gridScale,0.00001f,1.0f))
+			{
+				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setScale(glm::vec2(gridScale));
+			}
+			if(ImGui::InputFloat(": text field", &gridScale,0.0001f))
+			{
+
+				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setScale(glm::vec2(gridScale));
+			}
+
+			ImGui::Text("Grid Position:");
+			if(ImGui::SliderFloat2(" : position", gridPosition,-1.0f, 1.0f))
+			{
+				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setPosition(glm::vec2(gridPosition[0], gridPosition[1]));
 			}
 		}
 		ImGui::EndGroup();
@@ -219,9 +248,9 @@ void hexen::editor::gui::TilesetEditor::createGrid()
 		editorCamera->setInputMappings();
 	}
 
-	componentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec3(0.0f));
-	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(componentHandle)->setOwnerUUID(UUID);
-	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(componentHandle)->setLayer(1);
+	gridTransformComponentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec3(0.0f));
+	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setOwnerUUID(UUID);
+	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setLayer(1);
 }
 
 void hexen::editor::gui::TilesetEditor::createCheckerboard()
@@ -241,4 +270,22 @@ void hexen::editor::gui::TilesetEditor::createCheckerboard()
 	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(componentHandle)->setOwnerUUID(checkeboardQuad->getUUID());
 	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(componentHandle)->setLayer(-1);
 	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(componentHandle)->setScale(glm::vec2(100000.0f, 100000.0f));
+}
+
+void hexen::editor::gui::TilesetEditor::changeTilesetImage(const std::shared_ptr<engine::graphics::ImageAsset> &tilesetImage)
+{
+	if(imageComponent != nullptr)
+	{
+		imageComponent->changeImage(tilesetImage);
+	}
+	else
+	{
+		auto componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::ImageComponent>(tilesetImage, renderPipeline->getID());
+		imageComponent = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::ImageComponent>(componentHandle);
+		imageComponent->setOwnerUUID(UUID);
+
+		imageTransformComponentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec2(0.0f));
+		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setOwnerUUID(imageComponent->getUUID());
+		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setLayer(0);
+	}
 }

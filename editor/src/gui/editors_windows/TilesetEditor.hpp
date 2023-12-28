@@ -13,12 +13,14 @@ namespace hexen::engine::graphics
 	class Texture2D;
 	class ImageAsset;
 	class RenderPipeline;
+	class DrawQuadCommand;
 }
 
 namespace hexen::editor::components::graphics
 {
 	class GridComponent;
 	class EditorCameraComponent;
+	class ImageComponent;
 }
 
 namespace hexen::editor::gui
@@ -50,7 +52,12 @@ namespace hexen::editor::gui
 
 		components::graphics::GridComponent *gridComponent{nullptr};
 		components::graphics::EditorCameraComponent *editorCamera{nullptr};
+		components::graphics::ImageComponent *imageComponent {nullptr};
 
+		float gridScale{1};
+		float gridPosition[2] = {0,0};
+		engine::core::u32 imageTransformComponentHandle;
+		engine::core::u32 gridTransformComponentHandle;
 	public:
 		TilesetEditor(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
 		TilesetEditor(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace);
@@ -69,5 +76,7 @@ namespace hexen::editor::gui
 
 		void begin() override;
 		void end() override;
+
+		void changeTilesetImage(const std::shared_ptr<engine::graphics::ImageAsset> &tilesetImage);
 	};
 }
