@@ -3,9 +3,6 @@
 //
 
 #include "Application.hpp"
-
-#include <shaders/ShaderFile.hpp>
-
 void hexen::client::Application::run()
 {
 	gameLoop->start();
