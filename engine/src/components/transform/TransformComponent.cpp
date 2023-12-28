@@ -9,7 +9,8 @@ void hexen::engine::components::TransformComponent::updateTransformMatrix()
 	HEXEN_ADD_TO_PROFILE();
 	if (bIsDirty)
 	{
-		transformMatrix = glm::translate(transformMatrix, glm::vec3(position, layer));
+
+		transformMatrix = glm::translate(glm::mat4{1}, glm::vec3(position.x,position.y, layer / layerDivider));
 
 		transformMatrix = rotate(transformMatrix, rotation);
 
@@ -44,10 +45,10 @@ glm::mat4 hexen::engine::components::TransformComponent::getTransformMatrix() co
 }
 
 
-void hexen::engine::components::TransformComponent::setLayer(float layer)
+void hexen::engine::components::TransformComponent::setLayer(float newLayer)
 {
 	HEXEN_ADD_TO_PROFILE();
-	this->layer = layer / layerDivider;
+	layer = newLayer;
 	bIsDirty = false;
 }
 
