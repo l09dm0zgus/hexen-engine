@@ -37,6 +37,7 @@ namespace hexen::editor::components::graphics
 		std::shared_ptr<hexen::engine::core::Grid> grid;
 		std::shared_ptr<DrawGridCommand> drawGridCommand;
 		std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets;
+		void resize();
 	public:
 
 		GridComponent() = default;
@@ -134,7 +135,9 @@ namespace hexen::editor::components::graphics
 
 		static std::vector<glm::uvec4> createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
 
+		float getScale();
 
+		void setScale(float newScale);
 
 	};
 }// namespace hexen::editor::components::graphics

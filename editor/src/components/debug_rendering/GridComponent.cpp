@@ -39,14 +39,26 @@ std::vector<glm::vec3> hexen::editor::components::graphics::GridComponent::creat
 	HEXEN_ADD_TO_PROFILE();
 	std::vector<glm::vec3> vertices;
 
-	for (hexen::engine::core::i32 j = 0; j <= grid->getSize().y; ++j)
+	float cellWidth = grid->getUnitSize().x;
+	float cellHeight = grid->getUnitSize().y;
+
+	float rows = grid->getSize().x;
+	float columns = grid->getSize().y;
+
+	// Calculate half of the grid's width and height based on cell sizes
+	float halfGridWidth = cellWidth * (rows - 1) / 2.0f;
+	float halfGridHeight = cellHeight * (columns - 1) / 2.0f;
+
+
+	for (hexen::engine::core::i32 j = 0; j <= columns; ++j)
 	{
-		for (hexen::engine::core::i32 i = 0; i <= grid->getSize().x; ++i)
+		for (hexen::engine::core::i32 i = 0; i <= rows; ++i)
 		{
-			auto x = (float) i * grid->getUnitSize().x  / grid->getUnitSize().x;
-			auto y =  (float) j * grid->getUnitSize().y / grid->getUnitSize().x;
-			auto z = 0;
-			vertices.emplace_back(x, y, z);
+			// Calculate vertex position based on cell coordinates, grid size, and cell sizes
+			auto x = static_cast<float>(i) * cellWidth - halfGridWidth;
+			auto y = static_cast<float>(j) * cellHeight - halfGridHeight;
+
+			vertices.emplace_back(x , y , 0);
 		}
 	}
 	return vertices;
@@ -77,22 +89,26 @@ void hexen::editor::components::graphics::GridComponent::setSize(const glm::vec2
 {
 	HEXEN_ADD_TO_PROFILE();
 	grid->resize(newSize);
-	auto vertices = createGridVertices(grid);
-	auto indices = createGridIndices(grid);
-	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
+	resize();
 }
 
 void hexen::editor::components::graphics::GridComponent::setUnitSize(const glm::vec2 &newUnitSize)
 {
 	HEXEN_ADD_TO_PROFILE();
 	grid->setUnitSize(newUnitSize);
-	auto vertices = createGridVertices(grid);
-	auto indices = createGridIndices(grid);
-	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
+	resize();
 }
 
 void hexen::editor::components::graphics::GridComponent::setLineWidth(float lineWidth)
 {
 	HEXEN_ADD_TO_PROFILE();
 	drawGridCommand->lineWidth = lineWidth;
+}
+
+
+void hexen::editor::components::graphics::GridComponent::resize()
+{
+	auto vertices = createGridVertices(grid);
+	auto indices = createGridIndices(grid);
+	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
 }
