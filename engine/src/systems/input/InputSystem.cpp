@@ -3,12 +3,12 @@
 //
 
 #include "InputSystem.hpp"
-#include "../core/exceptions/MappingNotFound.hpp"
-#include "../core/input_devices/Gamepad.hpp"
-#include "../core/window/Window.hpp"
+#include "exceptions/MappingNotFound.hpp"
+#include "input_devices/Gamepad.hpp"
+#include "window/Window.hpp"
+#include <execution>
 #include <filesystem>
 #include <fstream>
-#include <execution>
 
 void hexen::engine::systems::InputSystem::processInput(const std::shared_ptr<core::Window> &window)
 {

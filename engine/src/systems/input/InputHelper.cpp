@@ -3,7 +3,7 @@
 //
 
 #include "InputHelper.hpp"
-#include "SystemsManager.hpp"
+#include "../SystemsManager.hpp"
 
 void hexen::engine::input::InputHelper::bindAction(const std::string &name, const std::function<void()> &actionCallback, bool enableForMultiplePLayers)
 {

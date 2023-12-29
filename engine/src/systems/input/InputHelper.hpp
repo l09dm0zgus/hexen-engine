@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include "../core/input_devices/Gamepad.hpp"
 #include "InputSystem.hpp"
+#include "input_devices/Gamepad.hpp"
+#include "parallel_hashmap/phmap.h"
 #include <functional>
 #include <memory>
-#include <parallel_hashmap/phmap.h>
 
 namespace hexen::engine::input
 {

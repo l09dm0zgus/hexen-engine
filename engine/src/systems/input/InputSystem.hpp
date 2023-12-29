@@ -3,13 +3,13 @@
 //
 
 #pragma once
-#include "../core/input_devices/Keyboard.hpp"
-#include "../core/input_devices/Mouse.hpp"
-#include "../core/memory_pool/AllocatedObject.hpp"
-#include "../gui/IGUI.hpp"
-#include "../profiling/Profiling.hpp"
+#include "../../gui/IGUI.hpp"
+#include "../../profiling/Profiling.hpp"
+#include "input_devices/Keyboard.hpp"
+#include "input_devices/Mouse.hpp"
+#include "memory_pool/AllocatedObject.hpp"
+#include "nlohmann/json.hpp"
 #include <functional>
-#include <nlohmann/json.hpp>
 namespace hexen::engine::core
 {
 	class Window;
