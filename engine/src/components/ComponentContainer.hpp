@@ -16,12 +16,12 @@ namespace hexen::engine::components
  	* @brief Class for storing and managing components
  	*/
 
-	template<class T, size_t SIZE, std::enable_if_t<std::is_base_of_v<Component, T>, bool> = true>
+	template<class T,std::enable_if_t<std::is_base_of_v<Component, T>, bool> = true>
 	class ComponentContainer
 	{
 	private:
-		T components[SIZE];		   ///< Store of the components
-		core::i32 indices[SIZE] {};///< Indices of each component
+		std::vector<T> components;		   ///< Store of the components
+		std::vector<core::i32> indices {};///< Indices of each component
 		size_t back;			   ///< Number of components in the container
 		friend class Iterator;
 	public:
@@ -43,7 +43,7 @@ namespace hexen::engine::components
 			 * @param newContainer Pointer to the component container
 			 */
 
-			explicit Iterator(ComponentContainer<T, SIZE> *newContainer) : container(newContainer) {};
+			explicit Iterator(ComponentContainer<T> *newContainer) : container(newContainer) {};
 
 			Iterator() = default;
 
@@ -53,7 +53,7 @@ namespace hexen::engine::components
 			 * @param index Index of the current element
 			 */
 
-			explicit Iterator(ComponentContainer<T, SIZE> *newContainer, size_t index) : container(newContainer), i(index) {};
+			explicit Iterator(ComponentContainer<T> *newContainer, size_t index) : container(newContainer), i(index) {};
 
 			/**
              * @brief Dereference operator
@@ -149,7 +149,7 @@ namespace hexen::engine::components
 			}
 
 		private:
-			ComponentContainer<T, SIZE> *container {nullptr};///< Pointer to the component container
+			ComponentContainer<T> *container {nullptr};///< Pointer to the component container
 			size_t i {0};									 ///< Index of the current element
 		};
 
@@ -157,12 +157,18 @@ namespace hexen::engine::components
          * @brief Construct ComponentContainer and initialize indices
          */
 
-		ComponentContainer() : back(0)
+		explicit ComponentContainer(core::u64 size) : back(0)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			for (size_t i = 0; i < SIZE; i++)
+			indices.reserve(size);
+			components.reserve(size);
+			for (size_t i = 0; i < size; i++)
 			{
-				indices[i] = static_cast<core::i32>(i);
+				indices.push_back(static_cast<core::i32>(i));
+			}
+			for(size_t i = 0; i < size; i++)
+			{
+				components.emplace_back();
 			}
 		}
 
