@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include "../core/threading/Threading.hpp"
-#include "../profiling/Profiling.hpp"
+#include "../../profiling/Profiling.hpp"
+#include "threading/Threading.hpp"
 #include <memory>
 
 namespace hexen::engine::systems
@@ -65,8 +65,8 @@ namespace hexen::engine::systems
 	 	* @endcode
 	 	*/
 
-		template<class T, typename Ret, typename... Args>
-		static void addTask(core::threading::TaskPriority priority, T *object, Ret (T::*method)(Args...), Args... args);
+		template<class T, typename Ret, typename... Args1, typename... Args2>
+		static void addTask(core::threading::TaskPriority priority, T *object, Ret (T::*method)(Args1...), Args2... args);
 
 		/**
  		* @brief The `TaskSystem::addTask` function is a method in the TaskSystem
@@ -91,8 +91,8 @@ namespace hexen::engine::systems
  		* is then added to the scheduler with the specified priority and a counter reference.
  		*/
 
-		template<typename Ret, typename... Args>
-		static void addTask(core::threading::TaskPriority priority, Ret (*function)(Args...), Args... args);
+		template<typename Ret, typename... Args1, typename... Args2>
+		static void addTask(core::threading::TaskPriority priority, Ret (*function)(Args1...), Args2... args);
 
 		/**
      	* @brief method to add a new task to the task system scheduler.
@@ -111,8 +111,8 @@ namespace hexen::engine::systems
      	*
      	*/
 
-		template<class T, typename... Args>
-		static void addTask(core::threading::TaskPriority priority, T *newFunctor(Args...), Args... args);
+		template<class T, typename... Args1, typename... Args2>
+		static void addTask(core::threading::TaskPriority priority, T *newFunctor(Args1...), Args2... args);
 
 		/**
 		* @brief Function to add tasks to the task scheduler.
@@ -141,20 +141,32 @@ namespace hexen::engine::systems
  		*/
 
 		static void waitForCounter(core::i32 value = 0);
+
+		template<typename... Args1 , typename...Args2>
+		static void addTask(core::threading::TaskPriority priority, std::function<void(Args1...)> &function, Args2 ...args);
 	};
 
 
-	template<class T, typename... Args>
-	void TaskSystem::addTask(core::threading::TaskPriority priority, T *newFunctor(Args...), Args... args)
+	template<class T, typename... Args1, typename... Args2>
+	void TaskSystem::addTask(core::threading::TaskPriority priority, T *newFunctor(Args1...), Args2... args)
 	{
 		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
-		task.bind(newFunctor, args...);
+		task.bind(newFunctor, std::forward<Args2...>(args...));
 		scheduler.addTask(task, priority, &counter);
 	}
 
-	template<typename Ret, typename... Args>
-	void TaskSystem::addTask(core::threading::TaskPriority priority, Ret (*function)(Args...), Args... args)
+	template<typename... Args1 , typename...Args2>
+	void TaskSystem::addTask(core::threading::TaskPriority priority, std::function<void(Args1...)> &function, Args2...args)
+	{
+		HEXEN_ADD_TO_PROFILE();
+		core::threading::Task task;
+		task.bind(function,args...);
+		scheduler.addTask(task, priority, &counter);
+	}
+
+	template<typename Ret, typename... Args1, typename... Args2>
+	void TaskSystem::addTask(core::threading::TaskPriority priority, Ret (*function)(Args1...), Args2... args)
 	{
 		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
@@ -163,8 +175,8 @@ namespace hexen::engine::systems
 	}
 
 
-	template<class T, typename Ret, typename... Args>
-	void TaskSystem::addTask(core::threading::TaskPriority priority, T *object, Ret (T::*method)(Args...), Args... args)
+	template<class T, typename Ret, typename... Args1, typename... Args2>
+	void TaskSystem::addTask(core::threading::TaskPriority priority, T *object, Ret (T::*method)(Args1...), Args2... args)
 	{
 		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
