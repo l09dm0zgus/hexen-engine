@@ -3,7 +3,7 @@
 ##    (See accompanying file LICENSE_1_0.txt or copy at
 ##          http://www.boost.org/LICENSE_1_0.txt)
 
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.20)
 project(boost_context ASM)
 
 include(SetSourceGroup)
@@ -19,7 +19,6 @@ option(HEXEN_FIBER_CANARY_BYTES "Enable canary bytes in fiber switching logic, t
 #
 # Enable the assemblers
 if (WIN32 AND MSVC)
-	set(CMAKE_ASM_MASM_CREATE_STATIC_LIBRARY "<CMAKE_AR> /OUT:<TARGET> <LINK_FLAGS> <OBJECTS>")
 	enable_language(ASM_MASM)
 else()
 	enable_language(ASM)
@@ -110,3 +109,8 @@ endif()
 
 add_library(boost_context STATIC ${BOOST_CONTEXT_ROOT})
 target_include_directories(boost_context INTERFACE include)
+
+if (WIN32)
+	# Restore the original flags
+	set(CMAKE_STATIC_LINKER_FLAGS ${SAVED_LINKER_FLAGS})
+endif()

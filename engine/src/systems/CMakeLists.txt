@@ -6,24 +6,24 @@ if (NOT TARGET ${SYSTEMS_MODULE_NAME})
 endif (NOT TARGET ${SYSTEMS_MODULE_NAME})
 
 target_sources(${SYSTEMS_MODULE_NAME} PRIVATE
-        RenderSystem.hpp
-        RenderSystem.cpp
-        IGamePlaySystem.hpp
-        IRenderSystem.hpp
-        TaskSystem.hpp
-        TaskSystem.cpp
+        base_system/ComponentsRegistry.hpp
+        base_system/IRenderSystem.hpp
+        base_system/IGamePlaySystem.hpp
+        graphics/RenderSystem.hpp
+        graphics/RenderSystem.cpp
+        input/InputSystem.hpp
+        input/InputSystem.cpp
+        input/InputHelper.hpp
+        input/InputHelper.cpp
         SystemsManager.hpp
         SystemsManager.cpp
-        InputSystem.hpp
-        InputSystem.cpp
-        InputHelper.hpp
-        InputHelper.cpp
         GameLoop.hpp
         GameLoop.cpp
         )
 
 target_include_directories(${SYSTEMS_MODULE_NAME} PRIVATE ${CORE_ENGINE_INCLUDE_DIR})
 target_include_directories(${SYSTEMS_MODULE_NAME} PRIVATE ${COMPONENTS_ENGINE_INCLUDE_DIR})
+target_include_directories(${SYSTEMS_MODULE_NAME} PRIVATE ${THREADING_ENGINE_INCLUDE_DIR})
 target_link_libraries(${SYSTEMS_MODULE_NAME} PUBLIC ${CORE_MODULE_NAME} ${COMPONENTS_MODULE_NAME})
 target_include_directories(${SYSTEMS_MODULE_NAME} PUBLIC ${PHMAP_INCLUDE_DIR})
 

@@ -3,10 +3,10 @@
 //
 
 #include "SystemsManager.hpp"
-#include "InputHelper.hpp"
 #include "../core/window/Window.hpp"
-#include "InputSystem.hpp"
-#include "TaskSystem.hpp"
+#include "input/InputHelper.hpp"
+#include "input/InputSystem.hpp"
+#include <TaskSystem.hpp>
 #include <memory>
 
 
@@ -23,7 +23,7 @@ void hexen::engine::systems::SystemsManager::start()
 	HEXEN_ADD_TO_PROFILE();
 	for (auto &system : gameplaySystems)
 	{
-		TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IGamePlaySystem::start);
+		threads::TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IGamePlaySystem::start);
 	}
 }
 
@@ -32,7 +32,7 @@ void hexen::engine::systems::SystemsManager::render(float alpha)
 	HEXEN_ADD_TO_PROFILE();
 	for (auto &system : renderSystems)
 	{
-		TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IRenderSystem::render, alpha);
+		threads::TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IRenderSystem::render, alpha);
 	}
 }
 
@@ -41,7 +41,7 @@ void hexen::engine::systems::SystemsManager::update(float deltaTime)
 	HEXEN_ADD_TO_PROFILE();
 	for (auto &system : gameplaySystems)
 	{
-		TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IGamePlaySystem::update, deltaTime);
+		threads::TaskSystem::addTask(core::threading::TaskPriority::High, system.get(), &IGamePlaySystem::update, deltaTime);
 	}
 }
 

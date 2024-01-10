@@ -11,10 +11,11 @@ target_sources(${COMPONENTS_MODULE_NAME} PRIVATE camera/CameraComponent.hpp came
         transform/TransformComponent.hpp
         transform/TransformComponent.cpp
         Component.hpp
-        ComponentContainer.hpp)
+        ComponentContainerBase.hpp)
 
 target_include_directories(${COMPONENTS_MODULE_NAME} PRIVATE ${CORE_ENGINE_INCLUDE_DIR})
 target_include_directories(${COMPONENTS_MODULE_NAME} PRIVATE ${RENDER_ENGINE_INCLUDE_DIR})
+target_include_directories(${COMPONENTS_MODULE_NAME} PRIVATE ${THREADING_ENGINE_INCLUDE_DIR})
 
 target_link_libraries(${COMPONENTS_MODULE_NAME} PUBLIC ${CORE_MODULE_NAME} ${RENDER_MODULE_NAME})
 

@@ -144,7 +144,6 @@ namespace hexen::engine::core::threading
  		*/
 
 		TaskScheduler(TaskScheduler &&) noexcept = delete;
-		;
 
 		/**
  		* @brief Overloads the assignment operator for the TaskScheduler class to disable copying.

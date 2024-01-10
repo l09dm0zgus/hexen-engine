@@ -53,11 +53,11 @@ namespace hexen::engine::core::threading
  		* @returns False if the delegate could not be created or set, true otherwise.
  		*/
 
-		template<class T, typename Ret, typename... Args>
-		bool bind(T *object, Ret (T::*method)(Args...), Args... args)
+		template<class T, typename Ret, typename... Args1, typename... Args2>
+		bool bind(T *object, Ret (T::*method)(Args1...), Args2... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			auto methodDelegate = core::memory::make_shared<core::MethodDelegate<T, Ret, Args...>>(object, method, args...);
+			auto methodDelegate = std::make_shared<core::MethodDelegate<T, Ret, Args1...>>(object, method, args...);
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(methodDelegate);
 
 			return delegate != nullptr;
@@ -80,11 +80,11 @@ namespace hexen::engine::core::threading
  		* @return true if binding is successful, false otherwise
  		*/
 
-		template<typename Ret, typename... Args>
-		bool bind(Ret (*callableFunction)(Args...), Args... args)
+		template<typename Ret, typename... Args1, typename...Args2>
+		bool bind(Ret (*callableFunction)(Args1...), Args2... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			auto functionDelegate = core::memory::make_shared<core::FunctionDelegate<Ret, Args...>>(callableFunction, args...);
+			auto functionDelegate = std::make_shared<core::FunctionDelegate<Ret, Args1...>>(callableFunction, args...);
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functionDelegate);
 
 			return delegate != nullptr;
@@ -99,11 +99,11 @@ namespace hexen::engine::core::threading
  		* @return True if the binding was successful, false otherwise.
  		*/
 
-		template<typename... Args>
-		bool bind(std::function<void(Args...)> &&function, Args... args)
+		template<typename... Args1, typename... Args2>
+		bool bind(std::function<void(Args1...)> &function, Args2&&... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			auto functionalDelegate = core::memory::make_shared<core::FunctionalDelegate<Args...>>(std::forward<void(Args...)>(function), std::forward<Args...>(args...));
+			auto functionalDelegate = std::make_shared<core::FunctionalDelegate<Args1...>>(function, std::forward<Args2...>(args...));
 			delegate = std::reinterpret_pointer_cast<BaseDelegate<std::any>>(functionalDelegate);
 
 			return delegate != nullptr;

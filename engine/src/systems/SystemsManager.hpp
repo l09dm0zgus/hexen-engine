@@ -3,9 +3,9 @@
 //
 #pragma once
 #include "../core/memory_pool/AllocatedObject.hpp"
-#include "IGamePlaySystem.hpp"
-#include "IRenderSystem.hpp"
 #include "../profiling/Profiling.hpp"
+#include "base_system/IGamePlaySystem.hpp"
+#include "base_system/IRenderSystem.hpp"
 
 namespace hexen::engine::core
 {

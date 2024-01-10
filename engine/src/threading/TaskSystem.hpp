@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include "../../profiling/Profiling.hpp"
-#include "threading/Threading.hpp"
+#include "../profiling/Profiling.hpp"
+#include <threading/Threading.hpp>
 #include <memory>
 
-namespace hexen::engine::systems
+namespace hexen::engine::threads
 {
 	/**
  	* @class TaskSystem
@@ -117,7 +117,7 @@ namespace hexen::engine::systems
 		/**
 		* @brief Function to add tasks to the task scheduler.
 		*
-		* This function is a member of the TaskSystem class in the hexen::engine::systems namespace.
+		* This function is a member of the TaskSystem class in the hexen::engine::threads namespace.
 		* It acts as an interface to add tasks into the system's scheduler, based on their priority.
 		*
 		* @param priority The priority of the tasks, defined as a value of the TaskPriority enumeration in the core::threading namespace.
@@ -142,8 +142,25 @@ namespace hexen::engine::systems
 
 		static void waitForCounter(core::i32 value = 0);
 
+		/**
+     	* @brief Method to add a new task to the task system scheduler.
+     	*
+     	* This method is a part of the TaskSystem class and is used to add a new task to the scheduler. The task is represented by a lambda
+     	* and its arguments. The TaskSystem is responsible for managing and scheduling tasks according to their priority, which
+     	* is provided as a parameter to this method. The tasks are handled in the order of their priority, with the tasks of higher
+     	* priority being handled before those of lower priority. The method also updates a counter every time a new task is added.
+     	*
+     	* @tparam T The type of the functor that represents the task.
+     	* @tparam Args The type list representing the arguments of the functor.
+     	*
+     	* @param priority The priority of the task. The tasks are handled in priority order.
+     	* @param function The lambda that represents the task. It is a function object that can be called later with provided args.
+     	* @param args The arguments for the lambda.
+     	*
+     	*/
+
 		template<typename... Args1 , typename...Args2>
-		static void addTask(core::threading::TaskPriority priority, std::function<void(Args1...)> &function, Args2 ...args);
+		static void addTask(core::threading::TaskPriority priority, std::function<void(Args1...)> &function, Args2&& ...args);
 	};
 
 
@@ -157,11 +174,11 @@ namespace hexen::engine::systems
 	}
 
 	template<typename... Args1 , typename...Args2>
-	void TaskSystem::addTask(core::threading::TaskPriority priority, std::function<void(Args1...)> &function, Args2...args)
+	void TaskSystem::addTask(core::threading::TaskPriority priority, std::function<void(Args1...)> &function, Args2&& ...args)
 	{
 		HEXEN_ADD_TO_PROFILE();
 		core::threading::Task task;
-		task.bind(function,args...);
+		task.bind(function,std::forward<Args2...>(args...));
 		scheduler.addTask(task, priority, &counter);
 	}
 
@@ -184,4 +201,4 @@ namespace hexen::engine::systems
 		scheduler.addTask(task, priority, &counter);
 	}
 
-}// namespace hexen::engine::systems
+}// namespace hexen::engine::threads

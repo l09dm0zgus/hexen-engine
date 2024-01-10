@@ -22,6 +22,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         SceneHierarchyWindow.cpp
         FramebufferWindow.hpp
         FramebufferWindow.cpp
+        TilesetEditor.hpp
+        TilesetEditor.cpp
         )
 
 add_subdirectory(native_file_dialog)

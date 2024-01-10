@@ -9,6 +9,8 @@ target_sources(${EDITOR_NAME} PRIVATE
         debug_rendering/DrawCheckerboardQuad.cpp
         debug_rendering/CheckerboardQuadComponent.hpp
         debug_rendering/CheckerboardQuadComponent.cpp
+        debug_rendering/ImageComponent.hpp
+        debug_rendering/ImageComponent.cpp
         EditorCameraComponent.hpp
         EditorCameraComponent.cpp
         )

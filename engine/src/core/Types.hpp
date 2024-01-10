@@ -184,10 +184,9 @@ namespace hexen::engine::core
      	* @param args The arguments for the delegate.
      	*/
 
-		explicit BaseDelegate(Args... args)
+		explicit BaseDelegate(Args... args) : parameters(args...)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			parameters = std::make_tuple(args...);
 		}
 
 		/**
@@ -241,7 +240,7 @@ namespace hexen::engine::core
      	*/
 
 		template<typename std::size_t... I>
-		void process(std::index_sequence<I...> indexSequence)
+		void process([[maybe_unused]] std::index_sequence<I...> indexSequence)
 		{
 			HEXEN_ADD_TO_PROFILE();
 			(callableObject->*callableMethod)(std::get<I>(this->parameters)...);
@@ -367,7 +366,7 @@ namespace hexen::engine::core
      	* @param args The arguments to pass to the function when executed.
      	*/
 
-		explicit FunctionalDelegate(std::function<void(Args...)> &&newFunction, Args... args) : BaseDelegate<Args...>(args...), function(std::forward<std::function<void(Args...)>>(newFunction))
+		explicit FunctionalDelegate(std::function<void(Args...)> &newFunction, Args... args) : BaseDelegate<Args...>(args...), function(newFunction)
 		{
 			HEXEN_ADD_TO_PROFILE();
 		}
