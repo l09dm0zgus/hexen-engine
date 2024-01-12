@@ -3,8 +3,7 @@
 //
 
 #include "EditorCameraComponent.hpp"
-#include <uuid/uuid.hpp>
-#include <systems/InputHelper.hpp>
+#include <systems/input/InputHelper.hpp>
 
 hexen::engine::core::u32 hexen::editor::components::graphics::EditorCameraComponent::countOfInstances = 0;
 
@@ -77,3 +76,4 @@ void hexen::editor::components::graphics::EditorCameraComponent::disableInput()
 {
 	engine::input::InputHelper::disableInputForPlayer(countOfInstances);
 }
+

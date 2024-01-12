@@ -3,8 +3,8 @@
 //
 
 #pragma once
-
 #include "../Component.hpp"
+#include "../ComponentContainer.hpp"
 #include <textures/Texture.hpp>
 #include <vector>
 
@@ -28,8 +28,10 @@ namespace hexen::engine::components::graphics
 
 		std::shared_ptr<engine::graphics::ImageAsset> getTexture();
 
+		HEXEN_REGISTER_COMPONENT(SpriteComponent);
 	private:
 		std::shared_ptr<engine::graphics::ImageAsset> mainTexture;
 	};
+
 
 }// namespace hexen::engine::components::graphics

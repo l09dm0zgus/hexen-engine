@@ -4,8 +4,10 @@
 
 #pragma once
 #include <components/Component.hpp>
+#include <components/ComponentContainer.hpp>
 #include <glm/glm.hpp>
 #include <graphics/render_commands/RenderPipeline.hpp>
+
 namespace hexen::engine::graphics
 {
 	class ShaderAsset;
@@ -26,6 +28,8 @@ namespace hexen::editor::components::graphics
 		std::shared_ptr<DrawCheckerboardQuad> drawCheckerboard;
 
 	public:
+
+		HEXEN_REGISTER_COMPONENT(CheckerboardQuadComponent);
 		CheckerboardQuadComponent() = default;
 
 		/**
@@ -76,4 +80,5 @@ namespace hexen::editor::components::graphics
 
 		void setTransformMatrix(const glm::mat4 &transform);
 	};
+
 }// namespace hexen::editor::components::graphics

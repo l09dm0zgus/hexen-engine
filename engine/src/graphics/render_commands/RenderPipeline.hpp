@@ -107,9 +107,10 @@ namespace hexen::engine::graphics
 			static_assert(std::is_base_of_v<IRenderCommand, T>, "T must  inherit from interface IRenderCommand");
 			static_assert(std::is_constructible_v<T, Args...>, "T must be constructive with Args...");
 
+			auto oldIds = ids;
 			ids++;
-			renderQueue[ids] = core::memory::make_shared<T>(args...);
-			return ids;
+			renderQueue.push_back(core::memory::make_shared<T>(args...));
+			return oldIds;
 		}
 
 		/**
@@ -284,7 +285,7 @@ namespace hexen::engine::graphics
  		* @brief A map that maps a unique identifier to each render command in the queue.
  		*/
 
-		phmap::parallel_flat_hash_map<core::u32, std::shared_ptr<IRenderCommand>> renderQueue;
+		std::vector<std::shared_ptr<IRenderCommand>> renderQueue;
 
 		/**
  		* @brief A unique identifier for each render command.
@@ -296,7 +297,7 @@ namespace hexen::engine::graphics
  		* @brief A map that stores cached render commands with their associated keys.
  		*/
 
-		phmap::parallel_flat_hash_map<std::string, std::shared_ptr<IRenderCommand>> cachedRenderCommands;
+		std::unordered_map<std::string, std::shared_ptr<IRenderCommand>> cachedRenderCommands;
 
 		/**
  		* @brief A boolean flag that indicates whether a command should be cached or not.

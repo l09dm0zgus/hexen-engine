@@ -14,16 +14,16 @@ std::shared_ptr<hexen::engine::graphics::IRenderCommand> hexen::engine::graphics
 void hexen::engine::graphics::RenderPipeline::removeCommandFromQueue(hexen::engine::core::u32 commandId)
 {
 	HEXEN_ADD_TO_PROFILE();
-	renderQueue.erase(commandId);
+	renderQueue.erase(renderQueue.cbegin() + commandId);
 }
 void hexen::engine::graphics::RenderPipeline::executeCommands()
 {
 	HEXEN_ADD_TO_PROFILE();
 	for (const auto &command : renderQueue)
 	{
-		if (command.second->enableExecute)
+		if (command->enableExecute)
 		{
-			command.second->execute();
+			command->execute();
 		}
 	}
 }
@@ -32,9 +32,9 @@ void hexen::engine::graphics::RenderPipeline::prepareCommands()
 	HEXEN_ADD_TO_PROFILE();
 	for (const auto &command : renderQueue)
 	{
-		if (command.second->enablePrepare)
+		if (command->enablePrepare)
 		{
-			command.second->prepare();
+			command->prepare();
 		}
 	}
 }
@@ -43,9 +43,9 @@ void hexen::engine::graphics::RenderPipeline::finishCommands()
 	HEXEN_ADD_TO_PROFILE();
 	for (const auto &command : renderQueue)
 	{
-		if (command.second->enableFinish)
+		if (command->enableFinish)
 		{
-			command.second->finish();
+			command->finish();
 		}
 	}
 }

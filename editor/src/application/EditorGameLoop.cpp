@@ -6,11 +6,10 @@
 #include "../gui/EditorGUI.hpp"
 #include "../systems/EditorSystemsManager.hpp"
 #include "core/window/Window.hpp"
-#include "entity/scene/SceneManager.hpp"
 #include "profiling/Profiling.hpp"
+#include <threading/TaskSystem.hpp>
 #include <graphics/render_commands/ClearCommand.hpp>
 #include <graphics/render_commands/RenderPipeline.hpp>
-#include <systems/TaskSystem.hpp>
 
 hexen::editor::EditorGameLoop::EditorGameLoop(const std::shared_ptr<hexen::engine::core::Window> &newWindow, const std::shared_ptr<hexen::engine::graphics::RenderContext> &renderContext) : GameLoop(newWindow)
 {
@@ -74,7 +73,7 @@ void hexen::editor::EditorGameLoop::loop()
 		editorGui->end();
 
 		window->swapBuffers();
-		engine::systems::TaskSystem::waitForCounter();
+		engine::threads::TaskSystem::waitForCounter();
 		HEXEN_END_PROFILE_FRAME()
 	}
 }

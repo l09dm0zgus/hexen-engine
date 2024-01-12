@@ -3,14 +3,15 @@
 //
 
 #pragma once
-
-#include "../components/debug_rendering/GridComponent.hpp"
-#include <components/ComponentContainer.hpp>
 #include "../components/EditorCameraComponent.hpp"
+#include "../components/debug_rendering/CheckerboardQuadComponent.hpp"
+#include "../components/debug_rendering/GridComponent.hpp"
+#include "../components/debug_rendering/ImageComponent.hpp"
+#include "systems/base_system/IRenderSystem.hpp"
+#include <components/ComponentContainer.hpp>
 #include <components/transform/TransformComponent.hpp>
 #include <core/Types.hpp>
-#include <systems/IRenderSystem.hpp>
-#include "../components/debug_rendering/CheckerboardQuadComponent.hpp"
+#include <systems/base_system/ComponentsRegistry.hpp>
 
 namespace hexen::editor::systems
 {
@@ -21,7 +22,7 @@ namespace hexen::editor::systems
  	*
  	* This class is part of the Hexen engine subsystem. It handles the creation, retrieval,
  	* and release of components and also provides functionalities to render and
- 	* update the editor display. Inherits from hexen::engine::systems::IRenderSystem.
+ 	* update the editor display. Inherits from hexen::engine::threads::IRenderSystem.
 	* @extends IRenderSystem
  	*/
 
@@ -46,40 +47,10 @@ namespace hexen::editor::systems
 	 	*/
 
 		template<class T, class... Args>
-		static engine::core::i32 registerNewComponent(Args... args)
+		static engine::core::i32 registerNewComponent(Args&&... args)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			engine::core::i32 handle {-1};
-
-			if constexpr (std::is_same_v<T, engine::components::TransformComponent>)
-			{
-				handle = transformComponents.reserve();
-				transformComponents[handle] = engine::components::TransformComponent(args...);
-				return handle;
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::EditorCameraComponent>)
-			{
-				handle = camerasComponents.reserve();
-				camerasComponents[handle] = components::graphics::EditorCameraComponent(args...);
-				return handle;
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
-			{
-				handle = debugGridComponentsContainer.reserve();
-				debugGridComponentsContainer[handle] = components::graphics::GridComponent(args...);
-				return handle;
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::CheckerboardQuadComponent>)
-			{
-				handle = checkerboardQuadsComponents.reserve();
-				checkerboardQuadsComponents[handle] = components::graphics::CheckerboardQuadComponent(args...);
-				return handle;
-			}
-			else
-			{
-				static_assert(!sizeof(T*), "Cannot register this component.Component container with T does not exist!");
-			}
-			return handle;
+			return componentsRegistry.registerNewComponent<T>(std::forward<Args>(args)...);
 		}
 
 		/**
@@ -100,27 +71,7 @@ namespace hexen::editor::systems
 		static T *getComponentInstanceByHandle(engine::core::i32 handle)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			if constexpr (std::is_same_v<T, engine::components::TransformComponent>)
-			{
-				return &transformComponents[handle];
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::EditorCameraComponent>)
-			{
-				return &camerasComponents[handle];
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
-			{
-				return &debugGridComponentsContainer[handle];
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::CheckerboardQuadComponent>)
-			{
-				return &checkerboardQuadsComponents[handle];
-			}
-			else
-			{
-				static_assert(!sizeof(T*), "Cannot get component with T type.Component container with T does not exist!");
-			}
-			return nullptr;
+			return componentsRegistry.getComponentInstanceByHandle<T>(handle);
 		}
 
 		/**
@@ -139,33 +90,14 @@ namespace hexen::editor::systems
 		static void releaseComponentByHandle(engine::core::i32 handle)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			if constexpr (std::is_same_v<T, engine::components::TransformComponent>)
-			{
-				transformComponents.release(handle);
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::EditorCameraComponent>)
-			{
-				camerasComponents.release(handle);
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::GridComponent>)
-			{
-				debugGridComponentsContainer.release(handle);
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::CheckerboardQuadComponent>)
-			{
-				checkerboardQuadsComponents.release(handle);
-			}
-			else
-			{
-				static_assert(!sizeof(T*), "Cannot release component with T type.Component container with T does not exist!");
-			}
+			componentsRegistry.releaseComponentByHandle<T>(handle);
 		}
 
 		/**
  		* @brief Constructs a new EditorRenderSystem object.
  		*
  		*/
-		EditorRenderSystem() = default;
+		EditorRenderSystem();
 
 		/**
     	* @brief Applies linear interpolation to render the object based on the given alpha value.
@@ -210,47 +142,6 @@ namespace hexen::editor::systems
 		static constexpr size_t COMPONENTS_CONTAINER_SIZE = 10;
 
 		/**
- 		* @brief Stores grid components in the render system.
- 		*
- 		* Static container for GridComponent instances used in the EditorRenderSystem.
- 		* These components provide essential information about the spatial
- 		* grid structure used in the editor rendering system.
- 		*/
-
-		static engine::components::ComponentContainer<components::graphics::GridComponent, COMPONENTS_CONTAINER_SIZE> debugGridComponentsContainer;
-
-		/**
- 		* @brief Stores transform components in the render system.
- 		*
- 		* Static container for TransformComponent instances used in the EditorRenderSystem.
- 		* The transform components represent location, rotation and scale
- 		* of entities within the render system. It is crucial for accurately
- 		* rendering these entities within the editor.
- 		*/
-
-		static engine::components::ComponentContainer<engine::components::TransformComponent, COMPONENTS_CONTAINER_SIZE> transformComponents;
-
-		/**
- 		* @brief Stores camera components in the render system.
- 		*
- 		* Static container for CameraComponent instances used in the EditorRenderSystem.
- 		* These components provide essential information about the
- 		* cameras used in the editor rendering system.
- 		*/
-
-		static engine::components::ComponentContainer<components::graphics::EditorCameraComponent, COMPONENTS_CONTAINER_SIZE> camerasComponents;
-
-		/**
- 		* @brief Stores checkerboards components in the render system.
- 		*
- 		* Static container for CheckerboardQuadComponent instances used in the EditorRenderSystem.
- 		* These components provide essential information about the
- 		* checkerboard pattern in background used in the editor rendering system.
- 		*/
-
-		static engine::components::ComponentContainer<editor::components::graphics::CheckerboardQuadComponent, COMPONENTS_CONTAINER_SIZE> checkerboardQuadsComponents;
-
-		/**
  		* @brief Updates the grid matrices
  		*
  		* @details This function is a part of the EditorRenderSystem class and is utilized to update the various grid matrices, including View, Projection and Transform matrices. It requires a GridComponent object as an argument to operate. The function retrieves the main camera from the RenderSystem, and if the main camera is found, the function checks if the Grid Component and the camera have the same UUID. If they do, their view and projection matrices are set.
@@ -261,7 +152,7 @@ namespace hexen::editor::systems
  		* @return void.
  		*/
 
-		void updateGridMatrices(components::graphics::GridComponent *debugGridComponent);
+		void updateGridMatrices(components::graphics::GridComponent &debugGridComponent);
 
 		/**
  		* @brief Updates CheckerboardQuadComponent's view, projection, and transform matrices.
@@ -277,7 +168,13 @@ namespace hexen::editor::systems
  		* @note The function runs in parallel using std::execution::par policy in the find_if operation for increased performance.
  		*/
 
-		void updateCheckerboardQuadsMatrices(components::graphics::CheckerboardQuadComponent* checkerboardQuadComponent);
+		void updateCheckerboardQuadsMatrices(components::graphics::CheckerboardQuadComponent& checkerboardQuadComponent);
 
+		void updateImageMatrices(components::graphics::ImageComponent& imageComponent);
+
+		static engine::systems::ComponentsRegistry componentsRegistry;
+
+		std::shared_ptr<engine::components::ComponentContainerBase<components::graphics::EditorCameraComponent>> camerasComponents;
+		std::shared_ptr<engine::components::ComponentContainerBase<engine::components::TransformComponent>> transformComponents;
 	};
-}// namespace hexen::editor::systems
+}// namespace hexen::editor::threads

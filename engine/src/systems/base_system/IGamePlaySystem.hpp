@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include "../core/memory_pool/MemoryPool.hpp"
+#include <memory_pool/AllocatedObject.hpp>
 
 
 namespace hexen::engine::systems

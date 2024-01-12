@@ -3,8 +3,8 @@
 //
 
 #include "GameLoop.hpp"
-#include "RenderSystem.hpp"
-#include "TaskSystem.hpp"
+#include "graphics/RenderSystem.hpp"
+#include <TaskSystem.hpp>
 #include "window/Window.hpp"
 #include <chrono>
 #include <render_commands/ClearCommand.hpp>
@@ -13,9 +13,7 @@
 void hexen::engine::systems::GameLoop::start()
 {
 	HEXEN_ADD_TO_PROFILE();
-	systems::SystemsManager::addRenderSystem<systems::RenderSystem>(100);
 	systemManager->start();
-
 }
 
 void hexen::engine::systems::GameLoop::loop()
@@ -41,7 +39,7 @@ void hexen::engine::systems::GameLoop::loop()
 
 		systemManager->render(getAlpha());
 		window->swapBuffers();
-		systems::TaskSystem::waitForCounter();
+		threads::TaskSystem::waitForCounter();
 		HEXEN_END_PROFILE_FRAME();
 	}
 }
@@ -84,7 +82,7 @@ hexen::engine::systems::GameLoop::GameLoop(const std::shared_ptr<core::Window> &
 {
 	HEXEN_ADD_TO_PROFILE();
 	//initialize thread and fiber pool
-	systems::TaskSystem::initialize();
+	threads::TaskSystem::initialize();
 
 	systemManager = core::memory::make_shared<systems::SystemsManager>();
 
@@ -92,6 +90,7 @@ hexen::engine::systems::GameLoop::GameLoop(const std::shared_ptr<core::Window> &
 
 	systems::SystemsManager::setCurrentSystemManager(systemManager.get());
 	window = newWindow;
+	systems::SystemsManager::addRenderSystem<systems::RenderSystem>(100);
 
 
 }

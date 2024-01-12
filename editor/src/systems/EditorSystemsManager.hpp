@@ -3,9 +3,9 @@
 //
 
 #pragma once
+#include "systems/input/InputSystem.hpp"
 #include <glm/detail/type_vec1.hpp>
 #include <glm/vec2.hpp>
-#include <systems/InputSystem.hpp>
 #include <systems/SystemsManager.hpp>
 
 namespace hexen::editor::gui
@@ -19,10 +19,10 @@ namespace hexen::editor::systems
 
 	/**
     * @class EditorSystemsManager
-    * @brief The EditorSystemsManager class represents a manager for editor systems.
+    * @brief The EditorSystemsManager class represents a manager for editor threads.
     *
-    * This class is responsible for managing various systems used in an editor environment.
-    * It provides functionality for creating, updating, and destroying editor systems.
+    * This class is responsible for managing various threads used in an editor environment.
+    * It provides functionality for creating, updating, and destroying editor threads.
      */
 
 	class EditorSystemsManager : public hexen::engine::systems::SystemsManager
@@ -120,7 +120,7 @@ namespace hexen::editor::systems
 
 
 		/**
-        * @brief Calling render() in all render systems
+        * @brief Calling render() in all render threads
         *
         * @param alpha interpolated value for correct position of rendered object.
         */
@@ -128,4 +128,4 @@ namespace hexen::editor::systems
 		void render(float alpha) override;
 
 	};
-}// namespace hexen::editor::systems
+}// namespace hexen::editor::threads

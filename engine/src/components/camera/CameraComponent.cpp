@@ -11,7 +11,6 @@
 #else
 	#include <GLES3/gl31.h>
 #endif
-#include "../../systems/InputHelper.hpp"
 #include <render_commands/RenderPipeline.hpp>
 #include <render_commands/ViewportCommand.hpp>
 

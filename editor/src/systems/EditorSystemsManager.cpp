@@ -9,9 +9,9 @@
 #include "EditorRenderSystem.hpp"
 #include "core/window/Window.hpp"
 #include "profiling/Profiling.hpp"
-#include <systems/InputHelper.hpp>
-#include <systems/RenderSystem.hpp>
-#include <systems/TaskSystem.hpp>
+#include "systems/graphics/RenderSystem.hpp"
+#include "systems/input/InputHelper.hpp"
+#include <threading/TaskSystem.hpp>
 
 
 void hexen::editor::systems::EditorSystemsManager::setEditorGUI(const std::shared_ptr<hexen::editor::gui::EditorGUI> &newEditorGUI)
@@ -41,7 +41,7 @@ void hexen::editor::systems::EditorSystemsManager::render(float alpha)
 	auto windowSize = editorGui->getDockspace()->getWindow("Scene")->getSize();
 	if (windowSize != currentSceneWindowSize)
 	{
-		hexen::engine::systems::TaskSystem::addTask(
+		hexen::engine::threads::TaskSystem::addTask(
 				hexen::engine::core::threading::TaskPriority::Normal, +[](glm::vec2 windowSize)
 																	  {
 																		  using namespace hexen::engine::systems;

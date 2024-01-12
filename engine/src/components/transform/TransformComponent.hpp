@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../Component.hpp"
+#include "../ComponentContainer.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -27,6 +28,7 @@ namespace hexen::engine::components
 
 	class TransformComponent : public components::Component
 	{
+		HEXEN_REGISTER_COMPONENT(TransformComponent);
 	public:
 
 		/**
@@ -412,5 +414,6 @@ namespace hexen::engine::components
 
 		bool bIsDirty {true};
 	};
+
 
 }// namespace hexen::engine::components

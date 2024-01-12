@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "../components/ComponentContainer.hpp"
-#include "../components/camera/CameraComponent.hpp"
+#include "../base_system/ComponentsRegistry.hpp"
+#include "../base_system/IRenderSystem.hpp"
 #include "../components/graphics/SpriteComponent.hpp"
+#include "../components/camera/CameraComponent.hpp"
 #include "../components/transform/TransformComponent.hpp"
-#include "../core/Types.hpp"
-#include "IRenderSystem.hpp"
+#include <Types.hpp>
 #include <memory>
 #include <vector>
 
@@ -67,111 +67,6 @@ namespace hexen::engine::systems
 		}
 
 		/**
- 		* @brief Register a new component.
- 		*
- 		* This method is to reserve and assign a handle for the required
- 		* TransformComponent type and return this handle.
- 		*
- 		* @tparam T Type of the component.
- 		* @tparam Args Variadic template for passing additional arguments.
- 		*
- 		* @param args Additional arguments for registering the component.
- 		*
- 		* @return handle An integer handle referencing the component.
- 		*                Returns -1 if the component type is not
- 		*                components::TransformComponent.
-	 	*/
-
-		template<class T, class... Args>
-		static core::i32 registerNewComponent(Args... args)
-		{
-			HEXEN_ADD_TO_PROFILE();
-			core::i32 handle {-1};
-
-			if constexpr (std::is_same_v<T, components::TransformComponent>)
-			{
-				handle = transformComponents.reserve();
-				transformComponents[handle] = components::TransformComponent(args...);
-				return handle;
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
-			{
-				handle = spriteComponents.reserve();
-				spriteComponents[handle] = components::graphics::SpriteComponent(args...);
-				return handle;
-			}
-			else
-			{
-				static_assert(!sizeof(T*), "Cannot register this component.Component container with T does not exist!");
-			}
-			return handle;
-		}
-
-		/**
- 		* @brief Returns a pointer to a component instance by its handle.
- 		*
- 		* This function returns the address of a TransformComponent type using its handle.
- 		*
- 		* @tparam T Type of the component.
- 		*
- 		* @param handle An integer referencing the desired component.
- 		*
- 		* @return Pointer to the component of type T.
- 		*         Returns nullptr if the component type is not
- 		*         components::TransformComponent.
- 		*/
-
-		template<class T>
-		static T *getComponentInstanceByHandle(core::i32 handle)
-		{
-			HEXEN_ADD_TO_PROFILE();
-			if constexpr (std::is_same_v<T, components::TransformComponent>)
-			{
-				return &transformComponents[handle];
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
-			{
-				return &spriteComponents[handle];
-			}
-			else
-			{
-				static_assert(!sizeof(T*), "Cannot get component with T type.Component container with T does not exist!");
-			}
-
-			return nullptr;
-		}
-
-		/**
- 		* @brief A template method to release a component by its handle.
- 		*
- 		* This method does some book-keeping and releases a component from its respective container.
- 		* It supports types `TransformComponent` and `SpriteComponent`.
- 		*
- 		* @param handle The handle id of the component to be released.
- 		*
- 		* Template parameter:
- 		* @tparam T The type of the component to be released.
- 		*/
-
-		template<class T>
-		static void releaseComponentByHandle(core::i32 handle)
-		{
-			HEXEN_ADD_TO_PROFILE();
-			if constexpr (std::is_same_v<T, components::TransformComponent>)
-			{
-				transformComponents.release(handle);
-			}
-			else if constexpr (std::is_same_v<T, components::graphics::SpriteComponent>)
-			{
-				spriteComponents.release(handle);
-			}
-			else
-			{
-				static_assert(!sizeof(T*), "Cannot release component with T type.Component container with T does not exist!");
-			}
-		}
-
-		/**
         * @brief Retrieves the main camera instance from the RenderSystem.
         *
         * This function returns the main camera object managed by the RenderSystem. The main camera is responsible for rendering
@@ -199,31 +94,28 @@ namespace hexen::engine::systems
 
 		void render(float alpha) override;
 
+		template<typename T, typename... Args>
+		static engine::core::i32 registerNewComponent(Args &&...args)
+		{
+			HEXEN_ADD_TO_PROFILE();
+			return componentsRegistry.registerNewComponent<T>(std::forward<Args>(args)...);
+		}
+
+		template<class T>
+		static T *getComponentInstanceByHandle(engine::core::i32 handle)
+		{
+			HEXEN_ADD_TO_PROFILE();
+			return componentsRegistry.getComponentInstanceByHandle<T>(handle);
+		}
+
+		template<class T>
+		void releaseComponentByHandle(engine::core::i32 handle)
+		{
+			HEXEN_ADD_TO_PROFILE();
+			return componentsRegistry.releaseComponentByHandle<T>(handle);
+		}
+
 	private:
-		/**
-        * @brief Represents the spritesComponent of the RenderSystem.
-        *
-        * The spritesComponent is responsible for managing the sprites of the RenderSystem.
-        * It provides methods to add, remove, and update the sprites in the system.
-        *
-        */
-
-		static components::ComponentContainer<hexen::engine::components::graphics::SpriteComponent, COMPONENTS_CONTAINER_SIZE> spriteComponents;
-
-		/**
-        * @brief Represents a container for render system transform components.
-        *
-        * The transformComponents  represents a container that holds the transform
-        * components of the render system. It is used within the sys namespace and belongs
-        * to the RenderSystem subsystem.
-        *
-        * This container is used to store and manage the transform components associated
-        * with the entities in the render system. It allows for easy access and manipulation
-        * of the transform data required for rendering.
-        *
-        */
-
-		static components::ComponentContainer<hexen::engine::components::TransformComponent, COMPONENTS_CONTAINER_SIZE> transformComponents;
 
 		/**
         * @brief The camerasComponents variable is a member of the sys::RenderSystem class.
@@ -259,14 +151,14 @@ namespace hexen::engine::systems
  		* matches the SpriteComponent's. If a match is found, it gets the 2D-quads command to add a new quad
  		* for this SpriteComponent using its texture and the corresponding TransformComponent's transformation matrix.
  		*
- 		* @param spriteComponent Pointer to the SpriteComponent to add to the RenderSystem.
+ 		* @param spriteComponent SpriteComponent to add to the RenderSystem.
  		*
  		* The execution of this method is profiled using HEXEN_ADD_TO_PROFILE macro, allowing performance monitoring.
  		*
  		* @note The search of transformComponents is done in parallel using C++17's parallel algorithms for efficiency.
  		*/
 
-		void addSpriteToRender(components::graphics::SpriteComponent *spriteComponent);
+		void addSpriteToRender(components::graphics::SpriteComponent &spriteComponent);
 
 		/**
      	* @brief A function to update the view and projection matrices for the RenderSystem's main camera.
@@ -282,5 +174,8 @@ namespace hexen::engine::systems
 		void updateViewAndProjectionMatrices();
 
 		std::shared_ptr<engine::graphics::Draw2DQuadsCommand> draw2DQuadsCommand;
+		bool firstRun = true;
+		static systems::ComponentsRegistry componentsRegistry;
+
 	};
 }// namespace hexen::engine::systems

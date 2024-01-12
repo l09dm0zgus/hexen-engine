@@ -4,8 +4,10 @@
 
 #pragma once
 #include <components/Component.hpp>
+#include <components/ComponentContainer.hpp>
 #include <render_commands/DrawQuadCommand.hpp>
 #include <render_commands/RenderPipeline.hpp>
+
 namespace hexen::engine::graphics
 {
 	class ImageAsset;
@@ -27,6 +29,11 @@ namespace hexen::editor::components::graphics
 	private:
 		std::shared_ptr<engine::graphics::DrawQuadCommand> drawQuadCommand;///< pointer to draw command
 	public:
+		HEXEN_REGISTER_COMPONENT(ImageComponent)
+
+		///Default constructor
+		ImageComponent() = default;
+
 		/**
 		 * @brief Constructor for class ImageComponent
 		 * @param imageAsset - image which be drawing/
@@ -69,4 +76,5 @@ namespace hexen::editor::components::graphics
 
 		void changeImage(const std::shared_ptr<engine::graphics::ImageAsset> &imageAsset);
 	};
+
 }// namespace hexen::editor::components::graphics

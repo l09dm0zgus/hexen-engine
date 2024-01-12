@@ -24,3 +24,4 @@ void hexen::editor::components::graphics::ImageComponent::changeImage(const std:
 {
 	drawQuadCommand->changeTexture(imageAsset);
 }
+

@@ -3,12 +3,12 @@
 //
 
 #pragma once
-#include <entity/scene/Grid.hpp>
-#include <graphics/shaders/ShaderProgram.hpp>
-#include <components/Component.hpp>
-#include <graphics/render_commands/RenderPipeline.hpp>
 #include "DrawGridCommand.hpp"
-
+#include <components/Component.hpp>
+#include <components/ComponentContainer.hpp>
+#include <entity/scene/Grid.hpp>
+#include <graphics/render_commands/RenderPipeline.hpp>
+#include <graphics/shaders/ShaderProgram.hpp>
 
 namespace hexen::editor::components::graphics
 {
@@ -25,6 +25,7 @@ namespace hexen::editor::components::graphics
 
 	class GridComponent : public hexen::engine::components::Component
 	{
+		HEXEN_REGISTER_COMPONENT(GridComponent);
 	private:
 		glm::vec3 color {1.0f,0.0f, 0.0f};
 
@@ -134,10 +135,6 @@ namespace hexen::editor::components::graphics
  		*/
 
 		static std::vector<glm::uvec4> createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
-
-		float getScale();
-
-		void setScale(float newScale);
 
 	};
 }// namespace hexen::editor::components::graphics

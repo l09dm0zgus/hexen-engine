@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <components/ComponentContainer.hpp>
 #include <components/camera/CameraComponent.hpp>
 
 namespace hexen::editor::components::graphics
@@ -19,6 +20,7 @@ namespace hexen::editor::components::graphics
 
 	class EditorCameraComponent : public engine::components::graphics::CameraComponent
 	{
+		HEXEN_REGISTER_COMPONENT(EditorCameraComponent);
 	private:
 		float velocity {100.f};
 
@@ -26,10 +28,7 @@ namespace hexen::editor::components::graphics
 		std::string UUID;
 	public:
 
-		~EditorCameraComponent()
-		{
-			std::cout << "Destroyed Object : " << getOwnerUUID() << "\n";
-		}
+		~EditorCameraComponent() override = default;
 
 		EditorCameraComponent() = default;
 		/**
@@ -100,4 +99,5 @@ namespace hexen::editor::components::graphics
 		void setInputMappings();
 
 	};
+
 }// namespace hexen::editor::components::graphics
