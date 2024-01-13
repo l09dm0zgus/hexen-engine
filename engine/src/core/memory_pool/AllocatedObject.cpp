@@ -4,6 +4,10 @@
 
 #include "AllocatedObject.hpp"
 #include <SDL3/SDL.h>
+#include <fstream>
+#include <filesystem>
+#include <nlohmann/json.hpp>
+
 namespace hexen::engine::core::memory
 {
 	void handler()
@@ -21,7 +25,21 @@ hexen::engine::core::vptr hexen::engine::core::memory::AllocatedObject::operator
 	HEXEN_ADD_TO_PROFILE();
 	if (memoryPool == nullptr)
 	{
-		memoryPool = std::make_unique<MemoryPool>(POOL_SIZE);
+		if(std::filesystem::exists(pathToSettings))
+		{
+			std::ifstream file((std::filesystem::path(pathToSettings)));
+			auto json = nlohmann::json::parse(file);
+			auto size = json["memory"]["pool_size"];
+			memoryPool = std::make_unique<MemoryPool>(size);
+		}
+		else
+		{
+			std::ofstream file((std::filesystem::path(pathToSettings)));
+			auto json = nlohmann::json();
+			json["memory"]["pool_size"] = POOL_SIZE;
+			file << json.dump(2);
+			memoryPool = std::make_unique<MemoryPool>(POOL_SIZE);
+		}
 	}
 	if (size == 0)
 	{

@@ -116,7 +116,8 @@ namespace hexen::engine::core::memory
 
 
 	private:
-		static constexpr u64 POOL_SIZE = 8128;
+		static constexpr u64 POOL_SIZE = 208128;
+		static constexpr std::string_view pathToSettings = "settings/memory.hxs";
 		static std::unique_ptr<MemoryPool> memoryPool;
 	};
 
