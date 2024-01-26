@@ -79,6 +79,8 @@ namespace hexen::engine::core
 
 		std::map<std::pair<u32,u32> ,Cell> cells;
 
+		float spacingBetweenCells = 0.0f;
+
 	public:
 
 		/**
@@ -178,5 +180,19 @@ namespace hexen::engine::core
  		*/
 
 		void setUnitSize(const glm::vec2 &newUnitSize);
+
+		/**
+		 * @brief Sets new spacing between cells in grid.
+		 * @param newSpacing new value for spacing.
+		 */
+
+		void setSpacingBetweenCells(float newSpacing);
+
+		/**
+		 * @brief Gets spacing between cells.
+		 * @return spacing value.
+		 */
+
+		float getSpacingBetweenSpacing();
 	};
 }// namespace hexen::engine::core
