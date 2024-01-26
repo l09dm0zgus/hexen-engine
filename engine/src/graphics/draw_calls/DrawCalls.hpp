@@ -12,6 +12,13 @@
 
 namespace hexen::engine::graphics
 {
+	enum class  PolygonRasterizationMode: core::u8
+	{
+		LINE,
+		POINT,
+		FILL,
+	};
+
 	/**
  	* @brief This function draws lines based on the currently set Render API.
  	*
@@ -71,6 +78,52 @@ namespace hexen::engine::graphics
 				if constexpr (RenderContext::enabledOpengl)
 				{
 					gl::drawTriangles(countOfTriangles);
+				}
+				break;
+			case core::Settings::RenderAPI::VULKAN_API:
+				break;
+			case core::Settings::RenderAPI::DIRECTX12_API:
+				break;
+		}
+	}
+
+	/**
+ 	* @brief Sets the polygon rasterization mode for the current render context.
+	*
+ 	* This function sets the polygon rasterization mode according to the given @p mode
+ 	* for the active render API. Supported modes are LINE, POINT, and FILL.
+	*
+ 	* @param mode The desired polygon rasterization mode.
+	*
+ 	* @pre The render context must be active.
+	*
+ 	* @note This function only has an effect if the OpenGL render API is active and
+ 	* OpenGL extensions are enabled. It has no effect for other render APIs.
+ 	*/
+
+	static HEXEN_INLINE void setPolygonRasterization(PolygonRasterizationMode mode)
+	{
+		HEXEN_ADD_TO_PROFILE();
+		switch(RenderContext::getRenderAPI())
+		{
+			case core::Settings::RenderAPI::NO_API:
+				break;
+			case core::Settings::RenderAPI::OPENGL_API:
+				if constexpr (RenderContext::enabledOpengl)
+				{
+					switch (mode)
+					{
+
+						case PolygonRasterizationMode::LINE:
+							gl::setPolygonRasterization(GL_LINE);
+							break;
+						case PolygonRasterizationMode::POINT:
+							gl::setPolygonRasterization(GL_POINT);
+							break;
+						case PolygonRasterizationMode::FILL:
+							gl::setPolygonRasterization(GL_FILL);
+							break;
+					}
 				}
 				break;
 			case core::Settings::RenderAPI::VULKAN_API:

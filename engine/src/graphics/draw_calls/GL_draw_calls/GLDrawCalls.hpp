@@ -22,8 +22,7 @@ namespace hexen::engine::graphics::gl
 			glEnable(GL_LINE_WIDTH);
 			glLineWidth(lineWidth);
 		}
-
-		glDrawElements(GL_LINES, countOfLines , GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_LINE, countOfLines , GL_UNSIGNED_INT, nullptr);
 		if(lineWidth < 1.0f || lineWidth > 1.0f)
 		{
 			glDisable(GL_LINE_WIDTH);
@@ -35,5 +34,12 @@ namespace hexen::engine::graphics::gl
 	{
 		HEXEN_ADD_TO_PROFILE();
 		glDrawElements(GL_TRIANGLES,countOfTriangles,GL_UNSIGNED_INT, nullptr);
+	}
+
+
+	static HEXEN_INLINE void setPolygonRasterization(GLenum mode)
+	{
+		HEXEN_ADD_TO_PROFILE();
+		glPolygonMode(GL_FRONT_AND_BACK,mode);
 	}
 }
