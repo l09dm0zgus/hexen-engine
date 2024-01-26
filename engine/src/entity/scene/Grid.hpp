@@ -79,7 +79,7 @@ namespace hexen::engine::core
 
 		std::map<std::pair<u32,u32> ,Cell> cells;
 
-		float spacingBetweenCells = 0.0f;
+		float spacingBetweenCells = 1.0f;
 
 	public:
 
@@ -193,6 +193,6 @@ namespace hexen::engine::core
 		 * @return spacing value.
 		 */
 
-		float getSpacingBetweenSpacing();
+		float getSpacingBetweenCells();
 	};
 }// namespace hexen::engine::core

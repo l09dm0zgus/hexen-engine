@@ -98,7 +98,7 @@ void hexen::engine::core::Grid::setSpacingBetweenCells(float newSpacing)
 	spacingBetweenCells = newSpacing;
 }
 
-float hexen::engine::core::Grid::getSpacingBetweenSpacing()
+float hexen::engine::core::Grid::getSpacingBetweenCells()
 {
 	return spacingBetweenCells;
 }
