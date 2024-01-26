@@ -132,4 +132,40 @@ namespace hexen::engine::graphics
 				break;
 		}
 	}
+
+	/**
+ 	* @brief Sets the line width for the current render context.
+ 	*
+ 	* This function sets the line width to be used for subsequent line rendering
+ 	* operations in the active render context.
+ 	*
+ 	* @param lineWidth The desired line width, in pixels.
+ 	*
+ 	* @pre The render context must be active.
+ 	*
+ 	* @note This function only has an effect if the OpenGL render API is active and
+ 	* OpenGL extensions are enabled. It has no effect for other render APIs.
+ 	*
+ 	* @see setPolygonRasterization
+ 	*/
+
+	static HEXEN_INLINE void setLineWidth(float lineWidth)
+	{
+		HEXEN_ADD_TO_PROFILE();
+		switch(RenderContext::getRenderAPI())
+		{
+			case core::Settings::RenderAPI::NO_API:
+				break;
+			case core::Settings::RenderAPI::OPENGL_API:
+				if constexpr (RenderContext::enabledOpengl)
+				{
+					gl::setLineWidth(lineWidth);
+				}
+				break;
+			case core::Settings::RenderAPI::VULKAN_API:
+				break;
+			case core::Settings::RenderAPI::DIRECTX12_API:
+				break;
+		}
+	}
 }
