@@ -41,7 +41,10 @@ void hexen::editor::components::graphics::DrawGridCommand::execute()
 	shaderProgram->setVector3f("color", color);
 
 	vertexArray->bind();
-	engine::graphics::drawLines(countOfLines, lineWidth);
+	engine::graphics::setPolygonRasterization(engine::graphics::PolygonRasterizationMode::LINE);
+	engine::graphics::setLineWidth(lineWidth);
+	engine::graphics::drawTriangles(countOfTriangles);
+	engine::graphics::setPolygonRasterization(engine::graphics::PolygonRasterizationMode::FILL);
 	vertexArray->unbind();
 
 }
@@ -55,18 +58,18 @@ void hexen::editor::components::graphics::DrawGridCommand::resize(const hexen::e
 {
 	elementsBuffer->setData(renderGridData.indices, renderGridData.indicesSize);
 	vertexBuffer->setData(renderGridData.vertices, renderGridData.verticesSize);
-	countOfLines = renderGridData.countOfLines;
+	countOfTriangles = renderGridData.countOfTriangles;
 }
 
-hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color) : shaderAssets(shaderAssets), color(color)
+hexen::editor::components::graphics::RenderGridData::RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<engine::core::u32> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color) : shaderAssets(shaderAssets), color(color)
 {
 	HEXEN_ADD_TO_PROFILE()
 	vertices = const_cast<float*>(glm::value_ptr(verticesVector[0]));
-	indices = const_cast<engine::core::u32*>(glm::value_ptr(indicesVector[0]));
+	indices = const_cast<engine::core::u32*>(indicesVector.data());
 
 	verticesSize = verticesVector.size() * sizeof(glm::vec3);
-	indicesSize = indicesVector.size() * sizeof(glm::uvec4);
+	indicesSize = indicesVector.size() * sizeof(engine::core::u32);
 
-	countOfLines = indicesVector.size() * 4;
+	countOfTriangles = indicesVector.size();
 
 }

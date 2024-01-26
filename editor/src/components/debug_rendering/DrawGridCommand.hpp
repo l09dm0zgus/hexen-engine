@@ -49,13 +49,13 @@ namespace hexen::editor::components::graphics
  		* Member 'countOfLines' stores the total number of lines, which is the size of the indices vector multiplied by 4.
 	 	*/
 
-		RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<glm::uvec4> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color);
+		RenderGridData(const std::vector<glm::vec3> &verticesVector, const std::vector<engine::core::u32> &indicesVector , const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>>& shaderAssets, const glm::vec3& color);
 
 		float *vertices; ///< Pointer to the vertices data.
 		hexen::engine::core::u32 verticesSize; ///< Size of the vertices data.
 		hexen::engine::core::u32 *indices; ///< Pointer to the indices data.
 		hexen::engine::core::u32 indicesSize; ///< Size of the indices data.
-		engine::core::u32 countOfLines; ///< The count of lines to be rendered.
+		engine::core::u32 countOfTriangles; ///< The count of triangles to be rendered.
 		std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> shaderAssets; ///< Vector of shaders assets.
 		glm::vec3 color; ///< Vector of RGB values for grid color.
 	};;
@@ -74,7 +74,7 @@ namespace hexen::editor::components::graphics
 		std::unique_ptr<engine::graphics::VertexArray> vertexArray; ///< Unique pointer to a VertexArray.
 		std::shared_ptr<engine::graphics::ElementsBuffer> elementsBuffer; ///< Shared Pointer to a ElementsBuffer.
 		std::shared_ptr<hexen::engine::graphics::ShaderProgram> shaderProgram {nullptr}; ///< Shared Pointer to a ShaderProgram; initially nullptr.
-		hexen::engine::core::u32 countOfLines; ///< Number of lines to draw.
+		hexen::engine::core::u32 countOfTriangles; ///< Number of triangles to draw.
 
 		glm::vec3 color;
 		glm::mat4 view{1};
