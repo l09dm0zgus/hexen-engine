@@ -2,8 +2,9 @@
 // Created by cx9ps3 on 13.07.2023.
 //
 
-#include "DrawGridCommand.hpp"
 #include "GridComponent.hpp"
+#include "DrawGridCommand.hpp"
+#include <glm/ext/matrix_transform.hpp>
 #include <graphics/render_commands/RenderPipeline.hpp>
 
 hexen::editor::components::graphics::GridComponent::GridComponent(const std::vector<std::shared_ptr<engine::graphics::ShaderAsset>> &shaderAssets, const glm::vec3 &newColor, const glm::vec2 &size, const glm::vec2 &unitSize, hexen::engine::graphics::RenderPipelineID renderPipelineId) : shaderAssets(shaderAssets)
@@ -38,48 +39,57 @@ std::vector<glm::vec3> hexen::editor::components::graphics::GridComponent::creat
 {
 	HEXEN_ADD_TO_PROFILE();
 	std::vector<glm::vec3> vertices;
-
+	glm::vec4 quadVertexPositions[4];
 	float cellWidth = grid->getUnitSize().x;
 	float cellHeight = grid->getUnitSize().y;
 
 	float rows = grid->getSize().x;
 	float columns = grid->getSize().y;
+	float spacing = grid->getSpacingBetweenCells();
 
-	// Calculate half of the grid's width and height based on cell sizes
-	float halfGridWidth = cellWidth * (rows - 1) / 2.0f;
-	float halfGridHeight = cellHeight * (columns - 1) / 2.0f;
+	quadVertexPositions[0] = {0.5F, 0.5F, 0.0F, 1.0F};
+	quadVertexPositions[1] = {0.5F, -0.5F, 0.0F, 1.0F};
+	quadVertexPositions[2] = {-0.5F, -0.5F, 0.0F, 1.0F};
+	quadVertexPositions[3] = {-0.5F, 0.5F, 0.0F, 1.0F};
 
-
-	for (hexen::engine::core::i32 j = 0; j <= columns; ++j)
+	for (hexen::engine::core::i32 j = 0; j < columns; ++j)
 	{
-		for (hexen::engine::core::i32 i = 0; i <= rows; ++i)
+		for (hexen::engine::core::i32 i = 0; i < rows; ++i)
 		{
-			// Calculate vertex position based on cell coordinates, grid size, and cell sizes
-			auto x = static_cast<float>(i) * cellWidth - halfGridWidth;
-			auto y = static_cast<float>(j) * cellHeight - halfGridHeight;
-
-			vertices.emplace_back(x , y , 0);
+			auto scale = glm::scale(glm::mat4(1.0), glm::vec3( cellWidth / 100, cellHeight / 100, 1.0f));
+			auto trans = glm::translate(scale, {i * spacing, j * spacing, 0});
+			for(engine::core::u32 k = 0; k < 4; k++)
+			{
+				auto vertexPosition = trans * quadVertexPositions[k];
+				vertices.emplace_back(vertexPosition.x , vertexPosition.y, 0);
+			}
 		}
 	}
 	return vertices;
 }
 
-std::vector<glm::uvec4> hexen::editor::components::graphics::GridComponent::createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid)
+std::vector<hexen::engine::core::u32> hexen::editor::components::graphics::GridComponent::createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid)
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::vector<glm::uvec4> indices;
+	auto rows = grid->getSize().x;
+	auto columns = grid->getSize().y;
 
-	for (hexen::engine::core::i32 j = 0; j < grid->getSize().y; ++j)
+	auto numberOfRectangles = rows * columns * 6;
+
+	std::vector<engine::core::u32> indices(numberOfRectangles);
+
+	engine::core::u32 offset = 0;
+	for (engine::core::i32 i = 0; i < numberOfRectangles; i += 6)
 	{
-		for (hexen::engine::core::i32 i = 0; i < grid->getSize().x; ++i)
-		{
+		indices[i + 0] = offset + 0;
+		indices[i + 1] = offset + 1;
+		indices[i + 2] = offset + 2;
 
-			hexen::engine::core::u32 row1 = j * (grid->getSize().x + 1);
-			hexen::engine::core::u32 row2 = (j + 1) * (grid->getSize().x + 1);
+		indices[i + 3] = offset + 2;
+		indices[i + 4] = offset + 3;
+		indices[i + 5] = offset + 0;
 
-			indices.emplace_back(row1 + i, row1 + i + 1, row1 + i + 1, row2 + i + 1);
-			indices.emplace_back(row2 + i + 1, row2 + i, row2 + i, row1 + i);
-		}
+		offset += 4;
 	}
 
 	return indices;
@@ -108,7 +118,14 @@ void hexen::editor::components::graphics::GridComponent::setLineWidth(float line
 
 void hexen::editor::components::graphics::GridComponent::resize()
 {
+	HEXEN_ADD_TO_PROFILE();
 	auto vertices = createGridVertices(grid);
 	auto indices = createGridIndices(grid);
 	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
+}
+
+void hexen::editor::components::graphics::GridComponent::setSpacingBetweenCells(float newSpacing)
+{
+	HEXEN_ADD_TO_PROFILE();
+	grid->setSpacingBetweenCells(newSpacing);
 }

@@ -119,6 +119,13 @@ namespace hexen::editor::components::graphics
 		void setLineWidth(float  lineWidth);
 
 		/**
+		 * @brief Sets spacing between cells in grid.
+		 * @param newSpacing new spacing value.
+		 */
+
+		void setSpacingBetweenCells(float newSpacing);
+
+		/**
   		* @brief Generates coordinates for vertices of the grid.
  		*
  		* @param [in] grid Shared pointer to the Grid object.
@@ -134,7 +141,7 @@ namespace hexen::editor::components::graphics
  		* @return A vector of 4D unsigned vectors representing grid indices.
  		*/
 
-		static std::vector<glm::uvec4> createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
+		static std::vector<engine::core::u32> createGridIndices(const std::shared_ptr<hexen::engine::core::Grid> &grid);
 
 	};
 }// namespace hexen::editor::components::graphics
