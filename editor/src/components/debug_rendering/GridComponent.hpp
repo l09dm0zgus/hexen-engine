@@ -123,7 +123,7 @@ namespace hexen::editor::components::graphics
 		 * @param newSpacing new spacing value.
 		 */
 
-		void setSpacingBetweenCells(float newSpacing);
+		void setSpacingBetweenCells(const glm::vec2 &newSpacing);
 
 		/**
   		* @brief Generates coordinates for vertices of the grid.

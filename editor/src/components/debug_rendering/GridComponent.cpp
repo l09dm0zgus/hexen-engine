@@ -45,7 +45,7 @@ std::vector<glm::vec3> hexen::editor::components::graphics::GridComponent::creat
 
 	float rows = grid->getSize().x;
 	float columns = grid->getSize().y;
-	float spacing = grid->getSpacingBetweenCells();
+	auto spacing = grid->getSpacingBetweenCells();
 
 	quadVertexPositions[0] = {0.5F, 0.5F, 0.0F, 1.0F};
 	quadVertexPositions[1] = {0.5F, -0.5F, 0.0F, 1.0F};
@@ -57,7 +57,7 @@ std::vector<glm::vec3> hexen::editor::components::graphics::GridComponent::creat
 		for (hexen::engine::core::i32 i = 0; i < rows; ++i)
 		{
 			auto scale = glm::scale(glm::mat4(1.0), glm::vec3( cellWidth / 100, cellHeight / 100, 1.0f));
-			auto trans = glm::translate(scale, {i * spacing, j * spacing, 0});
+			auto trans = glm::translate(scale, {i * spacing.x, j * spacing.y, 0});
 			for(engine::core::u32 k = 0; k < 4; k++)
 			{
 				auto vertexPosition = trans * quadVertexPositions[k];
@@ -124,8 +124,9 @@ void hexen::editor::components::graphics::GridComponent::resize()
 	drawGridCommand->resize(RenderGridData(vertices, indices,shaderAssets,color));
 }
 
-void hexen::editor::components::graphics::GridComponent::setSpacingBetweenCells(float newSpacing)
+void hexen::editor::components::graphics::GridComponent::setSpacingBetweenCells(const glm::vec2 &newSpacing)
 {
 	HEXEN_ADD_TO_PROFILE();
 	grid->setSpacingBetweenCells(newSpacing);
+	resize();
 }

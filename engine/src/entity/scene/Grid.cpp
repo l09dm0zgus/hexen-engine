@@ -93,12 +93,12 @@ void hexen::engine::core::Grid::setUnitSize(const glm::vec2 &newUnitSize)
 	}
 }
 
-void hexen::engine::core::Grid::setSpacingBetweenCells(float newSpacing)
+void hexen::engine::core::Grid::setSpacingBetweenCells(const glm::vec2 &newSpacing)
 {
 	spacingBetweenCells = newSpacing;
 }
 
-float hexen::engine::core::Grid::getSpacingBetweenCells()
+glm::vec2 hexen::engine::core::Grid::getSpacingBetweenCells()
 {
 	return spacingBetweenCells;
 }
