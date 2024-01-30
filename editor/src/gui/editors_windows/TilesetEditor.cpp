@@ -3,20 +3,20 @@
 //
 
 #include "TilesetEditor.hpp"
-#include "../../project/Project.hpp"
 #include "../../application/Application.hpp"
 #include "../../components/EditorCameraComponent.hpp"
 #include "../../components/debug_rendering/DrawCheckerboardQuad.hpp"
+#include "../../project/Project.hpp"
 #include "../../systems/EditorRenderSystem.hpp"
 #include "native_file_dialog/FileDialog.hpp"
-#include <systems/InputHelper.hpp>
+#include "systems/input/InputHelper.hpp"
+#include <assets/AssetsStorage.hpp>
 #include <graphics/shaders/ShaderAsset.hpp>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
 #include <render_commands/ClearCommand.hpp>
 #include <render_commands/EnableBlendingCommand.hpp>
 #include <render_commands/ViewportCommand.hpp>
-#include <assets/AssetsStorage.hpp>
 #include <textures/ImageAsset.hpp>
 
 using render = hexen::engine::graphics::RenderPipeline;
@@ -44,6 +44,7 @@ void hexen::editor::gui::TilesetEditor::renderFramebufferContent()
 
 void hexen::editor::gui::TilesetEditor::draw()
 {
+	ImGui::SetNextWindowSize(ImVec2(1280,780));
 	setSize(glm::vec2(1280,780));
 	ImGui::Begin(getName().c_str(), &isOpen);
 	{
@@ -84,11 +85,10 @@ void hexen::editor::gui::TilesetEditor::drawDockspace()
 		ImGui::DockBuilderAddNode(dockspaceId,  ImGuiDockNodeFlags_DockSpace);
 		ImGui::DockBuilderSetNodeSize(dockspaceId, {getSize().x, getSize().y});
 
-		dockRightId = ImGui::DockBuilderSplitNode(dockspaceId, ImGuiDir_Right, 0.15f, nullptr, &dockspaceId);
-		dockLeftId = ImGui::DockBuilderSplitNode(dockspaceId, ImGuiDir_Left, 0.15f, nullptr, &dockspaceId);
+		dockRightId = ImGui::DockBuilderSplitNode(dockspaceId, ImGuiDir_Right, 0.45f, nullptr, &dockspaceId);
 
 		ImGui::DockBuilderDockWindow(tilesetPropertiesWindowName.data(), dockRightId);
-		ImGui::DockBuilderDockWindow(tilesetWindowName.data(), dockLeftId);
+		ImGui::DockBuilderDockWindow(tilesetWindowName.data(), dockspaceId);
 
 		ImGui::DockBuilderFinish(dockspaceId);
 	}
@@ -96,7 +96,6 @@ void hexen::editor::gui::TilesetEditor::drawDockspace()
 
 void hexen::editor::gui::TilesetEditor::drawTileset()
 {
-	ImGui::SetNextWindowSize(ImVec2(getSize().x / 2,getSize().y / 2));
 	ImGui::Begin(tilesetWindowName.data());
 	{
 		if(ImGui::IsWindowHovered())
@@ -115,7 +114,6 @@ void hexen::editor::gui::TilesetEditor::drawTileset()
 
 void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 {
-	ImGui::SetNextWindowSize(ImVec2(getSize().x / 2,getSize().y / 2));
 	ImGui::Begin(tilesetPropertiesWindowName.data());
 	{
 		ImGui::BeginGroup();
@@ -137,7 +135,6 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 				{
 					auto imageAsset = engine::core::assets::AssetHelper::loadAsset<engine::graphics::ImageAsset>(pathToImage,Application::getName());
 					changeTilesetImage(imageAsset);
-					//gridComponent->setSize(glm::vec2(imageAsset->getWidth() / 32, imageAsset->getHeight() / 32));
 				}
 
 			}
@@ -200,21 +197,26 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 				gridComponent->setSize(glm::vec2(tilesetRowsCount, tilesetColumnsCount));
 			}
 
-			ImGui::Text("Grid scale: ");
-			if(ImGui::SliderFloat(": slider",&gridScale,0.00001f,1.0f))
-			{
-				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setScale(glm::vec2(gridScale));
-			}
-			if(ImGui::InputFloat(": text field", &gridScale,0.0001f))
-			{
-
-				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setScale(glm::vec2(gridScale));
-			}
-
-			ImGui::Text("Grid Position:");
-			if(ImGui::SliderFloat2(" : position", gridPosition,-1.0f, 1.0f))
+			ImGui::Text("Image Margin:");
+			if(ImGui::InputFloat(" : x", &gridPosition[0],0.01f))
 			{
 				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setPosition(glm::vec2(gridPosition[0], gridPosition[1]));
+			}
+
+			if(ImGui::InputFloat(" : y", &gridPosition[1],0.01f))
+			{
+				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setPosition(glm::vec2(gridPosition[0], gridPosition[1]));
+			}
+
+			ImGui::Text("Spacing:");
+			if(ImGui::InputFloat(": x",&spacingBetweenSprites[0], 0.01f))
+			{
+				gridComponent->setSpacingBetweenCells({1.0f + spacingBetweenSprites[0],1.0f + spacingBetweenSprites[1]});
+			}
+
+			if(ImGui::InputFloat(": y",&spacingBetweenSprites[1], 0.01f))
+			{
+				gridComponent->setSpacingBetweenCells({1.0f + spacingBetweenSprites[0],1.0f + spacingBetweenSprites[1]});
 			}
 		}
 		ImGui::EndGroup();
@@ -235,7 +237,6 @@ void hexen::editor::gui::TilesetEditor::createGrid()
 	auto componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(shaderAssets, glm::vec4(1.0f,0.0f,0.0f,1.0f), glm::vec2(5), glm::vec2(32),renderPipeline->getID());
 	gridComponent = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::GridComponent>(componentHandle);
 	gridComponent->setOwnerUUID(UUID);
-	gridComponent->setLineWidth(2.5f);
 
 	componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::EditorCameraComponent>(getSize().x, getSize().y, 90.0f);
 	editorCamera = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::EditorCameraComponent>(componentHandle);
@@ -250,7 +251,7 @@ void hexen::editor::gui::TilesetEditor::createGrid()
 
 	gridTransformComponentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec3(0.0f));
 	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setOwnerUUID(UUID);
-	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setLayer(1);
+	systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(gridTransformComponentHandle)->setLayer(0);
 }
 
 void hexen::editor::gui::TilesetEditor::createCheckerboard()
@@ -284,8 +285,10 @@ void hexen::editor::gui::TilesetEditor::changeTilesetImage(const std::shared_ptr
 		imageComponent = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::ImageComponent>(componentHandle);
 		imageComponent->setOwnerUUID(UUID);
 
-		imageTransformComponentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec2(0.0f));
+		imageTransformComponentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec2(0));
 		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setOwnerUUID(imageComponent->getUUID());
 		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setLayer(0);
+		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setPosition(glm::vec2(gridPosition[0], gridPosition[1]));
+
 	}
 }

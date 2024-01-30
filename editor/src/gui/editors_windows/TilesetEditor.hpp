@@ -31,13 +31,14 @@ namespace hexen::editor::gui
 		void initialize();
 		void createCheckerboard();
 		void createGrid();
-		ImVec2 mousePosition;
 		bool isOpen = true;
+		
 		std::string pathToImage;
 		std::string pathToTileset;
+		
 		engine::core::u32 dockspaceId;
 		engine::core::u32 dockRightId;
-		engine::core::u32 dockLeftId;
+		
 		static constexpr  std::string_view tilesetPropertiesWindowName = "Tileset Properties";
 		static constexpr std::string_view tilesetWindowName = "Tileset";
 
@@ -54,8 +55,9 @@ namespace hexen::editor::gui
 		components::graphics::EditorCameraComponent *editorCamera{nullptr};
 		components::graphics::ImageComponent *imageComponent {nullptr};
 
-		float gridScale{1};
-		float gridPosition[2] = {0,0};
+		float spacingBetweenSprites[2]{0.0f, 0.0f};
+		float gridPosition[2] = {0.9f,0.9f};
+		
 		engine::core::u32 imageTransformComponentHandle;
 		engine::core::u32 gridTransformComponentHandle;
 	public:
