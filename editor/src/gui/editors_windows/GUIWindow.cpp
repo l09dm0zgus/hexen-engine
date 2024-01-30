@@ -30,3 +30,8 @@ hexen::editor::gui::GUIWindow::GUIWindow(const std::string &name, const std::wea
 	HEXEN_ADD_TO_PROFILE();
 	UUID = generateUUIDV4();
 }
+
+bool hexen::editor::gui::GUIWindow::isOpen()
+{
+	return true;
+}

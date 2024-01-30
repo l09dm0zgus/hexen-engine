@@ -13,7 +13,7 @@ namespace hexen::editor::gui
 	/**
 	* @class Dockspace
  	* @brief The Dockspace class.
- 	* A class for managing GUI windows and their docking positions.
+ 	* A class for managing GUI dockedWindows and their docking positions.
  	*/
 
 	class Dockspace
@@ -71,7 +71,7 @@ namespace hexen::editor::gui
         * @brief Begins the rendering of a dockspace GUI element.
         *
         * This function starts the rendering of a dockspace GUI element. The dockspace is an
-        * area where windows can be docked and organized. All docking-related operations should
+        * area where dockedWindows can be docked and organized. All docking-related operations should
         * be performed between a call to `begin()` and a call to `end()` for a dockspace.
         *
         *
@@ -84,7 +84,7 @@ namespace hexen::editor::gui
         * @brief End the rendering of the dockspace.
         *
         * This function is used to complete the rendering of the dockspace in a GUI application.
-        * It ensures that all the docked windows are properly rendered and handles any necessary
+        * It ensures that all the docked dockedWindows are properly rendered and handles any necessary
         * clean-up procedures.
         *
         * @see begin()
@@ -106,7 +106,9 @@ namespace hexen::editor::gui
         * @see DockingPosition
         */
 
-		void attachWindow(std::shared_ptr<GUIWindow> guiWindow, const DockingPosition &dockingPosition);
+		void attachWindow(const std::shared_ptr<GUIWindow> &guiWindow, const DockingPosition &dockingPosition);
+
+		void addFloatingWindow(const std::shared_ptr<GUIWindow> &guiWindow);
 
 		/**
         * @brief Retrieves the window with the specified name.
@@ -129,14 +131,14 @@ namespace hexen::editor::gui
 		std::shared_ptr<FramebufferWindow> getSceneWindow();
 
 		/**
- 		* @brief Gets a list of framebuffer windows.
+ 		* @brief Gets a list of framebuffer dockedWindows.
  		*
- 		* This function traverses the list of windows and dynamically casts each window
+ 		* This function traverses the list of dockedWindows and dynamically casts each window
  		* to the type of `FramebufferWindow`. If the dynamic cast is successful, meaning
  		* that the window is an instance of `FramebufferWindow`, it adds the window to a
- 		* new list. The function finally returns this new list of framebuffer windows.
+ 		* new list. The function finally returns this new list of framebuffer dockedWindows.
  		*
- 		* @return A list of shared pointers to framebuffer windows.
+ 		* @return A list of shared pointers to framebuffer dockedWindows.
  		*/
 
 		std::vector<std::shared_ptr<FramebufferWindow>> getListOfFramebufferWindows();
@@ -158,13 +160,13 @@ namespace hexen::editor::gui
 		bool isAttachedWindow {true};
 
 		/**
-        * @brief Sets the windows in the dockspace.
-        * This function is used to set the windows in the dockspace in the application's user interface.
+        * @brief Sets the dockedWindows in the dockspace.
+        * This function is used to set the dockedWindows in the dockspace in the application's user interface.
         *
-        * @param windowsInDockspace The windows to be set in the dockspace.
+        * @param windowsInDockspace The dockedWindows to be set in the dockspace.
         * @return void
         *
-        * @details The setWindowsInDockspace() function takes in a parameter `windowsInDockspace` which represents the windows to be set in the dockspace of the application's user interface. The function does not return any value.
+        * @details The setWindowsInDockspace() function takes in a parameter `windowsInDockspace` which represents the dockedWindows to be set in the dockspace of the application's user interface. The function does not return any value.
         *
         */
 
@@ -177,19 +179,20 @@ namespace hexen::editor::gui
 		hexen::engine::core::u32 dockRightId {0};
 
 		/**
-        * @brief Represents a collection of windows in a graphical user interface.
+        * @brief Represents a collection of dockedWindows in a graphical user interface.
         *
-        * The `windows` variable is a container that holds multiple window objects
+        * The `dockedWindows` variable is a container that holds multiple window objects
         * within a graphical user interface. Each window object represents an
         * individual window in the interface.
         *
-        * This variable is typically used to manage and manipulate the windows
+        * This variable is typically used to manage and manipulate the dockedWindows
         * within the interface, such as creating, closing, resizing, or moving
         * them.
         *
         */
 
-		std::vector<std::shared_ptr<GUIWindow>> windows;
+		std::vector<std::shared_ptr<GUIWindow>> dockedWindows;
+		std::vector<std::shared_ptr<GUIWindow>> floatingWindows;
 
 		hexen::engine::core::HashTable<std::string, DockingPosition> dockingPositions;
 	};

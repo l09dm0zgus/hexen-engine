@@ -8,7 +8,6 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 
-
 void hexen::editor::gui::Dockspace::draw()
 {
 	HEXEN_ADD_TO_PROFILE()
@@ -18,7 +17,11 @@ void hexen::editor::gui::Dockspace::draw()
 		isAttachedWindow = false;
 		setWindowsInDockspace();
 	}
-	for (auto &window : windows)
+	for (auto &window : dockedWindows)
+	{
+		window->draw();
+	}
+	for (auto &window : floatingWindows)
 	{
 		window->draw();
 	}
@@ -28,7 +31,17 @@ void hexen::editor::gui::Dockspace::draw()
 void hexen::editor::gui::Dockspace::begin()
 {
 	HEXEN_ADD_TO_PROFILE()
-	for (auto &window : windows)
+
+	auto  it = std::remove_if(floatingWindows.begin(),floatingWindows.end(), [](const std::shared_ptr<GUIWindow> &window){
+				return !window->isOpen();
+	});
+	floatingWindows.erase(it,floatingWindows.end());
+
+	for (auto &window : dockedWindows)
+	{
+		window->begin();
+	}
+	for (auto &window : floatingWindows)
 	{
 		window->begin();
 	}
@@ -37,7 +50,11 @@ void hexen::editor::gui::Dockspace::begin()
 void hexen::editor::gui::Dockspace::end()
 {
 	HEXEN_ADD_TO_PROFILE()
-	for (auto &window : windows)
+	for (auto &window : dockedWindows)
+	{
+		window->end();
+	}
+	for (auto &window : floatingWindows)
 	{
 		window->end();
 	}
@@ -83,10 +100,10 @@ void hexen::editor::gui::Dockspace::setWindowsInDockspace()
 	ImGui::DockBuilderFinish(id);
 }
 
-void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiWindow, const DockingPosition &dockingPosition)
+void hexen::editor::gui::Dockspace::attachWindow(const std::shared_ptr<GUIWindow> &guiWindow, const DockingPosition &dockingPosition)
 {
 	HEXEN_ADD_TO_PROFILE()
-	windows.push_back(guiWindow);
+	dockedWindows.push_back(guiWindow);
 	dockingPositions.set(guiWindow->getName(), dockingPosition);
 	isAttachedWindow = true;
 }
@@ -94,10 +111,10 @@ void hexen::editor::gui::Dockspace::attachWindow(std::shared_ptr<GUIWindow> guiW
 std::shared_ptr<hexen::editor::gui::GUIWindow> hexen::editor::gui::Dockspace::getWindow(const std::string &name)
 {
 	HEXEN_ADD_TO_PROFILE()
-	auto it = std::find_if(windows.begin(), windows.end(), [name = name](const auto &window)
+	auto it = std::find_if(dockedWindows.begin(), dockedWindows.end(), [name = name](const auto &window)
 			{ return window->getName() == name; });
 
-	if (it != windows.end())
+	if (it != dockedWindows.end())
 	{
 		return *it;
 	}
@@ -120,7 +137,15 @@ std::vector<std::shared_ptr<hexen::editor::gui::FramebufferWindow>> hexen::edito
 {
 	HEXEN_ADD_TO_PROFILE()
 	std::vector<std::shared_ptr<FramebufferWindow>> frameBufferWindows;
-	for(auto &window : windows)
+	for(auto &window : dockedWindows)
+	{
+		auto framebufferWindow = std::dynamic_pointer_cast<FramebufferWindow>(window);
+		if(framebufferWindow != nullptr)
+		{
+			frameBufferWindows.push_back(framebufferWindow);
+		}
+	}
+	for(auto &window : floatingWindows)
 	{
 		auto framebufferWindow = std::dynamic_pointer_cast<FramebufferWindow>(window);
 		if(framebufferWindow != nullptr)
@@ -129,4 +154,9 @@ std::vector<std::shared_ptr<hexen::editor::gui::FramebufferWindow>> hexen::edito
 		}
 	}
 	return frameBufferWindows;
+}
+
+void hexen::editor::gui::Dockspace::addFloatingWindow(const std::shared_ptr<GUIWindow> &guiWindow)
+{
+	floatingWindows.push_back(guiWindow);
 }

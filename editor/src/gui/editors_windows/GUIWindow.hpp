@@ -189,6 +189,16 @@ namespace hexen::editor::gui
 		GUIWindow &operator=(const GUIWindow &guiWindow) = delete;
 
 		std::string getUUID() const { return UUID;}
+
+
+		/**
+		 * @brief Checks if window open.
+		 * This method is virtual.
+		 * By default return true.
+		 * @return true.
+		 */
+
+		virtual bool isOpen();
 	protected:
 		/**
         * @brief Represents the size of an editor window.

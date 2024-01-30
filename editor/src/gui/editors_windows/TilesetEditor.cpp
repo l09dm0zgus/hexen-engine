@@ -46,14 +46,13 @@ void hexen::editor::gui::TilesetEditor::draw()
 {
 	ImGui::SetNextWindowSize(ImVec2(1280,780));
 	setSize(glm::vec2(1280,780));
-	ImGui::Begin(getName().c_str(), &isOpen);
+	ImGui::Begin(getName().c_str(), &bIsOpen);
 	{
 		drawDockspace();
 		drawTileset();
 		drawTilesetProperties();
 	}
 	ImGui::End();
-
 
 }
 
@@ -145,6 +144,7 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			{
 				//engine::input::InputHelper::disableInput();
 			}
+
 			ImGui::SameLine();
 			if(ImGui::Button("Load..."))
 			{
@@ -289,4 +289,8 @@ void hexen::editor::gui::TilesetEditor::showCaption(const std::string_view &capt
 		}
 		ImGui::EndTooltip();
 	}
+}
+bool hexen::editor::gui::TilesetEditor::isOpen()
+{
+	return bIsOpen;
 }
