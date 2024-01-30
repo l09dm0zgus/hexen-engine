@@ -60,6 +60,8 @@ namespace hexen::editor::gui
 		
 		engine::core::u32 imageTransformComponentHandle;
 		engine::core::u32 gridTransformComponentHandle;
+
+		void showCaption(const std::string_view &caption);
 	public:
 		TilesetEditor(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
 		TilesetEditor(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace);
