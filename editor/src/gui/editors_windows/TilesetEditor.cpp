@@ -152,17 +152,7 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			}
 
 			ImGui::Text("Tile size: ");
-			ImGui::SameLine();
-
-			ImGui::Text("(?)");
-			if(ImGui::IsItemHovered())
-			{
-				ImGui::BeginTooltip();
-				{
-					ImGui::Text("This is size of one sprite/tile For example: 16x16, 32x32, etc.");
-				}
-				ImGui::EndTooltip();
-			}
+			showCaption("This is size of one sprite/tile For example: 16x16, 32x32, etc.");
 
 			if(ImGui::InputInt(": width", &tileWidth,1))
 			{
@@ -175,17 +165,7 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			}
 
 			ImGui::Text("Tiles count: ");
-			ImGui::SameLine();
-
-			ImGui::Text("(?)");
-			if(ImGui::IsItemHovered())
-			{
-				ImGui::BeginTooltip();
-				{
-					ImGui::Text("This is count of tiles/sprites in one tile set.X is rows of tileset, Y is columns of tileset. \n Notice: Image MUST be aligned to grid in image editor like Photoshop/Krita/Asersprite/etc,\n for correct creating tileset.");
-				}
-				ImGui::EndTooltip();
-			}
+			showCaption("This is count of tiles/sprites in one tile set.X is rows of tileset, Y is columns of tileset. \n Notice: Image MUST be aligned to grid in image editor like Photoshop/Krita/Asersprite/etc,\n for correct creating tileset.");
 
 			if(ImGui::InputInt(": x count", &tilesetRowsCount,1))
 			{
@@ -198,6 +178,8 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			}
 
 			ImGui::Text("Image Margin:");
+			showCaption("Moving tileset relative to grid.");
+
 			if(ImGui::InputFloat(" : x", &gridPosition[0],0.01f))
 			{
 				systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setPosition(glm::vec2(gridPosition[0], gridPosition[1]));
@@ -209,6 +191,8 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			}
 
 			ImGui::Text("Spacing:");
+			showCaption("This is padding between sprites. X is horizontal padding, y is vertical padding.");
+
 			if(ImGui::InputFloat(": x",&spacingBetweenSprites[0], 0.01f))
 			{
 				gridComponent->setSpacingBetweenCells({1.0f + spacingBetweenSprites[0],1.0f + spacingBetweenSprites[1]});
@@ -290,5 +274,19 @@ void hexen::editor::gui::TilesetEditor::changeTilesetImage(const std::shared_ptr
 		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setLayer(0);
 		systems::EditorRenderSystem::getComponentInstanceByHandle<engine::components::TransformComponent>(imageTransformComponentHandle)->setPosition(glm::vec2(gridPosition[0], gridPosition[1]));
 
+	}
+}
+
+void hexen::editor::gui::TilesetEditor::showCaption(const std::string_view &caption)
+{
+	ImGui::SameLine();
+	ImGui::Text("(?)");
+	if(ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		{
+			ImGui::Text(caption.data());
+		}
+		ImGui::EndTooltip();
 	}
 }
