@@ -75,7 +75,7 @@ namespace hexen::engine::core::assets
  		*
  		* @tparam T                         The type of the asset to be created. Must be inherited from `IAsset` interface.
  		* @param  pathToAsset               The path where the asset will be saved.
- 		* @param  pathToRawFile             The raw file path where the asset data is to be read from.
+ 		* @param  pathToRawFile             The raw file path where the asset data is to be read from(optional).
  		*
  		* @pre     The type T must be inherited from `IAsset` interface.
  		*
@@ -84,11 +84,10 @@ namespace hexen::engine::core::assets
  		*
  		* @exception Throws static_assert fail if the type `T` is not inherited from `IAsset` interface.Assertion if pathToRawFile does not exist.
  		*
- 		* @note   This function is thread safe.
  		*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile)
+		std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile = "")
 		{
 			HEXEN_ADD_TO_PROFILE();
 			static_assert(std::is_base_of_v<IAsset, T>, "T must be  inherit from interface IAsset!");
@@ -225,7 +224,7 @@ namespace hexen::engine::core::assets
  		* @warning If the storageName is not set, the asset will be created in default storage.
  		* @tparam T The type of asset to create. The type must be derived from IAsset.
  		* @param pathToAsset The filesystem path to the asset to be created.
- 		* @param pathToRawFile The filesystem path to the raw file from which the asset will be created.
+ 		* @param pathToRawFile (Optional) The filesystem path to the raw file from which the asset will be created.
  		* @param storageName (Optional) The name of the asset storage to use for creation. Defaults to "default-storage".
  		* @param isRewriteAssetIfExist (Optional) If true, will overwrite the asset if it already exists. Defaults to false.
  		* @return A shared_ptr to the created asset of type T.
@@ -235,7 +234,7 @@ namespace hexen::engine::core::assets
  		*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile, const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
+		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile = "", const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
 		{
 			auto pathAssetWithExtension = pathToAsset;
 			pathAssetWithExtension.replace_extension(T::getExtension());
