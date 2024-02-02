@@ -23,6 +23,13 @@ namespace hexen::editor::components::graphics
 	class ImageComponent;
 }
 
+namespace hexen::engine::components::graphics::assets
+{
+	class TilesetAsset;
+}
+
+namespace graphAssets = hexen::engine::components::graphics::assets;
+
 namespace hexen::editor::gui
 {
 
@@ -65,6 +72,9 @@ namespace hexen::editor::gui
  		*/
 
 		void createGrid();
+
+		void createTilesetAsset();
+
 		bool bIsOpen = true;
 		
 		std::string pathToImage;
@@ -72,9 +82,22 @@ namespace hexen::editor::gui
 		
 		engine::core::u32 dockspaceId;
 		engine::core::u32 dockRightId;
-		
+
+		std::shared_ptr<graphAssets::TilesetAsset> tilesetAsset;
+		std::filesystem::path currentPath;
+
 		static constexpr  std::string_view tilesetPropertiesWindowName = "Tileset Properties";
 		static constexpr std::string_view tilesetWindowName = "Tileset";
+
+		void setSpacing();
+
+		void setImageMargin();
+
+		void setTilesCount();
+
+		void setTileSize();
+
+		void loadTilesetAsset(const std::string &newPathToTileset);
 
 		/**
  		* @brief Sets up and draws the ImGui dockspace layout for the TilesetEditor.
@@ -128,8 +151,8 @@ namespace hexen::editor::gui
 
 		void showCaption(const std::string_view &caption);
 	public:
-		TilesetEditor(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace);
-		TilesetEditor(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace);
+		TilesetEditor(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path& newCurrentPath);
+		TilesetEditor(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path& newCurrentPath);
 
 		/**
      	* @brief Draws the TilesetEditor's content.
