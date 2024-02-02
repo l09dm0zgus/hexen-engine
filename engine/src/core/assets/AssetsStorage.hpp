@@ -87,11 +87,11 @@ namespace hexen::engine::core::assets
  		*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile = "")
+		std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile = "not_used")
 		{
 			HEXEN_ADD_TO_PROFILE();
 			static_assert(std::is_base_of_v<IAsset, T>, "T must be  inherit from interface IAsset!");
-			HEXEN_ASSERT(std::filesystem::exists(pathToRawFile),"File with path: " + pathToRawFile.string() + " does not exist!");
+			HEXEN_ASSERT(pathToRawFile == "not_used" || std::filesystem::exists(pathToRawFile) ,"File with path: " + pathToRawFile.string() + " does not exist!");
 
 			auto iter = loadedAssets.find(pathToAsset);
 			if (iter != loadedAssets.end())
@@ -224,7 +224,7 @@ namespace hexen::engine::core::assets
  		* @warning If the storageName is not set, the asset will be created in default storage.
  		* @tparam T The type of asset to create. The type must be derived from IAsset.
  		* @param pathToAsset The filesystem path to the asset to be created.
- 		* @param pathToRawFile (Optional) The filesystem path to the raw file from which the asset will be created.
+ 		* @param pathToRawFile The filesystem path to the raw file from which the asset will be created.
  		* @param storageName (Optional) The name of the asset storage to use for creation. Defaults to "default-storage".
  		* @param isRewriteAssetIfExist (Optional) If true, will overwrite the asset if it already exists. Defaults to false.
  		* @return A shared_ptr to the created asset of type T.
@@ -234,7 +234,7 @@ namespace hexen::engine::core::assets
  		*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile = "", const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
+		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile, const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
 		{
 			auto pathAssetWithExtension = pathToAsset;
 			pathAssetWithExtension.replace_extension(T::getExtension());
@@ -245,5 +245,24 @@ namespace hexen::engine::core::assets
 
 			return AssetsStorage::getAssetsStorageByName(storageName)->createAsset<T>(pathToAsset, pathToRawFile);
 		}
-	};;
+
+		/**
+ 		* @brief Creates an asset.
+ 		* @warning If the storageName is not set, the asset will be created in default storage.
+ 		* @tparam T The type of asset to create. The type must be derived from IAsset.
+ 		* @param pathToAsset The filesystem path to the asset to be created.
+ 		* @param storageName (Optional) The name of the asset storage to use for creation. Defaults to "default-storage".
+ 		* @param isRewriteAssetIfExist (Optional) If true, will overwrite the asset if it already exists. Defaults to false.
+ 		* @return A shared_ptr to the created asset of type T.
+ 		* @details This function will first check if the asset already exists in the specified storage.
+ 		*          If the asset exists and isRewriteAssetIfExist is false, the existing asset will be loaded and returned.
+ 		*          If the asset doesn't exist or isRewriteAssetIfExist is true, a new asset will be created from the raw file.
+ 		*/
+
+		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
+		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
+		{
+			return createAsset<T>(pathToAsset,"not_used", storageName,isRewriteAssetIfExist);
+		}
+	};
 }// namespace hexen::engine::core::assets
