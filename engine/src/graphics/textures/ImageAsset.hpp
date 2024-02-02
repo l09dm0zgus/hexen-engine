@@ -28,7 +28,7 @@ namespace hexen::engine::graphics
 		core::i32 width{0};
 		core::i32 channels{0};
 		std::vector<core::u8> imagePixels;
-		static constexpr std::string_view assetFileExtension = ".hximage";
+		static constexpr std::string_view assetFileExtension = "hximage";
 
 	public:
 		/**

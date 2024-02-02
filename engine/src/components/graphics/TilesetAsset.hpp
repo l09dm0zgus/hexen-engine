@@ -30,7 +30,7 @@ namespace hexen::engine::components::graphics::assets
 		glm::vec2 spacing{0.0f};
 		glm::vec2 imageMargin{0.9f};
 
-		static constexpr std::string_view assetFileExtension = ".hxts";
+		static constexpr std::string_view assetFileExtension = "hxts";
 	public:
 
 		/**

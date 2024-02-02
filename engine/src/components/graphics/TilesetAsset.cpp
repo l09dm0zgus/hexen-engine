@@ -28,7 +28,6 @@ void hexen::engine::components::graphics::assets::TilesetAsset::save(const std::
 
 	pathToFile = addExtension(pathToAsset,assetFileExtension);
 
-	saveToFile();
 }
 
 void hexen::engine::components::graphics::assets::TilesetAsset::load(const std::filesystem::path &pathToAsset)
@@ -56,12 +55,12 @@ void hexen::engine::components::graphics::assets::TilesetAsset::setTileSize(cons
 
 glm::ivec2 hexen::engine::components::graphics::assets::TilesetAsset::getTileSize()
 {
-	return {tilesetData["tileset_asset"]["tile_size"]["width"], tilesetData["tileset_asset"]["tile_size"]["width"]};
+	return {tilesetData["tileset_asset"]["tile_size"]["width"], tilesetData["tileset_asset"]["tile_size"]["height"]};
 }
 
 glm::ivec2 hexen::engine::components::graphics::assets::TilesetAsset::getTilesetSize()
 {
-	return {tilesetData["tileset_asset"]["tileset_size"]["width"], 	tilesetData["tileset_asset"]["tileset_size"]["height"] = tilesetSize.y};
+	return {tilesetData["tileset_asset"]["tileset_size"]["width"], 	tilesetData["tileset_asset"]["tileset_size"]["height"]};
 }
 
 void hexen::engine::components::graphics::assets::TilesetAsset::setSpacing(const glm::vec2 &newSpacing)
