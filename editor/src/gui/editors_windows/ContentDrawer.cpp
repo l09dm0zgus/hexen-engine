@@ -11,9 +11,13 @@
 #include <core/assets/AssetsStorage.hpp>
 #include <fstream>
 #include <graphics/textures/ImageAsset.hpp>
+#include "TilesetEditor.hpp"
+#include "../Dockspace.hpp"
+#include <components/graphics/TilesetAsset.hpp>
 
 using textures = hexen::engine::graphics::Texture2D;
 using assets = hexen::engine::core::assets::AssetHelper;
+using TilesetAsset = hexen::engine::components::graphics::assets::TilesetAsset;
 
 hexen::editor::gui::ContentDrawer::ContentDrawer(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace) : GUIWindow(std::move(name), parentDockspace)
 {
@@ -186,8 +190,11 @@ void hexen::editor::gui::ContentDrawer::refresh()
 			else
 			{
 				auto fileExtension = directoryIterator.path().extension().string();
+				fileExtension.erase(0,1);
+
 				if (assetExtensions.isExtensionExist(fileExtension))
 				{
+					std::cout << "File extension : " << fileExtension << "\n";
 					auto pathToIcon = assetExtensions.getPathToIcon(fileExtension);
 					auto textureID = getIconTextureID(fileExtension, pathToIcon.filename(), pathToIcon);
 					icons.emplace_back(directoryIterator.path(), iconCallbacks->getCallback(fileExtension), this, textureID);
@@ -195,8 +202,6 @@ void hexen::editor::gui::ContentDrawer::refresh()
 				else if (fileExtension == engine::graphics::ImageAsset::getExtension())
 				{
 					auto imageName = directoryIterator.path().filename();
-
-
 					auto imageRootDirectory = directoryIterator.path().parent_path().filename();
 
 					std::cout << "Image Name:" << imageName << "\n";
@@ -367,6 +372,7 @@ void hexen::editor::gui::ContentDrawer::drawCreateTileset()
 	HEXEN_ADD_TO_PROFILE()
 	if (ImGui::MenuItem(ICON_FA_FILE_IMAGE " Create Tileset..."))
 	{
+		addTilesetEditorToDockspace();
 	}
 }
 
@@ -424,11 +430,12 @@ hexen::engine::core::u32 hexen::editor::gui::ContentDrawer::getIconTextureID(con
 	return textureID;
 }
 
-void hexen::editor::gui::ContentDrawer::addNewIcon(const std::string &extension, std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &)> &iconCallback)
+void hexen::editor::gui::ContentDrawer::addNewIcon(const std::string &extension,const std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &)> &iconCallback)
 {
 	HEXEN_ADD_TO_PROFILE();
 	assetExtensions.addNewAssetExtension(extension, pathToIcon);
 	iconCallbacks->addCallback(extension, iconCallback);
+	assetExtensions.save();
 }
 
 void hexen::editor::gui::ContentDrawer::initialize()
@@ -439,6 +446,12 @@ void hexen::editor::gui::ContentDrawer::initialize()
 	deleteFileWindow = hexen::engine::core::memory::make_unique<DeleteFileWindow>("Delete", parentDockspace);
 	deleteSelectedFilesWindow = hexen::engine::core::memory::make_unique<DeleteSelectedFilesWindow>("Delete selected", parentDockspace);
 	copyingFilesWindow = hexen::engine::core::memory::make_unique<CopyingFilesWindow>("Copying", parentDockspace);
+
+	auto tilesetAssetCallback = [this](const std::filesystem::path& pathToAsset){
+		auto  tilesetEditorWindow = addTilesetEditorToDockspace();
+		tilesetEditorWindow->loadTilesetAsset(pathToAsset.string());
+	};
+	addNewIcon(std::string(TilesetAsset::getExtension().data()), pathToTilesetIcon,tilesetAssetCallback);
 
 	deleteSelectedFilesCallback = [this]()
 	{
@@ -453,6 +466,15 @@ void hexen::editor::gui::ContentDrawer::initialize()
 	};
 
 	Shortcuts::addShortcut({ImGuiKey_LeftCtrl, ImGuiKey_R}, refreshCallback);
+}
+std::shared_ptr<hexen::editor::gui::TilesetEditor> hexen::editor::gui::ContentDrawer::addTilesetEditorToDockspace()
+{
+	auto tilesetEditorWindow = engine::core::memory::make_shared<TilesetEditor>("Tileset Editor",parentDockspace, currentPath);
+	if(auto dockspace = parentDockspace.lock())
+	{
+		dockspace->addFloatingWindow(tilesetEditorWindow);
+	}
+	return tilesetEditorWindow;
 }
 
 hexen::editor::gui::AssetExtensions::AssetExtensions()
@@ -473,7 +495,7 @@ hexen::editor::gui::FileExtensions hexen::editor::gui::AssetExtensions::getAsset
 	for (engine::core::u32 i = 0; i < extensionsCount; i++)
 	{
 		auto extension = assetExtensionsFile["extensions"][i]["file_extension"];
-		fileExtensions[extension] = std::filesystem::path(assetExtensionsFile["extensions"][i]["path_to_icon"]);
+		fileExtensions[extension] = std::filesystem::path(std::string(assetExtensionsFile["extensions"][i]["path_to_icon"]));
 	}
 	return fileExtensions;
 }
@@ -484,6 +506,7 @@ void hexen::editor::gui::AssetExtensions::addNewAssetExtension(const std::string
 	assetExtensionsFile["extensions"][extensionsCount]["file_extension"] = fileExtension;
 	assetExtensionsFile["extensions"][extensionsCount]["path_to_icon"] = pathToIcon;
 	assetExtensionsFile["extensions_array_count"] = extensionsCount++;
+	this->fileExtensions[fileExtension] = pathToIcon;
 }
 
 bool hexen::editor::gui::AssetExtensions::isExtensionExist(const std::string &fileExtension)
@@ -501,6 +524,11 @@ std::filesystem::path hexen::editor::gui::AssetExtensions::getPathToIcon(const s
 hexen::editor::gui::AssetExtensions::~AssetExtensions()
 {
 	HEXEN_ADD_TO_PROFILE();
-	std::ofstream file(pathToFileWithExtensions);
-	file << assetExtensionsFile;
+	save();
+}
+
+void hexen::editor::gui::AssetExtensions::save()
+{
+	std::ofstream  file(pathToFileWithExtensions);
+	file << assetExtensionsFile.dump(2);
 }

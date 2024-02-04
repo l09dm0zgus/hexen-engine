@@ -13,6 +13,7 @@
 
 namespace hexen::editor::gui
 {
+	class TilesetEditor;
 	using FileExtensions = std::unordered_map<std::string, std::filesystem::path>;
 
 	/**
@@ -31,7 +32,7 @@ namespace hexen::editor::gui
 		nlohmann::json assetExtensionsFile;
 
 		/// @brief Path to the file with extensions.
-		std::filesystem::path pathToFileWithExtensions = engine::core::HOME_DIRECTORY / "settings/editor_extensions.json";
+		std::filesystem::path pathToFileWithExtensions = "settings/editor_extensions.json";
 
 		/// @brief Count of extensions in the file.
 		engine::core::u32 extensionsCount = 0;
@@ -88,8 +89,9 @@ namespace hexen::editor::gui
     	*/
 
 		std::filesystem::path getPathToIcon(const std::string &fileExtension);
+
+		void save();
 	};
-	;
 
 	/**
  	* @class ContentDrawer
@@ -231,6 +233,12 @@ namespace hexen::editor::gui
 		std::string pathToFolderIcon = "icons/folder.png";
 
 		/**
+     	* @brief The path to the icon representing tileset asset.
+     	*/
+
+		std::string pathToTilesetIcon = "icons/tileset.png";
+
+		/**
      	* @brief The path to the icon representing general files.
      	*/
 
@@ -268,6 +276,8 @@ namespace hexen::editor::gui
  		*/
 
 		void initialize();
+
+		std::shared_ptr<TilesetEditor> addTilesetEditorToDockspace();
 
 	public:
 		/**
@@ -314,6 +324,6 @@ namespace hexen::editor::gui
  		* @param iconCallback The callback function to be associated with the asset extension.
  		*/
 
-		void addNewIcon(const std::string &extension, std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &path)> &iconCallback);
+		void addNewIcon(const std::string &extension, const std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &path)> &iconCallback);
 	};
 }// namespace hexen::editor::gui
