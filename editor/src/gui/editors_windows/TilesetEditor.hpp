@@ -97,8 +97,6 @@ namespace hexen::editor::gui
 
 		void setTileSize();
 
-		void loadTilesetAsset(const std::string &newPathToTileset);
-
 		/**
  		* @brief Sets up and draws the ImGui dockspace layout for the TilesetEditor.
  		*
@@ -196,5 +194,16 @@ namespace hexen::editor::gui
  		*/
 
 		void changeTilesetImage(const std::shared_ptr<engine::graphics::ImageAsset> &tilesetImage);
+
+		/**
+ 		* @brief Loads a tileset asset from a specified path and updates editor properties.
+ 		*
+ 		* This function serves as a central point for initializing the TilesetEditor with
+		* data from an external tileset asset file.
+ 		*
+ 		* @param newPathToTileset The path to the tileset asset file to load.
+ 		*/
+
+		void loadTilesetAsset(const std::string &newPathToTileset);
 	};
 }
