@@ -36,10 +36,10 @@ void hexen::engine::systems::RenderSystem::render(float alpha)
 	{
 		std::vector<std::shared_ptr<graphics::ShaderAsset>> shaders;
 
-		auto vertexShaderAsset = core::assets::AssetHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadVertexShader","shaders/BaseQuadVertex.glsl");
+		auto vertexShaderAsset = core::assets::AssetHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadVertexShader",std::filesystem::path("shaders/BaseQuadVertex.glsl"));
 		shaders.push_back(vertexShaderAsset);
 
-		auto fragmentShaderAsset = core::assets::AssetHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadFragmentShader", "shaders/BaseQuadFragment.glsl");
+		auto fragmentShaderAsset = core::assets::AssetHelper::createAsset<graphics::ShaderAsset>("shaders/BaseQuadFragmentShader", std::filesystem::path("shaders/BaseQuadFragment.glsl"));
 		shaders.push_back(fragmentShaderAsset);
 
 		auto id = engine::graphics::RenderPipeline::addCommandToQueue<engine::graphics::Draw2DQuadsCommand>(hexen::engine::graphics::RenderPipelineID::MAIN_PIPELINE, shaders);
