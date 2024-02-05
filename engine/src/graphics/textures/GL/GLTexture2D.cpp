@@ -57,6 +57,7 @@ hexen::engine::graphics::gl::GLTexture2D::~GLTexture2D()
 {
 	HEXEN_ADD_TO_PROFILE();
 	glDeleteTextures(1, &textureId);
+	textureId = 0;
 }
 
 void hexen::engine::graphics::gl::GLTexture2D::bind(core::u32 slot) const
@@ -74,7 +75,7 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<Imag
 	width = imageAsset->getWidth();
 	height = imageAsset->getHeight();
 
-	if(flipImage)
+	if(flipImage && !imageAsset->isFlipped())
 	{
 		imageAsset->flip();
 	}
@@ -84,8 +85,8 @@ hexen::engine::graphics::gl::GLTexture2D::GLTexture2D(const std::shared_ptr<Imag
 	glCreateTextures(GL_TEXTURE_2D,1, &textureId);
 	glTextureStorage2D(textureId,1,formats.first,width,height);
 
-	glTextureParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTextureParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTextureParameteri(textureId, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTextureParameteri(textureId, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, textureFilterToGLTextureFilter(filter));
 	glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, textureFilterToGLTextureFilter(filter));
 

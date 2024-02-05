@@ -34,7 +34,7 @@ void hexen::engine::graphics::gl::GLTextureArray::addTextureToArray(const std::s
 	auto width = imageAsset->getWidth();
 	auto height = imageAsset->getHeight();
 
-	if(flipImage)
+	if(flipImage && !imageAsset->isFlipped())
 	{
 		imageAsset->flip();
 	}
