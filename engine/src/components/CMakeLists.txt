@@ -2,12 +2,14 @@
 cmake_minimum_required(VERSION 3.20)
 project(Hexen)
 if(NOT TARGET ${COMPONENTS_MODULE_NAME})
-    add_library(${COMPONENTS_MODULE_NAME} STATIC )
+    add_library(${COMPONENTS_MODULE_NAME} STATIC)
 endif (NOT TARGET ${COMPONENTS_MODULE_NAME})
 
 target_sources(${COMPONENTS_MODULE_NAME} PRIVATE camera/CameraComponent.hpp camera/CameraComponent.cpp
         graphics/SpriteComponent.hpp
         graphics/SpriteComponent.cpp
+        graphics/TilesetAsset.cpp
+        graphics/TilesetAsset.hpp
         transform/TransformComponent.hpp
         transform/TransformComponent.cpp
         Component.hpp
