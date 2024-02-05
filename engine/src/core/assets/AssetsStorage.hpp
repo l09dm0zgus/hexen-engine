@@ -91,7 +91,7 @@ namespace hexen::engine::core::assets
 		{
 			HEXEN_ADD_TO_PROFILE();
 			static_assert(std::is_base_of_v<IAsset, T>, "T must be  inherit from interface IAsset!");
-			HEXEN_ASSERT(pathToRawFile == "not_used" || std::filesystem::exists(pathToRawFile) ,"File with path: " + pathToRawFile.string() + " does not exist!");
+			HEXEN_ASSERT(pathToRawFile == "not_used" || std::filesystem::exists(pathToRawFile), "File with path: " + pathToRawFile.string() + " does not exist!");
 
 			auto iter = loadedAssets.find(pathToAsset);
 			if (iter != loadedAssets.end())
@@ -160,6 +160,7 @@ namespace hexen::engine::core::assets
 		static void addDefaultStorage(const std::filesystem::path &rootDirectory);
 
 		bool isAssetFileExist(const std::filesystem::path &pathToAsset) const;
+
 	private:
 		/**
          * @brief A hash map to store currently loaded assets.
@@ -203,7 +204,6 @@ namespace hexen::engine::core::assets
 	class AssetHelper
 	{
 	public:
-
 		/**
 		* @warning If not storageName not set, asset loaded from default storage.
      	* @brief  Loads an asset of the specified type from a given path.
@@ -214,7 +214,7 @@ namespace hexen::engine::core::assets
      	*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		static std::shared_ptr<T> loadAsset(const std::filesystem::path &pathToAsset, const std::string& storageName = "default-storage")
+		static std::shared_ptr<T> loadAsset(const std::filesystem::path &pathToAsset, const std::string &storageName = "default-storage")
 		{
 			return AssetsStorage::getAssetsStorageByName(storageName)->loadAsset<T>(pathToAsset);
 		}
@@ -234,11 +234,11 @@ namespace hexen::engine::core::assets
  		*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile, const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
+		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::filesystem::path &pathToRawFile, const std::string &storageName = "default-storage", bool isRewriteAssetIfExist = false)
 		{
 			auto pathAssetWithExtension = pathToAsset;
 			pathAssetWithExtension.replace_extension(T::getExtension());
-			if(AssetsStorage::getAssetsStorageByName(storageName)->isAssetFileExist(pathAssetWithExtension) && !isRewriteAssetIfExist)
+			if (AssetsStorage::getAssetsStorageByName(storageName)->isAssetFileExist(pathAssetWithExtension) && !isRewriteAssetIfExist)
 			{
 				return loadAsset<T>(pathToAsset, storageName);
 			}
@@ -260,9 +260,9 @@ namespace hexen::engine::core::assets
  		*/
 
 		template<typename T, std::enable_if_t<std::is_base_of_v<IAsset, T>, bool> = true>
-		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::string& storageName = "default-storage", bool isRewriteAssetIfExist = false)
+		static std::shared_ptr<T> createAsset(const std::filesystem::path &pathToAsset, const std::string &storageName = "default-storage", bool isRewriteAssetIfExist = false)
 		{
-			return createAsset<T>(pathToAsset,"not_used", storageName,isRewriteAssetIfExist);
+			return createAsset<T>(pathToAsset, "not_used", storageName, isRewriteAssetIfExist);
 		}
 	};
 }// namespace hexen::engine::core::assets
