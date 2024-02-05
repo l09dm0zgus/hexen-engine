@@ -80,7 +80,7 @@ void hexen::editor::gui::EditorGUI::begin()
 void hexen::editor::gui::EditorGUI::draw()
 {
 	HEXEN_ADD_TO_PROFILE()
-	bool isActive = true;
+	//bool isActive = true;
 	//ImGui::ShowDemoWindow(&isActive);
 	dockspace->draw();
 	ImGuiMessageBox::draw();

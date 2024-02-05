@@ -11,6 +11,7 @@
 #include "native_file_dialog/FileDialog.hpp"
 #include "systems/input/InputHelper.hpp"
 #include <assets/AssetsStorage.hpp>
+#include <components/graphics/TilesetAsset.hpp>
 #include <graphics/shaders/ShaderAsset.hpp>
 #include <imgui_internal.h>
 #include <misc/cpp/imgui_stdlib.h>
@@ -18,23 +19,22 @@
 #include <render_commands/EnableBlendingCommand.hpp>
 #include <render_commands/ViewportCommand.hpp>
 #include <textures/ImageAsset.hpp>
-#include <components/graphics/TilesetAsset.hpp>
 
 using render = hexen::engine::graphics::RenderPipeline;
 
-hexen::editor::gui::TilesetEditor::TilesetEditor(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path& newCurrentPath) : FramebufferWindow(name, parentDockspace), currentPath(newCurrentPath)
+hexen::editor::gui::TilesetEditor::TilesetEditor(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path &newCurrentPath) : FramebufferWindow(name, parentDockspace), currentPath(newCurrentPath)
 {
 	initialize();
 }
 
-hexen::editor::gui::TilesetEditor::TilesetEditor(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path& newCurrentPath) : FramebufferWindow(std::move(name), parentDockspace), currentPath(newCurrentPath)
+hexen::editor::gui::TilesetEditor::TilesetEditor(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path &newCurrentPath) : FramebufferWindow(std::move(name), parentDockspace), currentPath(newCurrentPath)
 {
 	initialize();
 }
 
 void hexen::editor::gui::TilesetEditor::renderFramebufferContent()
 {
-	renderPipeline->executeCommandNow<engine::graphics::ViewportCommand>(glm::vec4(0,0,getSize().x,getSize().y));
+	renderPipeline->executeCommandNow<engine::graphics::ViewportCommand>(glm::vec4(0, 0, getSize().x, getSize().y));
 	renderPipeline->prepareCommands();
 	renderPipeline->executeCommandNow<engine::graphics::EnableBlendingCommand>();
 	renderPipeline->executeCommandNow<engine::graphics::ClearCommand>(glm::vec4(0.39f, 0.58f, 0.93f, 1.f));
@@ -44,21 +44,21 @@ void hexen::editor::gui::TilesetEditor::renderFramebufferContent()
 
 void hexen::editor::gui::TilesetEditor::draw()
 {
-	ImGui::SetNextWindowSize(ImVec2(1280,780));
-	setSize(glm::vec2(1280,780));
+	ImGui::SetNextWindowSize(ImVec2(1280, 780));
+	setSize(glm::vec2(1280, 780));
 	ImGui::Begin(getName().c_str(), &bIsOpen);
 	{
 		drawDockspace();
 		drawTileset();
 		drawTilesetProperties();
+		processDragAndDropTarget();
 	}
 	ImGui::End();
 
-	if(!bIsOpen)
+	if (!bIsOpen)
 	{
 		tilesetAsset->saveToFile();
 	}
-
 }
 
 void hexen::editor::gui::TilesetEditor::initialize()
@@ -82,12 +82,12 @@ void hexen::editor::gui::TilesetEditor::drawDockspace()
 	dockspaceId = ImGui::GetID("TilesetEditorDockspace");
 	ImGui::DockSpace(dockspaceId);
 
-	if(firstTime)
+	if (firstTime)
 	{
 		firstTime = false;
 
 		ImGui::DockBuilderRemoveNode(dockspaceId);
-		ImGui::DockBuilderAddNode(dockspaceId,  ImGuiDockNodeFlags_DockSpace);
+		ImGui::DockBuilderAddNode(dockspaceId, ImGuiDockNodeFlags_DockSpace);
 		ImGui::DockBuilderSetNodeSize(dockspaceId, {getSize().x, getSize().y});
 
 		dockRightId = ImGui::DockBuilderSplitNode(dockspaceId, ImGuiDir_Right, 0.45f, nullptr, &dockspaceId);
@@ -103,7 +103,7 @@ void hexen::editor::gui::TilesetEditor::drawTileset()
 {
 	ImGui::Begin(tilesetWindowName.data());
 	{
-		if(ImGui::IsWindowHovered())
+		if (ImGui::IsWindowHovered())
 		{
 			editorCamera->enableInput();
 		}
@@ -125,31 +125,30 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 		{
 			ImGui::Text("Path to image:");
 			ImGui::SameLine();
-			
-			ImGui::InputText("##PathToImageAsset",&pathToImage);
+
+			ImGui::InputText("##PathToImageAsset", &pathToImage);
 			ImGui::SameLine();
-			if(ImGui::Button("Load image..."))
+			if (ImGui::Button("Load image..."))
 			{
 				FileDialog fileDialog;
 				INativeFileDialog::FileFilter fileFilter;
 				std::string extension(engine::graphics::ImageAsset::getExtension().data());
 				fileFilter.emplace_back("Image Asset", extension + ";");
-				auto result = fileDialog.openDialog(fileFilter,Project::getCurrentProject()->getPath(),pathToImage);
-				if(result == INativeFileDialog::Status::STATUS_OK)
+				auto result = fileDialog.openDialog(fileFilter, Project::getCurrentProject()->getPath(), pathToImage);
+				if (result == INativeFileDialog::Status::STATUS_OK)
 				{
 					auto imageAsset = engine::core::assets::AssetHelper::loadAsset<engine::graphics::ImageAsset>(pathToImage);
-					tilesetAsset->setPathToTilesetImage(std::filesystem::relative(pathToImage,Project::getCurrentProject()->getPath()));
+					tilesetAsset->setPathToTilesetImage(std::filesystem::relative(pathToImage, Project::getCurrentProject()->getPath()));
 					changeTilesetImage(imageAsset);
 				}
-
 			}
 
 			ImGui::Text("Path to tileset:");
 			ImGui::SameLine();
 
-			ImGui::InputText("##PathToTilesetAsset",&pathToTileset);
+			ImGui::InputText("##PathToTilesetAsset", &pathToTileset);
 			ImGui::SameLine();
-			if(ImGui::Button("Load tileset..."))
+			if (ImGui::Button("Load tileset..."))
 			{
 				std::cout << "Open file dialog\n";
 
@@ -157,8 +156,8 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 				INativeFileDialog::FileFilter fileFilter;
 				std::string extension(graphAssets::TilesetAsset::getExtension().data());
 				fileFilter.emplace_back("Tileset Asset", extension + ";");
-				auto result = fileDialog.openDialog(fileFilter,Project::getCurrentProject()->getPath(),pathToTileset);
-				if(result == INativeFileDialog::Status::STATUS_OK)
+				auto result = fileDialog.openDialog(fileFilter, Project::getCurrentProject()->getPath(), pathToTileset);
+				if (result == INativeFileDialog::Status::STATUS_OK)
 				{
 					loadTilesetAsset(pathToTileset);
 				}
@@ -167,12 +166,12 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			ImGui::Text("Tile size: ");
 			showCaption("This is size of one sprite/tile For example: 16x16, 32x32, etc.");
 
-			if(ImGui::InputInt(": width", &tileWidth,1))
+			if (ImGui::InputInt(": width", &tileWidth, 1))
 			{
 				setTileSize();
 			}
 
-			if(ImGui::InputInt(": height", &tileHeight,1))
+			if (ImGui::InputInt(": height", &tileHeight, 1))
 			{
 				setTileSize();
 			}
@@ -180,12 +179,12 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			ImGui::Text("Tiles count: ");
 			showCaption("This is count of tiles/sprites in one tile set.X is rows of tileset, Y is columns of tileset. \n Notice: Image MUST be aligned to grid in image editor like Photoshop/Krita/Asersprite/etc,\n for correct creating tileset.");
 
-			if(ImGui::InputInt(": x count", &tilesetRowsCount,1))
+			if (ImGui::InputInt(": x count", &tilesetRowsCount, 1))
 			{
 				setTilesCount();
 			}
 
-			if(ImGui::InputInt(": y count", &tilesetColumnsCount,1))
+			if (ImGui::InputInt(": y count", &tilesetColumnsCount, 1))
 			{
 				setTilesCount();
 			}
@@ -193,12 +192,12 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			ImGui::Text("Image Margin:");
 			showCaption("Moving tileset relative to grid.");
 
-			if(ImGui::InputFloat(" : x", &gridPosition[0],0.01f))
+			if (ImGui::InputFloat(" : x", &gridPosition[0], 0.01f))
 			{
 				setImageMargin();
 			}
 
-			if(ImGui::InputFloat(" : y", &gridPosition[1],0.01f))
+			if (ImGui::InputFloat(" : y", &gridPosition[1], 0.01f))
 			{
 				setImageMargin();
 			}
@@ -206,12 +205,12 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 			ImGui::Text("Spacing:");
 			showCaption("This is padding between sprites. X is horizontal padding, y is vertical padding.");
 
-			if(ImGui::InputFloat(": x",&spacingBetweenSprites[0], 0.01f))
+			if (ImGui::InputFloat(": x", &spacingBetweenSprites[0], 0.01f))
 			{
 				setSpacing();
 			}
 
-			if(ImGui::InputFloat(": y",&spacingBetweenSprites[1], 0.01f))
+			if (ImGui::InputFloat(": y", &spacingBetweenSprites[1], 0.01f))
 			{
 				setSpacing();
 			}
@@ -219,7 +218,6 @@ void hexen::editor::gui::TilesetEditor::drawTilesetProperties()
 		ImGui::EndGroup();
 	}
 	ImGui::End();
-
 }
 void hexen::editor::gui::TilesetEditor::createGrid()
 {
@@ -230,17 +228,17 @@ void hexen::editor::gui::TilesetEditor::createGrid()
 	shaderAssets.push_back(vertexShaderAsset);
 	shaderAssets.push_back(fragmentShaderAsset);
 
-	auto componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(shaderAssets, glm::vec4(1.0f,0.0f,0.0f,1.0f), glm::vec2(5), glm::vec2(32),renderPipeline->getID());
+	auto componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::GridComponent>(shaderAssets, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(5), glm::vec2(32), renderPipeline->getID());
 	gridComponent = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::GridComponent>(componentHandle);
 	gridComponent->setOwnerUUID(UUID);
 
 	componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::EditorCameraComponent>(getSize().x, getSize().y, 90.0f);
 	editorCamera = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::EditorCameraComponent>(componentHandle);
 
-	if(editorCamera != nullptr)
+	if (editorCamera != nullptr)
 	{
 		editorCamera->setOwnerUUID(UUID);
-		editorCamera->setPosition(glm::vec3(0.0f,0.0f,5.0f));
+		editorCamera->setPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 		editorCamera->setRoll(0.0f);
 		editorCamera->setInputMappings();
 	}
@@ -271,14 +269,14 @@ void hexen::editor::gui::TilesetEditor::createCheckerboard()
 
 void hexen::editor::gui::TilesetEditor::changeTilesetImage(const std::shared_ptr<engine::graphics::ImageAsset> &tilesetImage)
 {
-	if(imageComponent != nullptr)
+	if (imageComponent != nullptr)
 	{
 		imageComponent->changeImage(tilesetImage);
 	}
 	else
 	{
-		auto componentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::ImageComponent>(tilesetImage, renderPipeline->getID());
-		imageComponent = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::ImageComponent>(componentHandle);
+		imageComponentHandle = systems::EditorRenderSystem::registerNewComponent<components::graphics::ImageComponent>(tilesetImage, renderPipeline->getID());
+		imageComponent = systems::EditorRenderSystem::getComponentInstanceByHandle<components::graphics::ImageComponent>(imageComponentHandle);
 		imageComponent->setOwnerUUID(UUID);
 
 		imageTransformComponentHandle = systems::EditorRenderSystem::registerNewComponent<engine::components::TransformComponent>(glm::vec2(0));
@@ -292,7 +290,7 @@ void hexen::editor::gui::TilesetEditor::showCaption(const std::string_view &capt
 {
 	ImGui::SameLine();
 	ImGui::Text("(?)");
-	if(ImGui::IsItemHovered())
+	if (ImGui::IsItemHovered())
 	{
 		ImGui::BeginTooltip();
 		{
@@ -308,7 +306,7 @@ bool hexen::editor::gui::TilesetEditor::isOpen()
 
 void hexen::editor::gui::TilesetEditor::createTilesetAsset()
 {
-	auto relativePath = std::filesystem::relative(currentPath,Project::getCurrentProject()->getPath());
+	auto relativePath = std::filesystem::relative(currentPath, Project::getCurrentProject()->getPath());
 	tilesetAsset = engine::core::assets::AssetHelper::createAsset<graphAssets::TilesetAsset>(currentPath / "NewTileset");
 
 	auto p = currentPath / "NewTileset";
@@ -317,9 +315,9 @@ void hexen::editor::gui::TilesetEditor::createTilesetAsset()
 
 void hexen::editor::gui::TilesetEditor::setSpacing()
 {
-	glm::vec2 spacing{1.0f + spacingBetweenSprites[0],1.0f + spacingBetweenSprites[1]};
+	glm::vec2 spacing {1.0f + spacingBetweenSprites[0], 1.0f + spacingBetweenSprites[1]};
 	gridComponent->setSpacingBetweenCells(spacing);
-	tilesetAsset->setSpacing({spacingBetweenSprites[0],spacingBetweenSprites[1]});
+	tilesetAsset->setSpacing({spacingBetweenSprites[0], spacingBetweenSprites[1]});
 }
 
 void hexen::editor::gui::TilesetEditor::setImageMargin()
@@ -342,7 +340,9 @@ void hexen::editor::gui::TilesetEditor::setTileSize()
 
 void hexen::editor::gui::TilesetEditor::loadTilesetAsset(const std::string &newPathToTileset)
 {
-	tilesetAsset = engine::core::assets::AssetHelper::loadAsset<graphAssets::TilesetAsset>(newPathToTileset,Application::getName());
+
+	tilesetAsset = engine::core::assets::AssetHelper::loadAsset<graphAssets::TilesetAsset>(newPathToTileset, Application::getName());
+	pathToTileset = newPathToTileset;
 
 	auto tileSize = tilesetAsset->getTileSize();
 	tileWidth = tileSize.x;
@@ -367,4 +367,25 @@ void hexen::editor::gui::TilesetEditor::loadTilesetAsset(const std::string &newP
 	pathToImage = (Project::getCurrentProject()->getPath() / tilesetAsset->getPathToTilesetImage()).string();
 	auto imageAsset = engine::core::assets::AssetHelper::loadAsset<engine::graphics::ImageAsset>(tilesetAsset->getPathToTilesetImage());
 	changeTilesetImage(imageAsset);
+}
+
+void hexen::editor::gui::TilesetEditor::processDragAndDropTarget()
+{
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (auto payload = ImGui::AcceptDragDropPayload(PAYLOAD_NAME.data()))
+		{
+			auto draggedFilePath = (char *) payload->Data;
+			std::filesystem::path pathToAsset(draggedFilePath);
+
+			auto fileExtension = pathToAsset.extension().string();
+			fileExtension.erase(0, 1);
+
+			if (fileExtension == graphAssets::TilesetAsset::getExtension())
+			{
+				loadTilesetAsset(pathToAsset.string());
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
 }

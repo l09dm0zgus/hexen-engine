@@ -3,9 +3,9 @@
 //
 
 #include "SceneEntity.h"
-#include "../../systems/RenderSystem.hpp"
-#include <algorithm>
+#include "../../systems/graphics/RenderSystem.hpp"
 #include "../profiling/Profiling.hpp"
+#include <algorithm>
 
 hexen::engine::entity::SceneEntity::SceneEntity(std::string name) : hexen::engine::entity::Entity(), name(std::move(name))
 {

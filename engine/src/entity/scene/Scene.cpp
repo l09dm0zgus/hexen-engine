@@ -3,13 +3,17 @@
 //
 
 #include "Scene.hpp"
-#include <algorithm>
-#include <utility>
+#include "../../systems/graphics/RenderSystem.hpp"
 #include "../profiling/Profiling.hpp"
+#include <algorithm>
+#include <assets/AssetsStorage.hpp>
+#include <textures/ImageAsset.hpp>
+#include <utility>
 
 hexen::engine::core::Scene::Scene(const std::string &name) : name(name), size(1024.0f), unitSize(32.0f)
 {
 	HEXEN_ADD_TO_PROFILE();
+	using namespace hexen::engine::core::assets;
 
 	root = memory::make_shared<entity::SceneEntity>(name);
 
@@ -20,6 +24,25 @@ hexen::engine::core::Scene::Scene(const std::string &name) : name(name), size(10
 	root->getChild("Scene_Entity_2")->addChild("Scene_Entity_3");
 	root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_4");
 	root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_5");
+
+	auto componentHandle = systems::RenderSystem::registerNewComponent<components::graphics::SpriteComponent>(AssetHelper::createAsset<graphics::ImageAsset>("images/polpot",std::filesystem::path("textures/polpot.png")));
+	auto spriteComponent = systems::RenderSystem::getComponentInstanceByHandle<components::graphics::SpriteComponent>(componentHandle);
+	spriteComponent->setOwnerUUID(root->getUUID());
+
+	componentHandle = systems::RenderSystem::registerNewComponent<components::graphics::SpriteComponent>(AssetHelper::createAsset<graphics::ImageAsset>("images/crush",std::filesystem::path("textures/crush.png")));
+	spriteComponent = systems::RenderSystem::getComponentInstanceByHandle<components::graphics::SpriteComponent>(componentHandle);
+	spriteComponent->setOwnerUUID(root->getChild("Scene_Entity_2")->getUUID());
+
+	componentHandle = systems::RenderSystem::registerNewComponent<components::TransformComponent>(glm::vec2(0));
+	auto transformComponent = systems::RenderSystem::getComponentInstanceByHandle<components::TransformComponent>(componentHandle);
+	transformComponent->setOwnerUUID(root->getUUID());
+	transformComponent->setPosition(glm::vec2(5.0f, -5.0f));
+
+	componentHandle = systems::RenderSystem::registerNewComponent<components::TransformComponent>(glm::vec2(0));
+	transformComponent = systems::RenderSystem::getComponentInstanceByHandle<components::TransformComponent>(componentHandle);
+	transformComponent->setOwnerUUID(root->getChild("Scene_Entity_2")->getUUID());
+	transformComponent->setPosition(glm::vec2(-5.0f, -5.0f));
+
 }
 
 hexen::engine::core::Scene::Scene(const std::string &name, const glm::vec2 &size, const glm::vec2 &unitSize) : Scene(name)

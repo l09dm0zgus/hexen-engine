@@ -14,14 +14,14 @@ namespace hexen::engine::graphics
 	class ImageAsset;
 	class RenderPipeline;
 	class DrawQuadCommand;
-}
+}// namespace hexen::engine::graphics
 
 namespace hexen::editor::components::graphics
 {
 	class GridComponent;
 	class EditorCameraComponent;
 	class ImageComponent;
-}
+}// namespace hexen::editor::components::graphics
 
 namespace hexen::engine::components::graphics::assets
 {
@@ -45,7 +45,6 @@ namespace hexen::editor::gui
 	class TilesetEditor : public FramebufferWindow
 	{
 	private:
-
 		/**
      	* @brief Initializes the TilesetEditor.
      	*
@@ -76,17 +75,17 @@ namespace hexen::editor::gui
 		void createTilesetAsset();
 
 		bool bIsOpen = true;
-		
+
 		std::string pathToImage;
 		std::string pathToTileset;
-		
+
 		engine::core::u32 dockspaceId;
 		engine::core::u32 dockRightId;
 
 		std::shared_ptr<graphAssets::TilesetAsset> tilesetAsset;
 		std::filesystem::path currentPath;
 
-		static constexpr  std::string_view tilesetPropertiesWindowName = "Tileset Properties";
+		static constexpr std::string_view tilesetPropertiesWindowName = "Tileset Properties";
 		static constexpr std::string_view tilesetWindowName = "Tileset";
 
 		void setSpacing();
@@ -96,6 +95,8 @@ namespace hexen::editor::gui
 		void setTilesCount();
 
 		void setTileSize();
+
+		void processDragAndDropTarget();
 
 		/**
  		* @brief Sets up and draws the ImGui dockspace layout for the TilesetEditor.
@@ -125,19 +126,20 @@ namespace hexen::editor::gui
 
 		void drawTilesetProperties();
 
-		engine::core::i32 tileWidth{32};
-		engine::core::i32 tileHeight{32};
-		engine::core::i32 tilesetRowsCount{4};
-		engine::core::i32 tilesetColumnsCount{4};
+		engine::core::i32 tileWidth {32};
+		engine::core::i32 tileHeight {32};
+		engine::core::i32 tilesetRowsCount {4};
+		engine::core::i32 tilesetColumnsCount {4};
 
-		components::graphics::GridComponent *gridComponent{nullptr};
-		components::graphics::EditorCameraComponent *editorCamera{nullptr};
+		components::graphics::GridComponent *gridComponent {nullptr};
+		components::graphics::EditorCameraComponent *editorCamera {nullptr};
 		components::graphics::ImageComponent *imageComponent {nullptr};
 
-		float spacingBetweenSprites[2]{0.0f, 0.0f};
-		float gridPosition[2] = {0.9f,0.9f};
-		
+		float spacingBetweenSprites[2] {0.0f, 0.0f};
+		float gridPosition[2] = {0.9f, 0.9f};
+
 		engine::core::u32 imageTransformComponentHandle;
+		engine::core::u32 imageComponentHandle;
 		engine::core::u32 gridTransformComponentHandle;
 
 		/**
@@ -148,9 +150,12 @@ namespace hexen::editor::gui
  		*/
 
 		void showCaption(const std::string_view &caption);
+
+		static constexpr std::string_view PAYLOAD_NAME = "ASSET_WINDOW_ITEM";
+
 	public:
-		TilesetEditor(const std::string& name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path& newCurrentPath);
-		TilesetEditor(std::string&& name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path& newCurrentPath);
+		TilesetEditor(const std::string &name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path &newCurrentPath);
+		TilesetEditor(std::string &&name, const std::weak_ptr<Dockspace> &parentDockspace, const std::filesystem::path &newCurrentPath);
 
 		/**
      	* @brief Draws the TilesetEditor's content.
@@ -206,4 +211,4 @@ namespace hexen::editor::gui
 
 		void loadTilesetAsset(const std::string &newPathToTileset);
 	};
-}
+}// namespace hexen::editor::gui

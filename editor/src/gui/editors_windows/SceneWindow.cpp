@@ -6,13 +6,14 @@
 #include "../../application/Application.hpp"
 #include "../../components/EditorCameraComponent.hpp"
 #include "../../systems/EditorRenderSystem.hpp"
-#include "render_commands/ViewportCommand.hpp"
+#include <render_commands/ViewportCommand.hpp>
+#include <systems/graphics/RenderSystem.hpp>
+#include <systems/input/InputHelper.hpp>
 #include <entity/scene/SceneManager.hpp>
 #include <graphics/shaders/ShaderAsset.hpp>
 #include <render_commands/ClearCommand.hpp>
 #include <render_commands/FramebufferCommand.hpp>
-#include <systems/RenderSystem.hpp>
-#include <systems/InputHelper.hpp>
+
 
 void hexen::editor::gui::SceneWindow::renderFramebufferContent()
 {

@@ -3,17 +3,17 @@
 //
 #include "ContentDrawer.hpp"
 #include "../../application/Application.hpp"
+#include "../Dockspace.hpp"
 #include "../IconsFontAwesome5.hpp"
 #include "MessageBox.hpp"
 #include "Shortcuts.hpp"
+#include "TilesetEditor.hpp"
 #include "native_file_dialog/FileDialog.hpp"
 #include <algorithm>
+#include <components/graphics/TilesetAsset.hpp>
 #include <core/assets/AssetsStorage.hpp>
 #include <fstream>
 #include <graphics/textures/ImageAsset.hpp>
-#include "TilesetEditor.hpp"
-#include "../Dockspace.hpp"
-#include <components/graphics/TilesetAsset.hpp>
 
 using textures = hexen::engine::graphics::Texture2D;
 using assets = hexen::engine::core::assets::AssetHelper;
@@ -190,11 +190,10 @@ void hexen::editor::gui::ContentDrawer::refresh()
 			else
 			{
 				auto fileExtension = directoryIterator.path().extension().string();
-				fileExtension.erase(0,1);
+				fileExtension.erase(0, 1);
 
 				if (assetExtensions.isExtensionExist(fileExtension))
 				{
-					std::cout << "File extension : " << fileExtension << "\n";
 					auto pathToIcon = assetExtensions.getPathToIcon(fileExtension);
 					auto textureID = getIconTextureID(fileExtension, pathToIcon.filename(), pathToIcon);
 					icons.emplace_back(directoryIterator.path(), iconCallbacks->getCallback(fileExtension), this, textureID);
@@ -204,8 +203,6 @@ void hexen::editor::gui::ContentDrawer::refresh()
 					auto imageName = directoryIterator.path().filename();
 					auto imageRootDirectory = directoryIterator.path().parent_path().filename();
 
-					std::cout << "Image Name:" << imageName << "\n";
-					std::cout << "Image Root Directory: " << imageRootDirectory << "\n";
 					std::filesystem::path pathToImageAsset;
 
 					if (imageRootDirectory.string() != Project::getCurrentProject()->getName())
@@ -430,7 +427,7 @@ hexen::engine::core::u32 hexen::editor::gui::ContentDrawer::getIconTextureID(con
 	return textureID;
 }
 
-void hexen::editor::gui::ContentDrawer::addNewIcon(const std::string &extension,const std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &)> &iconCallback)
+void hexen::editor::gui::ContentDrawer::addNewIcon(const std::string &extension, const std::filesystem::path &pathToIcon, const std::function<void(const std::filesystem::path &)> &iconCallback)
 {
 	HEXEN_ADD_TO_PROFILE();
 	assetExtensions.addNewAssetExtension(extension, pathToIcon);
@@ -447,11 +444,12 @@ void hexen::editor::gui::ContentDrawer::initialize()
 	deleteSelectedFilesWindow = hexen::engine::core::memory::make_unique<DeleteSelectedFilesWindow>("Delete selected", parentDockspace);
 	copyingFilesWindow = hexen::engine::core::memory::make_unique<CopyingFilesWindow>("Copying", parentDockspace);
 
-	auto tilesetAssetCallback = [this](const std::filesystem::path& pathToAsset){
-		auto  tilesetEditorWindow = addTilesetEditorToDockspace();
+	auto tilesetAssetCallback = [this](const std::filesystem::path &pathToAsset)
+	{
+		auto tilesetEditorWindow = addTilesetEditorToDockspace();
 		tilesetEditorWindow->loadTilesetAsset(pathToAsset.string());
 	};
-	addNewIcon(std::string(TilesetAsset::getExtension().data()), pathToTilesetIcon,tilesetAssetCallback);
+	addNewIcon(std::string(TilesetAsset::getExtension().data()), pathToTilesetIcon, tilesetAssetCallback);
 
 	deleteSelectedFilesCallback = [this]()
 	{
@@ -469,8 +467,8 @@ void hexen::editor::gui::ContentDrawer::initialize()
 }
 std::shared_ptr<hexen::editor::gui::TilesetEditor> hexen::editor::gui::ContentDrawer::addTilesetEditorToDockspace()
 {
-	auto tilesetEditorWindow = engine::core::memory::make_shared<TilesetEditor>("Tileset Editor",parentDockspace, currentPath);
-	if(auto dockspace = parentDockspace.lock())
+	auto tilesetEditorWindow = engine::core::memory::make_shared<TilesetEditor>("Tileset Editor", parentDockspace, currentPath);
+	if (auto dockspace = parentDockspace.lock())
 	{
 		dockspace->addFloatingWindow(tilesetEditorWindow);
 	}
@@ -529,6 +527,6 @@ hexen::editor::gui::AssetExtensions::~AssetExtensions()
 
 void hexen::editor::gui::AssetExtensions::save()
 {
-	std::ofstream  file(pathToFileWithExtensions);
+	std::ofstream file(pathToFileWithExtensions);
 	file << assetExtensionsFile.dump(2);
 }
