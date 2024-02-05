@@ -24,15 +24,15 @@ namespace hexen::engine::components::graphics::assets
 	private:
 		nlohmann::json tilesetData;
 		std::filesystem::path pathToFile;
-		glm::ivec2 tileSize{32};
-		glm::ivec2 tilesCount{4};
-		glm::ivec2 tilesetSize{tileSize * tilesCount};
-		glm::vec2 spacing{0.0f};
-		glm::vec2 imageMargin{0.9f};
+		glm::ivec2 tileSize {32};
+		glm::ivec2 tilesCount {4};
+		glm::ivec2 tilesetSize {tileSize * tilesCount};
+		glm::vec2 spacing {0.0f};
+		glm::vec2 imageMargin {0.9f};
 
 		static constexpr std::string_view assetFileExtension = "hxts";
-	public:
 
+	public:
 		/**
      	* @brief Returns the tileset's name.
      	*
@@ -114,7 +114,7 @@ namespace hexen::engine::components::graphics::assets
      	* @param newTileSize The new tile size (width and height).
      	*/
 
-		void setTileSize(const glm::ivec2& newTileSize);
+		void setTileSize(const glm::ivec2 &newTileSize);
 
 		/**
      	* @brief Returns the dimensions of individual tiles within the tileset.
@@ -147,7 +147,7 @@ namespace hexen::engine::components::graphics::assets
      	* @param newSpacing The new spacing between tiles (x and y).
      	*/
 
-		void setSpacing(const glm::vec2& newSpacing);
+		void setSpacing(const glm::vec2 &newSpacing);
 
 		/**
      	* @brief Returns the spacing between tiles within the tileset.
@@ -168,7 +168,7 @@ namespace hexen::engine::components::graphics::assets
      	* @param newMargin The new margin around the image (horizontal and vertical).
      	*/
 
-		void setImageMargin(const glm::vec2& newMargin);
+		void setImageMargin(const glm::vec2 &newMargin);
 
 		/**
      	* @brief Retrieves the current margin around the image within the tileset.
@@ -189,7 +189,7 @@ namespace hexen::engine::components::graphics::assets
      	* @param newCount The new number of tiles (horizontal and vertical).
      	*/
 
-		void setTilesCount(const glm::ivec2& newCount);
+		void setTilesCount(const glm::ivec2 &newCount);
 
 		/**
      	* @brief Retrieves the current number of tiles within the tileset.
@@ -222,5 +222,4 @@ namespace hexen::engine::components::graphics::assets
 
 		static std::string_view getExtension();
 	};
-}
-
+}// namespace hexen::engine::components::graphics::assets

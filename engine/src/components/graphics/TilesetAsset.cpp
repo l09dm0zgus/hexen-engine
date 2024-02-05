@@ -26,13 +26,12 @@ void hexen::engine::components::graphics::assets::TilesetAsset::save(const std::
 	tilesetData["tileset_asset"]["margin"]["x"] = imageMargin.x;
 	tilesetData["tileset_asset"]["margin"]["y"] = imageMargin.y;
 
-	pathToFile = addExtension(pathToAsset,assetFileExtension);
-
+	pathToFile = addExtension(pathToAsset, assetFileExtension);
 }
 
 void hexen::engine::components::graphics::assets::TilesetAsset::load(const std::filesystem::path &pathToAsset)
 {
-	std::ifstream file(addExtension(pathToAsset,assetFileExtension));
+	std::ifstream file(addExtension(pathToAsset, assetFileExtension));
 	tilesetData = nlohmann::json::parse(file);
 }
 
@@ -43,7 +42,7 @@ std::string hexen::engine::components::graphics::assets::TilesetAsset::getName()
 
 hexen::engine::core::vptr hexen::engine::components::graphics::assets::TilesetAsset::getRawData()
 {
-	return (core::vptr)tilesetData.dump().c_str();
+	return (core::vptr) tilesetData.dump().c_str();
 }
 
 void hexen::engine::components::graphics::assets::TilesetAsset::setTileSize(const glm::ivec2 &newTileSize)
@@ -60,7 +59,7 @@ glm::ivec2 hexen::engine::components::graphics::assets::TilesetAsset::getTileSiz
 
 glm::ivec2 hexen::engine::components::graphics::assets::TilesetAsset::getTilesetSize()
 {
-	return {tilesetData["tileset_asset"]["tileset_size"]["width"], 	tilesetData["tileset_asset"]["tileset_size"]["height"]};
+	return {tilesetData["tileset_asset"]["tileset_size"]["width"], tilesetData["tileset_asset"]["tileset_size"]["height"]};
 }
 
 void hexen::engine::components::graphics::assets::TilesetAsset::setSpacing(const glm::vec2 &newSpacing)
