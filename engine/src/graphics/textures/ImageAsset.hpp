@@ -24,11 +24,12 @@ namespace hexen::engine::graphics
 		nlohmann::json assetDataFile;
 
 
-		core::i32 height{0};
-		core::i32 width{0};
-		core::i32 channels{0};
+		core::i32 height {0};
+		core::i32 width {0};
+		core::i32 channels {0};
 		std::vector<core::u8> imagePixels;
 		static constexpr std::string_view assetFileExtension = "hximage";
+		bool bIsFlipped = false;
 
 	public:
 		/**
@@ -133,5 +134,12 @@ namespace hexen::engine::graphics
 
 		static std::string_view getExtension();
 
+		/**
+		 * @brief Checks if called flip()
+		 * @see ImageAsset::flip()
+		 * @return bIsFlipped
+		 */
+
+		[[nodiscard]] bool isFlipped();
 	};
 }// namespace hexen::engine::graphics

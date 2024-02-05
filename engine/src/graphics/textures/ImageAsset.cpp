@@ -14,7 +14,7 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 {
 	HEXEN_ADD_TO_PROFILE();
 	auto pathWithExtension = addExtension(pathToAsset, assetFileExtension);
-	auto pixels = stbi_load(pathToRawFile.string().c_str(),&width, &height, &channels, STBI_rgb_alpha);
+	auto pixels = stbi_load(pathToRawFile.string().c_str(), &width, &height, &channels, STBI_rgb_alpha);
 	imagePixels.clear();
 	std::copy(pixels, pixels + (width * STBI_rgb_alpha) * height, std::back_inserter(imagePixels));
 
@@ -33,7 +33,8 @@ void hexen::engine::graphics::ImageAsset::save(const std::filesystem::path &path
 hexen::engine::core::vptr hexen::engine::graphics::ImageAsset::getRawData()
 {
 	HEXEN_ADD_TO_PROFILE();
-	return static_cast<core::vptr>(imagePixels.data());;
+	return static_cast<core::vptr>(imagePixels.data());
+	;
 }
 
 hexen::engine::core::i32 hexen::engine::graphics::ImageAsset::getHeight() const
@@ -68,7 +69,7 @@ void hexen::engine::graphics::ImageAsset::load(const std::filesystem::path &path
 	imagePixels.clear();
 	//WTF? Need to create additional buffer, because with imagePixels it doesn't want to compile.
 	std::vector<core::u8> buffer = assetDataFile["image_asset"]["raw_data"];
-	std::copy(buffer.begin(), buffer.end(),std::back_inserter(imagePixels));
+	std::copy(buffer.begin(), buffer.end(), std::back_inserter(imagePixels));
 
 	height = getHeight();
 	width = getWidth();
@@ -83,11 +84,12 @@ hexen::engine::graphics::ImageAsset::ImageFormat hexen::engine::graphics::ImageA
 void hexen::engine::graphics::ImageAsset::flip()
 {
 	HEXEN_ADD_TO_PROFILE();
+	bIsFlipped = true;
 	core::u32 pitch = STBI_rgb_alpha * width;
-	auto *temp = new core::u8[pitch]; // intermediate buffer
+	auto *temp = new core::u8[pitch];// intermediate buffer
 	auto *pixels = imagePixels.data();
 
-	for(int i = 0; i < height / 2; ++i)
+	for (int i = 0; i < height / 2; ++i)
 	{
 		// get pointers to the two rows to swap
 		auto *row1 = pixels + i * pitch;
@@ -103,10 +105,14 @@ void hexen::engine::graphics::ImageAsset::flip()
 	imagePixels.assign(pixels, pixels + pitch);
 
 	delete[] temp;
-
 }
 
 std::string_view hexen::engine::graphics::ImageAsset::getExtension()
 {
 	return assetFileExtension;
+}
+
+bool hexen::engine::graphics::ImageAsset::isFlipped()
+{
+	return bIsFlipped;
 }
