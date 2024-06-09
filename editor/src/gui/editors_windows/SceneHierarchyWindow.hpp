@@ -120,6 +120,8 @@ namespace hexen::editor::gui
 		 */
 		bool isItemHovered {false};
 
+		bool isActiveNodePopUp {false};
+
 		/**
  		* @brief Initialize the SceneHierarchyWindow.
  		*

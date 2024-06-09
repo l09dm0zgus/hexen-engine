@@ -65,6 +65,12 @@ void hexen::editor::gui::SceneHierarchyWindow::drawEntityChilds(hexen::engine::c
 				isNodeNameEditing[child.key] = true;
 			}
 
+			if(ImGui::IsItemClicked(ImGuiMouseButton_Left))
+			{
+				//propertyWindow->setNode(child.value);
+			}
+
+
 			if (isNodeNameEditing[child.key])
 			{
 				auto nodeName = child.value->getName();
@@ -84,6 +90,7 @@ void hexen::editor::gui::SceneHierarchyWindow::drawEntityChilds(hexen::engine::c
 			if (isItemHovered)
 			{
 				hoveredNode = child.value;
+				std::cout << "Node name: " << child.value->getName() << "\n";
 			}
 
 			if (open)
@@ -162,9 +169,11 @@ void hexen::editor::gui::SceneHierarchyWindow::drawEntity(const std::shared_ptr<
 void hexen::editor::gui::SceneHierarchyWindow::drawContextMenu()
 {
 	HEXEN_ADD_TO_PROFILE()
+
+
 	if (ImGui::BeginPopupContextWindow())
 	{
-		if (isItemHovered)
+		if (isItemHovered || isActiveNodePopUp)
 		{
 			drawAddChild();
 			drawDelete();
@@ -175,9 +184,10 @@ void hexen::editor::gui::SceneHierarchyWindow::drawContextMenu()
 		}
 		ImGui::EndPopup();
 	}
-	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+
+	if(ImGui::IsMouseClicked(ImGuiMouseButton_Right))
 	{
-		isItemHovered = false;
+		isActiveNodePopUp = false;
 	}
 }
 
@@ -199,6 +209,8 @@ void hexen::editor::gui::SceneHierarchyWindow::drawAddChild()
 		{
 			hoveredNode->addChild<hexen::engine::entity::SceneEntity>("Child");
 		}
+		isActiveNodePopUp = false;
+
 	}
 }
 
@@ -216,15 +228,17 @@ void hexen::editor::gui::SceneHierarchyWindow::drawDelete()
 				parent->removeChildByUUID(hoveredNode->getUUID());
 			}
 		}
+		isActiveNodePopUp = false;
 	}
 }
 
 void hexen::editor::gui::SceneHierarchyWindow::checkHoveredItem()
 {
-	HEXEN_ADD_TO_PROFILE()
-	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup))
+	HEXEN_ADD_TO_PROFILE();
+	isItemHovered = ImGui::IsItemHovered();
+	if(isItemHovered)
 	{
-		isItemHovered = true;
+		isActiveNodePopUp = true;
 	}
 }
 
