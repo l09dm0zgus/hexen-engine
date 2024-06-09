@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 19.05.2023.
 //
 
-#include "SceneEntity.h"
+#include "SceneEntity.hpp"
 #include "../../systems/graphics/RenderSystem.hpp"
 #include "../profiling/Profiling.hpp"
 #include <algorithm>

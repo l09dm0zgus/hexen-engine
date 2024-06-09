@@ -4,7 +4,7 @@
 #pragma once
 #include "../../components/transform/TransformComponent.hpp"
 #include "../../core/Types.hpp"
-#include "../Entity.h"
+#include "../Entity.hpp"
 
 namespace hexen::engine::entity
 {
@@ -209,28 +209,11 @@ namespace hexen::engine::entity
 		void addChild(Ts &&...params)
 		{
 			HEXEN_ADD_TO_PROFILE();
-			childrens.set(generateUUIDV4(), core::memory::make_shared<T>(params...));
+			auto child = core::memory::make_shared<T>(params...);
+			child->setParent(this)
+;			childrens.set(child->getUUID(), child);
 		}
 
-		/**
-	 	* @brief Template function to add a SceneEntity child with provided name as entityName
-	 	*
-	 	* This function generates a UUID, creates a 'SceneEntity' object using the given entityName and generated UUID,
-	 	* adds the object to 'childrens' map using the generated UUID as a key, and sets its parent as this object.
-	 	*
-	 	* @tparam T type of the entityName parameter; should be implicitly convertible to std::string
-	 	* @param entityName name for the entity being added
-	 	*/
-
-		template<class T>
-		void addChild(T &&entityName)
-		{
-			HEXEN_ADD_TO_PROFILE();
-			std::string childUUID = generateUUIDV4();
-			auto child = core::memory::make_shared<SceneEntity>(entityName, childUUID);
-			childrens.set(childUUID, child);
-			childrens[childUUID]->setParent(this);
-		}
 
 		/**
  		* @brief Adds a child scene entity to the parent scene entity.
