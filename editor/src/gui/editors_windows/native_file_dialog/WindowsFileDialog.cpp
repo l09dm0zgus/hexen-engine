@@ -31,28 +31,20 @@ void hexen::editor::gui::WindowsFileDialog::comUninitialize(HRESULT hresult)
 
 std::string hexen::editor::gui::WindowsFileDialog::copyWideCharToSTDString(const wchar_t *string)
 {
-	auto wideStringLenght = static_cast<hexen::engine::core::i32>(wcslen(string));
+	auto wideStringLength = static_cast<hexen::engine::core::i32>(wcslen(string));
 
-	auto bytesNeeded = WideCharToMultiByte(CP_UTF8, 0, string, wideStringLenght, nullptr, 0, nullptr, nullptr);
+	auto bytesNeeded = WideCharToMultiByte(CP_UTF8, 0, string, wideStringLength, nullptr, 0, nullptr, nullptr);
 
 	assert(bytesNeeded);
 
 	bytesNeeded += 1;
+	std::string result(bytesNeeded, 0);
 
-	char *outString = new char[bytesNeeded];
-
-	if (outString == nullptr)
-	{
-		return {""};
-	}
-
-	int bytesWritten = WideCharToMultiByte(CP_UTF8, 0, string, -1, outString, bytesNeeded, nullptr, nullptr);
+	int bytesWritten = WideCharToMultiByte(CP_UTF8, 0, string, -1, &result[0], bytesNeeded, nullptr, nullptr);
 
 	assert(bytesWritten);
+	result.resize(bytesWritten - 1); // Remove the null terminator added by WideCharToMultiByte
 
-	std::string result(outString);
-
-	delete[] outString;
 	return result;
 }
 
@@ -80,63 +72,51 @@ hexen::engine::core::i32 hexen::editor::gui::WindowsFileDialog::copyWideCharToEx
 	return bytesWritten;
 }
 
-void hexen::editor::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &str, std::vector<wchar_t> &outString)
+void hexen::editor::gui::WindowsFileDialog::copySTDStringToWideChar(const std::string &str, std::wstring &outString)
 {
-	auto charsNeeded = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), nullptr, 0);
+	int charsNeeded = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), nullptr, 0);
 
-	charsNeeded += 1;
+	charsNeeded += 1; // For null terminator
+	outString.resize(charsNeeded);
 
-	outString.reserve(charsNeeded);
-
-	auto result = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), outString.data(), charsNeeded);
-
+	int result = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), outString.data(), charsNeeded);
 	outString[charsNeeded - 1] = '\0';
 }
 
 hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::addFiltersToDialog(::IFileDialog *fileOpenDialog, const std::vector<std::pair<std::string, std::string>> &filterList)
 {
 	const auto specsListSize = filterList.size();
+	std::vector<COMDLG_FILTERSPEC> specList(specsListSize);
 
-	auto *specList = new COMDLG_FILTERSPEC[specsListSize];
+	std::vector<std::wstring> names(specsListSize);
+	std::vector<std::wstring> specs(specsListSize);
 
-	for (hexen::engine::core::i32 i = 0; i < specsListSize; i++)
+	for (size_t i = 0; i < specsListSize; ++i)
 	{
-		std::vector<wchar_t> name;
-		copySTDStringToWideChar(filterList[i].first, name);
-		specList[i].pszName = name.data();
-	}
 
-	for (hexen::engine::core::i32 i = 0; i < specsListSize; i++)
-	{
+		copySTDStringToWideChar(filterList[i].first, names[i]);
+		specList[i].pszName = names[i].data();
+
 		std::string fileSpec;
-		if (filterList[i].second == "all")
+		if(filterList[i].second == "all")
 		{
 			fileSpec = "*.*";
 		}
 		else
 		{
-			std::vector<std::string> splittedStrings = splitString(filterList[i].second, ";");
-			hexen::engine::core::i32 j = 0;
-			for (auto &str : splittedStrings)
+			auto sliced = INativeFileDialog::splitString(filterList[i].second,";");
+			for(const auto& str : sliced)
 			{
-				fileSpec.append("*.");
-				fileSpec.append(str);
-				if (j != splittedStrings.size() - 1)
-				{
-					fileSpec.append(";");
-				}
-				j++;
+				fileSpec += "*." + str + ";";
 			}
 		}
-		std::vector<wchar_t> spec;
-		copySTDStringToWideChar(fileSpec, spec);
-		specList[i].pszSpec = spec.data();
+
+		copySTDStringToWideChar(fileSpec, specs[i]);
+		specList[i].pszSpec = specs[i].data();
 	}
 
-	fileOpenDialog->SetFileTypes(specsListSize, specList);
-	delete[] specList;
-
-	return Status::STATUS_OK;
+	auto hr = fileOpenDialog->SetFileTypes(static_cast<UINT>(specsListSize), specList.data());
+	return SUCCEEDED(hr) ? Status::STATUS_OK : Status::STATUS_ERROR;
 }
 
 hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDialog::allocatePathSet(IShellItemArray *shellItems, hexen::editor::gui::INativeFileDialog::PathSet *pathSet)
@@ -197,7 +177,7 @@ hexen::editor::gui::INativeFileDialog::Status hexen::editor::gui::WindowsFileDia
 		return Status::STATUS_OK;
 	}
 
-	std::vector<wchar_t> defaultPathW = {0};
+	std::wstring defaultPathW = {0};
 
 	copySTDStringToWideChar(defaultPath, defaultPathW);
 

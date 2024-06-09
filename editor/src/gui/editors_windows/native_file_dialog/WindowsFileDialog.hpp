@@ -130,7 +130,7 @@ namespace hexen::editor::gui
     	* @param outString The std::vector<wchar_t> to which the input string is copied.
     	*/
 
-		void copySTDStringToWideChar(const std::string &str, std::vector<wchar_t> &outString);
+		void copySTDStringToWideChar(const std::string &str, std::wstring &outString);
 
 		/**
     	* @brief Adds filter options to the dialog.
