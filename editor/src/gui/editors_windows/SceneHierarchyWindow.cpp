@@ -87,12 +87,6 @@ void hexen::editor::gui::SceneHierarchyWindow::drawEntityChilds(hexen::engine::c
 
 			bool hasChilds = child.value->hasChildrens();
 
-			if (isItemHovered)
-			{
-				hoveredNode = child.value;
-				std::cout << "Node name: " << child.value->getName() << "\n";
-			}
-
 			if (open)
 			{
 				startDragAndDropSource(child.value);
@@ -210,7 +204,6 @@ void hexen::editor::gui::SceneHierarchyWindow::drawAddChild()
 			hoveredNode->addChild<hexen::engine::entity::SceneEntity>("Child");
 		}
 		isActiveNodePopUp = false;
-
 	}
 }
 
