@@ -12,9 +12,9 @@ target_sources(${ENTITY_MODULE_NAME} PRIVATE
         scene/SceneManager.cpp
         scene/Grid.hpp
         scene/Grid.cpp
-        scene/SceneEntity.h
+        scene/SceneEntity.hpp
         scene/SceneEntity.cpp
-        Entity.h
+        Entity.hpp
         Entity.cpp
         )
 

@@ -2,7 +2,7 @@
 // Created by cx9ps3 on 14.05.2023.
 //
 
-#include "Entity.h"
+#include "Entity.hpp"
 #include "../profiling/Profiling.hpp"
 
 hexen::engine::entity::Entity::Entity()
