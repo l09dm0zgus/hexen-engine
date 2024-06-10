@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "SceneEntity.h"
+#include "SceneEntity.hpp"
 #include <execution>
 #include <functional>
 #include <iterator>

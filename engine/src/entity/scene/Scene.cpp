@@ -18,12 +18,12 @@ hexen::engine::core::Scene::Scene(const std::string &name) : name(name), size(10
 	root = memory::make_shared<entity::SceneEntity>(name);
 
 	//temporary , entities will be loaded from file
-	root->addChild("Scene_Entity_0");
-	root->addChild("Scene_Entity_1");
-	root->addChild("Scene_Entity_2");
-	root->getChild("Scene_Entity_2")->addChild("Scene_Entity_3");
-	root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_4");
-	root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild("Scene_Entity_5");
+	root->addChild<entity::SceneEntity>("Scene_Entity_0");
+	root->addChild<entity::SceneEntity>("Scene_Entity_1");
+	root->addChild<entity::SceneEntity>("Scene_Entity_2");
+	root->getChild("Scene_Entity_2")->addChild<entity::SceneEntity>("Scene_Entity_3");
+	root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild<entity::SceneEntity>("Scene_Entity_4");
+	root->getChild("Scene_Entity_2")->getChild("Scene_Entity_3")->addChild<entity::SceneEntity>("Scene_Entity_5");
 
 	auto componentHandle = systems::RenderSystem::registerNewComponent<components::graphics::SpriteComponent>(AssetHelper::createAsset<graphics::ImageAsset>("images/polpot",std::filesystem::path("textures/polpot.png")));
 	auto spriteComponent = systems::RenderSystem::getComponentInstanceByHandle<components::graphics::SpriteComponent>(componentHandle);
